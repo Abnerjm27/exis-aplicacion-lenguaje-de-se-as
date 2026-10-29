@@ -36,44 +36,79 @@ Aplicación web educativa interactiva basada en el dataset oficial **LSC70** (Un
 
 ---
 
-## 🚀 Guía de Instalación Rápida (Para ti y tu compañero)
+## 🚀 Guía de Instalación Paso a Paso (Para tu compañero y nuevos desarrolladores)
 
-### 1. Requisitos Previos
-- **Sistema Operativo:** Windows 10 / 11.
-- **Python 3.10 o superior:** [python.org](https://www.python.org/)
-- **Ollama (Para el Tutor IA):** [ollama.com](https://ollama.com/)
-- **Navegador Web:** Google Chrome, Microsoft Edge o Brave con acceso a webcam.
+Para que cualquier persona pueda clonar y ejecutar el proyecto en su computador desde cero:
 
-### 2. Puesta en Marcha en 3 Pasos
-1. **Clonar el repositorio:**
-   ```bash
-   git clone <URL_DEL_REPOSITORIO>
-   cd exis-lenguaje-senas
-   ```
-
-2. **Instalar el modelo de IA en Ollama:**
-   Abre una terminal y ejecuta:
-   ```bash
-   ollama pull qwen2.5:3b
-   ```
-   *(En computadores con GPU como la NVIDIA RTX 4050, este modelo corre a más de 100 tokens/segundo consumiendo menos de 2 GB de VRAM).*
-
-3. **Iniciar la aplicación:**
-   Haz doble clic en:
-   ```text
-   iniciar_aplicacion.bat
-   ```
-   O desde la terminal:
-   ```bash
-   python server.py
-   ```
-   Abre tu navegador en: **`http://localhost:8000/`**
+### 1. Instalar Git y GitHub Desktop
+Git es necesario para descargar y sincronizar el código del proyecto.
+- **Opción A (Recomendada con Windows Terminal / PowerShell):**
+  Abre PowerShell o CMD como administrador y ejecuta:
+  ```powershell
+  winget install --id Git.Git -e
+  winget install --id GitHub.GitHubDesktop -e
+  ```
+- **Opción B (Descarga manual desde navegador):**
+  - Descargar **Git para Windows:** [git-scm.com/download/win](https://git-scm.com/download/win)
+  - Descargar **GitHub Desktop:** [desktop.github.com](https://desktop.github.com/)
 
 ---
 
-## 👥 Guía de Colaboración en Pareja (Git Workflow)
+### 2. Instalar Ollama (Tutor de IA Local)
+Ollama es el motor que ejecuta el tutor inteligente en tu computador de forma local y privada.
+- **Opción A (Terminal):**
+  ```powershell
+  winget install Ollama.Ollama -e
+  ```
+- **Opción B (Descarga manual):**
+  - Entra a [ollama.com/download/windows](https://ollama.com/download/windows) y descarga el instalador `OllamaSetup.exe`.
+  - Ejecuta el instalador y sigue los pasos en pantalla.
 
-Para colaborar sin generar conflictos de código (*merge conflicts*):
+#### Descargar el modelo del tutor (`qwen2.5:3b`):
+Una vez instalado Ollama, abre una terminal (PowerShell o CMD) y escribe:
+```bash
+ollama run qwen2.5:3b
+```
+- Esto descargará el modelo optimizado de ~1.9 GB.
+- **Aceleración en GPU (NVIDIA RTX 4050 / RTX Series):** Ollama detectará automáticamente tu tarjeta gráfica y cargará el modelo en la VRAM de la GPU. Correrá a más de **100 tokens/segundo** de forma instantánea.
+- Puedes probarlo haciéndole una pregunta en la terminal y luego salir escribiendo `/bye`.
+
+---
+
+### 3. Instalar Python (3.10 o superior)
+- **Opción A (Terminal):**
+  ```powershell
+  winget install Python.Python.3.11 -e
+  ```
+- **Opción B (Descarga manual):**
+  - Descarga Python desde [python.org/downloads](https://www.python.org/downloads/).
+  - **MUY IMPORTANTE:** En la primera pantalla del instalador, marca la casilla que dice **"Add Python to PATH"** antes de hacer clic en *Install Now*.
+
+---
+
+### 4. Clonar el Repositorio y Puesta en Marcha
+
+1. **Clonar el proyecto:**
+   - **Desde GitHub Desktop:**
+     Abre GitHub Desktop $\rightarrow$ menú **File** $\rightarrow$ **Clone repository...** $\rightarrow$ selecciona el repositorio compartido o pega la URL.
+   - **Desde la Terminal:**
+     ```bash
+     git clone <URL_DEL_REPOSITORIO>
+     cd exis-lenguaje-senas
+     ```
+
+2. **Ejecutar la Aplicación (1 solo clic):**
+   Haz doble clic sobre el archivo:
+   ```text
+   iniciar_aplicacion.bat
+   ```
+   *(Este archivo verificará automáticamente si Ollama está activo, levantará el servidor en el puerto 8000 y abrirá tu navegador predeterminado en `http://localhost:8000/`).*
+
+---
+
+## 👥 Protocolo de Colaboración en Pareja (Git Workflow)
+
+Para colaborar en pareja sin chocar ni sobreescribir código:
 
 1. **Ramas de Trabajo:**
    - La rama `main` contiene el código funcional y verificado.
@@ -85,7 +120,7 @@ Para colaborar sin generar conflictos de código (*merge conflicts*):
      # Para tu compañero:
      git checkout -b feature/amigo-<tarea>
      ```
-2. **Sincronización:**
+2. **Sincronización Diaria:**
    Antes de empezar a trabajar cada día, actualiza tu copia local con:
    ```bash
    git checkout main

@@ -42,6 +42,24 @@ Cualquier cambio de código debe cumplir **estrictamente** con estas 6 reglas:
 - **MediaPipe Hands:** Se ejecuta con aceleración por hardware WebGL/WebGPU en Chrome/Edge, consumiendo menos del 5% de CPU.
 - **Generación Local de Videos con OpenCV:** Los 8 núcleos de Ryzen 7 7440 permiten generar interpolaciones ópticas (`cv2.DISOpticalFlow`) a alta velocidad.
 
+### Comandos de Instalación para el Agente / Terminal (Windows):
+Si en la máquina del compañero falta alguna herramienta, el agente o usuario puede instalarla en 1 minuto vía PowerShell:
+```powershell
+# 1. Instalar Git y GitHub Desktop
+winget install --id Git.Git -e
+winget install --id GitHub.GitHubDesktop -e
+
+# 2. Instalar Ollama y descargar el modelo del tutor LSC
+winget install Ollama.Ollama -e
+ollama pull qwen2.5:3b
+
+# 3. Instalar Python (3.11+)
+winget install Python.Python.3.11 -e
+
+# 4. Probar que Ollama esté respondiendo en GPU
+curl http://localhost:11434/api/tags
+```
+
 ---
 
 ## 4. Protocolo de Colaboración en Pareja (Evitar Choques)
