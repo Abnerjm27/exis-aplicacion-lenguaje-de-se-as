@@ -4,15 +4,16 @@ Este documento contiene la especificación visual y la tabla completa de **11 pr
 
 ---
 
-## 1. Identidad Visual del Personaje (Consistencia Global)
+## 1. Identidad Visual del Personaje Oficial: "Sol" (Consistencia Global)
 
-Para mantener una consistencia visual perfecta con el modelo 3D del proyecto (`app/models/anime_character.glb` y `anime_character_render.png`), todos los prompts comparten la misma base de personaje, vestimenta e iluminación:
+Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficial** (`referencias_para_gemini/hoja_personaje_referencia.png` y visor web `http://localhost:8000/hoja_personaje.html`), todos los prompts comparten la misma base de personaje, vestimenta e iluminación:
 
-- **Personaje:** Joven tutora anime femenina de Lengua de Señas Colombiana, de 20-22 años, expresión amable, serena y pedagógica, ojos cálidos color ámbar/castaño, cabello castaño oscuro con flequillo lateral estilizado y mechones suaves.
-- **Estilo:** Animación anime 3D de alta gama (estilo cel-shaded moderno, Makoto Shinkai / Kyoto Animation meets Cyberpunk pedagógico), líneas nítidas, texturas suaves.
-- **Vestimenta:** Chaqueta deportiva técnica moderna de color blanco y gris claro con sutiles ribetes en cian neón (`#06b6d4`) y acentos índigo (`#6366f1`), mangas remangadas a la altura del antebrazo para dejar manos y muñecas 100% despejadas.
-- **Fondo e Iluminación:** Estudio fotográfico sobre fondo oscuro azul pizarra (`#070c18`), luz principal blanca suave (key light), luz de recorte cian/azul (rim light) sobre la silueta y manos, profundidad de campo cinematográfica.
-- **Encuadre:** Plano medio (*medium close-up*, torso superior, hombros y ambas manos completamente dentro del encuadre).
+- **Personaje:** "Sol", tutor anime juvenil de Lengua de Señas Colombiana (19-21 años), expresión acogedora y pedagógica, sonrisa cálida, ojos ámbar/miel directos a cámara, cabello castaño oscuro con corte limpio que despeja por completo la frente, orejas, mejillas y boca.
+- **Estilo:** Anime cel-shading de alta definición (estilo producción *Makoto Shinkai / Kyoto Animation*), líneas nítidas, estética settei profesional.
+- **Vestimenta Ergonómica LSC:** Camiseta interior ajustada azul carbón oscuro (`#14171F`) que crea máximo contraste con la piel de las manos; chaqueta deportiva ligera abierta color pizarra/ámbar (`#FBBF24` / `#4B5563`) con mangas recogidas hasta el codo para que antebrazos, muñecas y manos queden 100% despejados.
+- **Manos (Crítico):** 5 dedos anatómicamente perfectos, bien separados, sin guantes, sin anillos.
+- **Fondo e Iluminación:** Estudio fotográfico sobre fondo neutro pizarra suave (`#111827`), luz frontal difusa y luz de contorno nítida en los dedos para evitar aberraciones dactilares.
+- **Encuadre:** Plano medio (*medium shot*, torso superior, pecho y ambas manos completamente dentro del encuadre).
 - **Cinemática:** Bucle continuo (*seamless loop* de 2 a 3 segundos), iniciando en posición neutral relajada, ejecutando la seña con precisión dactilar, pausando 0.5 segundos en la pose clave, y retornando suavemente a la posición neutral.
 
 ---
