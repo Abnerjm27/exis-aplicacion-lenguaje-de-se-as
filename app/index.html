@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EXIS · Lengua de Señas Colombiana (LSC)</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Google Fonts: Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Estilos Externos (Sin estilos embebidos) -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- MediaPipe Hands & Camera Utils -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- Scripts Modulares -->
+  <script src="js/signs-data.js" defer></script>
+  <script src="js/video-player.js" defer></script>
+  <script src="js/vision-evaluator.js" defer></script>
+  <script src="js/chat-tutor.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+
+<body class="flex flex-col min-h-screen text-slate-100 antialiased selection:bg-amber-600 selection:text-white">
+
+  <!-- TOP NAVBAR -->
+  <header class="border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-md sticky top-0 z-50 px-3 sm:px-6 md:px-8 py-3 transition-all">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold shadow-sm shrink-0">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
+            <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
+            <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
+            <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
+          </svg>
+        </div>
+        <div class="truncate">
+          <h1 class="text-sm sm:text-base md:text-lg font-bold tracking-tight text-slate-100 truncate">
+            EXIS · Lengua de Señas Colombiana
+          </h1>
+          <p class="hidden sm:block text-xs text-slate-400 font-medium truncate">Tutor con Video Interactivo LSC, Visión Artificial e Inteligencia Artificial</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <!-- Botón Tutor IA -->
+        <button id="btnToggleChat" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-sm" aria-label="Abrir Tutor Virtual">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span class="hidden xs:inline">Tutor IA</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-700 animate-pulse" aria-hidden="true"></span>
+        </button>
+
+        <div class="hidden md:flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full text-xs text-amber-400 font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" aria-hidden="true"></span>
+          <span>LSC70 Video Player</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="max-w-7xl mx-auto w-full p-3 sm:p-5 md:p-6 flex-1 flex flex-col gap-5">
+
+    <!-- SELECTOR DE SEÑAS -->
+    <section aria-label="Selector de Señas" class="surface-card p-3 sm:p-4 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
+      <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 mr-1">Categoría:</span>
+        <button id="catWordsBtn" class="btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 shadow-sm">
+          Palabras LSC
+        </button>
+        <button id="catLettersBtn" class="btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">
+          Alfabeto Dactilológico
+        </button>
+      </div>
+
+      <!-- Lista de Botones de Seña -->
+      <div id="signList" class="flex items-center gap-2 overflow-x-auto w-full md:w-auto py-1">
+        <!-- Generado dinámicamente desde main.js -->
+      </div>
+
+      <!-- Explicación por Voz -->
+      <button id="btnExplainVoice" class="btn-spring flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-amber-300 shrink-0 self-start md:self-auto">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+        </svg>
+        <span>Explicar Seña</span>
+      </button>
+    </section>
+
+    <!-- CUADÍCULA PRINCIPAL DE DOS PANELES -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-1">
+
+      <!-- COLUMNA IZQUIERDA: REPRODUCTOR DE VIDEO INTERACTIVO LSC -->
+      <section aria-label="Demostración de la Seña y Video Interactivo" class="surface-card flex flex-col overflow-hidden relative">
+        <div class="surface-header flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2 min-w-0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span class="font-bold text-xs sm:text-sm tracking-wide text-slate-100 truncate">1. Demostración de la Seña</span>
+            <span class="hidden sm:inline-block px-2 py-0.5 rounded text-[10px] bg-emerald-500/15 text-emerald-400 font-mono border border-emerald-500/30 shrink-0">LSC Oficial</span>
+          </div>
+
+          <!-- Selector de Modo: Persona Real vs Anime IA -->
+          <div class="flex items-center bg-slate-900/90 rounded-lg p-0.5 text-xs border border-slate-800 shrink-0" role="group" aria-label="Selector de Modo">
+            <button id="btnModeReal" class="btn-spring px-2.5 sm:px-3 py-1 rounded-md font-semibold bg-amber-500 text-slate-950 flex items-center gap-1.5" aria-pressed="true">
+              <span>👤</span>
+              <span class="hidden xs:inline sm:inline">Persona Real LSC</span>
+              <span class="inline xs:hidden sm:hidden">Real</span>
+            </button>
+            <button id="btnModeAnime" class="btn-spring px-2.5 sm:px-3 py-1 rounded-md font-semibold text-slate-400 hover:text-white flex items-center gap-1.5" aria-pressed="false">
+              <span>✨</span>
+              <span class="hidden xs:inline sm:inline">Anime IA</span>
+              <span class="inline xs:hidden sm:hidden">Anime</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Escenario del Reproductor de Video -->
+        <div id="videoPlayerStage" class="relative w-full h-[360px] sm:h-[400px] bg-slate-950 flex items-center justify-center overflow-hidden">
+          
+          <!-- Elemento Video HTML5 Semántico -->
+          <video id="signVideo" autoplay loop muted playsinline class="video-element w-full h-full object-contain" preload="auto">
+          </video>
+
+          <!-- Fallback Sincronizado en WebP Animado -->
+          <img id="signAnimatedWebp" class="webp-fallback-element hidden w-full h-full object-contain" alt="Demostración animada en Lengua de Señas Colombiana" />
+
+          <!-- Badge Flotante de Estado -->
+          <div id="videoFloatingBadge" class="video-floating-badge absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950/85 backdrop-blur-md border border-slate-700/60 text-[11px] text-amber-300 font-medium shadow-md">
+            <span id="badgeDot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span>
+            <span id="badgeText">Bucle continuo · LSC Oficial</span>
+          </div>
+
+          <!-- Selector de Vista Flotante: Cuerpo vs Mano -->
+          <div class="absolute top-3 right-3 z-20 flex items-center gap-1 bg-slate-950/85 backdrop-blur-md border border-slate-700/60 rounded-lg p-1 text-[11px] shadow-md" role="group" aria-label="Selector de Vista">
+            <button id="btnViewBody" class="btn-spring flex items-center gap-1 px-2.5 py-1 rounded font-bold text-amber-300 bg-slate-800 border border-amber-500/40" aria-pressed="true">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span>Vista Cuerpo</span>
+            </button>
+            <button id="btnViewHand" class="btn-spring flex items-center gap-1 px-2.5 py-1 rounded font-medium text-slate-400 hover:text-white hover:bg-slate-800" aria-pressed="false">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
+                <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
+                <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
+                <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
+              </svg>
+              <span>Primer Plano Mano</span>
+            </button>
+          </div>
+
+          <!-- Spinner de Carga -->
+          <div id="videoLoadingSpinner" class="hidden absolute inset-0 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm z-10">
+            <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-700 rounded-lg px-3.5 py-2 text-xs text-amber-300 font-mono shadow-lg">
+              <svg class="animate-spin h-4 w-4 text-amber-400" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>
+              <span>Sincronizando video LSC...</span>
+            </div>
+          </div>
+
+          <!-- Aviso Elegante Anime IA (Toast Fallback) -->
+          <div id="animeNoticeToast" class="hidden absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:max-w-sm z-30 bg-slate-900/95 backdrop-blur-md border border-amber-500/50 rounded-xl p-3 text-xs shadow-2xl flex items-start gap-2.5">
+            <div class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 mt-0.5 font-bold">✨</div>
+            <div class="flex-1 min-w-0">
+              <div class="font-bold text-amber-300 text-xs">Anime IA en Preparación</div>
+              <p class="text-[11px] text-slate-300 mt-0.5 leading-snug">El render Anime IA para esta seña se encuentra en generación. Reproduciendo el video de Persona Real LSC.</p>
+            </div>
+            <button id="btnDismissAnimeNotice" class="text-slate-400 hover:text-white p-1 text-xs shrink-0" aria-label="Cerrar aviso">✕</button>
+          </div>
+
+        </div>
+
+        <!-- Barra de Controles Pedagógicos -->
+        <div class="video-controls-bar p-3 sm:p-3.5 bg-slate-950/90 border-t border-slate-800 flex flex-col gap-2.5">
+          <!-- Fila de Reproducción y Línea de Tiempo -->
+          <div class="flex items-center gap-3">
+            <button id="btnPlayPause" class="btn-spring p-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow shrink-0 w-8 h-8 flex items-center justify-center" aria-label="Pausar video">
+              <svg id="iconPause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+              <svg id="iconPlay" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="hidden"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </button>
+            <div class="flex-1 flex flex-col gap-1 min-w-0">
+              <div class="relative w-full flex items-center">
+                <input id="videoTimeline" type="range" min="0" max="100" value="0" step="0.1" class="video-timeline-range w-full cursor-pointer accent-amber-500" aria-label="Línea de tiempo del video" />
+              </div>
+              <div class="flex justify-between items-center text-[10px] font-mono text-slate-400">
+                <span id="videoCurrentTime">0.0s</span>
+                <span class="text-amber-400/80">LSC70 · UTP</span>
+                <span id="videoDuration">0.0s</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fila de Selectores de Velocidad y Estado -->
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/60 text-xs">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Velocidad:</span>
+              <button id="btnSpeed05" class="btn-spring px-2.5 py-1 rounded-md text-xs font-medium text-slate-400 hover:text-white" aria-label="Velocidad 0.5x Lento">0.5x Lento</button>
+              <button id="btnSpeed10" class="btn-spring px-2.5 py-1 rounded-md text-xs font-bold text-amber-300 bg-slate-800 border border-amber-500/40" aria-label="Velocidad 1.0x Normal">1.0x Normal</button>
+            </div>
+            
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Modo Activo:</span>
+              <span id="currentModeLabel" class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-amber-300 border border-slate-700">Real LSC</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ficha técnica de la seña activa -->
+        <div class="p-4 bg-slate-900/80 border-t border-slate-800 flex flex-col gap-2.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span id="targetSignBadge" class="text-xl md:text-2xl font-bold text-amber-400 tracking-wide">HOLA</span>
+              <span id="targetSignDesc" class="text-xs text-slate-300 font-medium leading-relaxed">Cargando seña...</span>
+            </div>
+            <span class="text-[11px] font-mono uppercase bg-amber-400 text-slate-950 font-bold px-2.5 py-0.5 rounded shadow-sm shrink-0">LSC Oficial</span>
+          </div>
+          <p id="targetSignTip" class="text-xs text-slate-300 leading-relaxed bg-slate-950/60 p-3 rounded-lg border border-slate-800/80">
+            Instrucción para replicarla...
+          </p>
+        </div>
+      </section>
+
+      <!-- COLUMNA DERECHA: PRÁCTICA POR CÁMARA Y VISIÓN ARTIFICIAL -->
+      <section aria-label="Práctica por Cámara y Visión Artificial" class="surface-card flex flex-col overflow-hidden relative">
+        <div class="surface-header flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2 min-w-0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+            <span class="font-bold text-xs sm:text-sm tracking-wide text-slate-100 truncate">2. Práctica con Cámara e IA</span>
+          </div>
+          <button id="toggleCameraBtn" class="btn-spring px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-700 hover:bg-emerald-600 text-white shadow-sm flex items-center gap-2 shrink-0">
+            <span id="cameraStatusDot" class="w-2 h-2 rounded-full bg-white animate-pulse" aria-hidden="true"></span>
+            <span id="cameraBtnText">Iniciar Cámara</span>
+          </button>
+        </div>
+
+        <!-- Visor de Cámara y Canvas -->
+        <div class="relative w-full h-[360px] sm:h-[400px] bg-slate-950 flex items-center justify-center overflow-hidden">
+          <video id="webcamVideo" playsinline autoplay muted></video>
+          <canvas id="outputCanvas" class="pointer-events-none z-10"></canvas>
+
+          <!-- Estado de Cámara Apagada -->
+          <div id="cameraPlaceholder" class="flex flex-col items-center justify-center gap-3 p-6 text-center z-0">
+            <div class="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path>
+                <circle cx="12" cy="13" r="3"></circle>
+              </svg>
+            </div>
+            <p class="text-sm font-semibold text-slate-200">Cámara Web Apagada</p>
+            <p class="text-xs text-slate-400 max-w-xs leading-relaxed">Haz clic en <strong>Iniciar Cámara</strong> para comenzar la evaluación de tus señas mediante visión artificial.</p>
+          </div>
+
+          <!-- Overlay de Diagnóstico de Dedos en Vivo -->
+          <div id="detectionOverlay" class="hidden absolute top-3 left-3 z-20 bg-slate-950/90 backdrop-blur-md border border-slate-700/80 rounded-xl p-3 flex flex-col gap-2 max-w-[240px]">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Dedos Detectados</span>
+              <span id="handStatusBadge" class="text-[10px] font-mono bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded border border-amber-500/30">Mano</span>
+            </div>
+            <div class="grid grid-cols-5 gap-1 text-[10px] font-mono text-center">
+              <div id="fingerThumb" class="p-1 rounded bg-slate-800 text-slate-400 font-semibold">PUL</div>
+              <div id="fingerIndex" class="p-1 rounded bg-slate-800 text-slate-400 font-semibold">ÍND</div>
+              <div id="fingerMiddle" class="p-1 rounded bg-slate-800 text-slate-400 font-semibold">MED</div>
+              <div id="fingerRing" class="p-1 rounded bg-slate-800 text-slate-400 font-semibold">ANU</div>
+              <div id="fingerPinky" class="p-1 rounded bg-slate-800 text-slate-400 font-semibold">MEÑ</div>
+            </div>
+            <div id="poseDiagnostic" class="text-[10px] text-slate-300 font-mono bg-slate-900/90 p-1.5 rounded border border-slate-800">
+              Diagnóstico: Esperando mano...
+            </div>
+          </div>
+
+          <!-- Modal de Felicitación con Pausa Estricta -->
+          <div id="successPopup" class="hidden absolute inset-0 z-30 modal-backdrop-blur flex flex-col items-center justify-center text-center p-6">
+            <div class="w-14 h-14 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 mb-3 shadow-lg shadow-emerald-500/30 animate-bounce">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h2 class="text-lg md:text-xl font-bold text-white mb-1">¡Excelente trabajo!</h2>
+            <p id="successMessage" class="text-xs text-emerald-300 max-w-sm mb-5 leading-relaxed">Has completado la seña correctamente.</p>
+            <div class="flex items-center gap-3">
+              <button id="btnKeepPracticing" class="btn-spring px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">
+                Seguir practicando
+              </button>
+              <button id="btnNextSign" class="btn-spring px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold shadow-sm">
+                Siguiente seña ➔
+              </button>
+            </div>
+            <span class="mt-4 text-[10px] text-slate-400">Evaluación en pausa mientras eliges una opción</span>
+          </div>
+        </div>
+
+        <!-- Barra de Progreso y Evaluación -->
+        <div class="p-4 bg-slate-900/80 border-t border-slate-800 flex flex-col gap-2.5">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-semibold text-slate-300">Similitud con la Seña Objetivo:</span>
+            <span id="scoreText" class="font-mono font-bold text-slate-400">0%</span>
+          </div>
+          <div class="progress-container">
+            <div id="progressBar" class="progress-bar-fill bg-amber-500"></div>
+          </div>
+          <p id="liveHint" class="text-xs font-mono text-slate-400 text-center">
+            Esperando detección de mano en la cámara...
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- CHAT TUTOR DRAWER -->
+    <aside id="chatDrawer" aria-label="Tutor IA Local" class="hidden fixed bottom-6 right-6 w-[380px] max-w-[calc(100vw-32px)] h-[540px] surface-card rounded-2xl flex flex-col z-50 shadow-2xl border border-amber-500/30 overflow-hidden">
+      <!-- Encabezado del Chat -->
+      <div class="px-4 py-3 bg-slate-900/95 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-slate-100">Tutor Virtual LSC</h3>
+            <p class="text-[10px] text-emerald-400 font-mono">Conectado a Ollama (qwen2.5:3b)</p>
+          </div>
+        </div>
+        <button id="btnCloseChat" class="btn-spring text-slate-400 hover:text-white p-1 rounded-lg text-sm" aria-label="Cerrar Chat">
+          ✕
+        </button>
+      </div>
+
+      <!-- Mensajes del Chat -->
+      <div id="chatMessages" class="flex-1 p-3 overflow-y-auto flex flex-col gap-3 text-xs">
+        <div class="flex flex-col gap-1.5 self-start max-w-[85%]">
+          <div class="bg-slate-800/90 border border-slate-700/60 p-3 rounded-2xl rounded-tl-sm text-slate-200 leading-relaxed shadow-sm">
+            ¡Hola! Soy tu tutor de Lengua de Señas Colombiana (LSC). Dime qué palabra o letra te gustaría aprender hoy.
+          </div>
+          <!-- Chips de Sugerencia Rápida -->
+          <div class="flex flex-wrap gap-1.5 mt-1">
+            <button class="quick-chip btn-spring px-2 py-0.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-[11px]" data-prompt="Quiero aprender HOLA">
+              Aprender "HOLA"
+            </button>
+            <button class="quick-chip btn-spring px-2 py-0.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-[11px]" data-prompt="Quiero aprender YO">
+              Aprender "YO"
+            </button>
+            <button class="quick-chip btn-spring px-2 py-0.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-[11px]" data-prompt="Quiero aprender BUENOS">
+              Aprender "BUENOS"
+            </button>
+            <button class="quick-chip btn-spring px-2 py-0.5 rounded-full bg-teal-500/15 hover:bg-teal-500/25 border border-teal-500/30 text-teal-300 text-[11px]" data-prompt="¿Qué señas tienes disponibles?">
+              ¿Qué señas hay?
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campo de Entrada del Chat -->
+      <div class="p-2.5 bg-slate-900/95 border-t border-slate-800 flex items-center gap-2">
+        <input 
+          id="chatInput" 
+          type="text" 
+          placeholder="Escribe: 'Quiero aprender Yo'..." 
+          class="flex-1 bg-slate-950/80 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition"
+        />
+        <button 
+          id="chatSendBtn"
+          class="btn-spring p-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow flex items-center justify-center w-8 h-8"
+          aria-label="Enviar mensaje"
+        >
+          ➔
+        </button>
+      </div>
+    </aside>
+
+    <!-- FOOTER / ESTADÍSTICAS -->
+    <footer class="surface-card p-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-3">
+      <div>
+        <span class="font-bold text-slate-200">Proyecto EXIS</span> · Base de Datos: <span class="text-amber-400 font-mono font-semibold">LSC70 (Universidad Tecnológica de Pereira)</span>
+      </div>
+      <div class="flex items-center gap-4 font-mono text-[11px] text-slate-400">
+        <span>Video: Reproductor Interactivo LSC (Real & Anime IA)</span>
+        <span>·</span>
+        <span>Visión: MediaPipe Hands</span>
+        <span>·</span>
+        <span>IA: Ollama qwen2.5:3b</span>
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>

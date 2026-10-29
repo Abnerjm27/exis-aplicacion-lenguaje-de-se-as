@@ -1,0 +1,45 @@
+import subprocess
+
+html = """<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body><pre id="p"></pre><script>
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+  gltf.scene.updateMatrixWorld(true);
+  const head = new THREE.Vector3();
+  const top = new THREE.Vector3();
+  bones['Head'].getWorldPosition(head);
+  bones['HeadTop_End'].getWorldPosition(top);
+
+  const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 50);
+  camera.position.set(0, 1.45, 1.65);
+  camera.lookAt(0, 1.42, 0);
+  camera.updateMatrixWorld();
+
+  const toScreen = (v) => {
+    const p = v.clone().project(camera);
+    return {
+      x: ((p.x + 1)/2 * 500).toFixed(1),
+      y: ((-p.y + 1)/2 * 500).toFixed(1)
+    };
+  };
+
+  document.getElementById('p').textContent = JSON.stringify({
+    head: toScreen(head),
+    top: toScreen(top)
+  }, null, 2);
+  document.title = 'READY';
+});
+</script></body></html>"""
+
+with open('check_head_screen.html', 'w', encoding='utf-8') as f:
+    f.write(html)
+
+chrome = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
+cmd = [chrome, '--headless=new', '--disable-gpu', '--no-sandbox', '--virtual-time-budget=2000', '--dump-dom', 'http://localhost:8000/check_head_screen.html']
+res = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
+s = res.stdout.find('<pre id="p">')
+e = res.stdout.find('</pre>')
+print(res.stdout[s+12:e])

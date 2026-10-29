@@ -1,0 +1,90 @@
+import subprocess, os
+
+html = """<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body><pre id="output">Solving...</pre><script>
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  const scene = new THREE.Scene();
+  scene.add(gltf.scene);
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+  const rArm = bones['RightArm'];
+  const rFore = bones['RightForeArm'];
+  const rHand = bones['RightHand'];
+  const rMiddle = bones['RightHandMiddle2'];
+
+  const rHPos = new THREE.Vector3();
+  const rMPos = new THREE.Vector3();
+
+  // Target: RHand at clavicle/upper chest: x ≈ -0.16, y ≈ 1.46, z ≈ 0.24
+  // We want the hand in front of the right clavicle, forearm bent up, fingers pointing up!
+
+  let bestScore = Infinity;
+  let bestParams = null;
+  let bestH = null, bestM = null;
+
+  // Search over arm abduction and forward angle
+  for (let raX = -0.3; raX <= 0.4; raX += 0.15) {
+    for (let raY = -0.4; raY <= 0.4; raY += 0.2) {
+      for (let raZ = -1.3; raZ <= -0.7; raZ += 0.15) {
+        rArm.rotation.set(raX, raY, raZ);
+        // Forearm flexion
+        for (let rfX = -2.2; rfX <= -1.2; rfX += 0.15) {
+          for (let rfY = -0.6; rfY <= 0.8; rfY += 0.25) {
+            for (let rfZ = -0.4; rfZ <= 0.4; rfZ += 0.2) {
+              rFore.rotation.set(rfX, rfY, rfZ);
+              for (let rhZ = -1.2; rhZ <= 0.4; rhZ += 0.3) {
+                rHand.rotation.set(-0.2, 0.0, rhZ);
+                gltf.scene.updateMatrixWorld(true);
+
+                rHand.getWorldPosition(rHPos);
+                rMiddle.getWorldPosition(rMPos);
+
+                const posDist = rHPos.distanceTo(new THREE.Vector3(-0.16, 1.46, 0.24));
+                const upScore = (rMPos.y > rHPos.y + 0.05) ? 0 : 0.5;
+
+                const score = posDist + upScore;
+                if (score < bestScore) {
+                  bestScore = score;
+                  bestParams = {
+                    ra: [raX, raY, raZ],
+                    rf: [rfX, rfY, rfZ],
+                    rh: [-0.2, 0.0, rhZ]
+                  };
+                  bestH = [rHPos.x.toFixed(3), rHPos.y.toFixed(3), rHPos.z.toFixed(3)];
+                  bestM = [rMPos.x.toFixed(3), rMPos.y.toFixed(3), rMPos.z.toFixed(3)];
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  const out = {
+    bestScore: bestScore.toFixed(3),
+    bestParams: bestParams,
+    handPos: bestH,
+    middlePos: bestM
+  };
+
+  document.getElementById('output').textContent = JSON.stringify(out, null, 2);
+  document.title = 'SOLVED';
+});
+</script></body></html>"""
+
+with open(r'C:\Users\abner\Desktop\exis aplicacion lenguaje de señas\app\solve_letters_exact.html', 'w', encoding='utf-8') as f:
+    f.write(html)
+
+chrome = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
+cmd = [chrome, '--headless=new', '--disable-gpu', '--no-sandbox', '--virtual-time-budget=3000', '--dump-dom', 'http://localhost:8000/solve_letters_exact.html']
+res = subprocess.run(cmd, capture_output=True, text=True, timeout=12)
+s = res.stdout.find('<pre id="output">')
+e = res.stdout.find('</pre>', s)
+if s != -1 and e != -1:
+    print(res.stdout[s+17:e])
+else:
+    print("Not found")

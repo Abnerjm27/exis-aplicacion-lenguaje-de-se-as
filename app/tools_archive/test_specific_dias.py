@@ -1,0 +1,70 @@
+import subprocess
+
+html = """<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body><pre id="p"></pre><script>
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+  const rA = bones['RightArm'];
+  const rF = bones['RightForeArm'];
+  const rH = bones['RightHand'];
+
+  const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 50);
+  camera.position.set(0, 1.45, 1.65);
+  camera.lookAt(0, 1.42, 0);
+  camera.updateMatrixWorld();
+
+  const toScreen = (v) => {
+    const p = v.clone().project(camera);
+    return {
+      x: ((p.x + 1)/2 * 500).toFixed(1),
+      y: ((-p.y + 1)/2 * 500).toFixed(1),
+      raw: [v.x.toFixed(3), v.y.toFixed(3), v.z.toFixed(3)]
+    };
+  };
+
+  const list = [
+    { a: [0.25, -0.25, -0.45], f: [-1.15, -0.20, 0.15], desc: "cand 1" },
+    { a: [0.30, -0.20, -0.40], f: [-1.20, -0.20, 0.10], desc: "cand 2" },
+    { a: [0.35, -0.15, -0.35], f: [-1.25, -0.20, 0.05], desc: "cand 3" },
+    { a: [0.20, -0.30, -0.50], f: [-1.10, -0.25, 0.20], desc: "cand 4" },
+    { a: [0.30, -0.30, -0.45], f: [-1.15, -0.25, 0.15], desc: "cand 5" }
+  ];
+
+  const res = [];
+  list.forEach(item => {
+    rA.rotation.set(item.a[0], item.a[1], item.a[2]);
+    rF.rotation.set(item.f[0], item.f[1], item.f[2]);
+    rH.rotation.set(0.15, -0.15, 0.0);
+    gltf.scene.updateMatrixWorld(true);
+
+    const hand = new THREE.Vector3();
+    const tip = new THREE.Vector3();
+    rH.getWorldPosition(hand);
+    bones['RightHandMiddle3'].getWorldPosition(tip);
+
+    res.push({
+      desc: item.desc,
+      a: item.a, f: item.f,
+      hand: toScreen(hand),
+      tip: toScreen(tip)
+    });
+  });
+
+  document.getElementById('p').textContent = JSON.stringify(res, null, 2);
+  document.title = 'READY';
+});
+</script></body></html>"""
+
+with open('test_specific_dias.html', 'w', encoding='utf-8') as f:
+    f.write(html)
+
+chrome = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
+cmd = [chrome, '--headless=new', '--disable-gpu', '--no-sandbox', '--virtual-time-budget=2000', '--dump-dom', 'http://localhost:8000/test_specific_dias.html']
+res = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
+s = res.stdout.find('<pre id="p">')
+e = res.stdout.find('</pre>')
+print(res.stdout[s+12:e])

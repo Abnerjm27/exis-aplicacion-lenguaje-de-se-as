@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body><pre id="p"></pre><script>
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+  const rA = bones['RightArm'];
+  const rF = bones['RightForeArm'];
+  const rH = bones['RightHand'];
+
+  const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 50);
+  camera.position.set(0, 1.45, 1.65);
+  camera.lookAt(0, 1.42, 0);
+  camera.updateMatrixWorld();
+
+  const toScreen = (v) => {
+    const p = v.clone().project(camera);
+    return {
+      x: ((p.x + 1)/2 * 500).toFixed(1),
+      y: ((-p.y + 1)/2 * 500).toFixed(1)
+    };
+  };
+
+  const tests = [];
+  // Grid search to find pose where rHand.x and rTip.x are on screen:
+  // We want rTip screen X between 60 and 150 (well inside left half of 500x500!)
+  // rTip screen Y between 80 and 180 (well below top edge 0, below head top 36)
+  for (let az = -0.50; az <= 0.20; az += 0.05) {
+    for (let ay = -0.60; ay <= 0.0; ay += 0.06) {
+      for (let ax = 0.0; ax <= 0.50; ax += 0.05) {
+        for (let fx = -1.60; fx <= -0.80; fx += 0.10) {
+          for (let fy = -0.60; fy <= 0.20; fy += 0.10) {
+            for (let fz = -0.40; fz <= 0.40; fz += 0.10) {
+              rA.rotation.set(ax, ay, az);
+              rF.rotation.set(fx, fy, fz);
+              rH.rotation.set(0.15, -0.15, 0.0);
+              gltf.scene.updateMatrixWorld(true);
+
+              const hand = new THREE.Vector3();
+              const tip = new THREE.Vector3();
+              rH.getWorldPosition(hand);
+              bones['RightHandMiddle3'].getWorldPosition(tip);
+
+              const sHand = toScreen(hand);
+              const sTip = toScreen(tip);
+
+              // Check if inside screen with generous margin (at least 50px from all borders)
+              if (sHand.x >= 60 && sHand.x <= 200 &&
+                  sTip.x >= 50 && sTip.x <= 200 &&
+                  sTip.y >= 75 && sTip.y <= 190 &&
+                  sHand.y >= 100 && sHand.y <= 240 &&
+                  hand.z >= 0.10 && // in front of torso
+                  tip.x < hand.x && // forearm/hand angling outwards
+                  tip.y > hand.y) {  // fingers pointing upwards
+                
+                // Score by how well it matches DIAS sunrise:
+                // - hands at mid-chest (sHand.y around 180)
+                // - tip around jaw/chin (sTip.y around 130)
+                // - tip.x around 90-110 (spread out nicely)
+                const score = - Math.abs(sHand.y - 180) - Math.abs(sTip.y - 130) - Math.abs(sTip.x - 100);
+                tests.push({
+                  score,
+                  a: [ax.toFixed(2), ay.toFixed(2), az.toFixed(2)],
+                  f: [fx.toFixed(2), fy.toFixed(2), fz.toFixed(2)],
+                  sHand, sTip,
+                  rawHand: [hand.x.toFixed(3), hand.y.toFixed(3), hand.z.toFixed(3)],
+                  rawTip: [tip.x.toFixed(3), tip.y.toFixed(3), tip.z.toFixed(3)]
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  tests.sort((a, b) => b.score - a.score);
+  document.getElementById('p').textContent = JSON.stringify(tests.slice(0, 10), null, 2);
+  document.title = 'READY';
+});
+</script></body></html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset='UTF-8'></head>
+<body>
+<div id='res'></div>
+<iframe id='frame' src='http://localhost:8000/' style='border:none;'></iframe>
+<script>
+window.onload = () => {
+    const f = document.getElementById('frame');
+    const p = new URLSearchParams(window.location.search);
+    const targetW = parseInt(p.get('w') || '1280');
+    f.style.width = targetW + 'px';
+    f.style.height = '850px';
+    setTimeout(() => {
+        try {
+            const doc = f.contentDocument;
+            const sw = doc.documentElement.scrollWidth;
+            const cw = doc.documentElement.clientWidth;
+            document.getElementById('res').innerText = 'RESULT:' + JSON.stringify({targetW, sw, cw, ok: sw <= cw});
+        } catch(e) {
+            document.getElementById('res').innerText = 'ERR:' + e;
+        }
+    }, 1500);
+};
+</script>
+</body>
+</html>

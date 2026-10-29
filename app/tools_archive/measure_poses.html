@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body style="margin:0; background:#0b1120; color:white; font-family:monospace; padding:10px;">
+<div id="log"></div>
+<script>
+  const loader = new THREE.GLTFLoader();
+  loader.load('models/human_player.glb', (gltf) => {
+    const scene = new THREE.Scene();
+    scene.add(gltf.scene);
+    const bones = {};
+    gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+    gltf.scene.updateMatrixWorld(true);
+
+    const head = bones['Head'];
+    const chest = bones['Spine2'] || bones['Spine1'];
+    const rHand = bones['RightHand'];
+    const lHand = bones['LeftHand'];
+
+    const headPos = new THREE.Vector3();
+    const chestPos = new THREE.Vector3();
+    head.getWorldPosition(headPos);
+    chest.getWorldPosition(chestPos);
+
+    const templePos = headPos.clone().add(new THREE.Vector3(0.09, 0.03, 0.04));
+    const chinPos = headPos.clone().add(new THREE.Vector3(0.0, -0.11, 0.08));
+
+    const out = [];
+    out.push('ANATOMICAL LANDMARKS:');
+    out.push(`  Head: x=${headPos.x.toFixed(3)}, y=${headPos.y.toFixed(3)}, z=${headPos.z.toFixed(3)}`);
+    out.push(`  Chest (Esternón): x=${chestPos.x.toFixed(3)}, y=${chestPos.y.toFixed(3)}, z=${chestPos.z.toFixed(3)}`);
+    out.push(`  Right Temple (Sien): x=${templePos.x.toFixed(3)}, y=${templePos.y.toFixed(3)}, z=${templePos.z.toFixed(3)}`);
+    out.push(`  Chin (Mentón): x=${chinPos.x.toFixed(3)}, y=${chinPos.y.toFixed(3)}, z=${chinPos.z.toFixed(3)}`);
+
+    document.getElementById('log').innerText = out.join('\n');
+    document.title = 'LANDMARKS_READY';
+  });
+</script>
+</body>
+</html>

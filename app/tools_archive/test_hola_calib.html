@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body style="margin:0; background:#0b1120; overflow:hidden;">
+  <canvas id="c" style="width:100vw; height:100vh; display:block;"></canvas>
+  <script>
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0b1120);
+    const camera = new THREE.PerspectiveCamera(36, window.innerWidth / window.innerHeight, 0.1, 50);
+    camera.position.set(0, 1.40, 1.35);
+    camera.lookAt(0, 1.30, 0);
+
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+
+    scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+    const dir = new THREE.DirectionalLight(0xffffff, 1.4);
+    dir.position.set(1, 2, 2);
+    scene.add(dir);
+
+    const bones = {};
+    const loader = new THREE.GLTFLoader();
+
+    function curlF(name, val) {
+      for (let i = 1; i <= 3; i++) {
+        const b = bones['RightHand' + name + i];
+        if (b) b.rotation.x = val * 1.25;
+      }
+    }
+
+    loader.load('models/human_player.glb', (gltf) => {
+      scene.add(gltf.scene);
+      gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+      // Natural left arm at side
+      if (bones['LeftArm']) {
+        bones['LeftArm'].rotation.set(0.15, 0, 1.30);
+      }
+      if (bones['LeftForeArm']) {
+        bones['LeftForeArm'].rotation.set(-0.15, 0, 0);
+      }
+
+      // HOLA calibration
+      if (bones['RightArm']) {
+        bones['RightArm'].rotation.set(0.35, -0.40, -0.95);
+      }
+      if (bones['RightForeArm']) {
+        bones['RightForeArm'].rotation.set(-2.15, 0.60, 0.15);
+      }
+      if (bones['RightHand']) {
+        bones['RightHand'].rotation.set(0.0, -0.20, 0.15);
+      }
+
+      ['Index', 'Middle', 'Ring', 'Pinky'].forEach(f => curlF(f, 0.0));
+      for (let i = 1; i <= 3; i++) {
+        const b = bones['RightHandThumb' + i];
+        if (b) b.rotation.set(0, 0, 0);
+      }
+
+      function loop() {
+        requestAnimationFrame(loop);
+        renderer.render(scene, camera);
+      }
+      loop();
+      document.title = 'HOLA_CALIBRATED';
+    });
+  </script>
+</body>
+</html>

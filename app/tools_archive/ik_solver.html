@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body style="margin:0; background:#0b1120; font-family:monospace; color:white; padding:10px;">
+<div id="output">Running IK Solver...</div>
+<script>
+  const loader = new THREE.GLTFLoader();
+  loader.load('models/human_player.glb', (gltf) => {
+    const scene = new THREE.Scene();
+    scene.add(gltf.scene);
+    const bones = {};
+    gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+    gltf.scene.updateMatrixWorld(true);
+
+    const head = bones['Head'];
+    const chest = bones['Spine2'] || bones['Spine1'];
+    const rHand = bones['RightHand'];
+    const lHand = bones['LeftHand'];
+
+    const targetYo = new THREE.Vector3(-0.02, 1.37, 0.08);
+    const targetNochesR = new THREE.Vector3(0.06, 1.36, 0.12);
+    const targetNochesL = new THREE.Vector3(-0.06, 1.34, 0.10);
+    const targetNombreR = new THREE.Vector3(-0.01, 1.37, 0.14);
+    const targetNombreL = new THREE.Vector3(0.01, 1.36, 0.12);
+    const targetLetter = new THREE.Vector3(-0.14, 1.38, 0.18);
+
+    function solveRightArm(targetPos, ra_ranges, rf_ranges) {
+      let bestDist = Infinity;
+      let bestRa = null, bestRf = null;
+
+      const rArm = bones['RightArm'];
+      const rFore = bones['RightForeArm'];
+      const rH = bones['RightHand'];
+      const curPos = new THREE.Vector3();
+
+      for (let raX = ra_ranges.x[0]; raX <= ra_ranges.x[1]; raX += ra_ranges.x[2]) {
+        for (let raY = ra_ranges.y[0]; raY <= ra_ranges.y[1]; raY += ra_ranges.y[2]) {
+          for (let raZ = ra_ranges.z[0]; raZ <= ra_ranges.z[1]; raZ += ra_ranges.z[2]) {
+            rArm.rotation.set(raX, raY, raZ);
+            for (let rfX = rf_ranges.x[0]; rfX <= rf_ranges.x[1]; rfX += rf_ranges.x[2]) {
+              for (let rfY = rf_ranges.y[0]; rfY <= rf_ranges.y[1]; rfY += rf_ranges.y[2]) {
+                for (let rfZ = rf_ranges.z[0]; rfZ <= rf_ranges.z[1]; rfZ += rf_ranges.z[2]) {
+                  rFore.rotation.set(rfX, rfY, rfZ);
+                  gltf.scene.updateMatrixWorld(true);
+                  rH.getWorldPosition(curPos);
+                  const d = curPos.distanceTo(targetPos);
+                  if (d < bestDist) {
+                    bestDist = d;
+                    bestRa = [raX, raY, raZ];
+                    bestRf = [rfX, rfY, rfZ];
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      return { dist: bestDist, ra: bestRa, rf: bestRf };
+    }
+
+    function solveLeftArm(targetPos, la_ranges, lf_ranges) {
+      let bestDist = Infinity;
+      let bestLa = null, bestLf = null;
+
+      const lArm = bones['LeftArm'];
+      const lFore = bones['LeftForeArm'];
+      const lH = bones['LeftHand'];
+      const curPos = new THREE.Vector3();
+
+      for (let laX = la_ranges.x[0]; laX <= la_ranges.x[1]; laX += la_ranges.x[2]) {
+        for (let laY = la_ranges.y[0]; laY <= la_ranges.y[1]; laY += la_ranges.y[2]) {
+          for (let laZ = la_ranges.z[0]; laZ <= la_ranges.z[1]; laZ += la_ranges.z[2]) {
+            lArm.rotation.set(laX, laY, laZ);
+            for (let lfX = lf_ranges.x[0]; lfX <= lf_ranges.x[1]; lfX += lf_ranges.x[2]) {
+              for (let lfY = lf_ranges.y[0]; lfY <= lf_ranges.y[1]; lfY += lf_ranges.y[2]) {
+                for (let lfZ = lf_ranges.z[0]; lfZ <= lf_ranges.z[1]; lfZ += lf_ranges.z[2]) {
+                  lFore.rotation.set(lfX, lfY, lfZ);
+                  gltf.scene.updateMatrixWorld(true);
+                  lH.getWorldPosition(curPos);
+                  const d = curPos.distanceTo(targetPos);
+                  if (d < bestDist) {
+                    bestDist = d;
+                    bestLa = [laX, laY, laZ];
+                    bestLf = [lfX, lfY, lfZ];
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      return { dist: bestDist, la: bestLa, lf: bestLf };
+    }
+
+    // Solve YO with positive elbow flexion
+    const yoRes = solveRightArm(targetYo,
+      { x: [0.0, 0.8, 0.15], y: [-0.6, 0.4, 0.2], z: [-1.4, -0.6, 0.2] },
+      { x: [0.8, 2.2, 0.15], y: [-0.6, 0.6, 0.2], z: [-0.4, 0.6, 0.2] }
+    );
+
+    // Solve NOCHES with positive elbow flexion on chest
+    const nochesR = solveRightArm(targetNochesR,
+      { x: [0.2, 0.8, 0.15], y: [-0.4, 0.4, 0.2], z: [-1.2, -0.6, 0.2] },
+      { x: [1.2, 2.2, 0.15], y: [-0.4, 0.4, 0.2], z: [-0.4, 0.4, 0.2] }
+    );
+    const nochesL = solveLeftArm(targetNochesL,
+      { x: [0.2, 0.8, 0.15], y: [-0.4, 0.4, 0.2], z: [0.6, 1.2, 0.2] },
+      { x: [1.2, 2.2, 0.15], y: [-0.4, 0.4, 0.2], z: [-0.4, 0.4, 0.2] }
+    );
+
+    // Solve NOMBRE
+    const nombreR = solveRightArm(targetNombreR,
+      { x: [0.2, 0.8, 0.15], y: [-0.4, 0.4, 0.2], z: [-1.2, -0.6, 0.2] },
+      { x: [1.0, 2.0, 0.15], y: [-0.4, 0.4, 0.2], z: [-0.4, 0.4, 0.2] }
+    );
+    const nombreL = solveLeftArm(targetNombreL,
+      { x: [0.2, 0.8, 0.15], y: [-0.4, 0.4, 0.2], z: [0.6, 1.2, 0.2] },
+      { x: [1.0, 2.0, 0.15], y: [-0.4, 0.4, 0.2], z: [-0.4, 0.4, 0.2] }
+    );
+
+    // Solve LETTERS (holding hand upright in front of right pectoral)
+    const letterRes = solveRightArm(targetLetter,
+      { x: [-0.2, 0.6, 0.15], y: [-0.4, 0.4, 0.2], z: [-1.4, -0.6, 0.2] },
+      { x: [-2.0, -1.0, 0.15], y: [-0.4, 0.6, 0.2], z: [-0.4, 0.4, 0.2] }
+    );
+
+    const results = {
+      YO: yoRes,
+      NOCHES: { R: nochesR, L: nochesL },
+      NOMBRE: { R: nombreR, L: nombreL },
+      LETTERS: letterRes
+    };
+
+    document.getElementById('output').textContent = JSON.stringify(results, null, 2);
+    document.title = 'IK_SOLVED_2';
+  });
+</script>
+</body>
+</html>

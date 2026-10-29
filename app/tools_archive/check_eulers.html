@@ -1,0 +1,22 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body><pre id="p"></pre><script>
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+  const report = {};
+  ['LeftArm', 'RightArm', 'LeftForeArm', 'RightForeArm', 'LeftHand', 'RightHand'].forEach(name => {
+    const b = bones[name];
+    if (b) {
+      report[name] = {
+        rot: [b.rotation.x.toFixed(4), b.rotation.y.toFixed(4), b.rotation.z.toFixed(4)],
+        order: b.rotation.order,
+        quat: [b.quaternion.x.toFixed(4), b.quaternion.y.toFixed(4), b.quaternion.z.toFixed(4), b.quaternion.w.toFixed(4)]
+      };
+    }
+  });
+  document.getElementById('p').textContent = JSON.stringify(report, null, 2);
+  document.title = 'READY';
+});
+</script></body></html>

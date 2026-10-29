@@ -1,0 +1,45 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body><pre id="p"></pre><script>
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+  const rA = bones['RightArm'];
+  const rF = bones['RightForeArm'];
+  const rH = bones['RightHand'];
+
+  const tests = [
+    { a: [-0.05, -0.40, -0.80], f: [-0.85, -0.30, 0.30], h: [0.15, -0.15, 0.0], desc: "a.x = -0.05" },
+    { a: [0.05, -0.40, -0.80], f: [-0.85, -0.30, 0.30], h: [0.15, -0.15, 0.0], desc: "a.x = +0.05" },
+    { a: [0.15, -0.40, -0.80], f: [-0.85, -0.30, 0.30], h: [0.15, -0.15, 0.0], desc: "a.x = +0.15" },
+    { a: [0.25, -0.40, -0.80], f: [-0.85, -0.30, 0.30], h: [0.15, -0.15, 0.0], desc: "a.x = +0.25" },
+    { a: [0.15, -0.40, -0.75], f: [-0.95, -0.30, 0.30], h: [0.15, -0.15, 0.0], desc: "a.x = 0.15, f.x = -0.95" },
+    { a: [0.20, -0.35, -0.70], f: [-1.00, -0.30, 0.30], h: [0.15, -0.15, 0.0], desc: "a.x = 0.20, f.x = -1.00" }
+  ];
+
+  const log = [];
+  tests.forEach(t => {
+    rA.rotation.set(t.a[0], t.a[1], t.a[2]);
+    rF.rotation.set(t.f[0], t.f[1], t.f[2]);
+    rH.rotation.set(t.h[0], t.h[1], t.h[2]);
+    gltf.scene.updateMatrixWorld(true);
+
+    const hand = new THREE.Vector3();
+    const tip = new THREE.Vector3();
+    rH.getWorldPosition(hand);
+    bones['RightHandMiddle3'].getWorldPosition(tip);
+
+    log.push({
+      desc: t.desc,
+      a: t.a, f: t.f, h: t.h,
+      hand: [hand.x.toFixed(3), hand.y.toFixed(3), hand.z.toFixed(3)],
+      tip: [tip.x.toFixed(3), tip.y.toFixed(3), tip.z.toFixed(3)]
+    });
+  });
+
+  document.getElementById('p').textContent = JSON.stringify(log, null, 2);
+  document.title = 'READY';
+});
+</script></body></html>

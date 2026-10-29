@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body style="margin:0; background:#0f172a; overflow:hidden;">
+  <canvas id="c" style="width:100vw; height:100vh; display:block;"></canvas>
+  <script>
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x111827);
+    const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.05, 50);
+    
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+
+    scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+    const dir = new THREE.DirectionalLight(0xffffff, 1.5);
+    dir.position.set(1, 2, 2);
+    scene.add(dir);
+
+    const bones = {};
+    const loader = new THREE.GLTFLoader();
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode') || 'default';
+
+    loader.load('models/human_player.glb', (gltf) => {
+      scene.add(gltf.scene);
+      gltf.scene.traverse((n) => {
+        if (n.isBone) bones[n.name] = n;
+      });
+
+      // Lower arms to sides
+      if (bones['LeftArm']) {
+        bones['LeftArm'].rotation.z = 1.28;
+      }
+      if (bones['RightArm']) {
+        // Bring right upper arm down and slightly forward
+        bones['RightArm'].rotation.z = -1.15;
+        bones['RightArm'].rotation.x = 0.40;
+      }
+      if (bones['RightForeArm']) {
+        // Bend elbow 90 degrees up/forward
+        bones['RightForeArm'].rotation.x = -1.2;
+      }
+
+      // Test curling
+      const applyCurl = (axis, val) => {
+        ['Index', 'Middle', 'Ring', 'Pinky'].forEach(f => {
+          for (let i = 1; i <= 3; i++) {
+            const b = bones['RightHand' + f + i];
+            if (b) b.rotation[axis] = val;
+          }
+        });
+      };
+
+      if (mode === 'x_pos') applyCurl('x', 1.0);
+      if (mode === 'x_neg') applyCurl('x', -1.0);
+      if (mode === 'z_pos') applyCurl('z', 1.0);
+      if (mode === 'z_neg') applyCurl('z', -1.0);
+      if (mode === 'y_pos') applyCurl('y', 1.0);
+      if (mode === 'y_neg') applyCurl('y', -1.0);
+
+      gltf.scene.updateMatrixWorld(true);
+
+      const rHand = bones['RightHand'];
+      const handPos = new THREE.Vector3();
+      rHand.getWorldPosition(handPos);
+
+      // Camera positioned 0.45m directly in front of the hand
+      camera.position.set(handPos.x, handPos.y + 0.05, handPos.z + 0.45);
+      camera.lookAt(handPos.x, handPos.y, handPos.z);
+
+      renderer.render(scene, camera);
+      document.title = 'HAND_AT_' + handPos.x.toFixed(2) + '_' + handPos.y.toFixed(2) + '_' + handPos.z.toFixed(2);
+    });
+  </script>
+</body>
+</html>

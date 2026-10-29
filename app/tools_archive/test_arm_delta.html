@@ -1,0 +1,40 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body style="margin:0; background:#0b1120; overflow:hidden;">
+<canvas id="c" style="width:100vw; height:100vh; display:block;"></canvas>
+<script>
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b1120);
+const camera = new THREE.PerspectiveCamera(36, window.innerWidth / window.innerHeight, 0.1, 50);
+camera.position.set(0, 1.35, 1.6);
+camera.lookAt(0, 1.25, 0);
+
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.outputEncoding = THREE.sRGBEncoding;
+
+scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+const dir = new THREE.DirectionalLight(0xffffff, 1.4);
+dir.position.set(1, 2, 2);
+scene.add(dir);
+
+const urlParams = new URLSearchParams(window.location.search);
+const axis = urlParams.get('axis') || 'x';
+const val = parseFloat(urlParams.get('val') || '0.8');
+
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  scene.add(gltf.scene);
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+  const rArm = bones['RightArm'];
+  // default: x = 0.998, y = -0.019, z = 0.144
+  if (axis === 'x') rArm.rotation.x += val;
+  if (axis === 'y') rArm.rotation.y += val;
+  if (axis === 'z') rArm.rotation.z += val;
+
+  renderer.render(scene, camera);
+  document.title = 'TEST';
+});
+</script></body></html>

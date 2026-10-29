@@ -1,0 +1,90 @@
+import subprocess, json
+
+script = """
+const scene = new THREE.Scene();
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  scene.add(gltf.scene);
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+  const results = [];
+
+  // Search ranges for RightArm and RightForeArm
+  for (let ax = 0.20; ax <= 0.50; ax += 0.08) {
+    for (let ay = -0.30; ay <= 0.0; ay += 0.10) {
+      for (let az = -0.75; az <= -0.45; az += 0.08) {
+        for (let fx = -1.10; fx <= -0.70; fx += 0.10) {
+          for (let fy = -0.40; fy <= 0.0; fy += 0.15) {
+            for (let fz = 0.10; fz <= 0.45; fz += 0.12) {
+              bones['RightArm'].rotation.set(ax, ay, az);
+              bones['RightForeArm'].rotation.set(fx, fy, fz);
+              bones['RightHand'].rotation.set(0.10, -0.10, 0.0);
+              gltf.scene.updateMatrixWorld(true);
+
+              const rHand = new THREE.Vector3();
+              const rTip = new THREE.Vector3();
+              const rIndex = new THREE.Vector3();
+              const rPinky = new THREE.Vector3();
+              bones['RightHand'].getWorldPosition(rHand);
+              bones['RightHandMiddle3'].getWorldPosition(rTip);
+              bones['RightHandIndex1'].getWorldPosition(rIndex);
+              bones['RightHandPinky1'].getWorldPosition(rPinky);
+
+              // Palm normal = cross product (finger_dir, palm_across)
+              const fingerDir = rTip.clone().sub(rHand).normalize();
+              const palmAcross = rPinky.clone().sub(rIndex).normalize();
+              const palmNormal = new THREE.Vector3().crossVectors(fingerDir, palmAcross).normalize();
+
+              // Check criteria:
+              // 1. Hand comfortably within frame: y between 1.34 and 1.45
+              // 2. Tip y between 1.48 and 1.58 (well below 1.70)
+              // 3. Hand x between -0.42 and -0.26
+              // 4. Palm facing front (+z > 0.6)
+              // 5. Fingers pointing mostly up/out (fingerDir.y > 0.6)
+              if (rHand.y >= 1.34 && rHand.y <= 1.45 &&
+                  rTip.y >= 1.48 && rTip.y <= 1.58 &&
+                  rHand.x >= -0.42 && rHand.x <= -0.26 &&
+                  fingerDir.y >= 0.50 &&
+                  palmNormal.z >= 0.50) {
+                results.push({
+                  arm: [ax, ay, az],
+                  fore: [fx, fy, fz],
+                  rHand: [rHand.x, rHand.y, rHand.z],
+                  rTip: [rTip.x, rTip.y, rTip.z],
+                  palmZ: palmNormal.z,
+                  score: palmNormal.z + fingerDir.y - Math.abs(rHand.y - 1.40)
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  results.sort((a, b) => b.score - a.score);
+  const out = document.createElement('pre');
+  out.id = 'results';
+  out.textContent = JSON.stringify(results.slice(0, 10), null, 2);
+  document.body.appendChild(out);
+  document.title = 'READY';
+});
+"""
+
+html = f"""<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body><script>{script}</script></body></html>"""
+
+with open('find_dias_pose.html', 'w', encoding='utf-8') as f:
+    f.write(html)
+
+chrome = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
+cmd = [chrome, '--headless=new', '--disable-gpu', '--no-sandbox', '--virtual-time-budget=3000', '--dump-dom', 'http://localhost:8000/find_dias_pose.html']
+res = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+s = res.stdout.find('<pre id="results">')
+e = res.stdout.find('</pre>')
+if s != -1:
+    print(res.stdout[s+18:e])
+else:
+    print("No results found or timed out.")

@@ -1,0 +1,70 @@
+import subprocess
+
+html = """<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body><pre id="p"></pre><script>
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+  const rA = [0.18, -0.40, -0.80];
+  const rF = [-0.85, -0.30, 0.30];
+  const rH = [0.15, -0.15, 0.0];
+
+  const lA = [rA[0], -rA[1], -rA[2]];
+  const lF = [rF[0], -rF[1], -rF[2]];
+  const lH = [rH[0], -rH[1], -rH[2]];
+
+  bones['RightArm'].rotation.set(rA[0], rA[1], rA[2]);
+  bones['RightForeArm'].rotation.set(rF[0], rF[1], rF[2]);
+  bones['RightHand'].rotation.set(rH[0], rH[1], rH[2]);
+
+  bones['LeftArm'].rotation.set(lA[0], lA[1], lA[2]);
+  bones['LeftForeArm'].rotation.set(lF[0], lF[1], lF[2]);
+  bones['LeftHand'].rotation.set(lH[0], lH[1], lH[2]);
+
+  gltf.scene.updateMatrixWorld(true);
+
+  const rHand = new THREE.Vector3();
+  const lHand = new THREE.Vector3();
+  const rTip = new THREE.Vector3();
+  const lTip = new THREE.Vector3();
+  bones['RightHand'].getWorldPosition(rHand);
+  bones['LeftHand'].getWorldPosition(lHand);
+  bones['RightHandMiddle3'].getWorldPosition(rTip);
+  bones['LeftHandMiddle3'].getWorldPosition(lTip);
+
+  const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 50);
+  camera.position.set(0, 1.45, 1.65);
+  camera.lookAt(0, 1.42, 0);
+  camera.updateMatrixWorld();
+
+  const toScreen = (v) => {
+    const p = v.clone().project(camera);
+    return {
+      x: ((p.x + 1)/2 * 500).toFixed(1),
+      y: ((-p.y + 1)/2 * 500).toFixed(1),
+      raw_y: v.y.toFixed(3)
+    };
+  };
+
+  document.getElementById('p').textContent = JSON.stringify({
+    rHand: toScreen(rHand),
+    lHand: toScreen(lHand),
+    rTip: toScreen(rTip),
+    lTip: toScreen(lTip)
+  }, null, 2);
+  document.title = 'READY';
+});
+</script></body></html>"""
+
+with open('check_screen_coords.html', 'w', encoding='utf-8') as f:
+    f.write(html)
+
+chrome = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
+cmd = [chrome, '--headless=new', '--disable-gpu', '--no-sandbox', '--virtual-time-budget=2000', '--dump-dom', 'http://localhost:8000/check_screen_coords.html']
+res = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
+s = res.stdout.find('<pre id="p">')
+e = res.stdout.find('</pre>')
+print(res.stdout[s+12:e])

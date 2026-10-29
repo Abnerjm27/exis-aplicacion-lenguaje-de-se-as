@@ -1,0 +1,44 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body><pre id="p"></pre><script>
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+  const lA = [0.75, 0.35, 1.15];
+  const lF = [1.90, 0.0, 0.35];
+  const lH = [-0.35, 0.20, -0.20];
+
+  const rA = [0.75, -0.35, -1.15];
+  const rF = [1.90, 0.0, -0.35];
+  const rH = [-0.35, -0.20, 0.20];
+
+  bones['LeftArm'].rotation.set(lA[0], lA[1], lA[2]);
+  bones['LeftForeArm'].rotation.set(lF[0], lF[1], lF[2]);
+  bones['LeftHand'].rotation.set(lH[0], lH[1], lH[2]);
+
+  bones['RightArm'].rotation.set(rA[0], rA[1], rA[2]);
+  bones['RightForeArm'].rotation.set(rF[0], rF[1], rF[2]);
+  bones['RightHand'].rotation.set(rH[0], rH[1], rH[2]);
+
+  gltf.scene.updateMatrixWorld(true);
+
+  const rHand = new THREE.Vector3();
+  const lHand = new THREE.Vector3();
+  const chest = new THREE.Vector3();
+  bones['RightHand'].getWorldPosition(rHand);
+  bones['LeftHand'].getWorldPosition(lHand);
+  bones['Spine2'].getWorldPosition(chest);
+
+  document.getElementById('p').textContent = JSON.stringify({
+    chest: [chest.x.toFixed(3), chest.y.toFixed(3), chest.z.toFixed(3)],
+    rHand: [rHand.x.toFixed(3), rHand.y.toFixed(3), rHand.z.toFixed(3)],
+    lHand: [lHand.x.toFixed(3), lHand.y.toFixed(3), lHand.z.toFixed(3)],
+    rHandZ_vs_Chest: (rHand.z - chest.z).toFixed(3),
+    lHandZ_vs_Chest: (lHand.z - chest.z).toFixed(3),
+    distBetweenHands: rHand.distanceTo(lHand).toFixed(3)
+  }, null, 2);
+  document.title = 'READY';
+});
+</script></body></html>

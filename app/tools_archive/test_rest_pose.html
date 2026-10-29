@@ -1,0 +1,39 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body style="margin:0; background:#0b1120; overflow:hidden;">
+<canvas id="c" style="width:100vw; height:100vh; display:block;"></canvas>
+<script>
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b1120);
+const camera = new THREE.PerspectiveCamera(36, window.innerWidth / window.innerHeight, 0.1, 50);
+camera.position.set(0, 1.35, 1.45);
+camera.lookAt(0, 1.25, 0);
+
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.outputEncoding = THREE.sRGBEncoding;
+
+scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+const dir = new THREE.DirectionalLight(0xffffff, 1.4);
+dir.position.set(1, 2, 2);
+scene.add(dir);
+
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  scene.add(gltf.scene);
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+  // Both arms down at sides
+  bones['LeftArm'].rotation.x = 0.15;
+  bones['LeftArm'].rotation.y = 0.02;
+  bones['LeftArm'].rotation.z = 1.28;
+
+  bones['RightArm'].rotation.x = 0.15;
+  bones['RightArm'].rotation.y = -0.02;
+  bones['RightArm'].rotation.z = -1.28;
+
+  renderer.render(scene, camera);
+  document.title = 'REST_POSE';
+});
+</script></body></html>

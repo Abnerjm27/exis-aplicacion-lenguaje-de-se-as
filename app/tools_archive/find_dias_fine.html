@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body><pre id="p"></pre><script>
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+  const candidates = [];
+
+  // In RPM:
+  // RightArm: ax, ay, az
+  // RightForeArm: fx, fy, fz
+  // RightHand: hx, hy, hz
+  for (let ax = 0.0; ax <= 0.60; ax += 0.05) {
+    for (let ay = -0.50; ay <= 0.10; ay += 0.08) {
+      for (let az = -0.60; az <= 0.20; az += 0.08) {
+        for (let fx = -1.60; fx <= -0.60; fx += 0.10) {
+          for (let fy = -0.60; fy <= 0.30; fy += 0.15) {
+            for (let fz = -0.30; fz <= 0.60; fz += 0.15) {
+              bones['RightArm'].rotation.set(ax, ay, az);
+              bones['RightForeArm'].rotation.set(fx, fy, fz);
+              bones['RightHand'].rotation.set(0.15, -0.15, 0.0);
+              gltf.scene.updateMatrixWorld(true);
+
+              const rHand = new THREE.Vector3();
+              const rTip = new THREE.Vector3();
+              bones['RightHand'].getWorldPosition(rHand);
+              bones['RightHandMiddle3'].getWorldPosition(rTip);
+
+              // Target: rHand.x in [-0.42, -0.28], rHand.y in [1.34, 1.44], rHand.z in [0.12, 0.32]
+              // rTip.y in [1.46, 1.58]
+              if (rHand.x >= -0.42 && rHand.x <= -0.28 &&
+                  rHand.y >= 1.34 && rHand.y <= 1.45 &&
+                  rHand.z >= 0.12 && rHand.z <= 0.32 &&
+                  rTip.y >= 1.46 && rTip.y <= 1.58 &&
+                  rTip.x < rHand.x) { // fingers angling slightly outward or upward
+                
+                // Palm facing forward: tip.z close to hand.z or slightly forward
+                const dz = rTip.z - rHand.z;
+                if (Math.abs(dz) < 0.12) {
+                  const score = - Math.abs(rHand.x + 0.35) - Math.abs(rHand.y - 1.40) - Math.abs(rHand.z - 0.22);
+                  candidates.push({
+                    score,
+                    arm: [ax.toFixed(2), ay.toFixed(2), az.toFixed(2)],
+                    fore: [fx.toFixed(2), fy.toFixed(2), fz.toFixed(2)],
+                    hand: [rHand.x.toFixed(3), rHand.y.toFixed(3), rHand.z.toFixed(3)],
+                    tip: [rTip.x.toFixed(3), rTip.y.toFixed(3), rTip.z.toFixed(3)]
+                  });
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  candidates.sort((a, b) => b.score - a.score);
+  document.getElementById('p').textContent = JSON.stringify(candidates.slice(0, 8), null, 2);
+  document.title = 'READY';
+});
+</script></body></html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body style="margin:0; background:#0b1120; font-family:monospace; color:white; padding:10px;">
+<div id="output">Running IK Solver Letters...</div>
+<script>
+  const loader = new THREE.GLTFLoader();
+  loader.load('models/human_player.glb', (gltf) => {
+    const scene = new THREE.Scene();
+    scene.add(gltf.scene);
+    const bones = {};
+    gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+    gltf.scene.updateMatrixWorld(true);
+
+    const targetLetter = new THREE.Vector3(-0.14, 1.38, 0.16);
+
+    let bestDist = Infinity;
+    let bestRa = null, bestRf = null;
+
+    const rArm = bones['RightArm'];
+    const rFore = bones['RightForeArm'];
+    const rH = bones['RightHand'];
+    const curPos = new THREE.Vector3();
+
+    for (let raX = 0.0; raX <= 0.6; raX += 0.1) {
+      for (let raY = -0.4; raY <= 0.4; raY += 0.1) {
+        for (let raZ = -1.4; raZ <= -0.8; raZ += 0.1) {
+          rArm.rotation.set(raX, raY, raZ);
+          for (let rfX = 0.8; rfX <= 2.2; rfX += 0.1) {
+            for (let rfY = -0.6; rfY <= 0.6; rfY += 0.1) {
+              for (let rfZ = -0.4; rfZ <= 0.4; rfZ += 0.1) {
+                rFore.rotation.set(rfX, rfY, rfZ);
+                gltf.scene.updateMatrixWorld(true);
+                rH.getWorldPosition(curPos);
+                const d = curPos.distanceTo(targetLetter);
+                if (d < bestDist) {
+                  bestDist = d;
+                  bestRa = [raX, raY, raZ];
+                  bestRf = [rfX, rfY, rfZ];
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    const results = {
+      LETTERS: { dist: bestDist, ra: bestRa, rf: bestRf }
+    };
+
+    document.getElementById('output').textContent = JSON.stringify(results, null, 2);
+    document.title = 'IK_LETTERS_SOLVED';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset='UTF-8'></head>
+<body>
+<div id='res'>PENDING</div>
+<iframe id='frame' src='http://localhost:8000/' style='border:none;margin:0;padding:0;'></iframe>
+<script>
+const p = new URLSearchParams(window.location.search);
+const targetW = parseInt(p.get('w') || '1280');
+const f = document.getElementById('frame');
+f.style.width = targetW + 'px';
+f.style.height = '850px';
+
+f.onload = () => {
+    try {
+        const doc = f.contentDocument;
+        const sw = doc.documentElement.scrollWidth;
+        const cw = doc.documentElement.clientWidth;
+        const bsw = doc.body.scrollWidth;
+        const bcw = doc.body.clientWidth;
+        document.getElementById('res').innerText = 'EXIS_TEST: ' + JSON.stringify({targetW, sw, cw, bsw, bcw, overflow: (sw > cw || bsw > bcw)});
+    } catch(e) {
+        document.getElementById('res').innerText = 'ERR:' + e.message;
+    }
+};
+</script>
+</body>
+</html>

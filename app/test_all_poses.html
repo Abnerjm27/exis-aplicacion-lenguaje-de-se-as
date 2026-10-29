@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body style="margin:0; background:#0b1120; overflow:hidden;">
+  <canvas id="c" style="width:100vw; height:100vh; display:block;"></canvas>
+  <div id="metrics" style="position:absolute; top:8px; left:8px; color:#38bdf8; font-family:monospace; font-size:12px; background:rgba(0,0,0,0.7); padding:6px; border-radius:4px;"></div>
+  <script>
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0b1120);
+
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio || 1);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+
+    scene.add(new THREE.AmbientLight(0xffffff, 1.3));
+    const dir = new THREE.DirectionalLight(0xffffff, 1.4);
+    dir.position.set(0.5, 2.0, 2.5);
+    scene.add(dir);
+    const rim = new THREE.DirectionalLight(0x38bdf8, 1.1);
+    rim.position.set(-2, 2, -2);
+    scene.add(rim);
+
+    const bones = {};
+    const loader = new THREE.GLTFLoader();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const signId = (urlParams.get('sign') || 'HOLA').toUpperCase();
+    const view = urlParams.get('view') || 'body'; // 'body' or 'hand'
+
+    function curlF(side, finger, val) {
+      const angle = val * 1.30;
+      for (let i = 1; i <= 3; i++) {
+        const b = bones[side + 'Hand' + finger + i];
+        if (b) {
+          b.rotation.x = angle;
+          if (i === 1) b.rotation.z = 0;
+        }
+      }
+    }
+
+    function spreadF(side, finger, val) {
+      const b = bones[side + 'Hand' + finger + '1'];
+      if (b) b.rotation.z = val;
+    }
+
+    function setThumbMode(side, mode, foldVal = 0.8) {
+      const s = side === 'Right' ? 1 : -1;
+      for (let i = 1; i <= 3; i++) {
+        const b = bones[side + 'HandThumb' + i];
+        if (!b) continue;
+        if (mode === 'tucked') {
+          b.rotation.set(0.18, 0.35 * s, foldVal * s);
+        } else if (mode === 'lateral_up') {
+          b.rotation.set(-0.30, 0.75 * s, 0.05 * s);
+        } else if (mode === 'l_shape') {
+          b.rotation.set(0.0, 0.0, -0.95 * s);
+        } else if (mode === 'c_shape') {
+          b.rotation.set(0.42, 0.22 * s, -0.42 * s);
+        } else {
+          b.rotation.set(0, 0, 0);
+        }
+      }
+    }
+
+    function setRestPose() {
+      if (bones['LeftArm']) bones['LeftArm'].rotation.set(1.15, 0.0, -0.25);
+      if (bones['LeftForeArm']) bones['LeftForeArm'].rotation.set(-0.15, 0.0, 0.0);
+      if (bones['LeftHand']) bones['LeftHand'].rotation.set(0, 0, 0);
+
+      if (bones['RightArm']) bones['RightArm'].rotation.set(1.15, 0.0, 0.25);
+      if (bones['RightForeArm']) bones['RightForeArm'].rotation.set(-0.15, 0.0, 0.0);
+      if (bones['RightHand']) bones['RightHand'].rotation.set(0, 0, 0);
+
+      ['Right', 'Left'].forEach(side => {
+        ['Index', 'Middle', 'Ring', 'Pinky'].forEach(f => curlF(side, f, 0.05));
+        setThumbMode(side, 'neutral');
+      });
+    }
+
+    function applySign(s) {
+      setRestPose();
+
+      const rA = bones['RightArm'];
+      const rF = bones['RightForeArm'];
+      const rH = bones['RightHand'];
+      const lA = bones['LeftArm'];
+      const lF = bones['LeftForeArm'];
+      const lH = bones['LeftHand'];
+
+      if (s === 'HOLA') {
+        if (rA) rA.rotation.set(-0.20, 0.0, -1.20);
+        if (rF) rF.rotation.set(-2.40, 0.60, -0.40);
+        if (rH) rH.rotation.set(0.0, -0.20, 0.15);
+
+        ['Index', 'Middle', 'Ring', 'Pinky'].forEach(f => curlF('Right', f, 0.0));
+        setThumbMode('Right', 'neutral');
+
+      } else if (s === 'YO') {
+        if (rA) rA.rotation.set(0.45, -0.20, -1.40);
+        if (rF) rF.rotation.set(2.15, -0.40, -0.40);
+        if (rH) rH.rotation.set(-0.40, -0.45, 0.30);
+
+        curlF('Right', 'Index', 0.0);
+        curlF('Right', 'Middle', 1.30);
+        curlF('Right', 'Ring', 1.30);
+        curlF('Right', 'Pinky', 1.30);
+        setThumbMode('Right', 'tucked', 0.85);
+
+      } else if (s === 'BUENOS') {
+        if (rA) rA.rotation.set(-0.20, -0.60, -1.40);
+        if (rF) rF.rotation.set(-2.40, 0.50, -0.40);
+        if (rH) rH.rotation.set(0.15, -0.20, 0.05);
+
+        ['Index', 'Middle', 'Ring', 'Pinky'].forEach(f => curlF('Right', f, 0.05));
+        setThumbMode('Right', 'neutral');
+
+        if (lA) lA.rotation.set(0.35, 0.15, 1.05);
+        if (lF) lF.rotation.set(1.40, -0.50, -0.20);
+        if (lH) lH.rotation.set(0.10, 0.15, 0.0);
+        ['Index', 'Middle', 'Ring', 'Pinky'].forEach(f => curlF('Left', f, 0.05));
+        setThumbMode('Left', 'neutral');
+
+      } else if (s === 'DIAS') {
+        // Amanecer calibrado: antebrazos abren a media altura con palmas al frente
+        if (rA) rA.rotation.set(0.32, -0.32, -0.42);
+        if (rF) rF.rotation.set(-1.15, -0.22, 0.22);
+        if (rH) rH.rotation.set(0.15, -0.15, 0.0);
+
+        if (lA) lA.rotation.set(0.32, 0.32, 0.42);
+        if (lF) lF.rotation.set(-1.15, 0.22, -0.22);
+        if (lH) lH.rotation.set(0.15, 0.15, 0.0);
+
+        ['Right', 'Left'].forEach(side => {
+          ['Index', 'Middle', 'Ring', 'Pinky'].forEach(f => {
+            curlF(side, f, 0.0);
+          });
+          spreadF(side, 'Index', side === 'Right' ? 0.08 : -0.08);
+          spreadF(side, 'Middle', side === 'Right' ? 0.08 : -0.08);
+          spreadF(side, 'Pinky', side === 'Right' ? -0.06 : 0.06);
+          setThumbMode(side, 'neutral');
+        });
+
+      } else if (s === 'NOCHES') {
+        // Brazos cruzados sobre el pecho sacados hacia adelante (z positivo)
+        if (lA) lA.rotation.set(0.45, 0.12, 0.82);
+        if (lF) lF.rotation.set(1.75, 0.20, 0.25);
+        if (lH) lH.rotation.set(-0.10, 0.20, -0.15);
+
+        if (rA) rA.rotation.set(0.40, -0.10, -0.92);
+        if (rF) rF.rotation.set(1.90, -0.20, -0.25);
+        if (rH) rH.rotation.set(-0.10, -0.20, 0.15);
+
+        ['Right', 'Left'].forEach(side => {
+          ['Index', 'Middle', 'Ring', 'Pinky'].forEach(f => curlF(side, f, 0.40));
+          setThumbMode(side, 'tucked', 0.50);
+        });
+
+      } else if (s === 'NOMBRE') {
+        if (lA) lA.rotation.set(0.65, 0.20, 1.20);
+        if (lF) lF.rotation.set(1.90, 0.40, 0.40);
+        if (lH) lH.rotation.set(0.0, 0.10, 0.0);
+
+        curlF('Left', 'Index', 0.0);
+        curlF('Left', 'Middle', 0.0);
+        curlF('Left', 'Ring', 1.40);
+        curlF('Left', 'Pinky', 1.40);
+        setThumbMode('Left', 'tucked', 0.90);
+
+        if (rA) rA.rotation.set(0.65, 0.0, -1.20);
+        if (rF) rF.rotation.set(1.90, -0.40, -0.40);
+        if (rH) rH.rotation.set(0.05, -0.15, 0.0);
+
+        curlF('Right', 'Index', 0.0);
+        curlF('Right', 'Middle', 0.0);
+        curlF('Right', 'Ring', 1.40);
+        curlF('Right', 'Pinky', 1.40);
+        setThumbMode('Right', 'tucked', 0.90);
+
+      } else if (['A', 'B', 'C', 'L', 'V'].includes(s)) {
+        if (rA) rA.rotation.set(0.40, 0.30, -0.90);
+        if (rF) rF.rotation.set(2.10, -0.60, -0.30);
+        if (rH) rH.rotation.set(-0.10, 0.10, -1.15);
+
+        if (s === 'A') {
+          ['Index', 'Middle', 'Ring', 'Pinky'].forEach(f => curlF('Right', f, 1.45));
+          setThumbMode('Right', 'lateral_up');
+
+        } else if (s === 'B') {
+          // 4 dedos extendidos juntos rectos hacia arriba, pulgar doblado sobre palma
+          ['Index', 'Middle', 'Ring', 'Pinky'].forEach(f => curlF('Right', f, 0.0));
+          spreadF('Right', 'Index', 0.0);
+          spreadF('Right', 'Middle', 0.0);
+          spreadF('Right', 'Pinky', 0.0);
+          setThumbMode('Right', 'tucked', 1.15);
+
+        } else if (s === 'C') {
+          // Mano arqueada formando el semicírculo C visible frontalmente
+          ['Index', 'Middle', 'Ring', 'Pinky'].forEach(f => curlF('Right', f, 0.58));
+          setThumbMode('Right', 'c_shape');
+          if (rH) rH.rotation.set(-0.10, -0.22, -0.95);
+
+        } else if (s === 'L') {
+          curlF('Right', 'Index', 0.0);
+          curlF('Right', 'Middle', 1.45);
+          curlF('Right', 'Ring', 1.45);
+          curlF('Right', 'Pinky', 1.45);
+          setThumbMode('Right', 'l_shape');
+
+        } else if (s === 'V') {
+          curlF('Right', 'Index', 0.0);
+          curlF('Right', 'Middle', 0.0);
+          spreadF('Right', 'Index', -0.32);
+          spreadF('Right', 'Middle', 0.32);
+          curlF('Right', 'Ring', 1.45);
+          curlF('Right', 'Pinky', 1.45);
+          setThumbMode('Right', 'tucked', 0.95);
+        }
+      }
+    }
+
+    loader.load('models/human_player.glb', (gltf) => {
+      scene.add(gltf.scene);
+      gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+      applySign(signId);
+      gltf.scene.updateMatrixWorld(true);
+
+      const rHandPos = new THREE.Vector3();
+      const lHandPos = new THREE.Vector3();
+      const chestPos = new THREE.Vector3();
+      const headPos = new THREE.Vector3();
+      const middlePos = new THREE.Vector3();
+
+      bones['RightHand'].getWorldPosition(rHandPos);
+      bones['LeftHand'].getWorldPosition(lHandPos);
+      (bones['Spine2'] || bones['Spine1']).getWorldPosition(chestPos);
+      bones['Head'].getWorldPosition(headPos);
+      if (bones['RightHandMiddle2']) bones['RightHandMiddle2'].getWorldPosition(middlePos);
+      else middlePos.copy(rHandPos);
+
+      const templePos = headPos.clone().add(new THREE.Vector3(0.09, 0.03, 0.04));
+      const chinPos = headPos.clone().add(new THREE.Vector3(0.0, -0.11, 0.08));
+
+      let distText = '';
+      if (signId === 'HOLA') distText = `Dist a Sien: ${(rHandPos.distanceTo(templePos)*100).toFixed(1)} cm`;
+      else if (signId === 'YO') distText = `Dist a Esternón: ${(rHandPos.distanceTo(chestPos)*100).toFixed(1)} cm`;
+      else if (signId === 'BUENOS') distText = `Dist a Mentón: ${(rHandPos.distanceTo(chinPos)*100).toFixed(1)} cm`;
+      else if (signId === 'NOCHES' || signId === 'NOMBRE') distText = `Dist entre muñecas: ${(rHandPos.distanceTo(lHandPos)*100).toFixed(1)} cm`;
+      else distText = `RHand: (${rHandPos.x.toFixed(2)}, ${rHandPos.y.toFixed(2)}, ${rHandPos.z.toFixed(2)})`;
+
+      document.getElementById('metrics').textContent = `${signId} (${view}) | ${distText}`;
+
+      const camera = new THREE.PerspectiveCamera(36, window.innerWidth / window.innerHeight, 0.1, 50);
+
+      if (view === 'hand') {
+        // Optimal close-up distance (z + 0.38m) focused on hand centroid
+        const centerHand = rHandPos.clone().lerp(middlePos, 0.5);
+        camera.position.set(centerHand.x, centerHand.y, centerHand.z + 0.38);
+        camera.lookAt(centerHand.x, centerHand.y, centerHand.z);
+      } else {
+        camera.position.set(0, 1.45, 1.65);
+        camera.lookAt(0, 1.42, 0);
+      }
+
+      renderer.render(scene, camera);
+      document.title = 'READY_' + signId + '_' + view;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+import subprocess
+
+html = """<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body><pre id="output"></pre><script>
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  const scene = new THREE.Scene();
+  scene.add(gltf.scene);
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+  bones['RightArm'].rotation.set(0.10, -0.15, -1.15);
+  bones['RightForeArm'].rotation.set(-1.15, 0.25, -0.15);
+  bones['RightHand'].rotation.set(-0.15, 0.0, 0.0);
+
+  gltf.scene.updateMatrixWorld(true);
+
+  const rH = new THREE.Vector3();
+  const rM = new THREE.Vector3();
+  bones['RightHand'].getWorldPosition(rH);
+  bones['RightHandMiddle3'].getWorldPosition(rM);
+
+  document.getElementById('output').textContent = JSON.stringify({
+    handPos: [rH.x.toFixed(3), rH.y.toFixed(3), rH.z.toFixed(3)],
+    middlePos: [rM.x.toFixed(3), rM.y.toFixed(3), rM.z.toFixed(3)]
+  });
+  document.title = 'READY';
+});
+</script></body></html>"""
+
+with open(r'C:\Users\abner\Desktop\exis aplicacion lenguaje de señas\app\test_clavicle.html', 'w', encoding='utf-8') as f:
+    f.write(html)
+
+chrome = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
+cmd = [chrome, '--headless=new', '--disable-gpu', '--no-sandbox', '--virtual-time-budget=2000', '--dump-dom', 'http://localhost:8000/test_clavicle.html']
+res = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
+s = res.stdout.find('<pre id="output">')
+e = res.stdout.find('</pre>', s)
+print(res.stdout[s+17:e])

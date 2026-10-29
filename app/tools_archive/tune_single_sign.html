@@ -1,0 +1,48 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head><body style="margin:0; background:#0b1120; overflow:hidden;">
+<canvas id="c" style="width:100vw; height:100vh; display:block;"></canvas>
+<script>
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b1120);
+const camera = new THREE.PerspectiveCamera(36, window.innerWidth / window.innerHeight, 0.1, 50);
+camera.position.set(0, 1.38, 1.35);
+camera.lookAt(0, 1.28, 0);
+
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.outputEncoding = THREE.sRGBEncoding;
+
+scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+const dir = new THREE.DirectionalLight(0xffffff, 1.4);
+dir.position.set(0.5, 2.0, 2.5);
+scene.add(dir);
+
+const p = new URLSearchParams(window.location.search);
+const ra = (p.get('ra') || '0,0,0').split(',').map(Number);
+const rf = (p.get('rf') || '0,0,0').split(',').map(Number);
+const rh = (p.get('rh') || '0,0,0').split(',').map(Number);
+const la = (p.get('la') || '0,0,0').split(',').map(Number);
+const lf = (p.get('lf') || '0,0,0').split(',').map(Number);
+const lh = (p.get('lh') || '0,0,0').split(',').map(Number);
+
+new THREE.GLTFLoader().load('models/human_player.glb', (gltf) => {
+  scene.add(gltf.scene);
+  const bones = {};
+  gltf.scene.traverse(n => { if (n.isBone) bones[n.name] = n; });
+
+  // Bind pose defaults
+  const b = bones;
+  b['RightArm'].rotation.set(0.998 + ra[0], -0.019 + ra[1], 0.144 + ra[2]);
+  b['RightForeArm'].rotation.set(-0.107 + rf[0], -0.024 + rf[1], -0.447 + rf[2]);
+  b['RightHand'].rotation.set(0.094 + rh[0], -0.076 + rh[1], 0.041 + rh[2]);
+
+  b['LeftArm'].rotation.set(0.998 + la[0], 0.019 + la[1], -0.144 + la[2]);
+  b['LeftForeArm'].rotation.set(-0.107 + lf[0], 0.024 + lf[1], 0.447 + lf[2]);
+  b['LeftHand'].rotation.set(0.094 + lh[0], 0.076 + lh[1], -0.041 + lh[2]);
+
+  renderer.render(scene, camera);
+  document.title = 'READY';
+});
+</script></body></html>

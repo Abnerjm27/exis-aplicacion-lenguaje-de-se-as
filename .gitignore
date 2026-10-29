@@ -1,0 +1,45 @@
+# ==========================================
+# EXIS - Lengua de Señas Colombiana (LSC)
+# .gitignore
+# ==========================================
+
+# Dataset pesado original (1 GB - compartir vía Google Drive/OneDrive si es necesario)
+# La app ya incluye todos los videos y muestras procesadas en app/videos/ y app/dataset_samples/
+LSC70.zip
+LSC70/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.venv/
+env/
+venv/
+*.log
+
+# Entornos y Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de sistema operativo
+Thumbs.db
+[Dd]esktop.ini
+.DS_Store
+
+# Capturas de depuración temporales de la raíz (se conservan las oficiales para el README)
+human_preview*.png
+app_preview.png
+app_preview2.png
+app_preview3.png
+app_preview4.png
+app_preview5.png
+app_preview_fixed.png
+app_preview_human*.png
+app_preview_animated.png
+
+# Node / Scratch temporal
+node_modules/
+.system_generated/
