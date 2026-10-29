@@ -43,3 +43,6 @@ app_preview_animated.png
 # Node / Scratch temporal
 node_modules/
 .system_generated/
+
+# Carpeta temporal de intercambio de videos en bruto en la raíz (los oficiales van en app/videos/)
+/videos/
