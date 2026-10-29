@@ -1,0 +1,14 @@
+# ==============================================================================
+# EXIS · Tutor de Lengua de Señas Colombiana (LSC) - Requisitos de Python
+# ==============================================================================
+# NOTA IMPORTANTE:
+# Para ejecutar la aplicación web y el tutor (server.py), NO se requiere
+# ninguna librería externa; funciona 100% con la librería estándar de Python.
+#
+# Las siguientes librerías solo son necesarias si deseas ejecutar scripts de
+# procesamiento de imágenes/videos en 'app/tools/' (generate_videos.py, verify_videos.py):
+# ==============================================================================
+
+opencv-python>=4.8.0
+Pillow>=10.0.0
+numpy>=1.24.0
