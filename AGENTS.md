@@ -19,7 +19,7 @@ Este documento es de **lectura obligatoria para cualquier Agente de IA** (Google
 
 ## 2. Reglas Duras de Desarrollo (Hard Rules)
 
-Cualquier cambio de código debe cumplir **estrictamente** con estas 7 reglas:
+Cualquier cambio de código debe cumplir **estrictamente** con estas 8 reglas:
 
 1. **Límite de Líneas:** Ningún archivo de código puede superar las **1,100 líneas**. Si un módulo crece, debe subdividirse en submódulos independientes.
 2. **Cero CSS y Cero JS Embebido en HTML:** En [`app/index.html`](file:///app/index.html) está estrictamente prohibido usar etiquetas `<style>` o escribir código dentro de `<script>`. Solo se permiten referencias externas `<link rel="stylesheet">` y `<script src="...">`.
@@ -28,6 +28,12 @@ Cualquier cambio de código debe cumplir **estrictamente** con estas 7 reglas:
 5. **Curaduría y Poda Temporal de Videos Anime IA (Calidad Pedagógica LSC):** Todo video generado con IA (Gemini Veo, Kling, Runway, etc.) debe ser inspeccionado fotograma a fotograma. Es obligatorio recortar fotogramas residuales, vacilaciones de inicio, mutaciones anatómicas tardías (ej. dedos que se doblan tras la seña) y artefactos en fondo, reteniendo exclusivamente el bucle canónico limpio y exacto para LSC (típicamente 2.5s a 4.0s / 60 a 96 frames a 24 fps).
 6. **Accesibilidad y Contraste WCAG AAA:** Mantener la paleta oscuro/ámbar (`#0a0e17`, `#121824`, `#f59e0b`), tamaño de botones táctiles $\ge 44\text{px}$, y cero desbordamientos horizontales (`scrollWidth == clientWidth`) en 390x844 (móvil) y 1280x850 (escritorio).
 7. **Verificación Visual Antes de Commit:** Antes de declarar una tarea como finalizada, el agente debe verificar que la app cargue sin errores en la consola (`window.__consoleErrors == []`).
+8. **Paradigma de Programación Orientada a Objetos (POO) y Modularidad Estricta:** Todo el código del proyecto (tanto en frontend JavaScript como en backend/herramientas Python) debe adherirse rigurosamente a los principios de la Programación Orientada a Objetos:
+   - **Cohesión y Modelado de Clases:** Encapsular entidades y servicios en clases ES6 (ej. `class TrajectoryTracker`, `class VideoPlayer`) o módulos/objetos bien estructurados con API pública explícita. Queda estrictamente prohibido el código procedural espagueti, las funciones huérfanas dispersas y los scripts planos sin estructura.
+   - **Encapsulación y Estado Protegido:** El estado interno de los componentes debe permanecer protegido (mediante campos privados `#`, scopes de cierre o convención `_`), previniendo mutaciones arbitrarias del estado desde el exterior.
+   - **Principio de Responsabilidad Única (SRP):** Cada clase o módulo debe tener una única razón de cambio. La visión artificial (`vision-evaluator.js`), la trayectoria guiada (`trajectory-tracker.js`), la reproducción multimedia (`video-player.js`) y la tutoría con LLM (`chat-tutor.js`) deben mantenerse desacopladas, comunicándose a través de contratos e interfaces estandarizadas.
+   - **Ciclo de Vida Estandarizado:** Toda clase u objeto interactivo debe exponer métodos uniformes para su ciclo de vida (`init()`, `start()`, `update()`, `reset()`, `destroy()`).
+   - **Extensibilidad y Polimorfismo:** Nuevos evaluadores, fuentes de video o modelos de tutoría deben crearse extendiendo clases base o mediante composición, evitando bloques monolíticos de `if/else` procedurales.
 
 ---
 
@@ -106,27 +112,33 @@ flowchart TD
 
 ```text
 exis-lenguaje-senas/
-├── AGENTS.md                  # Reglas y contexto para agentes IA
+├── AGENTS.md                  # Reglas duras (8 reglas) y contexto para agentes IA
 ├── README.md                  # Documentación de instalación y uso
-├── server.py                  # Servidor HTTP + Proxy Ollama (puerto 8000)
+├── server.py                  # Servidor HTTP + Proxy Ollama (puerto 8000, POO)
 ├── iniciar_aplicacion.bat     # Lanzador de 1-clic para Windows
-├── .gitignore                 # Exclusión de dataset pesado y temporales
+├── .gitignore                 # Exclusión de dataset pesado, renders y temporales
+├── requirements.txt           # Dependencias Python
+├── package.json               # Configuración de pruebas automatizadas
 ├── app/
 │   ├── index.html             # UI accesible (0 estilos/scripts en línea)
 │   ├── css/
 │   │   └── styles.css         # Tokens de diseño oscuro/ámbar y responsive
 │   ├── js/
 │   │   ├── signs-data.js      # Diccionario de 11 señas oficiales
-│   │   ├── video-player.js    # Reproductor HTML5 + WebP fallback
-│   │   ├── vision-evaluator.js# MediaPipe Hands y lógica de acierto
-│   │   ├── chat-tutor.js      # Chat con Ollama y síntesis de voz
+│   │   ├── video-player.js    # Reproductor HTML5 + WebP fallback (POO/Módulo)
+│   │   ├── vision-evaluator.js# MediaPipe Hands y lógica de acierto (POO/Módulo)
+│   │   ├── trajectory-tracker.js # Seguimiento de trayectorias (Clase POO)
+│   │   ├── chat-tutor.js      # Chat con Ollama y voz (POO/Módulo)
 │   │   └── main.js            # Orquestación de eventos de la app
 │   ├── dataset_samples/       # Fotos clave de referencia LSC70
 │   ├── videos/
 │   │   ├── real/              # 44 videos (MP4 + WebP) de persona real
-│   │   └── anime/             # Destino para videos generados con IA
-│   └── tools/                 # Scripts de generación y verificación
-└── referencias_para_gemini/
-    ├── fotos/                 # 11 fotogramas clave de máxima expresión
-    └── PROMPTS_GEMINI.md      # Prompts bilingües para Gemini Web / Veo
+│   │   └── anime/             # Destino para videos curados con IA
+│   └── tools/                 # Scripts activos de generación, curaduría y verificación
+│       └── legacy_processors/ # Histórico de scripts procedimentales iniciales
+├── referencias_para_gemini/
+│   ├── anime_character_render.png # Render canónico del personaje anime
+│   ├── fotos/                 # 11 fotogramas clave de máxima expresión
+│   └── PROMPTS_GEMINI.md      # Prompts bilingües para Gemini Web / Veo
+└── tests/                     # Pruebas automatizadas Playwright y capturas
 ```

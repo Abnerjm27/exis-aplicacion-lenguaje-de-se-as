@@ -23,7 +23,7 @@ Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficia
 1. **Abrir Gemini Web / Kling:**
    - Ingresa a [gemini.google.com](https://gemini.google.com) o tu generador de video preferido ([klingai.com](https://klingai.com), [runwayml.com](https://runwayml.com)).
 2. **Adjuntar Referencias:**
-   - Sube la imagen del personaje: `anime_character_render.png`.
+   - Sube la imagen del personaje: `referencias_para_gemini/anime_character_render.png`.
    - Sube el fotograma clave de la seña deseada desde `referencias_para_gemini/fotos/<SEÑA>_ref.jpg`.
 3. **Pegar el Prompt:**
    - Copia el prompt correspondiente de la tabla a continuación (versión en español o inglés).

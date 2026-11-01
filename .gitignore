@@ -29,16 +29,12 @@ Thumbs.db
 [Dd]esktop.ini
 .DS_Store
 
-# Capturas de depuración temporales de la raíz (se conservan las oficiales para el README)
+# Capturas de depuración temporales (se conservan las oficiales para el README)
 human_preview*.png
-app_preview.png
-app_preview2.png
-app_preview3.png
-app_preview4.png
-app_preview5.png
-app_preview_fixed.png
-app_preview_human*.png
-app_preview_animated.png
+app_preview*.png
+!app_preview_desktop_1280.png
+!app_preview_mobile_390.png
+tests/screenshots/legacy_previews/
 
 # Node / Scratch temporal
 node_modules/
