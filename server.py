@@ -31,7 +31,7 @@ AVAILABLE_SIGNS = {
 FALLBACK_REPLIES = {
     "HOLA": "¡Excelente elección! Para hacer 'HOLA', levanta tu mano derecha abierta a la altura de la sien y haz un ligero saludo hacia afuera. ¡Observa al avatar 3D! [SELECCIONAR: HOLA]",
     "YO": "¡Muy bien! Para la seña de 'YO', forma un puño con tu mano derecha y deja únicamente el dedo índice extendido apuntando hacia tu pecho. [SELECCIONAR: YO]",
-    "BUENOS": "¡Perfecto! Para 'BUENOS / AS', coloca las yemas de tus dedos en el mentón y proyéctala suavemente hacia adelante. [SELECCIONAR: BUENOS]",
+    "BUENOS": "¡Perfecto! Para 'BUENOS / AS', coloca tu mano izquierda abierta como base en el pecho (palma arriba) y baja tu mano derecha para chocar apoyando la palma sobre la izquierda en el torso. [SELECCIONAR: BUENOS]",
     "DIAS": "Para la seña de 'DÍAS', abre ambos brazos lateralmente a la altura del pecho con las palmas al frente simulando el amanecer. [SELECCIONAR: DIAS]",
     "NOCHES": "Para 'NOCHES', cruza ambos brazos sobre tu pecho con las manos reposando sobre los antebrazos opuestos. [SELECCIONAR: NOCHES]",
     "NOMBRE": "Para 'NOMBRE', extiende los dedos índice y medio de ambas manos y apoya los de la mano derecha sobre los de la izquierda frente a tu torso. [SELECCIONAR: NOMBRE]",
@@ -97,6 +97,7 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type, Range')
         self.send_header('Accept-Ranges', 'bytes')
+        self.send_header('Cache-Control', 'no-cache, must-revalidate')
         super().end_headers()
 
     def copyfile(self, source, outputfile):

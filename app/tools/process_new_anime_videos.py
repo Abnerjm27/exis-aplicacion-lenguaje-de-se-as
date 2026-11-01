@@ -21,11 +21,6 @@ os.makedirs(ANIME_DIR, exist_ok=True)
 
 TARGETS = [
     {
-        "sign": "BUENOS",
-        "src": os.path.join(DOWNLOADS_DIR, "buenos.mp4"),
-        "crop_box": (400, 180, 480, 480) # (x, y, w, h) Mentón y mano
-    },
-    {
         "sign": "NOMBRE",
         "src": os.path.join(DOWNLOADS_DIR, "nombre (2).mp4"),
         "crop_box": (400, 220, 480, 480) # Ambas manos en contacto
