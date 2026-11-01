@@ -5,7 +5,7 @@ Aplica la Regla 5 de AGENTS.md (poda temporal) y la Regla 4 (doble salida MP4 + 
 
 Uso:
   python app/tools/process_buenos_video.py
-Toma el video regenerado desde C:\\Users\\abner\\Downloads\\buenos.mp4
+Toma el video regenerado desde C:\\Users\\abner\\Downloads\\buenos v2.mp4 (o buenos.mp4)
 y genera:
   - app/videos/anime/BUENOS_body.mp4
   - app/videos/anime/BUENOS_body.webp
@@ -21,13 +21,17 @@ from PIL import Image
 PROJECT_ROOT = r"C:\Users\abner\Desktop\exis aplicacion lenguaje de señas"
 ANIME_DIR = os.path.join(PROJECT_ROOT, "app", "videos", "anime")
 DOWNLOADS_DIR = r"C:\Users\abner\Downloads"
-SRC_VIDEO = os.path.join(DOWNLOADS_DIR, "buenos.mp4")
 
-# Configuración de recorte para BUENOS (foco en mentón y proyección)
-CROP_X = 380
-CROP_Y = 160
-CROP_W = 480
-CROP_H = 480
+SRC_VIDEO_V2 = os.path.join(DOWNLOADS_DIR, "buenos v2.mp4")
+SRC_VIDEO_DEFAULT = os.path.join(DOWNLOADS_DIR, "buenos.mp4")
+SRC_VIDEO = SRC_VIDEO_V2 if os.path.exists(SRC_VIDEO_V2) else SRC_VIDEO_DEFAULT
+
+# Configuración de recorte para BUENOS (foco en torso y choque bimanual)
+CROP_X = 360
+CROP_Y = 140
+CROP_W = 560
+CROP_H = 560
+RESIZE_CROP = (480, 480)
 MAX_FRAMES = 72  # 3.0s a 24 fps para un bucle pedagógico óptimo
 
 def process_buenos():
@@ -37,9 +41,7 @@ def process_buenos():
     print("==========================================")
 
     if not os.path.exists(SRC_VIDEO):
-        print(f"[AVISO] No se encontró {SRC_VIDEO} en Descargas.")
-        print("Cuando generes el nuevo video en Gemini/Kling, descárgalo con el nombre 'buenos.mp4'")
-        print("y vuelve a ejecutar este script.")
+        print(f"[AVISO] No se encontro {SRC_VIDEO} en Descargas.")
         return False
 
     dst_body_mp4 = os.path.join(ANIME_DIR, "BUENOS_body.mp4")
@@ -53,12 +55,12 @@ def process_buenos():
     h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
-    print(f"Resolución: {w}x{h} @ {fps:.1f} fps ({total_frames} frames)")
+    print(f"Resolucion: {w}x{h} @ {fps:.1f} fps ({total_frames} frames totales)")
     frames_to_process = min(total_frames, MAX_FRAMES)
 
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     body_writer = cv2.VideoWriter(dst_body_mp4, fourcc, fps, (w, h))
-    hand_writer = cv2.VideoWriter(dst_hand_mp4, fourcc, fps, (CROP_W, CROP_H))
+    hand_writer = cv2.VideoWriter(dst_hand_mp4, fourcc, fps, RESIZE_CROP)
 
     body_pil_frames = []
     hand_pil_frames = []
@@ -73,8 +75,8 @@ def process_buenos():
         body_writer.write(frame)
 
         hand_crop = frame[CROP_Y:CROP_Y + CROP_H, CROP_X:CROP_X + CROP_W]
-        if hand_crop.shape[0] != CROP_H or hand_crop.shape[1] != CROP_W:
-            hand_crop = cv2.resize(hand_crop, (CROP_W, CROP_H))
+        if hand_crop.shape[0] != RESIZE_CROP[1] or hand_crop.shape[1] != RESIZE_CROP[0]:
+            hand_crop = cv2.resize(hand_crop, RESIZE_CROP)
         hand_writer.write(hand_crop)
 
         if frame_idx % step == 0:
