@@ -24,6 +24,15 @@ const VisionEvaluator = (() => {
     videoElement = videoEl;
     canvasElement = canvasEl;
     canvasCtx = canvasElement.getContext('2d');
+
+    const selectEl = document.getElementById('cameraSourceSelect');
+    if (window.CameraManager && videoElement) {
+      window.CameraManager.init(videoElement, selectEl, async (vid) => {
+        if (isWebcamRunning && handsInstance) {
+          await handsInstance.send({ image: vid });
+        }
+      });
+    }
   }
 
   function setTargetSign(sign) {
@@ -58,43 +67,51 @@ const VisionEvaluator = (() => {
     try {
       updateCameraUIState('connecting');
 
-      handsInstance = new Hands({
-        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
-      });
+      if (!handsInstance) {
+        handsInstance = new Hands({
+          locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+        });
 
-      handsInstance.setOptions({
-        maxNumHands: 2,
-        modelComplexity: 1,
-        minDetectionConfidence: 0.6,
-        minTrackingConfidence: 0.55
-      });
+        handsInstance.setOptions({
+          maxNumHands: 2,
+          modelComplexity: 1,
+          minDetectionConfidence: 0.6,
+          minTrackingConfidence: 0.55
+        });
 
-      handsInstance.onResults(handleHandResults);
+        handsInstance.onResults(handleHandResults);
+      }
 
-      cameraInstance = new Camera(videoElement, {
-        onFrame: async () => {
-          if (isWebcamRunning) {
-            await handsInstance.send({ image: videoElement });
-          }
-        },
-        width: 640,
-        height: 480
-      });
+      if (window.CameraManager) {
+        await window.CameraManager.start();
+      } else {
+        cameraInstance = new Camera(videoElement, {
+          onFrame: async () => {
+            if (isWebcamRunning && handsInstance) {
+              await handsInstance.send({ image: videoElement });
+            }
+          },
+          width: 640,
+          height: 480
+        });
+        await cameraInstance.start();
+      }
 
-      await cameraInstance.start();
       isWebcamRunning = true;
       updateCameraUIState('running');
       return true;
     } catch (err) {
-      console.error("Error al iniciar cámara MediaPipe:", err);
+      console.error("Error al iniciar cámara:", err);
       updateCameraUIState('stopped');
-      alert("No se pudo acceder a la cámara web. Asegúrate de conceder los permisos en tu navegador.");
+      alert("No se pudo acceder a la cámara. Asegúrate de conceder los permisos en tu navegador.");
       return false;
     }
   }
 
   function stop() {
-    if (cameraInstance) {
+    if (window.CameraManager) {
+      window.CameraManager.stop();
+    } else if (cameraInstance) {
       cameraInstance.stop();
     }
     isWebcamRunning = false;
