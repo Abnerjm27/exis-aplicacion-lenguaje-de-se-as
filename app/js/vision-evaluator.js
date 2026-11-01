@@ -20,18 +20,51 @@ const VisionEvaluator = (() => {
   let canvasElement = null;
   let canvasCtx = null;
 
+  let noticeTimeoutId = null;
+
+  function showCameraNotice(msg, durationMs = 8000) {
+    const toast = document.getElementById('cameraNoticeToast');
+    const txt = document.getElementById('cameraNoticeText');
+    const diagElem = document.getElementById('poseDiagnostic');
+    if (diagElem) diagElem.textContent = msg;
+
+    if (!toast || !txt) return;
+    txt.textContent = msg;
+    toast.classList.remove('hidden');
+
+    if (noticeTimeoutId) clearTimeout(noticeTimeoutId);
+    if (durationMs > 0) {
+      noticeTimeoutId = setTimeout(() => {
+        toast.classList.add('hidden');
+      }, durationMs);
+    }
+  }
+
+  function hideCameraNotice() {
+    const toast = document.getElementById('cameraNoticeToast');
+    if (toast) toast.classList.add('hidden');
+    if (noticeTimeoutId) clearTimeout(noticeTimeoutId);
+  }
+
   function init(videoEl, canvasEl) {
     videoElement = videoEl;
     canvasElement = canvasEl;
     canvasCtx = canvasElement.getContext('2d');
 
     const selectEl = document.getElementById('cameraSourceSelect');
+    const refreshBtn = document.getElementById('btnRefreshCameras');
+    const dismissBtn = document.getElementById('btnDismissCameraNotice');
+
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', hideCameraNotice);
+    }
+
     if (window.CameraManager && videoElement) {
       window.CameraManager.init(videoElement, selectEl, async (vid) => {
         if (isWebcamRunning && handsInstance) {
           await handsInstance.send({ image: vid });
         }
-      });
+      }, refreshBtn);
     }
   }
 
@@ -61,7 +94,7 @@ const VisionEvaluator = (() => {
     return isWebcamRunning;
   }
 
-  async function start() {
+  async function startWithDevice(deviceId = null) {
     if (!videoElement || !canvasElement) return false;
 
     try {
@@ -82,30 +115,53 @@ const VisionEvaluator = (() => {
         handsInstance.onResults(handleHandResults);
       }
 
-      if (window.CameraManager) {
-        await window.CameraManager.start();
-      } else {
-        cameraInstance = new Camera(videoElement, {
-          onFrame: async () => {
-            if (isWebcamRunning && handsInstance) {
-              await handsInstance.send({ image: videoElement });
-            }
-          },
-          width: 640,
-          height: 480
-        });
-        await cameraInstance.start();
+      let cameraStarted = false;
+      try {
+        if (window.CameraManager) {
+          await window.CameraManager.start(deviceId);
+          cameraStarted = true;
+        } else {
+          cameraInstance = new Camera(videoElement, {
+            onFrame: async () => {
+              if (isWebcamRunning && handsInstance) {
+                await handsInstance.send({ image: videoElement });
+              }
+            },
+            width: 640,
+            height: 480
+          });
+          await cameraInstance.start();
+          cameraStarted = true;
+        }
+      } catch (streamErr) {
+        console.warn("[VisionEvaluator] Error con cámara seleccionada:", streamErr);
+        if (deviceId && window.CameraManager) {
+          showCameraNotice("⚠️ La cámara seleccionada no está transmitiendo video (en DroidCam recuerda pulsar 'Start' en la app de tu PC). Activando la cámara de la laptop...");
+          try {
+            await window.CameraManager.start(null);
+            cameraStarted = true;
+          } catch (fallbackErr) {
+            console.error("[VisionEvaluator] Error en fallback de cámara:", fallbackErr);
+          }
+        }
+        if (!cameraStarted) {
+          throw streamErr;
+        }
       }
 
       isWebcamRunning = true;
       updateCameraUIState('running');
       return true;
     } catch (err) {
-      console.error("Error al iniciar cámara:", err);
+      console.error("Error definitivo al iniciar cámara:", err);
       updateCameraUIState('stopped');
-      alert("No se pudo acceder a la cámara. Asegúrate de conceder los permisos en tu navegador.");
+      showCameraNotice("No se pudo iniciar la cámara. Verifica los permisos del navegador o verifica que otra app no la esté usando.");
       return false;
     }
+  }
+
+  async function start() {
+    return startWithDevice(null);
   }
 
   function stop() {
@@ -609,6 +665,7 @@ const VisionEvaluator = (() => {
   return {
     init,
     start,
+    startWithDevice,
     stop,
     toggle,
     setTargetSign,

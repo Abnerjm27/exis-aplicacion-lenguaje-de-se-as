@@ -260,9 +260,14 @@
           </div>
           <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <!-- Selector de Fuente de Cámara (Laptop vs Celular USB / DroidCam / Iriun) -->
-            <select id="cameraSourceSelect" class="bg-slate-900 hover:bg-slate-800 text-slate-300 text-[11px] font-medium rounded-lg px-2 py-1.5 border border-slate-700 focus:border-amber-500 focus:outline-none max-w-[125px] sm:max-w-[170px] truncate cursor-pointer transition shadow-sm" title="Seleccionar fuente de cámara (ej. Celular USB / DroidCam / Laptop)">
-              <option value="">Cámara predeterminada</option>
-            </select>
+            <div class="flex items-center gap-1">
+              <select id="cameraSourceSelect" class="bg-slate-900 hover:bg-slate-800 text-slate-300 text-[11px] font-medium rounded-lg px-2 py-1.5 border border-slate-700 focus:border-amber-500 focus:outline-none max-w-[125px] sm:max-w-[170px] truncate cursor-pointer transition shadow-sm" title="Seleccionar fuente de cámara (ej. Celular USB / DroidCam / Laptop)">
+                <option value="">Cargando cámaras...</option>
+              </select>
+              <button id="btnRefreshCameras" class="btn-spring p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs shadow-sm" title="Escanear cámaras y celulares USB (DroidCam)">
+                🔄
+              </button>
+            </div>
 
             <button id="btnToggleTrajectory" class="btn-spring px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 flex items-center gap-1.5 shadow-sm" title="Activar o desactivar guía de puntos en pantalla" aria-pressed="true">
               <span class="text-amber-400">📍</span>
@@ -314,6 +319,13 @@
           <div id="trajectoryStatusPill" class="hidden absolute top-3 right-3 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/90 border border-amber-500/40 text-xs font-semibold text-amber-300 shadow-xl backdrop-blur-md">
             <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping" aria-hidden="true"></span>
             <span id="trajectoryStatusText">Paso 1: Sien</span>
+          </div>
+
+          <!-- Toast Informativo de Cámara / DroidCam -->
+          <div id="cameraNoticeToast" class="hidden absolute bottom-3 left-3 right-3 z-30 bg-slate-900/95 backdrop-blur-md border border-amber-500/50 rounded-xl p-2.5 text-xs shadow-xl flex items-start gap-2">
+            <span class="text-amber-400 font-bold shrink-0 mt-0.5">ℹ️</span>
+            <p id="cameraNoticeText" class="text-[11px] text-slate-200 leading-snug flex-1">Aviso de cámara</p>
+            <button id="btnDismissCameraNotice" class="text-slate-400 hover:text-white p-1 text-xs shrink-0" aria-label="Cerrar aviso">✕</button>
           </div>
 
           <!-- Modal de Felicitación con Pausa Estricta -->

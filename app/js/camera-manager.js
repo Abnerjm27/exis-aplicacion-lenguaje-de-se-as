@@ -1,13 +1,14 @@
 /**
  * LSC Learn · Proyecto EXIS
  * camera-manager.js - Gestor Orientado a Objetos para Selección y Streaming de Cámaras
- * Soporte nativo para cámara web de laptop y cámaras de celular vía USB (DroidCam, Iriun, Camo, etc.)
- * Cumple estrictamente con la Regla 8 (POO, Encapsulación y Ciclo de Vida) y Regla 1 (< 1,100 líneas).
+ * Soporte robusto para cámaras de laptop y cámaras de celular vía USB (DroidCam, Iriun, Camo, etc.)
+ * Cumple con Regla 8 (POO, Encapsulación y Ciclo de Vida) y Regla 1 (< 1,100 líneas).
  */
 
 class CameraDeviceManager {
   #videoElement = null;
   #selectElement = null;
+  #refreshButton = null;
   #currentStream = null;
   #selectedDeviceId = null;
   #isStreaming = false;
@@ -26,18 +27,39 @@ class CameraDeviceManager {
    * @param {HTMLVideoElement} videoElement
    * @param {HTMLSelectElement} selectElement
    * @param {Function} onFrameCallback
+   * @param {HTMLButtonElement} refreshButton
    */
-  init(videoElement, selectElement, onFrameCallback = null) {
+  init(videoElement, selectElement, onFrameCallback = null, refreshButton = null) {
     this.#videoElement = videoElement;
     this.#selectElement = selectElement;
     this.#onFrameCallback = onFrameCallback;
+    this.#refreshButton = refreshButton;
 
     if (this.#selectElement) {
+      // Al cambiar de cámara en el desplegable, cambiar y mostrar inmediatamente
       this.#selectElement.addEventListener('change', async (e) => {
         const newDeviceId = e.target.value;
-        if (newDeviceId !== this.#selectedDeviceId) {
-          await this.switchDevice(newDeviceId);
+        if (!newDeviceId) return;
+        this.#selectedDeviceId = newDeviceId;
+
+        if (window.VisionEvaluator) {
+          await window.VisionEvaluator.startWithDevice(newDeviceId);
+        } else {
+          await this.start(newDeviceId);
         }
+      });
+
+      // Si hace clic en el selector y los nombres aún no tienen permiso, desbloquearlos
+      this.#selectElement.addEventListener('focus', () => {
+        if (this.#needsPermissionForLabels()) {
+          this.requestPermissionAndRefresh();
+        }
+      });
+    }
+
+    if (this.#refreshButton) {
+      this.#refreshButton.addEventListener('click', async () => {
+        await this.requestPermissionAndRefresh();
       });
     }
 
@@ -45,10 +67,40 @@ class CameraDeviceManager {
       navigator.mediaDevices.addEventListener('devicechange', this.#boundOnDeviceChange);
     }
 
-    // Inicializar lista de dispositivos disponibles
+    // Enumerar dispositivos iniciales
     this.refreshDeviceList().catch((err) => {
       console.warn('[CameraDeviceManager] Error al enumerar dispositivos iniciales:', err);
     });
+  }
+
+  /**
+   * Determina si la lista de dispositivos aún no tiene etiquetas legibles
+   * @returns {boolean}
+   */
+  #needsPermissionForLabels() {
+    if (this.#deviceList.length === 0) return true;
+    return this.#deviceList.every(d => !d.label || d.label.trim() === '');
+  }
+
+  /**
+   * Solicita permiso breve de cámara para que el navegador desbloquee los nombres de los dispositivos
+   */
+  async requestPermissionAndRefresh() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+
+    try {
+      if (!this.#isStreaming) {
+        // Pedir stream temporal de 1 frame para desbloquear nombres reales
+        const tempStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        tempStream.getTracks().forEach(t => {
+          try { t.stop(); } catch (e) {}
+        });
+      }
+      await this.refreshDeviceList();
+    } catch (err) {
+      console.warn('[CameraDeviceManager] No se pudo obtener permiso previo para etiquetas:', err);
+      await this.refreshDeviceList();
+    }
   }
 
   /**
@@ -56,7 +108,7 @@ class CameraDeviceManager {
    */
   async refreshDeviceList() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-      console.warn('[CameraDeviceManager] navigator.mediaDevices no disponible.');
+      console.warn('[CameraDeviceManager] navigator.mediaDevices.enumerateDevices no soportado.');
       return [];
     }
 
@@ -72,49 +124,56 @@ class CameraDeviceManager {
   }
 
   /**
-   * Genera las opciones dentro del <select> con etiquetas claras e iconografía
+   * Renderiza las opciones en el <select> destacando DroidCam, Iriun y cámaras externas
    */
   #renderSelectOptions() {
     if (!this.#selectElement) return;
 
-    const currentVal = this.#selectElement.value;
+    const previousSelected = this.#selectedDeviceId || this.#selectElement.value;
     this.#selectElement.innerHTML = '';
 
     if (this.#deviceList.length === 0) {
       const opt = document.createElement('option');
       opt.value = '';
-      opt.textContent = '📷 Cámara predeterminada';
+      opt.textContent = '🔍 Clic para buscar cámaras...';
       this.#selectElement.appendChild(opt);
       return;
     }
 
-    this.#deviceList.forEach((device, index) => {
+    // Si detectamos DroidCam, la priorizamos o la colocamos al inicio
+    const sorted = [...this.#deviceList].sort((a, b) => {
+      const aDroid = (a.label || '').toLowerCase().includes('droidcam') ? 1 : 0;
+      const bDroid = (b.label || '').toLowerCase().includes('droidcam') ? 1 : 0;
+      return bDroid - aDroid;
+    });
+
+    sorted.forEach((device, index) => {
       const opt = document.createElement('option');
       opt.value = device.deviceId;
       opt.textContent = this.#formatDeviceLabel(device.label, index);
       this.#selectElement.appendChild(opt);
     });
 
-    // Mantener selección previa o seleccionar la activa
-    if (this.#selectedDeviceId && this.#deviceList.some(d => d.deviceId === this.#selectedDeviceId)) {
-      this.#selectElement.value = this.#selectedDeviceId;
-    } else if (currentVal && this.#deviceList.some(d => d.deviceId === currentVal)) {
-      this.#selectElement.value = currentVal;
-      this.#selectedDeviceId = currentVal;
+    // Restaurar selección previa si existe
+    if (previousSelected && sorted.some(d => d.deviceId === previousSelected)) {
+      this.#selectElement.value = previousSelected;
+      this.#selectedDeviceId = previousSelected;
     } else {
-      this.#selectElement.value = this.#deviceList[0].deviceId;
-      this.#selectedDeviceId = this.#deviceList[0].deviceId;
+      this.#selectElement.value = sorted[0].deviceId;
+      this.#selectedDeviceId = sorted[0].deviceId;
     }
   }
 
   /**
-   * Formatea la etiqueta del dispositivo destacando celulares USB o cámaras externas
+   * Formatea el nombre de la cámara con iconos identificadores
    * @param {string} label
    * @param {number} index
    * @returns {string}
    */
   #formatDeviceLabel(label, index) {
-    if (!label) return `📷 Cámara ${index + 1}`;
+    if (!label || label.trim() === '') {
+      return `📷 Cámara ${index + 1} (Clic para activar)`;
+    }
 
     const lower = label.toLowerCase();
     if (lower.includes('droidcam')) {
@@ -132,6 +191,9 @@ class CameraDeviceManager {
     if (lower.includes('obs')) {
       return `🎥 OBS Virtual Camera`;
     }
+    if (lower.includes('hp true vision') || lower.includes('integrated') || lower.includes('integrada')) {
+      return `💻 Cámara Laptop`;
+    }
     if (lower.includes('back') || lower.includes('rear') || lower.includes('trasera')) {
       return `📷 Cámara Trasera`;
     }
@@ -139,68 +201,84 @@ class CameraDeviceManager {
       return `📷 Cámara Frontal`;
     }
     if (lower.includes('usb')) {
-      return `📷 Cámara USB: ${label.substring(0, 20)}`;
+      return `📷 USB: ${label.substring(0, 18)}`;
     }
-    return `📷 ${label.substring(0, 24)}`;
+    return `📷 ${label.substring(0, 22)}`;
   }
 
   /**
-   * Inicia el flujo de video con la cámara seleccionada
-   * @param {string|null} preferredDeviceId
+   * Inicia el flujo de video con la cámara solicitada
+   * @param {string|null} deviceId
    * @returns {Promise<boolean>}
    */
-  async start(preferredDeviceId = null) {
+  async start(deviceId = null) {
     if (!this.#videoElement) {
-      console.error('[CameraDeviceManager] Elemento de video no configurado.');
+      console.error('[CameraDeviceManager] videoElement no definido.');
       return false;
     }
 
-    if (preferredDeviceId) {
-      this.#selectedDeviceId = preferredDeviceId;
+    if (deviceId) {
+      this.#selectedDeviceId = deviceId;
+      if (this.#selectElement && this.#selectElement.value !== deviceId) {
+        this.#selectElement.value = deviceId;
+      }
     } else if (!this.#selectedDeviceId && this.#selectElement && this.#selectElement.value) {
       this.#selectedDeviceId = this.#selectElement.value;
     }
 
+    // Detener stream previo limpiamente
     this.stop();
 
-    const constraints = {
-      audio: false,
-      video: {
-        width: { ideal: 640 },
-        height: { ideal: 480 },
-        frameRate: { ideal: 30, max: 30 }
-      }
+    // Configurar restricciones flexibles para máxima compatibilidad con DroidCam y Webcams
+    const videoConstraints = {
+      width: { ideal: 640 },
+      height: { ideal: 480 }
     };
 
     if (this.#selectedDeviceId) {
-      constraints.video.deviceId = { exact: this.#selectedDeviceId };
+      videoConstraints.deviceId = { ideal: this.#selectedDeviceId };
     }
 
     try {
       let stream = null;
       try {
-        stream = await navigator.mediaDevices.getUserMedia(constraints);
+        stream = await navigator.mediaDevices.getUserMedia({
+          audio: false,
+          video: videoConstraints
+        });
       } catch (errConstraint) {
-        // Fallback sin exact deviceId si el navegador restringe constraints exactos
-        console.warn('[CameraDeviceManager] Fallback a restricciones genéricas:', errConstraint);
-        delete constraints.video.deviceId;
-        stream = await navigator.mediaDevices.getUserMedia(constraints);
+        console.warn('[CameraDeviceManager] Reintentando con configuración básica de video:', errConstraint);
+        stream = await navigator.mediaDevices.getUserMedia({
+          audio: false,
+          video: true
+        });
       }
 
       this.#currentStream = stream;
       this.#videoElement.srcObject = stream;
+      this.#videoElement.muted = true;
+      this.#videoElement.setAttribute('playsinline', 'true');
 
-      await new Promise((resolve) => {
-        this.#videoElement.onloadedmetadata = () => {
-          this.#videoElement.play().then(resolve).catch(resolve);
-        };
-      });
+      // Reproducir video sin bloqueos de promesa
+      try {
+        await this.#videoElement.play();
+      } catch (playErr) {
+        console.warn('[CameraDeviceManager] Esperando evento loadeddata para reproducir:', playErr);
+        await new Promise((resolve) => {
+          const timeout = setTimeout(resolve, 1500);
+          this.#videoElement.onloadeddata = () => {
+            clearTimeout(timeout);
+            this.#videoElement.play().catch(() => {}).finally(resolve);
+          };
+        });
+      }
 
       this.#isStreaming = true;
 
-      // Una vez concedido el permiso, los nombres reales de los dispositivos se desbloquean
+      // Actualizar lista de dispositivos con los nombres ya autorizados
       await this.refreshDeviceList();
 
+      // Iniciar bucle de entrega de fotogramas a MediaPipe
       this.#startFramePump();
       return true;
     } catch (err) {
@@ -211,7 +289,7 @@ class CameraDeviceManager {
   }
 
   /**
-   * Bucle de captura de fotogramas sincronizado de baja latencia
+   * Bucle de captura de fotogramas sincronizado de ultra-baja latencia
    */
   #startFramePump() {
     this.#stopFramePump();
@@ -223,7 +301,7 @@ class CameraDeviceManager {
         try {
           await this.#onFrameCallback(this.#videoElement);
         } catch (frameErr) {
-          console.warn('[CameraDeviceManager] Error en callback de frame:', frameErr);
+          console.warn('[CameraDeviceManager] Error en onFrameCallback:', frameErr);
         }
       }
 
@@ -244,7 +322,7 @@ class CameraDeviceManager {
   }
 
   /**
-   * Detiene el bucle de procesamiento de fotogramas
+   * Detiene el bucle de fotogramas
    */
   #stopFramePump() {
     if (this.#frameCallbackId !== null) {
@@ -258,29 +336,7 @@ class CameraDeviceManager {
   }
 
   /**
-   * Alterna a un nuevo dispositivo de cámara de forma fluida
-   * @param {string} deviceId
-   */
-  async switchDevice(deviceId) {
-    if (this.#isSwitching) return;
-    this.#isSwitching = true;
-    this.#selectedDeviceId = deviceId;
-
-    if (this.#selectElement && this.#selectElement.value !== deviceId) {
-      this.#selectElement.value = deviceId;
-    }
-
-    try {
-      if (this.#isStreaming) {
-        await this.start(deviceId);
-      }
-    } finally {
-      this.#isSwitching = false;
-    }
-  }
-
-  /**
-   * Detiene el flujo de la cámara y libera todos los recursos del hardware
+   * Detiene la cámara y libera todos los recursos del hardware
    */
   stop() {
     this.#isStreaming = false;
@@ -301,7 +357,7 @@ class CameraDeviceManager {
   }
 
   /**
-   * Destruye el gestor y remueve los event listeners
+   * Destruye la instancia y libera listeners
    */
   destroy() {
     this.stop();
@@ -310,7 +366,7 @@ class CameraDeviceManager {
     }
   }
 
-  // Getters de estado público
+  // Getters de estado
   get isStreaming() {
     return this.#isStreaming;
   }
@@ -324,6 +380,6 @@ class CameraDeviceManager {
   }
 }
 
-// Instancia única y exportación global
+// Exportación global y singleton
 window.CameraDeviceManager = CameraDeviceManager;
 window.CameraManager = new CameraDeviceManager();
