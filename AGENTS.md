@@ -19,14 +19,15 @@ Este documento es de **lectura obligatoria para cualquier Agente de IA** (Google
 
 ## 2. Reglas Duras de Desarrollo (Hard Rules)
 
-Cualquier cambio de código debe cumplir **estrictamente** con estas 6 reglas:
+Cualquier cambio de código debe cumplir **estrictamente** con estas 7 reglas:
 
 1. **Límite de Líneas:** Ningún archivo de código puede superar las **1,100 líneas**. Si un módulo crece, debe subdividirse en submódulos independientes.
 2. **Cero CSS y Cero JS Embebido en HTML:** En [`app/index.html`](file:///app/index.html) está estrictamente prohibido usar etiquetas `<style>` o escribir código dentro de `<script>`. Solo se permiten referencias externas `<link rel="stylesheet">` y `<script src="...">`.
 3. **Servidor y Puerto Único (8000):** La aplicación corre exclusivamente en `http://localhost:8000/`. Nunca cambiar a puertos alternos (8080, 8088, 8899) sin matar primero procesos huérfanos.
 4. **Doble Salida Multimedia (MP4 + WebP):** Cada seña en `app/videos/real/` y `app/videos/anime/` debe tener archivo `.mp4` y su gemelo `.webp` animado a 25 fps continuo (2.0 segundos, 50 frames). Esto asegura 100% de reproducción cruzada si el navegador bloquea autoplay de video.
-5. **Accesibilidad y Contraste WCAG AAA:** Mantener la paleta oscuro/ámbar (`#0a0e17`, `#121824`, `#f59e0b`), tamaño de botones táctiles $\ge 44\text{px}$, y cero desbordamientos horizontales (`scrollWidth == clientWidth`) en 390x844 (móvil) y 1280x850 (escritorio).
-6. **Verificación Visual Antes de Commit:** Antes de declarar una tarea como finalizada, el agente debe verificar que la app cargue sin errores en la consola (`window.__consoleErrors == []`).
+5. **Curaduría y Poda Temporal de Videos Anime IA (Calidad Pedagógica LSC):** Todo video generado con IA (Gemini Veo, Kling, Runway, etc.) debe ser inspeccionado fotograma a fotograma. Es obligatorio recortar fotogramas residuales, vacilaciones de inicio, mutaciones anatómicas tardías (ej. dedos que se doblan tras la seña) y artefactos en fondo, reteniendo exclusivamente el bucle canónico limpio y exacto para LSC (típicamente 2.5s a 4.0s / 60 a 96 frames a 24 fps).
+6. **Accesibilidad y Contraste WCAG AAA:** Mantener la paleta oscuro/ámbar (`#0a0e17`, `#121824`, `#f59e0b`), tamaño de botones táctiles $\ge 44\text{px}$, y cero desbordamientos horizontales (`scrollWidth == clientWidth`) en 390x844 (móvil) y 1280x850 (escritorio).
+7. **Verificación Visual Antes de Commit:** Antes de declarar una tarea como finalizada, el agente debe verificar que la app cargue sin errores en la consola (`window.__consoleErrors == []`).
 
 ---
 

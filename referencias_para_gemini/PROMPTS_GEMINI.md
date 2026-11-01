@@ -46,7 +46,7 @@ Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficia
 |:---|:---:|:---|:---|:---|
 | **HOLA** | Palabra | `fotos/HOLA_ref.jpg` | Mano derecha abierta a la altura de la sien con saludo suave | `app/videos/anime/HOLA_body.mp4` |
 | **YO** | Palabra | `fotos/YO_ref.jpg` | Puño cerrado con dedo índice señalando al centro del pecho | `app/videos/anime/YO_body.mp4` |
-| **BUENOS** | Palabra | `fotos/BUENOS_ref.jpg` | Yemas de los dedos juntas en el mentón proyectadas al frente | `app/videos/anime/BUENOS_body.mp4` |
+| **BUENOS** | Palabra | `fotos/BUENOS_ref.jpg` | Mano derecha baja desde arriba y choca con la palma sobre la mano izquierda en el centro | `app/videos/anime/BUENOS_body.mp4` |
 | **DIAS** | Palabra | `fotos/DIAS_ref.jpg` | Ambos brazos se abren hacia los lados como el amanecer | `app/videos/anime/DIAS_body.mp4` |
 | **NOCHES** | Palabra | `fotos/NOCHES_ref.jpg` | Ambos brazos cruzados sobre el pecho descansando en antebrazos | `app/videos/anime/NOCHES_body.mp4` |
 | **NOMBRE** | Palabra | `fotos/NOMBRE_ref.jpg` | Dedos índice y medio de la mano derecha sobre los de la izquierda | `app/videos/anime/NOMBRE_body.mp4` |
@@ -94,19 +94,19 @@ Flawless continuous loop, accurate hand anatomy, studio lighting with soft cyan 
 
 ---
 
-### 03. Seña: BUENOS / BUENAS (Cortesía)
+### 03. Seña: BUENOS / BUENAS (Cortesía - LSC70)
 **Español:**
 ```text
-Video en bucle perfecto de 2 segundos. Joven tutora anime de señas LSC (estilo anime moderno 3D, cabello castaño con reflejos suaves, chaqueta blanca con ribetes cian, fondo minimalista oscuro #070c18). 
-Muestra el torso y rostro. La mano derecha sube con los dedos índice, medio, anular y meñique juntos y extendidos. Apoya suavemente las yemas de los dedos sobre la barbilla/mentón, y con un movimiento elegante proyecta la mano hacia adelante y ligeramente hacia abajo en señal de bendición y cortesía ('BUENOS / AS'). Su rostro expresa amabilidad y respeto. Retorna de forma fluida a la postura inicial. 
-Bucle continuo perfecto, mano y dedos perfectamente definidos, iluminación cinematográfica suave.
+Video en bucle perfecto de 2.5 segundos. Tutora anime de señas LSC (estilo anime moderno 3D, cabello castaño con flequillo despejando rostro, chaqueta técnica gris pizarra con detalles ámbar #FBBF24, fondo de estudio oscuro #070c18). 
+Plano medio mostrando torso superior y ambas manos. La mano izquierda se sostiene abierta como base frente al centro del pecho con la palma orientada hacia arriba. La mano derecha (con los dedos juntos y extendidos) parte desde la altura superior del pecho, desciende con un movimiento limpio y choca apoyando la palma firmemente sobre la palma de la mano izquierda en la mitad del torso (seña de 'BUENOS / AS' en Lengua de Señas Colombiana - LSC70). Pausa 0.4 segundos en el contacto y retorna suavemente a la posición de reposo. 
+Bucle fluido, dedos perfectamente dibujados en ambas manos, iluminación cinematográfica suave. 24 fps, clean seamless loop.
 ```
 
 **English:**
 ```text
-Seamless 2-second loop video. Young female anime sign tutor (clean cel-shaded anime aesthetic, dark brown hair with soft highlights, white high-tech jacket with cyan details, sleek dark background #070c18). 
-Medium framing focusing on face and torso. Right hand raises with fingers straight and together; fingertips gently touch the chin and gracefully project forward and slightly downward in a polite welcoming salute for 'GOOD / BUENOS'. Friendly, welcoming facial expression. Fluidly eases back to neutral rest. 
-Seamless continuous loop, crystal clear fingers and thumb, professional studio illumination with soft rim highlights.
+Seamless 2.5-second loop video. Young female anime sign tutor (clean cel-shaded 3D anime aesthetic, dark brown hair with bangs clearing the face, slate athletic jacket with amber accents #FBBF24, dark navy studio background #070c18). 
+Medium shot showing upper torso and both hands. The left hand is held open as a flat base in front of the center of the chest with palm facing upward. The right hand (fingers together and flat) starts from upper chest level, moves downward and lands with its palm slapping/resting firmly onto the left palm in the middle of the torso (Colombian Sign Language 'BUENOS / GOOD' - LSC70). Pauses for 0.4 seconds upon contact, then smoothly returns to neutral resting position. 
+Seamless continuous loop, crystal clear fingers and palms on both hands, professional studio illumination. 24 fps.
 ```
 
 ---

@@ -28,6 +28,7 @@
 
   <!-- Scripts Modulares -->
   <script src="js/signs-data.js" defer></script>
+  <script src="js/trajectory-tracker.js" defer></script>
   <script src="js/video-player.js" defer></script>
   <script src="js/vision-evaluator.js" defer></script>
   <script src="js/chat-tutor.js" defer></script>
@@ -256,10 +257,16 @@
             </svg>
             <span class="font-bold text-xs sm:text-sm tracking-wide text-slate-100 truncate">2. Práctica con Cámara e IA</span>
           </div>
-          <button id="toggleCameraBtn" class="btn-spring px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-700 hover:bg-emerald-600 text-white shadow-sm flex items-center gap-2 shrink-0">
-            <span id="cameraStatusDot" class="w-2 h-2 rounded-full bg-white animate-pulse" aria-hidden="true"></span>
-            <span id="cameraBtnText">Iniciar Cámara</span>
-          </button>
+          <div class="flex items-center gap-2 shrink-0">
+            <button id="btnToggleTrajectory" class="btn-spring px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 flex items-center gap-1.5 shadow-sm" title="Activar o desactivar guía de puntos en pantalla" aria-pressed="true">
+              <span class="text-amber-400">📍</span>
+              <span id="trajectoryBtnText" class="hidden xs:inline">Puntos: ON</span>
+            </button>
+            <button id="toggleCameraBtn" class="btn-spring px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-700 hover:bg-emerald-600 text-white shadow-sm flex items-center gap-2 shrink-0">
+              <span id="cameraStatusDot" class="w-2 h-2 rounded-full bg-white animate-pulse" aria-hidden="true"></span>
+              <span id="cameraBtnText">Iniciar Cámara</span>
+            </button>
+          </div>
         </div>
 
         <!-- Visor de Cámara y Canvas -->
@@ -295,6 +302,12 @@
             <div id="poseDiagnostic" class="text-[10px] text-slate-300 font-mono bg-slate-900/90 p-1.5 rounded border border-slate-800">
               Diagnóstico: Esperando mano...
             </div>
+          </div>
+
+          <!-- Badge flotante de Trayectoria Activa (Connect-the-Dots) -->
+          <div id="trajectoryStatusPill" class="hidden absolute top-3 right-3 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/90 border border-amber-500/40 text-xs font-semibold text-amber-300 shadow-xl backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping" aria-hidden="true"></span>
+            <span id="trajectoryStatusText">Paso 1: Sien</span>
           </div>
 
           <!-- Modal de Felicitación con Pausa Estricta -->

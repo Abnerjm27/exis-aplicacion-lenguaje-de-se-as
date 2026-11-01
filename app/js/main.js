@@ -55,6 +55,26 @@ function bindUIEvents() {
     if (window.VisionEvaluator) window.VisionEvaluator.toggle();
   });
 
+  // Botón para alternar guía de puntos/trayectorias
+  const btnToggleTrajectory = document.getElementById('btnToggleTrajectory');
+  const trajectoryBtnText = document.getElementById('trajectoryBtnText');
+  if (btnToggleTrajectory) {
+    btnToggleTrajectory.addEventListener('click', () => {
+      if (window.TrajectoryTracker) {
+        const nextState = !window.TrajectoryTracker.getIsEnabled();
+        window.TrajectoryTracker.setEnabled(nextState);
+        btnToggleTrajectory.setAttribute('aria-pressed', String(nextState));
+        if (nextState) {
+          btnToggleTrajectory.className = "btn-spring px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 flex items-center gap-1.5 shadow-sm";
+          if (trajectoryBtnText) trajectoryBtnText.textContent = "Puntos: ON";
+        } else {
+          btnToggleTrajectory.className = "btn-spring px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 text-slate-500 border border-slate-800 flex items-center gap-1.5 shadow-sm";
+          if (trajectoryBtnText) trajectoryBtnText.textContent = "Puntos: OFF";
+        }
+      }
+    });
+  }
+
   // Explicar seña por voz
   const btnExplain = document.getElementById('btnExplainVoice');
   if (btnExplain) btnExplain.addEventListener('click', explainSignVoice);
@@ -133,6 +153,13 @@ function renderSignButtons() {
 }
 
 function selectSign(id) {
+  // 1. Cerrar inmediatamente el modal de victoria si estaba visible
+  const popup = document.getElementById('successPopup');
+  if (popup) {
+    popup.classList.add('hidden');
+    popup.classList.remove('modal-enter');
+  }
+
   let found = window.SIGNS_DATA.words.find(s => s.id === id);
   if (found) {
     currentCategory = 'words';
@@ -144,12 +171,23 @@ function selectSign(id) {
 
   currentSign = found;
 
+  // Actualizar estilos de los botones de categoría si cambió de categoría
+  const wordsBtn = document.getElementById('catWordsBtn');
+  const lettersBtn = document.getElementById('catLettersBtn');
+  if (currentCategory === 'words') {
+    if (wordsBtn) wordsBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 shadow-sm transition";
+    if (lettersBtn) lettersBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition";
+  } else {
+    if (lettersBtn) lettersBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 shadow-sm transition";
+    if (wordsBtn) wordsBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition";
+  }
+
   // Actualizar Reproductor de Video Interactivo LSC
   if (window.VideoPlayer) {
     window.VideoPlayer.setSign(currentSign.id);
   }
 
-  // Actualizar Evaluador de Visión MediaPipe
+  // Actualizar Evaluador de Visión MediaPipe (reinicia trayectoria, pausa y progreso)
   if (window.VisionEvaluator) {
     window.VisionEvaluator.setTargetSign(currentSign);
   }
@@ -209,11 +247,10 @@ function dismissSuccessModal(goToNext) {
     const idx = list.findIndex(s => s.id === currentSign.id);
     const nextIdx = (idx + 1) % list.length;
     selectSign(list[nextIdx].id);
-  }
-
-  setTimeout(() => {
+  } else {
+    // Seguir practicando la misma seña: reiniciar evaluación de inmediato
     if (window.VisionEvaluator) {
-      window.VisionEvaluator.setPaused(false);
+      window.VisionEvaluator.setTargetSign(currentSign);
     }
-  }, 1200);
+  }
 }

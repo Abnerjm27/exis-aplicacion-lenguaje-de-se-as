@@ -195,7 +195,36 @@ Respuesta:"""
 
         super().do_POST()
 
+def free_port(port):
+    """Libera el puerto si quedó retenido por un proceso previo huérfano."""
+    try:
+        import subprocess
+        # Buscar PIDs escuchando en el puerto
+        cmd = f'powershell -NoProfile -Command "Get-NetTCPConnection -LocalPort {port} -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess"'
+        out = subprocess.check_output(cmd, shell=True, text=True).strip()
+        if out:
+            for line in out.splitlines():
+                pid = int(line.strip())
+                if pid > 0 and pid != os.getpid():
+                    print(f"[AUTO-REPAIR] Terminando proceso huérfano PID {pid} en puerto {port}...")
+                    subprocess.call(f'taskkill /F /PID {pid}', shell=True)
+            import time
+            time.sleep(1)
+    except Exception as e:
+        pass
+
 if __name__ == '__main__':
+    free_port(PORT)
+    socketserver.TCPServer.allow_reuse_address = True
     print(f"Iniciando Servidor LSC Learn con Proxy Ollama en http://localhost:{PORT}")
-    with socketserver.ThreadingTCPServer(("", PORT), LSCHandler) as httpd:
-        httpd.serve_forever()
+    try:
+        with socketserver.ThreadingTCPServer(("", PORT), LSCHandler) as httpd:
+            httpd.serve_forever()
+    except OSError as e:
+        if e.winerror == 10048 if hasattr(e, 'winerror') else False:
+            print(f"[AVISO] Puerto {PORT} en espera de reciclado, forzando liberación...")
+            free_port(PORT)
+            with socketserver.ThreadingTCPServer(("", PORT), LSCHandler) as httpd:
+                httpd.serve_forever()
+        else:
+            raise e

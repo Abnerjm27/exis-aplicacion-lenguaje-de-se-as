@@ -29,12 +29,22 @@ const VisionEvaluator = (() => {
   function setTargetSign(sign) {
     currentTargetSign = sign;
     consecutiveSuccessFrames = 0;
+    isEvaluationPaused = false;
+    if (window.TrajectoryTracker) {
+      window.TrajectoryTracker.setSign(sign);
+    }
+    updateScoreUI(0, `Ubica tu mano frente a la cámara para iniciar ${sign ? sign.name : ''}...`);
+    const diagElem = document.getElementById('poseDiagnostic');
+    if (diagElem) diagElem.textContent = "Ubica tu mano frente a la cámara...";
   }
 
   function setPaused(paused) {
     isEvaluationPaused = paused;
     if (paused) {
       consecutiveSuccessFrames = 0;
+      if (window.TrajectoryTracker) {
+        window.TrajectoryTracker.reset();
+      }
     }
   }
 
@@ -92,6 +102,9 @@ const VisionEvaluator = (() => {
     if (canvasCtx && canvasElement) {
       canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     }
+    if (window.TrajectoryTracker) {
+      window.TrajectoryTracker.reset();
+    }
     resetDiagnostics();
   }
 
@@ -112,6 +125,12 @@ const VisionEvaluator = (() => {
     canvasCtx.save();
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
 
+    // Actualizar y renderizar la guía de trayectoria interactiva (Connect-the-Dots)
+    if (window.TrajectoryTracker && !isEvaluationPaused) {
+      window.TrajectoryTracker.update(results.multiHandLandmarks, canvasElement.width, canvasElement.height);
+      window.TrajectoryTracker.render(canvasCtx, canvasElement.width, canvasElement.height);
+    }
+
     if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
       // Draw MediaPipe Skeleton for all detected hands
       for (let i = 0; i < results.multiHandLandmarks.length; i++) {
@@ -128,6 +147,7 @@ const VisionEvaluator = (() => {
       if (!isEvaluationPaused) {
         consecutiveSuccessFrames = Math.max(0, consecutiveSuccessFrames - 2);
         updateScoreUI(0, "Coloca tu mano frente a la cámara web");
+        updateTrajectoryPillUI(window.TrajectoryTracker ? window.TrajectoryTracker.getStatusText() : null);
         resetFingerBadges();
       }
     }
@@ -426,21 +446,70 @@ const VisionEvaluator = (() => {
       }
     }
 
+    // Integración de trayectoria dinámica (Connect-the-Dots)
+    const hasTrajectory = window.TrajectoryTracker && window.TrajectoryTracker.isTrajectoryActive();
+    const isTrajComplete = window.TrajectoryTracker ? window.TrajectoryTracker.isCompleted() : true;
+    const trajProgress = window.TrajectoryTracker ? window.TrajectoryTracker.getProgress() : 1.0;
+    const trajStatus = window.TrajectoryTracker ? window.TrajectoryTracker.getStatusText() : null;
+
+    let finalScore = score;
+    if (hasTrajectory) {
+      if (score >= 60) {
+        if (isTrajComplete) {
+          finalScore = Math.max(score, 95);
+          hint = `¡Movimiento y pose de ${currentTargetSign.name} completados!`;
+          diag = `✓ Recorrido completado con éxito`;
+        } else {
+          // Postura anatómica adecuada, guiando por la secuencia de puntos
+          const stepBonus = Math.round(trajProgress * 30);
+          finalScore = Math.min(84, Math.round(score * 0.55 + stepBonus));
+          if (trajStatus) {
+            hint = `${trajStatus.text} (Postura: Correcta)`;
+            diag = `Sigue los puntos: ${trajStatus.step}/${trajStatus.total}`;
+          }
+        }
+      } else {
+        // La postura aún necesita afinarse
+        finalScore = Math.round(score * 0.65);
+        if (trajStatus) {
+          diag = `Coloca bien los dedos antes de moverte`;
+        }
+      }
+    }
+
     const diagElem = document.getElementById('poseDiagnostic');
     if (diagElem) diagElem.textContent = diag;
 
-    updateScoreUI(score, hint);
+    updateScoreUI(finalScore, hint);
+    updateTrajectoryPillUI(trajStatus);
 
-    if (score >= 85) {
+    const isMastered = hasTrajectory 
+      ? (finalScore >= 85 && isTrajComplete) 
+      : (finalScore >= 85);
+
+    if (isMastered) {
       consecutiveSuccessFrames++;
       if (consecutiveSuccessFrames >= SUCCESS_THRESHOLD_FRAMES) {
         consecutiveSuccessFrames = 0;
         if (typeof window.onSignMastered === 'function') {
-          window.onSignMastered(currentTargetSign, score);
+          window.onSignMastered(currentTargetSign, finalScore);
         }
       }
     } else {
       consecutiveSuccessFrames = Math.max(0, consecutiveSuccessFrames - 1);
+    }
+  }
+
+  function updateTrajectoryPillUI(trajStatus) {
+    const pill = document.getElementById('trajectoryStatusPill');
+    const text = document.getElementById('trajectoryStatusText');
+    if (!pill || !text) return;
+
+    if (!trajStatus || !trajStatus.active) {
+      pill.classList.add('hidden');
+    } else {
+      pill.classList.remove('hidden');
+      text.textContent = trajStatus.text;
     }
   }
 
@@ -527,6 +596,7 @@ const VisionEvaluator = (() => {
     toggle,
     setTargetSign,
     setPaused,
+    isPaused: () => isEvaluationPaused,
     isRunning
   };
 })();
