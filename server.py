@@ -206,7 +206,7 @@ Respuesta:"""
                 self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
                 return
 
-        super().do_POST()
+        self.send_error(404, "Endpoint no encontrado")
 
 def free_port(port):
     """Libera el puerto si quedó retenido por un proceso previo huérfano."""
