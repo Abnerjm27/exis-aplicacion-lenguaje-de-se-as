@@ -84,13 +84,13 @@ const VideoPlayer = (() => {
     }
   }
 
-  const ASSET_VERSION = 'v=20261101_buenos_v2';
+  const ASSET_VERSION = Date.now();
 
   function getMediaPaths(signId, mode, view) {
     const filename = `${signId}_${view}`;
     return {
-      mp4: `videos/${mode}/${filename}.mp4?${ASSET_VERSION}`,
-      webp: `videos/${mode}/${filename}.webp?${ASSET_VERSION}`
+      mp4: `videos/${mode}/${filename}.mp4?v=${ASSET_VERSION}`,
+      webp: `videos/${mode}/${filename}.webp?v=${ASSET_VERSION}`
     };
   }
 
