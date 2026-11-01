@@ -99,6 +99,18 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header('Accept-Ranges', 'bytes')
         super().end_headers()
 
+    def copyfile(self, source, outputfile):
+        try:
+            super().copyfile(source, outputfile)
+        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+            pass
+
+    def handle_one_request(self):
+        try:
+            super().handle_one_request()
+        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+            pass
+
     def do_OPTIONS(self):
         self.send_response(200)
         self.end_headers()
@@ -213,18 +225,29 @@ def free_port(port):
     except Exception as e:
         pass
 
+class RobustThreadingServer(socketserver.ThreadingTCPServer):
+    allow_reuse_address = True
+    daemon_threads = True
+
+    def handle_error(self, request, client_address):
+        import sys
+        exc_type, _, _ = sys.exc_info()
+        if exc_type in (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+            return
+        super().handle_error(request, client_address)
+
 if __name__ == '__main__':
     free_port(PORT)
-    socketserver.TCPServer.allow_reuse_address = True
+    RobustThreadingServer.allow_reuse_address = True
     print(f"Iniciando Servidor LSC Learn con Proxy Ollama en http://localhost:{PORT}")
     try:
-        with socketserver.ThreadingTCPServer(("", PORT), LSCHandler) as httpd:
+        with RobustThreadingServer(("", PORT), LSCHandler) as httpd:
             httpd.serve_forever()
     except OSError as e:
         if e.winerror == 10048 if hasattr(e, 'winerror') else False:
             print(f"[AVISO] Puerto {PORT} en espera de reciclado, forzando liberación...")
             free_port(PORT)
-            with socketserver.ThreadingTCPServer(("", PORT), LSCHandler) as httpd:
+            with RobustThreadingServer(("", PORT), LSCHandler) as httpd:
                 httpd.serve_forever()
         else:
             raise e
