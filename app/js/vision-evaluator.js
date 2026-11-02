@@ -102,7 +102,7 @@ const VisionEvaluator = (() => {
 
       if (!handsInstance) {
         handsInstance = new Hands({
-          locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+          locateFile: (file) => `lib/mediapipe/hands/${file}`
         });
 
         handsInstance.setOptions({

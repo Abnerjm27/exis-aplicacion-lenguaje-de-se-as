@@ -119,6 +119,13 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
         '.js': 'application/javascript',
         '.css': 'text/css',
         '.html': 'text/html; charset=utf-8',
+        '.wasm': 'application/wasm',
+        '.data': 'application/octet-stream',
+        '.binarypb': 'application/octet-stream',
+        '.tflite': 'application/octet-stream',
+        '.woff2': 'font/woff2',
+        '.woff': 'font/woff',
+        '.ttf': 'font/ttf',
     }
 
     def __init__(self, *args, **kwargs):
