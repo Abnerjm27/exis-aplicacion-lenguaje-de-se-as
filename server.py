@@ -2,6 +2,7 @@ import http.server
 import socketserver
 import json
 import urllib.request
+import urllib.parse
 import os
 import sys
 
@@ -76,6 +77,24 @@ def detect_sign(msg):
 
     return None
 
+class RangeFileWrapper:
+    """Wrapper para transmitir un rango de bytes específico de un archivo abierto (HTTP 206)."""
+    def __init__(self, file_obj, length):
+        self.file_obj = file_obj
+        self.remaining = length
+
+    def read(self, size=-1):
+        if self.remaining <= 0:
+            return b""
+        if size < 0 or size > self.remaining:
+            size = self.remaining
+        data = self.file_obj.read(size)
+        self.remaining -= len(data)
+        return data
+
+    def close(self):
+        self.file_obj.close()
+
 class LSCHandler(http.server.SimpleHTTPRequestHandler):
     extensions_map = {
         **http.server.SimpleHTTPRequestHandler.extensions_map,
@@ -91,6 +110,94 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
+
+    def send_head(self):
+        """Maneja solicitudes GET/HEAD con soporte completo para rangos de bytes (HTTP 206 Partial Content)."""
+        path = self.translate_path(self.path)
+        f = None
+        if os.path.isdir(path):
+            parts = urllib.parse.urlsplit(self.path)
+            if not parts.path.endswith(('/', '%2f', '%2F')):
+                self.send_response(301)
+                new_parts = (parts[0], parts[1], parts[2] + '/', parts[3], parts[4])
+                new_url = urllib.parse.urlunsplit(new_parts)
+                self.send_header("Location", new_url)
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return None
+            for index in self.index_pages:
+                index = os.path.join(path, index)
+                if os.path.isfile(index):
+                    path = index
+                    break
+            else:
+                return self.list_directory(path)
+
+        ctype = self.guess_type(path)
+        if path.endswith("/"):
+            self.send_error(404, "File not found")
+            return None
+
+        try:
+            f = open(path, 'rb')
+        except OSError:
+            self.send_error(404, "File not found")
+            return None
+
+        try:
+            fs = os.fstat(f.fileno())
+            total_length = fs.st_size
+
+            range_header = self.headers.get('Range')
+            if range_header and range_header.startswith('bytes='):
+                try:
+                    range_spec = range_header.split('=', 1)[1].strip()
+                    parts = range_spec.split('-', 1)
+                    start_str, end_str = parts[0].strip(), parts[1].strip()
+
+                    if start_str and end_str:
+                        start = int(start_str)
+                        end = int(end_str)
+                    elif start_str:
+                        start = int(start_str)
+                        end = total_length - 1
+                    elif end_str:
+                        suffix = int(end_str)
+                        start = max(0, total_length - suffix)
+                        end = total_length - 1
+                    else:
+                        start = 0
+                        end = total_length - 1
+
+                    if start >= total_length or end >= total_length or start > end:
+                        self.send_response(416, "Requested Range Not Satisfiable")
+                        self.send_header("Content-Range", f"bytes */{total_length}")
+                        self.send_header("Content-Length", "0")
+                        self.end_headers()
+                        f.close()
+                        return None
+
+                    content_length = end - start + 1
+                    f.seek(start)
+                    self.send_response(206, "Partial Content")
+                    self.send_header("Content-Type", ctype)
+                    self.send_header("Content-Range", f"bytes {start}-{end}/{total_length}")
+                    self.send_header("Content-Length", str(content_length))
+                    self.send_header("Last-Modified", self.date_time_string(fs.st_mtime))
+                    self.end_headers()
+                    return RangeFileWrapper(f, content_length)
+                except Exception:
+                    pass  # Fallback a respuesta 200 completa
+
+            self.send_response(200)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Content-Length", str(total_length))
+            self.send_header("Last-Modified", self.date_time_string(fs.st_mtime))
+            self.end_headers()
+            return f
+        except Exception:
+            f.close()
+            raise
 
     def end_headers(self):
         self.send_header('Access-Control-Allow-Origin', '*')
