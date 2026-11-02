@@ -259,12 +259,12 @@
             <span class="font-bold text-xs sm:text-sm tracking-wide text-slate-100 truncate">2. Práctica con Cámara e IA</span>
           </div>
           <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-            <!-- Selector de Fuente de Cámara (Laptop vs Celular USB / DroidCam / Iriun) -->
+            <!-- Selector de Cámara (Cámara Principal / Secundaria / Externa) -->
             <div class="flex items-center gap-1">
-              <select id="cameraSourceSelect" class="bg-slate-900 hover:bg-slate-800 text-slate-300 text-[11px] font-medium rounded-lg px-2 py-1.5 border border-slate-700 focus:border-amber-500 focus:outline-none max-w-[125px] sm:max-w-[170px] truncate cursor-pointer transition shadow-sm" title="Seleccionar fuente de cámara (ej. Celular USB / DroidCam / Laptop)">
-                <option value="">Cargando cámaras...</option>
+              <select id="cameraSourceSelect" class="bg-slate-900 hover:bg-slate-800 text-slate-300 text-[11px] font-medium rounded-lg px-2 py-1.5 border border-slate-700 focus:border-amber-500 focus:outline-none max-w-[130px] sm:max-w-[170px] truncate cursor-pointer transition shadow-sm" title="Seleccionar cámara disponible">
+                <option value="">Detectando cámaras...</option>
               </select>
-              <button id="btnRefreshCameras" class="btn-spring p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs shadow-sm" title="Escanear cámaras y celulares USB (DroidCam)">
+              <button id="btnRefreshCameras" class="btn-spring p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs shadow-sm" title="Buscar cámaras conectadas">
                 🔄
               </button>
             </div>

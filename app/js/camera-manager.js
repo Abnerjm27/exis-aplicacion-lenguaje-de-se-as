@@ -1,7 +1,7 @@
 /**
  * LSC Learn · Proyecto EXIS
- * camera-manager.js - Gestor Orientado a Objetos para Selección y Streaming de Cámaras
- * Soporte robusto para cámaras de laptop y cámaras de celular vía USB (DroidCam, Iriun, Camo, etc.)
+ * camera-manager.js - Gestor Orientado a Objetos para Detección y Conmutación de Cámaras
+ * Detecta dinámicamente cualquier cámara conectada (cámara interna, USB, segunda cámara o fuentes externas)
  * Cumple con Regla 8 (POO, Encapsulación y Ciclo de Vida) y Regla 1 (< 1,100 líneas).
  */
 
@@ -36,7 +36,7 @@ class CameraDeviceManager {
     this.#refreshButton = refreshButton;
 
     if (this.#selectElement) {
-      // Al cambiar de cámara en el desplegable, cambiar y mostrar inmediatamente
+      // Al cambiar la opción en el selector, activar la cámara elegida de inmediato
       this.#selectElement.addEventListener('change', async (e) => {
         const newDeviceId = e.target.value;
         if (!newDeviceId) return;
@@ -49,7 +49,7 @@ class CameraDeviceManager {
         }
       });
 
-      // Si hace clic en el selector y los nombres aún no tienen permiso, desbloquearlos
+      // Si el usuario enfoca el desplegable y aún no hay nombres legibles, solicitar permiso
       this.#selectElement.addEventListener('focus', () => {
         if (this.#needsPermissionForLabels()) {
           this.requestPermissionAndRefresh();
@@ -63,6 +63,7 @@ class CameraDeviceManager {
       });
     }
 
+    // Escuchar conexión o desconexión física de cámaras en caliente
     if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) {
       navigator.mediaDevices.addEventListener('devicechange', this.#boundOnDeviceChange);
     }
@@ -74,7 +75,7 @@ class CameraDeviceManager {
   }
 
   /**
-   * Determina si la lista de dispositivos aún no tiene etiquetas legibles
+   * Comprueba si las etiquetas de los dispositivos aún no han sido concedidas por el navegador
    * @returns {boolean}
    */
   #needsPermissionForLabels() {
@@ -83,33 +84,33 @@ class CameraDeviceManager {
   }
 
   /**
-   * Solicita permiso breve de cámara para que el navegador desbloquee los nombres de los dispositivos
+   * Solicita acceso inicial a la cámara para desbloquear los nombres de todos los dispositivos conectados
    */
   async requestPermissionAndRefresh() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
 
     try {
-      if (!this.#isStreaming) {
-        // Pedir stream temporal de 1 frame para desbloquear nombres reales
+      if (!this.#isStreaming && !this.#currentStream) {
         const tempStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
         tempStream.getTracks().forEach(t => {
           try { t.stop(); } catch (e) {}
         });
+        // Pausa breve para que el sistema operativo libere el hardware
         await new Promise(r => setTimeout(r, 200));
       }
       await this.refreshDeviceList();
     } catch (err) {
-      console.warn('[CameraDeviceManager] No se pudo obtener permiso previo para etiquetas:', err);
+      console.warn('[CameraDeviceManager] Permiso de cámara no concedido aún:', err);
       await this.refreshDeviceList();
     }
   }
 
   /**
-   * Obtiene la lista de cámaras conectadas y actualiza el elemento <select>
+   * Detecta y enumera todas las cámaras de video disponibles en el equipo
    */
   async refreshDeviceList() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-      console.warn('[CameraDeviceManager] navigator.mediaDevices.enumerateDevices no soportado.');
+      console.warn('[CameraDeviceManager] navigator.mediaDevices no disponible.');
       return [];
     }
 
@@ -119,13 +120,13 @@ class CameraDeviceManager {
       this.#renderSelectOptions();
       return this.#deviceList;
     } catch (err) {
-      console.error('[CameraDeviceManager] Error al listar cámaras:', err);
+      console.error('[CameraDeviceManager] Error al enumerar cámaras:', err);
       return [];
     }
   }
 
   /**
-   * Renderiza las opciones en el <select> destacando DroidCam, Iriun y cámaras externas
+   * Renderiza las cámaras detectadas en el elemento <select>
    */
   #renderSelectOptions() {
     if (!this.#selectElement) return;
@@ -136,85 +137,53 @@ class CameraDeviceManager {
     if (this.#deviceList.length === 0) {
       const opt = document.createElement('option');
       opt.value = '';
-      opt.textContent = '🔍 Clic para buscar cámaras...';
+      opt.textContent = '📷 Cámara predeterminada';
       this.#selectElement.appendChild(opt);
       return;
     }
 
-    // Si detectamos DroidCam, la priorizamos o la colocamos al inicio
-    const sorted = [...this.#deviceList].sort((a, b) => {
-      const aDroid = (a.label || '').toLowerCase().includes('droidcam') ? 1 : 0;
-      const bDroid = (b.label || '').toLowerCase().includes('droidcam') ? 1 : 0;
-      return bDroid - aDroid;
-    });
-
-    sorted.forEach((device, index) => {
+    this.#deviceList.forEach((device, index) => {
       const opt = document.createElement('option');
       opt.value = device.deviceId;
       opt.textContent = this.#formatDeviceLabel(device.label, index);
       this.#selectElement.appendChild(opt);
     });
 
-    // Restaurar selección previa si existe
-    if (previousSelected && sorted.some(d => d.deviceId === previousSelected)) {
+    // Mantener la cámara que estaba seleccionada previamente
+    if (previousSelected && this.#deviceList.some(d => d.deviceId === previousSelected)) {
       this.#selectElement.value = previousSelected;
       this.#selectedDeviceId = previousSelected;
     } else {
-      this.#selectElement.value = sorted[0].deviceId;
-      this.#selectedDeviceId = sorted[0].deviceId;
+      this.#selectElement.value = this.#deviceList[0].deviceId;
+      this.#selectedDeviceId = this.#deviceList[0].deviceId;
     }
   }
 
   /**
-   * Formatea el nombre de la cámara con iconos identificadores
+   * Formatea el nombre genérico o real de la cámara detectada
    * @param {string} label
    * @param {number} index
    * @returns {string}
    */
   #formatDeviceLabel(label, index) {
     if (!label || label.trim() === '') {
-      return `📷 Cámara ${index + 1} (Clic para activar)`;
+      return index === 0 ? '📷 Cámara 1 (Principal)' : `📷 Cámara ${index + 1} (Secundaria)`;
     }
 
-    const lower = label.toLowerCase();
-    if (lower.includes('droidcam')) {
-      return `📱 DroidCam (Celular USB)`;
-    }
-    if (lower.includes('iriun')) {
-      return `📱 Iriun (Celular USB)`;
-    }
-    if (lower.includes('camo')) {
-      return `📱 Camo (Celular USB)`;
-    }
-    if (lower.includes('epoccam')) {
-      return `📱 EpocCam (Celular USB)`;
-    }
-    if (lower.includes('obs')) {
-      return `🎥 OBS Virtual Camera`;
-    }
-    if (lower.includes('hp true vision') || lower.includes('integrated') || lower.includes('integrada')) {
-      return `💻 Cámara Laptop`;
-    }
-    if (lower.includes('back') || lower.includes('rear') || lower.includes('trasera')) {
-      return `📷 Cámara Trasera`;
-    }
-    if (lower.includes('front') || lower.includes('frontal') || lower.includes('delantera')) {
-      return `📷 Cámara Frontal`;
-    }
-    if (lower.includes('usb')) {
-      return `📷 USB: ${label.substring(0, 18)}`;
-    }
-    return `📷 ${label.substring(0, 22)}`;
+    // Limpiar IDs técnicos o códigos hexadecimales entre paréntesis si existen
+    const cleanLabel = label.replace(/\s*\([0-9a-fA-F]{4}:[0-9a-fA-F]{4}\)\s*/g, '').trim();
+
+    return `📷 ${cleanLabel.substring(0, 24)}`;
   }
 
   /**
-   * Inicia el flujo de video con la cámara solicitada
+   * Inicia el flujo de video con la cámara indicada
    * @param {string|null} deviceId
    * @returns {Promise<boolean>}
    */
   async start(deviceId = null) {
     if (!this.#videoElement) {
-      console.error('[CameraDeviceManager] videoElement no definido.');
+      console.error('[CameraDeviceManager] Elemento de video no configurado.');
       return false;
     }
 
@@ -227,14 +196,12 @@ class CameraDeviceManager {
     }
 
     const hadStream = !!this.#currentStream;
-    // Detener stream previo limpiamente
     this.stop();
     if (hadStream) {
-      // Breve pausa para que el driver de Windows DirectShow libere el hardware
       await new Promise(r => setTimeout(r, 250));
     }
 
-    // Configurar restricciones con deviceId EXACTO para que Chrome nunca conmute a la laptop
+    // Configurar restricciones de video
     const videoConstraints = {
       width: { ideal: 640 },
       height: { ideal: 480 }
@@ -248,7 +215,7 @@ class CameraDeviceManager {
       let stream = null;
       let lastErr = null;
 
-      // Intentar abrir el dispositivo con reintento si Windows aún no había liberado el filtro
+      // Intentar abrir el dispositivo con reintento ante bloqueo temporal
       for (let attempt = 0; attempt < 2; attempt++) {
         try {
           stream = await navigator.mediaDevices.getUserMedia({
@@ -259,7 +226,7 @@ class CameraDeviceManager {
         } catch (errAttempt) {
           lastErr = errAttempt;
           if (attempt === 0 && (errAttempt.name === 'NotReadableError' || errAttempt.message?.includes('in use'))) {
-            console.warn('[CameraDeviceManager] Dispositivo ocupado temporalmente en Windows, esperando 350ms...');
+            console.warn('[CameraDeviceManager] Cámara ocupada temporalmente, esperando liberación de driver...');
             await new Promise(r => setTimeout(r, 350));
             continue;
           }
@@ -276,12 +243,12 @@ class CameraDeviceManager {
             video: videoConstraints
           });
         } catch (eIdeal) {
-          console.warn('[CameraDeviceManager] Intento con ideal también falló:', eIdeal);
+          console.warn('[CameraDeviceManager] Fallo en intento con ideal:', eIdeal);
         }
       }
 
       if (!stream) {
-        throw lastErr || new Error('No se pudo obtener el stream de la cámara.');
+        throw lastErr || new Error('No se pudo inicializar la cámara solicitada.');
       }
 
       this.#currentStream = stream;
@@ -289,11 +256,10 @@ class CameraDeviceManager {
       this.#videoElement.muted = true;
       this.#videoElement.setAttribute('playsinline', 'true');
 
-      // Reproducir video
       try {
         await this.#videoElement.play();
       } catch (playErr) {
-        console.warn('[CameraDeviceManager] Esperando evento loadeddata para reproducir:', playErr);
+        console.warn('[CameraDeviceManager] Esperando loadeddata para reproducir:', playErr);
         await new Promise((resolve) => {
           const timeout = setTimeout(resolve, 1500);
           this.#videoElement.onloadeddata = () => {
@@ -305,16 +271,15 @@ class CameraDeviceManager {
 
       this.#isStreaming = true;
 
-      // Mostrar etiqueta de la cámara real en pantalla
+      // Actualizar el indicador visual de la cámara activa en pantalla
       const activeTrack = stream.getVideoTracks()[0];
       const activeLabel = activeTrack ? activeTrack.label : '';
-      console.log('[CameraDeviceManager] Cámara física activada:', activeLabel);
       this.#updateActivePillUI(activeLabel);
 
-      // Actualizar lista de dispositivos con los nombres autorizados
+      // Refrescar lista de dispositivos para obtener nombres autorizados
       await this.refreshDeviceList();
 
-      // Iniciar bucle de entrega de fotogramas a MediaPipe
+      // Iniciar el bucle de entrega de fotogramas
       this.#startFramePump();
       return true;
     } catch (err) {
