@@ -544,23 +544,28 @@ const VisionEvaluator = (() => {
         }
       }
     }
-    // 13. EVALUACIÓN PARA "GUSTAR" (Palma en barbilla/pecho superior)
+    // 13. EVALUACIÓN PARA "GUSTAR" (Dedo índice extendido en garganta / cuello)
     else if (signId === 'GUSTAR') {
-      const isUpperChest = wrist.y >= 0.20 && wrist.y <= 0.70;
-      const extCount = (isIndexExt ? 1 : 0) + (isMiddleExt ? 1 : 0) + (isRingExt ? 1 : 0) + (isPinkyExt ? 1 : 0);
+      const idxY = lm[8].y;
+      const isThroatLevel = idxY <= 0.52 && wrist.y >= 0.25;
+      const isPointingUp = isIndexExt && (isRingCurled || isPinkyCurled);
 
-      if (isUpperChest && extCount >= 3) {
-        score = 95;
-        hint = "¡Excelente seña de GUSTAR! Palma abierta en pecho superior / barbilla...";
-        diag = "✓ GUSTAR detectado";
-      } else if (isUpperChest) {
+      if (isThroatLevel && isPointingUp) {
+        score = 96;
+        hint = "¡Excelente seña de GUSTAR! Dedo índice tocando la garganta...";
+        diag = "✓ GUSTAR detectado (índice en garganta)";
+      } else if (isPointingUp) {
         score = 75;
-        hint = "Abre la mano apoyando la palma cerca a tu barbilla o cuello";
-        diag = "Abre la palma en cuello/pecho";
+        hint = "Sube el dedo índice hacia tu garganta / cuello";
+        diag = "Lleva el índice a la garganta";
+      } else if (isThroatLevel) {
+        score = 65;
+        hint = "Extiende únicamente tu dedo índice apuntando hacia arriba";
+        diag = "Extiende el índice hacia arriba";
       } else {
-        score = 55;
-        hint = "Lleva tu mano derecha hacia la parte superior de tu torso o barbilla";
-        diag = "Sube la mano a cuello/barbilla";
+        score = 45;
+        hint = "Extiende el dedo índice y llévalo a tu garganta";
+        diag = "Índice en garganta (GUSTAR)";
       }
     }
     // 14. EVALUACIÓN PARA LETRA I (Puño con meñique extendido vertical)

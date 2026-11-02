@@ -43,7 +43,7 @@ FALLBACK_REPLIES = {
     "DIAS": "Para la seña de 'DÍAS', abre ambos brazos lateralmente a la altura del pecho con las palmas al frente simulando el amanecer. [SELECCIONAR: DIAS]",
     "TARDES": "Para la seña de 'TARDES', cruza tus antebrazos horizontalmente frente a tu pecho con las palmas orientadas hacia tu cuerpo. [SELECCIONAR: TARDES]",
     "NOCHES": "Para 'NOCHES', cruza ambos brazos sobre tu pecho con las manos reposando sobre los antebrazos opuestos. [SELECCIONAR: NOCHES]",
-    "GUSTAR": "Para la seña de 'GUSTAR', coloca la palma de tu mano derecha abierta suavemente sobre la parte superior de tu pecho o barbilla con movimiento de agrado. [SELECCIONAR: GUSTAR]",
+    "GUSTAR": "Para la seña de 'GUSTAR', inclina levemente la cabeza hacia arriba y toca suavemente tu garganta o cuello con el dedo índice extendido. [SELECCIONAR: GUSTAR]",
     "NOMBRE": "Para 'NOMBRE', extiende los dedos índice y medio de ambas manos y apoya los de la mano derecha sobre los de la izquierda frente a tu torso. [SELECCIONAR: NOMBRE]",
     "A": "Vamos a practicar la letra 'A': cierra los 4 dedos en un puño firme y mantén el pulgar erguido a un lado del índice. [SELECCIONAR: A]",
     "B": "Para la letra 'B', extiende los cuatro dedos juntos rectos hacia arriba y dobla el pulgar sobre la palma. [SELECCIONAR: B]",

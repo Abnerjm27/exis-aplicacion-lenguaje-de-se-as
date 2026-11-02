@@ -50,7 +50,7 @@ Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficia
 | **DIAS** | Palabra | `fotos/DIAS_ref.jpg` | Ambos brazos se abren hacia los lados como el amanecer | `app/videos/anime/DIAS_body.mp4` |
 | **TARDES** | Palabra | `fotos/TARDES_ref.jpg` | Ambos brazos se cruzan horizontalmente a la altura del pecho (atardecer formal) | `app/videos/anime/TARDES_body.mp4` |
 | **NOCHES** | Palabra | `fotos/NOCHES_ref.jpg` | Ambos brazos cruzados sobre el pecho descansando en antebrazos | `app/videos/anime/NOCHES_body.mp4` |
-| **GUSTAR** | Palabra | `fotos/GUSTAR_ref.jpg` | Palma derecha abierta en contacto suave en barbilla o pecho alto (agrado/gusto) | `app/videos/anime/GUSTAR_body.mp4` |
+| **GUSTAR** | Palabra | `fotos/GUSTAR_ref.jpg` | Dedo índice derecho extendido apuntando hacia arriba tocando la garganta/cuello con la cabeza levantada | `app/videos/anime/GUSTAR_body.mp4` |
 | **NOMBRE** | Palabra | `fotos/NOMBRE_ref.jpg` | Dedos índice y medio de la mano derecha sobre los de la izquierda | `app/videos/anime/NOMBRE_body.mp4` |
 | **A** | Letra | `fotos/A_ref.jpg` | Puño cerrado con pulgar erguido al lateral del índice | `app/videos/anime/A_body.mp4` |
 | **B** | Letra | `fotos/B_ref.jpg` | Cuatro dedos extendidos hacia arriba y pulgar doblado en palma | `app/videos/anime/B_body.mp4` |
@@ -271,16 +271,18 @@ Flawless sign language motion, crisp hand anatomy, no extra digits or flickering
 ### 13. Seña: GUSTAR (Expresión / Agrado - LSC70)
 **Español:**
 ```text
-Video en bucle continuo de 2.5 segundos. Personaje anime tutor de LSC (estilo anime moderno 3D cel-shaded, expresión cálida y amigable, fondo neutro azul pizarra oscuro #070c18).
-Plano medio de torso y rostro. Seña oficial de LSC para 'GUSTAR' (Me gusta / Mucho gusto): La mano derecha se eleva con la palma completamente abierta y los cinco dedos juntos y relajados. Lleva la palma hacia la parte superior del pecho / base del cuello o barbilla, apoyando suavemente la palma o yemas en contacto con el pecho en un gesto de aprecio y agrado, acompañado de una sonrisa sutil y asentimiento pedagógico empático. Pausa 0.4 segundos en la pose clave de la foto de referencia (fotos/GUSTAR_ref.jpg), y desciende con suavidad al reposo.
-Dedos anatómicamente correctos, articulaciones definidas sin aberraciones, iluminación de estudio profesional. 60 fps, bucle infinito suave.
+Video en bucle perfecto de 2.5 segundos. Personaje tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, cabello castaño despejando el cuello y rostro, fondo neutro azul pizarra oscuro #070c18).
+Plano medio mostrando claramente rostro, cuello y mano derecha. Seña oficial canónica de LSC (Colombia) para 'GUSTAR': 
+El personaje inclina levemente la cabeza hacia atrás levantando la barbilla unos 15 grados para exponer con claridad la garganta y el cuello, con una expresión facial complacida y de agrado. La mano derecha forma un puño cerrado suave pero con el dedo índice completamente extendido, recto y erguido verticalmente apuntando hacia arriba (los dedos medio, anular y meñique están doblados contra la palma, pulgar recogido). La mano sube hasta la garganta y la yema del dedo índice derecho toca o roza suavemente la parte frontal del cuello/garganta (justo debajo de la nuez o mandíbula), coincidiendo con exactitud milimétrica con la pose de la foto de referencia (fotos/GUSTAR_ref.jpg). Pausa 0.4 segundos sosteniendo el contacto del índice en la garganta con la cabeza erguida hacia atrás, y desciende suavemente al reposo mientras la cabeza regresa al frente.
+Cinemática precisa de LSC70, dedo índice firme y recto, articulaciones de la mano perfectas sin mutaciones, cuello y mandíbula bien iluminados sin sombras duras. 60 fps, render limpio de alta calidad, bucle infinito y armónico.
 ```
 
 **English:**
 ```text
-Seamless 2.5-second loop video. Anime sign language mentor (modern 3D cel-shaded anime style, warm engaging smile, studio dark slate background #070c18).
-Medium shot focusing on upper torso, neck, and right hand. Canonical LSC sign for 'GUSTAR' (To like / Pleasure): The character raises the right hand with palm open and fingers gently joined. Brings the palm to rest softly against the upper chest / lower chin area in a graceful gesture of pleasant appreciation, accompanied by a polite smile and gentle head nod. Holds the peak pose for 0.4 seconds matching the reference photo (fotos/GUSTAR_ref.jpg), then relaxes smoothly back to rest.
-Immaculate hand and finger anatomy, no jitter, studio lighting with subtle amber contour. 60 fps, seamless loop.
+Seamless 2.5-second loop video. Anime Colombian Sign Language (LSC) tutor (Sol, crisp cel-shaded anime style, neat dark brown hair clearing neck and face, studio dark slate background #070c18).
+Medium shot framing head, throat, neck, and right hand clearly. Canonical LSC (Colombian Sign Language) sign for 'GUSTAR' (To like / Pleasure):
+The character tilts head slightly upward and backward (~15 degrees), raising the chin to expose the throat and neck, displaying a gentle, pleasant smile of enjoyment. The right hand forms a neat fist with ONLY the index finger extended straight vertically upward (middle, ring, and pinky fingers are curled firmly into the palm, thumb tucked). The hand rises to the neck and the fingertip of the extended right index finger touches the front/side of the throat/Adams apple area directly under the jawline, matching the reference photo exactly (fotos/GUSTAR_ref.jpg). Holds this key index-to-throat contact pose for 0.4 seconds with head tilted up, then gracefully lowers the hand to neutral resting position as the head returns forward.
+Accurate LSC70 kinematics, pristine single index finger pointing up, anatomically flawless hand and neck anatomy, soft studio lighting. 60 fps, clean render, seamless looping animation.
 ```
 
 ---

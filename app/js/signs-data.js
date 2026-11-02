@@ -137,17 +137,17 @@ const SIGNS_DATA = {
       id: 'GUSTAR',
       name: 'GUSTAR',
       category: 'words',
-      desc: 'Expresión / Cortesía: La mano derecha se apoya abierta suavemente con la palma sobre el pecho o base de la barbilla con movimiento de agrado.',
-      tip: 'Lleva la palma de tu mano derecha hacia la parte superior de tu pecho/barbilla realizando un suave contacto de agrado.',
+      desc: 'Expresión / Agrado LSC: Mano derecha con el dedo índice extendido apuntando hacia arriba, tocando suavemente la garganta o cuello mientras la cabeza se inclina levemente hacia atrás.',
+      tip: 'Inclina levemente tu cabeza hacia arriba, extiende únicamente tu dedo índice hacia arriba y toca suavemente tu garganta.',
       image: 'dataset_samples/GUSTAR.jpg',
-      rules: { type: 'hand_to_chin', height: 'mid_high' },
+      rules: { type: 'index_to_throat', height: 'high' },
       trajectory: {
         enabled: true,
-        trackingLandmark: 0, // Muñeca
-        hitRadius: 0.16,
+        trackingLandmark: 8, // Yema del índice
+        hitRadius: 0.15,
         points: [
-          { id: 1, x: 0.40, y: 0.65, label: 'Acercar' },
-          { id: 2, x: 0.50, y: 0.42, label: 'Contacto pecho/cuello' }
+          { id: 1, x: 0.45, y: 0.58, label: 'Subir mano' },
+          { id: 2, x: 0.50, y: 0.36, label: 'Contacto en garganta' }
         ]
       }
     }
