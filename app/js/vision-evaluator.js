@@ -134,25 +134,15 @@ const VisionEvaluator = (() => {
           cameraStarted = true;
         }
       } catch (streamErr) {
-        console.warn("[VisionEvaluator] Error con cámara seleccionada:", streamErr);
-        if (deviceId && window.CameraManager) {
-          showCameraNotice("⚠️ La cámara seleccionada no está transmitiendo video (en DroidCam recuerda pulsar 'Start' en la app de tu PC). Activando la cámara de la laptop...");
-          try {
-            await window.CameraManager.start(null);
-            cameraStarted = true;
-          } catch (fallbackErr) {
-            console.error("[VisionEvaluator] Error en fallback de cámara:", fallbackErr);
-          }
-        }
-        if (!cameraStarted) {
-          throw streamErr;
-        }
+        console.warn("[VisionEvaluator] Error al iniciar cámara seleccionada:", streamErr);
+        throw streamErr;
       }
 
       isWebcamRunning = true;
       updateCameraUIState('running');
       return true;
     } catch (err) {
+      window.__lastVisionError = (err.name || 'Error') + ': ' + (err.message || String(err));
       console.error("Error definitivo al iniciar cámara:", err);
       updateCameraUIState('stopped');
       showCameraNotice("No se pudo iniciar la cámara. Verifica los permisos del navegador o verifica que otra app no la esté usando.");
@@ -161,7 +151,9 @@ const VisionEvaluator = (() => {
   }
 
   async function start() {
-    return startWithDevice(null);
+    const selectEl = document.getElementById('cameraSourceSelect');
+    const chosenId = (selectEl && selectEl.value) ? selectEl.value : null;
+    return startWithDevice(chosenId);
   }
 
   function stop() {

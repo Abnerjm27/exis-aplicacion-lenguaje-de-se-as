@@ -95,6 +95,7 @@ class CameraDeviceManager {
         tempStream.getTracks().forEach(t => {
           try { t.stop(); } catch (e) {}
         });
+        await new Promise(r => setTimeout(r, 200));
       }
       await this.refreshDeviceList();
     } catch (err) {
@@ -217,41 +218,70 @@ class CameraDeviceManager {
       return false;
     }
 
-    if (deviceId) {
-      this.#selectedDeviceId = deviceId;
-      if (this.#selectElement && this.#selectElement.value !== deviceId) {
-        this.#selectElement.value = deviceId;
+    const targetId = deviceId || (this.#selectElement ? this.#selectElement.value : null) || this.#selectedDeviceId;
+    if (targetId) {
+      this.#selectedDeviceId = targetId;
+      if (this.#selectElement && this.#selectElement.value !== targetId) {
+        this.#selectElement.value = targetId;
       }
-    } else if (!this.#selectedDeviceId && this.#selectElement && this.#selectElement.value) {
-      this.#selectedDeviceId = this.#selectElement.value;
     }
 
+    const hadStream = !!this.#currentStream;
     // Detener stream previo limpiamente
     this.stop();
+    if (hadStream) {
+      // Breve pausa para que el driver de Windows DirectShow libere el hardware
+      await new Promise(r => setTimeout(r, 250));
+    }
 
-    // Configurar restricciones flexibles para máxima compatibilidad con DroidCam y Webcams
+    // Configurar restricciones con deviceId EXACTO para que Chrome nunca conmute a la laptop
     const videoConstraints = {
       width: { ideal: 640 },
       height: { ideal: 480 }
     };
 
     if (this.#selectedDeviceId) {
-      videoConstraints.deviceId = { ideal: this.#selectedDeviceId };
+      videoConstraints.deviceId = { exact: this.#selectedDeviceId };
     }
 
     try {
       let stream = null;
-      try {
-        stream = await navigator.mediaDevices.getUserMedia({
-          audio: false,
-          video: videoConstraints
-        });
-      } catch (errConstraint) {
-        console.warn('[CameraDeviceManager] Reintentando con configuración básica de video:', errConstraint);
-        stream = await navigator.mediaDevices.getUserMedia({
-          audio: false,
-          video: true
-        });
+      let lastErr = null;
+
+      // Intentar abrir el dispositivo con reintento si Windows aún no había liberado el filtro
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            audio: false,
+            video: videoConstraints
+          });
+          break;
+        } catch (errAttempt) {
+          lastErr = errAttempt;
+          if (attempt === 0 && (errAttempt.name === 'NotReadableError' || errAttempt.message?.includes('in use'))) {
+            console.warn('[CameraDeviceManager] Dispositivo ocupado temporalmente en Windows, esperando 350ms...');
+            await new Promise(r => setTimeout(r, 350));
+            continue;
+          }
+          break;
+        }
+      }
+
+      // Si falló con exact, reintentar con ideal
+      if (!stream && this.#selectedDeviceId) {
+        try {
+          videoConstraints.deviceId = { ideal: this.#selectedDeviceId };
+          stream = await navigator.mediaDevices.getUserMedia({
+            audio: false,
+            video: videoConstraints
+          });
+        } catch (eIdeal) {
+          console.warn('[CameraDeviceManager] Intento con ideal también falló:', eIdeal);
+        }
+      }
+
+      if (!stream) {
+        throw lastErr || new Error('No se pudo obtener el stream de la cámara.');
       }
 
       this.#currentStream = stream;
@@ -259,7 +289,7 @@ class CameraDeviceManager {
       this.#videoElement.muted = true;
       this.#videoElement.setAttribute('playsinline', 'true');
 
-      // Reproducir video sin bloqueos de promesa
+      // Reproducir video
       try {
         await this.#videoElement.play();
       } catch (playErr) {
@@ -275,7 +305,13 @@ class CameraDeviceManager {
 
       this.#isStreaming = true;
 
-      // Actualizar lista de dispositivos con los nombres ya autorizados
+      // Mostrar etiqueta de la cámara real en pantalla
+      const activeTrack = stream.getVideoTracks()[0];
+      const activeLabel = activeTrack ? activeTrack.label : '';
+      console.log('[CameraDeviceManager] Cámara física activada:', activeLabel);
+      this.#updateActivePillUI(activeLabel);
+
+      // Actualizar lista de dispositivos con los nombres autorizados
       await this.refreshDeviceList();
 
       // Iniciar bucle de entrega de fotogramas a MediaPipe
@@ -285,6 +321,23 @@ class CameraDeviceManager {
       console.error('[CameraDeviceManager] Error al abrir cámara:', err);
       this.stop();
       throw err;
+    }
+  }
+
+  /**
+   * Actualiza el badge visual en pantalla indicando qué cámara está transmitiendo
+   * @param {string} activeLabel
+   */
+  #updateActivePillUI(activeLabel) {
+    const badge = document.getElementById('activeCameraPill');
+    const badgeLabel = document.getElementById('activeCameraLabel');
+    if (!badge || !badgeLabel) return;
+
+    if (activeLabel) {
+      badge.classList.remove('hidden');
+      badgeLabel.textContent = this.#formatDeviceLabel(activeLabel, 0);
+    } else {
+      badge.classList.add('hidden');
     }
   }
 
@@ -341,6 +394,9 @@ class CameraDeviceManager {
   stop() {
     this.#isStreaming = false;
     this.#stopFramePump();
+
+    const badge = document.getElementById('activeCameraPill');
+    if (badge) badge.classList.add('hidden');
 
     if (this.#currentStream) {
       this.#currentStream.getTracks().forEach(track => {
