@@ -510,6 +510,96 @@ const VisionEvaluator = (() => {
         diag = "Dedos en V (paz/victoria)";
       }
     }
+    // 12. EVALUACIÓN PARA "TARDES" (Brazos cruzados horizontalmente a la altura del pecho)
+    else if (signId === 'TARDES') {
+      const isChestLevel = wrist.y >= 0.25 && wrist.y <= 0.90;
+
+      if (lm2) {
+        const wrist2 = lm2[0];
+        const yDiff = Math.abs(wrist.y - wrist2.y);
+        const bothAtChest = isChestLevel && wrist2.y >= 0.25 && wrist2.y <= 0.90;
+
+        if (bothAtChest && yDiff < 0.32) {
+          score = 96;
+          hint = "¡Excelente seña de TARDES! Brazos cruzados a la altura del pecho...";
+          diag = "✓ TARDES detectado (antebrazos en reposo horizontal)";
+        } else if (!bothAtChest) {
+          score = 65;
+          hint = "Ubica ambos antebrazos a la altura de tu pecho";
+          diag = "Ubica brazos en el pecho";
+        } else {
+          score = 75;
+          hint = "Cruza horizontalmente tus brazos en el pecho";
+          diag = "Cruza los antebrazos";
+        }
+      } else {
+        if (isChestLevel) {
+          score = 88;
+          hint = "¡Buen movimiento! Cruza ambos brazos para la seña completa de TARDES";
+          diag = "✓ Brazo cruzado en pecho (TARDES)";
+        } else {
+          score = 60;
+          hint = "Lleva los brazos al centro del pecho";
+          diag = "Lleva los brazos al pecho";
+        }
+      }
+    }
+    // 13. EVALUACIÓN PARA "GUSTAR" (Palma en barbilla/pecho superior)
+    else if (signId === 'GUSTAR') {
+      const isUpperChest = wrist.y >= 0.20 && wrist.y <= 0.70;
+      const extCount = (isIndexExt ? 1 : 0) + (isMiddleExt ? 1 : 0) + (isRingExt ? 1 : 0) + (isPinkyExt ? 1 : 0);
+
+      if (isUpperChest && extCount >= 3) {
+        score = 95;
+        hint = "¡Excelente seña de GUSTAR! Palma abierta en pecho superior / barbilla...";
+        diag = "✓ GUSTAR detectado";
+      } else if (isUpperChest) {
+        score = 75;
+        hint = "Abre la mano apoyando la palma cerca a tu barbilla o cuello";
+        diag = "Abre la palma en cuello/pecho";
+      } else {
+        score = 55;
+        hint = "Lleva tu mano derecha hacia la parte superior de tu torso o barbilla";
+        diag = "Sube la mano a cuello/barbilla";
+      }
+    }
+    // 14. EVALUACIÓN PARA LETRA I (Puño con meñique extendido vertical)
+    else if (signId === 'I') {
+      if (isPinkyExt && isIndexCurled && isMiddleCurled && isRingCurled) {
+        score = 96;
+        hint = "¡Letra I perfecta! Meñique erguido y puño cerrado";
+        diag = "✓ Letra I detectada";
+      } else if (isPinkyExt) {
+        score = 78;
+        hint = "Cierra completamente los dedos índice, medio y anular";
+        diag = "Cierra los otros dedos en puño";
+      } else {
+        score = 45;
+        hint = "Extiende únicamente tu dedo meñique hacia arriba";
+        diag = "Levanta el meñique (Letra I)";
+      }
+    }
+    // 15. EVALUACIÓN PARA LETRA O (Dedos curvados tocando el pulgar)
+    else if (signId === 'O') {
+      const thumbToIdx = dist(lm[4], lm[8]);
+      const thumbToMid = dist(lm[4], lm[12]);
+      const isClosedCircle = thumbToIdx < 0.16 && thumbToMid < 0.18;
+      const isCurved = !isIndexExt && !isMiddleExt;
+
+      if (isClosedCircle && isCurved) {
+        score = 96;
+        hint = "¡Letra O perfecta! Dedos y pulgar formando un círculo cerrado";
+        diag = "✓ Letra O detectada";
+      } else if (thumbToIdx < 0.25) {
+        score = 78;
+        hint = "Junta las puntas de tus dedos con el pulgar para cerrar el círculo";
+        diag = "Cierra el círculo con el pulgar";
+      } else {
+        score = 50;
+        hint = "Curva los dedos enfrentados al pulgar formando una O";
+        diag = "Forma una O con los dedos";
+      }
+    }
 
     // Integración de trayectoria dinámica (Connect-the-Dots)
     const hasTrajectory = window.TrajectoryTracker && window.TrajectoryTracker.isTrajectoryActive();

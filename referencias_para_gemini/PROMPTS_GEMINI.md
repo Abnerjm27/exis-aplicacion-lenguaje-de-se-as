@@ -40,7 +40,7 @@ Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficia
 
 ---
 
-## 3. Tabla Resumen de las 11 Señas Oficiales
+## 3. Tabla Resumen de las 15 Señas Oficiales
 
 | ID Seña | Categoría | Foto de Referencia | Gesto Clave LSC | Archivo Destino |
 |:---|:---:|:---|:---|:---|
@@ -48,12 +48,16 @@ Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficia
 | **YO** | Palabra | `fotos/YO_ref.jpg` | Puño cerrado con dedo índice señalando al centro del pecho | `app/videos/anime/YO_body.mp4` |
 | **BUENOS** | Palabra | `fotos/BUENOS_ref.jpg` | Mano derecha baja desde arriba y choca con la palma sobre la mano izquierda en el centro | `app/videos/anime/BUENOS_body.mp4` |
 | **DIAS** | Palabra | `fotos/DIAS_ref.jpg` | Ambos brazos se abren hacia los lados como el amanecer | `app/videos/anime/DIAS_body.mp4` |
+| **TARDES** | Palabra | `fotos/TARDES_ref.jpg` | Ambos brazos se cruzan horizontalmente a la altura del pecho (atardecer formal) | `app/videos/anime/TARDES_body.mp4` |
 | **NOCHES** | Palabra | `fotos/NOCHES_ref.jpg` | Ambos brazos cruzados sobre el pecho descansando en antebrazos | `app/videos/anime/NOCHES_body.mp4` |
+| **GUSTAR** | Palabra | `fotos/GUSTAR_ref.jpg` | Palma derecha abierta en contacto suave en barbilla o pecho alto (agrado/gusto) | `app/videos/anime/GUSTAR_body.mp4` |
 | **NOMBRE** | Palabra | `fotos/NOMBRE_ref.jpg` | Dedos índice y medio de la mano derecha sobre los de la izquierda | `app/videos/anime/NOMBRE_body.mp4` |
 | **A** | Letra | `fotos/A_ref.jpg` | Puño cerrado con pulgar erguido al lateral del índice | `app/videos/anime/A_body.mp4` |
 | **B** | Letra | `fotos/B_ref.jpg` | Cuatro dedos extendidos hacia arriba y pulgar doblado en palma | `app/videos/anime/B_body.mp4` |
 | **C** | Letra | `fotos/C_ref.jpg` | Dedos y pulgar arqueados formando el semicírculo de la letra C | `app/videos/anime/C_body.mp4` |
+| **I** | Letra | `fotos/I_ref.jpg` | Puño cerrado con meñique extendido vertical hacia arriba | `app/videos/anime/I_body.mp4` |
 | **L** | Letra | `fotos/L_ref.jpg` | Índice vertical y pulgar horizontal formando ángulo de 90° | `app/videos/anime/L_body.mp4` |
+| **O** | Letra | `fotos/O_ref.jpg` | Cuatro dedos curvados tocando la yema del pulgar formando un círculo O | `app/videos/anime/O_body.mp4` |
 | **V** | Letra | `fotos/V_ref.jpg` | Índice y medio abiertos en V (victoria), anular y meñique sujetos | `app/videos/anime/V_body.mp4` |
 
 ---
@@ -243,6 +247,74 @@ Bucle continuo, dedos índice y medio firmes y proporcionales, separación limpi
 Seamless 2-second loop video. Young female anime sign language mentor (modern 3D anime style, clean white and cyan futuristic jacket, dark background #070c18). 
 Close-up of the right hand at chest level, palm facing forward. The hand executes the letter 'V': index and middle fingers are straight, extended upward, and spread apart into a crisp 'V' shape (peace / victory sign) with ~30 degree separation; ring and pinky fingers are folded down against the palm and held by the thumb. Friendly, motivating smile. 
 Seamless loop, perfect finger geometry, no artifacts or distortion, high-end studio lighting with cyan contour rim light.
+```
+
+---
+
+### 12. Seña: TARDES (Cortesía y Tiempo - LSC70)
+**Español:**
+```text
+Video en bucle perfecto de 2.5 segundos. Tutora anime de Lengua de Señas Colombiana (estilo anime cel-shading nítido, cabello castaño recogido despejando rostro y cuello, chaqueta técnica pizarra con toques ámbar #FBBF24, fondo de estudio oscuro #070c18).
+Plano medio mostrando torso superior, hombros y ambos brazos claramente. Seña oficial de LSC para 'TARDES': Ambos brazos parten de una postura relajada y se elevan frente al pecho, cruzándose de forma horizontal a la altura media del torso, con los antebrazos superpuestos y las palmas de las manos reposando suavemente sobre el antebrazo o codo contrario, simulando el reposo y la transición de la tarde. Pausa 0.4 segundos mostrando con nitidez la pose de referencia (fotos/TARDES_ref.jpg), y retorna de manera fluida y suave a la postura neutral.
+Cinemática precisa de señas LSC, manos y dedos perfectamente definidos sin deformaciones, iluminación frontal suave de estudio con sutil luz de borde. 60 fps, render limpio, bucle continuo y armónico.
+```
+
+**English:**
+```text
+Seamless 2.5-second loop video. Anime Colombian Sign Language (LSC) tutor (crisp cel-shaded anime style, neat dark brown hair clearing face and neck, slate jacket with amber accents #FBBF24, dark studio background #070c18).
+Medium shot framing upper chest, shoulders, and both arms. Canonical LSC sign for 'TARDES' (Afternoon): Both arms raise in front of the chest and cross horizontally across mid-torso, with forearms resting over each other and hands resting gently over the opposite forearm/elbow, representing the resting dusk of the afternoon. Holds key reference pose cleanly for 0.4 seconds (matching fotos/TARDES_ref.jpg), then smoothly returns to neutral resting position.
+Flawless sign language motion, crisp hand anatomy, no extra digits or flickering, soft studio rim lighting. 60 fps, high-end clean loop.
+```
+
+---
+
+### 13. Seña: GUSTAR (Expresión / Agrado - LSC70)
+**Español:**
+```text
+Video en bucle continuo de 2.5 segundos. Personaje anime tutor de LSC (estilo anime moderno 3D cel-shaded, expresión cálida y amigable, fondo neutro azul pizarra oscuro #070c18).
+Plano medio de torso y rostro. Seña oficial de LSC para 'GUSTAR' (Me gusta / Mucho gusto): La mano derecha se eleva con la palma completamente abierta y los cinco dedos juntos y relajados. Lleva la palma hacia la parte superior del pecho / base del cuello o barbilla, apoyando suavemente la palma o yemas en contacto con el pecho en un gesto de aprecio y agrado, acompañado de una sonrisa sutil y asentimiento pedagógico empático. Pausa 0.4 segundos en la pose clave de la foto de referencia (fotos/GUSTAR_ref.jpg), y desciende con suavidad al reposo.
+Dedos anatómicamente correctos, articulaciones definidas sin aberraciones, iluminación de estudio profesional. 60 fps, bucle infinito suave.
+```
+
+**English:**
+```text
+Seamless 2.5-second loop video. Anime sign language mentor (modern 3D cel-shaded anime style, warm engaging smile, studio dark slate background #070c18).
+Medium shot focusing on upper torso, neck, and right hand. Canonical LSC sign for 'GUSTAR' (To like / Pleasure): The character raises the right hand with palm open and fingers gently joined. Brings the palm to rest softly against the upper chest / lower chin area in a graceful gesture of pleasant appreciation, accompanied by a polite smile and gentle head nod. Holds the peak pose for 0.4 seconds matching the reference photo (fotos/GUSTAR_ref.jpg), then relaxes smoothly back to rest.
+Immaculate hand and finger anatomy, no jitter, studio lighting with subtle amber contour. 60 fps, seamless loop.
+```
+
+---
+
+### 14. Dactilología: Letra I
+**Español:**
+```text
+Video en bucle continuo de 2 segundos. Tutora anime de LSC (estilo 3D anime cel-shaded, vestimenta deportiva moderna, fondo oscuro #070c18).
+Primer plano nítido de la mano derecha a la altura del pecho con la palma orientada hacia el frente. Configuración dactilológica de la letra 'I': La mano forma un puño cerrado sólido con los dedos pulgar, índice, medio y anular doblados firmemente contra la palma; únicamente el dedo meñique se extiende completamente erguido, recto y vertical hacia arriba. Rostro sonriente y motivador enfocado a cámara.
+Bucle continuo sin cortes, dedo meñique firme y recto, puño limpio y anatómicamente proporcionado, iluminación de estudio suave con luz de contorno nítida.
+```
+
+**English:**
+```text
+Seamless 2-second loop video. Anime sign language instructor (clean cel-shaded aesthetic, modern tech athletic attire, dark studio background #070c18).
+Clear close-up of the right hand at chest height, palm facing forward. The hand demonstrates the manual alphabet letter 'I': hand curled into a firm, solid fist with thumb, index, middle, and ring fingers folded against the palm; only the pinky finger is fully extended straight vertically upwards. Engaging, confident instructor expression.
+Seamless infinite loop, immaculate pinky and fist geometry, soft studio rim lighting.
+```
+
+---
+
+### 15. Dactilología: Letra O
+**Español:**
+```text
+Video en bucle continuo de 2 segundos. Tutora anime de LSC (estilo anime de alta definición, líneas nítidas, fondo azul pizarra oscuro #070c18).
+Primer plano de la mano derecha a la altura del pecho en vista tres cuartos para mostrar el espacio tridimensional de la letra 'O': Los cuatro dedos (índice, medio, anular y meñique) se curvan hacia adelante y abajo de forma uniforme, mientras el pulgar se curva hacia arriba hasta que sus yemas se tocan o acercan sutilmente, formando la silueta circular completa y cerrada de la letra O. Postura clara, estática y educativa.
+Bucle continuo, dedos con curvatura armónica sin deformaciones, círculo vacío claramente visible en el centro, iluminación nítida con reflejos suaves.
+```
+
+**English:**
+```text
+Seamless 2-second loop video. Anime sign language tutor (crisp high-definition anime style, dark slate background #070c18).
+Close-up of the right hand held at chest height in three-quarters angle to reveal the circular spatial form of the letter 'O': All four fingers curve forward and downward uniformly while the thumb curves upward until fingertips meet gently, creating a clear, complete circular 'O' shape with visible open space in the center. Crisp pedagogical demonstration.
+Seamless loop, proportional finger arches, zero visual artifacts, clean studio illumination.
 ```
 
 ---

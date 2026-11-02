@@ -19,13 +19,20 @@ AVAILABLE_SIGNS = {
     "buenos": "BUENOS",
     "dias": "DIAS",
     "dia": "DIAS",
+    "tardes": "TARDES",
+    "tarde": "TARDES",
     "noches": "NOCHES",
     "noche": "NOCHES",
+    "gustar": "GUSTAR",
+    "gusta": "GUSTAR",
+    "gusto": "GUSTAR",
     "nombre": "NOMBRE",
     "a": "A",
     "b": "B",
     "c": "C",
+    "i": "I",
     "l": "L",
+    "o": "O",
     "v": "V"
 }
 
@@ -34,12 +41,16 @@ FALLBACK_REPLIES = {
     "YO": "¡Muy bien! Para la seña de 'YO', forma un puño con tu mano derecha y deja únicamente el dedo índice extendido apuntando hacia tu pecho. [SELECCIONAR: YO]",
     "BUENOS": "¡Perfecto! Para 'BUENOS / AS', coloca tu mano izquierda abierta como base en el pecho (palma arriba) y baja tu mano derecha para chocar apoyando la palma sobre la izquierda en el torso. [SELECCIONAR: BUENOS]",
     "DIAS": "Para la seña de 'DÍAS', abre ambos brazos lateralmente a la altura del pecho con las palmas al frente simulando el amanecer. [SELECCIONAR: DIAS]",
+    "TARDES": "Para la seña de 'TARDES', cruza tus antebrazos horizontalmente frente a tu pecho con las palmas orientadas hacia tu cuerpo. [SELECCIONAR: TARDES]",
     "NOCHES": "Para 'NOCHES', cruza ambos brazos sobre tu pecho con las manos reposando sobre los antebrazos opuestos. [SELECCIONAR: NOCHES]",
+    "GUSTAR": "Para la seña de 'GUSTAR', coloca la palma de tu mano derecha abierta suavemente sobre la parte superior de tu pecho o barbilla con movimiento de agrado. [SELECCIONAR: GUSTAR]",
     "NOMBRE": "Para 'NOMBRE', extiende los dedos índice y medio de ambas manos y apoya los de la mano derecha sobre los de la izquierda frente a tu torso. [SELECCIONAR: NOMBRE]",
     "A": "Vamos a practicar la letra 'A': cierra los 4 dedos en un puño firme y mantén el pulgar erguido a un lado del índice. [SELECCIONAR: A]",
     "B": "Para la letra 'B', extiende los cuatro dedos juntos rectos hacia arriba y dobla el pulgar sobre la palma. [SELECCIONAR: B]",
     "C": "Para la letra 'C', arquea los 4 dedos y el pulgar enfrentados formando la curvatura semicircular de la letra C. [SELECCIONAR: C]",
+    "I": "Para la letra 'I', cierra tu mano en puño y extiende únicamente el dedo meñique hacia arriba en vertical. [SELECCIONAR: I]",
     "L": "Para la letra 'L', extiende el dedo índice hacia arriba y el pulgar hacia un lado formando un ángulo recto de 90 grados. [SELECCIONAR: L]",
+    "O": "Para la letra 'O', curva los dedos de tu mano tocando suavemente la punta del pulgar para formar un círculo visible O. [SELECCIONAR: O]",
     "V": "Para la letra 'V', levanta el dedo índice y el dedo medio separados en forma de victoria. [SELECCIONAR: V]",
 }
 
@@ -53,7 +64,9 @@ def detect_sign(msg):
         'yo': 'YO', 'mi': 'YO',
         'buenos': 'BUENOS', 'buenas': 'BUENOS',
         'dias': 'DIAS', 'dia': 'DIAS',
+        'tardes': 'TARDES', 'tarde': 'TARDES',
         'noches': 'NOCHES', 'noche': 'NOCHES',
+        'gustar': 'GUSTAR', 'gusta': 'GUSTAR', 'gusto': 'GUSTAR',
         'nombre': 'NOMBRE'
     }
 
@@ -63,7 +76,7 @@ def detect_sign(msg):
             return words_map[token]
 
     # 2. Check letters with 'letra X'
-    letters_map = {'a': 'A', 'b': 'B', 'c': 'C', 'l': 'L', 'v': 'V'}
+    letters_map = {'a': 'A', 'b': 'B', 'c': 'C', 'i': 'I', 'l': 'L', 'o': 'O', 'v': 'V'}
     for l in letters_map:
         if f'letra {l}' in norm or f'letra_{l}' in norm:
             return letters_map[l]
@@ -72,8 +85,8 @@ def detect_sign(msg):
     for token in tokens:
         if token in ['b', 'c', 'l', 'v']:
             return letters_map[token]
-        if token == 'a' and (len(tokens) == 1 or 'letra' in tokens):
-            return 'A'
+        if token in ['a', 'i', 'o'] and (len(tokens) == 1 or 'letra' in tokens):
+            return letters_map[token]
 
     return None
 
@@ -226,7 +239,11 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         if self.path == '/api/chat':
             content_length = int(self.headers.get('Content-Length', 0))
-            post_data = self.rfile.read(content_length).decode('utf-8')
+            raw_data = self.rfile.read(content_length)
+            try:
+                post_data = raw_data.decode('utf-8')
+            except UnicodeDecodeError:
+                post_data = raw_data.decode('latin-1', errors='replace')
             try:
                 payload = json.loads(post_data)
                 user_msg = payload.get("message", "").strip()
@@ -241,12 +258,12 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
                 if detected_sign and detected_sign in FALLBACK_REPLIES:
                     reply_text = FALLBACK_REPLIES[detected_sign]
                 elif any(w in user_lower for w in ["palabra", "seña", "opcion", "catalogo", "que hay", "que tienes", "cuales", "señas", "menu"]):
-                    reply_text = "En el Proyecto EXIS puedes aprender: Palabras LSC (HOLA, YO, BUENOS, DÍAS, NOCHES, NOMBRE) y Alfabeto Dactilológico (A, B, C, L, V). ¿Cuál te gustaría practicar ahora?"
+                    reply_text = "En el Proyecto EXIS puedes aprender: Palabras LSC (HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE) y Alfabeto Dactilológico (A, B, C, I, L, O, V). ¿Cuál te gustaría practicar ahora?"
                 else:
                     # Try Ollama with low latency timeout (2.0s)
                     try:
                         prompt = f"""Eres el tutor de Lengua de Señas Colombiana del Proyecto EXIS.
-Señas disponibles: HOLA, YO, BUENOS, DÍAS, NOCHES, NOMBRE, y letras dactilológicas A, B, C, L, V.
+Señas disponibles: HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE, y letras dactilológicas A, B, C, I, L, O, V.
 Usuario dice: "{user_msg}"
 Instrucciones: Responde amablemente en español en máximo 2 oraciones pedagógicas. Si el usuario pide aprender una seña, agrega al final exactamente [SELECCIONAR: <ID>] (ej: [SELECCIONAR: DIAS] o [SELECCIONAR: C]).
 Respuesta:"""

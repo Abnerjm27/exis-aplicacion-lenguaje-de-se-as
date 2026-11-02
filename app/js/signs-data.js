@@ -114,6 +114,42 @@ const SIGNS_DATA = {
           { id: 2, x: 0.50, y: 0.60, label: 'Contacto' }
         ]
       }
+    },
+    {
+      id: 'TARDES',
+      name: 'TARDES',
+      category: 'words',
+      desc: 'Cortesía y Tiempo: Ambos brazos se cruzan horizontalmente a la altura del pecho simulando el atardecer formal en LSC.',
+      tip: 'Cruza tus antebrazos horizontalmente frente a tu pecho con las palmas orientadas hacia tu cuerpo.',
+      image: 'dataset_samples/TARDES.jpg',
+      rules: { type: 'crossed_arms_chest', height: 'mid' },
+      trajectory: {
+        enabled: true,
+        trackingLandmark: 0, // Muñeca
+        hitRadius: 0.16,
+        points: [
+          { id: 1, x: 0.65, y: 0.50, label: 'Inicio' },
+          { id: 2, x: 0.40, y: 0.55, label: 'Cruce horizontal' }
+        ]
+      }
+    },
+    {
+      id: 'GUSTAR',
+      name: 'GUSTAR',
+      category: 'words',
+      desc: 'Expresión / Cortesía: La mano derecha se apoya abierta suavemente con la palma sobre el pecho o base de la barbilla con movimiento de agrado.',
+      tip: 'Lleva la palma de tu mano derecha hacia la parte superior de tu pecho/barbilla realizando un suave contacto de agrado.',
+      image: 'dataset_samples/GUSTAR.jpg',
+      rules: { type: 'hand_to_chin', height: 'mid_high' },
+      trajectory: {
+        enabled: true,
+        trackingLandmark: 0, // Muñeca
+        hitRadius: 0.16,
+        points: [
+          { id: 1, x: 0.40, y: 0.65, label: 'Acercar' },
+          { id: 2, x: 0.50, y: 0.42, label: 'Contacto pecho/cuello' }
+        ]
+      }
     }
   ],
   letters: [
@@ -165,6 +201,26 @@ const SIGNS_DATA = {
       tip: 'Levanta el dedo índice y el dedo medio en forma de V (símbolo de victoria). Mantén cerrados el anular y meñique.',
       image: 'dataset_samples/V.jpg',
       rules: { type: 'v_shape', height: 'any' },
+      trajectory: { enabled: false }
+    },
+    {
+      id: 'I',
+      name: 'Letra I',
+      category: 'letters',
+      desc: 'Dactilología LSC: Puño cerrado con el dedo meñique extendido verticalmente hacia arriba.',
+      tip: 'Cierra tu mano en puño y extiende únicamente el dedo meñique hacia arriba.',
+      image: 'dataset_samples/I.jpg',
+      rules: { type: 'pinky_up', height: 'any' },
+      trajectory: { enabled: false }
+    },
+    {
+      id: 'O',
+      name: 'Letra O',
+      category: 'letters',
+      desc: 'Dactilología LSC: Todos los dedos curvados hacia adelante tocando suavemente la yema del pulgar, formando un círculo visible O.',
+      tip: 'Curva tus cuatro dedos y junta sus puntas con el pulgar formando una letra O redonda.',
+      image: 'dataset_samples/O.jpg',
+      rules: { type: 'o_shape', height: 'any' },
       trajectory: { enabled: false }
     }
   ]
