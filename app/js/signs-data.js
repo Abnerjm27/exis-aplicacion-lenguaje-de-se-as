@@ -137,8 +137,8 @@ const SIGNS_DATA = {
       id: 'GUSTAR',
       name: 'GUSTAR',
       category: 'words',
-      desc: 'Expresión / Agrado LSC: Mano derecha con el dedo índice extendido apuntando hacia arriba, tocando suavemente la garganta o cuello mientras la cabeza se inclina levemente hacia atrás.',
-      tip: 'Inclina levemente tu cabeza hacia arriba, extiende únicamente tu dedo índice hacia arriba y toca suavemente tu garganta.',
+      desc: 'Expresión / Agrado LSC: Mano derecha con el dedo índice extendido apuntando hacia arriba, deslizándolo suavemente hacia arriba por la garganta mientras la cabeza se inclina levemente hacia atrás.',
+      tip: 'Inclina levemente tu cabeza hacia arriba, apoya tu dedo índice en la base de la garganta y deslízalo suavemente hacia arriba.',
       image: 'dataset_samples/GUSTAR.jpg',
       rules: { type: 'index_to_throat', height: 'high' },
       trajectory: {
@@ -146,8 +146,8 @@ const SIGNS_DATA = {
         trackingLandmark: 8, // Yema del índice
         hitRadius: 0.15,
         points: [
-          { id: 1, x: 0.45, y: 0.58, label: 'Subir mano' },
-          { id: 2, x: 0.50, y: 0.36, label: 'Contacto en garganta' }
+          { id: 1, x: 0.50, y: 0.46, label: 'Base garganta' },
+          { id: 2, x: 0.50, y: 0.35, label: 'Deslizar arriba' }
         ]
       }
     }

@@ -273,18 +273,26 @@ Flawless sign language motion, crisp hand anatomy, no extra digits or flickering
 ```text
 Video en bucle perfecto de 2.5 segundos. Personaje tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, cabello castaño despejando el cuello y rostro, fondo neutro azul pizarra oscuro #070c18).
 Plano medio mostrando claramente rostro, cuello y mano derecha. Seña oficial canónica de LSC (Colombia) para 'GUSTAR': 
-El personaje inclina levemente la cabeza hacia atrás levantando la barbilla unos 15 grados para exponer con claridad la garganta y el cuello, con una mirada cálida y sonrisa de agrado. La mano derecha parte de reposo, forma un puño cerrado suave manteniendo ÚNICAMENTE el dedo índice extendido, recto y erguido en vertical apuntando hacia arriba (dedos medio, anular y meñique doblados en la palma, pulgar recogido). La mano se eleva y realiza un TOQUE PUNTUAL ESTÁTICO: apoya fijamente la yema del dedo índice derecho sobre la garganta/lado del cuello (justo debajo de la mandíbula o nuez de Adán), idéntico a la pose de la foto de referencia (fotos/GUSTAR_ref.jpg). 
-IMPORTANTE: El dedo NO se desliza, NO se arrastra y NO frota el cuello; es un contacto estático y fijo en un solo punto. Pausa 0.5 segundos sosteniendo el dedo quieto apoyado en la garganta con la cabeza inclinada hacia atrás, y luego retira la mano directamente hacia abajo regresando suavemente al reposo mientras la cabeza vuelve a su posición neutral.
-Cinemática anatómica exacta de LSC70, dedo índice firme y recto sin oscilaciones, cero deslizamiento, contacto suave y limpio, iluminación de estudio sin aberraciones. 60 fps, render nítido, bucle infinito armónico.
+El personaje inclina levemente la cabeza hacia atrás levantando la barbilla unos 15 grados para exponer con claridad la garganta y el cuello, con una mirada cálida y sonrisa de agrado. La mano derecha parte de reposo, forma un puño cerrado suave manteniendo ÚNICAMENTE el dedo índice extendido, recto y erguido en vertical apuntando hacia arriba (dedos medio, anular y meñique doblados firmemente en la palma, pulgar recogido). 
+MOVIMIENTO DINÁMICO CANÓNICO DE DESLIZAMIENTO ASCENDENTE: 
+1. La mano se aproxima y la yema del dedo índice derecho hace contacto inicial suave en la base frontal de la garganta / nuez baja.
+2. Desde la base, el personaje DESLIZA la yema del dedo índice en un trazo vertical continuo y suave hacia arriba a lo largo de la garganta hasta llegar justo debajo de la barbilla/mandíbula (deslizamiento rectilíneo ascendente de unos 4 centímetros).
+3. Sostiene la pose en la parte superior del cuello por 0.4 segundos mostrando con nitidez la pose de referencia (fotos/GUSTAR_ref.jpg).
+4. Finalmente, separa el dedo del cuello y desciende la mano suavemente al reposo mientras la cabeza regresa a su posición neutral.
+Cinemática precisa de LSC70, deslizamiento ascendente fluido y continuo sin saltos, dedo índice firme y recto, cuello bien iluminado sin sombras duras. 60 fps, render nítido, bucle infinito armónico.
 ```
 
 **English:**
 ```text
 Seamless 2.5-second loop video. Anime Colombian Sign Language (LSC) tutor (Sol, crisp cel-shaded anime style, neat dark brown hair clearing neck and face, studio dark slate background #070c18).
 Medium shot framing head, throat, neck, and right hand clearly. Canonical LSC (Colombian Sign Language) sign for 'GUSTAR' (To like / Pleasure):
-The character tilts head slightly upward and backward (~15 degrees), raising the chin to clearly expose the throat and neck, displaying a gentle, pleasant smile of enjoyment. The right hand starts from resting position, forms a neat fist with ONLY the index finger extended straight vertically upward (middle, ring, and pinky fingers are curled firmly into the palm, thumb tucked). The hand rises to the neck and executes a SINGLE STATIC TOUCH / POINT CONTACT: the fingertip of the extended right index finger rests firmly and gently on the throat / side of the neck (just below the jawline/Adam's apple), matching the reference photo exactly (fotos/GUSTAR_ref.jpg).
-CRITICAL: The finger DOES NOT SLIDE, DOES NOT DRAG, and DOES NOT STROKE the skin; it is a fixed, static single-point contact. Holds the finger completely still against the throat for 0.5 seconds with head tilted back, then cleanly lowers the hand directly downward to neutral resting position as the head returns forward.
-Accurate LSC70 kinematics, single vertical index finger, absolutely no sliding or scratching motion, static point contact, flawless hand and neck anatomy, soft studio lighting. 60 fps, clean render, seamless looping animation.
+The character tilts head slightly upward and backward (~15 degrees), raising the chin to clearly expose the throat and neck, displaying a gentle, pleasant smile of enjoyment. The right hand starts from resting position, forms a neat fist with ONLY the index finger extended straight vertically upward (middle, ring, and pinky fingers are curled firmly into the palm, thumb tucked). 
+CANONICAL UPWARD SLIDING MOTION (DYNAMIC STROKE):
+1. The hand moves in and the fingertip of the extended right index finger makes initial soft contact at the lower base of the throat / Adam's apple area.
+2. From the base, the character SLIDES / GLIDES the fingertip of the index finger in a smooth, continuous vertical upward stroke along the throat up to just beneath the jawline/chin (a clean 4cm upward stroke).
+3. Holds the peak pose at the upper throat for 0.4 seconds matching the reference photo exactly (fotos/GUSTAR_ref.jpg).
+4. Gently releases contact and lowers the hand back down to neutral resting position as the head returns forward.
+Accurate LSC70 kinematics, continuous smooth upward sliding stroke, single vertical index finger with zero flapping, clean throat anatomy, soft studio lighting. 60 fps, clean render, seamless looping animation.
 ```
 
 ---
