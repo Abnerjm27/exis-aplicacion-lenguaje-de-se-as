@@ -4,6 +4,11 @@
  * Conecta Reproductor de Video Interactivo LSC, Visión MediaPipe, Chat Tutor IA y Catálogo LSC70
  */
 
+// Registro global de errores de consola para auditoría visual automatizada (Regla 7 AGENTS.md)
+window.__consoleErrors = window.__consoleErrors || [];
+window.addEventListener('error', e => window.__consoleErrors.push(e.message || String(e)));
+window.addEventListener('unhandledrejection', e => window.__consoleErrors.push(e.reason ? (e.reason.message || String(e.reason)) : 'Unhandled Rejection'));
+
 let currentCategory = 'words';
 let currentSign = null;
 
