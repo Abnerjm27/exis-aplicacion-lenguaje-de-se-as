@@ -30,7 +30,7 @@ AVAILABLE_SIGNS = {
 }
 
 FALLBACK_REPLIES = {
-    "HOLA": "¡Excelente elección! Para hacer 'HOLA', levanta tu mano derecha abierta a la altura de la sien y haz un ligero saludo hacia afuera. ¡Observa al avatar 3D! [SELECCIONAR: HOLA]",
+    "HOLA": "¡Excelente elección! Para la seña de 'HOLA', coloca tu mano derecha en la sien con los dedos juntos y proyéctala suavemente hacia adelante y afuera en diagonal saludando al frente. [SELECCIONAR: HOLA]",
     "YO": "¡Muy bien! Para la seña de 'YO', forma un puño con tu mano derecha y deja únicamente el dedo índice extendido apuntando hacia tu pecho. [SELECCIONAR: YO]",
     "BUENOS": "¡Perfecto! Para 'BUENOS / AS', coloca tu mano izquierda abierta como base en el pecho (palma arriba) y baja tu mano derecha para chocar apoyando la palma sobre la izquierda en el torso. [SELECCIONAR: BUENOS]",
     "DIAS": "Para la seña de 'DÍAS', abre ambos brazos lateralmente a la altura del pecho con las palmas al frente simulando el amanecer. [SELECCIONAR: DIAS]",

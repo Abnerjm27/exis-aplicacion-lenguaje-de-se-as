@@ -10,18 +10,18 @@ const SIGNS_DATA = {
       id: 'HOLA',
       name: 'HOLA',
       category: 'words',
-      desc: 'Saludo: Mano derecha extendida abierta a la altura de la sien con la palma hacia el frente, moviéndose lateralmente.',
-      tip: 'Coloca tu mano derecha abierta a la altura de tu sien/frente con los 5 dedos extendidos mirando al frente y muévela lateralmente.',
+      desc: 'Saludo oficial LSC: Mano derecha en la sien proyectándose hacia adelante y afuera en diagonal.',
+      tip: 'Coloca tu mano derecha en tu sien con los dedos juntos y proyéctala suavemente hacia adelante y afuera en diagonal.',
       image: 'dataset_samples/HOLA.jpg',
       rules: { type: 'open_hand_head', height: 'high' },
       trajectory: {
         enabled: true,
         trackingLandmark: 0, // Muñeca
-        hitRadius: 0.15,
+        hitRadius: 0.16,
         points: [
-          { id: 1, x: 0.35, y: 0.35, label: 'Sien' },
-          { id: 2, x: 0.50, y: 0.32, label: 'Onda' },
-          { id: 3, x: 0.65, y: 0.35, label: 'Saludo' }
+          { id: 1, x: 0.38, y: 0.36, label: 'Sien' },
+          { id: 2, x: 0.52, y: 0.30, label: 'Proyección' },
+          { id: 3, x: 0.66, y: 0.24, label: 'Saludo al frente' }
         ]
       }
     },

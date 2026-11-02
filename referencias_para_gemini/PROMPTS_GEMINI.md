@@ -44,7 +44,7 @@ Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficia
 
 | ID Seña | Categoría | Foto de Referencia | Gesto Clave LSC | Archivo Destino |
 |:---|:---:|:---|:---|:---|
-| **HOLA** | Palabra | `fotos/HOLA_ref.jpg` | Mano derecha abierta a la altura de la sien con saludo suave | `app/videos/anime/HOLA_body.mp4` |
+| **HOLA** | Palabra | `fotos/HOLA_ref.jpg` | Mano derecha en la sien proyectándose hacia adelante y afuera en diagonal | `app/videos/anime/HOLA_body.mp4` |
 | **YO** | Palabra | `fotos/YO_ref.jpg` | Puño cerrado con dedo índice señalando al centro del pecho | `app/videos/anime/YO_body.mp4` |
 | **BUENOS** | Palabra | `fotos/BUENOS_ref.jpg` | Mano derecha baja desde arriba y choca con la palma sobre la mano izquierda en el centro | `app/videos/anime/BUENOS_body.mp4` |
 | **DIAS** | Palabra | `fotos/DIAS_ref.jpg` | Ambos brazos se abren hacia los lados como el amanecer | `app/videos/anime/DIAS_body.mp4` |
@@ -60,19 +60,19 @@ Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficia
 
 ## 4. Prompts Detallados para Copiar y Pegar
 
-### 01. Seña: HOLA (Saludo)
+### 01. Seña: HOLA (Saludo Oficial LSC70)
 **Español:**
 ```text
-Video en bucle perfecto de 2 segundos. Joven tutora anime de lengua de señas (estilo 3D cel-shaded moderno, cabello castaño oscuro con flequillo, chaqueta técnica blanca y gris con detalles cian neón, fondo oscuro azul pizarra de estudio #070c18). 
-Muestra el torso superior y ambas manos. La tutora levanta su mano derecha a la altura de su sien derecha con la palma mirando hacia adelante y los 5 dedos extendidos y ligeramente separados. Realiza un suave y elegante movimiento de saludo hacia el lateral (dos pequeñas oscilaciones naturales de muñeca), manteniendo una sonrisa cálida y amigable. Luego regresa suavemente al reposo inicial. 
-Bucle fluido, dedos anatómicamente perfectos sin deformaciones, iluminación de estudio suave con rim light cian en bordes. 60 fps, 4k render, seamless looping animation.
+Video en bucle perfecto de 2.5 segundos. Personaje tutor anime de Lengua de Señas Colombiana (LSC70, estilo anime cel-shading nítido, cabello castaño con flequillo despejando rostro, fondo neutro azul pizarra oscuro #070c18). 
+Plano medio mostrando claramente torso superior y rostro. Seña oficial de LSC para 'HOLA': La mano derecha parte con los cuatro dedos juntos y rectos y el pulgar descansando suavemente sobre el lateral, colocada junto a la sien/ceja derecha (postura de saludo formal o saludo militar suave, palma orientada en diagonal hacia adentro/abajo). Desde la sien, el personaje proyecta el brazo y la mano hacia adelante y hacia afuera en un movimiento diagonal recto y elegante, despegando la mano de la sien para saludar al interlocutor. Pausa 0.4 segundos en la extensión clave mostrando la pose exacta de la foto de referencia (fotos/HOLA_ref.jpg), y regresa con naturalidad al reposo.
+Cinemática exacta de LSC, dedos firmes y anatómicamente correctos, sin sacudidas ni oscilaciones de dedos, iluminación difusa de estudio con borde sutil. 60 fps, render limpio, bucle continuo y fluido.
 ```
 
 **English:**
 ```text
-Seamless 2-second perfect loop video. Young anime female sign language tutor (modern 3D cel-shaded style, dark brown hair with stylish bangs, white and light slate futuristic jacket with subtle neon cyan trims, studio dark slate #070c18 background). 
-Medium close-up showing upper torso and hands clearly. The character raises her right hand to the height of her right temple, open palm facing forward with all five fingers cleanly extended and slightly separated. She performs a smooth, gentle sign greeting wave with two natural lateral wrist oscillations while smiling warmly and pedagogically. Smoothly returns to neutral rest pose. 
-Seamless loop, perfect hand anatomy, no extra fingers, soft studio lighting with cyan rim light. 60 fps, 4k render, ultra smooth sign demonstration.
+Seamless 2.5-second perfect loop video. Anime Colombian Sign Language (LSC) instructor (crisp cel-shaded anime style, dark brown hair with bangs clearing the face, studio dark slate background #070c18). 
+Medium shot framing torso, head and right hand clearly. Canonical LSC sign for 'HOLA' (Hello): The character starts with the right hand placed at the right temple/eyebrow (formal salute position, four fingers straight and joined together, thumb resting against the hand, palm angled diagonally inward/downward). From the temple, the right arm and hand project forward and outward in a clean, elegant diagonal extension away from the head toward the viewer. Holds the key salute projection pose for 0.4 seconds matching the reference photo exactly (fotos/HOLA_ref.jpg), then returns smoothly to neutral rest pose. 
+Accurate sign language kinematics, anatomically flawless hands, no waving or flapping fingers, crisp studio lighting. 60 fps, clean render, seamless looping animation.
 ```
 
 ---
