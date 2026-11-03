@@ -314,19 +314,36 @@ Seamless infinite loop, immaculate pinky and fist geometry, soft studio rim ligh
 
 ---
 
-### 15. Dactilología: Letra O
+### 15. Dactilología: Letra O (LSC70)
 **Español:**
 ```text
-Video en bucle continuo de 2 segundos. Tutora anime de LSC (estilo anime de alta definición, líneas nítidas, fondo azul pizarra oscuro #070c18).
-Primer plano de la mano derecha a la altura del pecho en vista tres cuartos para mostrar el espacio tridimensional de la letra 'O': Los cuatro dedos (índice, medio, anular y meñique) se curvan hacia adelante y abajo de forma uniforme, mientras el pulgar se curva hacia arriba hasta que sus yemas se tocan o acercan sutilmente, formando la silueta circular completa y cerrada de la letra O. Postura clara, estática y educativa.
-Bucle continuo, dedos con curvatura armónica sin deformaciones, círculo vacío claramente visible en el centro, iluminación nítida con reflejos suaves.
+Video en bucle perfecto de 2.5 segundos. Personaje tutor anime de Lengua de Señas Colombiana (Sol, estilo anime cel-shading de alta definición, chaqueta roja oscura/borgoña con solapas gris oscuro, camiseta negra con cuello en V, cabello castaño con mechón rebelde, fondo neutro azul pizarra oscuro #070c18).
+Plano medio mostrando claramente torso superior, rostro y mano derecha. Cinemática oficial canónica de LSC (Colombia - LSC70) para la 'Letra O':
+POSICIÓN Y ALTURA EXACTA SEGÚN EL DATASET:
+El brazo derecho se eleva flexionando el codo hacia adelante, situando la mano derecha a la altura de la mandíbula y la mejilla derecha (al lado de la boca/mentón, NO en el pecho bajo).
+CONFIGURACIÓN DE LA MANO (FORMA DE LA O):
+La mano forma la silueta circular tridimensional de la letra 'O': todos los cuatro dedos (índice, medio, anular y meñique) se curvan hacia adelante y abajo de forma uniforme y conjunta en un arco suave, mientras el pulgar se curva hacia arriba enfrentado a ellos, uniendo suavemente las yemas de los dedos con la yema del pulgar para cerrar un círculo hueco claramente visible y definido en el centro (como mirando a través de un lente u ocular).
+REGLAS ANATÓMICAS CRÍTICAS:
+- NO es la seña de 'OK': los dedos medio, anular y meñique NO deben estar extendidos hacia arriba; deben estar curvados juntos tocando el pulgar.
+- NO es un puño cerrado: el centro del círculo debe estar completamente abierto y visible.
+- La mano se mantiene firme, nítida y estática en esa postura canónica durante 1.8 segundos frente a la cámara, con una leve respiración natural del personaje y sonrisa amable, regresando de forma suave y armónica al bucle.
+Render ultra limpio a 24/60 fps, dedos anatómicos perfectos de 5 dígitos, iluminación de estudio suave con rim light cian sutil.
 ```
 
 **English:**
 ```text
-Seamless 2-second loop video. Anime sign language tutor (crisp high-definition anime style, dark slate background #070c18).
-Close-up of the right hand held at chest height in three-quarters angle to reveal the circular spatial form of the letter 'O': All four fingers curve forward and downward uniformly while the thumb curves upward until fingertips meet gently, creating a clear, complete circular 'O' shape with visible open space in the center. Crisp pedagogical demonstration.
-Seamless loop, proportional finger arches, zero visual artifacts, clean studio illumination.
+Seamless 2.5-second loop video. Anime Colombian Sign Language (LSC) tutor (Sol, crisp high-end cel-shaded anime style, dark red/burgundy jacket with dark slate lapels, black V-neck t-shirt, messy brown hair, dark studio backdrop #070c18).
+Medium shot clearly framing upper torso, face, and right hand. Canonical Colombian Sign Language (LSC70 dataset) manual alphabet letter 'O':
+CANONICAL POSITIONING MATCHING DATASET (LSC70):
+The character raises the right arm with elbow bent, positioning the right hand elevated at jawline / cheek height beside the mouth (face/chin level, NOT down at lower chest).
+HAND CONFIGURATION (ROUND 'O' SHAPE):
+The right hand forms the precise circular silhouette of the letter 'O': all four fingers (index, middle, ring, and pinky) curve downward and forward together in a synchronized smooth arch, while the thumb curves upward to meet the fingertips, creating a clean, hollow, clearly visible circular opening in the center (three-quarters facing camera to display the circular hole).
+CRITICAL ANATOMICAL RULES:
+- NOT an 'OK' sign! Middle, ring, and pinky fingers MUST NOT point straight up; all fingers must curve together touching the thumb.
+- NOT a closed fist! There must be a clear, hollow circular aperture visible between the curved fingers and thumb.
+- Hand height must remain elevated at the jaw/mouth level as documented in LSC70.
+The character holds this canonical posture steadily for 1.8 seconds with gentle natural breathing and a friendly pedagogical smile, smoothly looping.
+Flawless hand anatomy, 5 distinct proportional fingers, no digit fusing or mutations, soft studio rim lighting. 24/60 fps clean render.
 ```
 
 ---

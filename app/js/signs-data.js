@@ -217,8 +217,8 @@ const SIGNS_DATA = {
       id: 'O',
       name: 'Letra O',
       category: 'letters',
-      desc: 'Dactilología LSC: Todos los dedos curvados hacia adelante tocando suavemente la yema del pulgar, formando un círculo visible O.',
-      tip: 'Curva tus cuatro dedos y junta sus puntas con el pulgar formando una letra O redonda.',
+      desc: 'Dactilología LSC: Mano derecha elevada al lado de la mandíbula/boca con todos los dedos curvados en arco tocando la yema del pulgar para formar un círculo O visible.',
+      tip: 'Eleva tu mano derecha al lateral de tu barbilla/boca, curva los 4 dedos y junta sus puntas con el pulgar formando un círculo abierto O.',
       image: 'dataset_samples/O.jpg',
       rules: { type: 'o_shape', height: 'any' },
       trajectory: { enabled: false }
