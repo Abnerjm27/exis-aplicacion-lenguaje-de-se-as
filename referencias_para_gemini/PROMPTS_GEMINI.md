@@ -4,15 +4,16 @@ Este documento contiene la especificación visual y la tabla completa de **11 pr
 
 ---
 
-## 1. Identidad Visual del Personaje (Consistencia Global)
+## 1. Identidad Visual del Personaje Oficial: "Sol" (Consistencia Global)
 
-Para mantener una consistencia visual perfecta con el modelo 3D del proyecto (`app/models/anime_character.glb` y `anime_character_render.png`), todos los prompts comparten la misma base de personaje, vestimenta e iluminación:
+Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficial** (`referencias_para_gemini/hoja_personaje_referencia.png` y visor web `http://localhost:8000/hoja_personaje.html`), todos los prompts comparten la misma base de personaje, vestimenta e iluminación:
 
-- **Personaje:** Joven tutora anime femenina de Lengua de Señas Colombiana, de 20-22 años, expresión amable, serena y pedagógica, ojos cálidos color ámbar/castaño, cabello castaño oscuro con flequillo lateral estilizado y mechones suaves.
-- **Estilo:** Animación anime 3D de alta gama (estilo cel-shaded moderno, Makoto Shinkai / Kyoto Animation meets Cyberpunk pedagógico), líneas nítidas, texturas suaves.
-- **Vestimenta:** Chaqueta deportiva técnica moderna de color blanco y gris claro con sutiles ribetes en cian neón (`#06b6d4`) y acentos índigo (`#6366f1`), mangas remangadas a la altura del antebrazo para dejar manos y muñecas 100% despejadas.
-- **Fondo e Iluminación:** Estudio fotográfico sobre fondo oscuro azul pizarra (`#070c18`), luz principal blanca suave (key light), luz de recorte cian/azul (rim light) sobre la silueta y manos, profundidad de campo cinematográfica.
-- **Encuadre:** Plano medio (*medium close-up*, torso superior, hombros y ambas manos completamente dentro del encuadre).
+- **Personaje:** "Sol", tutor anime juvenil de Lengua de Señas Colombiana (19-21 años), expresión acogedora y pedagógica, sonrisa cálida, ojos ámbar/miel directos a cámara, cabello castaño oscuro con corte limpio que despeja por completo la frente, orejas, mejillas y boca.
+- **Estilo:** Anime cel-shading de alta definición (estilo producción *Makoto Shinkai / Kyoto Animation*), líneas nítidas, estética settei profesional.
+- **Vestimenta Ergonómica LSC:** Camiseta interior ajustada azul carbón oscuro (`#14171F`) que crea máximo contraste con la piel de las manos; chaqueta deportiva ligera abierta color pizarra/ámbar (`#FBBF24` / `#4B5563`) con mangas recogidas hasta el codo para que antebrazos, muñecas y manos queden 100% despejados.
+- **Manos (Crítico):** 5 dedos anatómicamente perfectos, bien separados, sin guantes, sin anillos.
+- **Fondo e Iluminación:** Estudio fotográfico sobre fondo neutro pizarra suave (`#111827`), luz frontal difusa y luz de contorno nítida en los dedos para evitar aberraciones dactilares.
+- **Encuadre:** Plano medio (*medium shot*, torso superior, pecho y ambas manos completamente dentro del encuadre).
 - **Cinemática:** Bucle continuo (*seamless loop* de 2 a 3 segundos), iniciando en posición neutral relajada, ejecutando la seña con precisión dactilar, pausando 0.5 segundos en la pose clave, y retornando suavemente a la posición neutral.
 
 ---
@@ -22,7 +23,7 @@ Para mantener una consistencia visual perfecta con el modelo 3D del proyecto (`a
 1. **Abrir Gemini Web / Kling:**
    - Ingresa a [gemini.google.com](https://gemini.google.com) o tu generador de video preferido ([klingai.com](https://klingai.com), [runwayml.com](https://runwayml.com)).
 2. **Adjuntar Referencias:**
-   - Sube la imagen del personaje: `anime_character_render.png`.
+   - Sube la imagen del personaje: `referencias_para_gemini/anime_character_render.png`.
    - Sube el fotograma clave de la seña deseada desde `referencias_para_gemini/fotos/<SEÑA>_ref.jpg`.
 3. **Pegar el Prompt:**
    - Copia el prompt correspondiente de la tabla a continuación (versión en español o inglés).
@@ -39,39 +40,43 @@ Para mantener una consistencia visual perfecta con el modelo 3D del proyecto (`a
 
 ---
 
-## 3. Tabla Resumen de las 11 Señas Oficiales
+## 3. Tabla Resumen de las 15 Señas Oficiales
 
 | ID Seña | Categoría | Foto de Referencia | Gesto Clave LSC | Archivo Destino |
 |:---|:---:|:---|:---|:---|
-| **HOLA** | Palabra | `fotos/HOLA_ref.jpg` | Mano derecha abierta a la altura de la sien con saludo suave | `app/videos/anime/HOLA_body.mp4` |
+| **HOLA** | Palabra | `fotos/HOLA_ref.jpg` | Mano derecha en la sien proyectándose hacia adelante y afuera en diagonal | `app/videos/anime/HOLA_body.mp4` |
 | **YO** | Palabra | `fotos/YO_ref.jpg` | Puño cerrado con dedo índice señalando al centro del pecho | `app/videos/anime/YO_body.mp4` |
-| **BUENOS** | Palabra | `fotos/BUENOS_ref.jpg` | Yemas de los dedos juntas en el mentón proyectadas al frente | `app/videos/anime/BUENOS_body.mp4` |
+| **BUENOS** | Palabra | `fotos/BUENOS_ref.jpg` | Mano derecha baja desde arriba y choca con la palma sobre la mano izquierda en el centro | `app/videos/anime/BUENOS_body.mp4` |
 | **DIAS** | Palabra | `fotos/DIAS_ref.jpg` | Ambos brazos se abren hacia los lados como el amanecer | `app/videos/anime/DIAS_body.mp4` |
+| **TARDES** | Palabra | `fotos/TARDES_ref.jpg` | Ambos brazos se cruzan horizontalmente a la altura del pecho (atardecer formal) | `app/videos/anime/TARDES_body.mp4` |
 | **NOCHES** | Palabra | `fotos/NOCHES_ref.jpg` | Ambos brazos cruzados sobre el pecho descansando en antebrazos | `app/videos/anime/NOCHES_body.mp4` |
+| **GUSTAR** | Palabra | `fotos/GUSTAR_ref.jpg` | Dedo índice derecho extendido apuntando hacia arriba tocando la garganta/cuello con la cabeza levantada | `app/videos/anime/GUSTAR_body.mp4` |
 | **NOMBRE** | Palabra | `fotos/NOMBRE_ref.jpg` | Dedos índice y medio de la mano derecha sobre los de la izquierda | `app/videos/anime/NOMBRE_body.mp4` |
 | **A** | Letra | `fotos/A_ref.jpg` | Puño cerrado con pulgar erguido al lateral del índice | `app/videos/anime/A_body.mp4` |
 | **B** | Letra | `fotos/B_ref.jpg` | Cuatro dedos extendidos hacia arriba y pulgar doblado en palma | `app/videos/anime/B_body.mp4` |
 | **C** | Letra | `fotos/C_ref.jpg` | Dedos y pulgar arqueados formando el semicírculo de la letra C | `app/videos/anime/C_body.mp4` |
+| **I** | Letra | `fotos/I_ref.jpg` | Puño cerrado con meñique extendido vertical hacia arriba | `app/videos/anime/I_body.mp4` |
 | **L** | Letra | `fotos/L_ref.jpg` | Índice vertical y pulgar horizontal formando ángulo de 90° | `app/videos/anime/L_body.mp4` |
+| **O** | Letra | `fotos/O_ref.jpg` | Cuatro dedos curvados tocando la yema del pulgar formando un círculo O | `app/videos/anime/O_body.mp4` |
 | **V** | Letra | `fotos/V_ref.jpg` | Índice y medio abiertos en V (victoria), anular y meñique sujetos | `app/videos/anime/V_body.mp4` |
 
 ---
 
 ## 4. Prompts Detallados para Copiar y Pegar
 
-### 01. Seña: HOLA (Saludo)
+### 01. Seña: HOLA (Saludo Oficial LSC70)
 **Español:**
 ```text
-Video en bucle perfecto de 2 segundos. Joven tutora anime de lengua de señas (estilo 3D cel-shaded moderno, cabello castaño oscuro con flequillo, chaqueta técnica blanca y gris con detalles cian neón, fondo oscuro azul pizarra de estudio #070c18). 
-Muestra el torso superior y ambas manos. La tutora levanta su mano derecha a la altura de su sien derecha con la palma mirando hacia adelante y los 5 dedos extendidos y ligeramente separados. Realiza un suave y elegante movimiento de saludo hacia el lateral (dos pequeñas oscilaciones naturales de muñeca), manteniendo una sonrisa cálida y amigable. Luego regresa suavemente al reposo inicial. 
-Bucle fluido, dedos anatómicamente perfectos sin deformaciones, iluminación de estudio suave con rim light cian en bordes. 60 fps, 4k render, seamless looping animation.
+Video en bucle perfecto de 2.5 segundos. Personaje tutor anime de Lengua de Señas Colombiana (LSC70, estilo anime cel-shading nítido, cabello castaño con flequillo despejando rostro, fondo neutro azul pizarra oscuro #070c18). 
+Plano medio mostrando claramente torso superior y rostro. Seña oficial de LSC para 'HOLA': La mano derecha parte con los cuatro dedos juntos y rectos y el pulgar descansando suavemente sobre el lateral, colocada junto a la sien/ceja derecha (postura de saludo formal o saludo militar suave, palma orientada en diagonal hacia adentro/abajo). Desde la sien, el personaje proyecta el brazo y la mano hacia adelante y hacia afuera en un movimiento diagonal recto y elegante, despegando la mano de la sien para saludar al interlocutor. Pausa 0.4 segundos en la extensión clave mostrando la pose exacta de la foto de referencia (fotos/HOLA_ref.jpg), y regresa con naturalidad al reposo.
+Cinemática exacta de LSC, dedos firmes y anatómicamente correctos, sin sacudidas ni oscilaciones de dedos, iluminación difusa de estudio con borde sutil. 60 fps, render limpio, bucle continuo y fluido.
 ```
 
 **English:**
 ```text
-Seamless 2-second perfect loop video. Young anime female sign language tutor (modern 3D cel-shaded style, dark brown hair with stylish bangs, white and light slate futuristic jacket with subtle neon cyan trims, studio dark slate #070c18 background). 
-Medium close-up showing upper torso and hands clearly. The character raises her right hand to the height of her right temple, open palm facing forward with all five fingers cleanly extended and slightly separated. She performs a smooth, gentle sign greeting wave with two natural lateral wrist oscillations while smiling warmly and pedagogically. Smoothly returns to neutral rest pose. 
-Seamless loop, perfect hand anatomy, no extra fingers, soft studio lighting with cyan rim light. 60 fps, 4k render, ultra smooth sign demonstration.
+Seamless 2.5-second perfect loop video. Anime Colombian Sign Language (LSC) instructor (crisp cel-shaded anime style, dark brown hair with bangs clearing the face, studio dark slate background #070c18). 
+Medium shot framing torso, head and right hand clearly. Canonical LSC sign for 'HOLA' (Hello): The character starts with the right hand placed at the right temple/eyebrow (formal salute position, four fingers straight and joined together, thumb resting against the hand, palm angled diagonally inward/downward). From the temple, the right arm and hand project forward and outward in a clean, elegant diagonal extension away from the head toward the viewer. Holds the key salute projection pose for 0.4 seconds matching the reference photo exactly (fotos/HOLA_ref.jpg), then returns smoothly to neutral rest pose. 
+Accurate sign language kinematics, anatomically flawless hands, no waving or flapping fingers, crisp studio lighting. 60 fps, clean render, seamless looping animation.
 ```
 
 ---
@@ -93,19 +98,19 @@ Flawless continuous loop, accurate hand anatomy, studio lighting with soft cyan 
 
 ---
 
-### 03. Seña: BUENOS / BUENAS (Cortesía)
+### 03. Seña: BUENOS / BUENAS (Cortesía - LSC70)
 **Español:**
 ```text
-Video en bucle perfecto de 2 segundos. Joven tutora anime de señas LSC (estilo anime moderno 3D, cabello castaño con reflejos suaves, chaqueta blanca con ribetes cian, fondo minimalista oscuro #070c18). 
-Muestra el torso y rostro. La mano derecha sube con los dedos índice, medio, anular y meñique juntos y extendidos. Apoya suavemente las yemas de los dedos sobre la barbilla/mentón, y con un movimiento elegante proyecta la mano hacia adelante y ligeramente hacia abajo en señal de bendición y cortesía ('BUENOS / AS'). Su rostro expresa amabilidad y respeto. Retorna de forma fluida a la postura inicial. 
-Bucle continuo perfecto, mano y dedos perfectamente definidos, iluminación cinematográfica suave.
+Video en bucle perfecto de 2.5 segundos. Tutora anime de señas LSC (estilo anime moderno 3D, cabello castaño con flequillo despejando rostro, chaqueta técnica gris pizarra con detalles ámbar #FBBF24, fondo de estudio oscuro #070c18). 
+Plano medio mostrando torso superior y ambas manos. La mano izquierda se sostiene abierta como base frente al centro del pecho con la palma orientada hacia arriba. La mano derecha (con los dedos juntos y extendidos) parte desde la altura superior del pecho, desciende con un movimiento limpio y choca apoyando la palma firmemente sobre la palma de la mano izquierda en la mitad del torso (seña de 'BUENOS / AS' en Lengua de Señas Colombiana - LSC70). Pausa 0.4 segundos en el contacto y retorna suavemente a la posición de reposo. 
+Bucle fluido, dedos perfectamente dibujados en ambas manos, iluminación cinematográfica suave. 24 fps, clean seamless loop.
 ```
 
 **English:**
 ```text
-Seamless 2-second loop video. Young female anime sign tutor (clean cel-shaded anime aesthetic, dark brown hair with soft highlights, white high-tech jacket with cyan details, sleek dark background #070c18). 
-Medium framing focusing on face and torso. Right hand raises with fingers straight and together; fingertips gently touch the chin and gracefully project forward and slightly downward in a polite welcoming salute for 'GOOD / BUENOS'. Friendly, welcoming facial expression. Fluidly eases back to neutral rest. 
-Seamless continuous loop, crystal clear fingers and thumb, professional studio illumination with soft rim highlights.
+Seamless 2.5-second loop video. Young female anime sign tutor (clean cel-shaded 3D anime aesthetic, dark brown hair with bangs clearing the face, slate athletic jacket with amber accents #FBBF24, dark navy studio background #070c18). 
+Medium shot showing upper torso and both hands. The left hand is held open as a flat base in front of the center of the chest with palm facing upward. The right hand (fingers together and flat) starts from upper chest level, moves downward and lands with its palm slapping/resting firmly onto the left palm in the middle of the torso (Colombian Sign Language 'BUENOS / GOOD' - LSC70). Pauses for 0.4 seconds upon contact, then smoothly returns to neutral resting position. 
+Seamless continuous loop, crystal clear fingers and palms on both hands, professional studio illumination. 24 fps.
 ```
 
 ---
@@ -242,6 +247,103 @@ Bucle continuo, dedos índice y medio firmes y proporcionales, separación limpi
 Seamless 2-second loop video. Young female anime sign language mentor (modern 3D anime style, clean white and cyan futuristic jacket, dark background #070c18). 
 Close-up of the right hand at chest level, palm facing forward. The hand executes the letter 'V': index and middle fingers are straight, extended upward, and spread apart into a crisp 'V' shape (peace / victory sign) with ~30 degree separation; ring and pinky fingers are folded down against the palm and held by the thumb. Friendly, motivating smile. 
 Seamless loop, perfect finger geometry, no artifacts or distortion, high-end studio lighting with cyan contour rim light.
+```
+
+---
+
+### 12. Seña: TARDES (Cortesía y Tiempo - LSC70)
+**Español:**
+```text
+Video en bucle perfecto de 2.5 segundos. Tutora anime de Lengua de Señas Colombiana (estilo anime cel-shading nítido, cabello castaño recogido despejando rostro y cuello, chaqueta técnica pizarra con toques ámbar #FBBF24, fondo de estudio oscuro #070c18).
+Plano medio mostrando torso superior, hombros y ambos brazos claramente. Seña oficial de LSC para 'TARDES': Ambos brazos parten de una postura relajada y se elevan frente al pecho, cruzándose de forma horizontal a la altura media del torso, con los antebrazos superpuestos y las palmas de las manos reposando suavemente sobre el antebrazo o codo contrario, simulando el reposo y la transición de la tarde. Pausa 0.4 segundos mostrando con nitidez la pose de referencia (fotos/TARDES_ref.jpg), y retorna de manera fluida y suave a la postura neutral.
+Cinemática precisa de señas LSC, manos y dedos perfectamente definidos sin deformaciones, iluminación frontal suave de estudio con sutil luz de borde. 60 fps, render limpio, bucle continuo y armónico.
+```
+
+**English:**
+```text
+Seamless 2.5-second loop video. Anime Colombian Sign Language (LSC) tutor (crisp cel-shaded anime style, neat dark brown hair clearing face and neck, slate jacket with amber accents #FBBF24, dark studio background #070c18).
+Medium shot framing upper chest, shoulders, and both arms. Canonical LSC sign for 'TARDES' (Afternoon): Both arms raise in front of the chest and cross horizontally across mid-torso, with forearms resting over each other and hands resting gently over the opposite forearm/elbow, representing the resting dusk of the afternoon. Holds key reference pose cleanly for 0.4 seconds (matching fotos/TARDES_ref.jpg), then smoothly returns to neutral resting position.
+Flawless sign language motion, crisp hand anatomy, no extra digits or flickering, soft studio rim lighting. 60 fps, high-end clean loop.
+```
+
+---
+
+### 13. Seña: GUSTAR (Expresión / Agrado - LSC70)
+**Español:**
+```text
+Video en bucle perfecto de 2.5 segundos. Personaje tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, cabello castaño despejando el cuello y rostro, fondo neutro azul pizarra oscuro #070c18).
+Plano medio mostrando claramente rostro, cuello y mano derecha. Seña oficial canónica de LSC (Colombia) para 'GUSTAR': 
+El personaje inclina levemente la cabeza hacia atrás levantando la barbilla unos 15 grados para exponer con claridad la garganta y el cuello, con una mirada cálida y sonrisa de agrado. La mano derecha parte de reposo, forma un puño cerrado suave manteniendo ÚNICAMENTE el dedo índice extendido, recto y erguido en vertical apuntando hacia arriba (dedos medio, anular y meñique doblados firmemente en la palma, pulgar recogido). 
+MOVIMIENTO DINÁMICO CANÓNICO DE DESLIZAMIENTO ASCENDENTE: 
+1. La mano se aproxima y la yema del dedo índice derecho hace contacto inicial suave en la base frontal de la garganta / nuez baja.
+2. Desde la base, el personaje DESLIZA la yema del dedo índice en un trazo vertical continuo y suave hacia arriba a lo largo de la garganta hasta llegar justo debajo de la barbilla/mandíbula (deslizamiento rectilíneo ascendente de unos 4 centímetros).
+3. Sostiene la pose en la parte superior del cuello por 0.4 segundos mostrando con nitidez la pose de referencia (fotos/GUSTAR_ref.jpg).
+4. Finalmente, separa el dedo del cuello y desciende la mano suavemente al reposo mientras la cabeza regresa a su posición neutral.
+Cinemática precisa de LSC70, deslizamiento ascendente fluido y continuo sin saltos, dedo índice firme y recto, cuello bien iluminado sin sombras duras. 60 fps, render nítido, bucle infinito armónico.
+```
+
+**English:**
+```text
+Seamless 2.5-second loop video. Anime Colombian Sign Language (LSC) tutor (Sol, crisp cel-shaded anime style, neat dark brown hair clearing neck and face, studio dark slate background #070c18).
+Medium shot framing head, throat, neck, and right hand clearly. Canonical LSC (Colombian Sign Language) sign for 'GUSTAR' (To like / Pleasure):
+The character tilts head slightly upward and backward (~15 degrees), raising the chin to clearly expose the throat and neck, displaying a gentle, pleasant smile of enjoyment. The right hand starts from resting position, forms a neat fist with ONLY the index finger extended straight vertically upward (middle, ring, and pinky fingers are curled firmly into the palm, thumb tucked). 
+CANONICAL UPWARD SLIDING MOTION (DYNAMIC STROKE):
+1. The hand moves in and the fingertip of the extended right index finger makes initial soft contact at the lower base of the throat / Adam's apple area.
+2. From the base, the character SLIDES / GLIDES the fingertip of the index finger in a smooth, continuous vertical upward stroke along the throat up to just beneath the jawline/chin (a clean 4cm upward stroke).
+3. Holds the peak pose at the upper throat for 0.4 seconds matching the reference photo exactly (fotos/GUSTAR_ref.jpg).
+4. Gently releases contact and lowers the hand back down to neutral resting position as the head returns forward.
+Accurate LSC70 kinematics, continuous smooth upward sliding stroke, single vertical index finger with zero flapping, clean throat anatomy, soft studio lighting. 60 fps, clean render, seamless looping animation.
+```
+
+---
+
+### 14. Dactilología: Letra I
+**Español:**
+```text
+Video en bucle continuo de 2 segundos. Tutora anime de LSC (estilo 3D anime cel-shaded, vestimenta deportiva moderna, fondo oscuro #070c18).
+Primer plano nítido de la mano derecha a la altura del pecho con la palma orientada hacia el frente. Configuración dactilológica de la letra 'I': La mano forma un puño cerrado sólido con los dedos pulgar, índice, medio y anular doblados firmemente contra la palma; únicamente el dedo meñique se extiende completamente erguido, recto y vertical hacia arriba. Rostro sonriente y motivador enfocado a cámara.
+Bucle continuo sin cortes, dedo meñique firme y recto, puño limpio y anatómicamente proporcionado, iluminación de estudio suave con luz de contorno nítida.
+```
+
+**English:**
+```text
+Seamless 2-second loop video. Anime sign language instructor (clean cel-shaded aesthetic, modern tech athletic attire, dark studio background #070c18).
+Clear close-up of the right hand at chest height, palm facing forward. The hand demonstrates the manual alphabet letter 'I': hand curled into a firm, solid fist with thumb, index, middle, and ring fingers folded against the palm; only the pinky finger is fully extended straight vertically upwards. Engaging, confident instructor expression.
+Seamless infinite loop, immaculate pinky and fist geometry, soft studio rim lighting.
+```
+
+---
+
+### 15. Dactilología: Letra O (LSC70)
+**Español:**
+```text
+Video en bucle perfecto de 2.5 segundos. Personaje tutor anime de Lengua de Señas Colombiana (Sol, estilo anime cel-shading de alta definición, chaqueta roja oscura/borgoña con solapas gris oscuro, camiseta negra con cuello en V, cabello castaño con mechón rebelde, fondo neutro azul pizarra oscuro #070c18).
+Plano medio mostrando claramente torso superior, rostro y mano derecha. Cinemática oficial canónica de LSC (Colombia - LSC70) para la 'Letra O':
+POSICIÓN Y ALTURA EXACTA SEGÚN EL DATASET:
+El brazo derecho se eleva flexionando el codo hacia adelante, situando la mano derecha a la altura de la mandíbula y la mejilla derecha (al lado de la boca/mentón, NO en el pecho bajo).
+CONFIGURACIÓN DE LA MANO (FORMA DE LA O):
+La mano forma la silueta circular tridimensional de la letra 'O': todos los cuatro dedos (índice, medio, anular y meñique) se curvan hacia adelante y abajo de forma uniforme y conjunta en un arco suave, mientras el pulgar se curva hacia arriba enfrentado a ellos, uniendo suavemente las yemas de los dedos con la yema del pulgar para cerrar un círculo hueco claramente visible y definido en el centro (como mirando a través de un lente u ocular).
+REGLAS ANATÓMICAS CRÍTICAS:
+- NO es la seña de 'OK': los dedos medio, anular y meñique NO deben estar extendidos hacia arriba; deben estar curvados juntos tocando el pulgar.
+- NO es un puño cerrado: el centro del círculo debe estar completamente abierto y visible.
+- La mano se mantiene firme, nítida y estática en esa postura canónica durante 1.8 segundos frente a la cámara, con una leve respiración natural del personaje y sonrisa amable, regresando de forma suave y armónica al bucle.
+Render ultra limpio a 24/60 fps, dedos anatómicos perfectos de 5 dígitos, iluminación de estudio suave con rim light cian sutil.
+```
+
+**English:**
+```text
+Seamless 2.5-second loop video. Anime Colombian Sign Language (LSC) tutor (Sol, crisp high-end cel-shaded anime style, dark red/burgundy jacket with dark slate lapels, black V-neck t-shirt, messy brown hair, dark studio backdrop #070c18).
+Medium shot clearly framing upper torso, face, and right hand. Canonical Colombian Sign Language (LSC70 dataset) manual alphabet letter 'O':
+CANONICAL POSITIONING MATCHING DATASET (LSC70):
+The character raises the right arm with elbow bent, positioning the right hand elevated at jawline / cheek height beside the mouth (face/chin level, NOT down at lower chest).
+HAND CONFIGURATION (ROUND 'O' SHAPE):
+The right hand forms the precise circular silhouette of the letter 'O': all four fingers (index, middle, ring, and pinky) curve downward and forward together in a synchronized smooth arch, while the thumb curves upward to meet the fingertips, creating a clean, hollow, clearly visible circular opening in the center (three-quarters facing camera to display the circular hole).
+CRITICAL ANATOMICAL RULES:
+- NOT an 'OK' sign! Middle, ring, and pinky fingers MUST NOT point straight up; all fingers must curve together touching the thumb.
+- NOT a closed fist! There must be a clear, hollow circular aperture visible between the curved fingers and thumb.
+- Hand height must remain elevated at the jaw/mouth level as documented in LSC70.
+The character holds this canonical posture steadily for 1.8 seconds with gentle natural breathing and a friendly pedagogical smile, smoothly looping.
+Flawless hand anatomy, 5 distinct proportional fingers, no digit fusing or mutations, soft studio rim lighting. 24/60 fps clean render.
 ```
 
 ---

@@ -6,32 +6,32 @@
   <title>EXIS · Lengua de Señas Colombiana (LSC)</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  <!-- Google Fonts: Outfit & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Fuentes Tipográficas Locales (Offline) -->
+  <link rel="stylesheet" href="css/fonts.css">
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CSS Local (Offline Standalone) -->
+  <script src="lib/tailwind/tailwind.js"></script>
 
   <!-- Estilos Externos (Sin estilos embebidos) -->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=20261102_v1">
 
-  <!-- MediaPipe Hands & Camera Utils -->
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+  <!-- MediaPipe Hands & Camera Utils Locales (Offline) -->
+  <script src="lib/mediapipe/camera_utils.js"></script>
+  <script src="lib/mediapipe/control_utils.js"></script>
+  <script src="lib/mediapipe/drawing_utils.js"></script>
+  <script src="lib/mediapipe/hands/hands.js"></script>
 
-  <!-- Canvas Confetti -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <!-- Canvas Confetti Local (Offline) -->
+  <script src="lib/canvas-confetti/confetti.browser.min.js"></script>
 
   <!-- Scripts Modulares -->
-  <script src="js/signs-data.js" defer></script>
-  <script src="js/video-player.js" defer></script>
-  <script src="js/vision-evaluator.js" defer></script>
-  <script src="js/chat-tutor.js" defer></script>
-  <script src="js/main.js" defer></script>
+  <script src="js/signs-data.js?v=20261101_v6" defer></script>
+  <script src="js/trajectory-tracker.js?v=20261101_v6" defer></script>
+  <script src="js/video-player.js?v=20261101_v6" defer></script>
+  <script src="js/camera-manager.js?v=20261101_v6" defer></script>
+  <script src="js/vision-evaluator.js?v=20261101_v6" defer></script>
+  <script src="js/chat-tutor.js?v=20261101_v6" defer></script>
+  <script src="js/main.js?v=20261101_v6" defer></script>
 </head>
 
 <body class="flex flex-col min-h-screen text-slate-100 antialiased selection:bg-amber-600 selection:text-white">
@@ -57,6 +57,12 @@
       </div>
 
       <div class="flex items-center gap-2 shrink-0">
+        <!-- Enlace a Hoja de Personaje (Model Sheet) -->
+        <a href="hoja_personaje.html" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-amber-300 shadow-sm transition-colors" title="Ver Hoja de Referencia y Diseño de Personaje Sol">
+          <span>🎨</span>
+          <span>Hoja Personaje</span>
+        </a>
+
         <!-- Botón Tutor IA -->
         <button id="btnToggleChat" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-sm" aria-label="Abrir Tutor Virtual">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -143,6 +149,7 @@
 
           <!-- Fallback Sincronizado en WebP Animado -->
           <img id="signAnimatedWebp" class="webp-fallback-element hidden w-full h-full object-contain" alt="Demostración animada en Lengua de Señas Colombiana" />
+          <canvas id="webpFreezeCanvas" class="hidden w-full h-full object-contain pointer-events-none"></canvas>
 
           <!-- Badge Flotante de Estado -->
           <div id="videoFloatingBadge" class="video-floating-badge absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950/85 backdrop-blur-md border border-slate-700/60 text-[11px] text-amber-300 font-medium shadow-md">
@@ -250,10 +257,26 @@
             </svg>
             <span class="font-bold text-xs sm:text-sm tracking-wide text-slate-100 truncate">2. Práctica con Cámara e IA</span>
           </div>
-          <button id="toggleCameraBtn" class="btn-spring px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-700 hover:bg-emerald-600 text-white shadow-sm flex items-center gap-2 shrink-0">
-            <span id="cameraStatusDot" class="w-2 h-2 rounded-full bg-white animate-pulse" aria-hidden="true"></span>
-            <span id="cameraBtnText">Iniciar Cámara</span>
-          </button>
+          <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <!-- Selector de Cámara (Cámara Principal / Secundaria / Externa) -->
+            <div class="flex items-center gap-1">
+              <select id="cameraSourceSelect" class="bg-slate-900 hover:bg-slate-800 text-slate-300 text-[11px] font-medium rounded-lg px-2 py-1.5 border border-slate-700 focus:border-amber-500 focus:outline-none max-w-[130px] sm:max-w-[170px] truncate cursor-pointer transition shadow-sm" title="Seleccionar cámara disponible">
+                <option value="">Detectando cámaras...</option>
+              </select>
+              <button id="btnRefreshCameras" class="btn-spring p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs shadow-sm" title="Buscar cámaras conectadas">
+                🔄
+              </button>
+            </div>
+
+            <button id="btnToggleTrajectory" class="btn-spring px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 flex items-center gap-1.5 shadow-sm" title="Activar o desactivar guía de puntos en pantalla" aria-pressed="true">
+              <span class="text-amber-400">📍</span>
+              <span id="trajectoryBtnText" class="hidden xs:inline">Puntos: ON</span>
+            </button>
+            <button id="toggleCameraBtn" class="btn-spring px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-700 hover:bg-emerald-600 text-white shadow-sm flex items-center gap-2 shrink-0">
+              <span id="cameraStatusDot" class="w-2 h-2 rounded-full bg-white animate-pulse" aria-hidden="true"></span>
+              <span id="cameraBtnText">Iniciar Cámara</span>
+            </button>
+          </div>
         </div>
 
         <!-- Visor de Cámara y Canvas -->
@@ -289,6 +312,25 @@
             <div id="poseDiagnostic" class="text-[10px] text-slate-300 font-mono bg-slate-900/90 p-1.5 rounded border border-slate-800">
               Diagnóstico: Esperando mano...
             </div>
+          </div>
+
+          <!-- Badge flotante de Trayectoria Activa (Connect-the-Dots) -->
+          <div id="trajectoryStatusPill" class="hidden absolute top-3 right-3 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/90 border border-amber-500/40 text-xs font-semibold text-amber-300 shadow-xl backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping" aria-hidden="true"></span>
+            <span id="trajectoryStatusText">Paso 1: Sien</span>
+          </div>
+
+          <!-- Badge Flotante de Cámara Activa Real -->
+          <div id="activeCameraPill" class="hidden absolute bottom-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950/90 backdrop-blur-md border border-emerald-500/50 text-[11px] text-emerald-400 font-mono shadow-md">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="activeCameraLabel">Cámara Activa</span>
+          </div>
+
+          <!-- Toast Informativo de Cámara / DroidCam -->
+          <div id="cameraNoticeToast" class="hidden absolute bottom-3 left-3 right-3 z-30 bg-slate-900/95 backdrop-blur-md border border-amber-500/50 rounded-xl p-2.5 text-xs shadow-xl flex items-start gap-2">
+            <span class="text-amber-400 font-bold shrink-0 mt-0.5">ℹ️</span>
+            <p id="cameraNoticeText" class="text-[11px] text-slate-200 leading-snug flex-1">Aviso de cámara</p>
+            <button id="btnDismissCameraNotice" class="text-slate-400 hover:text-white p-1 text-xs shrink-0" aria-label="Cerrar aviso">✕</button>
           </div>
 
           <!-- Modal de Felicitación con Pausa Estricta -->

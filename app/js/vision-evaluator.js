@@ -20,21 +20,73 @@ const VisionEvaluator = (() => {
   let canvasElement = null;
   let canvasCtx = null;
 
+  let noticeTimeoutId = null;
+
+  function showCameraNotice(msg, durationMs = 8000) {
+    const toast = document.getElementById('cameraNoticeToast');
+    const txt = document.getElementById('cameraNoticeText');
+    const diagElem = document.getElementById('poseDiagnostic');
+    if (diagElem) diagElem.textContent = msg;
+
+    if (!toast || !txt) return;
+    txt.textContent = msg;
+    toast.classList.remove('hidden');
+
+    if (noticeTimeoutId) clearTimeout(noticeTimeoutId);
+    if (durationMs > 0) {
+      noticeTimeoutId = setTimeout(() => {
+        toast.classList.add('hidden');
+      }, durationMs);
+    }
+  }
+
+  function hideCameraNotice() {
+    const toast = document.getElementById('cameraNoticeToast');
+    if (toast) toast.classList.add('hidden');
+    if (noticeTimeoutId) clearTimeout(noticeTimeoutId);
+  }
+
   function init(videoEl, canvasEl) {
     videoElement = videoEl;
     canvasElement = canvasEl;
     canvasCtx = canvasElement.getContext('2d');
+
+    const selectEl = document.getElementById('cameraSourceSelect');
+    const refreshBtn = document.getElementById('btnRefreshCameras');
+    const dismissBtn = document.getElementById('btnDismissCameraNotice');
+
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', hideCameraNotice);
+    }
+
+    if (window.CameraManager && videoElement) {
+      window.CameraManager.init(videoElement, selectEl, async (vid) => {
+        if (isWebcamRunning && handsInstance) {
+          await handsInstance.send({ image: vid });
+        }
+      }, refreshBtn);
+    }
   }
 
   function setTargetSign(sign) {
     currentTargetSign = sign;
     consecutiveSuccessFrames = 0;
+    isEvaluationPaused = false;
+    if (window.TrajectoryTracker) {
+      window.TrajectoryTracker.setSign(sign);
+    }
+    updateScoreUI(0, `Ubica tu mano frente a la cámara para iniciar ${sign ? sign.name : ''}...`);
+    const diagElem = document.getElementById('poseDiagnostic');
+    if (diagElem) diagElem.textContent = "Ubica tu mano frente a la cámara...";
   }
 
   function setPaused(paused) {
     isEvaluationPaused = paused;
     if (paused) {
       consecutiveSuccessFrames = 0;
+      if (window.TrajectoryTracker) {
+        window.TrajectoryTracker.reset();
+      }
     }
   }
 
@@ -42,55 +94,81 @@ const VisionEvaluator = (() => {
     return isWebcamRunning;
   }
 
-  async function start() {
+  async function startWithDevice(deviceId = null) {
     if (!videoElement || !canvasElement) return false;
 
     try {
       updateCameraUIState('connecting');
 
-      handsInstance = new Hands({
-        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
-      });
+      if (!handsInstance) {
+        handsInstance = new Hands({
+          locateFile: (file) => `lib/mediapipe/hands/${file}`
+        });
 
-      handsInstance.setOptions({
-        maxNumHands: 2,
-        modelComplexity: 1,
-        minDetectionConfidence: 0.6,
-        minTrackingConfidence: 0.55
-      });
+        handsInstance.setOptions({
+          maxNumHands: 2,
+          modelComplexity: 1,
+          minDetectionConfidence: 0.6,
+          minTrackingConfidence: 0.55
+        });
 
-      handsInstance.onResults(handleHandResults);
+        handsInstance.onResults(handleHandResults);
+      }
 
-      cameraInstance = new Camera(videoElement, {
-        onFrame: async () => {
-          if (isWebcamRunning) {
-            await handsInstance.send({ image: videoElement });
-          }
-        },
-        width: 640,
-        height: 480
-      });
+      let cameraStarted = false;
+      try {
+        if (window.CameraManager) {
+          await window.CameraManager.start(deviceId);
+          cameraStarted = true;
+        } else {
+          cameraInstance = new Camera(videoElement, {
+            onFrame: async () => {
+              if (isWebcamRunning && handsInstance) {
+                await handsInstance.send({ image: videoElement });
+              }
+            },
+            width: 640,
+            height: 480
+          });
+          await cameraInstance.start();
+          cameraStarted = true;
+        }
+      } catch (streamErr) {
+        console.warn("[VisionEvaluator] Error al iniciar cámara seleccionada:", streamErr);
+        throw streamErr;
+      }
 
-      await cameraInstance.start();
       isWebcamRunning = true;
       updateCameraUIState('running');
       return true;
     } catch (err) {
-      console.error("Error al iniciar cámara MediaPipe:", err);
+      window.__lastVisionError = (err.name || 'Error') + ': ' + (err.message || String(err));
+      console.error("Error definitivo al iniciar cámara:", err);
       updateCameraUIState('stopped');
-      alert("No se pudo acceder a la cámara web. Asegúrate de conceder los permisos en tu navegador.");
+      showCameraNotice("No se pudo iniciar la cámara. Verifica los permisos del navegador o verifica que otra app no la esté usando.");
       return false;
     }
   }
 
+  async function start() {
+    const selectEl = document.getElementById('cameraSourceSelect');
+    const chosenId = (selectEl && selectEl.value) ? selectEl.value : null;
+    return startWithDevice(chosenId);
+  }
+
   function stop() {
-    if (cameraInstance) {
+    if (window.CameraManager) {
+      window.CameraManager.stop();
+    } else if (cameraInstance) {
       cameraInstance.stop();
     }
     isWebcamRunning = false;
     updateCameraUIState('stopped');
     if (canvasCtx && canvasElement) {
       canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+    }
+    if (window.TrajectoryTracker) {
+      window.TrajectoryTracker.reset();
     }
     resetDiagnostics();
   }
@@ -112,6 +190,12 @@ const VisionEvaluator = (() => {
     canvasCtx.save();
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
 
+    // Actualizar y renderizar la guía de trayectoria interactiva (Connect-the-Dots)
+    if (window.TrajectoryTracker && !isEvaluationPaused) {
+      window.TrajectoryTracker.update(results.multiHandLandmarks, canvasElement.width, canvasElement.height);
+      window.TrajectoryTracker.render(canvasCtx, canvasElement.width, canvasElement.height);
+    }
+
     if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
       // Draw MediaPipe Skeleton for all detected hands
       for (let i = 0; i < results.multiHandLandmarks.length; i++) {
@@ -128,6 +212,7 @@ const VisionEvaluator = (() => {
       if (!isEvaluationPaused) {
         consecutiveSuccessFrames = Math.max(0, consecutiveSuccessFrames - 2);
         updateScoreUI(0, "Coloca tu mano frente a la cámara web");
+        updateTrajectoryPillUI(window.TrajectoryTracker ? window.TrajectoryTracker.getStatusText() : null);
         resetFingerBadges();
       }
     }
@@ -425,22 +510,166 @@ const VisionEvaluator = (() => {
         diag = "Dedos en V (paz/victoria)";
       }
     }
+    // 12. EVALUACIÓN PARA "TARDES" (Brazos cruzados horizontalmente a la altura del pecho)
+    else if (signId === 'TARDES') {
+      const isChestLevel = wrist.y >= 0.25 && wrist.y <= 0.90;
+
+      if (lm2) {
+        const wrist2 = lm2[0];
+        const yDiff = Math.abs(wrist.y - wrist2.y);
+        const bothAtChest = isChestLevel && wrist2.y >= 0.25 && wrist2.y <= 0.90;
+
+        if (bothAtChest && yDiff < 0.32) {
+          score = 96;
+          hint = "¡Excelente seña de TARDES! Brazos cruzados a la altura del pecho...";
+          diag = "✓ TARDES detectado (antebrazos en reposo horizontal)";
+        } else if (!bothAtChest) {
+          score = 65;
+          hint = "Ubica ambos antebrazos a la altura de tu pecho";
+          diag = "Ubica brazos en el pecho";
+        } else {
+          score = 75;
+          hint = "Cruza horizontalmente tus brazos en el pecho";
+          diag = "Cruza los antebrazos";
+        }
+      } else {
+        if (isChestLevel) {
+          score = 88;
+          hint = "¡Buen movimiento! Cruza ambos brazos para la seña completa de TARDES";
+          diag = "✓ Brazo cruzado en pecho (TARDES)";
+        } else {
+          score = 60;
+          hint = "Lleva los brazos al centro del pecho";
+          diag = "Lleva los brazos al pecho";
+        }
+      }
+    }
+    // 13. EVALUACIÓN PARA "GUSTAR" (Dedo índice extendido en garganta / cuello)
+    else if (signId === 'GUSTAR') {
+      const idxY = lm[8].y;
+      const isThroatLevel = idxY <= 0.52 && wrist.y >= 0.25;
+      const isPointingUp = isIndexExt && (isRingCurled || isPinkyCurled);
+
+      if (isThroatLevel && isPointingUp) {
+        score = 96;
+        hint = "¡Excelente seña de GUSTAR! Dedo índice tocando la garganta...";
+        diag = "✓ GUSTAR detectado (índice en garganta)";
+      } else if (isPointingUp) {
+        score = 75;
+        hint = "Sube el dedo índice hacia tu garganta / cuello";
+        diag = "Lleva el índice a la garganta";
+      } else if (isThroatLevel) {
+        score = 65;
+        hint = "Extiende únicamente tu dedo índice apuntando hacia arriba";
+        diag = "Extiende el índice hacia arriba";
+      } else {
+        score = 45;
+        hint = "Extiende el dedo índice y llévalo a tu garganta";
+        diag = "Índice en garganta (GUSTAR)";
+      }
+    }
+    // 14. EVALUACIÓN PARA LETRA I (Puño con meñique extendido vertical)
+    else if (signId === 'I') {
+      if (isPinkyExt && isIndexCurled && isMiddleCurled && isRingCurled) {
+        score = 96;
+        hint = "¡Letra I perfecta! Meñique erguido y puño cerrado";
+        diag = "✓ Letra I detectada";
+      } else if (isPinkyExt) {
+        score = 78;
+        hint = "Cierra completamente los dedos índice, medio y anular";
+        diag = "Cierra los otros dedos en puño";
+      } else {
+        score = 45;
+        hint = "Extiende únicamente tu dedo meñique hacia arriba";
+        diag = "Levanta el meñique (Letra I)";
+      }
+    }
+    // 15. EVALUACIÓN PARA LETRA O (Dedos curvados tocando el pulgar)
+    else if (signId === 'O') {
+      const thumbToIdx = dist(lm[4], lm[8]);
+      const thumbToMid = dist(lm[4], lm[12]);
+      const isClosedCircle = thumbToIdx < 0.16 && thumbToMid < 0.18;
+      const isCurved = !isIndexExt && !isMiddleExt;
+
+      if (isClosedCircle && isCurved) {
+        score = 96;
+        hint = "¡Letra O perfecta! Dedos y pulgar formando un círculo cerrado";
+        diag = "✓ Letra O detectada";
+      } else if (thumbToIdx < 0.25) {
+        score = 78;
+        hint = "Junta las puntas de tus dedos con el pulgar para cerrar el círculo";
+        diag = "Cierra el círculo con el pulgar";
+      } else {
+        score = 50;
+        hint = "Curva los dedos enfrentados al pulgar formando una O";
+        diag = "Forma una O con los dedos";
+      }
+    }
+
+    // Integración de trayectoria dinámica (Connect-the-Dots)
+    const hasTrajectory = window.TrajectoryTracker && window.TrajectoryTracker.isTrajectoryActive();
+    const isTrajComplete = window.TrajectoryTracker ? window.TrajectoryTracker.isCompleted() : true;
+    const trajProgress = window.TrajectoryTracker ? window.TrajectoryTracker.getProgress() : 1.0;
+    const trajStatus = window.TrajectoryTracker ? window.TrajectoryTracker.getStatusText() : null;
+
+    let finalScore = score;
+    if (hasTrajectory) {
+      if (score >= 60) {
+        if (isTrajComplete) {
+          finalScore = Math.max(score, 95);
+          hint = `¡Movimiento y pose de ${currentTargetSign.name} completados!`;
+          diag = `✓ Recorrido completado con éxito`;
+        } else {
+          // Postura anatómica adecuada, guiando por la secuencia de puntos
+          const stepBonus = Math.round(trajProgress * 30);
+          finalScore = Math.min(84, Math.round(score * 0.55 + stepBonus));
+          if (trajStatus) {
+            hint = `${trajStatus.text} (Postura: Correcta)`;
+            diag = `Sigue los puntos: ${trajStatus.step}/${trajStatus.total}`;
+          }
+        }
+      } else {
+        // La postura aún necesita afinarse
+        finalScore = Math.round(score * 0.65);
+        if (trajStatus) {
+          diag = `Coloca bien los dedos antes de moverte`;
+        }
+      }
+    }
 
     const diagElem = document.getElementById('poseDiagnostic');
     if (diagElem) diagElem.textContent = diag;
 
-    updateScoreUI(score, hint);
+    updateScoreUI(finalScore, hint);
+    updateTrajectoryPillUI(trajStatus);
 
-    if (score >= 85) {
+    const isMastered = hasTrajectory 
+      ? (finalScore >= 85 && isTrajComplete) 
+      : (finalScore >= 85);
+
+    if (isMastered) {
       consecutiveSuccessFrames++;
       if (consecutiveSuccessFrames >= SUCCESS_THRESHOLD_FRAMES) {
         consecutiveSuccessFrames = 0;
         if (typeof window.onSignMastered === 'function') {
-          window.onSignMastered(currentTargetSign, score);
+          window.onSignMastered(currentTargetSign, finalScore);
         }
       }
     } else {
       consecutiveSuccessFrames = Math.max(0, consecutiveSuccessFrames - 1);
+    }
+  }
+
+  function updateTrajectoryPillUI(trajStatus) {
+    const pill = document.getElementById('trajectoryStatusPill');
+    const text = document.getElementById('trajectoryStatusText');
+    if (!pill || !text) return;
+
+    if (!trajStatus || !trajStatus.active) {
+      pill.classList.add('hidden');
+    } else {
+      pill.classList.remove('hidden');
+      text.textContent = trajStatus.text;
     }
   }
 
@@ -523,10 +752,12 @@ const VisionEvaluator = (() => {
   return {
     init,
     start,
+    startWithDevice,
     stop,
     toggle,
     setTargetSign,
     setPaused,
+    isPaused: () => isEvaluationPaused,
     isRunning
   };
 })();

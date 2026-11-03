@@ -34,6 +34,7 @@ const VideoPlayer = (() => {
     els = {
       video: document.getElementById('signVideo'),
       webp: document.getElementById('signAnimatedWebp'),
+      webpCanvas: document.getElementById('webpFreezeCanvas'),
       btnModeReal: document.getElementById('btnModeReal'),
       btnModeAnime: document.getElementById('btnModeAnime'),
       btnViewBody: document.getElementById('btnViewBody'),
@@ -60,6 +61,7 @@ const VideoPlayer = (() => {
       els.video.addEventListener('timeupdate', onVideoTimeUpdate);
       els.video.addEventListener('loadedmetadata', onVideoLoadedMetadata);
       els.video.addEventListener('playing', onVideoPlaying);
+      els.video.addEventListener('pause', onVideoPause);
       els.video.addEventListener('waiting', () => showSpinner(true));
       els.video.addEventListener('canplay', () => showSpinner(false));
       els.video.addEventListener('error', onVideoError);
@@ -84,11 +86,13 @@ const VideoPlayer = (() => {
     }
   }
 
+  const ASSET_VERSION = Date.now();
+
   function getMediaPaths(signId, mode, view) {
     const filename = `${signId}_${view}`;
     return {
-      mp4: `videos/${mode}/${filename}.mp4`,
-      webp: `videos/${mode}/${filename}.webp`
+      mp4: `videos/${mode}/${filename}.mp4?v=${ASSET_VERSION}`,
+      webp: `videos/${mode}/${filename}.webp?v=${ASSET_VERSION}`
     };
   }
 
@@ -113,6 +117,7 @@ const VideoPlayer = (() => {
   }
 
   function executeLoad(mp4Url, webpUrl) {
+    unfreezeWebp();
     isUsingWebpFallback = false;
     stopFallbackTimer();
 
@@ -121,8 +126,11 @@ const VideoPlayer = (() => {
       if (els.webp) els.webp.classList.add('hidden');
 
       els.video.playbackRate = currentSpeed;
-      els.video.src = mp4Url;
-      els.video.load();
+      const cleanUrl = mp4Url.split('?')[0];
+      if (!els.video.src.includes(cleanUrl)) {
+        els.video.src = mp4Url;
+        els.video.load();
+      }
 
       const playPromise = els.video.play();
       if (playPromise !== undefined) {
@@ -131,6 +139,9 @@ const VideoPlayer = (() => {
           updatePlayPauseUI();
           showSpinner(false);
         }).catch((err) => {
+          if (err.name === 'AbortError') {
+            return;
+          }
           console.warn('[VideoPlayer] Autoplay o códec, activando fallback WebP:', err);
           activateWebpFallback(webpUrl);
         });
@@ -141,6 +152,7 @@ const VideoPlayer = (() => {
   }
 
   function activateWebpFallback(webpUrl) {
+    unfreezeWebp();
     isUsingWebpFallback = true;
     showSpinner(false);
 
@@ -219,9 +231,42 @@ const VideoPlayer = (() => {
     loadMedia(currentSignId, currentMode, currentView);
   }
 
+  function freezeWebp() {
+    if (!els.webp || !els.webpCanvas) return;
+    const canvas = els.webpCanvas;
+    const ctx = canvas.getContext('2d');
+    const width = els.webp.naturalWidth || els.webp.clientWidth || 640;
+    const height = els.webp.naturalHeight || els.webp.clientHeight || 480;
+    canvas.width = width;
+    canvas.height = height;
+    try {
+      ctx.drawImage(els.webp, 0, 0, width, height);
+      els.webp.classList.add('hidden');
+      canvas.classList.remove('hidden');
+    } catch (e) {
+      console.warn('[VideoPlayer] No se pudo capturar cuadro WebP:', e);
+    }
+  }
+
+  function unfreezeWebp() {
+    if (els.webpCanvas) {
+      els.webpCanvas.classList.add('hidden');
+    }
+    if (els.webp && isUsingWebpFallback) {
+      els.webp.classList.remove('hidden');
+    }
+  }
+
   function togglePlayPause() {
     if (isUsingWebpFallback) {
       isPlaying = !isPlaying;
+      if (isPlaying) {
+        unfreezeWebp();
+        startFallbackTimer();
+      } else {
+        freezeWebp();
+        stopFallbackTimer();
+      }
       updatePlayPauseUI();
       return;
     }
@@ -239,6 +284,12 @@ const VideoPlayer = (() => {
     }
   }
 
+  function onVideoPause() {
+    if (isUsingWebpFallback) return;
+    isPlaying = false;
+    updatePlayPauseUI();
+  }
+
   function onVideoTimeUpdate() {
     if (!els.video || isUsingWebpFallback) return;
     const curr = els.video.currentTime || 0;
@@ -249,19 +300,21 @@ const VideoPlayer = (() => {
 
   function onVideoLoadedMetadata() {
     showSpinner(false);
-    if (!els.video) return;
+    if (!els.video || isUsingWebpFallback) return;
     const dur = els.video.duration || 0;
     if (els.duration) els.duration.textContent = `${dur.toFixed(1)}s`;
     els.video.playbackRate = currentSpeed;
   }
 
   function onVideoPlaying() {
+    if (isUsingWebpFallback) return;
     showSpinner(false);
     isPlaying = true;
     updatePlayPauseUI();
   }
 
   function onVideoEnded() {
+    if (isUsingWebpFallback) return;
     if (els.video && isPlaying) {
       els.video.currentTime = 0;
       els.video.play().catch(console.warn);
@@ -278,6 +331,9 @@ const VideoPlayer = (() => {
     const val = parseFloat(e.target.value);
     if (isUsingWebpFallback) {
       fallbackProgress = val;
+      if (els.currentTime) {
+        els.currentTime.textContent = `${((val / 100) * 2.4).toFixed(1)}s`;
+      }
       return;
     }
     if (els.video && els.video.duration) {

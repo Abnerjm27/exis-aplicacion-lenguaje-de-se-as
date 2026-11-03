@@ -2,6 +2,7 @@ import http.server
 import socketserver
 import json
 import urllib.request
+import urllib.parse
 import os
 import sys
 
@@ -18,27 +19,38 @@ AVAILABLE_SIGNS = {
     "buenos": "BUENOS",
     "dias": "DIAS",
     "dia": "DIAS",
+    "tardes": "TARDES",
+    "tarde": "TARDES",
     "noches": "NOCHES",
     "noche": "NOCHES",
+    "gustar": "GUSTAR",
+    "gusta": "GUSTAR",
+    "gusto": "GUSTAR",
     "nombre": "NOMBRE",
     "a": "A",
     "b": "B",
     "c": "C",
+    "i": "I",
     "l": "L",
+    "o": "O",
     "v": "V"
 }
 
 FALLBACK_REPLIES = {
-    "HOLA": "¡Excelente elección! Para hacer 'HOLA', levanta tu mano derecha abierta a la altura de la sien y haz un ligero saludo hacia afuera. ¡Observa al avatar 3D! [SELECCIONAR: HOLA]",
+    "HOLA": "¡Excelente elección! Para la seña de 'HOLA', coloca tu mano derecha en la sien con los dedos juntos y proyéctala suavemente hacia adelante y afuera en diagonal saludando al frente. [SELECCIONAR: HOLA]",
     "YO": "¡Muy bien! Para la seña de 'YO', forma un puño con tu mano derecha y deja únicamente el dedo índice extendido apuntando hacia tu pecho. [SELECCIONAR: YO]",
-    "BUENOS": "¡Perfecto! Para 'BUENOS / AS', coloca las yemas de tus dedos en el mentón y proyéctala suavemente hacia adelante. [SELECCIONAR: BUENOS]",
+    "BUENOS": "¡Perfecto! Para 'BUENOS / AS', coloca tu mano izquierda abierta como base en el pecho (palma arriba) y baja tu mano derecha para chocar apoyando la palma sobre la izquierda en el torso. [SELECCIONAR: BUENOS]",
     "DIAS": "Para la seña de 'DÍAS', abre ambos brazos lateralmente a la altura del pecho con las palmas al frente simulando el amanecer. [SELECCIONAR: DIAS]",
+    "TARDES": "Para la seña de 'TARDES', cruza tus antebrazos horizontalmente frente a tu pecho con las palmas orientadas hacia tu cuerpo. [SELECCIONAR: TARDES]",
     "NOCHES": "Para 'NOCHES', cruza ambos brazos sobre tu pecho con las manos reposando sobre los antebrazos opuestos. [SELECCIONAR: NOCHES]",
+    "GUSTAR": "Para la seña de 'GUSTAR', inclina levemente la cabeza hacia arriba, apoya tu dedo índice en la base de la garganta y deslízalo suavemente hacia arriba. [SELECCIONAR: GUSTAR]",
     "NOMBRE": "Para 'NOMBRE', extiende los dedos índice y medio de ambas manos y apoya los de la mano derecha sobre los de la izquierda frente a tu torso. [SELECCIONAR: NOMBRE]",
     "A": "Vamos a practicar la letra 'A': cierra los 4 dedos en un puño firme y mantén el pulgar erguido a un lado del índice. [SELECCIONAR: A]",
     "B": "Para la letra 'B', extiende los cuatro dedos juntos rectos hacia arriba y dobla el pulgar sobre la palma. [SELECCIONAR: B]",
     "C": "Para la letra 'C', arquea los 4 dedos y el pulgar enfrentados formando la curvatura semicircular de la letra C. [SELECCIONAR: C]",
+    "I": "Para la letra 'I', cierra tu mano en puño y extiende únicamente el dedo meñique hacia arriba en vertical. [SELECCIONAR: I]",
     "L": "Para la letra 'L', extiende el dedo índice hacia arriba y el pulgar hacia un lado formando un ángulo recto de 90 grados. [SELECCIONAR: L]",
+    "O": "Para la letra 'O', curva los dedos de tu mano tocando suavemente la punta del pulgar para formar un círculo visible O. [SELECCIONAR: O]",
     "V": "Para la letra 'V', levanta el dedo índice y el dedo medio separados en forma de victoria. [SELECCIONAR: V]",
 }
 
@@ -52,7 +64,9 @@ def detect_sign(msg):
         'yo': 'YO', 'mi': 'YO',
         'buenos': 'BUENOS', 'buenas': 'BUENOS',
         'dias': 'DIAS', 'dia': 'DIAS',
+        'tardes': 'TARDES', 'tarde': 'TARDES',
         'noches': 'NOCHES', 'noche': 'NOCHES',
+        'gustar': 'GUSTAR', 'gusta': 'GUSTAR', 'gusto': 'GUSTAR',
         'nombre': 'NOMBRE'
     }
 
@@ -62,7 +76,7 @@ def detect_sign(msg):
             return words_map[token]
 
     # 2. Check letters with 'letra X'
-    letters_map = {'a': 'A', 'b': 'B', 'c': 'C', 'l': 'L', 'v': 'V'}
+    letters_map = {'a': 'A', 'b': 'B', 'c': 'C', 'i': 'I', 'l': 'L', 'o': 'O', 'v': 'V'}
     for l in letters_map:
         if f'letra {l}' in norm or f'letra_{l}' in norm:
             return letters_map[l]
@@ -71,10 +85,28 @@ def detect_sign(msg):
     for token in tokens:
         if token in ['b', 'c', 'l', 'v']:
             return letters_map[token]
-        if token == 'a' and (len(tokens) == 1 or 'letra' in tokens):
-            return 'A'
+        if token in ['a', 'i', 'o'] and (len(tokens) == 1 or 'letra' in tokens):
+            return letters_map[token]
 
     return None
+
+class RangeFileWrapper:
+    """Wrapper para transmitir un rango de bytes específico de un archivo abierto (HTTP 206)."""
+    def __init__(self, file_obj, length):
+        self.file_obj = file_obj
+        self.remaining = length
+
+    def read(self, size=-1):
+        if self.remaining <= 0:
+            return b""
+        if size < 0 or size > self.remaining:
+            size = self.remaining
+        data = self.file_obj.read(size)
+        self.remaining -= len(data)
+        return data
+
+    def close(self):
+        self.file_obj.close()
 
 class LSCHandler(http.server.SimpleHTTPRequestHandler):
     extensions_map = {
@@ -87,17 +119,125 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
         '.js': 'application/javascript',
         '.css': 'text/css',
         '.html': 'text/html; charset=utf-8',
+        '.wasm': 'application/wasm',
+        '.data': 'application/octet-stream',
+        '.binarypb': 'application/octet-stream',
+        '.tflite': 'application/octet-stream',
+        '.woff2': 'font/woff2',
+        '.woff': 'font/woff',
+        '.ttf': 'font/ttf',
     }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
+
+    def send_head(self):
+        """Maneja solicitudes GET/HEAD con soporte completo para rangos de bytes (HTTP 206 Partial Content)."""
+        path = self.translate_path(self.path)
+        f = None
+        if os.path.isdir(path):
+            parts = urllib.parse.urlsplit(self.path)
+            if not parts.path.endswith(('/', '%2f', '%2F')):
+                self.send_response(301)
+                new_parts = (parts[0], parts[1], parts[2] + '/', parts[3], parts[4])
+                new_url = urllib.parse.urlunsplit(new_parts)
+                self.send_header("Location", new_url)
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return None
+            for index in self.index_pages:
+                index = os.path.join(path, index)
+                if os.path.isfile(index):
+                    path = index
+                    break
+            else:
+                return self.list_directory(path)
+
+        ctype = self.guess_type(path)
+        if path.endswith("/"):
+            self.send_error(404, "File not found")
+            return None
+
+        try:
+            f = open(path, 'rb')
+        except OSError:
+            self.send_error(404, "File not found")
+            return None
+
+        try:
+            fs = os.fstat(f.fileno())
+            total_length = fs.st_size
+
+            range_header = self.headers.get('Range')
+            if range_header and range_header.startswith('bytes='):
+                try:
+                    range_spec = range_header.split('=', 1)[1].strip()
+                    parts = range_spec.split('-', 1)
+                    start_str, end_str = parts[0].strip(), parts[1].strip()
+
+                    if start_str and end_str:
+                        start = int(start_str)
+                        end = int(end_str)
+                    elif start_str:
+                        start = int(start_str)
+                        end = total_length - 1
+                    elif end_str:
+                        suffix = int(end_str)
+                        start = max(0, total_length - suffix)
+                        end = total_length - 1
+                    else:
+                        start = 0
+                        end = total_length - 1
+
+                    if start >= total_length or end >= total_length or start > end:
+                        self.send_response(416, "Requested Range Not Satisfiable")
+                        self.send_header("Content-Range", f"bytes */{total_length}")
+                        self.send_header("Content-Length", "0")
+                        self.end_headers()
+                        f.close()
+                        return None
+
+                    content_length = end - start + 1
+                    f.seek(start)
+                    self.send_response(206, "Partial Content")
+                    self.send_header("Content-Type", ctype)
+                    self.send_header("Content-Range", f"bytes {start}-{end}/{total_length}")
+                    self.send_header("Content-Length", str(content_length))
+                    self.send_header("Last-Modified", self.date_time_string(fs.st_mtime))
+                    self.end_headers()
+                    return RangeFileWrapper(f, content_length)
+                except Exception:
+                    pass  # Fallback a respuesta 200 completa
+
+            self.send_response(200)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Content-Length", str(total_length))
+            self.send_header("Last-Modified", self.date_time_string(fs.st_mtime))
+            self.end_headers()
+            return f
+        except Exception:
+            f.close()
+            raise
 
     def end_headers(self):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type, Range')
         self.send_header('Accept-Ranges', 'bytes')
+        self.send_header('Cache-Control', 'no-cache, must-revalidate')
         super().end_headers()
+
+    def copyfile(self, source, outputfile):
+        try:
+            super().copyfile(source, outputfile)
+        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+            pass
+
+    def handle_one_request(self):
+        try:
+            super().handle_one_request()
+        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+            pass
 
     def do_OPTIONS(self):
         self.send_response(200)
@@ -106,7 +246,11 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         if self.path == '/api/chat':
             content_length = int(self.headers.get('Content-Length', 0))
-            post_data = self.rfile.read(content_length).decode('utf-8')
+            raw_data = self.rfile.read(content_length)
+            try:
+                post_data = raw_data.decode('utf-8')
+            except UnicodeDecodeError:
+                post_data = raw_data.decode('latin-1', errors='replace')
             try:
                 payload = json.loads(post_data)
                 user_msg = payload.get("message", "").strip()
@@ -121,12 +265,12 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
                 if detected_sign and detected_sign in FALLBACK_REPLIES:
                     reply_text = FALLBACK_REPLIES[detected_sign]
                 elif any(w in user_lower for w in ["palabra", "seña", "opcion", "catalogo", "que hay", "que tienes", "cuales", "señas", "menu"]):
-                    reply_text = "En el Proyecto EXIS puedes aprender: Palabras LSC (HOLA, YO, BUENOS, DÍAS, NOCHES, NOMBRE) y Alfabeto Dactilológico (A, B, C, L, V). ¿Cuál te gustaría practicar ahora?"
+                    reply_text = "En el Proyecto EXIS puedes aprender: Palabras LSC (HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE) y Alfabeto Dactilológico (A, B, C, I, L, O, V). ¿Cuál te gustaría practicar ahora?"
                 else:
                     # Try Ollama with low latency timeout (2.0s)
                     try:
                         prompt = f"""Eres el tutor de Lengua de Señas Colombiana del Proyecto EXIS.
-Señas disponibles: HOLA, YO, BUENOS, DÍAS, NOCHES, NOMBRE, y letras dactilológicas A, B, C, L, V.
+Señas disponibles: HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE, y letras dactilológicas A, B, C, I, L, O, V.
 Usuario dice: "{user_msg}"
 Instrucciones: Responde amablemente en español en máximo 2 oraciones pedagógicas. Si el usuario pide aprender una seña, agrega al final exactamente [SELECCIONAR: <ID>] (ej: [SELECCIONAR: DIAS] o [SELECCIONAR: C]).
 Respuesta:"""
@@ -193,9 +337,49 @@ Respuesta:"""
                 self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
                 return
 
-        super().do_POST()
+        self.send_error(404, "Endpoint no encontrado")
+
+def free_port(port):
+    """Libera el puerto si quedó retenido por un proceso previo huérfano."""
+    try:
+        import subprocess
+        # Buscar PIDs escuchando en el puerto
+        cmd = f'powershell -NoProfile -Command "Get-NetTCPConnection -LocalPort {port} -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess"'
+        out = subprocess.check_output(cmd, shell=True, text=True).strip()
+        if out:
+            for line in out.splitlines():
+                pid = int(line.strip())
+                if pid > 0 and pid != os.getpid():
+                    print(f"[AUTO-REPAIR] Terminando proceso huérfano PID {pid} en puerto {port}...")
+                    subprocess.call(f'taskkill /F /PID {pid}', shell=True)
+            import time
+            time.sleep(1)
+    except Exception as e:
+        pass
+
+class RobustThreadingServer(socketserver.ThreadingTCPServer):
+    allow_reuse_address = True
+    daemon_threads = True
+
+    def handle_error(self, request, client_address):
+        import sys
+        exc_type, _, _ = sys.exc_info()
+        if exc_type in (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
+            return
+        super().handle_error(request, client_address)
 
 if __name__ == '__main__':
+    free_port(PORT)
+    RobustThreadingServer.allow_reuse_address = True
     print(f"Iniciando Servidor LSC Learn con Proxy Ollama en http://localhost:{PORT}")
-    with socketserver.ThreadingTCPServer(("", PORT), LSCHandler) as httpd:
-        httpd.serve_forever()
+    try:
+        with RobustThreadingServer(("", PORT), LSCHandler) as httpd:
+            httpd.serve_forever()
+    except OSError as e:
+        if e.winerror == 10048 if hasattr(e, 'winerror') else False:
+            print(f"[AVISO] Puerto {PORT} en espera de reciclado, forzando liberación...")
+            free_port(PORT)
+            with RobustThreadingServer(("", PORT), LSCHandler) as httpd:
+                httpd.serve_forever()
+        else:
+            raise e

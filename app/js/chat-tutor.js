@@ -112,7 +112,7 @@ const ChatTutor = (() => {
     }
     if (lower.includes('buenos')) {
       if (typeof window.selectSignById === 'function') window.selectSignById('BUENOS');
-      return "He seleccionado 'BUENOS / AS'. Mano abierta con dedos juntos apoyada en el mentón proyectándose suavemente hacia el frente.";
+      return "He seleccionado 'BUENOS / AS'. Mano izquierda abierta como base en el pecho y mano derecha descendiendo para chocar palma sobre palma en el torso.";
     }
     if (lower.includes('letra b') || lower.includes(' b ') || lower === 'b') {
       if (typeof window.selectSignById === 'function') window.selectSignById('B');
