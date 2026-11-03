@@ -150,6 +150,43 @@ const SIGNS_DATA = {
           { id: 2, x: 0.50, y: 0.35, label: 'Deslizar arriba' }
         ]
       }
+    },
+    {
+      id: 'ANNOS',
+      name: 'AÑOS',
+      category: 'words',
+      desc: 'Tiempo y Edad LSC: Ambas manos frente al torso a la altura del pecho/abdomen; la mano derecha realiza un suave movimiento circular frotando o interactuando sobre la mano izquierda marcando el paso de los años.',
+      tip: 'Coloca ambas manos frente a tu torso y realiza un movimiento circular continuo con tu mano derecha sobre la izquierda.',
+      image: 'dataset_samples/ANNOS.jpg',
+      rules: { type: 'rubbing_hands_chest', height: 'mid' },
+      trajectory: {
+        enabled: true,
+        trackingLandmark: 0, // Muñeca derecha
+        hitRadius: 0.16,
+        points: [
+          { id: 1, x: 0.55, y: 0.65, label: 'Inicio' },
+          { id: 2, x: 0.65, y: 0.72, label: 'Giro' },
+          { id: 3, x: 0.55, y: 0.70, label: 'Retorno' }
+        ]
+      }
+    },
+    {
+      id: 'LICOR',
+      name: 'LICOR',
+      category: 'words',
+      desc: 'Alimentos y Bebidas LSC: Mano derecha configurada en copa / letra Y cerca del mentón y la boca, inclinándose suavemente hacia los labios para simular el acto de tomar un trago o copa.',
+      tip: 'Forma una copa con tu mano derecha (o extiende pulgar y meñique) y elévala hacia tu barbilla o boca inclinándola levemente.',
+      image: 'dataset_samples/LICOR.jpg',
+      rules: { type: 'cup_to_mouth', height: 'high' },
+      trajectory: {
+        enabled: true,
+        trackingLandmark: 4, // Yema del pulgar
+        hitRadius: 0.16,
+        points: [
+          { id: 1, x: 0.50, y: 0.65, label: 'Pecho' },
+          { id: 2, x: 0.52, y: 0.48, label: 'Boca / Barbilla' }
+        ]
+      }
     }
   ],
   letters: [
@@ -221,6 +258,36 @@ const SIGNS_DATA = {
       tip: 'Eleva tu mano derecha al lateral de tu barbilla/boca, curva los 4 dedos y junta sus puntas con el pulgar formando un círculo abierto O.',
       image: 'dataset_samples/O.jpg',
       rules: { type: 'o_shape', height: 'any' },
+      trajectory: { enabled: false }
+    },
+    {
+      id: 'D',
+      name: 'Letra D',
+      category: 'letters',
+      desc: 'Dactilología LSC: Dedo índice completamente erguido vertical hacia arriba, mientras las puntas del pulgar y el dedo medio se tocan formando un círculo en la base.',
+      tip: 'Apunta tu dedo índice recto hacia arriba y junta la punta de tu pulgar con tu dedo medio formando un aro.',
+      image: 'dataset_samples/D.jpg',
+      rules: { type: 'd_shape', height: 'any' },
+      trajectory: { enabled: false }
+    },
+    {
+      id: 'E',
+      name: 'Letra E',
+      category: 'letters',
+      desc: 'Dactilología LSC: Los cuatro dedos curvados juntos hacia abajo con las yemas descansando sobre la punta del pulgar doblado horizontalmente en la base de la palma.',
+      tip: 'Curva los cuatro dedos juntos hacia abajo y apoya sus yemas sobre el pulgar doblado en la palma.',
+      image: 'dataset_samples/E.jpg',
+      rules: { type: 'e_shape', height: 'any' },
+      trajectory: { enabled: false }
+    },
+    {
+      id: 'U',
+      name: 'Letra U',
+      category: 'letters',
+      desc: 'Dactilología LSC: Dedos índice y medio extendidos rectos hacia arriba y unidos firmemente (paralelos sin separación en V), con anular y meñique doblados en el puño.',
+      tip: 'Levanta el dedo índice y el dedo medio juntos y pegados apuntando hacia arriba. Mantén anular y meñique cerrados.',
+      image: 'dataset_samples/U.jpg',
+      rules: { type: 'u_shape', height: 'any' },
       trajectory: { enabled: false }
     }
   ]
