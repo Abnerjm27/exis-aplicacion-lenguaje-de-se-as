@@ -27,12 +27,23 @@ AVAILABLE_SIGNS = {
     "gusta": "GUSTAR",
     "gusto": "GUSTAR",
     "nombre": "NOMBRE",
+    "anos": "ANNOS",
+    "ano": "ANNOS",
+    "annos": "ANNOS",
+    "edad": "ANNOS",
+    "licor": "LICOR",
+    "trago": "LICOR",
+    "beber": "LICOR",
+    "bebida": "LICOR",
     "a": "A",
     "b": "B",
     "c": "C",
+    "d": "D",
+    "e": "E",
     "i": "I",
     "l": "L",
     "o": "O",
+    "u": "U",
     "v": "V"
 }
 
@@ -45,12 +56,17 @@ FALLBACK_REPLIES = {
     "NOCHES": "Para 'NOCHES', cruza ambos brazos sobre tu pecho con las manos reposando sobre los antebrazos opuestos. [SELECCIONAR: NOCHES]",
     "GUSTAR": "Para la seña de 'GUSTAR', inclina levemente la cabeza hacia arriba, apoya tu dedo índice en la base de la garganta y deslízalo suavemente hacia arriba. [SELECCIONAR: GUSTAR]",
     "NOMBRE": "Para 'NOMBRE', extiende los dedos índice y medio de ambas manos y apoya los de la mano derecha sobre los de la izquierda frente a tu torso. [SELECCIONAR: NOMBRE]",
+    "ANNOS": "Para la seña de 'AÑOS', ubica ambas manos frente a tu torso y realiza un suave frotamiento o movimiento circular con tu mano derecha sobre la izquierda indicando el transcurso del tiempo. [SELECCIONAR: ANNOS]",
+    "LICOR": "Para la seña de 'LICOR', configura tu mano derecha en copa (o letra Y con pulgar y meñique) y elévala hacia la barbilla o boca inclinándola con delicadeza. [SELECCIONAR: LICOR]",
     "A": "Vamos a practicar la letra 'A': cierra los 4 dedos en un puño firme y mantén el pulgar erguido a un lado del índice. [SELECCIONAR: A]",
     "B": "Para la letra 'B', extiende los cuatro dedos juntos rectos hacia arriba y dobla el pulgar sobre la palma. [SELECCIONAR: B]",
     "C": "Para la letra 'C', arquea los 4 dedos y el pulgar enfrentados formando la curvatura semicircular de la letra C. [SELECCIONAR: C]",
+    "D": "Para la letra 'D', apunta tu dedo índice recto hacia arriba y junta la punta de tu pulgar con tu dedo medio formando un aro en la base. [SELECCIONAR: D]",
+    "E": "Para la letra 'E', curva los cuatro dedos juntos hacia abajo y apoya sus yemas sobre el pulgar doblado en la palma. [SELECCIONAR: E]",
     "I": "Para la letra 'I', cierra tu mano en puño y extiende únicamente el dedo meñique hacia arriba en vertical. [SELECCIONAR: I]",
     "L": "Para la letra 'L', extiende el dedo índice hacia arriba y el pulgar hacia un lado formando un ángulo recto de 90 grados. [SELECCIONAR: L]",
     "O": "Para la letra 'O', curva los dedos de tu mano tocando suavemente la punta del pulgar para formar un círculo visible O. [SELECCIONAR: O]",
+    "U": "Para la letra 'U', levanta el dedo índice y el dedo medio juntos y pegados apuntando hacia arriba (sin separación en V). [SELECCIONAR: U]",
     "V": "Para la letra 'V', levanta el dedo índice y el dedo medio separados en forma de victoria. [SELECCIONAR: V]",
 }
 
@@ -67,7 +83,9 @@ def detect_sign(msg):
         'tardes': 'TARDES', 'tarde': 'TARDES',
         'noches': 'NOCHES', 'noche': 'NOCHES',
         'gustar': 'GUSTAR', 'gusta': 'GUSTAR', 'gusto': 'GUSTAR',
-        'nombre': 'NOMBRE'
+        'nombre': 'NOMBRE',
+        'anos': 'ANNOS', 'ano': 'ANNOS', 'annos': 'ANNOS', 'edad': 'ANNOS',
+        'licor': 'LICOR', 'trago': 'LICOR', 'beber': 'LICOR', 'bebida': 'LICOR'
     }
 
     # 1. Check words first
@@ -76,16 +94,16 @@ def detect_sign(msg):
             return words_map[token]
 
     # 2. Check letters with 'letra X'
-    letters_map = {'a': 'A', 'b': 'B', 'c': 'C', 'i': 'I', 'l': 'L', 'o': 'O', 'v': 'V'}
+    letters_map = {'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D', 'e': 'E', 'i': 'I', 'l': 'L', 'o': 'O', 'u': 'U', 'v': 'V'}
     for l in letters_map:
         if f'letra {l}' in norm or f'letra_{l}' in norm:
             return letters_map[l]
 
     # 3. Check isolated single letter tokens
     for token in tokens:
-        if token in ['b', 'c', 'l', 'v']:
+        if token in ['b', 'c', 'd', 'l', 'v']:
             return letters_map[token]
-        if token in ['a', 'i', 'o'] and (len(tokens) == 1 or 'letra' in tokens):
+        if token in ['a', 'e', 'i', 'o', 'u'] and (len(tokens) == 1 or 'letra' in tokens):
             return letters_map[token]
 
     return None

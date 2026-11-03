@@ -43,3 +43,7 @@ scratch/
 
 # Carpeta temporal de intercambio de videos en bruto en la raíz (los oficiales van en app/videos/)
 /videos/
+
+# Graphify (caché e internos temporales; se conservan los reportes y visualizadores)
+graphify-out/cache/
+graphify-out/.*
