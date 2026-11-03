@@ -108,8 +108,8 @@ const VisionEvaluator = (() => {
         handsInstance.setOptions({
           maxNumHands: 2,
           modelComplexity: 1,
-          minDetectionConfidence: 0.6,
-          minTrackingConfidence: 0.55
+          minDetectionConfidence: 0.5,
+          minTrackingConfidence: 0.5
         });
 
         handsInstance.onResults(handleHandResults);
@@ -884,7 +884,8 @@ const VisionEvaluator = (() => {
     setTargetSign,
     setPaused,
     isPaused: () => isEvaluationPaused,
-    isRunning
+    isRunning,
+    __debugHandsInstance: () => handsInstance
   };
 })();
 
