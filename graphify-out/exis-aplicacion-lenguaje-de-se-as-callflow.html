@@ -1,0 +1,3034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>exis aplicacion lenguaje de señas — Complete Call Flow &amp; Architecture Documentation</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --bg: #0f172a; --surface: #1e293b; --border: #334155;
+  --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8;
+  --warn: #fbbf24; --err: #f87171; --ok: #34d399;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 2.4rem; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+h2 { font-size: 1.7rem; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+h3 { font-size: 1.25rem; margin: 32px 0 12px; color: var(--accent); }
+h4 { font-size: 1.05rem; margin: 20px 0 8px; color: var(--warn); }
+p { margin: 8px 0; color: var(--muted); }
+.subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 32px; }
+.mermaid { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 20px 0; overflow-x: auto; position: relative; }
+.mermaid.is-enhanced { padding: 0; overflow: hidden; min-height: 260px; }
+.mermaid-viewport { padding: 54px 24px 24px; overflow: hidden; cursor: grab; touch-action: none; min-height: 260px; }
+.mermaid-viewport.is-dragging { cursor: grabbing; }
+.mermaid-viewport svg { max-width: none !important; height: auto; transform-origin: 0 0; transition: transform 120ms ease; }
+.mermaid-toolbar { position: absolute; top: 10px; right: 10px; z-index: 3; display: flex; align-items: center; gap: 6px; padding: 6px; background: rgba(15,23,42,0.92); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.28); }
+.mermaid-toolbar button, .mermaid-toolbar .zoom-level { height: 28px; min-width: 32px; border: 1px solid var(--border); border-radius: 6px; background: #1e293b; color: var(--text); font: 600 0.78rem system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; }
+.mermaid-toolbar button { cursor: pointer; }
+.mermaid-toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+.mermaid-toolbar .zoom-level { min-width: 52px; color: var(--muted); background: transparent; }
+.call-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+.call-table th { background: #1a2744; color: var(--accent); text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+.call-table td { padding: 8px 14px; border: 1px solid var(--border); vertical-align: top; }
+.call-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+.tag-async { background: #7c3aed33; color: #a78bfa; }
+.tag-class { background: #05966933; color: var(--ok); }
+.tag-func { background: #2563eb33; color: var(--accent); }
+.tag-cmd { background: #d9770633; color: var(--warn); }
+.tag-endpoint { background: #dc262633; color: var(--err); }
+.tag-hook { background: #db277733; color: #f472b6; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 16px 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin: 16px 0; }
+.arrow-chain { font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--accent); padding: 10px; background: rgba(56,189,248,0.06); border-radius: 6px; }
+code { font-family: 'Fira Code', 'Cascadia Code', monospace; background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 3px; font-size: 0.88em; }
+ul, ol { margin: 8px 0 8px 24px; color: var(--muted); }
+li { margin: 4px 0; }
+a { color: var(--accent); }
+hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+.nav { position: sticky; top: 0; background: var(--bg); z-index: 10; padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.9rem; }
+.nav a { text-decoration: none; }
+.nav a:hover { text-decoration: underline; }
+@media (max-width: 768px) { .container { padding: 16px; } h1 { font-size: 1.8rem; } }
+
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>exis aplicacion lenguaje de señas — Complete Call Flow &amp; Architecture Documentation</h1>
+<p class="subtitle">Generated from graphify knowledge graph: 260 nodes, 459 edges, 23 communities. Commit: 279b4b6</p>
+
+<div class="nav">
+    <a href="#overview">Architecture Overview</a>
+    <a href="#extract-pipeline">Extraction Pipeline</a>
+    <a href="#build-graph">Graph Build</a>
+    <a href="#cli-skills">CLI &amp; Skill Installers</a>
+    <a href="#ingest-cache-update">Ingestion &amp; Updates</a>
+    <a href="#serve-api">Serving API</a>
+    <a href="#tests-fixtures">Tests &amp; Fixtures</a>
+    <a href="#optical-flow-video-generator">Optical Flow Video Generator</a>
+    <a href="#letter-i-video-curator">Letter I Video Curator</a>
+    <a href="#letter-o-video-curator">Letter O Video Curator</a>
+    <a href="#offline-assets-tflite-models">Offline Assets &amp; TFLite Models</a>
+    <a href="#console-error-audit">Console Error Audit</a>
+    <a href="#chat-tutor-ollama-client">Chat Tutor &amp; Ollama Client</a>
+    <a href="#lsc-official-signs-catalog">LSC Official Signs Catalog</a>
+</div>
+
+<!-- ====== Architecture Overview ====== -->
+<h2 id="overview">1. Architecture Overview</h2>
+
+<div class="mermaid">
+
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    EXTRACT_PIPELINE_5F350230("Extraction Pipeline<br/><small>30 nodes</small>")
+    class EXTRACT_PIPELINE_5F350230 module;
+    BUILD_GRAPH_321CBB04("Graph Build<br/><small>3 nodes</small>")
+    class BUILD_GRAPH_321CBB04 module;
+    CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>35 nodes</small>")
+    class CLI_SKILLS_9964CBB8 module;
+    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>56 nodes</small>")
+    class INGEST_CACHE_UPDATE_FF457338 module;
+    SERVE_API_35EC8E86("Serving API<br/><small>24 nodes</small>")
+    class SERVE_API_35EC8E86 module;
+    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>60 nodes</small>")
+    class TESTS_FIXTURES_B84B1DCC module;
+    OPTICAL_FLOW_VIDEO_GENERATOR_E8265BAA("Optical Flow Video Generator<br/><small>16 nodes</small>")
+    class OPTICAL_FLOW_VIDEO_GENERATOR_E8265BAA module;
+    LETTER_I_VIDEO_CURATOR_84B49758("Letter I Video Curator<br/><small>9 nodes</small>")
+    class LETTER_I_VIDEO_CURATOR_84B49758 module;
+    LETTER_O_VIDEO_CURATOR_0A126BCD("Letter O Video Curator<br/><small>9 nodes</small>")
+    class LETTER_O_VIDEO_CURATOR_0A126BCD module;
+    OFFLINE_ASSETS_TFLITE_MODELS_925F7643("Offline Assets &amp; TFLite Models<br/><small>8 nodes</small>")
+    class OFFLINE_ASSETS_TFLITE_MODELS_925F7643 module;
+    CONSOLE_ERROR_AUDIT_7F59336D("Console Error Audit<br/><small>6 nodes</small>")
+    class CONSOLE_ERROR_AUDIT_7F59336D module;
+    CHAT_TUTOR_OLLAMA_CLIENT_5BEFD0C1("Chat Tutor &amp; Ollama Client<br/><small>2 nodes</small>")
+    class CHAT_TUTOR_OLLAMA_CLIENT_5BEFD0C1 module;
+    LSC_OFFICIAL_SIGNS_CATALOG_B7E7D34D("LSC Official Signs Catalog<br/><small>2 nodes</small>")
+    class LSC_OFFICIAL_SIGNS_CATALOG_B7E7D34D module;
+    INGEST_CACHE_UPDATE_FF457338 -->|imports x17| CLI_SKILLS_9964CBB8
+    CLI_SKILLS_9964CBB8 -->|imports x11| INGEST_CACHE_UPDATE_FF457338
+    OPTICAL_FLOW_VIDEO_GENERATOR_E8265BAA -->|calls x10| CLI_SKILLS_9964CBB8
+    TESTS_FIXTURES_B84B1DCC -->|imports x4| INGEST_CACHE_UPDATE_FF457338
+    EXTRACT_PIPELINE_5F350230 -->|imports x3| CLI_SKILLS_9964CBB8
+    OFFLINE_ASSETS_TFLITE_MODELS_925F7643 -->|calls x2| INGEST_CACHE_UPDATE_FF457338
+    SERVE_API_35EC8E86 -->|calls x2| INGEST_CACHE_UPDATE_FF457338
+    TESTS_FIXTURES_B84B1DCC -->|calls x2| CLI_SKILLS_9964CBB8
+    OPTICAL_FLOW_VIDEO_GENERATOR_E8265BAA -->|imports x2| INGEST_CACHE_UPDATE_FF457338
+    LETTER_I_VIDEO_CURATOR_84B49758 -->|imports x2| INGEST_CACHE_UPDATE_FF457338
+    LETTER_I_VIDEO_CURATOR_84B49758 -->|imports x2| CLI_SKILLS_9964CBB8
+    LETTER_O_VIDEO_CURATOR_0A126BCD -->|imports x2| INGEST_CACHE_UPDATE_FF457338
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<div class="grid">
+  <div class="card">
+    <h4>Architecture Layers</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
+      <tr><td>Extraction Pipeline</td><td>30</td><td><code>0</code></td></tr><tr><td>Graph Build</td><td>3</td><td><code>19</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>35</td><td><code>2, 12</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>56</td><td><code>1, 3</code></td></tr><tr><td>Serving API</td><td>24</td><td><code>4</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>60</td><td><code>6, 9, 11, 13, 15, 16, 17, 18, 20</code></td></tr><tr><td>Optical Flow Video Generator</td><td>16</td><td><code>5</code></td></tr><tr><td>Letter I Video Curator</td><td>9</td><td><code>7</code></td></tr><tr><td>Letter O Video Curator</td><td>9</td><td><code>8</code></td></tr><tr><td>Offline Assets &amp; TFLite Models</td><td>8</td><td><code>10</code></td></tr><tr><td>Console Error Audit</td><td>6</td><td><code>14</code></td></tr><tr><td>Chat Tutor &amp; Ollama Client</td><td>2</td><td><code>21</code></td></tr><tr><td>LSC Official Signs Catalog</td><td>2</td><td><code>22</code></td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Core Flow</h4>
+    <div class="arrow-chain">Graph Build -&gt; Tests &amp; Fixtures -&gt; Ingestion &amp; Updates -&gt; CLI &amp; Skill Installers -&gt; Extraction Pipeline -&gt; Serving API -&gt; Optical Flow Video Generator</div>
+  </div>
+</div>
+<div class="grid">
+  <div class="card">
+    <h4>Graph Report Highlights</h4>
+    <ul>
+      <li>260 nodes · 459 edges · 23 communities (15 shown, 8 thin omitted)</li>
+      <li>Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 7 edges (avg confidence: 0.85)</li>
+      <li>Token cost: 0 input · 0 output</li>
+      <li>1. `CameraDeviceManager` - 18 edges</li>
+      <li>2. `MoCapExtractor` - 10 edges</li>
+      <li>3. `playwright` - 10 edges</li>
+    </ul>
+  </div>
+</div>
+<hr>
+<!-- ====== 2. Extraction Pipeline ====== -->
+<h2 id="extract-pipeline">2. Extraction Pipeline</h2>
+<p>Extraction Pipeline groups implementation around mocap, extractorpy, app, tools, mostly in app/tools/mocap_extractor.py. This section covers 30 nodes and 42 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Extraction Pipeline (30 nodes, 42 edges)
+    subgraph extract_pipeline_app_tools_mocap_extractor_py_8a702e0b["app/tools/mocap_extractor.py"]
+        app_tools_mocap_extractor_mocapextractor_2cb0b2ad("MoCapExtractor<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_045c4360("mocap_extractor.py")
+        app_tools_mocap_extractor_verify_clips_json_3b5a780e("verify_clips_json()<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_mocapextractor_extract_570ace2e("extract_sign_sequence()<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_mocapextractor_run_pip_29b96d3b("run_pipeline()<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_euler_to_quaternion_75dcbaef("euler_to_quaternion()<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_mocapextractor_init_e9ec8df7("__init__()<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_mocapextractor_init_me_281b6ddc("_init_mediapipe()<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_mocapextractor_process_ff0aec61("process_image()<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_mocapextractor_extract_2df66050("extract_frame_landmarks()<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_mocapextractor_compute_5a75d3d4("compute_frame_rotations()<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_mocapextractor_generat_709ab2c2("generate_animation_clip()<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_normalize_7a63dca6("normalize()<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_quaternion_slerp_c513afa3("quaternion_slerp()<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_mocapextractor_extract_879eacd7("calc_curl()<br/><small>app/tools/mocap_extractor.py</small>")
+    end
+    subgraph extract_pipeline_External_generated_e23197dc["External / generated"]
+        math_7a488390("math")
+        json_05d97e6e("json")
+        argparse_e750ee7c("argparse")
+    end
+    app_tools_mocap_extractor_mocapextractor_2cb0b2ad -->|method| app_tools_mocap_extractor_mocapextractor_init_e9ec8df7
+    app_tools_mocap_extractor_mocapextractor_2cb0b2ad -->|method| app_tools_mocap_extractor_mocapextractor_init_me_281b6ddc
+    app_tools_mocap_extractor_mocapextractor_2cb0b2ad -->|method| app_tools_mocap_extractor_mocapextractor_process_ff0aec61
+    app_tools_mocap_extractor_mocapextractor_2cb0b2ad -->|method| app_tools_mocap_extractor_mocapextractor_extract_2df66050
+    app_tools_mocap_extractor_mocapextractor_2cb0b2ad -->|method| app_tools_mocap_extractor_mocapextractor_compute_5a75d3d4
+    app_tools_mocap_extractor_mocapextractor_2cb0b2ad -->|method| app_tools_mocap_extractor_mocapextractor_extract_570ace2e
+    app_tools_mocap_extractor_mocapextractor_2cb0b2ad -->|method| app_tools_mocap_extractor_mocapextractor_generat_709ab2c2
+    app_tools_mocap_extractor_mocapextractor_2cb0b2ad -->|method| app_tools_mocap_extractor_mocapextractor_run_pip_29b96d3b
+    app_tools_mocap_extractor_euler_to_quaternion_75dcbaef -->|calls| math_7a488390
+    app_tools_mocap_extractor_mocapextractor_compute_5a75d3d4 -->|calls| app_tools_mocap_extractor_euler_to_quaternion_75dcbaef
+    app_tools_mocap_extractor_mocapextractor_extract_2df66050 -->|calls| app_tools_mocap_extractor_normalize_7a63dca6
+    app_tools_mocap_extractor_mocapextractor_extract_570ace2e -->|calls| app_tools_mocap_extractor_mocapextractor_process_ff0aec61
+    app_tools_mocap_extractor_mocapextractor_extract_570ace2e -->|calls| app_tools_mocap_extractor_mocapextractor_extract_2df66050
+    app_tools_mocap_extractor_mocapextractor_extract_570ace2e -->|calls| app_tools_mocap_extractor_mocapextractor_compute_5a75d3d4
+    app_tools_mocap_extractor_mocapextractor_generat_709ab2c2 -->|calls| app_tools_mocap_extractor_quaternion_slerp_c513afa3
+    app_tools_mocap_extractor_mocapextractor_init_e9ec8df7 -->|calls| app_tools_mocap_extractor_mocapextractor_init_me_281b6ddc
+    app_tools_mocap_extractor_mocapextractor_run_pip_29b96d3b -->|calls| app_tools_mocap_extractor_mocapextractor_extract_570ace2e
+    app_tools_mocap_extractor_mocapextractor_run_pip_29b96d3b -->|calls| app_tools_mocap_extractor_mocapextractor_generat_709ab2c2
+    app_tools_mocap_extractor_quaternion_slerp_c513afa3 -->|calls| math_7a488390
+    app_tools_mocap_extractor_verify_clips_json_3b5a780e -->|calls| json_05d97e6e
+    app_tools_mocap_extractor_verify_clips_json_3b5a780e -->|calls| math_7a488390
+    app_tools_mocap_extractor_045c4360 -->|imports| json_05d97e6e
+    app_tools_mocap_extractor_045c4360 -->|imports| math_7a488390
+    app_tools_mocap_extractor_045c4360 -->|imports| argparse_e750ee7c
+    %% Omitted for readability: 12 nodes, 0 edges
+    class app_tools_mocap_extractor_mocapextractor_2cb0b2ad klass;
+    class app_tools_mocap_extractor_045c4360 module;
+    class app_tools_mocap_extractor_verify_clips_json_3b5a780e entry;
+    class app_tools_mocap_extractor_mocapextractor_extract_570ace2e function;
+    class app_tools_mocap_extractor_mocapextractor_run_pip_29b96d3b function;
+    class app_tools_mocap_extractor_euler_to_quaternion_75dcbaef function;
+    class app_tools_mocap_extractor_mocapextractor_init_e9ec8df7 function;
+    class app_tools_mocap_extractor_mocapextractor_init_me_281b6ddc api;
+    class app_tools_mocap_extractor_mocapextractor_process_ff0aec61 function;
+    class app_tools_mocap_extractor_mocapextractor_extract_2df66050 function;
+    class app_tools_mocap_extractor_mocapextractor_compute_5a75d3d4 function;
+    class app_tools_mocap_extractor_mocapextractor_generat_709ab2c2 entry;
+    class app_tools_mocap_extractor_normalize_7a63dca6 function;
+    class app_tools_mocap_extractor_quaternion_slerp_c513afa3 function;
+    class app_tools_mocap_extractor_mocapextractor_extract_879eacd7 function;
+    class math_7a488390 function;
+    class json_05d97e6e function;
+    class argparse_e750ee7c function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>_init_mediapipe()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>compute_frame_rotations()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br>+5 more</td>
+  <td>MoCapExtractor node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>euler_to_quaternion()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>compute_frame_rotations()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><code>math</code></td>
+  <td>euler_to_quaternion() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.compute_frame_rotations()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>extract_sign_sequence()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><code>euler_to_quaternion()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td>.compute_frame_rotations() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.extract_frame_landmarks()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>extract_sign_sequence()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><code>normalize()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td>.extract_frame_landmarks() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>calc_curl()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>calc_curl() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.extract_sign_sequence()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>run_pipeline()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><code>compute_frame_rotations()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>extract_frame_landmarks()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>process_image()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td>.extract_sign_sequence() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>.generate_animation_clip()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>run_pipeline()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><code>quaternion_slerp()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td>.generate_animation_clip() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.__init__()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><code>_init_mediapipe()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td>.__init__() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>._init_mediapipe()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>._init_mediapipe() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>.process_image()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>extract_sign_sequence()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.process_image() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>.run_pipeline()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><code>extract_sign_sequence()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>generate_animation_clip()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td>.run_pipeline() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>normalize()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>extract_frame_landmarks()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><code>numpy</code></td>
+  <td>normalize() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>quaternion_slerp()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>generate_animation_clip()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><code>math</code></td>
+  <td>quaternion_slerp() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>verify_clips_json()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>json</code><br><code>math</code></td>
+  <td>verify_clips_json() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>mocap_extractor.py</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>argparse</code><br><code>cv2</code><br><code>json</code><br>+4 more</td>
+  <td>Module file in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>Extractor de movimiento tridimensional a partir de secuencias fotográficas de…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Extractor de movimiento tridimensional a partir de secuencias fotográficas de….</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>Inicializa los detectores de MediaPipe Tasks cargando los bytes del modelo en…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Inicializa los detectores de MediaPipe Tasks cargando los bytes del modelo en….</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>Lee la imagen de forma robusta con numpy para tolerar rutas con tildes y…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Lee la imagen de forma robusta con numpy para tolerar rutas con tildes y….</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>Extrae vectores normalizados y métricas de flexión de los landmarks 3D.</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Extrae vectores normalizados y métricas de flexión de los landmarks 3D..</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Proyecto EXIS - Lengua de Señas Colombiana (LSC) Auto-MoCap Pipeline: Extractor…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Proyecto EXIS - Lengua de Señas Colombiana (LSC) Auto-MoCap Pipeline: Extractor….</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>Calcula las rotaciones anatómicas de los huesos para un fotograma dado,…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Calcula las rotaciones anatómicas de los huesos para un fotograma dado,….</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>Procesa los 6 fotogramas secuenciales de una seña desde el dataset LSC70.</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Procesa los 6 fotogramas secuenciales de una seña desde el dataset LSC70..</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>Interpola suavemente las rotaciones a lo largo del tiempo a 30 fps (o 60 fps)…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Interpola suavemente las rotaciones a lo largo del tiempo a 30 fps (o 60 fps)….</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>Ejecuta el pipeline completo de auto-mocap para todas las señas especificadas y…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Ejecuta el pipeline completo de auto-mocap para todas las señas especificadas y….</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>Verifica que el archivo JSON tenga la estructura estricta y correcta para…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Verifica que el archivo JSON tenga la estructura estricta y correcta para….</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>Convierte ángulos de Euler (orden XYZ en radianes) a Cuaternión [x, y, z, w].…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Convierte ángulos de Euler (orden XYZ en radianes) a Cuaternión [x, y, z, w].….</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>Interpolación esférica lineal (SLERP) entre dos cuaterniones qA y qB con factor…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Interpolación esférica lineal (SLERP) entre dos cuaterniones qA y qB con factor….</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>argparse</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>mocap_extractor.py</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>argparse node in project.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>json</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>mocap_extractor.py</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>server.py</code><br><small style="color:var(--muted)">server.py</small><br><code>verify_clips_json()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>json node in project.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>math</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>euler_to_quaternion()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>mocap_extractor.py</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>quaternion_slerp()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br>+1 more</td>
+  <td>No direct outbound edge</td>
+  <td>math node in project.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>app/tools/mocap_extractor.py</code></td><td>27 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x13, explains x12, method x8, contains x6. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 3. Graph Build ====== -->
+<h2 id="build-graph">3. Graph Build</h2>
+<p>Graph Build groups implementation around packagejson, devdependencies, playwright, mostly in package.json. This section covers 3 nodes and 2 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Graph Build (3 nodes, 2 edges)
+    package_582681c2("package.json")
+    package_devdependencies_ff8711cc("devDependencies<br/><small>package.json</small>")
+    package_devdependencies_playwright_89db86ba("playwright<br/><small>package.json</small>")
+    package_582681c2 -->|contains| package_devdependencies_ff8711cc
+    package_devdependencies_ff8711cc -->|contains| package_devdependencies_playwright_89db86ba
+    class package_582681c2 function;
+    class package_devdependencies_ff8711cc function;
+    class package_devdependencies_playwright_89db86ba function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>package.json</code><br><small style="color:var(--muted)">package.json</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>playwright</code><br><small style="color:var(--muted)">package.json</small></td>
+  <td>package.json node in package.json.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>devDependencies</code><br><small style="color:var(--muted)">package.json</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>devDependencies node in package.json.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>playwright</code><br><small style="color:var(--muted)">package.json</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>playwright node in package.json.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>package.json</code></td><td>3 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 4. CLI & Skill Installers ====== -->
+<h2 id="cli-skills">4. CLI &amp; Skill Installers</h2>
+<p>CLI &amp; Skill Installers groups implementation around app, tools, generate, signspy, mostly in app/tools/generate_batch_5_signs.py, app/tools/generate_expansion_signs.py, app/js/main.js. This section covers 35 nodes and 83 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: CLI &amp; Skill Installers (35 nodes, 83 edges)
+    subgraph cli_skills_app_js_main_js_37086347["app/js/main.js"]
+        app_js_main_binduievents_e1dc3c57("bindUIEvents()<br/><small>app/js/main.js</small>")
+        app_js_main_switchcategory_ce0af8c6("switchCategory()<br/><small>app/js/main.js</small>")
+        app_js_main_dismisssuccessmodal_cde9ad5c("dismissSuccessModal()<br/><small>app/js/main.js</small>")
+        app_js_main_selectsign_ae4b1756("selectSign()<br/><small>app/js/main.js</small>")
+        app_js_main_rendersignbuttons_e544c3aa("renderSignButtons()<br/><small>app/js/main.js</small>")
+    end
+    subgraph cli_skills_app_tools_curate_tardes_gustar_py_02c2084a["app/tools/curate_tardes_gustar.py"]
+        app_tools_curate_tardes_gustar_main_acf17cd2("main()<br/><small>app/tools/curate_tardes_gustar.py</small>")
+        app_tools_curate_tardes_gustar_81a09653("curate_tardes_gustar.py")
+        app_tools_curate_tardes_gustar_extract_trimmed_f_42387bbb("extract_trimmed_frames()<br/><small>app/tools/curate_tardes_gustar.py</small>")
+        app_tools_curate_tardes_gustar_save_mp4_b350b7ae("save_mp4()<br/><small>app/tools/curate_tardes_gustar.py</small>")
+        app_tools_curate_tardes_gustar_save_webp_e7d75259("save_webp()<br/><small>app/tools/curate_tardes_gustar.py</small>")
+    end
+    subgraph cli_skills_app_tools_generate_batch_5_signs_py_925a613d["app/tools/generate_batch_5_signs.py"]
+        app_tools_generate_batch_5_signs_main_9fd7e6f2("main()<br/><small>app/tools/generate_batch_5_signs.py</small>")
+        app_tools_generate_batch_5_signs_e5429254("generate_batch_5_signs.py")
+        app_tools_generate_batch_5_signs_cv2_imread_37bf9fae("cv2_imread()<br/><small>app/tools/generate_batch_5_signs.py</small>")
+        app_tools_generate_batch_5_signs_cv2_imwrite_6580a9e9("cv2_imwrite()<br/><small>app/tools/generate_batch_5_signs.py</small>")
+        app_tools_generate_batch_5_signs_interpolate_seq_b26970cb("interpolate_sequence()<br/><small>app/tools/generate_batch_5_signs.py</small>")
+    end
+    subgraph cli_skills_External_generated_0c226fa1["External / generated"]
+        cv2_fd3024fc("cv2")
+        numpy_a65e1d38("numpy")
+    end
+    app_tools_generate_expansion_signs_main_89ea5d26("main()<br/><small>app/tools/generate_expansion_signs.py</small>")
+    app_js_main_binduievents_e1dc3c57 -->|calls| app_js_main_switchcategory_ce0af8c6
+    app_js_main_binduievents_e1dc3c57 -->|calls| app_js_main_dismisssuccessmodal_cde9ad5c
+    app_js_main_dismisssuccessmodal_cde9ad5c -->|calls| app_js_main_selectsign_ae4b1756
+    app_js_main_rendersignbuttons_e544c3aa -->|calls| app_js_main_selectsign_ae4b1756
+    app_js_main_switchcategory_ce0af8c6 -->|calls| app_js_main_rendersignbuttons_e544c3aa
+    app_js_main_switchcategory_ce0af8c6 -->|calls| app_js_main_selectsign_ae4b1756
+    app_tools_curate_tardes_gustar_extract_trimmed_f_42387bbb -->|calls| cv2_fd3024fc
+    app_tools_curate_tardes_gustar_main_acf17cd2 -->|calls| app_tools_curate_tardes_gustar_extract_trimmed_f_42387bbb
+    app_tools_curate_tardes_gustar_main_acf17cd2 -->|calls| app_tools_curate_tardes_gustar_save_mp4_b350b7ae
+    app_tools_curate_tardes_gustar_main_acf17cd2 -->|calls| app_tools_curate_tardes_gustar_save_webp_e7d75259
+    app_tools_curate_tardes_gustar_main_acf17cd2 -->|calls| cv2_fd3024fc
+    app_tools_curate_tardes_gustar_save_mp4_b350b7ae -->|calls| cv2_fd3024fc
+    app_tools_curate_tardes_gustar_save_webp_e7d75259 -->|calls| cv2_fd3024fc
+    app_tools_generate_batch_5_signs_cv2_imread_37bf9fae -->|calls| numpy_a65e1d38
+    app_tools_generate_batch_5_signs_cv2_imread_37bf9fae -->|calls| cv2_fd3024fc
+    app_tools_generate_batch_5_signs_cv2_imwrite_6580a9e9 -->|calls| cv2_fd3024fc
+    app_tools_generate_batch_5_signs_interpolate_seq_b26970cb -->|calls| numpy_a65e1d38
+    app_tools_generate_batch_5_signs_interpolate_seq_b26970cb -->|calls| cv2_fd3024fc
+    app_tools_generate_batch_5_signs_main_9fd7e6f2 -->|calls| app_tools_generate_batch_5_signs_cv2_imwrite_6580a9e9
+    app_tools_generate_batch_5_signs_main_9fd7e6f2 -->|calls| app_tools_generate_batch_5_signs_interpolate_seq_b26970cb
+    app_tools_generate_batch_5_signs_main_9fd7e6f2 -->|calls| cv2_fd3024fc
+    app_tools_generate_expansion_signs_main_89ea5d26 -->|calls| cv2_fd3024fc
+    app_tools_curate_tardes_gustar_81a09653 -->|imports| cv2_fd3024fc
+    app_tools_curate_tardes_gustar_81a09653 -->|imports| numpy_a65e1d38
+    %% Omitted for readability: 17 nodes, 2 edges
+    class app_js_main_binduievents_e1dc3c57 function;
+    class app_js_main_switchcategory_ce0af8c6 function;
+    class app_js_main_dismisssuccessmodal_cde9ad5c function;
+    class app_js_main_selectsign_ae4b1756 function;
+    class app_js_main_rendersignbuttons_e544c3aa function;
+    class app_tools_curate_tardes_gustar_main_acf17cd2 function;
+    class app_tools_curate_tardes_gustar_81a09653 module;
+    class app_tools_curate_tardes_gustar_extract_trimmed_f_42387bbb function;
+    class app_tools_curate_tardes_gustar_save_mp4_b350b7ae function;
+    class app_tools_curate_tardes_gustar_save_webp_e7d75259 function;
+    class app_tools_generate_batch_5_signs_main_9fd7e6f2 function;
+    class app_tools_generate_batch_5_signs_e5429254 module;
+    class app_tools_generate_batch_5_signs_cv2_imread_37bf9fae function;
+    class app_tools_generate_batch_5_signs_cv2_imwrite_6580a9e9 function;
+    class app_tools_generate_batch_5_signs_interpolate_seq_b26970cb function;
+    class cv2_fd3024fc function;
+    class numpy_a65e1d38 function;
+    class app_tools_generate_expansion_signs_main_89ea5d26 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>extract_trimmed_frames()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
+  <td><code>cv2</code></td>
+  <td>extract_trimmed_frames() node in app/tools/curate_tardes_gustar.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>extract_trimmed_frames()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small><br><code>save_mp4()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small><br>+1 more</td>
+  <td>main() node in app/tools/curate_tardes_gustar.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>save_mp4()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_mp4() node in app/tools/curate_tardes_gustar.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>save_webp()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_webp() node in app/tools/curate_tardes_gustar.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>cv2_imread()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>load_keyframes()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><code>cv2</code><br><code>numpy</code></td>
+  <td>cv2_imread() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>cv2_imwrite()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><code>cv2</code></td>
+  <td>cv2_imwrite() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>interpolate_sequence()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><code>cv2</code><br><code>numpy</code></td>
+  <td>interpolate_sequence() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>load_keyframes()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><code>cv2_imread()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small><br><code>os</code></td>
+  <td>load_keyframes() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>cv2_imwrite()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small><br><code>interpolate_sequence()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small><br>+3 more</td>
+  <td>main() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>save_mp4()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_mp4() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>save_webp()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_webp() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>cv2_imread()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>load_keyframes()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><code>cv2</code><br><code>numpy</code></td>
+  <td>cv2_imread() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>cv2_imwrite()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><code>cv2</code></td>
+  <td>cv2_imwrite() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>interpolate_sequence()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><code>cv2</code><br><code>numpy</code></td>
+  <td>interpolate_sequence() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>load_keyframes()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><code>cv2_imread()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small><br><code>os</code></td>
+  <td>load_keyframes() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>cv2_imwrite()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small><br><code>interpolate_sequence()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small><br>+3 more</td>
+  <td>main() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>save_mp4()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_mp4() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>save_webp()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_webp() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>clean_v_background()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td><code>cv2</code><br><code>numpy</code></td>
+  <td>clean_v_background() node in app/tools/process_vl_dias_videos.py.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td>main() node in app/tools/process_vl_dias_videos.py.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td><code>clean_v_background()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small><br><code>cv2</code></td>
+  <td>process_sign() node in app/tools/process_vl_dias_videos.py.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>curate_tardes_gustar.py</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>numpy</code><br><code>os</code><br>+1 more</td>
+  <td>Module file in app/tools/curate_tardes_gustar.py.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>generate_batch_5_signs.py</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>numpy</code><br><code>os</code><br>+1 more</td>
+  <td>Module file in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>generate_expansion_signs.py</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>numpy</code><br><code>os</code><br>+1 more</td>
+  <td>Module file in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>process_vl_dias_videos.py</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>numpy</code><br><code>os</code><br>+2 more</td>
+  <td>Module file in app/tools/process_vl_dias_videos.py.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>process_vl_dias_videos.py - EXIS Project (LSC) Procesador especializado para V,…</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for process_vl_dias_videos.py - EXIS Project (LSC) Procesador especializado para V,….</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>cv2</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>check_mp4_video()</code><br><small style="color:var(--muted)">app/tools/verify_videos.py</small><br><code>clean_v_background()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small><br><code>curate_anime_videos.py</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small><br>+47 more</td>
+  <td>No direct outbound edge</td>
+  <td>cv2 node in project.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>numpy</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>build_smooth_loop()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small><br><code>clean_v_background()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small><br><code>curate_letter_i.py</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small><br>+14 more</td>
+  <td>No direct outbound edge</td>
+  <td>numpy node in project.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>bindUIEvents()</code><br><small style="color:var(--muted)">app/js/main.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>dismissSuccessModal()</code><br><small style="color:var(--muted)">app/js/main.js</small><br><code>explainSignVoice()</code><br><small style="color:var(--muted)">app/js/main.js</small><br><code>switchCategory()</code><br><small style="color:var(--muted)">app/js/main.js</small></td>
+  <td>bindUIEvents() node in app/js/main.js.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>dismissSuccessModal()</code><br><small style="color:var(--muted)">app/js/main.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>bindUIEvents()</code><br><small style="color:var(--muted)">app/js/main.js</small></td>
+  <td><code>selectSign()</code><br><small style="color:var(--muted)">app/js/main.js</small></td>
+  <td>dismissSuccessModal() node in app/js/main.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>app/tools/generate_batch_5_signs.py</code></td><td>8 nodes</td></tr>
+<tr><td><code>app/tools/generate_expansion_signs.py</code></td><td>8 nodes</td></tr>
+<tr><td><code>app/js/main.js</code></td><td>7 nodes</td></tr>
+<tr><td><code>app/tools/curate_tardes_gustar.py</code></td><td>5 nodes</td></tr>
+<tr><td><code>app/tools/process_vl_dias_videos.py</code></td><td>5 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x46, contains x27, imports x8, indirect call x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 5. Ingestion & Updates ====== -->
+<h2 id="ingest-cache-update">5. Ingestion &amp; Updates</h2>
+<p>Ingestion &amp; Updates groups implementation around app, process, tools, anime, mostly in app/js/camera-manager.js, app/tools/curate_anime_videos.py, app/tools/process_new_anime_videos.py. This section covers 56 nodes and 99 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Ingestion &amp; Updates (56 nodes, 99 edges)
+    subgraph ingest_cache_update_app_js_camera_manager_js_817aec46["app/js/camera-manager.js"]
+        app_js_camera_manager_cameradevicemanager_9bfb70a8("CameraDeviceManager<br/><small>app/js/camera-manager.js</small>")
+        app_js_camera_manager_cameradevicemanager_init_40809cb2("init()<br/><small>app/js/camera-manager.js</small>")
+        app_js_camera_manager_cameradevicemanager_refres_073eba54("refreshDeviceList()<br/><small>app/js/camera-manager.js</small>")
+        app_js_camera_manager_cameradevicemanager_render_c88b2d74("renderSelectOptions()<br/><small>app/js/camera-manager.js</small>")
+        app_js_camera_manager_cameradevicemanager_format_5a2d2d2d("formatDeviceLabel()<br/><small>app/js/camera-manager.js</small>")
+        app_js_camera_manager_cameradevicemanager_start_df774851("start()<br/><small>app/js/camera-manager.js</small>")
+        app_js_camera_manager_cameradevicemanager_constr_16f83492("constructor()<br/><small>app/js/camera-manager.js</small>")
+        app_js_camera_manager_cameradevicemanager_boundo_852d343e("boundOnDeviceChange()<br/><small>app/js/camera-manager.js</small>")
+        app_js_camera_manager_cameradevicemanager_update_44318831("updateActivePillUI()<br/><small>app/js/camera-manager.js</small>")
+        app_js_camera_manager_cameradevicemanager_startf_8d178550("startFramePump()<br/><small>app/js/camera-manager.js</small>")
+        app_js_camera_manager_cameradevicemanager_stopfr_6c2f2b2f("stopFramePump()<br/><small>app/js/camera-manager.js</small>")
+        app_js_camera_manager_cameradevicemanager_stop_946a3627("stop()<br/><small>app/js/camera-manager.js</small>")
+        app_js_camera_manager_cameradevicemanager_destro_df3f432c("destroy()<br/><small>app/js/camera-manager.js</small>")
+        app_js_camera_manager_cameradevicemanager_isstre_80c41a34("isStreaming()<br/><small>app/js/camera-manager.js</small>")
+    end
+    app_tools_legacy_processors_process_anime_dias_0ca9a342("process_anime_dias.py")
+    app_tools_legacy_processors_process_anime_hola_6873745b("process_anime_hola.py")
+    app_tools_legacy_processors_process_anime_noches_14eead9f("process_anime_noches.py")
+    app_tools_legacy_processors_process_anime_nombre_6bc3a58b("process_anime_nombre.py")
+    app_js_camera_manager_cameradevicemanager_9bfb70a8 -->|method| app_js_camera_manager_cameradevicemanager_refres_073eba54
+    app_js_camera_manager_cameradevicemanager_9bfb70a8 -->|method| app_js_camera_manager_cameradevicemanager_render_c88b2d74
+    app_js_camera_manager_cameradevicemanager_9bfb70a8 -->|method| app_js_camera_manager_cameradevicemanager_format_5a2d2d2d
+    app_js_camera_manager_cameradevicemanager_9bfb70a8 -->|method| app_js_camera_manager_cameradevicemanager_start_df774851
+    app_js_camera_manager_cameradevicemanager_9bfb70a8 -->|method| app_js_camera_manager_cameradevicemanager_constr_16f83492
+    app_js_camera_manager_cameradevicemanager_9bfb70a8 -->|method| app_js_camera_manager_cameradevicemanager_boundo_852d343e
+    app_js_camera_manager_cameradevicemanager_9bfb70a8 -->|method| app_js_camera_manager_cameradevicemanager_update_44318831
+    app_js_camera_manager_cameradevicemanager_9bfb70a8 -->|method| app_js_camera_manager_cameradevicemanager_startf_8d178550
+    app_js_camera_manager_cameradevicemanager_9bfb70a8 -->|method| app_js_camera_manager_cameradevicemanager_init_40809cb2
+    app_js_camera_manager_cameradevicemanager_9bfb70a8 -->|method| app_js_camera_manager_cameradevicemanager_stopfr_6c2f2b2f
+    app_js_camera_manager_cameradevicemanager_9bfb70a8 -->|method| app_js_camera_manager_cameradevicemanager_stop_946a3627
+    app_js_camera_manager_cameradevicemanager_9bfb70a8 -->|method| app_js_camera_manager_cameradevicemanager_destro_df3f432c
+    app_js_camera_manager_cameradevicemanager_9bfb70a8 -->|method| app_js_camera_manager_cameradevicemanager_isstre_80c41a34
+    app_js_camera_manager_cameradevicemanager_destro_df3f432c -->|calls| app_js_camera_manager_cameradevicemanager_stop_946a3627
+    app_js_camera_manager_cameradevicemanager_init_40809cb2 -->|calls| app_js_camera_manager_cameradevicemanager_start_df774851
+    app_js_camera_manager_cameradevicemanager_init_40809cb2 -->|calls| app_js_camera_manager_cameradevicemanager_refres_073eba54
+    app_js_camera_manager_cameradevicemanager_refres_073eba54 -->|calls| app_js_camera_manager_cameradevicemanager_render_c88b2d74
+    app_js_camera_manager_cameradevicemanager_render_c88b2d74 -->|calls| app_js_camera_manager_cameradevicemanager_format_5a2d2d2d
+    app_js_camera_manager_cameradevicemanager_start_df774851 -->|calls| app_js_camera_manager_cameradevicemanager_stop_946a3627
+    app_js_camera_manager_cameradevicemanager_start_df774851 -->|calls| app_js_camera_manager_cameradevicemanager_update_44318831
+    app_js_camera_manager_cameradevicemanager_start_df774851 -->|calls| app_js_camera_manager_cameradevicemanager_refres_073eba54
+    app_js_camera_manager_cameradevicemanager_start_df774851 -->|calls| app_js_camera_manager_cameradevicemanager_startf_8d178550
+    app_js_camera_manager_cameradevicemanager_startf_8d178550 -->|calls| app_js_camera_manager_cameradevicemanager_stopfr_6c2f2b2f
+    app_js_camera_manager_cameradevicemanager_stop_946a3627 -->|calls| app_js_camera_manager_cameradevicemanager_stopfr_6c2f2b2f
+    %% Omitted for readability: 38 nodes, 3 edges
+    class app_js_camera_manager_cameradevicemanager_9bfb70a8 klass;
+    class app_js_camera_manager_cameradevicemanager_init_40809cb2 function;
+    class app_js_camera_manager_cameradevicemanager_refres_073eba54 function;
+    class app_js_camera_manager_cameradevicemanager_render_c88b2d74 function;
+    class app_js_camera_manager_cameradevicemanager_format_5a2d2d2d function;
+    class app_js_camera_manager_cameradevicemanager_start_df774851 function;
+    class app_js_camera_manager_cameradevicemanager_constr_16f83492 function;
+    class app_js_camera_manager_cameradevicemanager_boundo_852d343e function;
+    class app_js_camera_manager_cameradevicemanager_update_44318831 function;
+    class app_js_camera_manager_cameradevicemanager_startf_8d178550 function;
+    class app_js_camera_manager_cameradevicemanager_stopfr_6c2f2b2f function;
+    class app_js_camera_manager_cameradevicemanager_stop_946a3627 function;
+    class app_js_camera_manager_cameradevicemanager_destro_df3f432c function;
+    class app_js_camera_manager_cameradevicemanager_isstre_80c41a34 async;
+    class app_tools_legacy_processors_process_anime_dias_0ca9a342 module;
+    class app_tools_legacy_processors_process_anime_hola_6873745b module;
+    class app_tools_legacy_processors_process_anime_noches_14eead9f module;
+    class app_tools_legacy_processors_process_anime_nombre_6bc3a58b module;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>curate_sign()</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td><code>cv2</code><br><code>os</code></td>
+  <td>curate_sign() node in app/tools/curate_anime_videos.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>curate_sign()</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td>main() node in app/tools/curate_anime_videos.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>process_b()</code><br><small style="color:var(--muted)">app/tools/process_b_video.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code></td>
+  <td>process_b() node in app/tools/process_b_video.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>process_buenos()</code><br><small style="color:var(--muted)">app/tools/process_buenos_video.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code></td>
+  <td>process_buenos() node in app/tools/process_buenos_video.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>process_c()</code><br><small style="color:var(--muted)">app/tools/process_c_video.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>shutil</code></td>
+  <td>process_c() node in app/tools/process_c_video.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>process_hola()</code><br><small style="color:var(--muted)">app/tools/process_hola_video.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code></td>
+  <td>process_hola() node in app/tools/process_hola_video.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>cleanup_temp_files()</code><br><small style="color:var(--muted)">app/tools/process_new_anime_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>os</code></td>
+  <td>cleanup_temp_files() node in app/tools/process_new_anime_videos.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>process_video()</code><br><small style="color:var(--muted)">app/tools/process_new_anime_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>shutil</code></td>
+  <td>process_video() node in app/tools/process_new_anime_videos.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>copy_samples.py</code><br><small style="color:var(--muted)">app/tools/copy_samples.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>os</code><br><code>shutil</code></td>
+  <td>Module file in app/tools/copy_samples.py.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>curate_anime_videos.py</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code><br><code>pil</code></td>
+  <td>Module file in app/tools/curate_anime_videos.py.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>process_anime_dias.py</code><br><small style="color:var(--muted)">tools/legacy_processors/process_anime_dias.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code><br><code>pil</code><br>+1 more</td>
+  <td>Module file in tools/legacy_processors/process_anime_dias.py.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>process_anime_hola.py</code><br><small style="color:var(--muted)">tools/legacy_processors/process_anime_hola.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code><br><code>pil</code><br>+1 more</td>
+  <td>Module file in tools/legacy_processors/process_anime_hola.py.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>process_anime_noches.py</code><br><small style="color:var(--muted)">tools/legacy_processors/process_anime_noches.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code><br><code>pil</code><br>+1 more</td>
+  <td>Module file in tools/legacy_processors/process_anime_noches.py.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>process_anime_nombre.py</code><br><small style="color:var(--muted)">tools/legacy_processors/process_anime_nombre.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code><br><code>pil</code><br>+1 more</td>
+  <td>Module file in tools/legacy_processors/process_anime_nombre.py.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>process_anime_yo.py</code><br><small style="color:var(--muted)">tools/legacy_processors/process_anime_yo.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code><br><code>pil</code><br>+1 more</td>
+  <td>Module file in tools/legacy_processors/process_anime_yo.py.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>process_b_video.py</code><br><small style="color:var(--muted)">app/tools/process_b_video.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code><br><code>pil</code></td>
+  <td>Module file in app/tools/process_b_video.py.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>process_buenos_video.py</code><br><small style="color:var(--muted)">app/tools/process_buenos_video.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code><br><code>pil</code><br>+1 more</td>
+  <td>Module file in app/tools/process_buenos_video.py.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>process_c_video.py</code><br><small style="color:var(--muted)">app/tools/process_c_video.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code><br><code>pil</code><br>+1 more</td>
+  <td>Module file in app/tools/process_c_video.py.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>process_hola_video.py</code><br><small style="color:var(--muted)">app/tools/process_hola_video.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code><br><code>pil</code></td>
+  <td>Module file in app/tools/process_hola_video.py.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>process_new_anime_videos.py</code><br><small style="color:var(--muted)">app/tools/process_new_anime_videos.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code><br><code>pil</code><br>+1 more</td>
+  <td>Module file in app/tools/process_new_anime_videos.py.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>curate_anime_videos.py - EXIS Project (LSC) Aplica la Regla 5 de AGENTS.md…</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for curate_anime_videos.py - EXIS Project (LSC) Aplica la Regla 5 de AGENTS.md….</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>process_b_video.py - EXIS Project (LSC) Procesador especializado para la seña…</code><br><small style="color:var(--muted)">app/tools/process_b_video.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for process_b_video.py - EXIS Project (LSC) Procesador especializado para la seña….</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>process_buenos_video.py - EXIS Project (LSC) Procesador especializado para la…</code><br><small style="color:var(--muted)">app/tools/process_buenos_video.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for process_buenos_video.py - EXIS Project (LSC) Procesador especializado para la….</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>process_c_video.py - EXIS Project (LSC) Procesador especializado para la seña…</code><br><small style="color:var(--muted)">app/tools/process_c_video.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for process_c_video.py - EXIS Project (LSC) Procesador especializado para la seña….</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>process_hola_video.py - EXIS Project (LSC) Procesador especializado para la…</code><br><small style="color:var(--muted)">app/tools/process_hola_video.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for process_hola_video.py - EXIS Project (LSC) Procesador especializado para la….</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>process_new_anime_videos.py - EXIS Project (LSC) Procesador de videos Anime IA…</code><br><small style="color:var(--muted)">app/tools/process_new_anime_videos.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for process_new_anime_videos.py - EXIS Project (LSC) Procesador de videos Anime IA….</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>os</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>cleanup_temp_files()</code><br><small style="color:var(--muted)">app/tools/process_new_anime_videos.py</small><br><code>copy_samples.py</code><br><small style="color:var(--muted)">app/tools/copy_samples.py</small><br><code>curate_anime_videos.py</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small><br>+30 more</td>
+  <td>No direct outbound edge</td>
+  <td>os node in project.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>pil</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>curate_anime_videos.py</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small><br><code>curate_letter_i.py</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small><br><code>curate_letter_o.py</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small><br>+16 more</td>
+  <td>No direct outbound edge</td>
+  <td>pil node in project.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>shutil</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>copy_samples.py</code><br><small style="color:var(--muted)">app/tools/copy_samples.py</small><br><code>process_anime_dias.py</code><br><small style="color:var(--muted)">tools/legacy_processors/process_anime_dias.py</small><br><code>process_anime_hola.py</code><br><small style="color:var(--muted)">tools/legacy_processors/process_anime_hola.py</small><br>+9 more</td>
+  <td>No direct outbound edge</td>
+  <td>shutil node in project.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>CameraDeviceManager</code><br><small style="color:var(--muted)">app/js/camera-manager.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>#boundOnDeviceChange()</code><br><small style="color:var(--muted)">app/js/camera-manager.js</small><br><code>#formatDeviceLabel()</code><br><small style="color:var(--muted)">app/js/camera-manager.js</small><br><code>#needsPermissionForLabels()</code><br><small style="color:var(--muted)">app/js/camera-manager.js</small><br>+14 more</td>
+  <td>CameraDeviceManager node in app/js/camera-manager.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>app/js/camera-manager.js</code></td><td>19 nodes</td></tr>
+<tr><td><code>app/tools/curate_anime_videos.py</code></td><td>4 nodes</td></tr>
+<tr><td><code>app/tools/process_new_anime_videos.py</code></td><td>4 nodes</td></tr>
+<tr><td><code>app/tools/process_b_video.py</code></td><td>3 nodes</td></tr>
+<tr><td><code>app/tools/process_buenos_video.py</code></td><td>3 nodes</td></tr>
+<tr><td><code>app/tools/process_c_video.py</code></td><td>3 nodes</td></tr>
+<tr><td><code>app/tools/process_hola_video.py</code></td><td>3 nodes</td></tr>
+<tr><td><code>app/js/avatar-3d.js</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x25, imports x21, method x17, contains x13. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 6. Serving API ====== -->
+<h2 id="serve-api">6. Serving API</h2>
+<p>Serving API groups implementation around serverpy, handle, request, head, mostly in server.py. This section covers 24 nodes and 28 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Serving API (24 nodes, 28 edges)
+    subgraph serve_api_server_py_4f1d8c49["server.py"]
+        server_lschandler_511a17af("LSCHandler<br/><small>server.py</small>")
+        server_3de4f901("server.py")
+        server_rangefilewrapper_e2d79f30("RangeFileWrapper<br/><small>server.py</small>")
+        server_lschandler_do_post_5abb9aa3("do_POST()<br/><small>server.py</small>")
+        server_lschandler_send_head_736b2843("send_head()<br/><small>server.py</small>")
+        server_robustthreadingserver_8eb6edf8("RobustThreadingServer<br/><small>server.py</small>")
+        server_lschandler_init_44bbaf63("__init__()<br/><small>server.py</small>")
+        server_lschandler_end_headers_bd7fe440("end_headers()<br/><small>server.py</small>")
+        server_lschandler_copyfile_39c836c1("copyfile()<br/><small>server.py</small>")
+        server_lschandler_handle_one_request_db3e5206("handle_one_request()<br/><small>server.py</small>")
+        server_lschandler_do_options_c0b03912("do_OPTIONS()<br/><small>server.py</small>")
+        server_rangefilewrapper_init_61c981b9("__init__()<br/><small>server.py</small>")
+        server_rangefilewrapper_read_b2fbda77("read()<br/><small>server.py</small>")
+        server_rangefilewrapper_close_69e2dc4c("close()<br/><small>server.py</small>")
+        server_robustthreadingserver_handle_error_e162d6ea("handle_error()<br/><small>server.py</small>")
+        server_detect_sign_1b0893cb("detect_sign()<br/><small>server.py</small>")
+    end
+    subgraph serve_api_External_generated_a71e9f44["External / generated"]
+        http_server_fe6024d5("http_server")
+        socketserver_85564385("socketserver")
+    end
+    server_lschandler_511a17af -->|method| server_lschandler_init_44bbaf63
+    server_lschandler_511a17af -->|method| server_lschandler_send_head_736b2843
+    server_lschandler_511a17af -->|method| server_lschandler_end_headers_bd7fe440
+    server_lschandler_511a17af -->|method| server_lschandler_copyfile_39c836c1
+    server_lschandler_511a17af -->|method| server_lschandler_handle_one_request_db3e5206
+    server_lschandler_511a17af -->|method| server_lschandler_do_options_c0b03912
+    server_lschandler_511a17af -->|method| server_lschandler_do_post_5abb9aa3
+    server_rangefilewrapper_e2d79f30 -->|method| server_rangefilewrapper_init_61c981b9
+    server_rangefilewrapper_e2d79f30 -->|method| server_rangefilewrapper_read_b2fbda77
+    server_rangefilewrapper_e2d79f30 -->|method| server_rangefilewrapper_close_69e2dc4c
+    server_robustthreadingserver_8eb6edf8 -->|method| server_robustthreadingserver_handle_error_e162d6ea
+    server_lschandler_do_options_c0b03912 -->|calls| server_lschandler_end_headers_bd7fe440
+    server_lschandler_do_post_5abb9aa3 -->|calls| server_detect_sign_1b0893cb
+    server_lschandler_do_post_5abb9aa3 -->|calls| server_lschandler_end_headers_bd7fe440
+    server_lschandler_send_head_736b2843 -->|calls| server_lschandler_end_headers_bd7fe440
+    server_lschandler_send_head_736b2843 -->|calls| server_rangefilewrapper_e2d79f30
+    server_3de4f901 -->|imports| http_server_fe6024d5
+    server_3de4f901 -->|imports| socketserver_85564385
+    %% Omitted for readability: 6 nodes, 0 edges
+    class server_lschandler_511a17af klass;
+    class server_3de4f901 module;
+    class server_rangefilewrapper_e2d79f30 klass;
+    class server_lschandler_do_post_5abb9aa3 function;
+    class server_lschandler_send_head_736b2843 function;
+    class server_robustthreadingserver_8eb6edf8 klass;
+    class server_lschandler_init_44bbaf63 function;
+    class server_lschandler_end_headers_bd7fe440 function;
+    class server_lschandler_copyfile_39c836c1 function;
+    class server_lschandler_handle_one_request_db3e5206 function;
+    class server_lschandler_do_options_c0b03912 function;
+    class server_rangefilewrapper_init_61c981b9 function;
+    class server_rangefilewrapper_read_b2fbda77 function;
+    class server_rangefilewrapper_close_69e2dc4c function;
+    class server_robustthreadingserver_handle_error_e162d6ea function;
+    class server_detect_sign_1b0893cb function;
+    class http_server_fe6024d5 function;
+    class socketserver_85564385 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>LSCHandler</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">server.py</small><br><code>copyfile()</code><br><small style="color:var(--muted)">server.py</small><br><code>do_OPTIONS()</code><br><small style="color:var(--muted)">server.py</small><br>+4 more</td>
+  <td>LSCHandler node in server.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>RangeFileWrapper</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>send_head()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">server.py</small><br><code>close()</code><br><small style="color:var(--muted)">server.py</small><br><code>read()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>RangeFileWrapper node in server.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>RobustThreadingServer</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>handle_error()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>RobustThreadingServer node in server.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>detect_sign()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>do_POST()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>detect_sign() node in server.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>free_port()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>os</code></td>
+  <td>free_port() node in server.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.copyfile()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>LSCHandler</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.copyfile() node in server.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>.do_OPTIONS()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>LSCHandler</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><code>end_headers()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>.do_OPTIONS() node in server.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.do_POST()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>LSCHandler</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><code>detect_sign()</code><br><small style="color:var(--muted)">server.py</small><br><code>end_headers()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>.do_POST() node in server.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>.end_headers()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>do_OPTIONS()</code><br><small style="color:var(--muted)">server.py</small><br><code>do_POST()</code><br><small style="color:var(--muted)">server.py</small><br><code>LSCHandler</code><br><small style="color:var(--muted)">server.py</small><br>+1 more</td>
+  <td>No direct outbound edge</td>
+  <td>.end_headers() node in server.py.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>.handle_one_request()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>LSCHandler</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.handle_one_request() node in server.py.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>.__init__()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>LSCHandler</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.__init__() node in server.py.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>.send_head()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>LSCHandler</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><code>end_headers()</code><br><small style="color:var(--muted)">server.py</small><br><code>RangeFileWrapper</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>.send_head() node in server.py.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>.close()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>RangeFileWrapper</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.close() node in server.py.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>.__init__()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>RangeFileWrapper</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.__init__() node in server.py.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>.read()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>RangeFileWrapper</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.read() node in server.py.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>.handle_error()</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>RobustThreadingServer</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.handle_error() node in server.py.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>server.py</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>http_server</code><br><code>json</code><br><code>os</code><br>+4 more</td>
+  <td>Module file in server.py.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>Wrapper para transmitir un rango de bytes específico de un archivo abierto…</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Wrapper para transmitir un rango de bytes específico de un archivo abierto….</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>Maneja solicitudes GET/HEAD con soporte completo para rangos de bytes (HTTP 206…</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Maneja solicitudes GET/HEAD con soporte completo para rangos de bytes (HTTP 206….</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Libera el puerto si quedó retenido por un proceso previo huérfano.</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Libera el puerto si quedó retenido por un proceso previo huérfano..</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>http_server</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>server.py</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>http_server node in project.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>socketserver</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>server.py</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>socketserver node in project.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>urllib_parse</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>server.py</code><br><small style="color:var(--muted)">server.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>urllib_parse node in project.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>urllib_request</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>server.py</code><br><small style="color:var(--muted)">server.py</small><br><code>setup_offline_assets.py</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>urllib_request node in project.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>server.py</code></td><td>20 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x11, calls x5, contains x5, imports x4. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 7. Tests & Fixtures ====== -->
+<h2 id="tests-fixtures">7. Tests &amp; Fixtures</h2>
+<p>Tests &amp; Fixtures groups implementation around test, tests, animejs, letter, mostly in tests/test_signs_data.js, tests/test_playwright.js, tests/test_vision_rules.js. This section covers 60 nodes and 69 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Tests &amp; Fixtures (60 nodes, 69 edges)
+    subgraph tests_fixtures_External_generated_473753cb["External / generated"]
+        sys_b4c56ee8("sys")
+        ref_fs_8204e0dd("ref_fs")
+        ref_path_6ea4f7de("ref_path")
+    end
+    subgraph tests_fixtures_app_tools_verify_videos_py_49b1a53e["app/tools/verify_videos.py"]
+        app_tools_verify_videos_main_f0651115("main()<br/><small>app/tools/verify_videos.py</small>")
+        app_tools_verify_videos_check_mp4_video_0527197b("check_mp4_video()<br/><small>app/tools/verify_videos.py</small>")
+        app_tools_verify_videos_check_webp_anim_4a968a79("check_webp_anim()<br/><small>app/tools/verify_videos.py</small>")
+    end
+    ref_playwright_6c98a71c("playwright<br/><small>package.json</small>")
+    tests_test_15_signs_617e3a06("test_15_signs.js")
+    tests_test_20_signs_5ac15e0a("test_20_signs.js")
+    tests_test_batch_5_media_test_media_assets_964945af("test_media_assets()<br/><small>tests/test_batch_5_media.py</small>")
+    tests_test_letter_i_anime_70560077("test_letter_i_anime.js")
+    tests_test_letter_o_anime_79220e18("test_letter_o_anime.js")
+    tests_test_live_hand_inference_ccd44dc4("test_live_hand_inference.js")
+    tests_test_offline_mode_0ce9091f("test_offline_mode.js")
+    tests_test_pause_and_overlap_1a7b6ce6("test_pause_and_overlap.js")
+    tests_test_playwright_f57ffa3a("test_playwright.js")
+    tests_test_signs_data_99d61dcf("test_signs_data.js")
+    tests_test_vision_rules_c4a79f04("test_vision_rules.js")
+    app_tools_verify_videos_main_f0651115 -->|calls| app_tools_verify_videos_check_mp4_video_0527197b
+    app_tools_verify_videos_main_f0651115 -->|calls| app_tools_verify_videos_check_webp_anim_4a968a79
+    app_tools_verify_videos_main_f0651115 -->|calls| sys_b4c56ee8
+    tests_test_batch_5_media_test_media_assets_964945af -->|calls| sys_b4c56ee8
+    tests_test_signs_data_99d61dcf -->|imports| ref_fs_8204e0dd
+    tests_test_signs_data_99d61dcf -->|imports| ref_path_6ea4f7de
+    tests_test_playwright_f57ffa3a -->|imports| ref_playwright_6c98a71c
+    tests_test_playwright_f57ffa3a -->|imports| ref_fs_8204e0dd
+    tests_test_playwright_f57ffa3a -->|imports| ref_path_6ea4f7de
+    tests_test_vision_rules_c4a79f04 -->|imports| ref_fs_8204e0dd
+    tests_test_vision_rules_c4a79f04 -->|imports| ref_path_6ea4f7de
+    tests_test_live_hand_inference_ccd44dc4 -->|imports| ref_playwright_6c98a71c
+    tests_test_live_hand_inference_ccd44dc4 -->|imports| ref_path_6ea4f7de
+    tests_test_letter_i_anime_70560077 -->|imports| ref_playwright_6c98a71c
+    tests_test_letter_i_anime_70560077 -->|imports| ref_path_6ea4f7de
+    tests_test_letter_i_anime_70560077 -->|imports| ref_fs_8204e0dd
+    tests_test_letter_o_anime_79220e18 -->|imports| ref_playwright_6c98a71c
+    tests_test_letter_o_anime_79220e18 -->|imports| ref_path_6ea4f7de
+    tests_test_letter_o_anime_79220e18 -->|imports| ref_fs_8204e0dd
+    tests_test_offline_mode_0ce9091f -->|imports| ref_playwright_6c98a71c
+    tests_test_15_signs_617e3a06 -->|imports| ref_playwright_6c98a71c
+    tests_test_20_signs_5ac15e0a -->|imports| ref_playwright_6c98a71c
+    tests_test_pause_and_overlap_1a7b6ce6 -->|imports| ref_playwright_6c98a71c
+    %% Omitted for readability: 42 nodes, 0 edges
+    class sys_b4c56ee8 function;
+    class ref_fs_8204e0dd function;
+    class ref_path_6ea4f7de function;
+    class app_tools_verify_videos_main_f0651115 function;
+    class app_tools_verify_videos_check_mp4_video_0527197b function;
+    class app_tools_verify_videos_check_webp_anim_4a968a79 function;
+    class ref_playwright_6c98a71c function;
+    class tests_test_15_signs_617e3a06 test;
+    class tests_test_20_signs_5ac15e0a test;
+    class tests_test_batch_5_media_test_media_assets_964945af test;
+    class tests_test_letter_i_anime_70560077 test;
+    class tests_test_letter_o_anime_79220e18 test;
+    class tests_test_live_hand_inference_ccd44dc4 test;
+    class tests_test_offline_mode_0ce9091f test;
+    class tests_test_pause_and_overlap_1a7b6ce6 test;
+    class tests_test_playwright_f57ffa3a test;
+    class tests_test_signs_data_99d61dcf test;
+    class tests_test_vision_rules_c4a79f04 test;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>test15Signs()</code><br><small style="color:var(--muted)">tests/test_15_signs.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>test20Signs()</code><br><small style="color:var(--muted)">tests/test_20_signs.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>testAnimeTardesGustar()</code><br><small style="color:var(--muted)">tests/test_tardes_gustar_anime.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>test_15_signs.js</code><br><small style="color:var(--muted)">tests/test_15_signs.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>playwright</code><br><small style="color:var(--muted)">package.json</small></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>{ chromium }</code><br><small style="color:var(--muted)">tests/test_15_signs.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ chromium } node in tests/test_15_signs.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>test_20_signs.js</code><br><small style="color:var(--muted)">tests/test_20_signs.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>playwright</code><br><small style="color:var(--muted)">package.json</small></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>{ chromium }</code><br><small style="color:var(--muted)">tests/test_20_signs.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ chromium } node in tests/test_20_signs.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>test_pause_and_overlap.js</code><br><small style="color:var(--muted)">tests/test_pause_and_overlap.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>playwright</code><br><small style="color:var(--muted)">package.json</small></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>{ chromium }</code><br><small style="color:var(--muted)">tests/test_pause_and_overlap.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ chromium } node in tests/test_pause_and_overlap.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>test_tardes_gustar_anime.js</code><br><small style="color:var(--muted)">tests/test_tardes_gustar_anime.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>playwright</code><br><small style="color:var(--muted)">package.json</small></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>{ chromium }</code><br><small style="color:var(--muted)">tests/test_tardes_gustar_anime.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ chromium } node in tests/test_tardes_gustar_anime.js.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>playwright</code><br><small style="color:var(--muted)">package.json</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>package.json</code><br><small style="color:var(--muted)">package.json</small><br><code>test_15_signs.js</code><br><small style="color:var(--muted)">tests/test_15_signs.js</small><br><code>test_20_signs.js</code><br><small style="color:var(--muted)">tests/test_20_signs.js</small><br>+7 more</td>
+  <td>No direct outbound edge</td>
+  <td>playwright node in package.json.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>check_mp4_video()</code><br><small style="color:var(--muted)">app/tools/verify_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/verify_videos.py</small></td>
+  <td><code>cv2</code></td>
+  <td>check_mp4_video() node in app/tools/verify_videos.py.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>check_webp_anim()</code><br><small style="color:var(--muted)">app/tools/verify_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/verify_videos.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>check_webp_anim() node in app/tools/verify_videos.py.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/verify_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>check_mp4_video()</code><br><small style="color:var(--muted)">app/tools/verify_videos.py</small><br><code>check_webp_anim()</code><br><small style="color:var(--muted)">app/tools/verify_videos.py</small><br><code>sys</code></td>
+  <td>main() node in app/tools/verify_videos.py.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>test_media_assets()</code><br><small style="color:var(--muted)">tests/test_batch_5_media.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>sys</code></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>verify_videos.py</code><br><small style="color:var(--muted)">app/tools/verify_videos.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>os</code><br><code>pil</code><br>+1 more</td>
+  <td>Module file in app/tools/verify_videos.py.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>test_batch_5_media.py</code><br><small style="color:var(--muted)">tests/test_batch_5_media.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>os</code><br><code>sys</code></td>
+  <td>Module file in tests/test_batch_5_media.py.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>test_prompts_doc.py</code><br><small style="color:var(--muted)">tests/test_prompts_doc.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>os</code><br><code>sys</code></td>
+  <td>Module file in tests/test_prompts_doc.py.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>verify_videos.py - EXIS Project (Colombian Sign Language / LSC) Agente 1: Video…</code><br><small style="color:var(--muted)">app/tools/verify_videos.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for verify_videos.py - EXIS Project (Colombian Sign Language / LSC) Agente 1: Video….</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>sys</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/verify_videos.py</small><br><code>mocap_extractor.py</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>server.py</code><br><small style="color:var(--muted)">server.py</small><br>+4 more</td>
+  <td>No direct outbound edge</td>
+  <td>sys node in project.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>test_signs_data.js</code><br><small style="color:var(--muted)">tests/test_signs_data.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>ref_fs</code><br><code>ref_path</code></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>code</code><br><small style="color:var(--muted)">tests/test_signs_data.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>code node in tests/test_signs_data.js.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>fs</code><br><small style="color:var(--muted)">tests/test_signs_data.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>fs node in tests/test_signs_data.js.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>path</code><br><small style="color:var(--muted)">tests/test_signs_data.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>path node in tests/test_signs_data.js.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>requiredLetters</code><br><small style="color:var(--muted)">tests/test_signs_data.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>requiredLetters node in tests/test_signs_data.js.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>requiredWords</code><br><small style="color:var(--muted)">tests/test_signs_data.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>requiredWords node in tests/test_signs_data.js.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>signsDataPath</code><br><small style="color:var(--muted)">tests/test_signs_data.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>signsDataPath node in tests/test_signs_data.js.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>window</code><br><small style="color:var(--muted)">tests/test_signs_data.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>window node in tests/test_signs_data.js.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>runTests()</code><br><small style="color:var(--muted)">tests/test_playwright.js</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>tests/test_signs_data.js</code></td><td>8 nodes</td></tr>
+<tr><td><code>tests/test_playwright.js</code></td><td>6 nodes</td></tr>
+<tr><td><code>tests/test_vision_rules.js</code></td><td>6 nodes</td></tr>
+<tr><td><code>app/tools/verify_videos.py</code></td><td>5 nodes</td></tr>
+<tr><td><code>tests/test_letter_i_anime.js</code></td><td>5 nodes</td></tr>
+<tr><td><code>tests/test_letter_o_anime.js</code></td><td>5 nodes</td></tr>
+<tr><td><code>tests/test_live_hand_inference.js</code></td><td>4 nodes</td></tr>
+<tr><td><code>tests/test_15_signs.js</code></td><td>3 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x41, imports x20, calls x4, imports x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 8. Optical Flow Video Generator ====== -->
+<h2 id="optical-flow-video-generator">8. Optical Flow Video Generator</h2>
+<p>Optical Flow Video Generator groups implementation around generate, videospy, app, tools, mostly in app/tools/generate_videos.py. This section covers 16 nodes and 22 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Optical Flow Video Generator (16 nodes, 22 edges)
+    subgraph optical_flow_video_generator_app_tools_generate_ae385473["app/tools/generate_videos.py"]
+        app_tools_generate_videos_process_sign_5b6183e2("process_sign()<br/><small>app/tools/generate_videos.py</small>")
+        app_tools_generate_videos_main_f699b92e("main()<br/><small>app/tools/generate_videos.py</small>")
+        app_tools_generate_videos_build_smooth_loop_30fb7f33("build_smooth_loop()<br/><small>app/tools/generate_videos.py</small>")
+        app_tools_generate_videos_interpolate_pair_803e8623("interpolate_pair()<br/><small>app/tools/generate_videos.py</small>")
+        app_tools_generate_videos_read_image_safe_be32256e("read_image_safe()<br/><small>app/tools/generate_videos.py</small>")
+        app_tools_generate_videos_save_mp4_d03262fa("save_mp4()<br/><small>app/tools/generate_videos.py</small>")
+        app_tools_generate_videos_save_animated_webp_29a124e5("save_animated_webp()<br/><small>app/tools/generate_videos.py</small>")
+        app_tools_generate_videos_fa9aa92a("generate_videos.py")
+        app_tools_generate_videos_rationale_102_9d03c827("Construye un bucle continuo de 50 fotog...<br/><small>app/tools/generate_videos.py</small>")
+        app_tools_generate_videos_rationale_68_ae664706("Genera sub-fotogramas interpolados usan...<br/><small>app/tools/generate_videos.py</small>")
+        app_tools_generate_videos_rationale_146_974c38ff("Guarda fotogramas como WebP animado en...<br/><small>app/tools/generate_videos.py</small>")
+        app_tools_generate_videos_rationale_136_a9845c1c("Guarda fotogramas en formato MP4 usando...<br/><small>app/tools/generate_videos.py</small>")
+        app_tools_generate_videos_rationale_57_67344fb4("Lee imagen respetando nombres con acent...<br/><small>app/tools/generate_videos.py</small>")
+        app_tools_generate_videos_rationale_164_9e10eb04("Procesa los videos de cuerpo completo y...<br/><small>app/tools/generate_videos.py</small>")
+        app_tools_generate_videos_rationale_1_9a60b5fd("generate_videos.py - EXIS Project (Colo...<br/><small>app/tools/generate_videos.py</small>")
+    end
+    ndarray_848c1baf("ndarray")
+    app_tools_generate_videos_build_smooth_loop_30fb7f33 -->|calls| app_tools_generate_videos_interpolate_pair_803e8623
+    app_tools_generate_videos_main_f699b92e -->|calls| app_tools_generate_videos_process_sign_5b6183e2
+    app_tools_generate_videos_process_sign_5b6183e2 -->|calls| app_tools_generate_videos_read_image_safe_be32256e
+    app_tools_generate_videos_process_sign_5b6183e2 -->|calls| app_tools_generate_videos_build_smooth_loop_30fb7f33
+    app_tools_generate_videos_process_sign_5b6183e2 -->|calls| app_tools_generate_videos_save_mp4_d03262fa
+    app_tools_generate_videos_process_sign_5b6183e2 -->|calls| app_tools_generate_videos_save_animated_webp_29a124e5
+    class app_tools_generate_videos_process_sign_5b6183e2 function;
+    class app_tools_generate_videos_main_f699b92e function;
+    class app_tools_generate_videos_build_smooth_loop_30fb7f33 function;
+    class app_tools_generate_videos_interpolate_pair_803e8623 function;
+    class app_tools_generate_videos_read_image_safe_be32256e function;
+    class app_tools_generate_videos_save_mp4_d03262fa function;
+    class app_tools_generate_videos_save_animated_webp_29a124e5 function;
+    class app_tools_generate_videos_fa9aa92a module;
+    class app_tools_generate_videos_rationale_102_9d03c827 concept;
+    class app_tools_generate_videos_rationale_68_ae664706 concept;
+    class app_tools_generate_videos_rationale_146_974c38ff concept;
+    class app_tools_generate_videos_rationale_136_a9845c1c concept;
+    class app_tools_generate_videos_rationale_57_67344fb4 concept;
+    class app_tools_generate_videos_rationale_164_9e10eb04 concept;
+    class app_tools_generate_videos_rationale_1_9a60b5fd concept;
+    class ndarray_848c1baf function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>build_smooth_loop()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><code>interpolate_pair()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small><br><code>numpy</code></td>
+  <td>build_smooth_loop() node in app/tools/generate_videos.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>interpolate_pair()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>build_smooth_loop()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><code>cv2</code><br><code>numpy</code></td>
+  <td>interpolate_pair() node in app/tools/generate_videos.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td>main() node in app/tools/generate_videos.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><code>build_smooth_loop()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small><br><code>cv2</code><br><code>read_image_safe()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small><br>+2 more</td>
+  <td>process_sign() node in app/tools/generate_videos.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>read_image_safe()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><code>cv2</code><br><code>numpy</code></td>
+  <td>read_image_safe() node in app/tools/generate_videos.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>save_animated_webp()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_animated_webp() node in app/tools/generate_videos.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>save_mp4()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_mp4() node in app/tools/generate_videos.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>generate_videos.py</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>numpy</code><br><code>os</code><br>+1 more</td>
+  <td>Module file in app/tools/generate_videos.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>ndarray</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ndarray node in project.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>generate_videos.py - EXIS Project (Colombian Sign Language / LSC) Agente 1:…</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for generate_videos.py - EXIS Project (Colombian Sign Language / LSC) Agente 1:….</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>Construye un bucle continuo de 50 fotogramas (2.0 segundos a 25 fps): - 5…</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Construye un bucle continuo de 50 fotogramas (2.0 segundos a 25 fps): - 5….</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>Guarda fotogramas en formato MP4 usando VideoWriter.</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Guarda fotogramas en formato MP4 usando VideoWriter..</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>Guarda fotogramas como WebP animado en bucle infinito.</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Guarda fotogramas como WebP animado en bucle infinito..</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>Procesa los videos de cuerpo completo y mano para una seña.</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Procesa los videos de cuerpo completo y mano para una seña..</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>Lee imagen respetando nombres con acentos en Windows.</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Lee imagen respetando nombres con acentos en Windows..</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>Genera sub-fotogramas interpolados usando DIS Optical Flow y curvatura Ease-In-…</code><br><small style="color:var(--muted)">app/tools/generate_videos.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Genera sub-fotogramas interpolados usando DIS Optical Flow y curvatura Ease-In-….</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>app/tools/generate_videos.py</code></td><td>15 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x7, explains x7, calls x6, references x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 9. Letter I Video Curator ====== -->
+<h2 id="letter-i-video-curator">9. Letter I Video Curator</h2>
+<p>Letter I Video Curator groups implementation around curate, letter, ipy, app, mostly in app/tools/curate_letter_i.py. This section covers 9 nodes and 12 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Letter I Video Curator (9 nodes, 12 edges)
+    app_tools_curate_letter_i_animecurator_2799c36f("AnimeCurator<br/><small>app/tools/curate_letter_i.py</small>")
+    app_tools_curate_letter_i_animecurator_process_s_52141a79("process_sign()<br/><small>app/tools/curate_letter_i.py</small>")
+    app_tools_curate_letter_i_main_e4740b93("main()<br/><small>app/tools/curate_letter_i.py</small>")
+    app_tools_curate_letter_i_animecurator_init_85903e6c("__init__()<br/><small>app/tools/curate_letter_i.py</small>")
+    app_tools_curate_letter_i_animecurator_extract_t_1dce1da8("extract_trimmed_frames()<br/><small>app/tools/curate_letter_i.py</small>")
+    app_tools_curate_letter_i_animecurator_save_mp4_d8ea7f7e("save_mp4()<br/><small>app/tools/curate_letter_i.py</small>")
+    app_tools_curate_letter_i_animecurator_save_webp_2c7dcbc7("save_webp()<br/><small>app/tools/curate_letter_i.py</small>")
+    app_tools_curate_letter_i_2e110b4f("curate_letter_i.py")
+    app_tools_curate_letter_i_rationale_7_7666c60b("Curador y podador temporal de videos An...<br/><small>app/tools/curate_letter_i.py</small>")
+    app_tools_curate_letter_i_animecurator_2799c36f -->|method| app_tools_curate_letter_i_animecurator_init_85903e6c
+    app_tools_curate_letter_i_animecurator_2799c36f -->|method| app_tools_curate_letter_i_animecurator_extract_t_1dce1da8
+    app_tools_curate_letter_i_animecurator_2799c36f -->|method| app_tools_curate_letter_i_animecurator_save_mp4_d8ea7f7e
+    app_tools_curate_letter_i_animecurator_2799c36f -->|method| app_tools_curate_letter_i_animecurator_save_webp_2c7dcbc7
+    app_tools_curate_letter_i_animecurator_2799c36f -->|method| app_tools_curate_letter_i_animecurator_process_s_52141a79
+    app_tools_curate_letter_i_animecurator_process_s_52141a79 -->|calls| app_tools_curate_letter_i_animecurator_extract_t_1dce1da8
+    app_tools_curate_letter_i_animecurator_process_s_52141a79 -->|calls| app_tools_curate_letter_i_animecurator_save_mp4_d8ea7f7e
+    app_tools_curate_letter_i_animecurator_process_s_52141a79 -->|calls| app_tools_curate_letter_i_animecurator_save_webp_2c7dcbc7
+    app_tools_curate_letter_i_main_e4740b93 -->|calls| app_tools_curate_letter_i_animecurator_2799c36f
+    class app_tools_curate_letter_i_animecurator_2799c36f klass;
+    class app_tools_curate_letter_i_animecurator_process_s_52141a79 function;
+    class app_tools_curate_letter_i_main_e4740b93 function;
+    class app_tools_curate_letter_i_animecurator_init_85903e6c function;
+    class app_tools_curate_letter_i_animecurator_extract_t_1dce1da8 function;
+    class app_tools_curate_letter_i_animecurator_save_mp4_d8ea7f7e function;
+    class app_tools_curate_letter_i_animecurator_save_webp_2c7dcbc7 function;
+    class app_tools_curate_letter_i_2e110b4f module;
+    class app_tools_curate_letter_i_rationale_7_7666c60b concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small><br><code>extract_trimmed_frames()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small><br><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small><br>+2 more</td>
+  <td>AnimeCurator node in app/tools/curate_letter_i.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>.extract_trimmed_frames()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small><br><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.extract_trimmed_frames() node in app/tools/curate_letter_i.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.__init__()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.__init__() node in app/tools/curate_letter_i.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.process_sign()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td><code>extract_trimmed_frames()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small><br><code>save_mp4()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small><br><code>save_webp()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td>.process_sign() node in app/tools/curate_letter_i.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.save_mp4()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small><br><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.save_mp4() node in app/tools/curate_letter_i.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.save_webp()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small><br><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.save_webp() node in app/tools/curate_letter_i.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td>main() node in app/tools/curate_letter_i.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>curate_letter_i.py</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>numpy</code><br><code>os</code><br>+1 more</td>
+  <td>Module file in app/tools/curate_letter_i.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>Curador y podador temporal de videos Anime IA para el proyecto EXIS (LSC).…</code><br><small style="color:var(--muted)">app/tools/curate_letter_i.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Curador y podador temporal de videos Anime IA para el proyecto EXIS (LSC).….</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>app/tools/curate_letter_i.py</code></td><td>9 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x5, calls x4, contains x2, explains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 10. Letter O Video Curator ====== -->
+<h2 id="letter-o-video-curator">10. Letter O Video Curator</h2>
+<p>Letter O Video Curator groups implementation around curate, letter, opy, app, mostly in app/tools/curate_letter_o.py. This section covers 9 nodes and 12 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Letter O Video Curator (9 nodes, 12 edges)
+    app_tools_curate_letter_o_animecurator_2a722e74("AnimeCurator<br/><small>app/tools/curate_letter_o.py</small>")
+    app_tools_curate_letter_o_animecurator_process_s_a127450f("process_sign()<br/><small>app/tools/curate_letter_o.py</small>")
+    app_tools_curate_letter_o_main_554880ac("main()<br/><small>app/tools/curate_letter_o.py</small>")
+    app_tools_curate_letter_o_animecurator_init_1ffc3469("__init__()<br/><small>app/tools/curate_letter_o.py</small>")
+    app_tools_curate_letter_o_animecurator_extract_t_291bcbb1("extract_trimmed_frames()<br/><small>app/tools/curate_letter_o.py</small>")
+    app_tools_curate_letter_o_animecurator_save_mp4_ca4ab139("save_mp4()<br/><small>app/tools/curate_letter_o.py</small>")
+    app_tools_curate_letter_o_animecurator_save_webp_70ea4088("save_webp()<br/><small>app/tools/curate_letter_o.py</small>")
+    app_tools_curate_letter_o_04487ca0("curate_letter_o.py")
+    app_tools_curate_letter_o_rationale_7_8f4842f0("Curador y podador temporal de videos An...<br/><small>app/tools/curate_letter_o.py</small>")
+    app_tools_curate_letter_o_animecurator_2a722e74 -->|method| app_tools_curate_letter_o_animecurator_init_1ffc3469
+    app_tools_curate_letter_o_animecurator_2a722e74 -->|method| app_tools_curate_letter_o_animecurator_extract_t_291bcbb1
+    app_tools_curate_letter_o_animecurator_2a722e74 -->|method| app_tools_curate_letter_o_animecurator_save_mp4_ca4ab139
+    app_tools_curate_letter_o_animecurator_2a722e74 -->|method| app_tools_curate_letter_o_animecurator_save_webp_70ea4088
+    app_tools_curate_letter_o_animecurator_2a722e74 -->|method| app_tools_curate_letter_o_animecurator_process_s_a127450f
+    app_tools_curate_letter_o_animecurator_process_s_a127450f -->|calls| app_tools_curate_letter_o_animecurator_extract_t_291bcbb1
+    app_tools_curate_letter_o_animecurator_process_s_a127450f -->|calls| app_tools_curate_letter_o_animecurator_save_mp4_ca4ab139
+    app_tools_curate_letter_o_animecurator_process_s_a127450f -->|calls| app_tools_curate_letter_o_animecurator_save_webp_70ea4088
+    app_tools_curate_letter_o_main_554880ac -->|calls| app_tools_curate_letter_o_animecurator_2a722e74
+    class app_tools_curate_letter_o_animecurator_2a722e74 klass;
+    class app_tools_curate_letter_o_animecurator_process_s_a127450f function;
+    class app_tools_curate_letter_o_main_554880ac function;
+    class app_tools_curate_letter_o_animecurator_init_1ffc3469 function;
+    class app_tools_curate_letter_o_animecurator_extract_t_291bcbb1 function;
+    class app_tools_curate_letter_o_animecurator_save_mp4_ca4ab139 function;
+    class app_tools_curate_letter_o_animecurator_save_webp_70ea4088 function;
+    class app_tools_curate_letter_o_04487ca0 module;
+    class app_tools_curate_letter_o_rationale_7_8f4842f0 concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small><br><code>extract_trimmed_frames()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small><br><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small><br>+2 more</td>
+  <td>AnimeCurator node in app/tools/curate_letter_o.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>.extract_trimmed_frames()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small><br><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.extract_trimmed_frames() node in app/tools/curate_letter_o.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.__init__()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.__init__() node in app/tools/curate_letter_o.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.process_sign()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td><code>extract_trimmed_frames()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small><br><code>save_mp4()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small><br><code>save_webp()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td>.process_sign() node in app/tools/curate_letter_o.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.save_mp4()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small><br><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.save_mp4() node in app/tools/curate_letter_o.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.save_webp()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small><br><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.save_webp() node in app/tools/curate_letter_o.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>AnimeCurator</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td>main() node in app/tools/curate_letter_o.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>curate_letter_o.py</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>numpy</code><br><code>os</code><br>+1 more</td>
+  <td>Module file in app/tools/curate_letter_o.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>Curador y podador temporal de videos Anime IA para el proyecto EXIS (LSC).…</code><br><small style="color:var(--muted)">app/tools/curate_letter_o.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Curador y podador temporal de videos Anime IA para el proyecto EXIS (LSC).….</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>app/tools/curate_letter_o.py</code></td><td>9 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x5, calls x4, contains x2, explains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 11. Offline Assets & TFLite Models ====== -->
+<h2 id="offline-assets-tflite-models">11. Offline Assets &amp; TFLite Models</h2>
+<p>Offline Assets &amp; TFLite Models groups implementation around setup, offline, assetspy, app, mostly in app/tools/setup_offline_assets.py. This section covers 8 nodes and 16 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Offline Assets &amp; TFLite Models (8 nodes, 16 edges)
+    subgraph offline_assets_tflite_models_app_tools_setup_off_8340a860["app/tools/setup_offline_assets.py"]
+        app_tools_setup_offline_assets_main_06852ad1("main()<br/><small>app/tools/setup_offline_assets.py</small>")
+        app_tools_setup_offline_assets_setup_fonts_838d1613("setup_fonts()<br/><small>app/tools/setup_offline_assets.py</small>")
+        app_tools_setup_offline_assets_98182825("setup_offline_assets.py")
+        app_tools_setup_offline_assets_setup_canvas_conf_b209ecae("setup_canvas_confetti()<br/><small>app/tools/setup_offline_assets.py</small>")
+        app_tools_setup_offline_assets_setup_mediapipe_2267e38b("setup_mediapipe()<br/><small>app/tools/setup_offline_assets.py</small>")
+        app_tools_setup_offline_assets_setup_tailwind_ee9d1028("setup_tailwind()<br/><small>app/tools/setup_offline_assets.py</small>")
+        app_tools_setup_offline_assets_download_file_b9fb03c9("download_file()<br/><small>app/tools/setup_offline_assets.py</small>")
+    end
+    re_c387c982("re")
+    app_tools_setup_offline_assets_main_06852ad1 -->|calls| app_tools_setup_offline_assets_setup_tailwind_ee9d1028
+    app_tools_setup_offline_assets_main_06852ad1 -->|calls| app_tools_setup_offline_assets_setup_mediapipe_2267e38b
+    app_tools_setup_offline_assets_main_06852ad1 -->|calls| app_tools_setup_offline_assets_setup_canvas_conf_b209ecae
+    app_tools_setup_offline_assets_main_06852ad1 -->|calls| app_tools_setup_offline_assets_setup_fonts_838d1613
+    app_tools_setup_offline_assets_setup_canvas_conf_b209ecae -->|calls| app_tools_setup_offline_assets_download_file_b9fb03c9
+    app_tools_setup_offline_assets_setup_fonts_838d1613 -->|calls| re_c387c982
+    app_tools_setup_offline_assets_setup_fonts_838d1613 -->|calls| app_tools_setup_offline_assets_download_file_b9fb03c9
+    app_tools_setup_offline_assets_setup_mediapipe_2267e38b -->|calls| app_tools_setup_offline_assets_download_file_b9fb03c9
+    app_tools_setup_offline_assets_setup_tailwind_ee9d1028 -->|calls| app_tools_setup_offline_assets_download_file_b9fb03c9
+    app_tools_setup_offline_assets_98182825 -->|imports| re_c387c982
+    class app_tools_setup_offline_assets_main_06852ad1 function;
+    class app_tools_setup_offline_assets_setup_fonts_838d1613 function;
+    class app_tools_setup_offline_assets_98182825 async;
+    class app_tools_setup_offline_assets_setup_canvas_conf_b209ecae function;
+    class app_tools_setup_offline_assets_setup_mediapipe_2267e38b api;
+    class app_tools_setup_offline_assets_setup_tailwind_ee9d1028 function;
+    class app_tools_setup_offline_assets_download_file_b9fb03c9 function;
+    class re_c387c982 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>download_file()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>setup_canvas_confetti()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small><br><code>setup_fonts()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small><br><code>setup_mediapipe()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small><br>+1 more</td>
+  <td><code>os</code></td>
+  <td>download_file() node in app/tools/setup_offline_assets.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>setup_canvas_confetti()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small><br><code>setup_fonts()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small><br><code>setup_mediapipe()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small><br>+1 more</td>
+  <td>main() node in app/tools/setup_offline_assets.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>setup_canvas_confetti()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td><code>download_file()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td>setup_canvas_confetti() node in app/tools/setup_offline_assets.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>setup_fonts()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td><code>download_file()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small><br><code>re</code></td>
+  <td>setup_fonts() node in app/tools/setup_offline_assets.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>setup_mediapipe()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td><code>download_file()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td>setup_mediapipe() node in app/tools/setup_offline_assets.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>setup_tailwind()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td><code>download_file()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td>setup_tailwind() node in app/tools/setup_offline_assets.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>setup_offline_assets.py</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td><span class="tag tag-async">Async</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>os</code><br><code>re</code><br><code>urllib_request</code></td>
+  <td>Module file in app/tools/setup_offline_assets.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>re</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>setup_fonts()</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small><br><code>setup_offline_assets.py</code><br><small style="color:var(--muted)">app/tools/setup_offline_assets.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>re node in project.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>app/tools/setup_offline_assets.py</code></td><td>7 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x9, contains x6, imports x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 12. Console Error Audit ====== -->
+<h2 id="console-error-audit">12. Console Error Audit</h2>
+<p>Console Error Audit groups implementation around check, consolejs, app, tools, mostly in app/tools/check_console.js. This section covers 6 nodes and 5 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Console Error Audit (6 nodes, 5 edges)
+    subgraph console_error_audit_app_tools_check_console_js_edad60a8["app/tools/check_console.js"]
+        app_tools_check_console_097ab3d6("check_console.js")
+        app_tools_check_console_http_027f8cfc("http<br/><small>app/tools/check_console.js</small>")
+        app_tools_check_console_main_648b9131("main()<br/><small>app/tools/check_console.js</small>")
+        app_tools_check_console_spawn_889259b6("spawn<br/><small>app/tools/check_console.js</small>")
+    end
+    subgraph console_error_audit_External_generated_f2a66acc["External / generated"]
+        ref_child_process_a097a181("ref_child_process")
+        ref_http_11f40f68("ref_http")
+    end
+    app_tools_check_console_097ab3d6 -->|imports| ref_child_process_a097a181
+    app_tools_check_console_097ab3d6 -->|imports| ref_http_11f40f68
+    class app_tools_check_console_097ab3d6 module;
+    class app_tools_check_console_http_027f8cfc function;
+    class app_tools_check_console_main_648b9131 function;
+    class app_tools_check_console_spawn_889259b6 function;
+    class ref_child_process_a097a181 function;
+    class ref_http_11f40f68 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/check_console.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>main() node in app/tools/check_console.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>check_console.js</code><br><small style="color:var(--muted)">app/tools/check_console.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>ref_child_process</code><br><code>ref_http</code></td>
+  <td>check_console.js node in app/tools/check_console.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>http</code><br><small style="color:var(--muted)">app/tools/check_console.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>http node in app/tools/check_console.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>{ spawn }</code><br><small style="color:var(--muted)">app/tools/check_console.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>{ spawn } node in app/tools/check_console.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>ref_child_process</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>check_console.js</code><br><small style="color:var(--muted)">app/tools/check_console.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>ref_child_process node in project.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>ref_http</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>check_console.js</code><br><small style="color:var(--muted)">app/tools/check_console.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>ref_http node in project.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>app/tools/check_console.js</code></td><td>4 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x3, imports x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 13. Chat Tutor & Ollama Client ====== -->
+<h2 id="chat-tutor-ollama-client">13. Chat Tutor &amp; Ollama Client</h2>
+<p>Chat Tutor &amp; Ollama Client groups implementation around chat, tutorjs, app, chattutor, mostly in app/js/chat-tutor.js. This section covers 2 nodes and 1 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Chat Tutor &amp; Ollama Client (2 nodes, 1 edges)
+    app_js_chat_tutor_e3cd247e("chat-tutor.js")
+    app_js_chat_tutor_chattutor_e3010e66("ChatTutor<br/><small>app/js/chat-tutor.js</small>")
+    app_js_chat_tutor_e3cd247e -->|contains| app_js_chat_tutor_chattutor_e3010e66
+    class app_js_chat_tutor_e3cd247e module;
+    class app_js_chat_tutor_chattutor_e3010e66 klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>chat-tutor.js</code><br><small style="color:var(--muted)">app/js/chat-tutor.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>ChatTutor</code><br><small style="color:var(--muted)">app/js/chat-tutor.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>app/js/chat-tutor.js</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 14. LSC Official Signs Catalog ====== -->
+<h2 id="lsc-official-signs-catalog">14. LSC Official Signs Catalog</h2>
+<p>LSC Official Signs Catalog groups implementation around signs, datajs, app, data, mostly in app/js/signs-data.js. This section covers 2 nodes and 1 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: LSC Official Signs Catalog (2 nodes, 1 edges)
+    app_js_signs_data_e66d4872("signs-data.js")
+    app_js_signs_data_signs_data_3a5db68d("SIGNS_DATA<br/><small>app/js/signs-data.js</small>")
+    app_js_signs_data_e66d4872 -->|contains| app_js_signs_data_signs_data_3a5db68d
+    class app_js_signs_data_e66d4872 module;
+    class app_js_signs_data_signs_data_3a5db68d klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>signs-data.js</code><br><small style="color:var(--muted)">app/js/signs-data.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>signs-data.js node in app/js/signs-data.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>SIGNS_DATA</code><br><small style="color:var(--muted)">app/js/signs-data.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>SIGNS_DATA node in app/js/signs-data.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>app/js/signs-data.js</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<h2 id="stats">Project Statistics</h2>
+
+<div class="grid">
+  <div class="card">
+    <h4>Graph</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>Nodes</td><td>260</td></tr>
+      <tr><td>Edges</td><td>459</td></tr>
+      <tr><td>Hyperedges</td><td>0</td></tr>
+      <tr><td>Communities</td><td>23</td></tr>
+      <tr><td>Documented Sections</td><td>13</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Edge Confidence</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>EXTRACTED</td><td>452</td></tr>
+      <tr><td>INFERRED</td><td>7</td></tr>
+      <tr><td>AMBIGUOUS</td><td>0</td></tr>
+    </table>
+  </div>
+</div>
+
+<div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
+  <p>exis aplicacion lenguaje de señas — Architecture Documentation</p>
+  <p>Generated: 2026-11-03 02:51 UTC · graphify callflow-html</p>
+</div>
+
+</div><!-- .container -->
+
+<script>
+(function () {
+  const mermaidConfig = {
+    startOnLoad: false,
+    theme: 'dark',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, useMaxWidth: true },
+    themeVariables: {
+      primaryColor: '#1e293b',
+      primaryTextColor: '#e2e8f0',
+      primaryBorderColor: '#38bdf8',
+      secondaryColor: '#0f172a',
+      tertiaryColor: '#334155',
+      lineColor: '#64748b',
+      textColor: '#e2e8f0',
+    }
+  };
+
+  mermaid.initialize(mermaidConfig);
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function enhanceMermaidDiagrams() {
+    document.querySelectorAll('.mermaid').forEach((container) => {
+      if (container.dataset.zoomReady === 'true') return;
+      const svg = container.querySelector('svg');
+      if (!svg) return;
+
+      container.dataset.zoomReady = 'true';
+      container.classList.add('is-enhanced');
+
+      const viewport = document.createElement('div');
+      viewport.className = 'mermaid-viewport';
+      svg.parentNode.insertBefore(viewport, svg);
+      viewport.appendChild(svg);
+
+      const toolbar = document.createElement('div');
+      toolbar.className = 'mermaid-toolbar';
+      toolbar.innerHTML = [
+        '<button type="button" data-action="zoom-out" title="Zoom out">-</button>',
+        '<span class="zoom-level" data-role="level">100%</span>',
+        '<button type="button" data-action="zoom-in" title="Zoom in">+</button>',
+        '<button type="button" data-action="fit" title="Fit width">Fit</button>',
+        '<button type="button" data-action="reset" title="Reset view">Reset</button>'
+      ].join('');
+      container.insertBefore(toolbar, viewport);
+
+      const state = { scale: 1, x: 0, y: 0, dragging: false, startX: 0, startY: 0, originX: 0, originY: 0 };
+      const level = toolbar.querySelector('[data-role="level"]');
+
+      function applyTransform() {
+        svg.style.transform = `translate(${state.x}px, ${state.y}px) scale(${state.scale})`;
+        level.textContent = `${Math.round(state.scale * 100)}%`;
+      }
+
+      function zoomBy(delta) {
+        state.scale = clamp(state.scale + delta, 0.25, 3);
+        applyTransform();
+      }
+
+      function reset() {
+        state.scale = 1;
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      function fitWidth() {
+        const rawWidth = svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.width
+          ? svg.viewBox.baseVal.width
+          : svg.getBoundingClientRect().width / state.scale;
+        if (!rawWidth) {
+          reset();
+          return;
+        }
+        state.scale = clamp((viewport.clientWidth - 48) / rawWidth, 0.25, 1.4);
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      toolbar.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-action]');
+        if (!button) return;
+        const action = button.dataset.action;
+        if (action === 'zoom-in') zoomBy(0.15);
+        if (action === 'zoom-out') zoomBy(-0.15);
+        if (action === 'fit') fitWidth();
+        if (action === 'reset') reset();
+      });
+
+      viewport.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return;
+        event.preventDefault();
+        zoomBy(event.deltaY < 0 ? 0.1 : -0.1);
+      }, { passive: false });
+
+      viewport.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return;
+        state.dragging = true;
+        state.startX = event.clientX;
+        state.startY = event.clientY;
+        state.originX = state.x;
+        state.originY = state.y;
+        viewport.classList.add('is-dragging');
+        viewport.setPointerCapture(event.pointerId);
+      });
+
+      viewport.addEventListener('pointermove', (event) => {
+        if (!state.dragging) return;
+        state.x = state.originX + event.clientX - state.startX;
+        state.y = state.originY + event.clientY - state.startY;
+        applyTransform();
+      });
+
+      function endDrag(event) {
+        if (!state.dragging) return;
+        state.dragging = false;
+        viewport.classList.remove('is-dragging');
+        if (viewport.hasPointerCapture(event.pointerId)) {
+          viewport.releasePointerCapture(event.pointerId);
+        }
+      }
+
+      viewport.addEventListener('pointerup', endDrag);
+      viewport.addEventListener('pointercancel', endDrag);
+      applyTransform();
+    });
+  }
+
+  function renderMermaid() {
+    const result = mermaid.run
+      ? mermaid.run({ querySelector: '.mermaid' })
+      : Promise.resolve();
+    Promise.resolve(result)
+      .then(enhanceMermaidDiagrams)
+      .catch((error) => {
+        console.error('Mermaid render failed:', error);
+        enhanceMermaidDiagrams();
+      });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderMermaid);
+  } else {
+    renderMermaid();
+  }
+})();
+</script>
+
+</body>
+</html>
