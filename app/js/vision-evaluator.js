@@ -605,6 +605,132 @@ const VisionEvaluator = (() => {
         diag = "Forma una O con los dedos";
       }
     }
+    // 16. EVALUACIÓN PARA "ANNOS" (Movimiento circular de manos en torso / pecho)
+    else if (signId === 'ANNOS') {
+      const isChestLevel = wrist.y >= 0.38 && wrist.y <= 0.92;
+
+      if (lm2) {
+        const wrist2 = lm2[0];
+        const bothAtChest = isChestLevel && wrist2.y >= 0.38 && wrist2.y <= 0.92;
+        const handsProximity = dist(wrist, wrist2) < 0.45;
+
+        if (bothAtChest && handsProximity) {
+          score = 95;
+          hint = "¡Excelente seña de AÑOS! Movimiento circular de manos en el torso...";
+          diag = "✓ AÑOS detectado (manos en torso)";
+        } else if (bothAtChest) {
+          score = 75;
+          hint = "Acerca tus dos manos frente al pecho para el frotamiento circular";
+          diag = "Acerca las manos en el pecho";
+        } else {
+          score = 60;
+          hint = "Ubica ambas manos a la altura de tu torso";
+          diag = "Ubica manos en el torso";
+        }
+      } else {
+        if (isChestLevel) {
+          score = 88;
+          hint = "¡Buen movimiento! Acerca ambas manos al pecho para la seña completa";
+          diag = "✓ Mano en torso (AÑOS)";
+        } else {
+          score = 55;
+          hint = "Lleva tu mano a la altura del pecho y gira suavemente";
+          diag = "Mano al pecho (AÑOS)";
+        }
+      }
+    }
+    // 17. EVALUACIÓN PARA "LICOR" (Mano en copa/Y hacia la barbilla y boca)
+    else if (signId === 'LICOR') {
+      const isMouthHeight = wrist.y >= 0.30 && wrist.y <= 0.72;
+      const isShakaOrCup = isThumbExt || isPinkyExt || (dist(lm[4], lm[20]) > 0.18);
+
+      if (isMouthHeight && isShakaOrCup) {
+        score = 95;
+        hint = "¡Excelente seña de LICOR! Mano en copa ascendiendo hacia los labios...";
+        diag = "✓ LICOR detectado (copa en barbilla/boca)";
+      } else if (isShakaOrCup) {
+        score = 75;
+        hint = "Eleva tu mano hacia el mentón o boca simulando beber";
+        diag = "Eleva la mano a la barbilla";
+      } else if (isMouthHeight) {
+        score = 65;
+        hint = "Forma una copa con la mano extendiendo pulgar y meñique";
+        diag = "Extiende pulgar/meñique (copa)";
+      } else {
+        score = 45;
+        hint = "Forma una copa con la mano y acércala a tu barbilla";
+        diag = "Mano en copa hacia la boca";
+      }
+    }
+    // 18. EVALUACIÓN PARA LETRA D (Índice vertical erguido y aro con pulgar y medio)
+    else if (signId === 'D') {
+      const thumbToMid = dist(lm[4], lm[12]);
+      const isLoop = thumbToMid < 0.22;
+      const othersCurled = isMiddleCurled && isRingCurled && isPinkyCurled;
+
+      if (isIndexExt && isLoop && othersCurled) {
+        score = 96;
+        hint = "¡Letra D perfecta! Índice erguido con aro entre pulgar y dedos";
+        diag = "✓ Letra D detectada";
+      } else if (isIndexExt && othersCurled) {
+        score = 82;
+        hint = "Junta la yema de tu pulgar con tu dedo medio formando un círculo";
+        diag = "Cierra el aro del pulgar con medio";
+      } else if (isIndexExt) {
+        score = 60;
+        hint = "Curva los dedos medio, anular y meñique hacia el pulgar";
+        diag = "Curva los dedos hacia el pulgar";
+      } else {
+        score = 40;
+        hint = "Extiende únicamente tu dedo índice recto hacia arriba";
+        diag = "Extiende el índice hacia arriba (D)";
+      }
+    }
+    // 19. EVALUACIÓN PARA LETRA E (4 dedos curvados juntos apoyados sobre el pulgar)
+    else if (signId === 'E') {
+      const extCount = (isIndexExt ? 1 : 0) + (isMiddleExt ? 1 : 0) + (isRingExt ? 1 : 0) + (isPinkyExt ? 1 : 0);
+      const allCurled = isIndexCurled && isMiddleCurled && isRingCurled && isPinkyCurled;
+      const thumbTucked = dist(lm[4], wrist) < dist(lm[2], wrist) * 1.35;
+
+      if (allCurled && extCount === 0 && thumbTucked) {
+        score = 96;
+        hint = "¡Letra E perfecta! Dedos curvados descansando sobre el pulgar";
+        diag = "✓ Letra E detectada";
+      } else if (allCurled && extCount <= 1) {
+        score = 80;
+        hint = "Apoya las yemas de los 4 dedos sobre el pulgar doblado";
+        diag = "Pliega los 4 dedos sobre el pulgar";
+      } else {
+        score = 50;
+        hint = "Curva los 4 dedos hacia la palma apoyándolos en el pulgar";
+        diag = "Curva los dedos hacia abajo (E)";
+      }
+    }
+    // 20. EVALUACIÓN PARA LETRA U (Índice y medio extendidos juntos, sin apertura en V)
+    else if (signId === 'U') {
+      const idxMidDist = dist(lm[8], lm[12]);
+      const bothExtended = isIndexExt && isMiddleExt;
+      const closedRest = isRingCurled && isPinkyCurled;
+      const isTightTogether = idxMidDist < 0.095;
+
+      if (bothExtended && closedRest && isTightTogether) {
+        score = 96;
+        hint = "¡Letra U perfecta! Dedos índice y medio rectos y juntos";
+        diag = "✓ Letra U detectada";
+      } else if (bothExtended && closedRest && !isTightTogether) {
+        score = 75;
+        hint = "Junta firmemente los dedos índice y medio (¡no los abras en V!)";
+        diag = "Junta índice y medio (sin V)";
+      } else if (bothExtended) {
+        score = 65;
+        hint = "Cierra completamente los dedos anular y meñique con el pulgar";
+        diag = "Cierra anular y meñique";
+      } else {
+        score = 45;
+        hint = "Extiende los dedos índice y medio rectos y pegados hacia arriba";
+        diag = "Extiende índice y medio juntos (U)";
+      }
+    }
 
     // Integración de trayectoria dinámica (Connect-the-Dots)
     const hasTrajectory = window.TrajectoryTracker && window.TrajectoryTracker.isTrajectoryActive();
