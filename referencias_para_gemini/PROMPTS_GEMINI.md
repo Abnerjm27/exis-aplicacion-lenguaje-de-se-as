@@ -40,7 +40,7 @@ Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficia
 
 ---
 
-## 3. Tabla Resumen de las 15 Señas Oficiales
+## 3. Tabla Resumen de las 20 Señas Oficiales
 
 | ID Seña | Categoría | Foto de Referencia | Gesto Clave LSC | Archivo Destino |
 |:---|:---:|:---|:---|:---|
@@ -52,12 +52,17 @@ Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficia
 | **NOCHES** | Palabra | `fotos/NOCHES_ref.jpg` | Ambos brazos cruzados sobre el pecho descansando en antebrazos | `app/videos/anime/NOCHES_body.mp4` |
 | **GUSTAR** | Palabra | `fotos/GUSTAR_ref.jpg` | Dedo índice derecho extendido apuntando hacia arriba tocando la garganta/cuello con la cabeza levantada | `app/videos/anime/GUSTAR_body.mp4` |
 | **NOMBRE** | Palabra | `fotos/NOMBRE_ref.jpg` | Dedos índice y medio de la mano derecha sobre los de la izquierda | `app/videos/anime/NOMBRE_body.mp4` |
+| **ANNOS** | Palabra | `fotos/ANNOS_ref.jpg` | Movimiento circular frotando ambas manos en el torso (paso de los años) | `app/videos/anime/ANNOS_body.mp4` |
+| **LICOR** | Palabra | `fotos/LICOR_ref.jpg` | Mano derecha en copa / letra Y ascendiendo hacia la barbilla y boca simulando beber | `app/videos/anime/LICOR_body.mp4` |
 | **A** | Letra | `fotos/A_ref.jpg` | Puño cerrado con pulgar erguido al lateral del índice | `app/videos/anime/A_body.mp4` |
 | **B** | Letra | `fotos/B_ref.jpg` | Cuatro dedos extendidos hacia arriba y pulgar doblado en palma | `app/videos/anime/B_body.mp4` |
 | **C** | Letra | `fotos/C_ref.jpg` | Dedos y pulgar arqueados formando el semicírculo de la letra C | `app/videos/anime/C_body.mp4` |
+| **D** | Letra | `fotos/D_ref.jpg` | Índice erguido vertical hacia arriba y aro cerrado entre pulgar y medio | `app/videos/anime/D_body.mp4` |
+| **E** | Letra | `fotos/E_ref.jpg` | Cuatro dedos curvados juntos hacia abajo descansando sobre el pulgar | `app/videos/anime/E_body.mp4` |
 | **I** | Letra | `fotos/I_ref.jpg` | Puño cerrado con meñique extendido vertical hacia arriba | `app/videos/anime/I_body.mp4` |
 | **L** | Letra | `fotos/L_ref.jpg` | Índice vertical y pulgar horizontal formando ángulo de 90° | `app/videos/anime/L_body.mp4` |
 | **O** | Letra | `fotos/O_ref.jpg` | Cuatro dedos curvados tocando la yema del pulgar formando un círculo O | `app/videos/anime/O_body.mp4` |
+| **U** | Letra | `fotos/U_ref.jpg` | Dedos índice y medio erguidos y unidos (paralelos sin separación en V) | `app/videos/anime/U_body.mp4` |
 | **V** | Letra | `fotos/V_ref.jpg` | Índice y medio abiertos en V (victoria), anular y meñique sujetos | `app/videos/anime/V_body.mp4` |
 
 ---
@@ -344,6 +349,101 @@ CRITICAL ANATOMICAL RULES:
 - Hand height must remain elevated at the jaw/mouth level as documented in LSC70.
 The character holds this canonical posture steadily for 1.8 seconds with gentle natural breathing and a friendly pedagogical smile, smoothly looping.
 Flawless hand anatomy, 5 distinct proportional fingers, no digit fusing or mutations, soft studio rim lighting. 24/60 fps clean render.
+```
+
+---
+
+### 16. Seña: ANNOS (Años / Tiempo Oficial LSC70)
+**Español:**
+```text
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo anime cel-shading nítido, chaqueta deportiva pizarra/ámbar con mangas recogidas hasta el codo, camiseta interior oscura #14171F, fondo neutro azul pizarra #070c18).
+Plano medio mostrando claramente torso superior, rostro y ambas manos. Seña oficial LSC para 'AÑOS' (LSC70W):
+Ambas manos se posicionan frente al torso a la altura del pecho. La mano izquierda sirve de apoyo base mientras la mano derecha realiza un movimiento circular suave de frotamiento/rotación sobre la mano izquierda, marcando con cadencia rítmica el paso del tiempo y los años.
+Pausa 0.4 segundos en la pose canónica de contacto (fotos/ANNOS_ref.jpg) y retorna con fluidez al inicio. Dedos firmes de 5 dígitos anatómicamente perfectos, iluminación difusa de estudio, render a 60 fps, bucle continuo y limpio.
+```
+
+**English:**
+```text
+Seamless 2.5-second loop video. Anime Colombian Sign Language (LSC) tutor (Sol, crisp high-end cel-shaded anime style, slate/amber tech jacket with sleeves pushed to elbows, dark undershirt #14171F, dark slate backdrop #070c18).
+Medium shot clearly framing torso, face and both hands. Canonical Colombian Sign Language sign for 'YEARS / AGE' (LSC70W dataset):
+Both hands are positioned in front of the torso at mid-chest height. The left hand serves as a steady base while the right hand executes a smooth circular rubbing/revolving motion over the left hand, indicating the passage of years with natural pedagogical cadence.
+Holds key contact pose for 0.4s matching reference photo (fotos/ANNOS_ref.jpg), then returns smoothly to start. Flawless 5-finger anatomy, studio lighting, 60 fps clean render, seamless looping.
+```
+
+---
+
+### 17. Seña: LICOR (Licor / Bebida Oficial LSC70)
+**Español:**
+```text
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, fondo neutro azul pizarra #070c18).
+Plano medio del torso superior y rostro. Seña oficial LSC para 'LICOR' (LSC70W):
+La mano derecha adopta la configuración en copa o letra Y (pulgar extendido y meñique proyectado), ascendiendo suavemente desde el pecho hacia el lateral de la barbilla y boca. La mano se inclina con delicadeza simulando el acto de tomar un trago corto de licor.
+Sostiene la pose clave a la altura de los labios durante 0.5 segundos con expresión agradable (fotos/LICOR_ref.jpg) y regresa con naturalidad a reposo. Dedos anatómicamente perfectos, iluminación limpia con sutil luz de borde.
+```
+
+**English:**
+```text
+Seamless 2.5-second loop video. Anime Colombian Sign Language (LSC) tutor (Sol, crisp cel-shaded anime aesthetic, dark slate background #070c18).
+Medium shot framing upper chest, facial expression, and right hand. Canonical Colombian Sign Language sign for 'LIQUOR / DRINK' (LSC70W dataset):
+The right hand forms a small cup or 'Y' shape (thumb and pinky extended, middle fingers curled), rising gracefully from chest level toward the lower chin and corner of the mouth. Tilts softly simulating sipping a drink.
+Holds the key apex pose beside the lips for 0.5s matching reference (fotos/LICOR_ref.jpg), then flows back to rest. Perfect finger articulation, studio rim lighting, flawless continuous loop.
+```
+
+---
+
+### 18. Seña: D (Dactilología LSC70)
+**Español:**
+```text
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, fondo azul pizarra #070c18).
+Plano medio con primer plano de mano derecha. Letra dactilológica 'D' (LSC70AN):
+La mano derecha se eleva a la altura del pecho/hombro. El dedo índice se mantiene completamente recto y vertical erguido apuntando hacia arriba, mientras las puntas del pulgar y el dedo medio se tocan cerrando un aro circular visible en la base (formando la panza de la letra D). Anular y meñique descansan plegados.
+Mantiene la postura estática y nítida durante 1.8 segundos (fotos/D_ref.jpg). Sin temblores ni dedos fusionados, iluminación difusa de estudio.
+```
+
+**English:**
+```text
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, clean anime cel-shading, dark studio background #070c18).
+Medium shot framing torso and right hand. Canonical manual alphabet letter 'D' (LSC70AN dataset):
+The right hand is raised at chest/shoulder level. The index finger points completely straight and vertical upward, while the thumb tip touches the middle finger tip forming a clean closed circular loop at the base (the round loop of letter D). Ring and pinky fingers are curled neatly.
+Holds the exact canonical pose steadily for 1.8s matching reference (fotos/D_ref.jpg). Flawless hand anatomy, studio lighting, smooth loop.
+```
+
+---
+
+### 19. Seña: E (Dactilología LSC70)
+**Español:**
+```text
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, fondo neutro #070c18).
+Plano medio con enfoque en mano derecha. Letra dactilológica 'E' (LSC70AN):
+La mano derecha se eleva frente al pecho. Los cuatro dedos (índice, medio, anular y meñique) se curvan juntos hacia abajo, apoyando sus cuatro yemas uniformemente sobre la punta del pulgar plegado horizontalmente en la base de la palma, mostrando el perfil semicerrado característico de la letra E.
+Sostiene la pose fija durante 1.8 segundos con expresión cálida (fotos/E_ref.jpg). 5 dedos nítidos, sin artefactos visuales, bucle continuo.
+```
+
+**English:**
+```text
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp anime style, studio backdrop #070c18).
+Medium shot showing upper body and right hand. Canonical manual alphabet letter 'E' (LSC70AN dataset):
+The right hand is held up in front of the chest. All four fingers (index, middle, ring, pinky) curl tightly together downward, resting their fingertips firmly on the tip of the thumb folded across the palm, clearly displaying the iconic curved silhouette of letter E.
+Holds steady for 1.8s matching reference (fotos/E_ref.jpg). Precise hand anatomy, smooth loop.
+```
+
+---
+
+### 20. Seña: U (Dactilología LSC70)
+**Español:**
+```text
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, fondo neutro #070c18).
+Plano medio con vista clara de la mano derecha. Letra dactilológica 'U' (LSC70AN):
+La mano derecha se eleva al pecho/hombro. Los dedos índice y medio se extienden completamente rectos y verticales hacia arriba, FIRMEMENTE UNIDOS Y PEGADOS entre sí (paralelos sin separación, ¡no es una V!). El anular y meñique se pliegan hacia la palma sujetados suavemente por el pulgar.
+Mantiene la pose canónica firme durante 1.8 segundos (fotos/U_ref.jpg). Dedos bien definidos, 60 fps, render limpio y bucle fluido.
+```
+
+**English:**
+```text
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, studio backdrop #070c18).
+Medium shot displaying chest and right hand. Canonical manual alphabet letter 'U' (LSC70AN dataset):
+The right hand is raised at chest height. Index and middle fingers are extended completely straight upward and TIGHTLY JOINED together (parallel with NO gap, strictly distinguishing it from letter V). Ring and pinky fingers are tucked into the palm held by the thumb.
+Holds pose steadily for 1.8s matching reference (fotos/U_ref.jpg). Flawless fingers, clean studio lighting, seamless loop.
 ```
 
 ---
