@@ -19,7 +19,7 @@ Este documento es de **lectura obligatoria para cualquier Agente de IA** (Google
 
 ## 2. Reglas Duras de Desarrollo (Hard Rules)
 
-Cualquier cambio de código debe cumplir **estrictamente** con estas 8 reglas:
+Cualquier cambio de código debe cumplir **estrictamente** con estas 9 reglas:
 
 1. **Límite de Líneas:** Ningún archivo de código puede superar las **1,100 líneas**. Si un módulo crece, debe subdividirse en submódulos independientes.
 2. **Cero CSS y Cero JS Embebido en HTML:** En [`app/index.html`](file:///app/index.html) está estrictamente prohibido usar etiquetas `<style>` o escribir código dentro de `<script>`. Solo se permiten referencias externas `<link rel="stylesheet">` y `<script src="...">`.
@@ -34,6 +34,7 @@ Cualquier cambio de código debe cumplir **estrictamente** con estas 8 reglas:
    - **Principio de Responsabilidad Única (SRP):** Cada clase o módulo debe tener una única razón de cambio. La visión artificial (`vision-evaluator.js`), la trayectoria guiada (`trajectory-tracker.js`), la reproducción multimedia (`video-player.js`) y la tutoría con LLM (`chat-tutor.js`) deben mantenerse desacopladas, comunicándose a través de contratos e interfaces estandarizadas.
    - **Ciclo de Vida Estandarizado:** Toda clase u objeto interactivo debe exponer métodos uniformes para su ciclo de vida (`init()`, `start()`, `update()`, `reset()`, `destroy()`).
    - **Extensibilidad y Polimorfismo:** Nuevos evaluadores, fuentes de video o modelos de tutoría deben crearse extendiendo clases base o mediante composición, evitando bloques monolíticos de `if/else` procedurales.
+9. **Navegación Obligatoria por Grafo de Conocimiento (Graphify / GraphRAG):** Siempre que exista `graphify-out/graph.json`, el agente DEBE consultar el grafo antes de hacer lecturas masivas de código o búsquedas dispersas. Esto asegura una reducción de tokens del 94.5% (18.4x menos tokens), previene efectos colaterales en los *God Nodes* (`CameraDeviceManager`, `VisionEvaluator`, `VideoPlayer`, `LSCHandler`), garantiza 0 ciclos de importación y respeta las comunidades semánticas establecidas. Tras modificar código, se debe actualizar el grafo (`python -m graphify extract . --code-only`).
 
 ---
 
@@ -142,3 +143,17 @@ exis-lenguaje-senas/
 │   └── PROMPTS_GEMINI.md      # Prompts bilingües para Gemini Web / Veo
 └── tests/                     # Pruebas automatizadas Playwright y capturas
 ```
+
+## graphify
+
+This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+
+When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
+
+Rules:
+- When graphify-out/graph.json exists, run `graphify query "<question>"` before your first grep, search or source-file read for a codebase question, and put this rule in every subagent prompt that explores code. Read raw files only for lines the graph or an earlier read already located. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
+- Dirty graphify-out/ files are expected after hooks or incremental updates; dirty graph files are not a reason to skip graphify. Only skip graphify if the task is about stale or incorrect graph output, or the user explicitly says not to use it.
+- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
+- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
+- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
+- A committed graphify-out/graph.json is rewritten whole on every build, so a large diff to it in a pull request is expected. Do not flag it as churn or suggest skipping the graph rebuild or its hooks.
