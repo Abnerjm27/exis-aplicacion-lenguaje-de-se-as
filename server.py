@@ -127,6 +127,7 @@ class RangeFileWrapper:
         self.file_obj.close()
 
 class LSCHandler(http.server.SimpleHTTPRequestHandler):
+    index_pages = ("index.html", "index.htm")
     extensions_map = {
         **http.server.SimpleHTTPRequestHandler.extensions_map,
         '.mp4': 'video/mp4',
@@ -163,7 +164,7 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_header("Content-Length", "0")
                 self.end_headers()
                 return None
-            for index in self.index_pages:
+            for index in getattr(self, 'index_pages', ('index.html', 'index.htm')):
                 index = os.path.join(path, index)
                 if os.path.isfile(index):
                     path = index
