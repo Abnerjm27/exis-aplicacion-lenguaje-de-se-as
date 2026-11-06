@@ -52,6 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.BlindExamController.init();
   }
 
+  // Inicializar enrutador de vistas (Mapa Duolingo vs Estudio de Práctica)
+  if (window.ViewRouter) {
+    window.ViewRouter.init();
+    window.ViewRouter.start();
+  }
+
   // Establecer seña inicial (con soporte para parámetro ?sign=ID)
   const urlParams = new URLSearchParams(window.location.search);
   const signParam = urlParams.get('sign');

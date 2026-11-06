@@ -434,6 +434,11 @@
   },
   "gods": [
     {
+      "id": "app_js_learning_plan_manager_learningplanmanager",
+      "label": "LearningPlanManager",
+      "degree": 21
+    },
+    {
       "id": "app_js_auth_profile_manager_authprofilemanager",
       "label": "AuthProfileManager",
       "degree": 21
@@ -441,11 +446,6 @@
     {
       "id": "app_js_blind_exam_controller_blindexamcontroller",
       "label": "BlindExamController",
-      "degree": 21
-    },
-    {
-      "id": "app_js_learning_plan_manager_learningplanmanager",
-      "label": "LearningPlanManager",
       "degree": 21
     },
     {
@@ -494,18 +494,7 @@
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "note": "Bridges community 2 \u2192 community 1"
-    },
-    {
-      "source": "download_file()",
-      "target": "os",
-      "source_files": [
-        "app/tools/setup_offline_assets.py",
-        ""
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "note": "Bridges community 0 \u2192 community 13"
+      "note": "Bridges community 1 → community 2"
     },
     {
       "source": "free_port()",
@@ -516,18 +505,7 @@
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "note": "Bridges community 0 \u2192 community 1"
-    },
-    {
-      "source": "interpolate_pair()",
-      "target": "cv2",
-      "source_files": [
-        "app/tools/generate_videos.py",
-        ""
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "note": "Bridges community 0 \u2192 community 8"
+      "note": "Bridges community 1 → community 0"
     },
     {
       "source": "check_mp4_video()",
@@ -538,11 +516,56 @@
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "note": "Bridges community 0 \u2192 community 12"
+      "note": "Bridges community 12 → community 0"
+    },
+    {
+      "source": "download_file()",
+      "target": "os",
+      "source_files": [
+        "app/tools/setup_offline_assets.py",
+        ""
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 13 → community 0"
+    },
+    {
+      "source": "normalize()",
+      "target": "numpy",
+      "source_files": [
+        "app/tools/mocap_extractor.py",
+        ""
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 2 → community 0"
     }
   ],
-  "tokens": {
-    "input": 0,
-    "output": 0
-  }
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `playwright` connect `Multimedia Quality Verifier` to `Letter I Video Curator`, `Live Hand Inference Suite`, `Letter O Animation Test`, `Package & Dependency Specs`, `Offline PWA & Cache Tests`, `Chat Tutor & Ollama Client`, `LSC Official Signs Catalog`?",
+      "why": "High betweenness centrality (0.029) - this node is a cross-community bridge."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `MoCap & Landmark Extraction` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.09461152882205513 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Anime Video Curation Pipeline` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.08669354838709678 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Gesture Trimming & Processing` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.09655172413793103 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Letter I Video Curator` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected."
+    }
+  ]
 }

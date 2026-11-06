@@ -64,6 +64,11 @@ class BlindExamController {
     this.#results = [];
     this.#isActive = true;
 
+    // Asegurar que la pantalla de estudio esté activa para rendir el examen
+    if (window.ViewRouter && typeof window.ViewRouter.switchToStudioView === 'function') {
+      window.ViewRouter.switchToStudioView(null, false);
+    }
+
     // 2. Cerrar inmediatamente el modal normal de victoria si estaba abierto
     const successPopup = document.getElementById('successPopup');
     if (successPopup) {

@@ -33,6 +33,7 @@
   <script src="js/auth-profile-manager.js?v=20261105_v1" defer></script>
   <script src="js/learning-plan-manager.js?v=20261105_v1" defer></script>
   <script src="js/blind-exam-controller.js?v=20261105_v1" defer></script>
+  <script src="js/view-router.js?v=20261105_v1" defer></script>
   <script src="js/chat-tutor.js?v=20261101_v6" defer></script>
   <script src="js/main.js?v=20261101_v6" defer></script>
 </head>
@@ -60,6 +61,22 @@
       </div>
 
       <div class="flex items-center gap-2 shrink-0">
+        <!-- Acceso directo al Portal Landing -->
+        <a id="btnGoToLanding" href="landing.html" class="btn-spring flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-300 transition" aria-label="Ir al Portal de Bienvenida">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span class="hidden sm:inline">Portal</span>
+        </a>
+
+        <!-- Selector de Pantallas (Mapa Duolingo vs Estudio de Práctica) -->
+        <div class="flex items-center bg-slate-900/90 rounded-lg p-0.5 border border-slate-800" role="group" aria-label="Selector de Pantalla">
+          <button id="btnNavViewPath" class="btn-spring px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700/80 transition" aria-label="Ver Mapa de Ruta">
+            <span>Mapa de Ruta</span>
+          </button>
+          <button id="btnNavViewStudio" class="btn-spring px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-sm transition" aria-label="Ver Estudio de Práctica">
+            <span>Estudio</span>
+          </button>
+        </div>
+
         <!-- Modo Examen Sin Video -->
         <button id="btnStartBlindExam" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white shadow-sm" aria-label="Iniciar Modo Examen Sin Video">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -95,8 +112,26 @@
   <!-- CONTENEDOR PRINCIPAL -->
   <main class="max-w-7xl mx-auto w-full p-3 sm:p-5 md:p-6 flex-1 flex flex-col gap-5">
 
-    <!-- HUB BENTO DE APRENDIZAJE Y MAPA HEXAGONAL -->
-    <section id="learningHubSection" aria-label="Hub de Aprendizaje y Rutas LSC" class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+    <!-- PANTALLA 2: VISTA DEDICADA DE RUTA ESTILO DUOLINGO (#viewLearningPath) -->
+    <div id="viewLearningPath" class="hidden flex flex-col gap-5">
+      <!-- Barra Superior de la Ruta con Botón para ir al Estudio -->
+      <div class="surface-card p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border border-amber-500/20">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-mono uppercase bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30 font-bold">Pantalla de Ruta</span>
+            <span class="text-xs text-slate-400">· Progreso Lineal Guiado</span>
+          </div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-100">Tu Ruta de Aprendizaje LSC</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Avanza paso a paso dominando señas con MediaPipe y supera el examen de unidad sin video.</p>
+        </div>
+        <button id="btnGoToStudioFromPath" class="btn-spring px-5 py-2.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/20 flex items-center gap-2 shrink-0" aria-label="Ir a la Cabina de Práctica">
+          <span>Ir a la Cabina de Práctica</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </div>
+
+      <!-- HUB BENTO DE APRENDIZAJE Y MAPA HEXAGONAL -->
+      <section id="learningHubSection" aria-label="Hub de Aprendizaje y Rutas LSC" class="grid grid-cols-1 lg:grid-cols-12 gap-4">
       
       <!-- Tarjeta Perfil & Maestría (4 cols en lg) -->
       <div class="lg:col-span-4 bento-card p-4 flex flex-col justify-between gap-3">
@@ -206,9 +241,29 @@
       </div>
 
     </section>
+    </div>
 
-    <!-- SELECTOR DE SEÑAS -->
-    <section aria-label="Selector de Señas" class="surface-card p-3 sm:p-4 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
+    <!-- PANTALLA 3: VISTA DEDICADA DE ESTUDIO Y EXAMEN (#viewPracticeStudio) -->
+    <div id="viewPracticeStudio" class="flex flex-col gap-5">
+      <!-- Barra de Navegación de Sesión y Migas de Pan -->
+      <div class="surface-card px-4 py-3 flex items-center justify-between gap-3 border border-slate-800">
+        <div class="flex items-center gap-3 min-w-0">
+          <button id="btnBackToPath" class="btn-spring flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 shrink-0 shadow-sm" aria-label="Volver a Mi Ruta Duolingo">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>← Volver a Mi Ruta Duolingo</span>
+          </button>
+          <div class="truncate hidden sm:flex items-center gap-2 text-xs">
+            <span class="text-slate-600">|</span>
+            <span class="text-slate-400 font-medium">Lección actual:</span>
+            <span id="studioBreadcrumbPlanTitle" class="font-bold text-slate-200">Desde Cero: Ruta Básica IA</span>
+            <span class="text-slate-600">·</span>
+            <span id="studioStepProgressText" class="font-mono font-bold text-amber-400 tabular-nums">Paso 1 de 8</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SELECTOR DE SEÑAS -->
+      <section aria-label="Selector de Señas" class="surface-card p-3 sm:p-4 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
       <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
         <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 mr-1">Categoría:</span>
         <button id="catWordsBtn" class="btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 shadow-sm">
@@ -525,6 +580,7 @@
       </section>
 
     </div>
+    </div> <!-- Fin de #viewPracticeStudio -->
 
     <!-- CHAT TUTOR DRAWER -->
     <aside id="chatDrawer" aria-label="Tutor IA Local" class="hidden fixed bottom-6 right-6 w-[380px] max-w-[calc(100vw-32px)] h-[540px] surface-card rounded-2xl flex flex-col z-50 shadow-2xl border border-amber-500/30 overflow-hidden">

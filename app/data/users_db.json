@@ -12,7 +12,7 @@
       ],
       "customPlans": [],
       "examHistory": [],
-      "lastUpdated": "2026-11-06T02:38:54Z"
+      "lastUpdated": "2026-11-06T03:35:47Z"
     },
     {
       "username": "abner_lsc",
@@ -27,7 +27,7 @@
       ],
       "customPlans": [
         {
-          "id": "plan_custom_1793933502200",
+          "id": "plan_custom_1793936090750",
           "title": "Mi Ruta Personal",
           "rationale": "Ruta personalizada con 3 señas seleccionadas por el estudiante.",
           "signs": [
@@ -43,10 +43,21 @@
           "scorePct": 100,
           "correct": 3,
           "total": 3,
-          "dateIso": "2026-11-06T02:51:44.677Z"
+          "dateIso": "2026-11-06T03:34:53.278Z"
         }
       ],
-      "lastUpdated": "2026-11-06T02:51:44Z"
+      "lastUpdated": "2026-11-06T03:34:53Z"
+    },
+    {
+      "username": "camila_lsc",
+      "displayName": "Camila_lsc",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T03:36:05Z"
     }
   ]
 }

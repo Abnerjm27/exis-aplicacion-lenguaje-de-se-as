@@ -88,6 +88,11 @@ const assert = require('assert');
 
   // 2.3 Generador de Rutas con Sol IA (/api/plan + Mapa Hexagonal)
   console.log('\n--- Probando Generador de Rutas IA y Mapa Hexagonal ---');
+  const btnNavPath = page.locator('#btnNavViewPath');
+  if (await btnNavPath.isVisible()) {
+    await btnNavPath.click();
+    await page.waitForTimeout(300);
+  }
   const aiInput = page.locator('#aiPlanPromptInput');
   await aiInput.fill('No sé nada, enséñame desde cero');
   const btnGenerateAi = page.locator('#btnGenerateAiPlan');
@@ -110,6 +115,11 @@ const assert = require('assert');
 
   // 2.4 Constructor de Ruta Propia Manual (Custom Plan)
   console.log('\n--- Probando Constructor Manual de Rutas ---');
+  const btnBack = page.locator('#btnBackToPath');
+  if (await btnBack.isVisible()) {
+    await btnBack.click();
+    await page.waitForTimeout(300);
+  }
   const btnOpenCustom = page.locator('#btnOpenCustomPlanModal');
   await btnOpenCustom.click();
   await page.waitForTimeout(200);

@@ -6,10 +6,10 @@
     "semantic_hash": "639cbb2ba9ff31dc1d12bec3d6b1a143"
   },
   "app/data/users_db.json": {
-    "mtime": 1793933504.6963396,
-    "seen": 1793933575.6117115,
-    "ast_hash": "ef35e16ff1613a94c9d0b3012a51b12c",
-    "semantic_hash": "ef35e16ff1613a94c9d0b3012a51b12c"
+    "mtime": 1793936165.4324155,
+    "seen": 1793936514.0059218,
+    "ast_hash": "b28058c55f53562cff437f3555c72191",
+    "semantic_hash": "b28058c55f53562cff437f3555c72191"
   },
   "app/js/auth-profile-manager.js": {
     "mtime": 1793932798.3228874,
@@ -24,10 +24,10 @@
     "semantic_hash": "644e2da065abce9db79fd56edc3928fe"
   },
   "app/js/blind-exam-controller.js": {
-    "mtime": 1793932947.6752279,
-    "seen": 1793933575.6117246,
-    "ast_hash": "ada65581fed0db99f40a9ac34c2fd997",
-    "semantic_hash": "ada65581fed0db99f40a9ac34c2fd997"
+    "mtime": 1793936041.8989172,
+    "seen": 1793936514.0074704,
+    "ast_hash": "c290baaaf9e74d74090fb211787d5a8d",
+    "semantic_hash": "c290baaaf9e74d74090fb211787d5a8d"
   },
   "app/js/camera-manager.js": {
     "mtime": 1793666651.3667958,
@@ -42,16 +42,16 @@
     "semantic_hash": "7a4f38571469bd8bb3dcead4cba9920a"
   },
   "app/js/learning-plan-manager.js": {
-    "mtime": 1793932878.311949,
-    "seen": 1793933575.611734,
-    "ast_hash": "ad2d95e91cd0fcd04b588c1166777001",
-    "semantic_hash": "ad2d95e91cd0fcd04b588c1166777001"
+    "mtime": 1793935354.669274,
+    "seen": 1793936514.0089054,
+    "ast_hash": "94c9ec8022a9afa8a227498e1b4b757e",
+    "semantic_hash": "94c9ec8022a9afa8a227498e1b4b757e"
   },
   "app/js/main.js": {
-    "mtime": 1793933482.2550378,
-    "seen": 1793933575.6117365,
-    "ast_hash": "062f289b41772b602a3a2c3b94f87229",
-    "semantic_hash": "062f289b41772b602a3a2c3b94f87229"
+    "mtime": 1793935564.988206,
+    "seen": 1793936514.00891,
+    "ast_hash": "f52018cc2931f548c95f65dd55742b3b",
+    "semantic_hash": "f52018cc2931f548c95f65dd55742b3b"
   },
   "app/js/signs-data.js": {
     "mtime": 1793671417.7641983,
@@ -234,10 +234,10 @@
     "semantic_hash": "0faef39f21a06a86f86fad2593271ae9"
   },
   "tests/learning_platform_and_exam.spec.js": {
-    "mtime": 1793933417.2763505,
-    "seen": 1793933575.6118326,
-    "ast_hash": "ca3312275d4764451390dcd65b3fe00a",
-    "semantic_hash": "ca3312275d4764451390dcd65b3fe00a"
+    "mtime": 1793936070.8755188,
+    "seen": 1793936514.0735838,
+    "ast_hash": "5f8e817d2a0227e1f939d640336506c5",
+    "semantic_hash": "5f8e817d2a0227e1f939d640336506c5"
   },
   "tests/test_15_signs.js": {
     "mtime": 1793666652.5982394,
@@ -322,5 +322,23 @@
     "seen": 1793933575.611876,
     "ast_hash": "eb8cc90a7a5b51d0a2e239e393640be3",
     "semantic_hash": "eb8cc90a7a5b51d0a2e239e393640be3"
+  },
+  "app/js/landing.js": {
+    "mtime": 1793935032.2272289,
+    "seen": 1793936514.0088985,
+    "ast_hash": "db5eed751b6fdf13f493d1f1219cff6f",
+    "semantic_hash": "db5eed751b6fdf13f493d1f1219cff6f"
+  },
+  "app/js/view-router.js": {
+    "mtime": 1793935159.825254,
+    "seen": 1793936514.0200584,
+    "ast_hash": "3460d488782890821cc5870fac78cef6",
+    "semantic_hash": "3460d488782890821cc5870fac78cef6"
+  },
+  "tests/test_3_screens_flow.spec.js": {
+    "mtime": 1793935881.1599917,
+    "seen": 1793936514.0749075,
+    "ast_hash": "68b0d436f26d3804ec19a682163ff634",
+    "semantic_hash": "68b0d436f26d3804ec19a682163ff634"
   }
 }

@@ -114,7 +114,7 @@
 
       <!-- Columna Derecha: Cápsula Holográfica de Sol y MediaPipe (5 cols) -->
       <div class="lg:col-span-5 relative">
-        <div class="hologram-capsule relative p-3 sm:p-4 flex flex-col items-center">
+        <div id="solHoloCapsule" class="hologram-capsule relative p-3 sm:p-4 flex flex-col items-center">
           
           <!-- Retrato de Sol -->
           <img 
@@ -126,7 +126,7 @@
           />
 
           <!-- Proyección SVG de los 21 Landmarks de MediaPipe Hands -->
-          <svg class="mediapipe-landmarks-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <svg id="svgHandLandmarks" class="mediapipe-landmarks-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             <!-- Huesos de la mano / Conectores -->
             <!-- Pulgar -->
             <line x1="48" y1="84" x2="38" y2="72" class="bone-line" />
@@ -185,16 +185,16 @@
           </svg>
 
           <!-- Chips flotantes de telemetría -->
-          <div class="telemetry-chip absolute top-4 left-4 flex items-center gap-2">
+          <div id="telemetryFpsBadge" class="telemetry-chip absolute top-4 left-4 flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             <span class="font-mono text-[11px] text-emerald-300 font-semibold tabular-nums">30 FPS Tracking</span>
           </div>
 
-          <div class="telemetry-chip absolute top-4 right-4 flex items-center gap-1.5">
+          <div id="telemetryModelBadge" class="telemetry-chip absolute top-4 right-4 flex items-center gap-1.5">
             <span class="text-amber-400 font-mono text-[11px] font-semibold">Qwen 2.5 3B Local</span>
           </div>
 
-          <div class="telemetry-chip absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] font-mono">
+          <div id="telemetryLatencyBadge" class="telemetry-chip absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] font-mono">
             <span class="text-slate-300">Corpus Oficial:</span>
             <span class="text-amber-400 font-bold">20 Señas LSC70 · UTP</span>
           </div>

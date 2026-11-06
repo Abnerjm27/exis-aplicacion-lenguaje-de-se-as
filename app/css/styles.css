@@ -528,6 +528,142 @@ main, main section, main .grid, header > div {
   border-radius: 3px;
 }
 
+/* ==========================================================================
+   Ruta Serpenteante Estilo Duolingo (Winding Path)
+   ========================================================================== */
+.duolingo-winding-path {
+  position: relative;
+  width: 100%;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem 1rem;
+}
+
+/* Línea conectora central de fondo */
+.duolingo-winding-path::before {
+  content: '';
+  position: absolute;
+  top: 2rem;
+  bottom: 5rem;
+  left: 50%;
+  width: 4px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.4) 0%, rgba(245, 158, 11, 0.15) 80%, rgba(245, 158, 11, 0.05) 100%);
+  border-radius: 9999px;
+  z-index: 1;
+}
+
+/* Nodos Duolingo */
+.duolingo-node {
+  min-width: 78px;
+  min-height: 88px;
+  background: rgba(18, 24, 36, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 1.25rem;
+  box-shadow: 0 5px 0 rgba(15, 23, 42, 0.9), 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s var(--spring-easing), box-shadow 0.2s var(--spring-easing), border-color 0.2s ease;
+  z-index: 5;
+}
+
+.duolingo-node:hover {
+  transform: translateY(-3px);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.duolingo-node:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(15, 23, 42, 0.9);
+}
+
+/* Posicionamiento Serpenteante */
+.duolingo-pos-center {
+  transform: translateX(0);
+}
+
+.duolingo-pos-left {
+  transform: translateX(-48px);
+}
+.duolingo-pos-left:hover {
+  transform: translateX(-48px) translateY(-3px);
+}
+.duolingo-pos-left:active {
+  transform: translateX(-48px) translateY(2px);
+}
+
+.duolingo-pos-right {
+  transform: translateX(48px);
+}
+.duolingo-pos-right:hover {
+  transform: translateX(48px) translateY(-3px);
+}
+.duolingo-pos-right:active {
+  transform: translateX(48px) translateY(2px);
+}
+
+/* Adaptación responsive para pantallas móviles (390px) */
+@media (max-width: 640px) {
+  .duolingo-pos-left {
+    transform: translateX(-24px);
+  }
+  .duolingo-pos-left:hover {
+    transform: translateX(-24px) translateY(-3px);
+  }
+  .duolingo-pos-left:active {
+    transform: translateX(-24px) translateY(2px);
+  }
+
+  .duolingo-pos-right {
+    transform: translateX(24px);
+  }
+  .duolingo-pos-right:hover {
+    transform: translateX(24px) translateY(-3px);
+  }
+  .duolingo-pos-right:active {
+    transform: translateX(24px) translateY(2px);
+  }
+}
+
+/* Badge de inicio "¡EMPEZAR!" flotante */
+.duolingo-start-pill {
+  animation: floatBounce 1.5s ease-in-out infinite;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+.duolingo-start-pill::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 4px 4px 0 4px;
+  border-style: solid;
+  border-color: #f59e0b transparent transparent transparent;
+}
+
+@keyframes floatBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Nodo de Trofeo Final de Unidad */
+.duolingo-trophy-node {
+  z-index: 10;
+  box-shadow: 0 6px 0 rgba(15, 23, 42, 0.95), 0 10px 25px rgba(245, 158, 11, 0.2);
+  transition: transform 0.2s var(--spring-easing), box-shadow 0.2s var(--spring-easing);
+}
+.duolingo-trophy-node:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 0 rgba(15, 23, 42, 0.95), 0 14px 30px rgba(245, 158, 11, 0.3);
+}
+.duolingo-trophy-node:active {
+  transform: translateY(3px) scale(0.99);
+  box-shadow: 0 2px 0 rgba(15, 23, 42, 0.95);
+}
+
 /* Nodos Hexagonales Interactivos */
 .hex-node {
   min-width: 72px;

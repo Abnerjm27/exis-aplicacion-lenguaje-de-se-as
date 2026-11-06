@@ -54,6 +54,17 @@ class LearningPlanManager {
 
     this.#bindUIEvents();
     this.selectPresetPlan('plan_zero_ai');
+
+    // Comprobar objetivo pedagógico pendiente desde el Portal Landing
+    try {
+      const pendingGoal = sessionStorage.getItem('exis_pending_ai_goal');
+      if (pendingGoal) {
+        sessionStorage.removeItem('exis_pending_ai_goal');
+        setTimeout(() => {
+          this.generateAIPlanFromPrompt(pendingGoal);
+        }, 60);
+      }
+    } catch (_) {}
   }
 
   start() {
@@ -250,6 +261,8 @@ class LearningPlanManager {
     if (!container) return;
 
     container.innerHTML = '';
+    container.className = 'duolingo-winding-path flex flex-col items-center gap-7 py-6 relative w-full max-w-xl mx-auto';
+
     const signs = this.#activePlan.signs || [];
     let masteredSet = new Set();
     if (window.AuthProfileManager) {
@@ -260,10 +273,11 @@ class LearningPlanManager {
     signs.forEach((signId, idx) => {
       const isCompleted = masteredSet.has(signId);
       const isCurrent = idx === this.#currentIndex;
+      const posClass = (idx % 3 === 0) ? 'duolingo-pos-center' : (idx % 3 === 1) ? 'duolingo-pos-left' : 'duolingo-pos-right';
 
       const nodeBtn = document.createElement('button');
       nodeBtn.id = `hex-node-${signId}`;
-      nodeBtn.className = `hex-node flex flex-col items-center justify-center p-2 rounded-xl transition cursor-pointer relative shrink-0 ${
+      nodeBtn.className = `hex-node duolingo-node ${posClass} flex flex-col items-center justify-center p-2 rounded-2xl transition cursor-pointer relative shrink-0 ${
         isCompleted
           ? 'hex-node-completed'
           : isCurrent
@@ -273,6 +287,12 @@ class LearningPlanManager {
       nodeBtn.setAttribute('data-sign-id', signId);
       nodeBtn.setAttribute('data-step-index', String(idx));
       nodeBtn.setAttribute('aria-label', `Paso ${idx + 1}: seña ${signId}. Estado: ${isCompleted ? 'Completado' : isCurrent ? 'Actual' : 'Pendiente'}`);
+
+      // Badge flotante "¡EMPEZAR!" sobre el nodo actual
+      let startPillHtml = '';
+      if (isCurrent) {
+        startPillHtml = `<span class="duolingo-start-pill absolute -top-4 font-bold text-[10px] tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/30 animate-bounce z-20">¡EMPEZAR!</span>`;
+      }
 
       // Icono SVG y estado
       let statusSvg = '';
@@ -285,6 +305,7 @@ class LearningPlanManager {
       }
 
       nodeBtn.innerHTML = `
+        ${startPillHtml}
         <div class="hex-shape-wrapper flex items-center justify-center relative w-12 h-12">
           <svg class="hex-svg w-full h-full" viewBox="0 0 100 115" fill="none" stroke="currentColor" stroke-width="6">
             <polygon points="50,4 96,29 96,86 50,111 4,86 4,29" class="hex-polygon" />
@@ -301,11 +322,43 @@ class LearningPlanManager {
         this.#currentIndex = idx;
         this.renderHexSkillTree();
         this.#updateActivePlanHeader();
-        this.#triggerSignSelection(signId);
+        if (window.ViewRouter) {
+          window.ViewRouter.switchToStudioView(signId, false);
+        } else {
+          this.#triggerSignSelection(signId);
+        }
       });
 
       container.appendChild(nodeBtn);
     });
+
+    // Nodo Trofeo Final de Unidad: Examen Sin Video
+    const trophyBtn = document.createElement('button');
+    trophyBtn.id = 'btnPathFinalExamNode';
+    trophyBtn.className = 'duolingo-trophy-node duolingo-pos-center flex flex-col items-center justify-center p-4 rounded-2xl transition cursor-pointer relative mt-3 group border border-amber-500/30 bg-slate-900/90 hover:bg-slate-800 shadow-xl';
+    trophyBtn.setAttribute('aria-label', 'Examen de Unidad: Evaluación a Ciegas sin video');
+    trophyBtn.innerHTML = `
+      <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
+        <svg class="w-7 h-7 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+          <path d="M4 22h16"></path>
+          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+        </svg>
+      </div>
+      <span class="text-xs font-bold uppercase tracking-wider text-amber-300 mt-2">Examen de Unidad</span>
+      <span class="text-[10px] text-slate-400">Evaluación a Ciegas (Sin Video)</span>
+    `;
+    trophyBtn.addEventListener('click', () => {
+      if (window.ViewRouter) {
+        window.ViewRouter.switchToStudioView(null, true);
+      } else if (window.BlindExamController) {
+        window.BlindExamController.start(this.#activePlan);
+      }
+    });
+    container.appendChild(trophyBtn);
 
     this.#updateActivePlanHeader();
   }
