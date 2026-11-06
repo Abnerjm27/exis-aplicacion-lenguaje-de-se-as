@@ -71,35 +71,31 @@ const fs = require('fs');
     await landingPage.screenshot({ path: scrollyPath, fullPage: false });
     console.log(`✓ Captura Scrollytelling guardada: ${scrollyPath}`);
 
-    // Ir al formulario clásico de Registro (Nombre, Correo, Contraseña)
-    await landingPage.evaluate(() => {
-      document.getElementById('authPortalSection').scrollIntoView({ behavior: 'instant' });
-    });
-    await landingPage.waitForTimeout(250);
-    await landingPage.fill('#landingDisplayNameInput', 'Camila LSC');
-    await landingPage.fill('#landingUsernameInput', 'camila_lsc@correo.com');
-    await landingPage.fill('#landingPasswordInput', 'exis2026');
+    // Registro en página propia (register.html) y cuestionario en onboarding.html
+    await landingPage.click('#btnNavEnter');
+    await landingPage.waitForURL('**/register.html');
+    await landingPage.fill('#authDisplayNameInput', 'Camila LSC');
+    await landingPage.fill('#authIdentifierInput', `camila_${Date.now()}@correo.com`);
+    await landingPage.fill('#authPasswordInput', 'exis2026');
+    await landingPage.fill('#authConfirmInput', 'exis2026');
 
     const authCardPath = path.join(screenshotsDir, 'screen1c_standard_login_register.png');
     await landingPage.screenshot({ path: authCardPath, fullPage: false });
-    console.log(`✓ Captura Login/Registro guardada: ${authCardPath}`);
+    console.log(`✓ Captura Registro guardada: ${authCardPath}`);
 
-    // Enviar registro para abrir el Cuestionario Diagnóstico de 3 pasos
-    await landingPage.click('#btnLandingSubmit');
-    await landingPage.waitForTimeout(300);
-
+    await landingPage.click('#btnAuthSubmit');
+    await landingPage.waitForURL('**/onboarding.html');
     const isQuizVisible = await landingPage.evaluate(() => {
-      const m = document.getElementById('onboardingQuizModal');
+      const m = document.getElementById('quizStep1');
       return m && !m.classList.contains('hidden');
     });
-    assert.strictEqual(isQuizVisible, true, 'El cuestionario de nivel #onboardingQuizModal debe abrirse tras registrarse');
+    assert.strictEqual(isQuizVisible, true, 'El cuestionario de nivel debe abrirse tras registrarse');
     console.log('✓ Cuestionario diagnóstico de nivel LSC abierto correctamente');
 
     const quizShotPath = path.join(screenshotsDir, 'screen1d_placement_quiz_modal.png');
     await landingPage.screenshot({ path: quizShotPath, fullPage: false });
     console.log(`✓ Captura Cuestionario Nivel LSC guardada: ${quizShotPath}`);
 
-    // Avanzar los 3 pasos del cuestionario diagnóstico
     await landingPage.click('#btnQuizNext'); // Paso 1 -> Paso 2
     await landingPage.waitForTimeout(150);
     await landingPage.click('#btnQuizNext'); // Paso 2 -> Paso 3

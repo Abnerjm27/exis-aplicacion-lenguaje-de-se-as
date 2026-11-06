@@ -6,8 +6,6 @@
       "app_tools_curate_anime_videos_curate_sign",
       "app_tools_curate_anime_videos_main",
       "app_tools_curate_anime_videos_rationale_1",
-      "app_tools_curate_letter_i",
-      "app_tools_curate_letter_o",
       "app_tools_curate_tardes_gustar",
       "app_tools_curate_tardes_gustar_extract_trimmed_frames",
       "app_tools_curate_tardes_gustar_main",
@@ -62,7 +60,18 @@
       "shutil"
     ],
     "1": [
+      "app_tools_mocap_extractor_rationale_609",
+      "app_tools_mocap_extractor_verify_clips_json",
+      "app_tools_setup_offline_assets",
+      "app_tools_setup_offline_assets_download_file",
+      "app_tools_setup_offline_assets_main",
+      "app_tools_setup_offline_assets_setup_canvas_confetti",
+      "app_tools_setup_offline_assets_setup_fonts",
+      "app_tools_setup_offline_assets_setup_mediapipe",
+      "app_tools_setup_offline_assets_setup_tailwind",
       "http_server",
+      "json",
+      "re",
       "server",
       "server_build_pedagogical_plan",
       "server_detect_sign",
@@ -119,15 +128,37 @@
       "app_tools_mocap_extractor_rationale_483",
       "app_tools_mocap_extractor_rationale_515",
       "app_tools_mocap_extractor_rationale_568",
-      "app_tools_mocap_extractor_rationale_609",
       "app_tools_mocap_extractor_rationale_61",
       "app_tools_mocap_extractor_rationale_84",
-      "app_tools_mocap_extractor_verify_clips_json",
       "argparse",
-      "json",
       "math"
     ],
     "3": [
+      "app_js_landing",
+      "app_js_landing_landingportalcontroller",
+      "app_js_landing_landingportalcontroller_activatescrollystep",
+      "app_js_landing_landingportalcontroller_binduievents",
+      "app_js_landing_landingportalcontroller_checkexistingsession",
+      "app_js_landing_landingportalcontroller_completeplacementquiz",
+      "app_js_landing_landingportalcontroller_constructor",
+      "app_js_landing_landingportalcontroller_destroy",
+      "app_js_landing_landingportalcontroller_enterasguest",
+      "app_js_landing_landingportalcontroller_handlesubmit",
+      "app_js_landing_landingportalcontroller_handlewindowscroll",
+      "app_js_landing_landingportalcontroller_init",
+      "app_js_landing_landingportalcontroller_initinteractivetiltandspotlight",
+      "app_js_landing_landingportalcontroller_initscrollytelling",
+      "app_js_landing_landingportalcontroller_openplacementquiz",
+      "app_js_landing_landingportalcontroller_persistandredirect",
+      "app_js_landing_landingportalcontroller_renderquizstep",
+      "app_js_landing_landingportalcontroller_rendersavedprofiles",
+      "app_js_landing_landingportalcontroller_reset",
+      "app_js_landing_landingportalcontroller_scrolltoauthform",
+      "app_js_landing_landingportalcontroller_setauthmode",
+      "app_js_landing_landingportalcontroller_start",
+      "app_js_landing_landingportalcontroller_update"
+    ],
+    "4": [
       "app_js_auth_profile_manager",
       "app_js_auth_profile_manager_authprofilemanager",
       "app_js_auth_profile_manager_authprofilemanager_bindmodalevents",
@@ -151,7 +182,7 @@
       "app_js_auth_profile_manager_authprofilemanager_update",
       "app_js_auth_profile_manager_authprofilemanager_updateui"
     ],
-    "4": [
+    "5": [
       "app_js_blind_exam_controller",
       "app_js_blind_exam_controller_blindexamcontroller",
       "app_js_blind_exam_controller_blindexamcontroller_advancequestion",
@@ -175,7 +206,7 @@
       "app_js_blind_exam_controller_blindexamcontroller_update",
       "app_js_blind_exam_controller_blindexamcontroller_updatetimerdisplay"
     ],
-    "5": [
+    "6": [
       "app_js_learning_plan_manager",
       "app_js_learning_plan_manager_learningplanmanager",
       "app_js_learning_plan_manager_learningplanmanager_binduievents",
@@ -199,7 +230,7 @@
       "app_js_learning_plan_manager_learningplanmanager_updateactiveplanheader",
       "app_js_learning_plan_manager_learningplanmanager_updatepresetplanchipstyles"
     ],
-    "6": [
+    "7": [
       "app_js_camera_manager",
       "app_js_camera_manager_cameradevicemanager",
       "app_js_camera_manager_cameradevicemanager_boundondevicechange",
@@ -222,7 +253,7 @@
       "app_js_vision_evaluator",
       "app_js_vision_evaluator_visionevaluator"
     ],
-    "7": [
+    "8": [
       "app_js_view_router",
       "app_js_view_router_viewrouter",
       "app_js_view_router_viewrouter_bindnavigationevents",
@@ -240,7 +271,7 @@
       "app_js_view_router_viewrouter_updatestudiobreadcrumb",
       "app_js_view_router_viewrouter_updateui"
     ],
-    "8": [
+    "9": [
       "app_tools_generate_videos",
       "app_tools_generate_videos_build_smooth_loop",
       "app_tools_generate_videos_interpolate_pair",
@@ -257,20 +288,6 @@
       "app_tools_generate_videos_save_animated_webp",
       "app_tools_generate_videos_save_mp4",
       "ndarray"
-    ],
-    "9": [
-      "app_js_landing",
-      "app_js_landing_landingportalcontroller",
-      "app_js_landing_landingportalcontroller_binduievents",
-      "app_js_landing_landingportalcontroller_checkexistingsession",
-      "app_js_landing_landingportalcontroller_constructor",
-      "app_js_landing_landingportalcontroller_destroy",
-      "app_js_landing_landingportalcontroller_enterasguest",
-      "app_js_landing_landingportalcontroller_handlesubmit",
-      "app_js_landing_landingportalcontroller_init",
-      "app_js_landing_landingportalcontroller_reset",
-      "app_js_landing_landingportalcontroller_start",
-      "app_js_landing_landingportalcontroller_update"
     ],
     "10": [
       "package",
@@ -299,6 +316,28 @@
       "tests_backend_api_plan_users_requestjson"
     ],
     "12": [
+      "app_tools_curate_letter_i",
+      "app_tools_curate_letter_i_animecurator",
+      "app_tools_curate_letter_i_animecurator_extract_trimmed_frames",
+      "app_tools_curate_letter_i_animecurator_init",
+      "app_tools_curate_letter_i_animecurator_process_sign",
+      "app_tools_curate_letter_i_animecurator_save_mp4",
+      "app_tools_curate_letter_i_animecurator_save_webp",
+      "app_tools_curate_letter_i_main",
+      "app_tools_curate_letter_i_rationale_7"
+    ],
+    "13": [
+      "app_tools_curate_letter_o",
+      "app_tools_curate_letter_o_animecurator",
+      "app_tools_curate_letter_o_animecurator_extract_trimmed_frames",
+      "app_tools_curate_letter_o_animecurator_init",
+      "app_tools_curate_letter_o_animecurator_process_sign",
+      "app_tools_curate_letter_o_animecurator_save_mp4",
+      "app_tools_curate_letter_o_animecurator_save_webp",
+      "app_tools_curate_letter_o_main",
+      "app_tools_curate_letter_o_rationale_7"
+    ],
+    "14": [
       "app_tools_verify_videos",
       "app_tools_verify_videos_check_mp4_video",
       "app_tools_verify_videos_check_webp_anim",
@@ -309,37 +348,7 @@
       "tests_test_batch_5_media_test_media_assets",
       "tests_test_prompts_doc"
     ],
-    "13": [
-      "app_tools_curate_letter_i_animecurator",
-      "app_tools_curate_letter_i_animecurator_extract_trimmed_frames",
-      "app_tools_curate_letter_i_animecurator_init",
-      "app_tools_curate_letter_i_animecurator_process_sign",
-      "app_tools_curate_letter_i_animecurator_save_mp4",
-      "app_tools_curate_letter_i_animecurator_save_webp",
-      "app_tools_curate_letter_i_main",
-      "app_tools_curate_letter_i_rationale_7"
-    ],
-    "14": [
-      "app_tools_curate_letter_o_animecurator",
-      "app_tools_curate_letter_o_animecurator_extract_trimmed_frames",
-      "app_tools_curate_letter_o_animecurator_init",
-      "app_tools_curate_letter_o_animecurator_process_sign",
-      "app_tools_curate_letter_o_animecurator_save_mp4",
-      "app_tools_curate_letter_o_animecurator_save_webp",
-      "app_tools_curate_letter_o_main",
-      "app_tools_curate_letter_o_rationale_7"
-    ],
     "15": [
-      "app_tools_setup_offline_assets",
-      "app_tools_setup_offline_assets_download_file",
-      "app_tools_setup_offline_assets_main",
-      "app_tools_setup_offline_assets_setup_canvas_confetti",
-      "app_tools_setup_offline_assets_setup_fonts",
-      "app_tools_setup_offline_assets_setup_mediapipe",
-      "app_tools_setup_offline_assets_setup_tailwind",
-      "re"
-    ],
-    "16": [
       "tests_test_signs_data",
       "tests_test_signs_data_code",
       "tests_test_signs_data_fs",
@@ -349,7 +358,7 @@
       "tests_test_signs_data_signsdatapath",
       "tests_test_signs_data_window"
     ],
-    "17": [
+    "16": [
       "app_js_main",
       "app_js_main_binduievents",
       "app_js_main_dismisssuccessmodal",
@@ -358,7 +367,7 @@
       "app_js_main_selectsign",
       "app_js_main_switchcategory"
     ],
-    "18": [
+    "17": [
       "ref_assert",
       "tests_learning_platform_and_exam_spec",
       "tests_learning_platform_and_exam_spec_assert",
@@ -367,7 +376,7 @@
       "tests_test_console_check_assert",
       "tests_test_console_check_chromium"
     ],
-    "19": [
+    "18": [
       "ref_fs",
       "tests_test_playwright",
       "tests_test_playwright_chromium",
@@ -376,7 +385,7 @@
       "tests_test_playwright_runtests",
       "tests_test_playwright_runtests_assert"
     ],
-    "20": [
+    "19": [
       "tests_test_vision_rules",
       "tests_test_vision_rules_code",
       "tests_test_vision_rules_fs",
@@ -384,100 +393,109 @@
       "tests_test_vision_rules_path",
       "tests_test_vision_rules_requiredbranches"
     ],
-    "21": [
+    "20": [
       "ref_path",
       "tests_test_live_hand_inference",
       "tests_test_live_hand_inference_chromium",
       "tests_test_live_hand_inference_path",
       "tests_test_live_hand_inference_testlivehandinference"
     ],
-    "22": [
+    "21": [
       "tests_test_3_screens_flow_spec",
       "tests_test_3_screens_flow_spec_assert",
       "tests_test_3_screens_flow_spec_chromium",
       "tests_test_3_screens_flow_spec_fs",
       "tests_test_3_screens_flow_spec_path"
     ],
-    "23": [
+    "22": [
       "tests_test_letter_i_anime",
       "tests_test_letter_i_anime_chromium",
       "tests_test_letter_i_anime_fs",
       "tests_test_letter_i_anime_path",
       "tests_test_letter_i_anime_testletterianime"
     ],
-    "24": [
+    "23": [
       "tests_test_letter_o_anime",
       "tests_test_letter_o_anime_chromium",
       "tests_test_letter_o_anime_fs",
       "tests_test_letter_o_anime_path",
       "tests_test_letter_o_anime_testletteroanime"
     ],
-    "25": [
+    "24": [
       "tests_test_15_signs",
       "tests_test_15_signs_chromium",
       "tests_test_15_signs_test15signs"
     ],
-    "26": [
+    "25": [
       "tests_test_20_signs",
       "tests_test_20_signs_chromium",
       "tests_test_20_signs_test20signs"
     ],
-    "27": [
+    "26": [
       "app_js_avatar_3d",
       "app_js_avatar_3d_avatar3d"
     ],
-    "28": [
+    "27": [
       "app_js_chat_tutor",
       "app_js_chat_tutor_chattutor"
     ],
-    "29": [
+    "28": [
       "app_js_signs_data",
       "app_js_signs_data_signs_data"
     ],
-    "30": [
+    "29": [
       "app_js_trajectory_tracker",
       "app_js_trajectory_tracker_trajectorytracker"
     ],
-    "31": [
+    "30": [
       "app_js_video_player",
       "app_js_video_player_videoplayer"
     ]
   },
   "cohesion": {
-    "0": 0.0929281122150789,
-    "1": 0.08669354838709678,
-    "2": 0.09655172413793103,
-    "3": 0.2077922077922078,
-    "4": 0.19913419913419914,
-    "5": 0.22510822510822512,
-    "6": 0.1761904761904762,
-    "7": 0.26666666666666666,
-    "8": 0.18333333333333332,
-    "9": 0.22727272727272727,
+    "0": 0.09461152882205513,
+    "1": 0.07308970099667775,
+    "2": 0.10541310541310542,
+    "3": 0.16600790513833993,
+    "4": 0.2077922077922078,
+    "5": 0.19913419913419914,
+    "6": 0.22510822510822512,
+    "7": 0.1761904761904762,
+    "8": 0.26666666666666666,
+    "9": 0.18333333333333332,
     "10": 0.16666666666666666,
     "11": 0.2,
     "12": 0.3333333333333333,
-    "13": 0.35714285714285715,
-    "14": 0.35714285714285715,
-    "15": 0.5714285714285714,
-    "16": 0.25,
-    "17": 0.6190476190476191,
+    "13": 0.3333333333333333,
+    "14": 0.3333333333333333,
+    "15": 0.25,
+    "16": 0.6190476190476191,
+    "17": 0.2857142857142857,
     "18": 0.2857142857142857,
-    "19": 0.2857142857142857,
-    "20": 0.3333333333333333,
+    "19": 0.3333333333333333,
+    "20": 0.4,
     "21": 0.4,
     "22": 0.4,
     "23": 0.4,
-    "24": 0.4,
+    "24": 0.6666666666666666,
     "25": 0.6666666666666666,
-    "26": 0.6666666666666666,
+    "26": 1.0,
     "27": 1.0,
     "28": 1.0,
     "29": 1.0,
-    "30": 1.0,
-    "31": 1.0
+    "30": 1.0
   },
   "gods": [
+    {
+      "id": "app_js_landing_landingportalcontroller",
+      "label": "LandingPortalController",
+      "degree": 22
+    },
+    {
+      "id": "app_js_learning_plan_manager_learningplanmanager",
+      "label": "LearningPlanManager",
+      "degree": 21
+    },
     {
       "id": "app_js_auth_profile_manager_authprofilemanager",
       "label": "AuthProfileManager",
@@ -486,11 +504,6 @@
     {
       "id": "app_js_blind_exam_controller_blindexamcontroller",
       "label": "BlindExamController",
-      "degree": 21
-    },
-    {
-      "id": "app_js_learning_plan_manager_learningplanmanager",
-      "label": "LearningPlanManager",
       "degree": 21
     },
     {
@@ -509,11 +522,6 @@
       "degree": 13
     },
     {
-      "id": "app_js_landing_landingportalcontroller",
-      "label": "LandingPortalController",
-      "degree": 11
-    },
-    {
       "id": "app_tools_mocap_extractor_mocapextractor",
       "label": "MoCapExtractor",
       "degree": 10
@@ -530,17 +538,6 @@
     }
   ],
   "surprises": [
-    {
-      "source": "build_pedagogical_plan()",
-      "target": "json",
-      "source_files": [
-        "server.py",
-        ""
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "note": "Bridges community 1 \u2192 community 2"
-    },
     {
       "source": "free_port()",
       "target": "os",
@@ -561,18 +558,7 @@
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "note": "Bridges community 12 \u2192 community 0"
-    },
-    {
-      "source": "download_file()",
-      "target": "os",
-      "source_files": [
-        "app/tools/setup_offline_assets.py",
-        ""
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "note": "Bridges community 15 \u2192 community 0"
+      "note": "Bridges community 14 \u2192 community 0"
     },
     {
       "source": "normalize()",
@@ -584,6 +570,28 @@
       "confidence": "EXTRACTED",
       "relation": "calls",
       "note": "Bridges community 2 \u2192 community 0"
+    },
+    {
+      "source": "verify_clips_json()",
+      "target": "math",
+      "source_files": [
+        "app/tools/mocap_extractor.py",
+        ""
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 1 \u2192 community 2"
+    },
+    {
+      "source": "build_smooth_loop()",
+      "target": "numpy",
+      "source_files": [
+        "app/tools/generate_videos.py",
+        ""
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 9 \u2192 community 0"
     }
   ],
   "tokens": {

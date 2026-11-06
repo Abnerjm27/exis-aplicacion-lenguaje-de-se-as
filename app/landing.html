@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EXIS · El Futuro de la Lengua de Señas Colombiana (LSC)</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="img/exis-mark.svg">
 
   <!-- Fuentes Tipográficas Locales (Offline) -->
   <link rel="stylesheet" href="css/fonts.css">
@@ -13,10 +13,12 @@
   <script src="lib/tailwind/tailwind.js"></script>
 
   <!-- Estilos Cinemáticos Scrollytelling + Auth + Onboarding (Sin estilos embebidos) -->
-  <link rel="stylesheet" href="css/landing.css?v=20261106_v3">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/landing.css?v=20261106_v4">
 
   <!-- Controlador Modular POO de Scrollytelling, Login/Registro y Cuestionario -->
-  <script src="js/landing.js?v=20261106_v3" defer></script>
+  <script src="js/landing.js?v=20261106_v4" defer></script>
 </head>
 
 <body class="flex flex-col min-h-screen text-slate-100 antialiased relative selection:bg-amber-600 selection:text-white">
@@ -38,17 +40,10 @@
       
       <!-- Identidad EXIS -->
       <a href="landing.html" class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-xl">
-        <div class="logo-mark-box flex items-center justify-center text-amber-400 shrink-0">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
-            <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
-            <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
-            <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
-          </svg>
-        </div>
+        <img src="img/exis-mark.svg" alt="" width="36" height="36" class="shrink-0">
         <div class="flex flex-col">
           <span class="text-lg font-extrabold tracking-tight text-white leading-none">
-            EXIS <span class="text-amber-400 font-mono text-xs font-semibold ml-1">LSC·AI</span>
+            E<span class="text-amber-400">X</span>IS <span class="text-amber-400 font-mono text-xs font-semibold ml-1">LSC·AI</span>
           </span>
           <span class="hidden sm:block text-[11px] text-slate-400 mt-0.5">Lengua de Señas Colombiana · Corpus UTP</span>
         </div>
@@ -58,18 +53,18 @@
       <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-300">
         <a id="navFeatures" href="#scrollyShowcaseSection" class="hover:text-amber-400 transition-colors">Experiencia Interactiva</a>
         <a href="#pillarsSection" class="hover:text-amber-400 transition-colors">Tecnología IA</a>
-        <a id="navAuthPortal" href="#authPortalSection" class="hover:text-amber-400 transition-colors">Crear Cuenta</a>
+        <a id="navAuthPortal" href="register.html" class="hover:text-amber-400 transition-colors">Crear Cuenta</a>
       </nav>
 
       <!-- Botones de Login y Registro Normales -->
       <div class="flex items-center gap-2.5">
-        <button id="btnHeaderLogin" type="button" class="btn-spring px-3.5 py-2 rounded-xl text-xs font-bold text-slate-200 hover:text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80">
+        <a id="btnHeaderLogin" href="login.html" class="btn-spring px-3.5 py-2 rounded-xl text-xs font-bold text-slate-200 hover:text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80">
           Iniciar Sesión
-        </button>
-        <button id="btnNavEnter" type="button" class="btn-spring px-4 py-2 rounded-xl text-xs font-extrabold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm flex items-center gap-1.5">
+        </a>
+        <a id="btnNavEnter" href="register.html" class="btn-spring px-4 py-2 rounded-xl text-xs font-extrabold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm flex items-center gap-1.5">
           <span>Registrarse Gratis</span>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </button>
+        </a>
       </div>
 
     </div>
@@ -101,15 +96,15 @@
 
         <!-- Botones Principales de Acción -->
         <div class="flex flex-wrap items-center gap-3.5 pt-1">
-          <button id="btnHeroStartRegister" type="button" class="btn-spring auth-submit-btn px-6 py-3.5 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 flex items-center gap-2.5">
+          <a id="btnHeroStartRegister" href="register.html" class="btn-spring auth-submit-btn px-6 py-3.5 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 flex items-center gap-2.5">
             <span>Comenzar Ahora — Crear Cuenta</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </button>
+          </a>
 
-          <button id="btnScrollToAuth" type="button" class="btn-spring px-5 py-3.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700 flex items-center gap-2">
+          <a id="btnScrollToAuth" href="login.html" class="btn-spring px-5 py-3.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700 flex items-center gap-2">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
             <span>Ya tengo cuenta · Iniciar Sesión</span>
-          </button>
+          </a>
 
           <a id="btnQuickGuestPath" href="index.html?screen=path" class="btn-spring px-4 py-3.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-amber-300 flex items-center gap-1.5">
             <span>Probar como invitado</span>
@@ -340,261 +335,29 @@
       </div>
     </section>
 
-    <!-- =======================================================================
-         SECCIÓN 5: PORTAL ESTÁNDAR DE LOGIN Y REGISTRO (CON CORREO Y CONTRASEÑA)
-         ======================================================================= -->
-    <section id="authPortalSection" aria-labelledby="authTitle" class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 py-14 sm:py-20">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        
-        <!-- Lado Izquierdo Explicativo (5 cols) -->
-        <div class="lg:col-span-5 flex flex-col gap-4 scroll-reveal">
-          <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">Cuenta de Estudiante EXIS</span>
-          <h2 id="authTitle" class="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
-            Inicia sesión o crea tu cuenta para comenzar tu ruta personalizada
+    <!-- SECCIÓN FINAL: CTA hacia las páginas de registro y login -->
+    <section id="authPortalSection" aria-labelledby="authTitle" class="max-w-5xl mx-auto w-full px-4 sm:px-6 md:px-10 py-14 sm:py-20">
+      <div class="auth-glass-console p-8 sm:p-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-center scroll-reveal">
+        <div class="md:col-span-4 flex justify-center">
+          <img src="img/exis_fox.jpg" alt="Zorro mascota de EXIS haciendo una seña" class="auth-fox">
+        </div>
+        <div class="md:col-span-8 flex flex-col gap-4">
+          <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">Empieza hoy</span>
+          <h2 id="authTitle" class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+            Tu primera seña está a un clic
           </h2>
-          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Al crear tu cuenta responderás un <strong>breve diagnóstico de 3 pasos</strong> para conocer cuánto sabes de Lengua de Señas Colombiana y armar tu plan inicial.
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+            Crea tu cuenta, responde un test de nivel de 3 preguntas y Sol IA arma tu ruta.
           </p>
-
-          <!-- Perfiles guardados en este dispositivo (Acceso 1-clic) -->
-          <div id="savedProfilesQuickBar" class="hidden flex-col gap-2 pt-3 border-t border-slate-800">
-            <span class="text-xs font-semibold text-slate-300">Cuentas guardadas en este navegador:</span>
-            <div id="savedProfilesPills" class="flex flex-wrap gap-2"></div>
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <a id="ctaRegister" href="register.html" class="btn-spring auth-submit-btn px-6 min-h-[48px] inline-flex items-center rounded-xl text-sm font-extrabold text-slate-950">Crear cuenta gratis</a>
+            <a id="ctaLogin" href="login.html" class="btn-spring px-6 min-h-[48px] inline-flex items-center rounded-xl text-sm font-bold bg-slate-900 hover:bg-slate-800 text-slate-100 border border-slate-700">Ya tengo cuenta</a>
           </div>
         </div>
-
-        <!-- Lado Derecho: Tarjeta Clásica Moderna de Login / Registro (7 cols) -->
-        <div class="lg:col-span-7 scroll-reveal">
-          <div class="auth-glass-console p-6 sm:p-8 max-w-xl mx-auto flex flex-col gap-5">
-            
-            <!-- Pestañas: Iniciar Sesión vs Crear Cuenta -->
-            <div class="auth-mode-tabs grid grid-cols-2 p-1 rounded-xl bg-slate-950 border border-slate-800" role="tablist" aria-label="Seleccionar Iniciar Sesión o Crear Cuenta">
-              <button id="tabAuthLogin" type="button" role="tab" aria-selected="false" class="auth-tab-btn py-2.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all">
-                Iniciar Sesión
-              </button>
-              <button id="tabAuthRegister" type="button" role="tab" aria-selected="true" class="auth-tab-btn auth-tab-active py-2.5 rounded-lg text-xs font-bold transition-all">
-                Crear Cuenta Nueva
-              </button>
-            </div>
-
-            <!-- Alerta de Error -->
-            <div id="landingAuthError" role="alert" class="hidden text-xs text-rose-200 bg-rose-950/85 border border-rose-500/50 px-3.5 py-2.5 rounded-xl leading-snug"></div>
-
-            <!-- Formulario Estándar de Autenticación -->
-            <form id="landingAuthForm" class="flex flex-col gap-4" novalidate>
-              
-              <!-- Nombre Completo (visible en Registro) -->
-              <div id="fieldDisplayNameWrapper" class="flex flex-col gap-1.5">
-                <label for="landingDisplayNameInput" class="text-xs font-semibold text-slate-200">
-                  Nombre completo <span class="text-amber-400">*</span>
-                </label>
-                <input 
-                  id="landingDisplayNameInput" 
-                  type="text" 
-                  autocomplete="name"
-                  placeholder="Ej: Abner Jiménez" 
-                  class="auth-field-input w-full px-3.5 py-2.5 rounded-xl text-xs text-white placeholder-slate-500" 
-                />
-              </div>
-
-              <!-- Correo Electrónico o Usuario -->
-              <div class="flex flex-col gap-1.5">
-                <label for="landingUsernameInput" class="text-xs font-semibold text-slate-200">
-                  Correo electrónico o usuario <span class="text-amber-400">*</span>
-                </label>
-                <input 
-                  id="landingUsernameInput" 
-                  type="text" 
-                  required 
-                  autocomplete="email"
-                  placeholder="ejemplo@correo.com o tu_usuario" 
-                  class="auth-field-input w-full px-3.5 py-2.5 rounded-xl text-xs text-white placeholder-slate-500" 
-                />
-              </div>
-
-              <!-- Contraseña -->
-              <div class="flex flex-col gap-1.5">
-                <div class="flex items-center justify-between">
-                  <label for="landingPasswordInput" class="text-xs font-semibold text-slate-200">
-                    Contraseña <span class="text-amber-400">*</span>
-                  </label>
-                  <button id="btnTogglePassword" type="button" class="text-[11px] text-amber-400 hover:text-amber-300 font-semibold">
-                    Mostrar
-                  </button>
-                </div>
-                <input 
-                  id="landingPasswordInput" 
-                  type="password" 
-                  autocomplete="current-password"
-                  placeholder="Mínimo 4 caracteres" 
-                  value="exis2026"
-                  class="auth-field-input w-full px-3.5 py-2.5 rounded-xl text-xs text-white placeholder-slate-500" 
-                />
-              </div>
-
-              <!-- Campos ocultos de compatibilidad que rellena el Cuestionario de Diagnóstico -->
-              <input id="landingLevelSelect" type="hidden" value="Principiante" />
-              <input id="landingGoalInput" type="hidden" value="" />
-
-              <!-- Botón Submit -->
-              <button id="btnLandingSubmit" type="submit" class="btn-spring auth-submit-btn mt-1 w-full py-3.5 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 flex items-center justify-center gap-2">
-                <span id="btnLandingSubmitText">Continuar al Test de Nivel LSC</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </button>
-
-            </form>
-
-            <!-- Pie de tarjeta: Modo Invitado -->
-            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-              <span class="text-slate-400">¿Quieres explorar sin cuenta?</span>
-              <button id="btnLandingGuest" type="button" class="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1">
-                <span>Entrar como Invitado</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-            </div>
-
-          </div>
-        </div>
-
       </div>
     </section>
 
   </main>
-
-  <!-- =========================================================================
-       MODAL / WIZARD DE CUESTIONARIO DIAGNÓSTICO DE NIVEL LSC (ESTILO DUOLINGO)
-       Aparece después de Registrarse para saber cuánto sabe el usuario
-       ========================================================================= -->
-  <div id="onboardingQuizModal" role="dialog" aria-modal="true" aria-labelledby="quizModalTitle" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-lg flex items-center justify-center p-4">
-    <div class="quiz-wizard-card max-w-xl w-full p-6 sm:p-8 rounded-3xl flex flex-col gap-6 relative">
-      
-      <!-- Barra superior de progreso del cuestionario -->
-      <div class="flex flex-col gap-2">
-        <div class="flex items-center justify-between text-xs font-mono">
-          <span id="quizStepBadge" class="text-amber-400 font-bold tabular-nums">PREGUNTA 1 DE 3</span>
-          <button id="btnSkipQuiz" type="button" class="text-slate-400 hover:text-white text-xs font-semibold">
-            Saltar diagnóstico ➔
-          </button>
-        </div>
-        <div class="w-full h-2 rounded-full bg-slate-900 overflow-hidden">
-          <div id="quizProgressBar" class="h-full bg-amber-500 transition-all duration-300 w-1/3"></div>
-        </div>
-      </div>
-
-      <!-- PASO 1: ¿Cuánto sabes de Lengua de Señas Colombiana? -->
-      <div id="quizStep1" class="quiz-step-pane flex flex-col gap-4">
-        <div>
-          <h3 id="quizModalTitle" class="text-xl sm:text-2xl font-extrabold text-white">¿Cuánto sabes actualmente de Lengua de Señas (LSC)?</h3>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1">Sol IA ajustará la dificultad y el punto de partida de tu ruta.</p>
-        </div>
-
-        <div class="flex flex-col gap-2.5">
-          <button type="button" data-quiz-level="Principiante" data-quiz-goal="No sé nada, enséñame lo básico desde cero" class="quiz-option-card is-selected p-4 rounded-2xl text-left flex items-center justify-between gap-3">
-            <div>
-              <div class="text-sm font-bold text-white">No sé nada · Empezar desde cero</div>
-              <div class="text-xs text-slate-400 mt-0.5">Es mi primera vez aprendiendo Lengua de Señas Colombiana.</div>
-            </div>
-            <span class="px-2.5 py-1 rounded-lg bg-amber-500/15 text-amber-300 font-mono text-[11px] font-bold shrink-0">Nivel 1</span>
-          </button>
-
-          <button type="button" data-quiz-level="Intermedio" data-quiz-goal="Quiero dominar el abecedario dactilológico completo" class="quiz-option-card p-4 rounded-2xl text-left flex items-center justify-between gap-3">
-            <div>
-              <div class="text-sm font-bold text-white">Conozco algunas letras o señas sueltas</div>
-              <div class="text-xs text-slate-400 mt-0.5">Sé algunas vocales pero quiero dominar el abecedario y palabras.</div>
-            </div>
-            <span class="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 font-mono text-[11px] font-bold shrink-0">Nivel 2</span>
-          </button>
-
-          <button type="button" data-quiz-level="Avanzado LSC" data-quiz-goal="Quiero practicar saludos, presentación personal y conversación" class="quiz-option-card p-4 rounded-2xl text-left flex items-center justify-between gap-3">
-            <div>
-              <div class="text-sm font-bold text-white">Ya conozco lo básico · Quiero conversar y certificarme</div>
-              <div class="text-xs text-slate-400 mt-0.5">Quiero practicar frases, saludos y probarme en el Modo Examen Sin Video.</div>
-            </div>
-            <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono text-[11px] font-bold shrink-0">Nivel 3</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- PASO 2: ¿Por qué quieres aprender LSC? -->
-      <div id="quizStep2" class="quiz-step-pane hidden flex-col gap-4">
-        <div>
-          <h3 class="text-xl sm:text-2xl font-extrabold text-white">¿Cuál es tu enfoque principal de aprendizaje?</h3>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1">Priorizaremos las unidades que más te sirvan desde el primer día.</p>
-        </div>
-
-        <div class="flex flex-col gap-2.5">
-          <button type="button" data-quiz-focus="No sé nada, enséñame desde cero paso a paso" class="quiz-focus-card is-selected p-4 rounded-2xl text-left flex items-center justify-between gap-3">
-            <div>
-              <div class="text-sm font-bold text-white">Ruta Completa Guiada por IA (Recomendada)</div>
-              <div class="text-xs text-slate-400 mt-0.5">Combina saludo inicial, vocales esenciales y presentación personal.</div>
-            </div>
-          </button>
-
-          <button type="button" data-quiz-focus="Quiero aprender el abecedario dactilológico en señas" class="quiz-focus-card p-4 rounded-2xl text-left flex items-center justify-between gap-3">
-            <div>
-              <div class="text-sm font-bold text-white">Dominar el Abecedario Dactilológico</div>
-              <div class="text-xs text-slate-400 mt-0.5">Enfoque 100% en deletreo manual con precisión anatómica.</div>
-            </div>
-          </button>
-
-          <button type="button" data-quiz-focus="Quiero aprender palabras, saludos y presentación personal" class="quiz-focus-card p-4 rounded-2xl text-left flex items-center justify-between gap-3">
-            <div>
-              <div class="text-sm font-bold text-white">Comunicación y Saludos Cotidianos</div>
-              <div class="text-xs text-slate-400 mt-0.5">Aprende HOLA, BUENOS DÍAS, TARDES, NOCHES, YO, NOMBRE y más.</div>
-            </div>
-          </button>
-        </div>
-      </div>
-
-      <!-- PASO 3: Meta Diaria y Personalización con Sol IA -->
-      <div id="quizStep3" class="quiz-step-pane hidden flex-col gap-4">
-        <div>
-          <h3 class="text-xl sm:text-2xl font-extrabold text-white">¡Todo listo! ¿Cuánto tiempo quieres practicar al día?</h3>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1">También puedes escribirle a Sol IA si deseas un plan especial.</p>
-        </div>
-
-        <div class="grid grid-cols-3 gap-2.5">
-          <button type="button" data-quiz-mins="5" class="quiz-time-card p-3 rounded-xl text-center">
-            <div class="text-base font-extrabold text-amber-400 font-mono tabular-nums">5 min</div>
-            <div class="text-[11px] text-slate-400">Casual</div>
-          </button>
-          <button type="button" data-quiz-mins="10" class="quiz-time-card is-selected p-3 rounded-xl text-center">
-            <div class="text-base font-extrabold text-amber-400 font-mono tabular-nums">10 min</div>
-            <div class="text-[11px] text-slate-400">Constante</div>
-          </button>
-          <button type="button" data-quiz-mins="20" class="quiz-time-card p-3 rounded-xl text-center">
-            <div class="text-base font-extrabold text-emerald-400 font-mono tabular-nums">20 min</div>
-            <div class="text-[11px] text-slate-400">Intensivo</div>
-          </button>
-        </div>
-
-        <div class="pt-2">
-          <label for="quizCustomGoalInput" class="block text-xs font-semibold text-amber-300 mb-1.5">
-            O escríbele a Sol IA tu objetivo con tus propias palabras (opcional):
-          </label>
-          <input 
-            id="quizCustomGoalInput" 
-            type="text" 
-            placeholder="Ej: No sé nada, enséñame lo básico para saludar..." 
-            class="auth-field-input w-full px-3.5 py-2.5 rounded-xl text-xs text-white placeholder-slate-500"
-          />
-        </div>
-      </div>
-
-      <!-- Botones de navegación del cuestionario -->
-      <div class="flex items-center justify-between pt-3 border-t border-slate-800">
-        <button id="btnQuizPrev" type="button" class="hidden btn-spring px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700">
-          ← Anterior
-        </button>
-        <div class="flex-1"></div>
-        <button id="btnQuizNext" type="button" class="btn-spring auth-submit-btn px-6 py-3 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 flex items-center gap-2">
-          <span id="btnQuizNextText">Siguiente paso</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </button>
-      </div>
-
-    </div>
-  </div>
 
   <!-- FOOTER -->
   <footer class="border-t border-slate-800/80 bg-slate-950/90 py-6 px-4 text-xs text-slate-500 font-mono relative z-10">

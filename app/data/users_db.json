@@ -27,7 +27,7 @@
       ],
       "customPlans": [
         {
-          "id": "plan_custom_1793936090750",
+          "id": "plan_custom_1793991179600",
           "title": "Mi Ruta Personal",
           "rationale": "Ruta personalizada con 3 señas seleccionadas por el estudiante.",
           "signs": [
@@ -43,21 +43,54 @@
           "scorePct": 100,
           "correct": 3,
           "total": 3,
-          "dateIso": "2026-11-06T03:34:53.278Z"
+          "dateIso": "2026-11-06T18:53:01.986Z"
         }
       ],
-      "lastUpdated": "2026-11-06T03:34:53Z"
+      "lastUpdated": "2026-11-06T18:53:02Z"
     },
     {
       "username": "camila_lsc",
-      "displayName": "Camila_lsc",
+      "displayName": "Camila LSC",
       "level": "Principiante",
       "xp": 0,
       "streak": 1,
       "masteredSigns": [],
       "customPlans": [],
       "examHistory": [],
-      "lastUpdated": "2026-11-06T03:36:05Z"
+      "lastUpdated": "2026-11-06T18:32:22Z"
+    },
+    {
+      "username": "camila1793991018603",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T18:50:21Z"
+    },
+    {
+      "username": "camila1793991026613",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T18:50:28Z"
+    },
+    {
+      "username": "camila_1793991155906",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T18:52:37Z"
     }
   ]
 }
