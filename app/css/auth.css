@@ -1,6 +1,7 @@
 /**
  * Manitas · Estilos de login, registro y onboarding (páginas de autenticación)
  * Depende de tokens.css y landing.css (clases auth-*, quiz-*, btn-spring).
+ * Craft Floor de Impeccable: tipografía Plus Jakarta Sans / Lexend, sombras direccionales suaves.
  */
 .auth-shell {
   min-height: 100vh;
@@ -8,6 +9,7 @@
   grid-template-columns: 1fr;
   position: relative;
   z-index: 10;
+  font-family: var(--font-sans);
 }
 
 @media (min-width: 1024px) {
@@ -32,29 +34,27 @@
   .auth-brand-panel { display: flex; }
 }
 
+/* Zorrito tutor mascota en el panel de marca */
 .auth-fox {
-  width: min(360px, 80%);
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
+  width: min(280px, 75%);
+  max-height: 280px;
+  object-fit: contain;
   margin: 0 auto;
-  border-radius: 50%;
-  -webkit-mask-image: radial-gradient(circle, #000 55%, transparent 72%);
-  mask-image: radial-gradient(circle, #000 55%, transparent 72%);
-  mix-blend-mode: lighten;
-  animation: fox-float 5s ease-in-out infinite;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.45));
+  animation: fox-float 4s ease-in-out infinite;
+  will-change: transform;
 }
 
 .auth-fox-small {
-  width: 84px;
-  height: 84px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255, 200, 87, 0.7);
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
 }
 
 @keyframes fox-float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-8px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -68,7 +68,11 @@
   padding: 32px 16px;
 }
 
-.auth-card-title { letter-spacing: -0.02em; }
+.auth-card-title {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
 
 .auth-benefit {
   display: flex;
@@ -76,6 +80,7 @@
   gap: 12px;
   font-size: 13px;
   color: var(--color-text-muted);
+  line-height: 1.4;
 }
 
 .auth-benefit-dot {
@@ -89,9 +94,13 @@
 .auth-link {
   color: var(--color-primary);
   font-weight: 700;
+  transition: color 0.15s ease;
 }
 
-.auth-link:hover { color: var(--manitas-sun); text-decoration: underline; }
+.auth-link:hover {
+  color: var(--manitas-sun);
+  text-decoration: underline;
+}
 
 .auth-link:focus-visible,
 .auth-field-input:focus-visible,
@@ -108,6 +117,7 @@
   padding: 24px 16px;
   position: relative;
   z-index: 10;
+  font-family: var(--font-sans);
 }
 
 /* Tarjeta clara (Blanco Hueso) para login y registro */
@@ -137,6 +147,7 @@
   border: 1.5px solid #cfc7b6;
   color: var(--manitas-navy);
   box-shadow: none;
+  font-family: var(--font-sans);
 }
 
 .auth-card-light .auth-field-input::placeholder { color: #7b8499; }

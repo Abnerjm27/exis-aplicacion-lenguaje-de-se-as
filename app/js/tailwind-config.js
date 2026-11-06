@@ -1,13 +1,18 @@
 /**
- * Manitas · Configuración Tailwind (paleta de marca)
+ * Manitas · Configuración Tailwind (paleta de marca + tipografía Impeccable)
  * Se carga justo después de lib/tailwind/tailwind.js. Sin estilos ni scripts embebidos en HTML.
- * Re-mapea la escala `amber` (usada en todo el proyecto) al turquesa de marca, de modo que
- * las clases existentes (text-amber-400, bg-amber-500, ...) adoptan la paleta nueva sin reescribir cada vista.
- * `slate` 700-950 se tiñe con el Azul Noche. Se añaden `sun` (amarillo), `coral` y `bone`.
+ * Re-mapea la escala `amber` al turquesa de marca (#00B8A9), `slate` teñido con Azul Noche,
+ * `sun` (#FFC857), `coral` (#FF6B5B) y `bone` (#F8F5EF).
+ * Configura Plus Jakarta Sans como fuente sans principal y Lexend para display.
  */
 tailwind.config = {
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+        display: ['Lexend', 'Plus Jakarta Sans', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace']
+      },
       colors: {
         amber: {
           50: '#E6FAF8', 100: '#C2F3EF', 200: '#8FE8E1', 300: '#4DD8CC', 400: '#1FC8BA',

@@ -45,14 +45,14 @@
   color: #ffffff;
 }
 
-/* --- Base Body & Tipografía --- */
+/* --- Base Body & Tipografía Rediseñada Impeccable --- */
 html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   overflow-x: hidden;
   max-width: 100%;
-  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
   background-color: var(--bg-main);
   background-image: 
     radial-gradient(circle at 15% 10%, rgba(0, 184, 169, 0.05) 0%, transparent 40%),
@@ -63,6 +63,22 @@ html, body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display, 'Lexend', 'Plus Jakarta Sans', sans-serif);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+  line-height: 1.6;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
 }
 
 /* --- Contenedores y Tarjetas --- */
@@ -726,6 +742,41 @@ main, main section, main .grid, header > div {
     transform: scale(1);
   }
 }
+
+/* --- Animaciones de la Mascota Zorrito (Manitas Craft Floor) --- */
+@keyframes zorritoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+@keyframes zorritoWave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg) scale(1.02); }
+  75% { transform: rotate(-4deg) scale(1.02); }
+}
+
+@keyframes zorritoBounce {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  30% { transform: translateY(-14px) scale(0.96, 1.05); }
+  50% { transform: translateY(0) scale(1.03, 0.96); }
+}
+
+@keyframes zorritoPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 4px 12px rgba(0, 184, 169, 0.25)); }
+  50% { transform: scale(1.03) translateY(-2px); filter: drop-shadow(0 8px 18px rgba(255, 200, 87, 0.4)); }
+}
+
+@keyframes zorritoWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-4deg) translateY(-2px); }
+  75% { transform: rotate(4deg) translateY(-2px); }
+}
+
+.anim-float { animation: zorritoFloat 3s ease-in-out infinite; }
+.anim-wave { animation: zorritoWave 2s ease-in-out infinite; }
+.anim-bounce { animation: zorritoBounce 1.5s ease-in-out infinite; }
+.anim-pulse { animation: zorritoPulse 2.5s ease-in-out infinite; }
+.anim-wiggle { animation: zorritoWiggle 1.8s ease-in-out infinite; }
 
 /* --- Accesibilidad: Respetar prefers-reduced-motion --- */
 @media (prefers-reduced-motion: reduce) {

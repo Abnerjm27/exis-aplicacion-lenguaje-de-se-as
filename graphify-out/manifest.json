@@ -6,10 +6,10 @@
     "semantic_hash": "639cbb2ba9ff31dc1d12bec3d6b1a143"
   },
   "app/data/users_db.json": {
-    "mtime": 1793994827.6028743,
-    "seen": 1793994875.4963372,
-    "ast_hash": "066e0ac7473adac018bbcb6ca9c15e12",
-    "semantic_hash": "066e0ac7473adac018bbcb6ca9c15e12"
+    "mtime": 1793995828.5762062,
+    "seen": 1793995861.3520372,
+    "ast_hash": "9c1d835da43a5439acbccc83c60ea220",
+    "semantic_hash": "9c1d835da43a5439acbccc83c60ea220"
   },
   "app/js/auth-profile-manager.js": {
     "mtime": 1793932798.3228874,
@@ -366,10 +366,10 @@
     "semantic_hash": "e44b43a7df0cf49ebc346db530ea43c2"
   },
   "app/js/tailwind-config.js": {
-    "mtime": 1793991977.9918647,
-    "seen": 1793992373.546187,
-    "ast_hash": "9dd3de8dbd0f2f19773cdcadee6eb952",
-    "semantic_hash": "9dd3de8dbd0f2f19773cdcadee6eb952"
+    "mtime": 1793995308.8010817,
+    "seen": 1793995861.3602986,
+    "ast_hash": "a3c0f9e1b9657c6a8240142a242ad4f2",
+    "semantic_hash": "a3c0f9e1b9657c6a8240142a242ad4f2"
   },
   "app/js/gallery.js": {
     "mtime": 1793994651.8925521,
@@ -388,5 +388,29 @@
     "seen": 1793994875.529108,
     "ast_hash": "5a11605b6fe5db90f70dd7d73ea70c3c",
     "semantic_hash": "5a11605b6fe5db90f70dd7d73ea70c3c"
+  },
+  "app/tools/download_fonts.py": {
+    "mtime": 1793995244.9683924,
+    "seen": 1793995861.3666975,
+    "ast_hash": "6fcd6da7b8cb56dc1bd23fbe1bcf3b87",
+    "semantic_hash": "6fcd6da7b8cb56dc1bd23fbe1bcf3b87"
+  },
+  "app/tools/update_index_mascot.py": {
+    "mtime": 1793995581.306585,
+    "seen": 1793995861.378294,
+    "ast_hash": "45064c9126a2d5a06084adeacc15666f",
+    "semantic_hash": "45064c9126a2d5a06084adeacc15666f"
+  },
+  "app/tools/update_landing_assets.py": {
+    "mtime": 1793995555.1753204,
+    "seen": 1793995861.3783045,
+    "ast_hash": "b2ec76700c828c13d8755a8c557ac309",
+    "semantic_hash": "b2ec76700c828c13d8755a8c557ac309"
+  },
+  "tests/take_all_screenshots.js": {
+    "mtime": 1793995737.5487678,
+    "seen": 1793995861.382637,
+    "ast_hash": "ed323533537de4ade55ae09b9580af38",
+    "semantic_hash": "ed323533537de4ade55ae09b9580af38"
   }
 }
