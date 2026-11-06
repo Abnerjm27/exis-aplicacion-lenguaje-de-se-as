@@ -229,8 +229,13 @@ function selectSign(id) {
   const tipEl = document.getElementById('targetSignTip');
 
   if (badgeEl) badgeEl.textContent = currentSign.name;
-  if (descEl) descEl.textContent = currentSign.desc;
-  if (tipEl) tipEl.innerHTML = `💡 <strong>Instrucción para replicarla:</strong> ${currentSign.tip}`;
+  if (window.BlindExamController && window.BlindExamController.isExamActive()) {
+    if (descEl) descEl.textContent = 'Evaluación Ciega sin Demostración';
+    if (tipEl) tipEl.innerHTML = `<span class="text-amber-400 font-semibold font-mono text-[11px]">🛡️ MODO EXAMEN ACTIVO:</span> Demuestra la seña de memoria frente a la cámara sin guía de video ni pistas visuales.`;
+  } else {
+    if (descEl) descEl.textContent = currentSign.desc;
+    if (tipEl) tipEl.innerHTML = `💡 <strong>Instrucción para replicarla:</strong> ${currentSign.tip}`;
+  }
 
   renderSignButtons();
 }

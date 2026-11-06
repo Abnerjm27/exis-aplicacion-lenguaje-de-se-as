@@ -1,0 +1,52 @@
+{
+  "users": [
+    {
+      "username": "estudiante_test",
+      "displayName": "Estudiante Test",
+      "level": "Principiante",
+      "xp": 120,
+      "streak": 3,
+      "masteredSigns": [
+        "HOLA",
+        "A"
+      ],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T02:38:54Z"
+    },
+    {
+      "username": "abner_lsc",
+      "displayName": "Abner LSC",
+      "level": "Principiante",
+      "xp": 155,
+      "streak": 1,
+      "masteredSigns": [
+        "HOLA",
+        "A",
+        "B"
+      ],
+      "customPlans": [
+        {
+          "id": "plan_custom_1793933502200",
+          "title": "Mi Ruta Personal",
+          "rationale": "Ruta personalizada con 3 señas seleccionadas por el estudiante.",
+          "signs": [
+            "HOLA",
+            "A",
+            "B"
+          ]
+        }
+      ],
+      "examHistory": [
+        {
+          "planTitle": "Mi Ruta Personal",
+          "scorePct": 100,
+          "correct": 3,
+          "total": 3,
+          "dateIso": "2026-11-06T02:51:44.677Z"
+        }
+      ],
+      "lastUpdated": "2026-11-06T02:51:44Z"
+    }
+  ]
+}

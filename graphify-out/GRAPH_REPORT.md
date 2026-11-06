@@ -1,14 +1,17 @@
-# Graph Report - exis aplicacion lenguaje de señas  (2026-11-02)
+# Graph Report - exis aplicacion lenguaje de señas  (2026-11-05)
 
 ## Corpus Check
-- 66 files · ~238,149 words
-- Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 19 file(s) not represented in the graph (top: .woff2 8, .glb 4, .css 2)
+- cluster-only mode — file stats not available
 
 ## Summary
-- 260 nodes · 459 edges · 23 communities (15 shown, 8 thin omitted)
-- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 7 edges (avg confidence: 0.85)
+- 345 nodes · 634 edges · 28 communities (14 shown, 14 thin omitted)
+- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 2 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
+
+## Graph Freshness
+- Built from commit: `af492bee`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - MoCap & Landmark Extraction
@@ -34,107 +37,110 @@
 - Offline PWA & Cache Tests
 - Chat Tutor & Ollama Client
 - LSC Official Signs Catalog
+- avatar-3d.js
+- chat-tutor.js
+- signs-data.js
+- trajectory-tracker.js
+- video-player.js
 
 ## God Nodes (most connected - your core abstractions)
-1. `CameraDeviceManager` - 18 edges
-2. `MoCapExtractor` - 10 edges
-3. `playwright` - 10 edges
-4. `AnimeCurator` - 8 edges
-5. `AnimeCurator` - 8 edges
-6. `process_sign()` - 8 edges
-7. `LSCHandler` - 8 edges
-8. `main()` - 7 edges
-9. `main()` - 7 edges
-10. `read_image_safe()` - 6 edges
+1. `LearningPlanManager` - 21 edges
+2. `AuthProfileManager` - 21 edges
+3. `BlindExamController` - 21 edges
+4. `CameraDeviceManager` - 18 edges
+5. `playwright` - 12 edges
+6. `MoCapExtractor` - 10 edges
+7. `LSCHandler` - 9 edges
+8. `AnimeCurator` - 8 edges
+9. `AnimeCurator` - 8 edges
+10. `process_sign()` - 8 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `curate_sign()` --calls--> `cv2`  [EXTRACTED]
-  app/tools/curate_anime_videos.py →   _Bridges community 1 → community 2_
-- `read_image_safe()` --calls--> `cv2`  [EXTRACTED]
-  app/tools/generate_videos.py →   _Bridges community 5 → community 2_
-- `normalize()` --calls--> `numpy`  [EXTRACTED]
-  app/tools/mocap_extractor.py →   _Bridges community 0 → community 2_
-- `download_file()` --calls--> `os`  [EXTRACTED]
-  app/tools/setup_offline_assets.py →   _Bridges community 10 → community 1_
+- `build_pedagogical_plan()` --calls--> `json`  [EXTRACTED]
+  server.py →   _Bridges community 1 → community 2_
+- `free_port()` --calls--> `os`  [EXTRACTED]
+  server.py →   _Bridges community 1 → community 0_
 - `check_mp4_video()` --calls--> `cv2`  [EXTRACTED]
-  app/tools/verify_videos.py →   _Bridges community 9 → community 2_
+  app/tools/verify_videos.py →   _Bridges community 12 → community 0_
+- `download_file()` --calls--> `os`  [EXTRACTED]
+  app/tools/setup_offline_assets.py →   _Bridges community 13 → community 0_
+- `normalize()` --calls--> `numpy`  [EXTRACTED]
+  app/tools/mocap_extractor.py →   _Bridges community 2 → community 0_
 
 ## Import Cycles
 - None detected.
 
-## Communities (23 total, 8 thin omitted)
+## Communities (28 total, 14 thin omitted)
 
 ### Community 0 - "MoCap & Landmark Extraction"
+Cohesion: 0.09
+Nodes (29): curate_sign(), main(), extract_trimmed_frames(), main(), save_mp4(), save_webp(), cv2_imread(), cv2_imwrite() (+21 more)
+
+### Community 1 - "Anime Video Curation Pipeline"
+Cohesion: 0.09
+Nodes (8): build_pedagogical_plan(), detect_sign(), free_port(), load_users_db(), LSCHandler, RangeFileWrapper, RobustThreadingServer, save_user_to_db()
+
+### Community 2 - "Gesture Trimming & Processing"
 Cohesion: 0.10
 Nodes (5): euler_to_quaternion(), MoCapExtractor, normalize(), quaternion_slerp(), verify_clips_json()
 
-### Community 1 - "Anime Video Curation Pipeline"
-Cohesion: 0.13
-Nodes (8): curate_sign(), main(), process_b(), process_buenos(), process_c(), process_hola(), cleanup_temp_files(), process_video()
+### Community 7 - "Letter I Video Curator"
+Cohesion: 0.12
+Nodes (8): http, { spawn }, assert, http, assert, { chromium }, assert, { chromium }
 
-### Community 2 - "Gesture Trimming & Processing"
-Cohesion: 0.19
-Nodes (21): extract_trimmed_frames(), main(), save_mp4(), save_webp(), cv2_imread(), cv2_imwrite(), interpolate_sequence(), load_keyframes() (+13 more)
-
-### Community 3 - "Camera Manager & UI Rendering"
-Cohesion: 0.13
-Nodes (5): Avatar3D, CameraDeviceManager, TrajectoryTracker, VideoPlayer, VisionEvaluator
-
-### Community 4 - "Backend HTTP & Ollama LSC Server"
-Cohesion: 0.10
-Nodes (5): detect_sign(), free_port(), LSCHandler, RangeFileWrapper, RobustThreadingServer
-
-### Community 5 - "Optical Flow Video Generator"
+### Community 8 - "Letter O Video Curator"
 Cohesion: 0.18
 Nodes (7): build_smooth_loop(), interpolate_pair(), main(), process_sign(), read_image_safe(), save_animated_webp(), save_mp4()
 
-### Community 6 - "Playwright Catalog Tests"
+### Community 9 - "Multimedia Quality Verifier"
 Cohesion: 0.17
 Nodes (5): playwright, { chromium }, { chromium }, { chromium }, { chromium }
 
-### Community 9 - "Multimedia Quality Verifier"
+### Community 12 - "Frontend UI Orchestration"
 Cohesion: 0.33
 Nodes (4): check_mp4_video(), check_webp_anim(), main(), test_media_assets()
 
-### Community 10 - "Offline Assets & TFLite Models"
+### Community 13 - "End-to-End Browser Tests"
 Cohesion: 0.57
 Nodes (6): download_file(), main(), setup_canvas_confetti(), setup_fonts(), setup_mediapipe(), setup_tailwind()
 
-### Community 11 - "Dictionary Schema Tests"
+### Community 14 - "Console Error Audit"
 Cohesion: 0.25
 Nodes (7): code, fs, path, requiredLetters, requiredWords, signsDataPath, window
 
-### Community 12 - "Frontend UI Orchestration"
+### Community 15 - "Vision Evaluator Rules Test"
 Cohesion: 0.62
 Nodes (6): bindUIEvents(), dismissSuccessModal(), explainSignVoice(), renderSignButtons(), selectSign(), switchCategory()
 
-### Community 13 - "End-to-End Browser Tests"
+### Community 16 - "Live Hand Inference Suite"
 Cohesion: 0.29
 Nodes (4): { chromium }, fs, path, runTests()
 
-### Community 15 - "Vision Evaluator Rules Test"
+### Community 17 - "Letter I Animation Test"
 Cohesion: 0.33
 Nodes (5): code, fs, missing, path, requiredBranches
 
-### Community 17 - "Letter I Animation Test"
+### Community 19 - "Package & Dependency Specs"
 Cohesion: 0.40
 Nodes (3): { chromium }, fs, path
 
-### Community 18 - "Letter O Animation Test"
+### Community 20 - "Offline PWA & Cache Tests"
 Cohesion: 0.40
 Nodes (3): { chromium }, fs, path
 
 ## Knowledge Gaps
-- **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **14 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
+- **Why does `playwright` connect `Multimedia Quality Verifier` to `Letter I Video Curator`, `Live Hand Inference Suite`, `Letter O Animation Test`, `Package & Dependency Specs`, `Offline PWA & Cache Tests`, `Chat Tutor & Ollama Client`, `LSC Official Signs Catalog`?**
+  _High betweenness centrality (0.029) - this node is a cross-community bridge._
 - **Should `MoCap & Landmark Extraction` be split into smaller, more focused modules?**
-  _Cohesion score 0.09655172413793103 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09461152882205513 - nodes in this community are weakly interconnected._
 - **Should `Anime Video Curation Pipeline` be split into smaller, more focused modules?**
-  _Cohesion score 0.13054187192118227 - nodes in this community are weakly interconnected._
-- **Should `Camera Manager & UI Rendering` be split into smaller, more focused modules?**
-  _Cohesion score 0.1282051282051282 - nodes in this community are weakly interconnected._
-- **Should `Backend HTTP & Ollama LSC Server` be split into smaller, more focused modules?**
-  _Cohesion score 0.10144927536231885 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08669354838709678 - nodes in this community are weakly interconnected._
+- **Should `Gesture Trimming & Processing` be split into smaller, more focused modules?**
+  _Cohesion score 0.09655172413793103 - nodes in this community are weakly interconnected._
+- **Should `Letter I Video Curator` be split into smaller, more focused modules?**
+  _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
