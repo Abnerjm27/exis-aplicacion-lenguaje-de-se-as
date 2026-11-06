@@ -1,0 +1,269 @@
+/**
+ * Manitas · LSC Learn
+ * lesson.css - Estilos Dedicados para la Sesión de Lección Interactiva
+ * 
+ * Diseñado bajo tokens de diseño Manitas (tokens.css) y principios Impeccable:
+ * - Paleta oficial: Navy (#14213D), Turquesa (#00B8A9), Amarillo (#FFC857), Coral (#FF6B5B), Hueso (#F8F5EF).
+ * - Tipografía: Plus Jakarta Sans / Lexend / JetBrains Mono.
+ * - Animaciones con curvas cúbicas suaves y soporte para prefers-reduced-motion.
+ * - Accesibilidad táctil >= 48px y contraste WCAG AAA.
+ */
+
+/* ==========================================================================
+   1. CONTENEDOR RAÍZ Y MODAL INMERSIVO
+   ========================================================================== */
+
+#lessonSessionModal {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(10, 14, 23, 0.88);
+  transition: opacity 0.25s var(--ease-out);
+}
+
+.lesson-modal-card {
+  background: radial-gradient(120% 120% at 50% 0%, #1A284A 0%, #10192E 60%, #0C1221 100%);
+  border: 1px solid var(--manitas-navy-line);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7),
+              0 0 40px -10px rgba(0, 184, 169, 0.15);
+  transition: transform 0.3s var(--ease-spring);
+}
+
+/* ==========================================================================
+   2. HEADER Y BARRA DE PROGRESO SEGMENTADA
+   ========================================================================== */
+
+.lesson-header {
+  background-color: rgba(20, 33, 61, 0.95);
+  border-bottom: 1px solid var(--manitas-navy-line);
+}
+
+.lesson-progress-track {
+  background-color: var(--manitas-navy-raised);
+  border: 1px solid var(--manitas-navy-line);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#lessonProgressBar {
+  background: linear-gradient(90deg, #00B8A9 0%, #3DDC97 100%);
+  box-shadow: 0 0 12px rgba(0, 184, 169, 0.5);
+  transition: width 0.35s var(--ease-spring);
+}
+
+.lesson-step-badge {
+  font-family: var(--font-mono);
+  background-color: rgba(255, 200, 87, 0.12);
+  border: 1px solid rgba(255, 200, 87, 0.35);
+  color: var(--manitas-sun);
+}
+
+/* ==========================================================================
+   3. FASE 1: DEMOSTRACIÓN GUIADA
+   ========================================================================== */
+
+.lesson-video-frame {
+  border: 2px solid var(--manitas-navy-line);
+  background-color: #0c1221;
+  box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.5);
+}
+
+.lesson-zorrito-tip-card {
+  background-color: rgba(27, 43, 77, 0.7);
+  border: 1px solid rgba(255, 200, 87, 0.3);
+  box-shadow: 0 4px 20px -4px rgba(255, 200, 87, 0.08);
+}
+
+/* ==========================================================================
+   4. FASE 2: PREGUNTA TIPO TEST (QUIZ)
+   ========================================================================== */
+
+.quiz-choice-btn {
+  background-color: rgba(27, 43, 77, 0.85);
+  border: 2px solid var(--manitas-navy-line);
+  color: var(--manitas-bone);
+  min-height: 54px;
+  cursor: pointer;
+  transition: transform 0.18s var(--ease-spring),
+              border-color 0.18s ease,
+              background-color 0.18s ease,
+              box-shadow 0.18s ease;
+}
+
+.quiz-choice-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: rgba(255, 200, 87, 0.6);
+  background-color: rgba(35, 55, 95, 0.95);
+  box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.4);
+}
+
+.quiz-choice-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.quiz-choice-btn.is-selected {
+  border-color: var(--manitas-turquoise);
+  background-color: rgba(0, 184, 169, 0.15);
+  box-shadow: 0 0 16px -2px rgba(0, 184, 169, 0.3);
+}
+
+.quiz-choice-btn.is-selected .choice-indicator {
+  border-color: var(--manitas-turquoise);
+  background-color: var(--manitas-turquoise);
+  color: var(--manitas-navy);
+}
+
+.quiz-choice-btn.border-emerald-500 {
+  border-color: var(--manitas-success) !important;
+  background-color: rgba(61, 220, 151, 0.15) !important;
+}
+
+.quiz-choice-btn.border-rose-500 {
+  border-color: var(--manitas-coral) !important;
+  background-color: rgba(255, 107, 91, 0.15) !important;
+}
+
+/* ==========================================================================
+   5. FASE 3: PRÁCTICA CON CÁMARA (SPLIT VIEW)
+   ========================================================================== */
+
+.lesson-practice-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .lesson-practice-split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.lesson-practice-card {
+  background-color: rgba(27, 43, 77, 0.6);
+  border: 1px solid var(--manitas-navy-line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+.lesson-radar-bar {
+  background: linear-gradient(90deg, #FFC857 0%, #00B8A9 70%, #3DDC97 100%);
+  box-shadow: 0 0 10px rgba(61, 220, 151, 0.5);
+  transition: width 0.15s ease-out;
+}
+
+/* ==========================================================================
+   6. FRANJA DE FEEDBACK INFERIOR (TIPO DUOLINGO)
+   ========================================================================== */
+
+.lesson-feedback-sheet {
+  position: relative;
+  border-top: 2px solid transparent;
+  transition: transform 0.25s var(--ease-spring),
+              opacity 0.2s ease,
+              background-color 0.2s ease;
+  animation: slideUpSheet 0.25s var(--ease-spring);
+}
+
+@keyframes slideUpSheet {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Variante de Acierto (Verde Turquesa) */
+.lesson-feedback-sheet.is-correct {
+  background-color: rgba(20, 48, 52, 0.95);
+  border-top-color: var(--manitas-success);
+  box-shadow: 0 -8px 24px -4px rgba(61, 220, 151, 0.18);
+}
+
+.lesson-feedback-sheet.is-correct #lessonFeedbackTitle {
+  color: var(--manitas-success);
+}
+
+.lesson-feedback-sheet.is-correct #btnLessonContinue {
+  background-color: var(--manitas-success);
+  color: #0c1813;
+  box-shadow: 0 4px 14px rgba(61, 220, 151, 0.35);
+}
+
+.lesson-feedback-sheet.is-correct #btnLessonContinue:hover {
+  background-color: #4ce5a3;
+  transform: translateY(-1px);
+}
+
+/* Variante de Error (Coral) */
+.lesson-feedback-sheet.is-incorrect {
+  background-color: rgba(48, 22, 28, 0.95);
+  border-top-color: var(--manitas-coral);
+  box-shadow: 0 -8px 24px -4px rgba(255, 107, 91, 0.18);
+}
+
+.lesson-feedback-sheet.is-incorrect #lessonFeedbackTitle {
+  color: var(--manitas-coral);
+}
+
+.lesson-feedback-sheet.is-incorrect #btnLessonContinue {
+  background-color: var(--manitas-coral);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(255, 107, 91, 0.35);
+}
+
+.lesson-feedback-sheet.is-incorrect #btnLessonContinue:hover {
+  background-color: #ff7d70;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   7. FASE 4: RESUMEN DE LECCIÓN
+   ========================================================================== */
+
+.lesson-summary-stat-box {
+  background-color: rgba(16, 25, 46, 0.9);
+  border: 1px solid var(--manitas-navy-line);
+}
+
+/* ==========================================================================
+   8. RESPONSIVE Y ACCESIBILIDAD (WCAG AAA)
+   ========================================================================== */
+
+@media (max-width: 639px) {
+  #lessonSessionModal {
+    padding: 0.5rem;
+  }
+  
+  .lesson-modal-card {
+    max-height: 96vh;
+    border-radius: var(--radius-lg);
+  }
+
+  .lesson-feedback-sheet {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .lesson-feedback-sheet #btnLessonContinue {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Respeto por preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  #lessonSessionModal,
+  .lesson-modal-card,
+  #lessonProgressBar,
+  .quiz-choice-btn,
+  .lesson-feedback-sheet {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}

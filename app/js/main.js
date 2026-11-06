@@ -52,6 +52,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.BlindExamController.init();
   }
 
+  // Inicializar Controlador de Sesión de Lección Interactiva
+  if (window.LessonSessionController) {
+    window.LessonSessionController.init({
+      onLessonComplete: (summary) => {
+        if (window.LearningPlanManager) {
+          window.LearningPlanManager.renderHexSkillTree();
+        }
+      }
+    });
+  }
+
   // Inicializar enrutador de vistas (Mapa Duolingo vs Estudio de Práctica)
   if (window.ViewRouter) {
     window.ViewRouter.init();

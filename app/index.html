@@ -18,6 +18,7 @@
 
   <!-- Estilos Externos (Sin estilos embebidos) -->
   <link rel="stylesheet" href="css/styles.css?v=20261102_v1">
+  <link rel="stylesheet" href="css/lesson.css?v=20261107">
 
   <!-- MediaPipe Hands & Camera Utils Locales (Offline) -->
   <script src="lib/mediapipe/camera_utils.js"></script>
@@ -37,6 +38,7 @@
   <script src="js/auth-profile-manager.js?v=20261105_v1" defer></script>
   <script src="js/learning-plan-manager.js?v=20261105_v1" defer></script>
   <script src="js/blind-exam-controller.js?v=20261105_v1" defer></script>
+  <script src="js/lesson-session.js?v=20261107_v1" defer></script>
   <script src="js/view-router.js?v=20261105_v1" defer></script>
   <script src="js/chat-tutor.js?v=20261101_v6" defer></script>
   <script src="js/main.js?v=20261101_v6" defer></script>
@@ -782,6 +784,145 @@
           Aceptar
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE SESIÓN DE LECCIÓN INTERACTIVA (TIPO DUOLINGO / TEST) -->
+  <div id="lessonSessionModal" class="hidden fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-3 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="lessonHeaderStepText">
+    <div class="lesson-modal-card w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl overflow-hidden shadow-2xl relative">
+      
+      <!-- Header de Lección -->
+      <header class="lesson-header px-4 sm:px-6 py-3.5 flex items-center justify-between border-b border-[#2A3B63]">
+        <button id="btnLessonClose" class="btn-spring text-slate-400 hover:text-white p-2 rounded-xl text-lg font-bold" aria-label="Salir de la lección">✕</button>
+        <div class="flex-1 max-w-md mx-4">
+          <div class="lesson-progress-track w-full h-3 rounded-full overflow-hidden">
+            <div id="lessonProgressBar" class="h-full rounded-full w-1/3"></div>
+          </div>
+        </div>
+        <div id="lessonHeaderStepText" class="lesson-step-badge text-xs font-mono font-bold px-3 py-1 rounded-lg">
+          Paso 1 de 3: Mira la seña
+        </div>
+      </header>
+
+      <!-- Contenido de Fases Pedagógicas -->
+      <main class="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col items-center">
+        
+        <!-- Fase 1: Demostración Guiada -->
+        <section id="phaseDemoContainer" class="lesson-phase-pane flex flex-col items-center gap-4 w-full max-w-xl text-center">
+          <div class="lesson-video-frame w-full max-w-md aspect-video rounded-2xl overflow-hidden relative">
+            <video id="lessonDemoVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
+          </div>
+          <div class="lesson-zorrito-tip-card w-full p-4 rounded-2xl flex items-center gap-4 text-left">
+            <img src="img/zorrito/svg/zorrito_explicando.svg" alt="Zorrito Tutor" class="w-16 h-16 shrink-0 object-contain drop-shadow-md">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs uppercase tracking-wider font-bold text-amber-400">Guía LSC</span>
+                <h3 id="lessonDemoSignName" class="text-lg font-bold text-slate-100">HOLA</h3>
+              </div>
+              <p id="lessonDemoDesc" class="text-xs text-slate-300 mb-1 leading-snug">Descripción de la seña...</p>
+              <p id="lessonDemoTip" class="text-[11px] text-amber-300/90 italic font-medium">Tip de postura...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Fase 2: Pregunta de Comprensión (Quiz) -->
+        <section id="phaseQuizContainer" class="lesson-phase-pane hidden flex flex-col items-center gap-5 w-full max-w-2xl text-center">
+          <div class="text-center">
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-400 font-semibold block mb-1">Pregunta de Comprensión</span>
+            <h3 class="text-xl font-bold text-slate-100">¿Qué seña representa este video?</h3>
+          </div>
+          <div class="lesson-video-frame w-full max-w-sm aspect-video rounded-2xl overflow-hidden relative">
+            <video id="lessonQuizVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
+          </div>
+          <div id="quizOptionsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
+            <!-- Renderizado dinámicamente con 4 opciones -->
+          </div>
+        </section>
+
+        <!-- Fase 3: Práctica con Cámara (MediaPipe) -->
+        <section id="phasePracticeContainer" class="lesson-phase-pane hidden flex flex-col items-center gap-4 w-full max-w-3xl">
+          <div class="text-center mb-1">
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-400 font-semibold block mb-1">Práctica Activa</span>
+            <h3 class="text-lg font-bold text-slate-100">Replica la seña frente a tu cámara</h3>
+            <p class="text-xs text-slate-400">Mantén la postura con precisión ≥ 85% durante 1.2 segundos</p>
+          </div>
+          <div class="lesson-practice-split">
+            <!-- Guía espejo -->
+            <div class="lesson-practice-card flex flex-col">
+              <div class="px-3 py-2 bg-slate-900/90 border-b border-slate-700/60 flex items-center justify-between text-xs text-slate-300 font-medium">
+                <span>Video Guía Espejo</span>
+                <span class="text-[10px] text-amber-400 font-mono">REFERENCIA</span>
+              </div>
+              <div class="aspect-video w-full bg-slate-950 overflow-hidden relative">
+                <video id="lessonPracticeGuideVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
+              </div>
+            </div>
+            <!-- Cámara en vivo -->
+            <div class="lesson-practice-card flex flex-col">
+              <div class="px-3 py-2 bg-slate-900/90 border-b border-slate-700/60 flex items-center justify-between text-xs text-slate-300 font-medium">
+                <span>Tu Cámara en Vivo</span>
+                <span class="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> MEDIA PIPE
+                </span>
+              </div>
+              <div class="aspect-video w-full bg-slate-950 overflow-hidden relative flex items-center justify-center">
+                <div class="text-center p-4 text-xs text-slate-400">
+                  <img src="img/zorrito/svg/zorrito_pensando.svg" alt="Zorrito detectando" class="w-12 h-12 mx-auto mb-2 opacity-80 anim-float">
+                  <p>Detectando mano con MediaPipe Hands...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Barra radar de similitud -->
+          <div class="w-full max-w-md bg-slate-950/80 border border-slate-800 p-3 rounded-2xl flex flex-col gap-1.5">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-slate-400">Similitud Mantenida:</span>
+              <span id="lessonPracticeRadarText" class="font-bold text-amber-400 tabular-nums">0%</span>
+            </div>
+            <div class="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden">
+              <div id="lessonPracticeRadarBar" class="lesson-radar-bar h-full rounded-full w-0"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Fase 4: Resumen de Victoria -->
+        <section id="phaseSummaryContainer" class="lesson-phase-pane hidden flex flex-col items-center gap-4 w-full max-w-md text-center py-4">
+          <img src="img/zorrito/svg/zorrito_celebracion.svg" alt="Zorrito celebrando" class="w-24 h-24 object-contain drop-shadow-2xl anim-bounce">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-widest text-amber-400 font-semibold block mb-1">¡Lección Dominada!</span>
+            <h3 id="lessonSummarySignName" class="text-2xl font-bold text-slate-100">HOLA</h3>
+          </div>
+          <div class="lesson-summary-stat-box w-full p-4 rounded-2xl grid grid-cols-2 gap-3 font-mono">
+            <div class="flex flex-col items-center">
+              <span class="text-[10px] text-slate-400 font-sans">Experiencia</span>
+              <span id="lessonSummaryXp" class="text-2xl font-extrabold text-amber-400 tabular-nums">+50 XP</span>
+            </div>
+            <div class="flex flex-col items-center border-l border-slate-800">
+              <span class="text-[10px] text-slate-400 font-sans">Precisión</span>
+              <span id="lessonSummaryScore" class="text-2xl font-extrabold text-emerald-400 tabular-nums">96%</span>
+            </div>
+          </div>
+          <button id="btnLessonFinish" class="btn-spring w-full py-3 rounded-xl text-sm font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-lg mt-2">
+            Continuar en el Mapa de Ruta →
+          </button>
+        </section>
+
+      </main>
+
+      <!-- Franja de Retroalimentación Inferior (Tipo Duolingo) -->
+      <footer id="lessonFeedbackSheet" class="lesson-feedback-sheet hidden px-4 sm:px-8 py-4 border-t flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <img src="img/zorrito/svg/zorrito_pulgar.svg" alt="Zorrito feedback" class="w-12 h-12 shrink-0 object-contain">
+          <div>
+            <h4 id="lessonFeedbackTitle" class="text-base font-bold text-slate-100">¡Correcto!</h4>
+            <p id="lessonFeedbackText" class="text-xs text-slate-300">Has identificado con precisión la seña.</p>
+          </div>
+        </div>
+        <button id="btnLessonContinue" class="btn-spring px-6 py-3 rounded-xl text-xs sm:text-sm font-bold shrink-0 transition" disabled>
+          Continuar →
+        </button>
+      </footer>
+
     </div>
   </div>
 

@@ -256,6 +256,10 @@ class LearningPlanManager {
     return { nextSignId, planCompleted };
   }
 
+  markSignCompleted(signId) {
+    return this.markSignCompletedInPlan(signId);
+  }
+
   renderHexSkillTree() {
     const container = document.getElementById('hexSkillTreeContainer');
     if (!container) return;
@@ -322,7 +326,14 @@ class LearningPlanManager {
         this.#currentIndex = idx;
         this.renderHexSkillTree();
         this.#updateActivePlanHeader();
-        if (window.ViewRouter) {
+
+        // Lanzar sesión de lección interactiva pedagógica (Demostración -> Quiz -> Práctica con Cámara -> Resumen)
+        if (window.LessonSessionController && typeof window.LessonSessionController.startLesson === 'function') {
+          window.LessonSessionController.startLesson(signId, {
+            planId: this.#activePlan.id,
+            stepIndex: idx
+          });
+        } else if (window.ViewRouter) {
           window.ViewRouter.switchToStudioView(signId, false);
         } else {
           this.#triggerSignSelection(signId);

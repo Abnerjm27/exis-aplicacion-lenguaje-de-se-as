@@ -19,14 +19,24 @@ const fs = require('fs');
     fs.mkdirSync(screenshotsDir, { recursive: true });
   }
 
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: true,
+    args: [
+      '--use-fake-ui-for-media-stream',
+      '--use-fake-device-for-media-stream',
+      '--no-sandbox'
+    ]
+  });
 
   try {
     // -------------------------------------------------------------------------
     // TEST 1: PANTALLA 1 - LANDING PORTAL FUTURISTA (landing.html)
     // -------------------------------------------------------------------------
     console.log('\n--- 1. Validando Pantalla 1: Portal Landing Futurista (landing.html) ---');
-    const landingContext = await browser.newContext({ viewport: { width: 1280, height: 850 } });
+    const landingContext = await browser.newContext({
+      viewport: { width: 1280, height: 850 },
+      permissions: ['camera']
+    });
     const landingPage = await landingContext.newPage();
 
     const landingErrors = [];
@@ -156,11 +166,26 @@ const fs = require('fs');
     console.log(`✓ Captura guardada: ${screen2Path}`);
 
     // -------------------------------------------------------------------------
-    // TEST 3: NAVEGACIÓN A PANTALLA 3 - ESTUDIO DE PRÁCTICA (#viewPracticeStudio)
+    // TEST 3: NAVEGACIÓN A PANTALLA 3 - SESIÓN DE LECCIÓN Y ESTUDIO DE PRÁCTICA
     // -------------------------------------------------------------------------
-    console.log('\n--- 3. Validando Navegación a Pantalla 3: Estudio de Práctica ---');
-    // Hacer clic en el primer nodo de la ruta
+    console.log('\n--- 3. Validando Sesión de Lección y Navegación a Pantalla 3 (Estudio) ---');
+    // Hacer clic en el primer nodo de la ruta abre la lección interactiva pedagógica
     await duolingoNodes[0].click();
+    await landingPage.waitForTimeout(400);
+
+    const isLessonModalOpen = await landingPage.evaluate(() => {
+      const el = document.getElementById('lessonSessionModal');
+      return el && !el.classList.contains('hidden');
+    });
+    assert.strictEqual(isLessonModalOpen, true, 'Hacer clic en un nodo debe abrir la sesión de lección interactiva #lessonSessionModal');
+    console.log('✓ Clic en nodo abre la lección interactiva pedagógica (#lessonSessionModal)');
+
+    // Cerrar lección para probar navegación al estudio libre
+    await landingPage.click('#btnLessonClose');
+    await landingPage.waitForTimeout(300);
+
+    // Navegar a Estudio de Práctica mediante el botón de navbar #btnNavViewStudio
+    await landingPage.click('#btnNavViewStudio');
     await landingPage.waitForTimeout(400);
 
     const isStudioVisibleAfterClick = await landingPage.evaluate(() => {
@@ -171,7 +196,7 @@ const fs = require('fs');
       const el = document.getElementById('viewLearningPath');
       return el && el.classList.contains('hidden');
     });
-    assert.strictEqual(isStudioVisibleAfterClick, true, '#viewPracticeStudio debe estar visible tras hacer clic en un nodo');
+    assert.strictEqual(isStudioVisibleAfterClick, true, '#viewPracticeStudio debe estar visible al entrar al estudio');
     assert.strictEqual(isPathHiddenAfterClick, true, '#viewLearningPath debe ocultarse al entrar al estudio');
     console.log('✓ Cambio de vista exitoso a #viewPracticeStudio');
 
