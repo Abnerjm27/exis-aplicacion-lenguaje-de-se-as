@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EXIS · Academia de Lengua de Señas Colombiana (LSC)</title>
+  <title>EXIS · El Futuro de la Lengua de Señas Colombiana (LSC)</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
   <!-- Fuentes Tipográficas Locales (Offline) -->
@@ -12,22 +12,28 @@
   <!-- Tailwind CSS Local (Offline Standalone) -->
   <script src="lib/tailwind/tailwind.js"></script>
 
-  <!-- Estilos de la Landing Futurista (Sin estilos embebidos) -->
-  <link rel="stylesheet" href="css/landing.css?v=20261106_v2">
+  <!-- Estilos Cinemáticos Scrollytelling + Auth + Onboarding (Sin estilos embebidos) -->
+  <link rel="stylesheet" href="css/landing.css?v=20261106_v3">
 
-  <!-- Controlador Modular POO de la Landing -->
-  <script src="js/landing.js?v=20261106_v2" defer></script>
+  <!-- Controlador Modular POO de Scrollytelling, Login/Registro y Cuestionario -->
+  <script src="js/landing.js?v=20261106_v3" defer></script>
 </head>
 
 <body class="flex flex-col min-h-screen text-slate-100 antialiased relative selection:bg-amber-600 selection:text-white">
 
-  <!-- Iluminación Volumétrica y Malla Holográfica -->
+  <!-- Barra Superior de Progreso de Scroll (Scrollytelling Progress Line) -->
+  <div id="scrollProgressTrack" class="scroll-progress-track" aria-hidden="true">
+    <div id="scrollProgressBar" class="scroll-progress-bar"></div>
+  </div>
+
+  <!-- Iluminación Volumétrica y Malla Reactiva -->
+  <div id="cursorSpotlight" class="cursor-spotlight" aria-hidden="true"></div>
   <div class="ambient-beam-amber" aria-hidden="true"></div>
   <div class="ambient-beam-emerald" aria-hidden="true"></div>
   <div class="hologram-grid-floor" aria-hidden="true"></div>
 
-  <!-- TOP NAVBAR -->
-  <header class="landing-navbar sticky top-0 z-50 px-4 sm:px-6 md:px-10 py-3.5">
+  <!-- TOP NAVBAR FLOTANTE -->
+  <header class="landing-navbar sticky top-0 z-40 px-4 sm:px-6 md:px-10 py-3.5">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
       
       <!-- Identidad EXIS -->
@@ -48,248 +54,118 @@
         </div>
       </a>
 
-      <!-- Navegación y Acciones -->
-      <nav class="flex items-center gap-3 sm:gap-6 text-xs font-semibold">
-        <a id="navFeatures" href="#howItWorksSection" class="hidden md:inline-block text-slate-300 hover:text-amber-400 transition-colors">
-          Arquitectura del Sistema
-        </a>
-        <a id="navAuthPortal" href="#authPortalSection" class="hidden sm:inline-block text-slate-300 hover:text-amber-400 transition-colors">
-          Acceso Estudiantes
-        </a>
-        <a id="btnNavEnter" href="index.html?screen=path" class="btn-spring px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm flex items-center gap-1.5">
-          <span>Ir al Mapa de Ruta</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </a>
+      <!-- Enlaces de Scrollytelling -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-300">
+        <a id="navFeatures" href="#scrollyShowcaseSection" class="hover:text-amber-400 transition-colors">Experiencia Interactiva</a>
+        <a href="#pillarsSection" class="hover:text-amber-400 transition-colors">Tecnología IA</a>
+        <a id="navAuthPortal" href="#authPortalSection" class="hover:text-amber-400 transition-colors">Crear Cuenta</a>
       </nav>
+
+      <!-- Botones de Login y Registro Normales -->
+      <div class="flex items-center gap-2.5">
+        <button id="btnHeaderLogin" type="button" class="btn-spring px-3.5 py-2 rounded-xl text-xs font-bold text-slate-200 hover:text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80">
+          Iniciar Sesión
+        </button>
+        <button id="btnNavEnter" type="button" class="btn-spring px-4 py-2 rounded-xl text-xs font-extrabold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm flex items-center gap-1.5">
+          <span>Registrarse Gratis</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </div>
+
     </div>
   </header>
 
   <!-- CONTENEDOR PRINCIPAL -->
-  <main class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 py-6 sm:py-10 flex-1 flex flex-col gap-14 relative z-10">
+  <main class="w-full flex-1 flex flex-col relative z-10">
 
-    <!-- PRIMERA VISTA (ABOVE THE FOLD): PRESENTACIÓN + CÁPSULA HOLOGRÁFICA + PORTAL LOGIN/REGISTRO -->
-    <section aria-labelledby="heroTitle" class="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-10 items-stretch">
-
-      <!-- COLUMNA IZQUIERDA (7 COLS): HERO + CÁPSULA BIOMECÁNICA DE SOL -->
-      <div class="lg:col-span-7 flex flex-col justify-between gap-6">
+    <!-- =======================================================================
+         SECCIÓN 1: HERO CINEMÁTICO FULL-VIEWPORT (ESTILO AGENCIA 50K)
+         ======================================================================= -->
+    <section aria-labelledby="heroTitle" class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 pt-8 pb-16 sm:py-16 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center min-h-[84vh]">
+      
+      <!-- Columna Izquierda: Narrativa e Impacto (7 cols) -->
+      <div class="lg:col-span-7 flex flex-col gap-6 scroll-reveal is-visible">
         
-        <div class="flex flex-col gap-4">
-          <h1 id="heroTitle" class="hero-display-title text-white">
-            Domina la Lengua de Señas Colombiana con <span class="text-amber-400">Visión Artificial</span> e <span class="text-emerald-400">IA Local</span>
-          </h1>
-
-          <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
-            Entrena con <strong>Sol</strong>, tu arquitecta pedagógica impulsada por <strong>Qwen 2.5</strong>. Recibe corrección biomecánica de tus manos en tiempo real a <strong>30 FPS</strong> y demuestra lo aprendido en exámenes ciegos sin video.
-          </p>
-
-          <!-- Botones rápidos del Hero -->
-          <div class="flex flex-wrap items-center gap-3 pt-1">
-            <a id="btnScrollToAuth" href="#landingUsernameInput" class="btn-spring px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center gap-2">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
-              <span>Iniciar Sesión / Crear Cuenta</span>
-            </a>
-
-            <a id="btnQuickGuestPath" href="index.html?screen=path" class="btn-spring px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700/80 flex items-center gap-2">
-              <span>Explorar Rutas Interactivas</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
+        <div class="inline-flex items-center gap-2.5 self-start px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/35 text-xs font-mono text-amber-300 shadow-lg">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span>
+          <span>LSC70 UTP · MediaPipe 30 FPS · Qwen 2.5 IA Local</span>
         </div>
 
-        <!-- ESCENARIO HOLOGRÁFICO DE SOL + TELEMETRÍA EN TIEMPO REAL -->
-        <div id="solHoloCapsule" class="hologram-showcase-card grid grid-cols-1 sm:grid-cols-12 overflow-hidden">
-          
-          <!-- Ilustración Holográfica de Sol con Constelación 21 Puntos (7 cols) -->
-          <div class="sm:col-span-7 relative min-h-[260px] sm:min-h-[300px] bg-slate-950 flex items-end justify-center overflow-hidden">
-            <img 
-              id="solHologramImg" 
-              src="sol_hologram_hero.jpg" 
-              alt="Sol realizando seña con seguimiento holográfico de 21 articulaciones MediaPipe" 
-              class="sol-hero-artwork"
-            />
-            <!-- SVG sutil de telemetría de mano (sin tapar el rostro) -->
-            <svg id="svgHandLandmarks" class="holo-hud-overlay" viewBox="0 0 200 200" aria-hidden="true">
-              <circle cx="52" cy="88" r="34" class="hud-orbit-ring" />
-              <circle cx="52" cy="88" r="46" class="hud-orbit-ring-outer" />
-            </svg>
-            <div class="holo-bottom-caption">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span>
-              <span>Sol · Arquitecta Pedagógica LSC</span>
-            </div>
+        <h1 id="heroTitle" class="hero-display-title text-white">
+          Aprende Lengua de Señas Colombiana con <span class="text-amber-400">Visión Artificial</span> que responde a tus manos.
+        </h1>
+
+        <p class="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed max-w-2xl">
+          Olvídate de ver videos pasivos. En <strong>EXIS</strong> tu cámara analiza 21 puntos biomecánicos de tu mano en tiempo real mientras <strong>Sol IA</strong> diseña tu plan estilo Duolingo desde cero.
+        </p>
+
+        <!-- Botones Principales de Acción -->
+        <div class="flex flex-wrap items-center gap-3.5 pt-1">
+          <button id="btnHeroStartRegister" type="button" class="btn-spring auth-submit-btn px-6 py-3.5 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 flex items-center gap-2.5">
+            <span>Comenzar Ahora — Crear Cuenta</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+
+          <button id="btnScrollToAuth" type="button" class="btn-spring px-5 py-3.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700 flex items-center gap-2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+            <span>Ya tengo cuenta · Iniciar Sesión</span>
+          </button>
+
+          <a id="btnQuickGuestPath" href="index.html?screen=path" class="btn-spring px-4 py-3.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-amber-300 flex items-center gap-1.5">
+            <span>Probar como invitado</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+        </div>
+
+        <!-- Métricas de Impacto con Contadores Tabulares -->
+        <div class="grid grid-cols-3 gap-3 sm:gap-5 pt-5 border-t border-slate-800/80 max-w-xl">
+          <div class="metric-glass-pill p-3 rounded-xl">
+            <div id="telemetryFpsBadge" class="text-lg sm:text-2xl font-extrabold text-amber-400 font-mono tabular-nums">30 FPS</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Tracking Biomecánico</div>
           </div>
-
-          <!-- Columna de Telemetría del Motor EXIS (5 cols) -->
-          <div class="sm:col-span-5 p-4 sm:p-5 flex flex-col justify-between gap-3 bg-slate-950/85 border-t sm:border-t-0 sm:border-l border-slate-800/80">
-            
-            <div id="telemetryFpsBadge" class="telemetry-stat-box">
-              <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono">
-                <span>TRACKING BIOMECÁNICO</span>
-                <span class="text-emerald-400 font-bold tabular-nums">30 FPS</span>
-              </div>
-              <div class="text-xs font-bold text-white mt-1">21 Articulaciones MediaPipe</div>
-              <p class="text-[11px] text-slate-400 mt-0.5 leading-snug">Inferencia local en GPU/WebGL sin enviar video a servidores externos.</p>
-            </div>
-
-            <div id="telemetryModelBadge" class="telemetry-stat-box">
-              <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono">
-                <span>MOTOR NEURONAL</span>
-                <span class="text-amber-400 font-bold">Qwen 2.5 · 3B</span>
-              </div>
-              <div class="text-xs font-bold text-white mt-1">Diseñador de Rutas IA</div>
-              <p class="text-[11px] text-slate-400 mt-0.5 leading-snug">Crea planes desde cero adaptados a tu ritmo o vocabulario objetivo.</p>
-            </div>
-
-            <div id="telemetryLatencyBadge" class="telemetry-stat-box">
-              <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono">
-                <span>DATASET OFICIAL</span>
-                <span class="text-amber-300 font-bold tabular-nums">LSC70 · UTP</span>
-              </div>
-              <div class="text-xs font-bold text-white mt-1">Video Dual Real + Anime IA</div>
-              <p class="text-[11px] text-slate-400 mt-0.5 leading-snug">20 señas certificadas con vista de cuerpo completo y primer plano de mano.</p>
-            </div>
-
+          <div class="metric-glass-pill p-3 rounded-xl">
+            <div id="telemetryModelBadge" class="text-lg sm:text-2xl font-extrabold text-emerald-400 font-mono tabular-nums">Qwen 2.5</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Tutora IA 100% Local</div>
+          </div>
+          <div class="metric-glass-pill p-3 rounded-xl">
+            <div id="telemetryLatencyBadge" class="text-lg sm:text-2xl font-extrabold text-white font-mono tabular-nums">20 Señas</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Corpus Oficial LSC70</div>
           </div>
         </div>
 
       </div>
 
-      <!-- COLUMNA DERECHA (5 COLS): PORTAL DE LOGIN Y REGISTRO DE ESTUDIANTES -->
-      <div id="authPortalSection" class="lg:col-span-5 flex flex-col">
-        <div class="auth-glass-console flex-1 p-6 sm:p-7 flex flex-col justify-between gap-5">
+      <!-- Columna Derecha: Escenario Holográfico 3D con Tilt Interactivo (5 cols) -->
+      <div class="lg:col-span-5 relative scroll-reveal is-visible">
+        <div id="solHoloCapsule" class="holo-tilt-stage p-3 sm:p-4 relative">
           
-          <!-- Cabecera de la Consola de Acceso -->
-          <div class="flex flex-col gap-3">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/40 text-amber-400 flex items-center justify-center">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h2 id="authTitle" class="text-base sm:text-lg font-extrabold text-white leading-tight">Portal de Estudiante LSC</h2>
-                  <p class="text-[11px] text-slate-400">Sincroniza tu racha, XP, rutas y certificados</p>
-                </div>
+          <div class="relative rounded-2xl overflow-hidden bg-slate-950 border border-amber-500/30">
+            <img 
+              id="solHologramImg" 
+              src="sol_hologram_hero.jpg" 
+              alt="Sol realizando seña con constelación biomecánica de 21 articulaciones MediaPipe" 
+              class="sol-hero-artwork"
+            />
+            <!-- Anillos orbitales animados sobre la mano -->
+            <svg id="svgHandLandmarks" class="holo-hud-overlay" viewBox="0 0 200 200" aria-hidden="true">
+              <circle cx="52" cy="88" r="32" class="hud-orbit-ring" />
+              <circle cx="52" cy="88" r="46" class="hud-orbit-ring-outer" />
+            </svg>
+
+            <!-- Tarjeta Flotante Superior -->
+            <div class="floating-hud-Tag top-3 left-3 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping" aria-hidden="true"></span>
+              <span class="font-mono text-[11px] font-bold text-emerald-300 tabular-nums">PRECISIÓN EN VIVO: 98.4%</span>
+            </div>
+
+            <!-- Tarjeta Flotante Inferior -->
+            <div class="floating-hud-Tag bottom-3 left-3 right-3 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-amber-400" aria-hidden="true"></span>
+                <span class="text-xs font-bold text-white">Sol · Arquitecta de Rutas LSC</span>
               </div>
-              <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[10px] font-mono font-bold text-emerald-300">ONLINE</span>
+              <span class="text-[10px] font-mono text-amber-300 bg-amber-500/15 px-2 py-0.5 rounded border border-amber-500/30">IA Activa</span>
             </div>
-
-            <!-- Selector de Modo: Iniciar Sesión vs Crear Cuenta -->
-            <div class="auth-mode-tabs grid grid-cols-2 p-1 rounded-xl bg-slate-950/90 border border-slate-800" role="tablist" aria-label="Modo de acceso">
-              <button id="tabAuthLogin" type="button" role="tab" aria-selected="true" class="auth-tab-btn auth-tab-active py-2 rounded-lg text-xs font-bold transition-all">
-                Iniciar Sesión / Entrar
-              </button>
-              <button id="tabAuthRegister" type="button" role="tab" aria-selected="false" class="auth-tab-btn py-2 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all">
-                Nuevo Estudiante
-              </button>
-            </div>
-          </div>
-
-          <!-- Perfiles Rápidos Detectados (1-Clic) -->
-          <div id="savedProfilesQuickBar" class="hidden flex-col gap-1.5">
-            <span class="text-[11px] font-mono text-slate-400">Continuar con cuenta guardada:</span>
-            <div id="savedProfilesPills" class="flex flex-wrap gap-1.5"></div>
-          </div>
-
-          <!-- Alerta de Validación -->
-          <div id="landingAuthError" role="alert" class="hidden text-xs text-rose-200 bg-rose-950/80 border border-rose-500/50 px-3.5 py-2.5 rounded-xl leading-snug"></div>
-
-          <!-- Formulario Principal -->
-          <form id="landingAuthForm" class="flex flex-col gap-3.5" novalidate>
-            
-            <!-- Campo Usuario -->
-            <div>
-              <label for="landingUsernameInput" class="block text-xs font-semibold text-slate-200 mb-1.5">
-                Identificador de Usuario <span class="text-amber-400">*</span>
-              </label>
-              <div class="relative flex items-center">
-                <span class="absolute left-3.5 text-slate-500 pointer-events-none">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                </span>
-                <input 
-                  id="landingUsernameInput" 
-                  type="text" 
-                  required 
-                  autocomplete="username"
-                  placeholder="Ej: abner_lsc" 
-                  class="auth-field-input w-full pl-10 pr-3.5 py-2.5 rounded-xl text-xs text-white placeholder-slate-500" 
-                />
-              </div>
-            </div>
-
-            <!-- Campo Nombre Visible -->
-            <div id="fieldDisplayNameWrapper">
-              <label for="landingDisplayNameInput" class="block text-xs font-semibold text-slate-200 mb-1.5">
-                Nombre del Estudiante
-              </label>
-              <div class="relative flex items-center">
-                <span class="absolute left-3.5 text-slate-500 pointer-events-none">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="9" cy="10" r="2"></circle><path d="M15 8h2"></path><path d="M15 12h2"></path><path d="M7 16h10"></path></svg>
-                </span>
-                <input 
-                  id="landingDisplayNameInput" 
-                  type="text" 
-                  autocomplete="name"
-                  placeholder="Ej: Abner" 
-                  class="auth-field-input w-full pl-10 pr-3.5 py-2.5 rounded-xl text-xs text-white placeholder-slate-500" 
-                />
-              </div>
-            </div>
-
-            <!-- Nivel de Punto de Partida -->
-            <div>
-              <label for="landingLevelSelect" class="block text-xs font-semibold text-slate-200 mb-1.5">
-                Ruta Inicial de Entrenamiento
-              </label>
-              <select id="landingLevelSelect" class="auth-field-input w-full px-3.5 py-2.5 rounded-xl text-xs text-white cursor-pointer">
-                <option value="Principiante">1. Empezar Desde Cero (Ruta Guiada por IA)</option>
-                <option value="Intermedio">2. Dominio del Abecedario Dactilológico LSC</option>
-                <option value="Avanzado LSC">3. Palabras, Saludos y Conversación LSC</option>
-              </select>
-            </div>
-
-            <!-- Prompt Opcional para Sol IA -->
-            <div>
-              <div class="flex items-center justify-between mb-1.5">
-                <label for="landingGoalInput" class="text-xs font-semibold text-amber-300 flex items-center gap-1.5">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                  <span>Pídele tu propio plan a Sol IA (Opcional)</span>
-                </label>
-              </div>
-              <input 
-                id="landingGoalInput" 
-                type="text" 
-                placeholder="Ej: No sé nada, enséñame a saludar y las vocales..." 
-                class="auth-field-input w-full px-3.5 py-2.5 rounded-xl text-xs text-white placeholder-slate-500" 
-              />
-              <!-- Sugerencias rápidas clicables -->
-              <div class="flex flex-wrap gap-1.5 mt-2">
-                <button type="button" data-goal-preset="No sé nada, enséñame lo básico desde cero" class="landing-goal-chip px-2.5 py-1 rounded-lg text-[11px] font-medium text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 transition">
-                  Desde cero con IA
-                </button>
-                <button type="button" data-goal-preset="Quiero aprender el abecedario en señas" class="landing-goal-chip px-2.5 py-1 rounded-lg text-[11px] font-medium text-slate-300 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 transition">
-                  Aprender Abecedario
-                </button>
-                <button type="button" data-goal-preset="Quiero aprender saludos y presentación personal" class="landing-goal-chip px-2.5 py-1 rounded-lg text-[11px] font-medium text-slate-300 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 transition">
-                  Saludos y Presentación
-                </button>
-              </div>
-            </div>
-
-            <!-- Botón Principal de Acceso -->
-            <button id="btnLandingSubmit" type="submit" class="btn-spring auth-submit-btn mt-1 w-full py-3.5 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 flex items-center justify-center gap-2">
-              <span id="btnLandingSubmitText">Entrar a Mi Ruta de Aprendizaje</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </button>
-          </form>
-
-          <!-- Acceso Directo Modo Invitado -->
-          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2 text-xs">
-            <span class="text-slate-400">¿Prefieres entrar directo sin registro?</span>
-            <button id="btnLandingGuest" type="button" class="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 transition-colors">
-              <span>Modo Invitado</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
           </div>
 
         </div>
@@ -297,61 +173,431 @@
 
     </section>
 
-    <!-- SECCIÓN INFERIOR: LOS 3 PASOS DEL FLUJO DE ENTRENAMIENTO EXIS -->
-    <section id="howItWorksSection" aria-labelledby="pillarsTitle" class="pt-4 border-t border-slate-800/70 flex flex-col gap-6">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-        <div>
-          <h2 id="pillarsTitle" class="text-xl sm:text-2xl font-extrabold text-white">Cómo Funciona el Entrenamiento en EXIS</h2>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1">Tres etapas conectadas para pasar de cero a dominar la Lengua de Señas Colombiana.</p>
-        </div>
-        <span class="text-xs font-mono text-amber-400 tabular-nums">100% Local · 0 Latencia de Red</span>
+    <!-- =======================================================================
+         SECCIÓN 2: MARQUESINA CINEMÁTICA DE SEÑAS OFICIALES LSC70
+         ======================================================================= -->
+    <div class="sign-ticker-strip py-3 border-y border-slate-800/80 bg-slate-950/90 overflow-hidden" aria-hidden="true">
+      <div class="sign-ticker-track flex items-center gap-8 font-mono text-xs text-slate-400">
+        <span class="text-amber-400 font-bold">CORPUS OFICIAL LSC70 UTP</span>
+        <span>HOLA</span><span>·</span><span>BUENOS DÍAS</span><span>·</span><span>BUENAS TARDES</span><span>·</span><span>BUENAS NOCHES</span><span>·</span>
+        <span>YO</span><span>·</span><span>NOMBRE</span><span>·</span><span>GUSTAR</span><span>·</span><span>AÑOS</span><span>·</span>
+        <span class="text-emerald-400 font-bold">ALFABETO DACTILOLÓGICO</span>
+        <span>A · B · C · D · E · I · L · O · U · V</span>
+        <span>·</span>
+        <span class="text-amber-400 font-bold">MODO EXAMEN CIEGO SIN VIDEO</span>
+        <span>HOLA</span><span>·</span><span>BUENOS DÍAS</span><span>·</span><span>YO</span><span>·</span><span>NOMBRE</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         SECCIÓN 3: SCROLLYTELLING INTERACTIVO (CAMBIA AL HACER SCROLL)
+         ======================================================================= -->
+    <section id="scrollyShowcaseSection" aria-labelledby="scrollyMainHeading" class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 py-16 sm:py-24">
+      
+      <div class="max-w-2xl mb-12 scroll-reveal">
+        <h2 id="scrollyMainHeading" class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Una experiencia que evoluciona contigo mientras bajas
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed">
+          Desliza para descubrir cómo EXIS transforma el aprendizaje de lengua de señas en una experiencia gamificada e inteligente.
+        </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         
-        <!-- Paso 1 -->
-        <article class="step-feature-card p-5 flex flex-col gap-3">
-          <div class="flex items-center justify-between">
-            <span class="step-number-badge text-amber-400 font-mono font-extrabold text-xl tabular-nums">01</span>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-amber-500/15 text-amber-300 border border-amber-500/30">Qwen 2.5 IA</span>
-          </div>
-          <h3 class="text-sm sm:text-base font-bold text-white">1. Rutas Adaptativas Estilo Duolingo</h3>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Recorre un camino visual paso a paso. Elige planes de <strong>Abecedario</strong>, <strong>Palabras</strong>, o pídele a <strong>Sol IA</strong> que diseñe un plan personalizado si estás empezando desde cero.
-          </p>
-        </article>
+        <!-- Columna Izquierda: 3 Capítulos que activan la escena al hacer scroll (6 cols) -->
+        <div class="lg:col-span-6 flex flex-col gap-10">
+          
+          <!-- Capítulo 01 -->
+          <article data-scrolly-step="1" class="scrolly-step-card is-active p-6 sm:p-7 rounded-2xl cursor-pointer">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-bold text-amber-400 px-2.5 py-1 rounded-lg bg-amber-500/15 border border-amber-500/30 tabular-nums">FASE 01 · DIAGNÓSTICO & IA</span>
+              <span class="text-xs font-mono text-slate-400">Personalización</span>
+            </div>
+            <h3 class="text-lg sm:text-xl font-extrabold text-white">Cuestionario Inteligente + Rutas Estilo Duolingo</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+              Al registrarte, EXIS evalúa tu experiencia previa, tu objetivo y tu ritmo diario. Con esos datos, <strong>Sol IA (Qwen 2.5)</strong> construye tu mapa serpenteante paso a paso o te permite armar tu propio plan de señas.
+            </p>
+          </article>
 
-        <!-- Paso 2 -->
-        <article class="step-feature-card p-5 flex flex-col gap-3">
-          <div class="flex items-center justify-between">
-            <span class="step-number-badge text-emerald-400 font-mono font-extrabold text-xl tabular-nums">02</span>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">MediaPipe 30 FPS</span>
-          </div>
-          <h3 class="text-sm sm:text-base font-bold text-white">2. Práctica Biomecánica en Tiempo Real</h3>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Observa la demostración oficial en video (Persona Real o Anime IA) y replica el gesto frente a tu cámara con guía de trayectoria y diagnóstico dedo por dedo.
-          </p>
-        </article>
+          <!-- Capítulo 02 -->
+          <article data-scrolly-step="2" class="scrolly-step-card p-6 sm:p-7 rounded-2xl cursor-pointer">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-bold text-emerald-400 px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 tabular-nums">FASE 02 · VISIÓN 30 FPS</span>
+              <span class="text-xs font-mono text-slate-400">MediaPipe Hands</span>
+            </div>
+            <h3 class="text-lg sm:text-xl font-extrabold text-white">Espejo Biomecánico y Video Dual (Real + Anime)</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+              Alterna entre demostraciones de <strong>Persona Real LSC</strong> y <strong>Anime IA</strong> en cámara lenta, mientras el radar biomecánico verifica dedo por dedo si tu postura y trayectoria son exactas.
+            </p>
+          </article>
 
-        <!-- Paso 3 -->
-        <article class="step-feature-card p-5 flex flex-col gap-3">
-          <div class="flex items-center justify-between">
-            <span class="step-number-badge text-amber-300 font-mono font-extrabold text-xl tabular-nums">03</span>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-rose-500/15 text-rose-300 border border-rose-500/30">Evaluación Ciega</span>
+          <!-- Capítulo 03 -->
+          <article data-scrolly-step="3" class="scrolly-step-card p-6 sm:p-7 rounded-2xl cursor-pointer">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-bold text-rose-400 px-2.5 py-1 rounded-lg bg-rose-500/15 border border-rose-500/30 tabular-nums">FASE 03 · CERTIFICACIÓN CIEGA</span>
+              <span class="text-xs font-mono text-slate-400">Sin Video</span>
+            </div>
+            <h3 class="text-lg sm:text-xl font-extrabold text-white">Modo Examen Sin Video para Comprobar tu Memoria</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+              ¿De verdad aprendiste la seña o solo imitabas el video? En el <strong>Modo Examen</strong>, el reproductor y las pistas se bloquean: solo ves la palabra pedida y el cronómetro frente a tu cámara.
+            </p>
+          </article>
+
+        </div>
+
+        <!-- Columna Derecha Sticky: Escenario Visual que muta según el scroll (6 cols) -->
+        <div class="lg:col-span-6 lg:sticky lg:top-24">
+          <div id="scrollyStickyStage" class="scrolly-stage-window p-6 sm:p-8 rounded-3xl relative overflow-hidden">
+            
+            <!-- Vista Previa Dinámica 1: Mapa Duolingo + Cuestionario -->
+            <div id="scrollyPreview1" class="scrolly-preview-pane is-active flex flex-col gap-5">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <span class="text-xs font-bold text-amber-400 font-mono">VISTA PREVIA · RUTA ADAPTATIVA DUOLINGO</span>
+                <span class="text-xs font-mono text-emerald-400 tabular-nums">+150 XP</span>
+              </div>
+              <div class="flex flex-col items-center gap-4 py-3">
+                <div class="preview-duo-node completed"><span>1 · HOLA</span></div>
+                <div class="preview-duo-connector"></div>
+                <div class="preview-duo-node active"><span>2 · BUENOS DÍAS · ¡ACTUAL!</span></div>
+                <div class="preview-duo-connector"></div>
+                <div class="preview-duo-node locked"><span>3 · NOMBRE</span></div>
+                <div class="preview-duo-connector"></div>
+                <div class="preview-duo-node trophy"><span>TROFEO · EXAMEN SIN VIDEO</span></div>
+              </div>
+              <p class="text-xs text-slate-300 text-center bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                Cada nodo desbloquea la siguiente lección cuando tu cámara valida el gesto al 100%.
+              </p>
+            </div>
+
+            <!-- Vista Previa Dinámica 2: Radar Biomecánico 21 Puntos -->
+            <div id="scrollyPreview2" class="scrolly-preview-pane flex flex-col gap-5">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <span class="text-xs font-bold text-emerald-400 font-mono">VISTA PREVIA · ESCÁNER DE MANO MEDIAPIPE</span>
+                <span class="text-xs font-mono text-amber-300 tabular-nums">30.0 FPS</span>
+              </div>
+              <div class="grid grid-cols-5 gap-2 text-center font-mono text-xs py-2">
+                <div class="p-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold">PULGAR<br>OK</div>
+                <div class="p-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold">ÍNDICE<br>OK</div>
+                <div class="p-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold">MEDIO<br>OK</div>
+                <div class="p-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold">ANULAR<br>OK</div>
+                <div class="p-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold">MEÑIQUE<br>OK</div>
+              </div>
+              <div class="p-4 rounded-2xl bg-slate-950/90 border border-emerald-500/30 flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-400">Seña Detectada en Cámara</div>
+                  <div class="text-xl font-extrabold text-white mt-0.5">HOLA · Saludo LSC</div>
+                </div>
+                <div class="text-2xl font-extrabold text-emerald-400 font-mono tabular-nums">99%</div>
+              </div>
+              <p class="text-xs text-slate-300 text-center bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                Feedback instantáneo de ángulos articulares y trayectorias en pantalla.
+              </p>
+            </div>
+
+            <!-- Vista Previa Dinámica 3: Escudo de Examen Sin Video -->
+            <div id="scrollyPreview3" class="scrolly-preview-pane flex flex-col gap-5">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <span class="text-xs font-bold text-rose-400 font-mono">VISTA PREVIA · EVALUACIÓN CIEGA SIN VIDEO</span>
+                <span class="text-xs font-mono text-rose-300 tabular-nums">00:18s</span>
+              </div>
+              <div class="p-6 rounded-2xl bg-slate-950 border border-rose-500/40 text-center flex flex-col items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-rose-500/15 border border-rose-500/40 text-rose-400 flex items-center justify-center">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <div class="text-xs font-mono uppercase text-rose-300">Video Guía Oculto · Reto 3 de 5</div>
+                <div class="text-2xl font-extrabold text-white">Realiza la seña: «BUENOS»</div>
+                <p class="text-xs text-slate-400 max-w-sm">Sin video de referencia ni pistas escritas. Demuestra la seña frente a tu cámara antes de que termine el tiempo.</p>
+              </div>
+            </div>
+
           </div>
-          <h3 class="text-sm sm:text-base font-bold text-white">3. Exámenes de Certificación Sin Video</h3>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Pon a prueba tu memoria muscular: el video y las pistas se ocultan y debes ejecutar cada seña contra reloj frente a la cámara para desbloquear tu calificación.
-          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECCIÓN 4: LOS 3 PILARES TECNOLÓGICOS (REVEAL CON SCROLL)
+         ======================================================================= -->
+    <section id="pillarsSection" aria-labelledby="pillarsTitle" class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 py-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <article class="step-feature-card scroll-reveal p-6 flex flex-col gap-3">
+          <span class="text-xs font-mono font-bold text-amber-400 tabular-nums">01 · PRIVACIDAD TOTAL</span>
+          <h3 id="pillarsTitle" class="text-base font-extrabold text-white">Procesamiento 100% en tu Equipo</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">Tu cámara web se procesa localmente en el navegador con WebGL y el modelo Qwen 2.5 corre en tu propia GPU sin depender de servidores externos.</p>
         </article>
+        <article class="step-feature-card scroll-reveal p-6 flex flex-col gap-3">
+          <span class="text-xs font-mono font-bold text-emerald-400 tabular-nums">02 · RIGOR ACADÉMICO</span>
+          <h3 class="text-base font-extrabold text-white">Dataset Oficial LSC70 (UTP)</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">Todas las señas y trayectorias corresponden al corpus oficial de Lengua de Señas Colombiana de la Universidad Tecnológica de Pereira.</p>
+        </article>
+        <article class="step-feature-card scroll-reveal p-6 flex flex-col gap-3">
+          <span class="text-xs font-mono font-bold text-amber-300 tabular-nums">03 · PROGRESO MEDIBLE</span>
+          <h3 class="text-base font-extrabold text-white">Rachas, XP y Certificados de Unidad</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">Tu cuenta guarda cada seña dominada, tu racha diaria y tus calificaciones en los exámenes sin video.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECCIÓN 5: PORTAL ESTÁNDAR DE LOGIN Y REGISTRO (CON CORREO Y CONTRASEÑA)
+         ======================================================================= -->
+    <section id="authPortalSection" aria-labelledby="authTitle" class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 py-14 sm:py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Lado Izquierdo Explicativo (5 cols) -->
+        <div class="lg:col-span-5 flex flex-col gap-4 scroll-reveal">
+          <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">Cuenta de Estudiante EXIS</span>
+          <h2 id="authTitle" class="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
+            Inicia sesión o crea tu cuenta para comenzar tu ruta personalizada
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Al crear tu cuenta responderás un <strong>breve diagnóstico de 3 pasos</strong> para conocer cuánto sabes de Lengua de Señas Colombiana y armar tu plan inicial.
+          </p>
+
+          <!-- Perfiles guardados en este dispositivo (Acceso 1-clic) -->
+          <div id="savedProfilesQuickBar" class="hidden flex-col gap-2 pt-3 border-t border-slate-800">
+            <span class="text-xs font-semibold text-slate-300">Cuentas guardadas en este navegador:</span>
+            <div id="savedProfilesPills" class="flex flex-wrap gap-2"></div>
+          </div>
+        </div>
+
+        <!-- Lado Derecho: Tarjeta Clásica Moderna de Login / Registro (7 cols) -->
+        <div class="lg:col-span-7 scroll-reveal">
+          <div class="auth-glass-console p-6 sm:p-8 max-w-xl mx-auto flex flex-col gap-5">
+            
+            <!-- Pestañas: Iniciar Sesión vs Crear Cuenta -->
+            <div class="auth-mode-tabs grid grid-cols-2 p-1 rounded-xl bg-slate-950 border border-slate-800" role="tablist" aria-label="Seleccionar Iniciar Sesión o Crear Cuenta">
+              <button id="tabAuthLogin" type="button" role="tab" aria-selected="false" class="auth-tab-btn py-2.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all">
+                Iniciar Sesión
+              </button>
+              <button id="tabAuthRegister" type="button" role="tab" aria-selected="true" class="auth-tab-btn auth-tab-active py-2.5 rounded-lg text-xs font-bold transition-all">
+                Crear Cuenta Nueva
+              </button>
+            </div>
+
+            <!-- Alerta de Error -->
+            <div id="landingAuthError" role="alert" class="hidden text-xs text-rose-200 bg-rose-950/85 border border-rose-500/50 px-3.5 py-2.5 rounded-xl leading-snug"></div>
+
+            <!-- Formulario Estándar de Autenticación -->
+            <form id="landingAuthForm" class="flex flex-col gap-4" novalidate>
+              
+              <!-- Nombre Completo (visible en Registro) -->
+              <div id="fieldDisplayNameWrapper" class="flex flex-col gap-1.5">
+                <label for="landingDisplayNameInput" class="text-xs font-semibold text-slate-200">
+                  Nombre completo <span class="text-amber-400">*</span>
+                </label>
+                <input 
+                  id="landingDisplayNameInput" 
+                  type="text" 
+                  autocomplete="name"
+                  placeholder="Ej: Abner Jiménez" 
+                  class="auth-field-input w-full px-3.5 py-2.5 rounded-xl text-xs text-white placeholder-slate-500" 
+                />
+              </div>
+
+              <!-- Correo Electrónico o Usuario -->
+              <div class="flex flex-col gap-1.5">
+                <label for="landingUsernameInput" class="text-xs font-semibold text-slate-200">
+                  Correo electrónico o usuario <span class="text-amber-400">*</span>
+                </label>
+                <input 
+                  id="landingUsernameInput" 
+                  type="text" 
+                  required 
+                  autocomplete="email"
+                  placeholder="ejemplo@correo.com o tu_usuario" 
+                  class="auth-field-input w-full px-3.5 py-2.5 rounded-xl text-xs text-white placeholder-slate-500" 
+                />
+              </div>
+
+              <!-- Contraseña -->
+              <div class="flex flex-col gap-1.5">
+                <div class="flex items-center justify-between">
+                  <label for="landingPasswordInput" class="text-xs font-semibold text-slate-200">
+                    Contraseña <span class="text-amber-400">*</span>
+                  </label>
+                  <button id="btnTogglePassword" type="button" class="text-[11px] text-amber-400 hover:text-amber-300 font-semibold">
+                    Mostrar
+                  </button>
+                </div>
+                <input 
+                  id="landingPasswordInput" 
+                  type="password" 
+                  autocomplete="current-password"
+                  placeholder="Mínimo 4 caracteres" 
+                  value="exis2026"
+                  class="auth-field-input w-full px-3.5 py-2.5 rounded-xl text-xs text-white placeholder-slate-500" 
+                />
+              </div>
+
+              <!-- Campos ocultos de compatibilidad que rellena el Cuestionario de Diagnóstico -->
+              <input id="landingLevelSelect" type="hidden" value="Principiante" />
+              <input id="landingGoalInput" type="hidden" value="" />
+
+              <!-- Botón Submit -->
+              <button id="btnLandingSubmit" type="submit" class="btn-spring auth-submit-btn mt-1 w-full py-3.5 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 flex items-center justify-center gap-2">
+                <span id="btnLandingSubmitText">Continuar al Test de Nivel LSC</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+
+            </form>
+
+            <!-- Pie de tarjeta: Modo Invitado -->
+            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+              <span class="text-slate-400">¿Quieres explorar sin cuenta?</span>
+              <button id="btnLandingGuest" type="button" class="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1">
+                <span>Entrar como Invitado</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+
+          </div>
+        </div>
 
       </div>
     </section>
 
   </main>
 
+  <!-- =========================================================================
+       MODAL / WIZARD DE CUESTIONARIO DIAGNÓSTICO DE NIVEL LSC (ESTILO DUOLINGO)
+       Aparece después de Registrarse para saber cuánto sabe el usuario
+       ========================================================================= -->
+  <div id="onboardingQuizModal" role="dialog" aria-modal="true" aria-labelledby="quizModalTitle" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-lg flex items-center justify-center p-4">
+    <div class="quiz-wizard-card max-w-xl w-full p-6 sm:p-8 rounded-3xl flex flex-col gap-6 relative">
+      
+      <!-- Barra superior de progreso del cuestionario -->
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span id="quizStepBadge" class="text-amber-400 font-bold tabular-nums">PREGUNTA 1 DE 3</span>
+          <button id="btnSkipQuiz" type="button" class="text-slate-400 hover:text-white text-xs font-semibold">
+            Saltar diagnóstico ➔
+          </button>
+        </div>
+        <div class="w-full h-2 rounded-full bg-slate-900 overflow-hidden">
+          <div id="quizProgressBar" class="h-full bg-amber-500 transition-all duration-300 w-1/3"></div>
+        </div>
+      </div>
+
+      <!-- PASO 1: ¿Cuánto sabes de Lengua de Señas Colombiana? -->
+      <div id="quizStep1" class="quiz-step-pane flex flex-col gap-4">
+        <div>
+          <h3 id="quizModalTitle" class="text-xl sm:text-2xl font-extrabold text-white">¿Cuánto sabes actualmente de Lengua de Señas (LSC)?</h3>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">Sol IA ajustará la dificultad y el punto de partida de tu ruta.</p>
+        </div>
+
+        <div class="flex flex-col gap-2.5">
+          <button type="button" data-quiz-level="Principiante" data-quiz-goal="No sé nada, enséñame lo básico desde cero" class="quiz-option-card is-selected p-4 rounded-2xl text-left flex items-center justify-between gap-3">
+            <div>
+              <div class="text-sm font-bold text-white">No sé nada · Empezar desde cero</div>
+              <div class="text-xs text-slate-400 mt-0.5">Es mi primera vez aprendiendo Lengua de Señas Colombiana.</div>
+            </div>
+            <span class="px-2.5 py-1 rounded-lg bg-amber-500/15 text-amber-300 font-mono text-[11px] font-bold shrink-0">Nivel 1</span>
+          </button>
+
+          <button type="button" data-quiz-level="Intermedio" data-quiz-goal="Quiero dominar el abecedario dactilológico completo" class="quiz-option-card p-4 rounded-2xl text-left flex items-center justify-between gap-3">
+            <div>
+              <div class="text-sm font-bold text-white">Conozco algunas letras o señas sueltas</div>
+              <div class="text-xs text-slate-400 mt-0.5">Sé algunas vocales pero quiero dominar el abecedario y palabras.</div>
+            </div>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 font-mono text-[11px] font-bold shrink-0">Nivel 2</span>
+          </button>
+
+          <button type="button" data-quiz-level="Avanzado LSC" data-quiz-goal="Quiero practicar saludos, presentación personal y conversación" class="quiz-option-card p-4 rounded-2xl text-left flex items-center justify-between gap-3">
+            <div>
+              <div class="text-sm font-bold text-white">Ya conozco lo básico · Quiero conversar y certificarme</div>
+              <div class="text-xs text-slate-400 mt-0.5">Quiero practicar frases, saludos y probarme en el Modo Examen Sin Video.</div>
+            </div>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono text-[11px] font-bold shrink-0">Nivel 3</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 2: ¿Por qué quieres aprender LSC? -->
+      <div id="quizStep2" class="quiz-step-pane hidden flex-col gap-4">
+        <div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-white">¿Cuál es tu enfoque principal de aprendizaje?</h3>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">Priorizaremos las unidades que más te sirvan desde el primer día.</p>
+        </div>
+
+        <div class="flex flex-col gap-2.5">
+          <button type="button" data-quiz-focus="No sé nada, enséñame desde cero paso a paso" class="quiz-focus-card is-selected p-4 rounded-2xl text-left flex items-center justify-between gap-3">
+            <div>
+              <div class="text-sm font-bold text-white">Ruta Completa Guiada por IA (Recomendada)</div>
+              <div class="text-xs text-slate-400 mt-0.5">Combina saludo inicial, vocales esenciales y presentación personal.</div>
+            </div>
+          </button>
+
+          <button type="button" data-quiz-focus="Quiero aprender el abecedario dactilológico en señas" class="quiz-focus-card p-4 rounded-2xl text-left flex items-center justify-between gap-3">
+            <div>
+              <div class="text-sm font-bold text-white">Dominar el Abecedario Dactilológico</div>
+              <div class="text-xs text-slate-400 mt-0.5">Enfoque 100% en deletreo manual con precisión anatómica.</div>
+            </div>
+          </button>
+
+          <button type="button" data-quiz-focus="Quiero aprender palabras, saludos y presentación personal" class="quiz-focus-card p-4 rounded-2xl text-left flex items-center justify-between gap-3">
+            <div>
+              <div class="text-sm font-bold text-white">Comunicación y Saludos Cotidianos</div>
+              <div class="text-xs text-slate-400 mt-0.5">Aprende HOLA, BUENOS DÍAS, TARDES, NOCHES, YO, NOMBRE y más.</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 3: Meta Diaria y Personalización con Sol IA -->
+      <div id="quizStep3" class="quiz-step-pane hidden flex-col gap-4">
+        <div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-white">¡Todo listo! ¿Cuánto tiempo quieres practicar al día?</h3>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">También puedes escribirle a Sol IA si deseas un plan especial.</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2.5">
+          <button type="button" data-quiz-mins="5" class="quiz-time-card p-3 rounded-xl text-center">
+            <div class="text-base font-extrabold text-amber-400 font-mono tabular-nums">5 min</div>
+            <div class="text-[11px] text-slate-400">Casual</div>
+          </button>
+          <button type="button" data-quiz-mins="10" class="quiz-time-card is-selected p-3 rounded-xl text-center">
+            <div class="text-base font-extrabold text-amber-400 font-mono tabular-nums">10 min</div>
+            <div class="text-[11px] text-slate-400">Constante</div>
+          </button>
+          <button type="button" data-quiz-mins="20" class="quiz-time-card p-3 rounded-xl text-center">
+            <div class="text-base font-extrabold text-emerald-400 font-mono tabular-nums">20 min</div>
+            <div class="text-[11px] text-slate-400">Intensivo</div>
+          </button>
+        </div>
+
+        <div class="pt-2">
+          <label for="quizCustomGoalInput" class="block text-xs font-semibold text-amber-300 mb-1.5">
+            O escríbele a Sol IA tu objetivo con tus propias palabras (opcional):
+          </label>
+          <input 
+            id="quizCustomGoalInput" 
+            type="text" 
+            placeholder="Ej: No sé nada, enséñame lo básico para saludar..." 
+            class="auth-field-input w-full px-3.5 py-2.5 rounded-xl text-xs text-white placeholder-slate-500"
+          />
+        </div>
+      </div>
+
+      <!-- Botones de navegación del cuestionario -->
+      <div class="flex items-center justify-between pt-3 border-t border-slate-800">
+        <button id="btnQuizPrev" type="button" class="hidden btn-spring px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700">
+          ← Anterior
+        </button>
+        <div class="flex-1"></div>
+        <button id="btnQuizNext" type="button" class="btn-spring auth-submit-btn px-6 py-3 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 flex items-center gap-2">
+          <span id="btnQuizNextText">Siguiente paso</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- FOOTER -->
-  <footer class="border-t border-slate-800/80 bg-slate-950/90 py-5 px-4 text-xs text-slate-500 font-mono relative z-10">
+  <footer class="border-t border-slate-800/80 bg-slate-950/90 py-6 px-4 text-xs text-slate-500 font-mono relative z-10">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
       <span>EXIS · Academia Interactiva de Lengua de Señas Colombiana</span>
       <span>Dataset Oficial: LSC70 (Universidad Tecnológica de Pereira)</span>

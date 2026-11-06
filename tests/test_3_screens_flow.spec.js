@@ -55,20 +55,61 @@ const fs = require('fs');
     assert(badgeLatency && badgeFps && badgeModel, 'Deben existir los 3 badges de telemetría de IA');
     console.log('✓ Insignias de telemetría presentes (latencia, 30 fps, MediaPipe Hands)');
 
-    // Captura de pantalla de Pantalla 1
+    // Captura de pantalla de Pantalla 1 (Hero Cinemático)
     const screen1Path = path.join(screenshotsDir, 'screen1_futuristic_landing.png');
     await landingPage.screenshot({ path: screen1Path, fullPage: false });
     console.log(`✓ Captura guardada: ${screen1Path}`);
 
-    // Probar formulario de autenticación y redirección
-    await landingPage.fill('#landingUsernameInput', 'camila_lsc');
-    await landingPage.fill('#landingGoalInput', 'Quiero aprender a saludar y presentarme en LSC');
-    await landingPage.selectOption('#landingLevelSelect', 'Principiante');
+    // Hacer scroll hacia la sección Scrollytelling y el Portal Login/Registro
+    await landingPage.evaluate(() => {
+      document.getElementById('scrollyShowcaseSection').scrollIntoView({ behavior: 'instant' });
+    });
+    await landingPage.waitForTimeout(300);
+    await landingPage.click('[data-scrolly-step="2"]');
+    await landingPage.waitForTimeout(200);
+    const scrollyPath = path.join(screenshotsDir, 'screen1b_scrollytelling_showcase.png');
+    await landingPage.screenshot({ path: scrollyPath, fullPage: false });
+    console.log(`✓ Captura Scrollytelling guardada: ${scrollyPath}`);
 
-    console.log('✓ Formulario completado. Enviando autenticación hacia index.html?screen=path...');
+    // Ir al formulario clásico de Registro (Nombre, Correo, Contraseña)
+    await landingPage.evaluate(() => {
+      document.getElementById('authPortalSection').scrollIntoView({ behavior: 'instant' });
+    });
+    await landingPage.waitForTimeout(250);
+    await landingPage.fill('#landingDisplayNameInput', 'Camila LSC');
+    await landingPage.fill('#landingUsernameInput', 'camila_lsc@correo.com');
+    await landingPage.fill('#landingPasswordInput', 'exis2026');
+
+    const authCardPath = path.join(screenshotsDir, 'screen1c_standard_login_register.png');
+    await landingPage.screenshot({ path: authCardPath, fullPage: false });
+    console.log(`✓ Captura Login/Registro guardada: ${authCardPath}`);
+
+    // Enviar registro para abrir el Cuestionario Diagnóstico de 3 pasos
+    await landingPage.click('#btnLandingSubmit');
+    await landingPage.waitForTimeout(300);
+
+    const isQuizVisible = await landingPage.evaluate(() => {
+      const m = document.getElementById('onboardingQuizModal');
+      return m && !m.classList.contains('hidden');
+    });
+    assert.strictEqual(isQuizVisible, true, 'El cuestionario de nivel #onboardingQuizModal debe abrirse tras registrarse');
+    console.log('✓ Cuestionario diagnóstico de nivel LSC abierto correctamente');
+
+    const quizShotPath = path.join(screenshotsDir, 'screen1d_placement_quiz_modal.png');
+    await landingPage.screenshot({ path: quizShotPath, fullPage: false });
+    console.log(`✓ Captura Cuestionario Nivel LSC guardada: ${quizShotPath}`);
+
+    // Avanzar los 3 pasos del cuestionario diagnóstico
+    await landingPage.click('#btnQuizNext'); // Paso 1 -> Paso 2
+    await landingPage.waitForTimeout(150);
+    await landingPage.click('#btnQuizNext'); // Paso 2 -> Paso 3
+    await landingPage.waitForTimeout(150);
+    await landingPage.fill('#quizCustomGoalInput', 'Quiero aprender a saludar y presentarme en LSC');
+
+    console.log('✓ Cuestionario completado. Creando ruta hacia index.html?screen=path...');
     await Promise.all([
       landingPage.waitForNavigation({ waitUntil: 'networkidle' }),
-      landingPage.click('#btnLandingSubmit')
+      landingPage.click('#btnQuizNext')
     ]);
 
     const targetUrl = landingPage.url();

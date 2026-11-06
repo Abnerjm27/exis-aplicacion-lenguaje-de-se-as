@@ -1,6 +1,6 @@
 /* ==========================================================================
    EXIS · Lengua de Señas Colombiana (LSC)
-   landing.css - Portal Futurista de Entrada, Cápsula Holográfica y Consola Auth
+   landing.css - Scrollytelling Cinemático, Login/Registro Estándar y Quiz LSC
    Diseñado según WCAG AAA, Craft Floor de Impeccable y Motion Doctrine
    ========================================================================== */
 
@@ -14,7 +14,10 @@
   --spring-easing: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Base body */
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -24,21 +27,53 @@ html, body {
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: var(--bg-main);
   background-image:
-    radial-gradient(circle at 12% 18%, rgba(245, 158, 11, 0.11) 0%, transparent 42%),
-    radial-gradient(circle at 86% 24%, rgba(16, 185, 129, 0.09) 0%, transparent 44%),
-    radial-gradient(circle at 50% 85%, rgba(245, 158, 11, 0.05) 0%, transparent 50%),
-    linear-gradient(180deg, #080b12 0%, #0a0e17 55%, #0d1320 100%);
+    radial-gradient(circle at 14% 16%, rgba(245, 158, 11, 0.12) 0%, transparent 42%),
+    radial-gradient(circle at 86% 24%, rgba(16, 185, 129, 0.1) 0%, transparent 44%),
+    radial-gradient(circle at 50% 80%, rgba(245, 158, 11, 0.06) 0%, transparent 50%),
+    linear-gradient(180deg, #070a12 0%, #0a0e17 55%, #0d1320 100%);
   color: #f8fafc;
 }
 
-/* Haces volumétricos diagonales estilo Sci-Fi */
+/* --- Barra Superior de Progreso de Scroll --- */
+.scroll-progress-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  z-index: 60;
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #f59e0b 0%, #10b981 100%);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.65);
+  transition: width 0.08s linear;
+}
+
+/* --- Spotlight Reactivo de Cursor --- */
+.cursor-spotlight {
+  position: fixed;
+  width: 540px;
+  height: 540px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 68%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Haces volumétricos de ambiente */
 .ambient-beam-amber {
   position: fixed;
   top: -120px;
   left: -140px;
   width: 480px;
   height: 480px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.14) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.13) 0%, transparent 70%);
   filter: blur(45px);
   pointer-events: none;
   z-index: 0;
@@ -50,29 +85,28 @@ html, body {
   right: -140px;
   width: 460px;
   height: 460px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.11) 0%, transparent 70%);
   filter: blur(45px);
   pointer-events: none;
   z-index: 0;
 }
 
-/* Rejilla holográfica en perspectiva en el piso */
 .hologram-grid-floor {
   position: fixed;
   inset: 0;
-  background-size: 44px 44px;
+  background-size: 46px 46px;
   background-image:
-    linear-gradient(to right, rgba(245, 158, 11, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(16, 185, 129, 0.035) 1px, transparent 1px);
+    linear-gradient(to right, rgba(245, 158, 11, 0.038) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.032) 1px, transparent 1px);
   pointer-events: none;
-  mask-image: radial-gradient(ellipse at 50% 60%, black 25%, transparent 78%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 60%, black 25%, transparent 78%);
+  mask-image: radial-gradient(ellipse at 50% 55%, black 25%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 55%, black 25%, transparent 78%);
   z-index: 0;
 }
 
-/* Barra superior */
+/* --- Navbar --- */
 .landing-navbar {
-  background: rgba(10, 14, 23, 0.82);
+  background: rgba(10, 14, 23, 0.84);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -85,49 +119,58 @@ html, body {
   background: linear-gradient(145deg, rgba(245, 158, 11, 0.22), rgba(245, 158, 11, 0.06));
   border: 1px solid rgba(245, 158, 11, 0.45);
   box-shadow: 0 4px 16px -2px rgba(245, 158, 11, 0.25);
-  transition: transform 0.2s var(--spring-easing);
 }
 
-/* Tipografía Display del Hero */
+/* --- Tipografía Display & Números Tabulares --- */
 .hero-display-title {
-  font-size: clamp(1.85rem, 3.4vw + 0.8rem, 3.15rem);
+  font-size: clamp(2rem, 3.8vw + 0.8rem, 3.45rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.08;
   letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
-/* Números tabulares */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
 
-/* Escenario Holográfico de Sol + Telemetría */
-.hologram-showcase-card {
-  position: relative;
-  background: linear-gradient(145deg, rgba(18, 24, 36, 0.94), rgba(10, 14, 23, 0.96));
-  border: 1px solid rgba(245, 158, 11, 0.28);
-  border-radius: 1.25rem;
+.metric-glass-pill {
+  background: rgba(18, 24, 36, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.22s var(--spring-easing), border-color 0.2s ease;
+}
+
+.metric-glass-pill:hover {
+  transform: translateY(-2px);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+/* --- Escenario Holográfico 3D de Sol en el Hero --- */
+.holo-tilt-stage {
+  background: linear-gradient(155deg, rgba(22, 30, 46, 0.9), rgba(10, 14, 23, 0.95));
+  border: 1px solid rgba(245, 158, 11, 0.32);
+  border-radius: 1.5rem;
   box-shadow:
-    0 20px 50px -12px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    0 24px 60px -12px rgba(0, 0, 0, 0.75),
+    0 0 40px -10px rgba(245, 158, 11, 0.18),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  transition: transform 0.25s var(--spring-easing), box-shadow 0.25s ease;
+  will-change: transform;
 }
 
 .sol-hero-artwork {
   width: 100%;
-  height: 100%;
-  max-height: 330px;
+  max-height: 410px;
   object-fit: cover;
   object-position: center top;
   display: block;
-  transition: transform 0.45s var(--spring-easing);
+  transition: transform 0.5s var(--spring-easing);
 }
 
-.hologram-showcase-card:hover .sol-hero-artwork {
-  transform: scale(1.025);
+.holo-tilt-stage:hover .sol-hero-artwork {
+  transform: scale(1.03);
 }
 
-/* Anillos HUD sutiles alrededor de la mano de Sol */
 .holo-hud-overlay {
   position: absolute;
   inset: 0;
@@ -138,17 +181,17 @@ html, body {
 
 .hud-orbit-ring {
   fill: none;
-  stroke: rgba(16, 185, 129, 0.35);
-  stroke-width: 1;
+  stroke: rgba(16, 185, 129, 0.4);
+  stroke-width: 1.1;
   stroke-dasharray: 6 4;
   transform-origin: 52px 88px;
-  animation: orbitSpin 18s linear infinite;
+  animation: orbitSpin 16s linear infinite;
 }
 
 .hud-orbit-ring-outer {
   fill: none;
-  stroke: rgba(245, 158, 11, 0.25);
-  stroke-width: 0.8;
+  stroke: rgba(245, 158, 11, 0.3);
+  stroke-width: 0.9;
   stroke-dasharray: 3 6;
 }
 
@@ -157,47 +200,125 @@ html, body {
   to { transform: rotate(360deg); }
 }
 
-.holo-bottom-caption {
+.floating-hud-Tag {
   position: absolute;
-  bottom: 0.75rem;
-  left: 0.75rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.375rem 0.75rem;
-  border-radius: 0.65rem;
-  background: rgba(10, 14, 23, 0.86);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #fde68a;
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.75rem;
+  background: rgba(10, 14, 23, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
-/* Cajas de telemetría lateral */
-.telemetry-stat-box {
-  padding: 0.7rem 0.85rem;
-  border-radius: 0.85rem;
-  background: rgba(15, 21, 34, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  transition: border-color 0.2s ease, transform 0.2s var(--spring-easing);
+/* --- Marquesina Cinemática --- */
+.sign-ticker-track {
+  white-space: nowrap;
+  animation: tickerSlide 28s linear infinite;
 }
 
-.telemetry-stat-box:hover {
+@keyframes tickerSlide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-35%); }
+}
+
+/* --- Animaciones de Revelación por Scroll (Scroll Reveal) --- */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px) scale(0.985);
+  transition: opacity 0.65s var(--spring-easing), transform 0.65s var(--spring-easing);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* --- Sección Scrollytelling Interactivo --- */
+.scrolly-step-card {
+  background: rgba(18, 24, 36, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s var(--spring-easing), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scrolly-step-card:hover {
   border-color: rgba(245, 158, 11, 0.35);
-  transform: translateX(2px);
 }
 
-/* Consola Glassmorphic de Login / Registro */
-.auth-glass-console {
-  background: linear-gradient(165deg, rgba(22, 30, 46, 0.92) 0%, rgba(14, 19, 30, 0.96) 100%);
+.scrolly-step-card.is-active {
+  background: rgba(24, 32, 48, 0.95);
+  border-color: rgba(245, 158, 11, 0.65);
+  transform: translateX(6px);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), 0 0 28px -8px rgba(245, 158, 11, 0.2);
+}
+
+.scrolly-stage-window {
+  background: linear-gradient(160deg, rgba(20, 27, 42, 0.96), rgba(11, 15, 25, 0.98));
   border: 1px solid rgba(245, 158, 11, 0.35);
-  border-radius: 1.35rem;
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.75);
+  min-height: 340px;
+}
+
+.scrolly-preview-pane {
+  display: none;
+  animation: paneFadeIn 0.35s var(--spring-easing);
+}
+
+.scrolly-preview-pane.is-active {
+  display: flex;
+}
+
+@keyframes paneFadeIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.preview-duo-node {
+  padding: 0.65rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  font-family: monospace;
+}
+
+.preview-duo-node.completed {
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #6ee7b7;
+}
+
+.preview-duo-node.active {
+  background: #f59e0b;
+  color: #090d16;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.45);
+}
+
+.preview-duo-node.locked {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #94a3b8;
+}
+
+.preview-duo-node.trophy {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px dashed rgba(245, 158, 11, 0.6);
+  color: #fcd34d;
+}
+
+.preview-duo-connector {
+  width: 2px;
+  height: 16px;
+  background: rgba(245, 158, 11, 0.4);
+}
+
+/* --- Consola Clásica Moderna de Login / Registro --- */
+.auth-glass-console {
+  background: linear-gradient(165deg, rgba(22, 30, 46, 0.94) 0%, rgba(13, 18, 29, 0.98) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 1.5rem;
   box-shadow:
     0 24px 60px -12px rgba(0, 0, 0, 0.75),
-    0 0 36px -8px rgba(245, 158, 11, 0.14),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 
 .auth-tab-active {
@@ -207,8 +328,8 @@ html, body {
 }
 
 .auth-field-input {
-  background-color: rgba(8, 12, 20, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.24);
+  background-color: rgba(8, 12, 20, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.26);
   transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
 }
 
@@ -219,7 +340,7 @@ html, body {
 .auth-field-input:focus {
   outline: none;
   border-color: #f59e0b;
-  background-color: #070a12;
+  background-color: #060911;
   box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18);
 }
 
@@ -235,11 +356,42 @@ html, body {
   background: #fbbf24;
 }
 
-/* Tarjetas de los 3 pasos inferiores */
+/* --- Wizard Modal del Cuestionario de Diagnóstico LSC --- */
+.quiz-wizard-card {
+  background: linear-gradient(165deg, #161f30 0%, #0d1320 100%);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.85);
+}
+
+.quiz-option-card,
+.quiz-focus-card,
+.quiz-time-card {
+  background: rgba(10, 14, 23, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  transition: transform 0.18s var(--spring-easing), border-color 0.18s ease, background-color 0.18s ease;
+  cursor: pointer;
+}
+
+.quiz-option-card:hover,
+.quiz-focus-card:hover,
+.quiz-time-card:hover {
+  border-color: rgba(245, 158, 11, 0.5);
+  transform: translateY(-1px);
+}
+
+.quiz-option-card.is-selected,
+.quiz-focus-card.is-selected,
+.quiz-time-card.is-selected {
+  background: rgba(245, 158, 11, 0.14);
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 1px #f59e0b;
+}
+
+/* Tarjetas de características */
 .step-feature-card {
   background: rgba(18, 24, 36, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1.1rem;
+  border-radius: 1.15rem;
   box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.5);
   transition: transform 0.22s var(--spring-easing), border-color 0.2s ease;
 }
@@ -249,9 +401,9 @@ html, body {
   border-color: rgba(245, 158, 11, 0.38);
 }
 
-/* Botones con física de resorte (Emil Kowalski) */
+/* Botones Spring */
 .btn-spring {
-  transition: transform 0.2s var(--spring-easing), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s var(--spring-easing), background-color 0.15s ease, border-color 0.15s ease;
   touch-action: manipulation;
   cursor: pointer;
 }
@@ -265,12 +417,6 @@ html, body {
   transition-duration: 50ms !important;
 }
 
-.btn-spring:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px #0a0e17, 0 0 0 4px #f59e0b;
-}
-
-/* Accesibilidad motion reduce */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -279,5 +425,9 @@ html, body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

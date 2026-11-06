@@ -1,0 +1,593 @@
+{
+  "communities": {
+    "0": [
+      "app_tools_copy_samples",
+      "app_tools_curate_anime_videos",
+      "app_tools_curate_anime_videos_curate_sign",
+      "app_tools_curate_anime_videos_main",
+      "app_tools_curate_anime_videos_rationale_1",
+      "app_tools_curate_letter_i",
+      "app_tools_curate_letter_o",
+      "app_tools_curate_tardes_gustar",
+      "app_tools_curate_tardes_gustar_extract_trimmed_frames",
+      "app_tools_curate_tardes_gustar_main",
+      "app_tools_curate_tardes_gustar_save_mp4",
+      "app_tools_curate_tardes_gustar_save_webp",
+      "app_tools_generate_batch_5_signs",
+      "app_tools_generate_batch_5_signs_cv2_imread",
+      "app_tools_generate_batch_5_signs_cv2_imwrite",
+      "app_tools_generate_batch_5_signs_interpolate_sequence",
+      "app_tools_generate_batch_5_signs_load_keyframes",
+      "app_tools_generate_batch_5_signs_main",
+      "app_tools_generate_batch_5_signs_save_mp4",
+      "app_tools_generate_batch_5_signs_save_webp",
+      "app_tools_generate_expansion_signs",
+      "app_tools_generate_expansion_signs_cv2_imread",
+      "app_tools_generate_expansion_signs_cv2_imwrite",
+      "app_tools_generate_expansion_signs_interpolate_sequence",
+      "app_tools_generate_expansion_signs_load_keyframes",
+      "app_tools_generate_expansion_signs_main",
+      "app_tools_generate_expansion_signs_save_mp4",
+      "app_tools_generate_expansion_signs_save_webp",
+      "app_tools_legacy_processors_process_anime_dias",
+      "app_tools_legacy_processors_process_anime_hola",
+      "app_tools_legacy_processors_process_anime_noches",
+      "app_tools_legacy_processors_process_anime_nombre",
+      "app_tools_legacy_processors_process_anime_yo",
+      "app_tools_process_b_video",
+      "app_tools_process_b_video_process_b",
+      "app_tools_process_b_video_rationale_1",
+      "app_tools_process_buenos_video",
+      "app_tools_process_buenos_video_process_buenos",
+      "app_tools_process_buenos_video_rationale_1",
+      "app_tools_process_c_video",
+      "app_tools_process_c_video_process_c",
+      "app_tools_process_c_video_rationale_1",
+      "app_tools_process_hola_video",
+      "app_tools_process_hola_video_process_hola",
+      "app_tools_process_hola_video_rationale_1",
+      "app_tools_process_new_anime_videos",
+      "app_tools_process_new_anime_videos_cleanup_temp_files",
+      "app_tools_process_new_anime_videos_process_video",
+      "app_tools_process_new_anime_videos_rationale_1",
+      "app_tools_process_vl_dias_videos",
+      "app_tools_process_vl_dias_videos_clean_v_background",
+      "app_tools_process_vl_dias_videos_main",
+      "app_tools_process_vl_dias_videos_process_sign",
+      "app_tools_process_vl_dias_videos_rationale_1",
+      "cv2",
+      "numpy",
+      "os",
+      "pil",
+      "shutil"
+    ],
+    "1": [
+      "http_server",
+      "server",
+      "server_build_pedagogical_plan",
+      "server_detect_sign",
+      "server_free_port",
+      "server_load_users_db",
+      "server_lschandler",
+      "server_lschandler_copyfile",
+      "server_lschandler_do_get",
+      "server_lschandler_do_options",
+      "server_lschandler_do_post",
+      "server_lschandler_end_headers",
+      "server_lschandler_handle_one_request",
+      "server_lschandler_init",
+      "server_lschandler_send_head",
+      "server_rangefilewrapper",
+      "server_rangefilewrapper_close",
+      "server_rangefilewrapper_init",
+      "server_rangefilewrapper_read",
+      "server_rationale_121",
+      "server_rationale_138",
+      "server_rationale_174",
+      "server_rationale_264",
+      "server_rationale_305",
+      "server_rationale_570",
+      "server_robustthreadingserver",
+      "server_robustthreadingserver_handle_error",
+      "server_save_user_to_db",
+      "socketserver",
+      "time",
+      "urllib_parse",
+      "urllib_request"
+    ],
+    "2": [
+      "app_tools_mocap_extractor",
+      "app_tools_mocap_extractor_euler_to_quaternion",
+      "app_tools_mocap_extractor_mocapextractor",
+      "app_tools_mocap_extractor_mocapextractor_compute_frame_rotations",
+      "app_tools_mocap_extractor_mocapextractor_extract_frame_landmarks",
+      "app_tools_mocap_extractor_mocapextractor_extract_frame_landmarks_calc_curl",
+      "app_tools_mocap_extractor_mocapextractor_extract_sign_sequence",
+      "app_tools_mocap_extractor_mocapextractor_generate_animation_clip",
+      "app_tools_mocap_extractor_mocapextractor_init",
+      "app_tools_mocap_extractor_mocapextractor_init_mediapipe",
+      "app_tools_mocap_extractor_mocapextractor_process_image",
+      "app_tools_mocap_extractor_mocapextractor_run_pipeline",
+      "app_tools_mocap_extractor_normalize",
+      "app_tools_mocap_extractor_quaternion_slerp",
+      "app_tools_mocap_extractor_rationale_126",
+      "app_tools_mocap_extractor_rationale_136",
+      "app_tools_mocap_extractor_rationale_175",
+      "app_tools_mocap_extractor_rationale_190",
+      "app_tools_mocap_extractor_rationale_2",
+      "app_tools_mocap_extractor_rationale_273",
+      "app_tools_mocap_extractor_rationale_483",
+      "app_tools_mocap_extractor_rationale_515",
+      "app_tools_mocap_extractor_rationale_568",
+      "app_tools_mocap_extractor_rationale_609",
+      "app_tools_mocap_extractor_rationale_61",
+      "app_tools_mocap_extractor_rationale_84",
+      "app_tools_mocap_extractor_verify_clips_json",
+      "argparse",
+      "json",
+      "math"
+    ],
+    "3": [
+      "app_js_auth_profile_manager",
+      "app_js_auth_profile_manager_authprofilemanager",
+      "app_js_auth_profile_manager_authprofilemanager_bindmodalevents",
+      "app_js_auth_profile_manager_authprofilemanager_closeauthmodal",
+      "app_js_auth_profile_manager_authprofilemanager_constructor",
+      "app_js_auth_profile_manager_authprofilemanager_destroy",
+      "app_js_auth_profile_manager_authprofilemanager_getallstoredprofiles",
+      "app_js_auth_profile_manager_authprofilemanager_getcurrentprofile",
+      "app_js_auth_profile_manager_authprofilemanager_handlekeydown",
+      "app_js_auth_profile_manager_authprofilemanager_init",
+      "app_js_auth_profile_manager_authprofilemanager_loadactiveprofile",
+      "app_js_auth_profile_manager_authprofilemanager_loginorregister",
+      "app_js_auth_profile_manager_authprofilemanager_openauthmodal",
+      "app_js_auth_profile_manager_authprofilemanager_recordexamresult",
+      "app_js_auth_profile_manager_authprofilemanager_recordsignmastered",
+      "app_js_auth_profile_manager_authprofilemanager_reset",
+      "app_js_auth_profile_manager_authprofilemanager_savecustomplan",
+      "app_js_auth_profile_manager_authprofilemanager_saveprofile",
+      "app_js_auth_profile_manager_authprofilemanager_start",
+      "app_js_auth_profile_manager_authprofilemanager_syncwithserver",
+      "app_js_auth_profile_manager_authprofilemanager_update",
+      "app_js_auth_profile_manager_authprofilemanager_updateui"
+    ],
+    "4": [
+      "app_js_blind_exam_controller",
+      "app_js_blind_exam_controller_blindexamcontroller",
+      "app_js_blind_exam_controller_blindexamcontroller_advancequestion",
+      "app_js_blind_exam_controller_blindexamcontroller_binduievents",
+      "app_js_blind_exam_controller_blindexamcontroller_cleartimer",
+      "app_js_blind_exam_controller_blindexamcontroller_closesummarymodal",
+      "app_js_blind_exam_controller_blindexamcontroller_constructor",
+      "app_js_blind_exam_controller_blindexamcontroller_destroy",
+      "app_js_blind_exam_controller_blindexamcontroller_finishexam",
+      "app_js_blind_exam_controller_blindexamcontroller_handlekeydown",
+      "app_js_blind_exam_controller_blindexamcontroller_handlesignmasteredinexam",
+      "app_js_blind_exam_controller_blindexamcontroller_init",
+      "app_js_blind_exam_controller_blindexamcontroller_isexamactive",
+      "app_js_blind_exam_controller_blindexamcontroller_loadquestion",
+      "app_js_blind_exam_controller_blindexamcontroller_lookupsignname",
+      "app_js_blind_exam_controller_blindexamcontroller_reset",
+      "app_js_blind_exam_controller_blindexamcontroller_showsummarymodal",
+      "app_js_blind_exam_controller_blindexamcontroller_skipcurrentquestion",
+      "app_js_blind_exam_controller_blindexamcontroller_start",
+      "app_js_blind_exam_controller_blindexamcontroller_stopexam",
+      "app_js_blind_exam_controller_blindexamcontroller_update",
+      "app_js_blind_exam_controller_blindexamcontroller_updatetimerdisplay"
+    ],
+    "5": [
+      "app_js_learning_plan_manager",
+      "app_js_learning_plan_manager_learningplanmanager",
+      "app_js_learning_plan_manager_learningplanmanager_binduievents",
+      "app_js_learning_plan_manager_learningplanmanager_closecustomplanmodal",
+      "app_js_learning_plan_manager_learningplanmanager_constructor",
+      "app_js_learning_plan_manager_learningplanmanager_createcustomplan",
+      "app_js_learning_plan_manager_learningplanmanager_destroy",
+      "app_js_learning_plan_manager_learningplanmanager_generateaiplanfromprompt",
+      "app_js_learning_plan_manager_learningplanmanager_getactiveplan",
+      "app_js_learning_plan_manager_learningplanmanager_handlekeydown",
+      "app_js_learning_plan_manager_learningplanmanager_init",
+      "app_js_learning_plan_manager_learningplanmanager_marksigncompletedinplan",
+      "app_js_learning_plan_manager_learningplanmanager_opencustomplanmodal",
+      "app_js_learning_plan_manager_learningplanmanager_rendercustomsignsgrid",
+      "app_js_learning_plan_manager_learningplanmanager_renderhexskilltree",
+      "app_js_learning_plan_manager_learningplanmanager_reset",
+      "app_js_learning_plan_manager_learningplanmanager_selectpresetplan",
+      "app_js_learning_plan_manager_learningplanmanager_start",
+      "app_js_learning_plan_manager_learningplanmanager_triggersignselection",
+      "app_js_learning_plan_manager_learningplanmanager_update",
+      "app_js_learning_plan_manager_learningplanmanager_updateactiveplanheader",
+      "app_js_learning_plan_manager_learningplanmanager_updatepresetplanchipstyles"
+    ],
+    "6": [
+      "app_js_camera_manager",
+      "app_js_camera_manager_cameradevicemanager",
+      "app_js_camera_manager_cameradevicemanager_boundondevicechange",
+      "app_js_camera_manager_cameradevicemanager_constructor",
+      "app_js_camera_manager_cameradevicemanager_destroy",
+      "app_js_camera_manager_cameradevicemanager_devices",
+      "app_js_camera_manager_cameradevicemanager_formatdevicelabel",
+      "app_js_camera_manager_cameradevicemanager_init",
+      "app_js_camera_manager_cameradevicemanager_isstreaming",
+      "app_js_camera_manager_cameradevicemanager_needspermissionforlabels",
+      "app_js_camera_manager_cameradevicemanager_refreshdevicelist",
+      "app_js_camera_manager_cameradevicemanager_renderselectoptions",
+      "app_js_camera_manager_cameradevicemanager_requestpermissionandrefresh",
+      "app_js_camera_manager_cameradevicemanager_selecteddeviceid",
+      "app_js_camera_manager_cameradevicemanager_start",
+      "app_js_camera_manager_cameradevicemanager_startframepump",
+      "app_js_camera_manager_cameradevicemanager_stop",
+      "app_js_camera_manager_cameradevicemanager_stopframepump",
+      "app_js_camera_manager_cameradevicemanager_updateactivepillui",
+      "app_js_vision_evaluator",
+      "app_js_vision_evaluator_visionevaluator"
+    ],
+    "7": [
+      "app_js_view_router",
+      "app_js_view_router_viewrouter",
+      "app_js_view_router_viewrouter_bindnavigationevents",
+      "app_js_view_router_viewrouter_constructor",
+      "app_js_view_router_viewrouter_destroy",
+      "app_js_view_router_viewrouter_getcurrentview",
+      "app_js_view_router_viewrouter_handlepopstate",
+      "app_js_view_router_viewrouter_init",
+      "app_js_view_router_viewrouter_reset",
+      "app_js_view_router_viewrouter_start",
+      "app_js_view_router_viewrouter_switchtopathview",
+      "app_js_view_router_viewrouter_switchtostudioview",
+      "app_js_view_router_viewrouter_syncurlquery",
+      "app_js_view_router_viewrouter_update",
+      "app_js_view_router_viewrouter_updatestudiobreadcrumb",
+      "app_js_view_router_viewrouter_updateui"
+    ],
+    "8": [
+      "app_tools_generate_videos",
+      "app_tools_generate_videos_build_smooth_loop",
+      "app_tools_generate_videos_interpolate_pair",
+      "app_tools_generate_videos_main",
+      "app_tools_generate_videos_process_sign",
+      "app_tools_generate_videos_rationale_1",
+      "app_tools_generate_videos_rationale_102",
+      "app_tools_generate_videos_rationale_136",
+      "app_tools_generate_videos_rationale_146",
+      "app_tools_generate_videos_rationale_164",
+      "app_tools_generate_videos_rationale_57",
+      "app_tools_generate_videos_rationale_68",
+      "app_tools_generate_videos_read_image_safe",
+      "app_tools_generate_videos_save_animated_webp",
+      "app_tools_generate_videos_save_mp4",
+      "ndarray"
+    ],
+    "9": [
+      "app_js_landing",
+      "app_js_landing_landingportalcontroller",
+      "app_js_landing_landingportalcontroller_binduievents",
+      "app_js_landing_landingportalcontroller_checkexistingsession",
+      "app_js_landing_landingportalcontroller_constructor",
+      "app_js_landing_landingportalcontroller_destroy",
+      "app_js_landing_landingportalcontroller_enterasguest",
+      "app_js_landing_landingportalcontroller_handlesubmit",
+      "app_js_landing_landingportalcontroller_init",
+      "app_js_landing_landingportalcontroller_reset",
+      "app_js_landing_landingportalcontroller_start",
+      "app_js_landing_landingportalcontroller_update"
+    ],
+    "10": [
+      "package",
+      "package_devdependencies",
+      "package_devdependencies_playwright",
+      "ref_playwright",
+      "tests_test_offline_mode",
+      "tests_test_offline_mode_chromium",
+      "tests_test_offline_mode_testoffline",
+      "tests_test_pause_and_overlap",
+      "tests_test_pause_and_overlap_chromium",
+      "tests_test_tardes_gustar_anime",
+      "tests_test_tardes_gustar_anime_chromium",
+      "tests_test_tardes_gustar_anime_testanimetardesgustar"
+    ],
+    "11": [
+      "app_tools_check_console",
+      "app_tools_check_console_http",
+      "app_tools_check_console_main",
+      "app_tools_check_console_spawn",
+      "ref_child_process",
+      "ref_http",
+      "tests_backend_api_plan_users",
+      "tests_backend_api_plan_users_assert",
+      "tests_backend_api_plan_users_http",
+      "tests_backend_api_plan_users_requestjson"
+    ],
+    "12": [
+      "app_tools_verify_videos",
+      "app_tools_verify_videos_check_mp4_video",
+      "app_tools_verify_videos_check_webp_anim",
+      "app_tools_verify_videos_main",
+      "app_tools_verify_videos_rationale_1",
+      "sys",
+      "tests_test_batch_5_media",
+      "tests_test_batch_5_media_test_media_assets",
+      "tests_test_prompts_doc"
+    ],
+    "13": [
+      "app_tools_curate_letter_i_animecurator",
+      "app_tools_curate_letter_i_animecurator_extract_trimmed_frames",
+      "app_tools_curate_letter_i_animecurator_init",
+      "app_tools_curate_letter_i_animecurator_process_sign",
+      "app_tools_curate_letter_i_animecurator_save_mp4",
+      "app_tools_curate_letter_i_animecurator_save_webp",
+      "app_tools_curate_letter_i_main",
+      "app_tools_curate_letter_i_rationale_7"
+    ],
+    "14": [
+      "app_tools_curate_letter_o_animecurator",
+      "app_tools_curate_letter_o_animecurator_extract_trimmed_frames",
+      "app_tools_curate_letter_o_animecurator_init",
+      "app_tools_curate_letter_o_animecurator_process_sign",
+      "app_tools_curate_letter_o_animecurator_save_mp4",
+      "app_tools_curate_letter_o_animecurator_save_webp",
+      "app_tools_curate_letter_o_main",
+      "app_tools_curate_letter_o_rationale_7"
+    ],
+    "15": [
+      "app_tools_setup_offline_assets",
+      "app_tools_setup_offline_assets_download_file",
+      "app_tools_setup_offline_assets_main",
+      "app_tools_setup_offline_assets_setup_canvas_confetti",
+      "app_tools_setup_offline_assets_setup_fonts",
+      "app_tools_setup_offline_assets_setup_mediapipe",
+      "app_tools_setup_offline_assets_setup_tailwind",
+      "re"
+    ],
+    "16": [
+      "tests_test_signs_data",
+      "tests_test_signs_data_code",
+      "tests_test_signs_data_fs",
+      "tests_test_signs_data_path",
+      "tests_test_signs_data_requiredletters",
+      "tests_test_signs_data_requiredwords",
+      "tests_test_signs_data_signsdatapath",
+      "tests_test_signs_data_window"
+    ],
+    "17": [
+      "app_js_main",
+      "app_js_main_binduievents",
+      "app_js_main_dismisssuccessmodal",
+      "app_js_main_explainsignvoice",
+      "app_js_main_rendersignbuttons",
+      "app_js_main_selectsign",
+      "app_js_main_switchcategory"
+    ],
+    "18": [
+      "ref_assert",
+      "tests_learning_platform_and_exam_spec",
+      "tests_learning_platform_and_exam_spec_assert",
+      "tests_learning_platform_and_exam_spec_chromium",
+      "tests_test_console_check",
+      "tests_test_console_check_assert",
+      "tests_test_console_check_chromium"
+    ],
+    "19": [
+      "ref_fs",
+      "tests_test_playwright",
+      "tests_test_playwright_chromium",
+      "tests_test_playwright_fs",
+      "tests_test_playwright_path",
+      "tests_test_playwright_runtests",
+      "tests_test_playwright_runtests_assert"
+    ],
+    "20": [
+      "tests_test_vision_rules",
+      "tests_test_vision_rules_code",
+      "tests_test_vision_rules_fs",
+      "tests_test_vision_rules_missing",
+      "tests_test_vision_rules_path",
+      "tests_test_vision_rules_requiredbranches"
+    ],
+    "21": [
+      "ref_path",
+      "tests_test_live_hand_inference",
+      "tests_test_live_hand_inference_chromium",
+      "tests_test_live_hand_inference_path",
+      "tests_test_live_hand_inference_testlivehandinference"
+    ],
+    "22": [
+      "tests_test_3_screens_flow_spec",
+      "tests_test_3_screens_flow_spec_assert",
+      "tests_test_3_screens_flow_spec_chromium",
+      "tests_test_3_screens_flow_spec_fs",
+      "tests_test_3_screens_flow_spec_path"
+    ],
+    "23": [
+      "tests_test_letter_i_anime",
+      "tests_test_letter_i_anime_chromium",
+      "tests_test_letter_i_anime_fs",
+      "tests_test_letter_i_anime_path",
+      "tests_test_letter_i_anime_testletterianime"
+    ],
+    "24": [
+      "tests_test_letter_o_anime",
+      "tests_test_letter_o_anime_chromium",
+      "tests_test_letter_o_anime_fs",
+      "tests_test_letter_o_anime_path",
+      "tests_test_letter_o_anime_testletteroanime"
+    ],
+    "25": [
+      "tests_test_15_signs",
+      "tests_test_15_signs_chromium",
+      "tests_test_15_signs_test15signs"
+    ],
+    "26": [
+      "tests_test_20_signs",
+      "tests_test_20_signs_chromium",
+      "tests_test_20_signs_test20signs"
+    ],
+    "27": [
+      "app_js_avatar_3d",
+      "app_js_avatar_3d_avatar3d"
+    ],
+    "28": [
+      "app_js_chat_tutor",
+      "app_js_chat_tutor_chattutor"
+    ],
+    "29": [
+      "app_js_signs_data",
+      "app_js_signs_data_signs_data"
+    ],
+    "30": [
+      "app_js_trajectory_tracker",
+      "app_js_trajectory_tracker_trajectorytracker"
+    ],
+    "31": [
+      "app_js_video_player",
+      "app_js_video_player_videoplayer"
+    ]
+  },
+  "cohesion": {
+    "0": 0.0929281122150789,
+    "1": 0.08669354838709678,
+    "2": 0.09655172413793103,
+    "3": 0.2077922077922078,
+    "4": 0.19913419913419914,
+    "5": 0.22510822510822512,
+    "6": 0.1761904761904762,
+    "7": 0.26666666666666666,
+    "8": 0.18333333333333332,
+    "9": 0.22727272727272727,
+    "10": 0.16666666666666666,
+    "11": 0.2,
+    "12": 0.3333333333333333,
+    "13": 0.35714285714285715,
+    "14": 0.35714285714285715,
+    "15": 0.5714285714285714,
+    "16": 0.25,
+    "17": 0.6190476190476191,
+    "18": 0.2857142857142857,
+    "19": 0.2857142857142857,
+    "20": 0.3333333333333333,
+    "21": 0.4,
+    "22": 0.4,
+    "23": 0.4,
+    "24": 0.4,
+    "25": 0.6666666666666666,
+    "26": 0.6666666666666666,
+    "27": 1.0,
+    "28": 1.0,
+    "29": 1.0,
+    "30": 1.0,
+    "31": 1.0
+  },
+  "gods": [
+    {
+      "id": "app_js_auth_profile_manager_authprofilemanager",
+      "label": "AuthProfileManager",
+      "degree": 21
+    },
+    {
+      "id": "app_js_blind_exam_controller_blindexamcontroller",
+      "label": "BlindExamController",
+      "degree": 21
+    },
+    {
+      "id": "app_js_learning_plan_manager_learningplanmanager",
+      "label": "LearningPlanManager",
+      "degree": 21
+    },
+    {
+      "id": "app_js_camera_manager_cameradevicemanager",
+      "label": "CameraDeviceManager",
+      "degree": 18
+    },
+    {
+      "id": "app_js_view_router_viewrouter",
+      "label": "ViewRouter",
+      "degree": 15
+    },
+    {
+      "id": "ref_playwright",
+      "label": "playwright",
+      "degree": 13
+    },
+    {
+      "id": "app_js_landing_landingportalcontroller",
+      "label": "LandingPortalController",
+      "degree": 11
+    },
+    {
+      "id": "app_tools_mocap_extractor_mocapextractor",
+      "label": "MoCapExtractor",
+      "degree": 10
+    },
+    {
+      "id": "server_lschandler",
+      "label": "LSCHandler",
+      "degree": 9
+    },
+    {
+      "id": "app_tools_curate_letter_i_animecurator",
+      "label": "AnimeCurator",
+      "degree": 8
+    }
+  ],
+  "surprises": [
+    {
+      "source": "build_pedagogical_plan()",
+      "target": "json",
+      "source_files": [
+        "server.py",
+        ""
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 1 \u2192 community 2"
+    },
+    {
+      "source": "free_port()",
+      "target": "os",
+      "source_files": [
+        "server.py",
+        ""
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 1 \u2192 community 0"
+    },
+    {
+      "source": "check_mp4_video()",
+      "target": "cv2",
+      "source_files": [
+        "app/tools/verify_videos.py",
+        ""
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 12 \u2192 community 0"
+    },
+    {
+      "source": "download_file()",
+      "target": "os",
+      "source_files": [
+        "app/tools/setup_offline_assets.py",
+        ""
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 15 \u2192 community 0"
+    },
+    {
+      "source": "normalize()",
+      "target": "numpy",
+      "source_files": [
+        "app/tools/mocap_extractor.py",
+        ""
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 2 \u2192 community 0"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}
