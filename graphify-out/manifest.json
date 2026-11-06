@@ -6,10 +6,10 @@
     "semantic_hash": "639cbb2ba9ff31dc1d12bec3d6b1a143"
   },
   "app/data/users_db.json": {
-    "mtime": 1793992305.0959163,
-    "seen": 1793992373.536157,
-    "ast_hash": "97da196d4af9f9c3af79dd38bb5ca681",
-    "semantic_hash": "97da196d4af9f9c3af79dd38bb5ca681"
+    "mtime": 1793994827.6028743,
+    "seen": 1793994875.4963372,
+    "ast_hash": "066e0ac7473adac018bbcb6ca9c15e12",
+    "semantic_hash": "066e0ac7473adac018bbcb6ca9c15e12"
   },
   "app/js/auth-profile-manager.js": {
     "mtime": 1793932798.3228874,
@@ -370,5 +370,23 @@
     "seen": 1793992373.546187,
     "ast_hash": "9dd3de8dbd0f2f19773cdcadee6eb952",
     "semantic_hash": "9dd3de8dbd0f2f19773cdcadee6eb952"
+  },
+  "app/js/gallery.js": {
+    "mtime": 1793994651.8925521,
+    "seen": 1793994875.500555,
+    "ast_hash": "97410a58af4c46afe3c7068bac8bc52e",
+    "semantic_hash": "97410a58af4c46afe3c7068bac8bc52e"
+  },
+  "app/tools/update_onboarding_mascot.py": {
+    "mtime": 1793994802.251621,
+    "seen": 1793994875.5203338,
+    "ast_hash": "4f135a4b23e21c57856796afc7679a5a",
+    "semantic_hash": "4f135a4b23e21c57856796afc7679a5a"
+  },
+  "tests/test_mascot_gallery.spec.js": {
+    "mtime": 1793994698.3821313,
+    "seen": 1793994875.529108,
+    "ast_hash": "5a11605b6fe5db90f70dd7d73ea70c3c",
+    "semantic_hash": "5a11605b6fe5db90f70dd7d73ea70c3c"
   }
 }

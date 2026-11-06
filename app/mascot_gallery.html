@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mascota Zorrito Manitas · Catálogo de Poses y Animaciones</title>
+  <link rel="icon" type="image/svg+xml" href="img/manitas-icono-app.svg">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind-config.js"></script>
+  <!-- Design Tokens y Estilos Base -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/gallery.css">
+</head>
+<body class="bg-[#14213D] text-[#F8F5EF] min-h-screen flex flex-col font-sans selection:bg-[#00B8A9] selection:text-[#14213D]">
+
+  <!-- Header Accesible -->
+  <header class="border-b border-[#2A3B63] bg-[#14213D]/90 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="landing.html" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-[#FFC857] rounded-lg p-1">
+        <img src="img/manitas-simbolo.svg" alt="Logo Manitas" class="w-8 h-8 group-hover:scale-105 transition-transform">
+        <span class="font-extrabold text-xl tracking-tight text-white">Manitas <span class="text-[#00B8A9] font-normal text-sm ml-1">· Mascota Oficial</span></span>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <a href="landing.html" class="text-sm text-[#F8F5EF]/80 hover:text-white px-3 py-2 rounded-lg border border-[#2A3B63] hover:border-[#00B8A9] transition-colors">
+          ← Volver a Landing
+        </a>
+        <a href="index.html" class="text-sm bg-[#00B8A9] hover:bg-[#007A70] text-[#14213D] hover:text-white font-bold px-4 py-2 rounded-lg transition-colors">
+          Abrir App
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero de la Mascota -->
+  <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10">
+    <div class="text-center max-w-3xl mx-auto mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1B2B4D] border border-[#2A3B63] text-[#FFC857] text-xs font-semibold mb-4">
+        <span>🦊</span>
+        <span>Identidad Visual Manitas · Kit de Poses SVG & PNG</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-4">
+        El Zorrito Tutor en <span class="text-[#00B8A9]">Acción y Movimiento</span>
+      </h1>
+      <p class="text-base sm:text-lg text-[#F8F5EF]/80">
+        Personaje oficial generado y vectorizado en formato dual: <strong class="text-white">SVG vectorial escalable</strong> para nitidez infinita y <strong class="text-white">PNG transparente 32-bit</strong>. Listo para animaciones de interfaz, aciertos y tutoría pedagógica.
+      </p>
+    </div>
+
+    <!-- Barra de Herramientas y Controles Interactivos -->
+    <div class="bg-[#1B2B4D] border border-[#2A3B63] rounded-2xl p-4 sm:p-5 mb-8 flex flex-wrap items-center justify-between gap-4">
+      <!-- Selector de Formato -->
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-semibold uppercase tracking-wider text-[#a3b0c7]">Formato:</span>
+        <div class="inline-flex rounded-lg border border-[#2A3B63] p-1 bg-[#14213D]">
+          <button id="btnFormatSvg" class="px-3 py-1.5 text-xs rounded-md bg-[#00B8A9] text-[#14213D] font-bold transition-all focus:outline-none">
+            SVG (Vectorial)
+          </button>
+          <button id="btnFormatPng" class="px-3 py-1.5 text-xs rounded-md text-[#a3b0c7] hover:text-white transition-all focus:outline-none">
+            PNG (Transparente)
+          </button>
+        </div>
+        <span id="currentFormatBadge" class="ml-2 text-xs font-mono px-2 py-0.5 rounded bg-[#00B8A9]/20 text-[#00B8A9] font-bold">
+          SVG
+        </span>
+      </div>
+
+      <!-- Selector de Fondo del Escenario -->
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-semibold uppercase tracking-wider text-[#a3b0c7]">Fondo Stage:</span>
+        <div class="inline-flex rounded-lg border border-[#2A3B63] p-1 bg-[#14213D]">
+          <button data-bg-target="dark" class="px-3 py-1.5 text-xs rounded-md bg-[#00B8A9] text-[#14213D] font-bold transition-all">
+            Azul Noche
+          </button>
+          <button data-bg-target="light" class="px-3 py-1.5 text-xs rounded-md text-[#a3b0c7] hover:text-white transition-all">
+            Blanco Hueso
+          </button>
+          <button data-bg-target="checker" class="px-3 py-1.5 text-xs rounded-md text-[#a3b0c7] hover:text-white transition-all">
+            Transparencia
+          </button>
+        </div>
+      </div>
+
+      <!-- Control de Animación -->
+      <div class="flex items-center gap-2">
+        <button id="btnAnimToggle" class="px-4 py-2 text-xs rounded-lg border border-[#FFC857]/40 text-[#FFC857] hover:bg-[#FFC857]/10 font-bold transition-all flex items-center gap-2">
+          ⏸️ Pausar Animaciones
+        </button>
+      </div>
+    </div>
+
+    <!-- Galería de 5 Poses del Zorrito -->
+    <div class="gallery-grid">
+
+      <!-- Pose 1: Saludo -->
+      <article class="mascot-card">
+        <div class="flex items-center justify-between mb-3">
+          <span class="badge-tag badge-tag-turquoise">Bienvenida</span>
+          <span class="text-xs text-[#a3b0c7] font-mono">01_saludo</span>
+        </div>
+        <div class="stage-wrapper stage-dark">
+          <img id="img-saludo" src="img/zorrito/svg/zorrito_saludo.svg" alt="Zorrito Saludando" class="mascot-image anim-wave">
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Zorrito Saludo</h3>
+        <p class="text-xs text-[#a3b0c7] mb-4">Pose amistosa de bienvenida levantando la pata, ideal para la pantalla de inicio, landing y login.</p>
+        <div class="mt-auto pt-3 border-t border-[#2A3B63] flex items-center justify-between">
+          <span id="size-saludo" class="text-xs text-[#a3b0c7]">Vectorial Escala Libre</span>
+          <a id="link-saludo" href="img/zorrito/svg/zorrito_saludo.svg" download="zorrito_saludo.svg" class="text-xs bg-[#00B8A9] hover:bg-[#007A70] text-[#14213D] hover:text-white font-bold px-3 py-1.5 rounded-lg transition-colors">
+            Descargar .SVG
+          </a>
+        </div>
+      </article>
+
+      <!-- Pose 2: Tutor Explicando -->
+      <article class="mascot-card">
+        <div class="flex items-center justify-between mb-3">
+          <span class="badge-tag badge-tag-sun">Pedagógico</span>
+          <span class="text-xs text-[#a3b0c7] font-mono">02_explicando</span>
+        </div>
+        <div class="stage-wrapper stage-dark">
+          <img id="img-explicando" src="img/zorrito/svg/zorrito_explicando.svg" alt="Zorrito Tutor Explicando" class="mascot-image anim-float">
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Zorrito Tutor Pedagógico</h3>
+        <p class="text-xs text-[#a3b0c7] mb-4">Manos al frente en postura descriptiva de señas con mirada atenta, perfecto para dar tips y retroalimentación.</p>
+        <div class="mt-auto pt-3 border-t border-[#2A3B63] flex items-center justify-between">
+          <span id="size-explicando" class="text-xs text-[#a3b0c7]">Vectorial Escala Libre</span>
+          <a id="link-explicando" href="img/zorrito/svg/zorrito_explicando.svg" download="zorrito_explicando.svg" class="text-xs bg-[#00B8A9] hover:bg-[#007A70] text-[#14213D] hover:text-white font-bold px-3 py-1.5 rounded-lg transition-colors">
+            Descargar .SVG
+          </a>
+        </div>
+      </article>
+
+      <!-- Pose 3: Pensando -->
+      <article class="mascot-card">
+        <div class="flex items-center justify-between mb-3">
+          <span class="badge-tag badge-tag-sun">Evaluación</span>
+          <span class="text-xs text-[#a3b0c7] font-mono">03_pensando</span>
+        </div>
+        <div class="stage-wrapper stage-dark">
+          <img id="img-pensando" src="img/zorrito/svg/zorrito_pensando.svg" alt="Zorrito Pensando" class="mascot-image anim-pulse">
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Zorrito Reflexivo</h3>
+        <p class="text-xs text-[#a3b0c7] mb-4">Mano en la barbilla con bombilla turquesa de ideas encendida, óptimo para cuestionarios, onboarding y modo examen.</p>
+        <div class="mt-auto pt-3 border-t border-[#2A3B63] flex items-center justify-between">
+          <span id="size-pensando" class="text-xs text-[#a3b0c7]">Vectorial Escala Libre</span>
+          <a id="link-pensando" href="img/zorrito/svg/zorrito_pensando.svg" download="zorrito_pensando.svg" class="text-xs bg-[#00B8A9] hover:bg-[#007A70] text-[#14213D] hover:text-white font-bold px-3 py-1.5 rounded-lg transition-colors">
+            Descargar .SVG
+          </a>
+        </div>
+      </article>
+
+      <!-- Pose 4: Pulgar Arriba -->
+      <article class="mascot-card">
+        <div class="flex items-center justify-between mb-3">
+          <span class="badge-tag badge-tag-coral">Motivación</span>
+          <span class="text-xs text-[#a3b0c7] font-mono">04_pulgar</span>
+        </div>
+        <div class="stage-wrapper stage-dark">
+          <img id="img-pulgar" src="img/zorrito/svg/zorrito_pulgar.svg" alt="Zorrito con Pulgar Arriba" class="mascot-image anim-wiggle">
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Zorrito Ánimo y Pulgar</h3>
+        <p class="text-xs text-[#a3b0c7] mb-4">Gesto de pulgar arriba dando confianza al usuario, ideal para tarjetas de rachas diarias y subidas de nivel.</p>
+        <div class="mt-auto pt-3 border-t border-[#2A3B63] flex items-center justify-between">
+          <span id="size-pulgar" class="text-xs text-[#a3b0c7]">Vectorial Escala Libre</span>
+          <a id="link-pulgar" href="img/zorrito/svg/zorrito_pulgar.svg" download="zorrito_pulgar.svg" class="text-xs bg-[#00B8A9] hover:bg-[#007A70] text-[#14213D] hover:text-white font-bold px-3 py-1.5 rounded-lg transition-colors">
+            Descargar .SVG
+          </a>
+        </div>
+      </article>
+
+      <!-- Pose 5: Celebración -->
+      <article class="mascot-card">
+        <div class="flex items-center justify-between mb-3">
+          <span class="badge-tag badge-tag-coral">¡Acierto!</span>
+          <span class="text-xs text-[#a3b0c7] font-mono">05_celebracion</span>
+        </div>
+        <div class="stage-wrapper stage-dark">
+          <img id="img-celebracion" src="img/zorrito/svg/zorrito_celebracion.svg" alt="Zorrito Celebración" class="mascot-image anim-bounce">
+        </div>
+        <h3 class="text-lg font-bold text-white mb-1">Zorrito Celebración</h3>
+        <p class="text-xs text-[#a3b0c7] mb-4">Saltando con manos en alto haciendo el aplauso sordo con confeti en colores Manitas cuando logras la seña correcta.</p>
+        <div class="mt-auto pt-3 border-t border-[#2A3B63] flex items-center justify-between">
+          <span id="size-celebracion" class="text-xs text-[#a3b0c7]">Vectorial Escala Libre</span>
+          <a id="link-celebracion" href="img/zorrito/svg/zorrito_celebracion.svg" download="zorrito_celebracion.svg" class="text-xs bg-[#FF6B5B] hover:bg-[#e05344] text-white font-bold px-3 py-1.5 rounded-lg transition-colors">
+            Descargar .SVG
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Sección de Descarga Completa del Kit -->
+    <div class="mt-12 bg-gradient-to-r from-[#1B2B4D] to-[#14213D] border border-[#2A3B63] rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <h3 class="text-xl font-bold text-white mb-2">Hoja de Modelado Completa (Sprite Sheet)</h3>
+        <p class="text-sm text-[#F8F5EF]/80 max-w-xl">
+          También tienes a disposición la imagen original en alta definición generada con las poses alineadas para edición manual o integración en atlas de sprites de videojuegos.
+        </p>
+      </div>
+      <a href="img/zorrito/zorrito_sheet_original.png" download="zorrito_model_sheet.png" class="px-5 py-3 rounded-xl bg-[#FFC857] hover:bg-[#e6b349] text-[#14213D] font-extrabold text-sm whitespace-nowrap transition-transform hover:scale-105 shadow-lg">
+        Descargar Hoja Completa (PNG)
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer Simple -->
+  <footer class="border-t border-[#2A3B63] py-6 text-center text-xs text-[#a3b0c7]">
+    Manitas · Plataforma de Aprendizaje Interactivo de LSC · 2026
+  </footer>
+
+  <script src="js/gallery.js" type="module"></script>
+</body>
+</html>

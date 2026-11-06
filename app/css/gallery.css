@@ -1,0 +1,191 @@
+/**
+ * Manitas · Mascot Gallery Styles
+ * Animaciones CSS fluidas para el zorrito en SVG y PNG
+ */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.mascot-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s var(--ease-out), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mascot-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 12px 30px rgba(0, 184, 169, 0.15);
+  transform: translateY(-3px);
+}
+
+.stage-wrapper {
+  position: relative;
+  height: 280px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  transition: background 0.3s ease;
+}
+
+/* Fondos del stage */
+.stage-dark {
+  background: radial-gradient(circle at center, #1b2b4d 0%, #14213d 100%);
+  border: 1px solid var(--color-border);
+}
+
+.stage-light {
+  background: #F8F5EF;
+  border: 1px solid #e2ddd4;
+}
+
+.stage-checker {
+  background-color: #14213D;
+  background-image: 
+    linear-gradient(45deg, #1B2B4D 25%, transparent 25%),
+    linear-gradient(-45deg, #1B2B4D 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #1B2B4D 75%),
+    linear-gradient(-45deg, transparent 75%, #1B2B4D 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  border: 1px solid var(--color-border);
+}
+
+.mascot-image {
+  max-height: 230px;
+  max-width: 90%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.25));
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+/* Animaciones para el zorrito */
+@keyframes zorritoFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes zorritoWave {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(8deg) scale(1.03);
+  }
+  40% {
+    transform: rotate(-6deg) scale(1.03);
+  }
+  60% {
+    transform: rotate(6deg) scale(1.03);
+  }
+  80% {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes zorritoBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  30% {
+    transform: translateY(-24px) scale(0.96, 1.05);
+  }
+  50% {
+    transform: translateY(0) scale(1.05, 0.94);
+  }
+  70% {
+    transform: translateY(-8px) scale(0.98, 1.02);
+  }
+  85% {
+    transform: translateY(0) scale(1.02, 0.98);
+  }
+}
+
+@keyframes zorritoPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 10px 18px rgba(0, 184, 169, 0.25));
+  }
+  50% {
+    transform: scale(1.05) translateY(-4px);
+    filter: drop-shadow(0 15px 25px rgba(255, 200, 87, 0.45));
+  }
+}
+
+@keyframes zorritoWiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg) translateY(-4px);
+  }
+  75% {
+    transform: rotate(5deg) translateY(-4px);
+  }
+}
+
+.anim-float {
+  animation: zorritoFloat 3s ease-in-out infinite;
+}
+
+.anim-wave {
+  animation: zorritoWave 2s ease-in-out infinite;
+}
+
+.anim-bounce {
+  animation: zorritoBounce 1.6s ease-in-out infinite;
+}
+
+.anim-pulse {
+  animation: zorritoPulse 2.5s ease-in-out infinite;
+}
+
+.anim-wiggle {
+  animation: zorritoWiggle 1.8s ease-in-out infinite;
+}
+
+.anim-none {
+  animation: none !important;
+}
+
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  letter-spacing: 0.03em;
+}
+
+.badge-tag-turquoise {
+  background: rgba(0, 184, 169, 0.15);
+  color: #00B8A9;
+  border: 1px solid rgba(0, 184, 169, 0.3);
+}
+
+.badge-tag-sun {
+  background: rgba(255, 200, 87, 0.15);
+  color: #FFC857;
+  border: 1px solid rgba(255, 200, 87, 0.3);
+}
+
+.badge-tag-coral {
+  background: rgba(255, 107, 91, 0.15);
+  color: #FF6B5B;
+  border: 1px solid rgba(255, 107, 91, 0.3);
+}
