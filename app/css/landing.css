@@ -1,0 +1,171 @@
+/* ==========================================================================
+   EXIS · Lengua de Señas Colombiana (LSC)
+   landing.css - Estilos Futuristas del Portal de Entrada y Cápsula Holográfica
+   Diseñado según WCAG AAA, Craft Floor de Impeccable y Motion Doctrine
+   ========================================================================== */
+
+:root {
+  --bg-main: #0a0e17;
+  --bg-surface: #121824;
+  --bg-surface-elevated: #1a2232;
+  --color-primary: #f59e0b;
+  --color-primary-hover: #d97706;
+  --color-emerald: #10b981;
+  --color-cyan: #06b6d4;
+  --spring-easing: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base body */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  max-width: 100%;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(circle at 20% 15%, rgba(245, 158, 11, 0.07) 0%, transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, #101623 0%, #0a0e17 100%);
+  color: #f8fafc;
+}
+
+/* Rejilla holográfica sutil de fondo */
+.hologram-grid-floor {
+  position: absolute;
+  inset: 0;
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(245, 158, 11, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245, 158, 11, 0.03) 1px, transparent 1px);
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 40%, transparent 80%);
+}
+
+/* Números tabulares */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* Cápsula Holográfica de Sol */
+.hologram-capsule {
+  position: relative;
+  background: radial-gradient(circle at 50% 30%, rgba(245, 158, 11, 0.12) 0%, rgba(18, 24, 36, 0.95) 70%);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  border-radius: 1.5rem;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.6),
+    inset 0 0 30px rgba(245, 158, 11, 0.08);
+  overflow: hidden;
+}
+
+/* Retrato Holográfico */
+.sol-portrait-img {
+  width: 100%;
+  max-height: 440px;
+  object-fit: cover;
+  object-position: top center;
+  filter: drop-shadow(0 0 25px rgba(245, 158, 11, 0.2));
+  transition: transform 0.4s var(--spring-easing);
+}
+
+.hologram-capsule:hover .sol-portrait-img {
+  transform: scale(1.02);
+}
+
+/* Capa SVG de los 21 Landmarks de MediaPipe */
+.mediapipe-landmarks-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.bone-line {
+  stroke: rgba(245, 158, 11, 0.4);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 4, 3;
+  animation: bonePulse 3s ease-in-out infinite alternate;
+}
+
+.landmark-node {
+  fill: #f59e0b;
+  stroke: #ffffff;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 6px #f59e0b);
+  animation: jointGlow 2.5s ease-in-out infinite alternate;
+}
+
+.landmark-node-tip {
+  fill: #10b981;
+  stroke: #ffffff;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 6px #10b981);
+}
+
+@keyframes bonePulse {
+  0% { stroke: rgba(245, 158, 11, 0.3); stroke-dashoffset: 0; }
+  100% { stroke: rgba(16, 185, 129, 0.5); stroke-dashoffset: 14; }
+}
+
+@keyframes jointGlow {
+  0% { transform: scale(1); opacity: 0.85; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
+
+/* Tarjetas flotantes de telemetría */
+.telemetry-chip {
+  background: rgba(10, 14, 23, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s var(--spring-easing), border-color 0.2s ease;
+}
+
+.telemetry-chip:hover {
+  transform: translateY(-2px);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+/* Tarjeta del Portal de Autenticación */
+.auth-portal-card {
+  background-color: var(--bg-surface);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* Botones con física de resorte (spring easing) */
+.btn-spring {
+  transition: transform 0.15s var(--spring-easing), background-color 0.15s ease, border-color 0.15s ease;
+  touch-action: manipulation;
+}
+
+.btn-spring:hover {
+  transform: translateY(-1px);
+}
+
+.btn-spring:active {
+  transform: scale(0.97);
+  transition-duration: 50ms;
+}
+
+/* Accesibilidad motion reduce */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
