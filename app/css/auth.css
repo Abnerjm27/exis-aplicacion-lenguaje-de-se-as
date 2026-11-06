@@ -1,5 +1,5 @@
 /**
- * EXIS · Estilos de login, registro y onboarding (páginas de autenticación)
+ * Manitas · Estilos de login, registro y onboarding (páginas de autenticación)
  * Depende de tokens.css y landing.css (clases auth-*, quiz-*, btn-spring).
  */
 .auth-shell {
@@ -19,8 +19,8 @@
   position: relative;
   padding: 40px 48px;
   background:
-    radial-gradient(circle at 30% 20%, rgba(245, 158, 11, 0.16), transparent 55%),
-    radial-gradient(circle at 80% 90%, rgba(59, 130, 246, 0.12), transparent 50%),
+    radial-gradient(circle at 30% 20%, rgba(0, 184, 169, 0.18), transparent 55%),
+    radial-gradient(circle at 80% 90%, rgba(255, 107, 91, 0.12), transparent 50%),
     var(--color-surface);
   border-right: 1px solid var(--color-border);
   flex-direction: column;
@@ -40,6 +40,7 @@
   border-radius: 50%;
   -webkit-mask-image: radial-gradient(circle, #000 55%, transparent 72%);
   mask-image: radial-gradient(circle, #000 55%, transparent 72%);
+  mix-blend-mode: lighten;
   animation: fox-float 5s ease-in-out infinite;
 }
 
@@ -48,7 +49,7 @@
   height: 84px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(245, 158, 11, 0.55);
+  border: 2px solid rgba(255, 200, 87, 0.7);
 }
 
 @keyframes fox-float {
@@ -90,7 +91,7 @@
   font-weight: 700;
 }
 
-.auth-link:hover { color: var(--color-primary-hover); text-decoration: underline; }
+.auth-link:hover { color: var(--manitas-sun); text-decoration: underline; }
 
 .auth-link:focus-visible,
 .auth-field-input:focus-visible,
@@ -108,3 +109,41 @@
   position: relative;
   z-index: 10;
 }
+
+/* Tarjeta clara (Blanco Hueso) para login y registro */
+.auth-card-light {
+  background: var(--manitas-bone);
+  color: var(--manitas-navy);
+  border-radius: var(--radius-lg);
+  border: 1px solid #e3dccd;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.55);
+}
+
+.auth-card-light .text-white,
+.auth-card-light .text-slate-200 { color: var(--manitas-navy); }
+
+.auth-card-light .text-slate-300,
+.auth-card-light .text-slate-400 { color: var(--color-light-muted); }
+
+.auth-card-light .text-amber-400,
+.auth-card-light .text-amber-300,
+.auth-card-light .auth-link,
+.auth-card-light .auth-link:hover { color: var(--color-light-link); }
+
+.auth-card-light [class*="border-slate-800"] { border-color: #e3dccd; }
+
+.auth-card-light .auth-field-input {
+  background: #ffffff;
+  border: 1.5px solid #cfc7b6;
+  color: var(--manitas-navy);
+  box-shadow: none;
+}
+
+.auth-card-light .auth-field-input::placeholder { color: #7b8499; }
+
+.auth-card-light .auth-field-input:focus {
+  border-color: var(--manitas-turquoise);
+  box-shadow: 0 0 0 3px rgba(0, 184, 169, 0.25);
+}
+
+.auth-card-light .auth-fox-small { border-color: var(--manitas-sun); }

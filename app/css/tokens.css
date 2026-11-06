@@ -1,40 +1,41 @@
 /**
- * EXIS · Design Tokens — paleta "Ámbar Zorro"
- * Fusión Ámbar Nocturno (base) + Tricolor Moderno (acentos y mascota).
- * Estructura inspirada en roles semánticos de radix-ui/colors y primer/primitives.
+ * Manitas · Design Tokens
+ * Paleta definida por el equipo: Azul Noche, Turquesa Cámara, Amarillo Sol, Coral Mano, Blanco Hueso.
+ * Roles semánticos al estilo radix-ui/colors y primer/primitives.
  */
 :root {
-  /* Primitivos */
-  --exis-navy-950: #0a0e17;
-  --exis-navy-900: #121824;
-  --exis-navy-800: #1a2233;
-  --exis-navy-700: #263148;
-  --exis-amber-400: #fbbf24;
-  --exis-amber-500: #f59e0b;
-  --exis-amber-600: #d97706;
-  --exis-mint-400: #34d399;
-  --exis-blue-400: #60a5fa;
-  --exis-blue-500: #3b82f6;
-  --exis-red-400: #f87171;
-  --exis-red-500: #ef4444;
-  --exis-fox-500: #f97316;
+  /* Primitivos de marca */
+  --manitas-navy: #14213D;
+  --manitas-navy-raised: #1B2B4D;
+  --manitas-navy-line: #2A3B63;
+  --manitas-turquoise: #00B8A9;
+  --manitas-turquoise-dark: #007A70;
+  --manitas-sun: #FFC857;
+  --manitas-coral: #FF6B5B;
+  --manitas-bone: #F8F5EF;
+  --manitas-success: #3DDC97;
+  --manitas-danger: #E5484D;
 
-  /* Semánticos */
-  --color-bg: var(--exis-navy-950);
-  --color-surface: var(--exis-navy-900);
-  --color-surface-raised: var(--exis-navy-800);
-  --color-border: var(--exis-navy-700);
-  --color-text: #f1f5f9;
-  --color-text-muted: #94a3b8;
-  --color-primary: var(--exis-amber-500);
-  --color-primary-hover: var(--exis-amber-400);
-  --color-on-primary: var(--exis-navy-950);
-  --color-success: var(--exis-mint-400);
-  --color-info: var(--exis-blue-400);
-  --color-danger: var(--exis-red-400);
-  --color-focus-ring: var(--exis-amber-400);
+  /* Semánticos (tema oscuro por defecto) */
+  --color-bg: var(--manitas-navy);
+  --color-surface: var(--manitas-navy-raised);
+  --color-border: var(--manitas-navy-line);
+  --color-text: var(--manitas-bone);
+  --color-text-muted: #a3b0c7;
+  --color-primary: var(--manitas-turquoise);
+  --color-on-primary: var(--manitas-navy);
+  --color-accent: var(--manitas-sun);
+  --color-action: var(--manitas-coral);
+  --color-success: var(--manitas-success);
+  --color-danger: var(--manitas-danger);
+  --color-focus-ring: var(--manitas-sun);
 
-  /* Forma y movimiento */
+  /* Tema claro (tarjetas de login/registro) */
+  --color-light-bg: var(--manitas-bone);
+  --color-light-text: var(--manitas-navy);
+  --color-light-muted: #4a5a7a;
+  --color-light-link: var(--manitas-turquoise-dark);
+
   --radius-md: 12px;
   --radius-lg: 20px;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);

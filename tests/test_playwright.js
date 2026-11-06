@@ -57,7 +57,7 @@ async function runTests() {
     assert(response && response.status() === 200, "El servidor responde con código HTTP 200");
 
     const title = await page.title();
-    assert(title.includes("EXIS") && title.includes("Lengua de Señas Colombiana"), `Título correcto: '${title}'`);
+    assert(title.includes("Manitas") && title.includes("Lengua de Señas Colombiana"), `Título correcto: '${title}'`);
 
     // Esperar a que los scripts difieran y carguen
     await page.waitForTimeout(1000);

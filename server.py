@@ -179,7 +179,7 @@ def build_pedagogical_plan(goal: str, level: str = "beginner") -> dict:
 
     # 1. Intentar consultar Ollama (qwen2.5:3b) con timeout estricto de 2.2s
     try:
-        ollama_prompt = f"""Eres Sol, la arquitecta pedagógica experta en Lengua de Señas Colombiana (LSC) del Proyecto EXIS.
+        ollama_prompt = f"""Eres Sol, la arquitecta pedagógica experta en Lengua de Señas Colombiana (LSC) de Manitas.
 Tu tarea es diseñar una ruta progresiva de aprendizaje para un estudiante.
 Objetivo del estudiante: "{clean_goal}"
 Nivel: {level}
@@ -452,11 +452,11 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
                 if detected_sign and detected_sign in FALLBACK_REPLIES:
                     reply_text = FALLBACK_REPLIES[detected_sign]
                 elif any(w in user_lower for w in ["palabra", "seña", "opcion", "catalogo", "que hay", "que tienes", "cuales", "señas", "menu"]):
-                    reply_text = "En el Proyecto EXIS puedes aprender: Palabras LSC (HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE) y Alfabeto Dactilológico (A, B, C, I, L, O, V). ¿Cuál te gustaría practicar ahora?"
+                    reply_text = "En Manitas puedes aprender: Palabras LSC (HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE) y Alfabeto Dactilológico (A, B, C, I, L, O, V). ¿Cuál te gustaría practicar ahora?"
                 else:
                     # Try Ollama with low latency timeout (2.0s)
                     try:
-                        prompt = f"""Eres el tutor de Lengua de Señas Colombiana del Proyecto EXIS.
+                        prompt = f"""Eres el tutor de Lengua de Señas Colombiana de Manitas.
 Señas disponibles: HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE, y letras dactilológicas A, B, C, I, L, O, V.
 Usuario dice: "{user_msg}"
 Instrucciones: Responde amablemente en español en máximo 2 oraciones pedagógicas. Si el usuario pide aprender una seña, agrega al final exactamente [SELECCIONAR: <ID>] (ej: [SELECCIONAR: DIAS] o [SELECCIONAR: C]).

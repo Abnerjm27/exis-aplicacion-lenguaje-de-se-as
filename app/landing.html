@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EXIS · El Futuro de la Lengua de Señas Colombiana (LSC)</title>
-  <link rel="icon" type="image/svg+xml" href="img/exis-mark.svg">
+  <title>Manitas · El Futuro de la Lengua de Señas Colombiana (LSC)</title>
+  <link rel="icon" type="image/svg+xml" href="img/manitas-mark.svg">
 
   <!-- Fuentes Tipográficas Locales (Offline) -->
   <link rel="stylesheet" href="css/fonts.css">
 
   <!-- Tailwind CSS Local (Offline Standalone) -->
   <script src="lib/tailwind/tailwind.js"></script>
+  <script src="js/tailwind-config.js?v=20261107"></script>
 
   <!-- Estilos Cinemáticos Scrollytelling + Auth + Onboarding (Sin estilos embebidos) -->
-  <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/auth.css">
-  <link rel="stylesheet" href="css/landing.css?v=20261106_v4">
+  <link rel="stylesheet" href="css/tokens.css?v=20261107">
+  <link rel="stylesheet" href="css/auth.css?v=20261107">
+  <link rel="stylesheet" href="css/landing.css?v=20261107">
 
   <!-- Controlador Modular POO de Scrollytelling, Login/Registro y Cuestionario -->
-  <script src="js/landing.js?v=20261106_v4" defer></script>
+  <script src="js/landing.js?v=20261107" defer></script>
 </head>
 
 <body class="flex flex-col min-h-screen text-slate-100 antialiased relative selection:bg-amber-600 selection:text-white">
@@ -38,12 +39,12 @@
   <header class="landing-navbar sticky top-0 z-40 px-4 sm:px-6 md:px-10 py-3.5">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
       
-      <!-- Identidad EXIS -->
+      <!-- Identidad Manitas -->
       <a href="landing.html" class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-xl">
-        <img src="img/exis-mark.svg" alt="" width="36" height="36" class="shrink-0">
+        <img src="img/manitas-mark.svg" alt="" width="36" height="36" class="shrink-0">
         <div class="flex flex-col">
           <span class="text-lg font-extrabold tracking-tight text-white leading-none">
-            E<span class="text-amber-400">X</span>IS <span class="text-amber-400 font-mono text-xs font-semibold ml-1">LSC·AI</span>
+            Mani<span class="text-sun-400">tas</span> <span class="text-amber-400 font-mono text-xs font-semibold ml-1">LSC</span>
           </span>
           <span class="hidden sm:block text-[11px] text-slate-400 mt-0.5">Lengua de Señas Colombiana · Corpus UTP</span>
         </div>
@@ -91,7 +92,7 @@
         </h1>
 
         <p class="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed max-w-2xl">
-          Olvídate de ver videos pasivos. En <strong>EXIS</strong> tu cámara analiza 21 puntos biomecánicos de tu mano en tiempo real mientras <strong>Sol IA</strong> diseña tu plan estilo Duolingo desde cero.
+          Olvídate de ver videos pasivos. En <strong>Manitas</strong> tu cámara analiza 21 puntos biomecánicos de tu mano en tiempo real mientras <strong>Sol IA</strong> diseña tu plan estilo Duolingo desde cero.
         </p>
 
         <!-- Botones Principales de Acción -->
@@ -102,7 +103,7 @@
           </a>
 
           <a id="btnScrollToAuth" href="login.html" class="btn-spring px-5 py-3.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700 flex items-center gap-2">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00B8A9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
             <span>Ya tengo cuenta · Iniciar Sesión</span>
           </a>
 
@@ -194,7 +195,7 @@
           Una experiencia que evoluciona contigo mientras bajas
         </h2>
         <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed">
-          Desliza para descubrir cómo EXIS transforma el aprendizaje de lengua de señas en una experiencia gamificada e inteligente.
+          Desliza para descubrir cómo Manitas transforma el aprendizaje de lengua de señas en una experiencia gamificada e inteligente.
         </p>
       </div>
 
@@ -211,7 +212,7 @@
             </div>
             <h3 class="text-lg sm:text-xl font-extrabold text-white">Cuestionario Inteligente + Rutas Estilo Duolingo</h3>
             <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
-              Al registrarte, EXIS evalúa tu experiencia previa, tu objetivo y tu ritmo diario. Con esos datos, <strong>Sol IA (Qwen 2.5)</strong> construye tu mapa serpenteante paso a paso o te permite armar tu propio plan de señas.
+              Al registrarte, Manitas evalúa tu experiencia previa, tu objetivo y tu ritmo diario. Con esos datos, <strong>Sol IA (Qwen 2.5)</strong> construye tu mapa serpenteante paso a paso o te permite armar tu propio plan de señas.
             </p>
           </article>
 
@@ -339,7 +340,7 @@
     <section id="authPortalSection" aria-labelledby="authTitle" class="max-w-5xl mx-auto w-full px-4 sm:px-6 md:px-10 py-14 sm:py-20">
       <div class="auth-glass-console p-8 sm:p-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-center scroll-reveal">
         <div class="md:col-span-4 flex justify-center">
-          <img src="img/exis_fox.jpg" alt="Zorro mascota de EXIS haciendo una seña" class="auth-fox">
+          <img src="img/manitas-fox.jpg" alt="Zorro mascota de Manitas haciendo una seña" class="auth-fox">
         </div>
         <div class="md:col-span-8 flex flex-col gap-4">
           <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">Empieza hoy</span>
@@ -362,7 +363,7 @@
   <!-- FOOTER -->
   <footer class="border-t border-slate-800/80 bg-slate-950/90 py-6 px-4 text-xs text-slate-500 font-mono relative z-10">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-      <span>EXIS · Academia Interactiva de Lengua de Señas Colombiana</span>
+      <span>Manitas · Academia Interactiva de Lengua de Señas Colombiana</span>
       <span>Dataset Oficial: LSC70 (Universidad Tecnológica de Pereira)</span>
     </div>
   </footer>

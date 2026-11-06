@@ -40,7 +40,7 @@ const fs = require('fs');
     // Verificar título y cápsula holográfica de Sol
     const pageTitle = await landingPage.title();
     console.log(`✓ Título de la página: "${pageTitle}"`);
-    assert(pageTitle.includes('EXIS'), 'El título de landing.html debe incluir EXIS');
+    assert(pageTitle.includes('Manitas'), 'El título de landing.html debe incluir Manitas');
 
     const holoCapsule = await landingPage.$('#solHoloCapsule');
     assert(holoCapsule, 'Debe existir la cápsula holográfica #solHoloCapsule');

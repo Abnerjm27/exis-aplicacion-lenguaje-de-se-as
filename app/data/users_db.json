@@ -27,7 +27,7 @@
       ],
       "customPlans": [
         {
-          "id": "plan_custom_1793991179600",
+          "id": "plan_custom_1793992286015",
           "title": "Mi Ruta Personal",
           "rationale": "Ruta personalizada con 3 señas seleccionadas por el estudiante.",
           "signs": [
@@ -43,10 +43,10 @@
           "scorePct": 100,
           "correct": 3,
           "total": 3,
-          "dateIso": "2026-11-06T18:53:01.986Z"
+          "dateIso": "2026-11-06T19:11:28.433Z"
         }
       ],
-      "lastUpdated": "2026-11-06T18:53:02Z"
+      "lastUpdated": "2026-11-06T19:11:28Z"
     },
     {
       "username": "camila_lsc",
@@ -91,6 +91,61 @@
       "customPlans": [],
       "examHistory": [],
       "lastUpdated": "2026-11-06T18:52:37Z"
+    },
+    {
+      "username": "camila1793992167632",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:09:30Z"
+    },
+    {
+      "username": "camila1793992174588",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:09:35Z"
+    },
+    {
+      "username": "camila_1793992263531",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:11:05Z"
+    },
+    {
+      "username": "camila1793992297443",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:11:39Z"
+    },
+    {
+      "username": "camila1793992304082",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:11:45Z"
     }
   ]
 }
