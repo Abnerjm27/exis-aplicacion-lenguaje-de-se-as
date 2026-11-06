@@ -1,17 +1,16 @@
 /* ==========================================================================
    EXIS · Lengua de Señas Colombiana (LSC)
-   landing.css - Estilos Futuristas del Portal de Entrada y Cápsula Holográfica
+   landing.css - Portal Futurista de Entrada, Cápsula Holográfica y Consola Auth
    Diseñado según WCAG AAA, Craft Floor de Impeccable y Motion Doctrine
    ========================================================================== */
 
 :root {
   --bg-main: #0a0e17;
   --bg-surface: #121824;
-  --bg-surface-elevated: #1a2232;
+  --bg-surface-elevated: #182030;
   --color-primary: #f59e0b;
   --color-primary-hover: #d97706;
   --color-emerald: #10b981;
-  --color-cyan: #06b6d4;
   --spring-easing: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -24,60 +23,112 @@ html, body {
   max-width: 100%;
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: var(--bg-main);
-  background-image: 
-    radial-gradient(circle at 20% 15%, rgba(245, 158, 11, 0.07) 0%, transparent 45%),
-    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, #101623 0%, #0a0e17 100%);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(245, 158, 11, 0.11) 0%, transparent 42%),
+    radial-gradient(circle at 86% 24%, rgba(16, 185, 129, 0.09) 0%, transparent 44%),
+    radial-gradient(circle at 50% 85%, rgba(245, 158, 11, 0.05) 0%, transparent 50%),
+    linear-gradient(180deg, #080b12 0%, #0a0e17 55%, #0d1320 100%);
   color: #f8fafc;
 }
 
-/* Rejilla holográfica sutil de fondo */
-.hologram-grid-floor {
-  position: absolute;
-  inset: 0;
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(245, 158, 11, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(245, 158, 11, 0.03) 1px, transparent 1px);
+/* Haces volumétricos diagonales estilo Sci-Fi */
+.ambient-beam-amber {
+  position: fixed;
+  top: -120px;
+  left: -140px;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.14) 0%, transparent 70%);
+  filter: blur(45px);
   pointer-events: none;
-  mask-image: radial-gradient(ellipse at 50% 50%, black 40%, transparent 80%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 40%, transparent 80%);
+  z-index: 0;
+}
+
+.ambient-beam-emerald {
+  position: fixed;
+  top: -100px;
+  right: -140px;
+  width: 460px;
+  height: 460px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Rejilla holográfica en perspectiva en el piso */
+.hologram-grid-floor {
+  position: fixed;
+  inset: 0;
+  background-size: 44px 44px;
+  background-image:
+    linear-gradient(to right, rgba(245, 158, 11, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.035) 1px, transparent 1px);
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at 50% 60%, black 25%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 60%, black 25%, transparent 78%);
+  z-index: 0;
+}
+
+/* Barra superior */
+.landing-navbar {
+  background: rgba(10, 14, 23, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logo-mark-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 0.75rem;
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.22), rgba(245, 158, 11, 0.06));
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  box-shadow: 0 4px 16px -2px rgba(245, 158, 11, 0.25);
+  transition: transform 0.2s var(--spring-easing);
+}
+
+/* Tipografía Display del Hero */
+.hero-display-title {
+  font-size: clamp(1.85rem, 3.4vw + 0.8rem, 3.15rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
 /* Números tabulares */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
 }
 
-/* Cápsula Holográfica de Sol */
-.hologram-capsule {
+/* Escenario Holográfico de Sol + Telemetría */
+.hologram-showcase-card {
   position: relative;
-  background: radial-gradient(circle at 50% 30%, rgba(245, 158, 11, 0.12) 0%, rgba(18, 24, 36, 0.95) 70%);
+  background: linear-gradient(145deg, rgba(18, 24, 36, 0.94), rgba(10, 14, 23, 0.96));
   border: 1px solid rgba(245, 158, 11, 0.28);
-  border-radius: 1.5rem;
-  box-shadow: 
-    0 10px 40px rgba(0, 0, 0, 0.6),
-    inset 0 0 30px rgba(245, 158, 11, 0.08);
-  overflow: hidden;
+  border-radius: 1.25rem;
+  box-shadow:
+    0 20px 50px -12px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
 }
 
-/* Retrato Holográfico */
-.sol-portrait-img {
+.sol-hero-artwork {
   width: 100%;
-  max-height: 440px;
+  height: 100%;
+  max-height: 330px;
   object-fit: cover;
-  object-position: top center;
-  filter: drop-shadow(0 0 25px rgba(245, 158, 11, 0.2));
-  transition: transform 0.4s var(--spring-easing);
+  object-position: center top;
+  display: block;
+  transition: transform 0.45s var(--spring-easing);
 }
 
-.hologram-capsule:hover .sol-portrait-img {
-  transform: scale(1.02);
+.hologram-showcase-card:hover .sol-hero-artwork {
+  transform: scale(1.025);
 }
 
-/* Capa SVG de los 21 Landmarks de MediaPipe */
-.mediapipe-landmarks-svg {
+/* Anillos HUD sutiles alrededor de la mano de Sol */
+.holo-hud-overlay {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -85,68 +136,124 @@ html, body {
   pointer-events: none;
 }
 
-.bone-line {
-  stroke: rgba(245, 158, 11, 0.4);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-dasharray: 4, 3;
-  animation: bonePulse 3s ease-in-out infinite alternate;
+.hud-orbit-ring {
+  fill: none;
+  stroke: rgba(16, 185, 129, 0.35);
+  stroke-width: 1;
+  stroke-dasharray: 6 4;
+  transform-origin: 52px 88px;
+  animation: orbitSpin 18s linear infinite;
 }
 
-.landmark-node {
-  fill: #f59e0b;
-  stroke: #ffffff;
-  stroke-width: 1.5;
-  filter: drop-shadow(0 0 6px #f59e0b);
-  animation: jointGlow 2.5s ease-in-out infinite alternate;
+.hud-orbit-ring-outer {
+  fill: none;
+  stroke: rgba(245, 158, 11, 0.25);
+  stroke-width: 0.8;
+  stroke-dasharray: 3 6;
 }
 
-.landmark-node-tip {
-  fill: #10b981;
-  stroke: #ffffff;
-  stroke-width: 1.5;
-  filter: drop-shadow(0 0 6px #10b981);
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-@keyframes bonePulse {
-  0% { stroke: rgba(245, 158, 11, 0.3); stroke-dashoffset: 0; }
-  100% { stroke: rgba(16, 185, 129, 0.5); stroke-dashoffset: 14; }
-}
-
-@keyframes jointGlow {
-  0% { transform: scale(1); opacity: 0.85; }
-  100% { transform: scale(1.15); opacity: 1; }
-}
-
-/* Tarjetas flotantes de telemetría */
-.telemetry-chip {
-  background: rgba(10, 14, 23, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+.holo-bottom-caption {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.65rem;
+  background: rgba(10, 14, 23, 0.86);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-radius: 0.75rem;
-  padding: 0.5rem 0.75rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  transition: transform 0.2s var(--spring-easing), border-color 0.2s ease;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fde68a;
 }
 
-.telemetry-chip:hover {
-  transform: translateY(-2px);
-  border-color: rgba(245, 158, 11, 0.4);
+/* Cajas de telemetría lateral */
+.telemetry-stat-box {
+  padding: 0.7rem 0.85rem;
+  border-radius: 0.85rem;
+  background: rgba(15, 21, 34, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: border-color 0.2s ease, transform 0.2s var(--spring-easing);
 }
 
-/* Tarjeta del Portal de Autenticación */
-.auth-portal-card {
-  background-color: var(--bg-surface);
-  border: 1px solid rgba(245, 158, 11, 0.25);
-  border-radius: 1.25rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+.telemetry-stat-box:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+  transform: translateX(2px);
 }
 
-/* Botones con física de resorte (spring easing) */
+/* Consola Glassmorphic de Login / Registro */
+.auth-glass-console {
+  background: linear-gradient(165deg, rgba(22, 30, 46, 0.92) 0%, rgba(14, 19, 30, 0.96) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 1.35rem;
+  box-shadow:
+    0 24px 60px -12px rgba(0, 0, 0, 0.75),
+    0 0 36px -8px rgba(245, 158, 11, 0.14),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+}
+
+.auth-tab-active {
+  background: #f59e0b;
+  color: #090d16;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
+}
+
+.auth-field-input {
+  background-color: rgba(8, 12, 20, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.auth-field-input:hover {
+  border-color: rgba(245, 158, 11, 0.45);
+}
+
+.auth-field-input:focus {
+  outline: none;
+  border-color: #f59e0b;
+  background-color: #070a12;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18);
+}
+
+.auth-submit-btn {
+  background: #f59e0b;
+  border: 1px solid #fbbf24;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.35),
+    0 8px 24px -4px rgba(245, 158, 11, 0.4);
+}
+
+.auth-submit-btn:hover {
+  background: #fbbf24;
+}
+
+/* Tarjetas de los 3 pasos inferiores */
+.step-feature-card {
+  background: rgba(18, 24, 36, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.1rem;
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.22s var(--spring-easing), border-color 0.2s ease;
+}
+
+.step-feature-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(245, 158, 11, 0.38);
+}
+
+/* Botones con física de resorte (Emil Kowalski) */
 .btn-spring {
-  transition: transform 0.15s var(--spring-easing), background-color 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.2s var(--spring-easing), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.2s ease;
   touch-action: manipulation;
+  cursor: pointer;
 }
 
 .btn-spring:hover {
@@ -155,7 +262,12 @@ html, body {
 
 .btn-spring:active {
   transform: scale(0.97);
-  transition-duration: 50ms;
+  transition-duration: 50ms !important;
+}
+
+.btn-spring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #0a0e17, 0 0 0 4px #f59e0b;
 }
 
 /* Accesibilidad motion reduce */
