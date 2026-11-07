@@ -274,7 +274,7 @@ window.onSignMastered = function(sign, score) {
   }
 
   if (window.VisionEvaluator) {
-    window.VisionEvaluator.setPaused(true);
+    window.VisionEvaluator.stop();
   }
 
   // Registrar seña dominada y otorgar +25 XP en modo práctica

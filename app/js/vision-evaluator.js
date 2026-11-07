@@ -204,11 +204,72 @@ const VisionEvaluator = (() => {
         drawLandmarks(canvasCtx, lm, { color: i === 0 ? '#6366f1' : '#a855f7', lineWidth: 2, radius: 4 });
       }
 
+      // Renderizar también en el canvas de la lección interactiva si está activo
+      const lessonCanvas = document.getElementById('lessonPracticeCanvas');
+      const isLessonVisible = lessonCanvas && (lessonCanvas.offsetParent !== null || !lessonCanvas.classList.contains('hidden'));
+      if (isLessonVisible) {
+        lessonCanvas.width = videoElement.videoWidth || 640;
+        lessonCanvas.height = videoElement.videoHeight || 480;
+        const lessonCtx = lessonCanvas.getContext('2d');
+        lessonCtx.save();
+        lessonCtx.clearRect(0, 0, lessonCanvas.width, lessonCanvas.height);
+
+        // Guía interactiva de puntos y trayectorias (Connect-the-Dots) en la lección
+        if (window.TrajectoryTracker && !isEvaluationPaused) {
+          window.TrajectoryTracker.render(lessonCtx, lessonCanvas.width, lessonCanvas.height);
+        }
+
+        for (let i = 0; i < results.multiHandLandmarks.length; i++) {
+          const lm = results.multiHandLandmarks[i];
+          drawConnectors(lessonCtx, lm, HAND_CONNECTIONS, { color: '#00B8A9', lineWidth: 3 });
+          drawLandmarks(lessonCtx, lm, { color: '#FFC857', lineWidth: 2, radius: 4 });
+        }
+        lessonCtx.restore();
+      }
+
+      // Renderizar también en el canvas de la arena de examen si está activo
+      const examCanvas = document.getElementById('examPracticeCanvas');
+      const isExamVisible = examCanvas && (examCanvas.offsetParent !== null || !examCanvas.classList.contains('hidden'));
+      if (isExamVisible) {
+        examCanvas.width = videoElement.videoWidth || 640;
+        examCanvas.height = videoElement.videoHeight || 480;
+        const examCtx = examCanvas.getContext('2d');
+        examCtx.save();
+        examCtx.clearRect(0, 0, examCanvas.width, examCanvas.height);
+        for (let i = 0; i < results.multiHandLandmarks.length; i++) {
+          const lm = results.multiHandLandmarks[i];
+          drawConnectors(examCtx, lm, HAND_CONNECTIONS, { color: '#00B8A9', lineWidth: 3 });
+          drawLandmarks(examCtx, lm, { color: '#FFC857', lineWidth: 2, radius: 4 });
+        }
+        examCtx.restore();
+      }
+
       // Only evaluate if evaluation is NOT paused by victory modal
       if (!isEvaluationPaused) {
         evaluatePose(results.multiHandLandmarks);
       }
     } else {
+      const lessonCanvas = document.getElementById('lessonPracticeCanvas');
+      const isLessonVisible = lessonCanvas && (lessonCanvas.offsetParent !== null || !lessonCanvas.classList.contains('hidden'));
+      if (isLessonVisible) {
+        lessonCanvas.width = videoElement.videoWidth || 640;
+        lessonCanvas.height = videoElement.videoHeight || 480;
+        const lessonCtx = lessonCanvas.getContext('2d');
+        lessonCtx.save();
+        lessonCtx.clearRect(0, 0, lessonCanvas.width, lessonCanvas.height);
+        // Aun sin manos detectadas, renderizar los waypoints de movimiento para guiar la postura inicial
+        if (window.TrajectoryTracker && !isEvaluationPaused) {
+          window.TrajectoryTracker.render(lessonCtx, lessonCanvas.width, lessonCanvas.height);
+        }
+        lessonCtx.restore();
+      }
+
+      const examCanvas = document.getElementById('examPracticeCanvas');
+      if (examCanvas) {
+        const examCtx = examCanvas.getContext('2d');
+        if (examCtx) examCtx.clearRect(0, 0, examCanvas.width, examCanvas.height);
+      }
+
       if (!isEvaluationPaused) {
         consecutiveSuccessFrames = Math.max(0, consecutiveSuccessFrames - 2);
         updateScoreUI(0, "Coloca tu mano frente a la cámara web");
@@ -789,13 +850,24 @@ const VisionEvaluator = (() => {
   function updateTrajectoryPillUI(trajStatus) {
     const pill = document.getElementById('trajectoryStatusPill');
     const text = document.getElementById('trajectoryStatusText');
-    if (!pill || !text) return;
+    if (pill && text) {
+      if (!trajStatus || !trajStatus.active) {
+        pill.classList.add('hidden');
+      } else {
+        pill.classList.remove('hidden');
+        text.textContent = trajStatus.text;
+      }
+    }
 
-    if (!trajStatus || !trajStatus.active) {
-      pill.classList.add('hidden');
-    } else {
-      pill.classList.remove('hidden');
-      text.textContent = trajStatus.text;
+    const lessonPill = document.getElementById('lessonTrajectoryPill');
+    const lessonText = document.getElementById('lessonTrajectoryText');
+    if (lessonPill && lessonText) {
+      if (!trajStatus || !trajStatus.active) {
+        lessonPill.classList.add('hidden');
+      } else {
+        lessonPill.classList.remove('hidden');
+        lessonText.textContent = trajStatus.text;
+      }
     }
   }
 
@@ -818,6 +890,21 @@ const VisionEvaluator = (() => {
     } else {
       scoreTxt.className = "font-mono font-bold text-slate-400";
       pBar.className = "progress-bar-fill bg-slate-700";
+    }
+
+    // Sincronizar en tiempo real con la sesión de lección interactiva si está en fase practice
+    if (window.LessonSessionController && typeof window.LessonSessionController.handlePracticeFrame === 'function') {
+      window.LessonSessionController.handlePracticeFrame(score, 100);
+    }
+
+    // Sincronizar en tiempo real con la arena de examen si está en reto de gesto
+    const examBar = document.getElementById('examGestureRadarBar');
+    const examTxt = document.getElementById('examGestureRadarText');
+    if (examBar) examBar.style.width = `${score}%`;
+    if (examTxt) examTxt.textContent = `${score}%`;
+
+    if (window.BlindExamController && typeof window.BlindExamController.handlePracticeFrame === 'function') {
+      window.BlindExamController.handlePracticeFrame(score, 100);
     }
   }
 

@@ -73,9 +73,9 @@ class ViewRouter {
       navBtnStudio.removeAttribute('aria-current');
     }
 
-    // Pausar visión artificial mientras explora su ruta
+    // Apagar cámara completamente mientras explora su ruta para no gastar hardware ni batería
     if (window.VisionEvaluator) {
-      window.VisionEvaluator.setPaused(true);
+      window.VisionEvaluator.stop();
     }
 
     // Actualizar mapa Duolingo
@@ -86,7 +86,7 @@ class ViewRouter {
     this.#syncUrlQuery('path');
   }
 
-  switchToStudioView(signId = null, startExam = false) {
+  switchToStudioView(signId = null, startExam = false, examConfig = null) {
     this.#currentView = 'studio';
 
     const pathView = document.getElementById('viewLearningPath');
@@ -115,8 +115,8 @@ class ViewRouter {
 
     if (startExam) {
       if (window.BlindExamController) {
-        let plan = null;
-        if (window.LearningPlanManager) {
+        let plan = examConfig || null;
+        if (!plan && window.LearningPlanManager) {
           plan = window.LearningPlanManager.getActivePlan();
         }
         window.BlindExamController.start(plan);

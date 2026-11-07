@@ -324,4 +324,29 @@ runTest('7. Ciclo de vida y destrucción limpia (destroy/reset) sin dejar estado
   assert.strictEqual(controller.isActive(), false, 'isActive debe ser false tras reset');
 });
 
+runTest('8. Conmutación de Modo de Video (Real vs Anime IA) y persistencia', () => {
+  const controller = new LessonSessionController();
+  controller.init();
+  controller.startLesson('HOLA');
+
+  assert.strictEqual(controller.getVideoMode(), 'real');
+  assert.strictEqual(controller.getState().videoMode, 'real');
+
+  const demoVideo = documentMock.getElementById('lessonDemoVideo');
+  assert.strictEqual(demoVideo.src, 'videos/real/HOLA_body.mp4');
+
+  // Cambiar a Anime
+  controller.setVideoMode('anime');
+  assert.strictEqual(controller.getVideoMode(), 'anime');
+  assert.strictEqual(controller.getState().videoMode, 'anime');
+  assert.strictEqual(demoVideo.src, 'videos/anime/HOLA_body.mp4');
+
+  // Cambiar de vuelta a Real
+  controller.setVideoMode('real');
+  assert.strictEqual(controller.getVideoMode(), 'real');
+  assert.strictEqual(demoVideo.src, 'videos/real/HOLA_body.mp4');
+
+  controller.destroy();
+});
+
 console.log(`\n🎉 Todas las pruebas pasaron exitosamente (${testsPassed}/${totalTests}).`);

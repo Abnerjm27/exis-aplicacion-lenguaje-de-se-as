@@ -341,13 +341,21 @@ class LearningPlanManager {
       });
 
       container.appendChild(nodeBtn);
+
+      // Cada 3 palabras (y si no es la última seña), insertar un nodo Checkpoint de examen con dificultad ascendente
+      if ((idx + 1) % 3 === 0 && (idx + 1) < signs.length) {
+        const cpNumber = Math.floor((idx + 1) / 3);
+        const cpSigns = signs.slice(0, idx + 1);
+        const cpNode = this.#createCheckpointNode(cpNumber, cpSigns);
+        container.appendChild(cpNode);
+      }
     });
 
-    // Nodo Trofeo Final de Unidad: Examen Sin Video
+    // Nodo Trofeo Final de Unidad: Examen Sin Video de todas las palabras del plan
     const trophyBtn = document.createElement('button');
     trophyBtn.id = 'btnPathFinalExamNode';
     trophyBtn.className = 'duolingo-trophy-node duolingo-pos-center flex flex-col items-center justify-center p-4 rounded-2xl transition cursor-pointer relative mt-3 group border border-amber-500/30 bg-slate-900/90 hover:bg-slate-800 shadow-xl';
-    trophyBtn.setAttribute('aria-label', 'Examen de Unidad: Evaluación a Ciegas sin video');
+    trophyBtn.setAttribute('aria-label', `Examen de Unidad: Evaluación a Ciegas de todas las ${signs.length} señas`);
     trophyBtn.innerHTML = `
       <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
         <svg class="w-7 h-7 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -359,19 +367,69 @@ class LearningPlanManager {
           <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
         </svg>
       </div>
-      <span class="text-xs font-bold uppercase tracking-wider text-amber-300 mt-2">Examen de Unidad</span>
-      <span class="text-[10px] text-slate-400">Evaluación a Ciegas (Sin Video)</span>
+      <span class="text-xs font-bold uppercase tracking-wider text-amber-300 mt-2">Examen de Unidad Final</span>
+      <span class="text-[10px] text-slate-400">Todas las ${signs.length} señas · Nivel Maestro (15s)</span>
     `;
     trophyBtn.addEventListener('click', () => {
+      const allSigns = [...this.#activePlan.signs];
+      const maxDifficulty = Math.max(3, Math.ceil(allSigns.length / 3));
+      const examConfig = {
+        title: `Examen Final: ${this.#activePlan.title || 'Plan Completo'}`,
+        signs: allSigns,
+        secondsPerQuestion: 15,
+        difficultyLevel: maxDifficulty
+      };
+
       if (window.ViewRouter) {
-        window.ViewRouter.switchToStudioView(null, true);
+        window.ViewRouter.switchToStudioView(null, true, examConfig);
       } else if (window.BlindExamController) {
-        window.BlindExamController.start(this.#activePlan);
+        window.BlindExamController.start(examConfig);
       }
     });
     container.appendChild(trophyBtn);
 
     this.#updateActivePlanHeader();
+  }
+
+  #createCheckpointNode(cpNumber, cpSigns) {
+    const cpBtn = document.createElement('button');
+    cpBtn.className = 'duolingo-checkpoint-node duolingo-pos-center flex flex-col items-center justify-center p-3 rounded-2xl transition cursor-pointer my-2 group border border-amber-500/40 bg-slate-900/90 hover:bg-slate-800/90 hover:border-amber-400 shadow-lg relative z-10 shrink-0';
+    cpBtn.setAttribute('data-checkpoint-num', String(cpNumber));
+    cpBtn.setAttribute('aria-label', `Checkpoint ${cpNumber}: Reto de ${cpSigns.length} señas. Dificultad Nivel ${cpNumber}`);
+
+    // Dificultad escalada: nivel 1 = 25s, nivel 2 = 20s, nivel 3+ = 15s
+    const secondsPerQuestion = cpNumber === 1 ? 25 : (cpNumber === 2 ? 20 : 15);
+
+    cpBtn.innerHTML = `
+      <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center shadow-md shadow-amber-500/20 group-hover:scale-105 transition">
+        <svg class="w-5 h-5 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <polyline points="9 12 11 14 15 10"></polyline>
+        </svg>
+      </div>
+      <div class="flex items-center gap-1.5 mt-1.5">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-amber-300">Checkpoint ${cpNumber}</span>
+        <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30">Nvl ${cpNumber}</span>
+      </div>
+      <span class="text-[10px] text-slate-400 font-medium">${cpSigns.length} señas · ${secondsPerQuestion}s/seña</span>
+    `;
+
+    cpBtn.addEventListener('click', () => {
+      const examConfig = {
+        title: `Checkpoint ${cpNumber}: Reto de ${cpSigns.length} Señas`,
+        signs: cpSigns,
+        secondsPerQuestion: secondsPerQuestion,
+        difficultyLevel: cpNumber
+      };
+
+      if (window.ViewRouter) {
+        window.ViewRouter.switchToStudioView(null, true, examConfig);
+      } else if (window.BlindExamController) {
+        window.BlindExamController.start(examConfig);
+      }
+    });
+
+    return cpBtn;
   }
 
   openCustomPlanModal() {

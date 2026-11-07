@@ -18,35 +18,12 @@
       "username": "abner_lsc",
       "displayName": "Abner LSC",
       "level": "Principiante",
-      "xp": 155,
+      "xp": 0,
       "streak": 1,
-      "masteredSigns": [
-        "HOLA",
-        "A",
-        "B"
-      ],
-      "customPlans": [
-        {
-          "id": "plan_custom_1793992286015",
-          "title": "Mi Ruta Personal",
-          "rationale": "Ruta personalizada con 3 señas seleccionadas por el estudiante.",
-          "signs": [
-            "HOLA",
-            "A",
-            "B"
-          ]
-        }
-      ],
-      "examHistory": [
-        {
-          "planTitle": "Mi Ruta Personal",
-          "scorePct": 100,
-          "correct": 3,
-          "total": 3,
-          "dateIso": "2026-11-06T19:11:28.433Z"
-        }
-      ],
-      "lastUpdated": "2026-11-06T19:11:28Z"
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T23:37:30Z"
     },
     {
       "username": "camila_lsc",
@@ -179,6 +156,94 @@
       "customPlans": [],
       "examHistory": [],
       "lastUpdated": "2026-11-06T19:40:14Z"
+    },
+    {
+      "username": "camila1793994819534",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:53:42Z"
+    },
+    {
+      "username": "camila1793994826268",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:53:47Z"
+    },
+    {
+      "username": "camila1793995693971",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T20:08:16Z"
+    },
+    {
+      "username": "camila1793995701683",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T20:08:23Z"
+    },
+    {
+      "username": "camila_1793995826814",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T20:10:28Z"
+    },
+    {
+      "username": "camila_1793997954173",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T20:45:55Z"
+    },
+    {
+      "username": "camila_1793998010876",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T20:46:52Z"
+    },
+    {
+      "username": "camila_1794004598504",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T22:36:40Z"
     }
   ]
 }

@@ -38,50 +38,25 @@ class LessonSessionController {
   static getState() { return LessonSessionController.getInstance().getState(); }
   static getSummary() { return LessonSessionController.getInstance().getSummary(); }
   static closeLesson() { return LessonSessionController.getInstance().closeLesson(); }
+  static setVideoMode(mode) { return LessonSessionController.getInstance().setVideoMode(mode); }
+  static getVideoMode() { return LessonSessionController.getInstance().getVideoMode(); }
 
   // -------------------------------------------------------------
   // ESTADO PRIVADO (#) (Regla 8 AGENTS.md)
   // -------------------------------------------------------------
-  #isActive;
-  #currentSignId;
-  #currentSign;
-  #currentPhase; // 'demo' | 'quiz' | 'practice' | 'summary' | null
-  #planContext;
-  #options;
-  #selectedOptionId;
-  #quizAnswered;
-  #quizPassed;
-  #quizAttempts;
-  #practiceScore;
-  #practicePassed;
-  #practiceHoldMs;
-  #cameraActive;
-  #earnedXp;
-  #callbacks;
-  #originalOnSignMastered;
-  #boundKeyDownHandler;
+  #isActive; #currentSignId; #currentSign; #currentPhase; #planContext; #options;
+  #selectedOptionId; #quizAnswered; #quizPassed; #quizAttempts; #practiceScore;
+  #practicePassed; #practiceHoldMs; #cameraActive; #videoMode; #earnedXp;
+  #callbacks; #originalOnSignMastered; #boundKeyDownHandler;
 
   constructor() {
     this.#isActive = false;
-    this.#currentSignId = null;
-    this.#currentSign = null;
-    this.#currentPhase = null;
-    this.#planContext = null;
-    this.#options = [];
-    this.#selectedOptionId = null;
-    this.#quizAnswered = false;
-    this.#quizPassed = false;
-    this.#quizAttempts = 0;
-    this.#practiceScore = 0;
-    this.#practicePassed = false;
-    this.#practiceHoldMs = 0;
-    this.#cameraActive = false;
-    this.#earnedXp = 50;
-    this.#callbacks = {
-      onPhaseChange: null,
-      onLessonComplete: null,
-      onExit: null
-    };
+    this.#videoMode = (typeof window !== 'undefined' && window.localStorage && localStorage.getItem('manitas_video_mode')) || 'real';
+    this.#currentSignId = null; this.#currentSign = null; this.#currentPhase = null; this.#planContext = null;
+    this.#options = []; this.#selectedOptionId = null; this.#quizAnswered = false; this.#quizPassed = false;
+    this.#quizAttempts = 0; this.#practiceScore = 0; this.#practicePassed = false; this.#practiceHoldMs = 0;
+    this.#cameraActive = false; this.#earnedXp = 50;
+    this.#callbacks = { onPhaseChange: null, onLessonComplete: null, onExit: null };
     this.#originalOnSignMastered = null;
     this.#boundKeyDownHandler = this.#handleKeyDown.bind(this);
   }
@@ -95,15 +70,9 @@ class LessonSessionController {
    * @param {Object} options - { onPhaseChange, onLessonComplete, onExit }
    */
   init(options = {}) {
-    if (typeof options.onPhaseChange === 'function') {
-      this.#callbacks.onPhaseChange = options.onPhaseChange;
-    }
-    if (typeof options.onLessonComplete === 'function') {
-      this.#callbacks.onLessonComplete = options.onLessonComplete;
-    }
-    if (typeof options.onExit === 'function') {
-      this.#callbacks.onExit = options.onExit;
-    }
+    if (typeof options.onPhaseChange === 'function') this.#callbacks.onPhaseChange = options.onPhaseChange;
+    if (typeof options.onLessonComplete === 'function') this.#callbacks.onLessonComplete = options.onLessonComplete;
+    if (typeof options.onExit === 'function') this.#callbacks.onExit = options.onExit;
 
     this.#bindUIEvents();
     return this;
@@ -169,6 +138,7 @@ class LessonSessionController {
 
     // 7. Renderizar modal en el DOM si existe
     this.#showModal();
+    this.#updateVideoModeUI();
 
     return true;
   }
@@ -229,6 +199,14 @@ class LessonSessionController {
     this.#practiceHoldMs = 0;
 
     this.#stopCameraIfActive();
+    if (typeof document !== 'undefined') {
+      ['lessonDemoVideo', 'lessonQuizVideo', 'lessonPracticeGuideVideo'].forEach(id => {
+        const v = document.getElementById(id);
+        if (v && typeof v.pause === 'function') {
+          try { v.pause(); } catch (e) {}
+        }
+      });
+    }
     this.#hideModal();
   }
 
@@ -414,27 +392,14 @@ class LessonSessionController {
 
   #getAllCatalogSigns() {
     let signsList = [];
-
     if (typeof window !== 'undefined' && window.SIGNS_DATA) {
       const words = Array.isArray(window.SIGNS_DATA.words) ? window.SIGNS_DATA.words : [];
       const letters = Array.isArray(window.SIGNS_DATA.letters) ? window.SIGNS_DATA.letters : [];
       signsList = [...words, ...letters];
     }
-
-    // Si por alguna razón está vacío, catálogo de reserva
     if (signsList.length === 0) {
-      signsList = [
-        { id: 'HOLA', name: 'HOLA', category: 'words' },
-        { id: 'YO', name: 'YO', category: 'words' },
-        { id: 'BUENOS', name: 'BUENOS / AS', category: 'words' },
-        { id: 'DIAS', name: 'DÍAS', category: 'words' },
-        { id: 'A', name: 'Letra A', category: 'letters' },
-        { id: 'B', name: 'Letra B', category: 'letters' },
-        { id: 'C', name: 'Letra C', category: 'letters' },
-        { id: 'L', name: 'Letra L', category: 'letters' }
-      ];
+      signsList = ['HOLA', 'YO', 'BUENOS', 'DIAS', 'A', 'B', 'C', 'L'].map(id => ({ id, name: id, category: 'words' }));
     }
-
     return signsList;
   }
 
@@ -503,17 +468,10 @@ class LessonSessionController {
     const feedbackDesc = document.getElementById('lessonFeedbackText');
     if (feedbackDesc) feedbackDesc.textContent = 'Observa los movimientos y la postura de la mano antes del test.';
 
-    // Configurar video de demostración
+    // Configurar video de demostración con fallback WebP
     const videoEl = document.getElementById('lessonDemoVideo');
-    if (videoEl) {
-      videoEl.src = `videos/real/${this.#currentSignId}_body.mp4`;
-      if (typeof videoEl.load === 'function') {
-        try { videoEl.load(); } catch (e) {}
-      }
-      if (typeof videoEl.play === 'function') {
-        try { videoEl.play().catch(() => {}); } catch (e) {}
-      }
-    }
+    const webpEl = document.getElementById('lessonDemoWebp');
+    this.#loadMediaWithWebpFallback(videoEl, webpEl, this.#currentSignId);
 
     // Tarjeta del zorrito con explicación pedagógica
     const titleEl = document.getElementById('lessonDemoSignName');
@@ -540,17 +498,10 @@ class LessonSessionController {
 
     if (typeof document === 'undefined') return;
 
-    // Video del quiz sin título visible
+    // Video del quiz sin título visible con fallback WebP
     const videoEl = document.getElementById('lessonQuizVideo');
-    if (videoEl) {
-      videoEl.src = `videos/real/${this.#currentSignId}_body.mp4`;
-      if (typeof videoEl.load === 'function') {
-        try { videoEl.load(); } catch (e) {}
-      }
-      if (typeof videoEl.play === 'function') {
-        try { videoEl.play().catch(() => {}); } catch (e) {}
-      }
-    }
+    const webpEl = document.getElementById('lessonQuizWebp');
+    this.#loadMediaWithWebpFallback(videoEl, webpEl, this.#currentSignId);
 
     // Renderizar grilla de 4 opciones
     const gridEl = document.getElementById('quizOptionsGrid');
@@ -596,26 +547,31 @@ class LessonSessionController {
 
     if (typeof document === 'undefined') return;
 
-    // Pausar video de quiz
+    // Pausar video y webp de quiz
     const quizVideo = document.getElementById('lessonQuizVideo');
     if (quizVideo && typeof quizVideo.pause === 'function') {
       try { quizVideo.pause(); } catch (e) {}
     }
+    const quizWebp = document.getElementById('lessonQuizWebp');
+    if (quizWebp) quizWebp.classList.add('hidden');
 
-    // Video guía espejo
+    // Video guía espejo con fallback WebP
     const guideVideo = document.getElementById('lessonPracticeGuideVideo');
-    if (guideVideo) {
-      guideVideo.src = `videos/real/${this.#currentSignId}_body.mp4`;
-      if (typeof guideVideo.load === 'function') {
-        try { guideVideo.load(); } catch (e) {}
-      }
-      if (typeof guideVideo.play === 'function') {
-        try { guideVideo.play().catch(() => {}); } catch (e) {}
-      }
-    }
+    const guideWebp = document.getElementById('lessonPracticeGuideWebp');
+    this.#loadMediaWithWebpFallback(guideVideo, guideWebp, this.#currentSignId);
 
     // Activar webcam y MediaPipe vía VisionEvaluator
     this.#startCameraForPractice();
+
+    // Actualizar texto instructivo según si la seña incluye puntos de movimiento
+    const practiceHintEl = document.getElementById('lessonPracticeHint');
+    if (practiceHintEl) {
+      if (this.#currentSign && this.#currentSign.trajectory && this.#currentSign.trajectory.enabled) {
+        practiceHintEl.textContent = 'Sigue la secuencia de puntos numerados en tu cámara y mantén la postura final';
+      } else {
+        practiceHintEl.textContent = 'Mantén la postura con precisión ≥ 85% durante 1.2 segundos';
+      }
+    }
 
     // Actualizar indicador radar de práctica
     this.#updatePracticeProgressUI(0);
@@ -623,7 +579,9 @@ class LessonSessionController {
     const btnContinue = document.getElementById('btnLessonContinue');
     if (btnContinue) {
       btnContinue.disabled = true;
-      btnContinue.textContent = 'Mantén la seña frente a la cámara...';
+      btnContinue.textContent = (this.#currentSign && this.#currentSign.trajectory && this.#currentSign.trajectory.enabled)
+        ? 'Sigue los puntos con tu mano...'
+        : 'Mantén la seña frente a la cámara...';
     }
   }
 
@@ -698,8 +656,63 @@ class LessonSessionController {
   // GESTIÓN DE CÁMARA (VisionEvaluator)
   // -------------------------------------------------------------
 
+  #loadMediaWithWebpFallback(videoEl, webpEl, signId) {
+    if (!videoEl && !webpEl) return;
+    const folder = this.#videoMode === 'anime' ? 'videos/anime' : 'videos/real';
+    const mp4Url = `${folder}/${signId}_body.mp4`;
+    const webpUrl = `${folder}/${signId}_body.webp`;
+
+    const activateWebp = () => {
+      if (videoEl) videoEl.classList.add('hidden');
+      if (webpEl) {
+        webpEl.src = webpUrl;
+        webpEl.classList.remove('hidden');
+      }
+    };
+
+    if (videoEl) {
+      if (webpEl) webpEl.classList.add('hidden');
+      videoEl.classList.remove('hidden');
+      videoEl.muted = true;
+      videoEl.loop = true;
+      videoEl.setAttribute('playsinline', 'true');
+
+      videoEl.onerror = () => {
+        console.warn(`[LessonSession] Fallo decodificación MP4 (${mp4Url}), activando fallback WebP`);
+        activateWebp();
+      };
+
+      videoEl.src = mp4Url;
+      if (typeof videoEl.load === 'function') {
+        try { videoEl.load(); } catch (e) {}
+      }
+
+      if (typeof videoEl.play === 'function') {
+        const playPromise = videoEl.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((err) => {
+            if (err.name === 'AbortError') return;
+            console.warn(`[LessonSession] Autoplay MP4 prevenido (${err.message}), activando WebP`);
+            activateWebp();
+          });
+        }
+      }
+    } else {
+      activateWebp();
+    }
+  }
+
   #startCameraForPractice() {
     if (typeof window === 'undefined') return;
+
+    const lessonVideo = document.getElementById('lessonPracticeWebcamVideo');
+    const loader = document.getElementById('lessonCameraLoading');
+    if (loader) loader.classList.remove('hidden');
+
+    const lessonSelect = document.getElementById('lessonCameraSelect');
+    if (window.CameraManager && lessonSelect) {
+      window.CameraManager.attachSelect(lessonSelect);
+    }
 
     if (window.VisionEvaluator) {
       try {
@@ -714,15 +727,48 @@ class LessonSessionController {
         console.warn('VisionEvaluator no pudo iniciar cámara:', err);
       }
     }
+
+    const attachStream = () => {
+      const stream = (window.CameraManager && typeof window.CameraManager.getStream === 'function')
+        ? window.CameraManager.getStream()
+        : (document.getElementById('webcamVideo')?.srcObject || null);
+
+      if (lessonVideo && stream) {
+        if (lessonVideo.srcObject !== stream) {
+          lessonVideo.srcObject = stream;
+          lessonVideo.muted = true;
+          lessonVideo.setAttribute('playsinline', 'true');
+          lessonVideo.play().then(() => {
+            if (loader) loader.classList.add('hidden');
+          }).catch(() => {
+            if (loader) loader.classList.add('hidden');
+          });
+        } else {
+          if (loader) loader.classList.add('hidden');
+        }
+        return true;
+      }
+      return false;
+    };
+
+    if (!attachStream()) {
+      let attempts = 0;
+      const poll = setInterval(() => {
+        attempts++;
+        if (attachStream() || attempts > 15) {
+          clearInterval(poll);
+          if (loader) loader.classList.add('hidden');
+        }
+      }, 200);
+    }
   }
 
   #stopCameraIfActive() {
     if (typeof window === 'undefined') return;
-
+    const lessonVideo = document.getElementById('lessonPracticeWebcamVideo');
+    if (lessonVideo) lessonVideo.srcObject = null;
     if (window.VisionEvaluator && this.#cameraActive) {
-      try {
-        window.VisionEvaluator.setPaused(true);
-      } catch (e) {}
+      try { window.VisionEvaluator.stop(); } catch (e) {}
       this.#cameraActive = false;
     }
   }
@@ -732,56 +778,34 @@ class LessonSessionController {
   // -------------------------------------------------------------
 
   #showModal() {
-    if (typeof document === 'undefined') return;
-    const modal = document.getElementById('lessonSessionModal');
-    if (modal) {
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
+    const modal = typeof document !== 'undefined' && document.getElementById('lessonSessionModal');
+    if (modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
   }
 
   #hideModal() {
-    if (typeof document === 'undefined') return;
-    const modal = document.getElementById('lessonSessionModal');
-    if (modal) {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
+    const modal = typeof document !== 'undefined' && document.getElementById('lessonSessionModal');
+    if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
   }
 
   #toggleContainers(activePhase) {
     if (typeof document === 'undefined') return;
-
     const containers = {
       demo: document.getElementById('phaseDemoContainer'),
       quiz: document.getElementById('phaseQuizContainer'),
       practice: document.getElementById('phasePracticeContainer'),
       summary: document.getElementById('phaseSummaryContainer')
     };
-
     Object.entries(containers).forEach(([phaseKey, el]) => {
-      if (el) {
-        if (phaseKey === activePhase) {
-          el.classList.remove('hidden');
-        } else {
-          el.classList.add('hidden');
-        }
-      }
+      if (el) phaseKey === activePhase ? el.classList.remove('hidden') : el.classList.add('hidden');
     });
   }
 
   #updateProgressUI(percentage, stepText = '') {
     if (typeof document === 'undefined') return;
-
     const barEl = document.getElementById('lessonProgressBar');
-    if (barEl) {
-      barEl.style.width = `${percentage}%`;
-    }
-
+    if (barEl) barEl.style.width = `${percentage}%`;
     const titleEl = document.getElementById('lessonHeaderStepText');
-    if (titleEl && stepText) {
-      titleEl.textContent = stepText;
-    }
+    if (titleEl && stepText) titleEl.textContent = stepText;
   }
 
   #renderQuizFeedback(isCorrect) {
@@ -885,6 +909,12 @@ class LessonSessionController {
   #bindUIEvents() {
     if (typeof document === 'undefined') return;
 
+    // Selector de Modo de Video (Real / Anime IA)
+    const btnReal = document.getElementById('btnLessonModeReal');
+    if (btnReal) btnReal.addEventListener('click', () => this.setVideoMode('real'));
+    const btnAnime = document.getElementById('btnLessonModeAnime');
+    if (btnAnime) btnAnime.addEventListener('click', () => this.setVideoMode('anime'));
+
     // Botón cerrar (X)
     const btnClose = document.getElementById('btnLessonClose');
     if (btnClose) {
@@ -931,6 +961,52 @@ class LessonSessionController {
   }
 
   // -------------------------------------------------------------
+  // CONTROL DE MODO DE VIDEO (REAL / ANIME IA)
+  // -------------------------------------------------------------
+
+  getVideoMode() {
+    return this.#videoMode;
+  }
+
+  setVideoMode(mode) {
+    this.#videoMode = (mode === 'anime') ? 'anime' : 'real';
+    if (typeof window !== 'undefined' && window.localStorage) {
+      try { localStorage.setItem('manitas_video_mode', this.#videoMode); } catch (e) {}
+    }
+    this.#updateVideoModeUI();
+    this.#reloadCurrentPhaseMedia();
+    return this.#videoMode;
+  }
+
+  #reloadCurrentPhaseMedia() {
+    if (!this.#isActive || !this.#currentSignId || typeof document === 'undefined') return;
+    if (this.#currentPhase === 'demo') {
+      this.#loadMediaWithWebpFallback(document.getElementById('lessonDemoVideo'), document.getElementById('lessonDemoWebp'), this.#currentSignId);
+    } else if (this.#currentPhase === 'quiz') {
+      this.#loadMediaWithWebpFallback(document.getElementById('lessonQuizVideo'), document.getElementById('lessonQuizWebp'), this.#currentSignId);
+    } else if (this.#currentPhase === 'practice') {
+      this.#loadMediaWithWebpFallback(document.getElementById('lessonPracticeGuideVideo'), document.getElementById('lessonPracticeGuideWebp'), this.#currentSignId);
+    }
+  }
+
+  #updateVideoModeUI() {
+    if (typeof document === 'undefined') return;
+    const btnReal = document.getElementById('btnLessonModeReal');
+    const btnAnime = document.getElementById('btnLessonModeAnime');
+    const isAnime = this.#videoMode === 'anime';
+    if (btnReal) {
+      btnReal.className = !isAnime
+        ? 'btn-spring px-2.5 py-1 rounded-lg transition bg-amber-400 text-slate-950 font-bold shadow-sm'
+        : 'btn-spring px-2.5 py-1 rounded-lg transition text-slate-300 hover:text-white';
+    }
+    if (btnAnime) {
+      btnAnime.className = isAnime
+        ? 'btn-spring px-2.5 py-1 rounded-lg transition bg-amber-400 text-slate-950 font-bold shadow-sm'
+        : 'btn-spring px-2.5 py-1 rounded-lg transition text-slate-300 hover:text-white';
+    }
+  }
+
+  // -------------------------------------------------------------
   // ACCESORES PÚBLICOS DE CONSULTA
   // -------------------------------------------------------------
 
@@ -955,6 +1031,7 @@ class LessonSessionController {
       isActive: this.#isActive,
       signId: this.#currentSignId,
       phase: this.#currentPhase,
+      videoMode: this.#videoMode,
       planContext: this.#planContext,
       quizAnswered: this.#quizAnswered,
       quizPassed: this.#quizPassed,

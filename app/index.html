@@ -391,7 +391,7 @@
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
-              <span id="examTimerText" class="font-mono text-sm font-bold text-amber-300 tabular-nums">25s</span>
+              <span id="overlayExamTimerText" class="font-mono text-sm font-bold text-amber-300 tabular-nums">25s</span>
             </div>
 
             <!-- Controles del Examen -->
@@ -799,8 +799,15 @@
             <div id="lessonProgressBar" class="h-full rounded-full w-1/3"></div>
           </div>
         </div>
-        <div id="lessonHeaderStepText" class="lesson-step-badge text-xs font-mono font-bold px-3 py-1 rounded-lg">
-          Paso 1 de 3: Mira la seña
+        <div class="flex items-center gap-2">
+          <!-- Selector Modo Video Real / Anime IA -->
+          <div class="flex items-center bg-slate-900/90 rounded-xl p-0.5 border border-slate-700/80 shrink-0 text-[11px] font-semibold" role="group" aria-label="Modo de video">
+            <button id="btnLessonModeReal" type="button" class="btn-spring px-2.5 py-1 rounded-lg transition bg-amber-400 text-slate-950 font-bold shadow-sm" title="Ver actor real">Real</button>
+            <button id="btnLessonModeAnime" type="button" class="btn-spring px-2.5 py-1 rounded-lg transition text-slate-300 hover:text-white" title="Ver avatar Anime IA">Anime IA</button>
+          </div>
+          <div id="lessonHeaderStepText" class="lesson-step-badge text-xs font-mono font-bold px-3 py-1 rounded-lg">
+            Paso 1 de 3: Mira la seña
+          </div>
         </div>
       </header>
 
@@ -811,6 +818,7 @@
         <section id="phaseDemoContainer" class="lesson-phase-pane flex flex-col items-center gap-4 w-full max-w-xl text-center">
           <div class="lesson-video-frame w-full max-w-md aspect-video rounded-2xl overflow-hidden relative">
             <video id="lessonDemoVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
+            <img id="lessonDemoWebp" class="hidden w-full h-full object-contain" alt="Demostración animada en LSC" />
           </div>
           <div class="lesson-zorrito-tip-card w-full p-4 rounded-2xl flex items-center gap-4 text-left">
             <img src="img/zorrito/svg/zorrito_explicando.svg" alt="Zorrito Tutor" class="w-16 h-16 shrink-0 object-contain drop-shadow-md">
@@ -833,6 +841,7 @@
           </div>
           <div class="lesson-video-frame w-full max-w-sm aspect-video rounded-2xl overflow-hidden relative">
             <video id="lessonQuizVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
+            <img id="lessonQuizWebp" class="hidden w-full h-full object-contain" alt="Video pregunta LSC" />
           </div>
           <div id="quizOptionsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
             <!-- Renderizado dinámicamente con 4 opciones -->
@@ -844,7 +853,7 @@
           <div class="text-center mb-1">
             <span class="text-xs uppercase font-mono tracking-widest text-amber-400 font-semibold block mb-1">Práctica Activa</span>
             <h3 class="text-lg font-bold text-slate-100">Replica la seña frente a tu cámara</h3>
-            <p class="text-xs text-slate-400">Mantén la postura con precisión ≥ 85% durante 1.2 segundos</p>
+            <p id="lessonPracticeHint" class="text-xs text-slate-400">Mantén la postura con precisión ≥ 85% durante 1.2 segundos</p>
           </div>
           <div class="lesson-practice-split">
             <!-- Guía espejo -->
@@ -855,20 +864,34 @@
               </div>
               <div class="aspect-video w-full bg-slate-950 overflow-hidden relative">
                 <video id="lessonPracticeGuideVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
+                <img id="lessonPracticeGuideWebp" class="hidden w-full h-full object-contain" alt="Guía espejo LSC" />
               </div>
             </div>
             <!-- Cámara en vivo -->
             <div class="lesson-practice-card flex flex-col">
-              <div class="px-3 py-2 bg-slate-900/90 border-b border-slate-700/60 flex items-center justify-between text-xs text-slate-300 font-medium">
-                <span>Tu Cámara en Vivo</span>
-                <span class="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
-                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> MEDIA PIPE
-                </span>
+              <div class="px-3 py-1.5 bg-slate-900/90 border-b border-slate-700/60 flex items-center justify-between text-xs text-slate-300 font-medium gap-2">
+                <div class="flex items-center gap-1.5 shrink-0">
+                  <span class="font-semibold text-slate-200">Tu Cámara</span>
+                  <span class="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> EN VIVO
+                  </span>
+                </div>
+                <!-- Selector de Cámara en Modal de Lección -->
+                <div class="flex items-center gap-1 overflow-hidden">
+                  <select id="lessonCameraSelect" class="bg-slate-950 hover:bg-slate-800 text-slate-200 text-[11px] font-medium rounded-lg px-2 py-1 border border-slate-700 focus:border-amber-400 focus:outline-none max-w-[130px] sm:max-w-[190px] truncate cursor-pointer transition shadow-sm" title="Cambiar cámara web"></select>
+                </div>
               </div>
               <div class="aspect-video w-full bg-slate-950 overflow-hidden relative flex items-center justify-center">
-                <div class="text-center p-4 text-xs text-slate-400">
-                  <img src="img/zorrito/svg/zorrito_pensando.svg" alt="Zorrito detectando" class="w-12 h-12 mx-auto mb-2 opacity-80 anim-float">
-                  <p>Detectando mano con MediaPipe Hands...</p>
+                <video id="lessonPracticeWebcamVideo" playsinline autoplay muted class="w-full h-full object-cover transform -scale-x-100"></video>
+                <canvas id="lessonPracticeCanvas" class="absolute inset-0 w-full h-full pointer-events-none transform -scale-x-100"></canvas>
+                <!-- Pill flotante guía de trayectoria para palabras con movimiento -->
+                <div id="lessonTrajectoryPill" class="hidden absolute top-2 left-2 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-950/90 backdrop-blur-md border border-amber-500/60 text-amber-300 text-[11px] font-mono shadow-lg animate-pulse pointer-events-none">
+                  <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                  <span id="lessonTrajectoryText">Sigue los puntos de movimiento</span>
+                </div>
+                <div id="lessonCameraLoading" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/80 gap-2 p-3 text-center pointer-events-none">
+                  <div class="w-8 h-8 rounded-full border-2 border-emerald-400 border-t-transparent animate-spin"></div>
+                  <span class="text-xs text-slate-300 font-medium">Iniciando cámara y MediaPipe...</span>
                 </div>
               </div>
             </div>
@@ -923,6 +946,129 @@
         </button>
       </footer>
 
+    </div>
+  </div>
+
+  <!-- MODAL DEDICADO DE ARENA DE EXAMEN (CERO VIDEOS - EVALUACIÓN MOTRIZ PURA CON CÁMARA) -->
+  <div id="examSessionModal" class="hidden fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-3 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="examHeaderStepText">
+    <div class="lesson-modal-card w-full max-w-2xl max-h-[92vh] flex flex-col rounded-3xl overflow-hidden shadow-2xl relative">
+      
+      <!-- Header de la Arena de Examen -->
+      <header class="lesson-header px-4 sm:px-6 py-3.5 flex items-center justify-between border-b border-[#2A3B63]">
+        <button id="btnExamClose" class="btn-spring text-slate-400 hover:text-white p-2 rounded-xl text-lg font-bold" aria-label="Salir del examen">✕</button>
+        <div class="flex-1 max-w-xs sm:max-w-sm mx-3 sm:mx-4">
+          <div class="lesson-progress-track w-full h-3 rounded-full overflow-hidden">
+            <div id="examProgressBar" class="h-full rounded-full w-0 bg-amber-400 transition-all duration-300"></div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <!-- Cronómetro Tabular por Pregunta -->
+          <div class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/90 border border-slate-700/80 text-amber-300 font-mono text-xs font-bold tabular-nums shadow-sm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span id="examTimerText">25s</span>
+          </div>
+          <!-- Selector Real/Anime discreto para preguntas de Quiz -->
+          <div id="examVideoModeToggle" class="hidden sm:flex items-center bg-slate-900/90 rounded-xl p-0.5 border border-slate-700/80 shrink-0 text-[11px] font-semibold" role="group" aria-label="Modo de video">
+            <button id="btnExamModeReal" type="button" class="btn-spring px-2 py-0.5 rounded-lg transition bg-amber-400 text-slate-950 font-bold shadow-sm" title="Ver actor real">Real</button>
+            <button id="btnExamModeAnime" type="button" class="btn-spring px-2 py-0.5 rounded-lg transition text-slate-300 hover:text-white" title="Ver avatar Anime IA">Anime</button>
+          </div>
+          <!-- Contador de Preguntas y Nivel -->
+          <div id="examHeaderStepText" class="lesson-step-badge text-xs font-mono font-bold px-3 py-1 rounded-lg">
+            Reto 1 de 3 · Nivel 1
+          </div>
+        </div>
+      </header>
+
+      <!-- Contenido de la Arena de Examen (Alternado entre Reto de Cámara y Pregunta de Quiz) -->
+      <main class="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col items-center justify-center">
+        
+        <!-- PANEL 1: RETO MOTRIZ CON CÁMARA (Limpio, centrado, solo cámara y nombre en grande) -->
+        <section id="examPaneGesture" class="flex flex-col items-center gap-4 w-full max-w-md text-center">
+          <div>
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-400 font-semibold block mb-1">Evaluación de Memoria</span>
+            <h2 id="examGestureSignName" class="text-3xl sm:text-4xl font-extrabold text-amber-400 uppercase tracking-wider drop-shadow-md">HOLA</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1 font-medium">Realiza esta seña frente a la cámara de memoria</p>
+          </div>
+
+          <!-- Marco Centrado de la Cámara -->
+          <div class="lesson-practice-card w-full aspect-video rounded-2xl overflow-hidden relative border-2 border-slate-700 bg-slate-950 shadow-xl">
+            <div class="px-3 py-1.5 bg-slate-900/90 border-b border-slate-700/60 flex items-center justify-between text-xs text-slate-300 font-medium gap-2">
+              <div class="flex items-center gap-1.5 shrink-0">
+                <span class="font-semibold text-slate-200">Tu Cámara</span>
+                <span class="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> EN VIVO
+                </span>
+              </div>
+              <!-- Selector de cámara física -->
+              <div class="flex items-center gap-1 overflow-hidden">
+                <select id="examCameraSelect" class="bg-slate-950 hover:bg-slate-800 text-slate-200 text-[11px] font-medium rounded-lg px-2 py-1 border border-slate-700 focus:border-amber-400 focus:outline-none max-w-[130px] sm:max-w-[170px] truncate cursor-pointer transition shadow-sm" title="Cambiar cámara web"></select>
+              </div>
+            </div>
+            <div class="aspect-video w-full bg-slate-950 overflow-hidden relative flex items-center justify-center">
+              <video id="examPracticeWebcamVideo" playsinline autoplay muted class="w-full h-full object-cover transform -scale-x-100"></video>
+              <canvas id="examPracticeCanvas" class="absolute inset-0 w-full h-full pointer-events-none transform -scale-x-100"></canvas>
+              
+              <div id="examCameraLoading" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/80 gap-2 p-3 text-center pointer-events-none">
+                <div class="w-8 h-8 rounded-full border-2 border-emerald-400 border-t-transparent animate-spin"></div>
+                <span class="text-xs text-slate-300 font-medium">Activando cámara y MediaPipe...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Barra radar de similitud mantenida -->
+          <div class="w-full bg-slate-950/80 border border-slate-800 p-3 rounded-2xl flex flex-col gap-1.5 shadow-md">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-slate-400">Similitud Mantenida:</span>
+              <span id="examGestureRadarText" class="font-bold text-amber-400 tabular-nums">0%</span>
+            </div>
+            <div class="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden">
+              <div id="examGestureRadarBar" class="lesson-radar-bar h-full rounded-full w-0"></div>
+            </div>
+            <p class="text-[11px] text-slate-400 italic font-medium mt-0.5">Mantén la seña con precisión ≥ 85% durante 1 segundo</p>
+          </div>
+
+          <!-- Botones inferiores de gesto -->
+          <div class="flex items-center justify-center gap-3 w-full pt-1">
+            <button id="btnExamSkipGesture" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">
+              Saltar seña
+            </button>
+            <button id="btnExamExitGesture" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-rose-400 border border-rose-500/40">
+              Salir del examen
+            </button>
+          </div>
+        </section>
+
+        <!-- PANEL 2: PREGUNTA TIPO QUIZ / TEST (Comprensión con 4 opciones, cámara completamente apagada) -->
+        <section id="examPaneQuiz" class="hidden flex flex-col items-center gap-4 w-full max-w-lg text-center">
+          <div>
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-400 font-semibold block mb-1">Comprensión Visual</span>
+            <h3 class="text-xl sm:text-2xl font-bold text-slate-100">¿Qué seña representa este video?</h3>
+            <p class="text-xs text-slate-300 mt-1">Elige la opción correcta entre las 4 alternativas:</p>
+          </div>
+
+          <!-- Video mudo del Quiz (MP4 + WebP fallback) -->
+          <div class="lesson-video-frame w-full max-w-sm aspect-video rounded-2xl overflow-hidden relative border-2 border-slate-700 bg-slate-950 shadow-xl">
+            <video id="examQuizVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
+            <img id="examQuizWebp" class="hidden w-full h-full object-contain" alt="Video quiz de lengua de señas" />
+          </div>
+
+          <!-- Grid de 4 opciones interactivas -->
+          <div id="examQuizOptionsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
+            <!-- Renderizado dinámicamente por BlindExamController -->
+          </div>
+
+          <!-- Botones inferiores de quiz -->
+          <div class="flex items-center justify-center gap-3 w-full pt-1">
+            <button id="btnExamSkipQuiz" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">
+              Saltar pregunta
+            </button>
+            <button id="btnExamExitQuiz" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-rose-400 border border-rose-500/40">
+              Salir del examen
+            </button>
+          </div>
+        </section>
+
+      </main>
     </div>
   </div>
 

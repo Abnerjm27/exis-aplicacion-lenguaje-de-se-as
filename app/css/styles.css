@@ -680,6 +680,23 @@ main, main section, main .grid, header > div {
   box-shadow: 0 2px 0 rgba(15, 23, 42, 0.95);
 }
 
+/* Nodo Checkpoint de Examen Intermedio */
+.duolingo-checkpoint-node {
+  z-index: 10;
+  position: relative;
+  touch-action: manipulation;
+  box-shadow: 0 4px 0 rgba(15, 23, 42, 0.9), 0 8px 20px rgba(245, 158, 11, 0.15);
+  transition: transform 0.2s var(--spring-easing), box-shadow 0.2s var(--spring-easing);
+}
+.duolingo-checkpoint-node:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 0 rgba(15, 23, 42, 0.9), 0 12px 24px rgba(245, 158, 11, 0.25);
+}
+.duolingo-checkpoint-node:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: 0 2px 0 rgba(15, 23, 42, 0.9);
+}
+
 /* Nodos Hexagonales Interactivos */
 .hex-node {
   min-width: 72px;

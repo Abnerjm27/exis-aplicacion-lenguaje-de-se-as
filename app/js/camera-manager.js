@@ -36,25 +36,17 @@ class CameraDeviceManager {
     this.#refreshButton = refreshButton;
 
     if (this.#selectElement) {
-      // Al cambiar la opción en el selector, activar la cámara elegida de inmediato
-      this.#selectElement.addEventListener('change', async (e) => {
-        const newDeviceId = e.target.value;
-        if (!newDeviceId) return;
-        this.#selectedDeviceId = newDeviceId;
+      this.#bindSelectElement(this.#selectElement);
+    }
 
-        if (window.VisionEvaluator) {
-          await window.VisionEvaluator.startWithDevice(newDeviceId);
-        } else {
-          await this.start(newDeviceId);
-        }
-      });
+    const lessonSelect = document.getElementById('lessonCameraSelect');
+    if (lessonSelect) {
+      this.#bindSelectElement(lessonSelect);
+    }
 
-      // Si el usuario enfoca el desplegable y aún no hay nombres legibles, solicitar permiso
-      this.#selectElement.addEventListener('focus', () => {
-        if (this.#needsPermissionForLabels()) {
-          this.requestPermissionAndRefresh();
-        }
-      });
+    const examSelect = document.getElementById('examCameraSelect');
+    if (examSelect) {
+      this.#bindSelectElement(examSelect);
     }
 
     if (this.#refreshButton) {
@@ -125,36 +117,87 @@ class CameraDeviceManager {
     }
   }
 
-  /**
-   * Renderiza las cámaras detectadas en el elemento <select>
-   */
-  #renderSelectOptions() {
-    if (!this.#selectElement) return;
+  #bindSelectElement(selectEl) {
+    if (!selectEl || selectEl.dataset.cameraBound === 'true') return;
+    selectEl.dataset.cameraBound = 'true';
 
-    const previousSelected = this.#selectedDeviceId || this.#selectElement.value;
-    this.#selectElement.innerHTML = '';
+    selectEl.addEventListener('change', async (e) => {
+      const newDeviceId = e.target.value;
+      if (!newDeviceId) return;
+      this.#selectedDeviceId = newDeviceId;
 
-    if (this.#deviceList.length === 0) {
-      const opt = document.createElement('option');
-      opt.value = '';
-      opt.textContent = '📷 Cámara predeterminada';
-      this.#selectElement.appendChild(opt);
-      return;
-    }
+      if (window.VisionEvaluator) {
+        await window.VisionEvaluator.startWithDevice(newDeviceId);
+      } else {
+        await this.start(newDeviceId);
+      }
 
-    this.#deviceList.forEach((device, index) => {
-      const opt = document.createElement('option');
-      opt.value = device.deviceId;
-      opt.textContent = this.#formatDeviceLabel(device.label, index);
-      this.#selectElement.appendChild(opt);
+      const stream = this.getStream();
+      const lessonVideo = document.getElementById('lessonPracticeWebcamVideo');
+      if (lessonVideo && stream) {
+        lessonVideo.srcObject = stream;
+        lessonVideo.muted = true;
+        try { await lessonVideo.play(); } catch (err) {}
+      }
     });
 
-    // Mantener la cámara que estaba seleccionada previamente
+    selectEl.addEventListener('focus', () => {
+      if (this.#needsPermissionForLabels()) {
+        this.requestPermissionAndRefresh();
+      }
+    });
+  }
+
+  attachSelect(selectEl) {
+    if (!selectEl) return;
+    this.#bindSelectElement(selectEl);
+    this.#renderSelectOptions();
+  }
+
+  /**
+   * Renderiza las cámaras detectadas en todos los selectores activos
+   */
+  #renderSelectOptions() {
+    const selects = [
+      this.#selectElement,
+      document.getElementById('lessonCameraSelect'),
+      document.getElementById('examCameraSelect')
+    ].filter(Boolean);
+    if (selects.length === 0) return;
+
+    const previousSelected = this.#selectedDeviceId || (this.#selectElement ? this.#selectElement.value : null);
+
+    selects.forEach(selectEl => {
+      this.#bindSelectElement(selectEl);
+      const prevVal = selectEl.value || previousSelected;
+      selectEl.innerHTML = '';
+
+      if (this.#deviceList.length === 0) {
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.textContent = '📷 Cámara predeterminada';
+        selectEl.appendChild(opt);
+      } else {
+        this.#deviceList.forEach((device, index) => {
+          const opt = document.createElement('option');
+          opt.value = device.deviceId;
+          opt.textContent = this.#formatDeviceLabel(device.label, index);
+          selectEl.appendChild(opt);
+        });
+
+        if (prevVal && this.#deviceList.some(d => d.deviceId === prevVal)) {
+          selectEl.value = prevVal;
+        } else if (previousSelected && this.#deviceList.some(d => d.deviceId === previousSelected)) {
+          selectEl.value = previousSelected;
+        } else if (this.#deviceList[0]) {
+          selectEl.value = this.#deviceList[0].deviceId;
+        }
+      }
+    });
+
     if (previousSelected && this.#deviceList.some(d => d.deviceId === previousSelected)) {
-      this.#selectElement.value = previousSelected;
       this.#selectedDeviceId = previousSelected;
-    } else {
-      this.#selectElement.value = this.#deviceList[0].deviceId;
+    } else if (this.#deviceList[0]) {
       this.#selectedDeviceId = this.#deviceList[0].deviceId;
     }
   }
@@ -271,6 +314,22 @@ class CameraDeviceManager {
 
       this.#isStreaming = true;
 
+      // Alimentar también los visores de cámara de la lección y del examen si están abiertos
+      const lessonVideo = document.getElementById('lessonPracticeWebcamVideo');
+      if (lessonVideo && lessonVideo.srcObject !== stream) {
+        lessonVideo.srcObject = stream;
+        lessonVideo.muted = true;
+        lessonVideo.setAttribute('playsinline', 'true');
+        lessonVideo.play().catch(() => {});
+      }
+      const examVideo = document.getElementById('examPracticeWebcamVideo');
+      if (examVideo && examVideo.srcObject !== stream) {
+        examVideo.srcObject = stream;
+        examVideo.muted = true;
+        examVideo.setAttribute('playsinline', 'true');
+        examVideo.play().catch(() => {});
+      }
+
       // Actualizar el indicador visual de la cámara activa en pantalla
       const activeTrack = stream.getVideoTracks()[0];
       const activeLabel = activeTrack ? activeTrack.label : '';
@@ -375,6 +434,10 @@ class CameraDeviceManager {
     if (this.#videoElement) {
       this.#videoElement.srcObject = null;
     }
+    const lessonVideo = document.getElementById('lessonPracticeWebcamVideo');
+    if (lessonVideo) lessonVideo.srcObject = null;
+    const examVideo = document.getElementById('examPracticeWebcamVideo');
+    if (examVideo) examVideo.srcObject = null;
   }
 
   /**
@@ -398,6 +461,14 @@ class CameraDeviceManager {
 
   get devices() {
     return [...this.#deviceList];
+  }
+
+  get currentStream() {
+    return this.#currentStream;
+  }
+
+  getStream() {
+    return this.#currentStream;
   }
 }
 
