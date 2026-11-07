@@ -810,8 +810,43 @@ class RobustThreadingServer(socketserver.ThreadingTCPServer):
             return
         super().handle_error(request, client_address)
 
+def ensure_ollama_service():
+    """Verifica si Ollama está respondiendo en 127.0.0.1:11434; si no, intenta arrancarlo en segundo plano."""
+    import shutil, subprocess
+    try:
+        req = urllib.request.Request("http://127.0.0.1:11434/api/tags")
+        with urllib.request.urlopen(req, timeout=1.2) as resp:
+            if resp.status == 200:
+                print("[OK] Ollama activo en http://127.0.0.1:11434 (GPU listo)")
+                return True
+    except Exception:
+        pass
+
+    ollama_path = shutil.which("ollama")
+    if not ollama_path:
+        local_app = os.path.expanduser(r"~\AppData\Local\Programs\Ollama\ollama.exe")
+        if os.path.exists(local_app):
+            ollama_path = local_app
+
+    if ollama_path:
+        try:
+            print("[INFO] Ollama no detectado. Levantando 'ollama serve' en segundo plano...")
+            flags = 0
+            if sys.platform == "win32":
+                flags = subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS
+            subprocess.Popen([ollama_path, "serve"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, creationflags=flags)
+            time.sleep(2.0)
+            print("[OK] Proceso 'ollama serve' lanzado exitosamente.")
+            return True
+        except Exception as e:
+            print(f"[AVISO] No se pudo lanzar Ollama automáticamente: {e}")
+    else:
+        print("[AVISO] Comando 'ollama' no encontrado en el sistema.")
+    return False
+
 if __name__ == '__main__':
     free_port(PORT)
+    ensure_ollama_service()
     RobustThreadingServer.allow_reuse_address = True
     print(f"Iniciando Servidor LSC Learn con Proxy Ollama en http://localhost:{PORT}")
     try:
