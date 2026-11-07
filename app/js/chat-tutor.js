@@ -89,56 +89,245 @@ const ChatTutor = (() => {
   }
 
   function generateFallbackReply(msg) {
-    const lower = msg.toLowerCase();
-    if (lower.includes('hola')) {
-      if (typeof window.selectSignById === 'function') window.selectSignById('HOLA');
-      return "¡Excelente! He cargado la seña 'HOLA' en el reproductor de video LSC. Mano extendida a la altura de tu sien.";
+    const parsed = LSCClientNLU.parse(msg);
+    if (parsed.targetSign && typeof window.selectSignById === 'function') {
+      window.selectSignById(parsed.targetSign);
     }
-    if (lower.includes('yo')) {
-      if (typeof window.selectSignById === 'function') window.selectSignById('YO');
-      return "Muy bien, he colocado la seña 'YO'. Cierra el puño y apunta únicamente con tu dedo índice a tu pecho.";
-    }
-    if (lower.includes('buenos dias') || lower.includes('dias') || lower.includes('día')) {
-      if (typeof window.selectSignById === 'function') window.selectSignById('DIAS');
-      return "He seleccionado la seña de 'DÍAS'. Abre ambos brazos lateralmente a la altura del pecho con las palmas al frente simulando el amanecer.";
-    }
-    if (lower.includes('noches') || lower.includes('noche')) {
-      if (typeof window.selectSignById === 'function') window.selectSignById('NOCHES');
-      return "He seleccionado 'NOCHES'. Cruza ambos brazos sobre tu pecho con las manos reposando sobre los antebrazos opuestos.";
-    }
-    if (lower.includes('nombre')) {
-      if (typeof window.selectSignById === 'function') window.selectSignById('NOMBRE');
-      return "He seleccionado 'NOMBRE'. Extiende los dedos índice y medio de ambas manos y apoya los de la mano derecha sobre los de la izquierda frente al torso.";
-    }
-    if (lower.includes('buenos')) {
-      if (typeof window.selectSignById === 'function') window.selectSignById('BUENOS');
-      return "He seleccionado 'BUENOS / AS'. Mano izquierda abierta como base en el pecho y mano derecha descendiendo para chocar palma sobre palma en el torso.";
-    }
-    if (lower.includes('letra b') || lower.includes(' b ') || lower === 'b') {
-      if (typeof window.selectSignById === 'function') window.selectSignById('B');
-      return "Cargando la Letra B: extiende los 4 dedos juntos rectos hacia arriba y dobla el pulgar sobre la palma.";
-    }
-    if (lower.includes('letra c') || lower.includes(' c ') || lower === 'c') {
-      if (typeof window.selectSignById === 'function') window.selectSignById('C');
-      return "Cargando la Letra C: arquea los 4 dedos y el pulgar enfrentados formando la curvatura semicircular de la letra C.";
-    }
-    if (lower.includes('letra l') || lower.includes(' l ') || lower === 'l') {
-      if (typeof window.selectSignById === 'function') window.selectSignById('L');
-      return "Cargando la Letra L: extiende el índice recto hacia arriba y el pulgar horizontal a 90 grados.";
-    }
-    if (lower.includes('letra v') || lower.includes(' v ') || lower === 'v') {
-      if (typeof window.selectSignById === 'function') window.selectSignById('V');
-      return "Cargando la Letra V: levanta los dedos índice y medio separados en forma de victoria.";
-    }
-    if (lower.includes('letra a') || lower.includes(' a ') || lower === 'a') {
-      if (typeof window.selectSignById === 'function') window.selectSignById('A');
-      return "Cargando la Letra A del alfabeto LSC: puño cerrado con el pulgar erguido a su lado.";
-    }
-    if (lower.includes('señas') || lower.includes('tienes') || lower.includes('opciones') || lower.includes('hay')) {
-      return "Tenemos disponibles señas en LSC:\n• Palabras: HOLA, YO, BUENOS, DÍAS, NOCHES, NOMBRE.\n• Alfabeto: A, B, C, L, V. ¿Cuál quieres practicar?";
-    }
-    return "Te sugiero comenzar con 'HOLA', 'DÍAS' o la 'Letra C'. ¿Deseas practicar alguna de ellas ahora mismo?";
+    return LSCClientNLU.buildReply(parsed);
   }
+
+class LSCClientNLU {
+  static VOCABULARY_WORDS = {
+    licor: 'LICOR', trago: 'LICOR', beber: 'LICOR', bebida: 'LICOR',
+    gustar: 'GUSTAR', gusta: 'GUSTAR', gusto: 'GUSTAR',
+    nombre: 'NOMBRE', llamo: 'NOMBRE', llamas: 'NOMBRE',
+    anos: 'ANNOS', ano: 'ANNOS', annos: 'ANNOS', edad: 'ANNOS',
+    noches: 'NOCHES', noche: 'NOCHES',
+    tardes: 'TARDES', tarde: 'TARDES',
+    dias: 'DIAS', dia: 'DIAS',
+    buenos: 'BUENOS', buenas: 'BUENOS',
+    hola: 'HOLA', saludo: 'HOLA', saludar: 'HOLA',
+    yo: 'YO', mi: 'YO', mismo: 'YO'
+  };
+
+  static LETTERS = {
+    a: 'A', b: 'B', c: 'C', d: 'D', e: 'E',
+    i: 'I', l: 'L', o: 'O', u: 'U', v: 'V'
+  };
+
+  static SIGN_DESCRIPTIONS = {
+    HOLA: "coloca tu mano derecha en la sien con los dedos juntos y proyéctala suavemente hacia adelante y afuera en diagonal saludando al frente.",
+    YO: "forma un puño con tu mano derecha y deja únicamente el dedo índice extendido apuntando hacia tu pecho.",
+    BUENOS: "coloca tu mano izquierda abierta como base en el pecho (palma arriba) y baja tu mano derecha para chocar apoyando la palma sobre la izquierda en el torso.",
+    DIAS: "abre ambos brazos lateralmente a la altura del pecho con las palmas al frente simulando el amanecer.",
+    TARDES: "cruza tus antebrazos horizontalmente frente a tu pecho con las palmas orientadas hacia tu cuerpo.",
+    NOCHES: "cruza ambos brazos sobre tu pecho con las manos reposando sobre los antebrazos opuestos.",
+    GUSTAR: "inclina levemente la cabeza hacia arriba, apoya tu dedo índice en la base de la garganta y deslízalo suavemente hacia arriba.",
+    NOMBRE: "extiende los dedos índice y medio de ambas manos y apoya los de la mano derecha sobre los de la izquierda frente a tu torso.",
+    ANNOS: "ubica ambas manos frente a tu torso y realiza un suave frotamiento o movimiento circular con tu mano derecha sobre la izquierda indicando el transcurso del tiempo.",
+    LICOR: "configura tu mano derecha en copa (o letra Y con pulgar y meñique) y elévala hacia la barbilla o boca inclinándola con delicadeza.",
+    A: "cierra los 4 dedos en un puño firme y mantén el pulgar erguido a un lado del índice.",
+    B: "extiende los cuatro dedos juntos rectos hacia arriba y dobla el pulgar sobre la palma.",
+    C: "arquea los 4 dedos y el pulgar enfrentados formando la curvatura semicircular de la letra C.",
+    D: "apunta tu dedo índice recto hacia arriba y junta la punta de tu pulgar con tu dedo medio formando un aro en la base.",
+    E: "curva los cuatro dedos juntos hacia abajo y apoya sus yemas sobre el pulgar doblado en la palma.",
+    I: "cierra tu mano en puño y extiende únicamente el dedo meñique hacia arriba en vertical.",
+    L: "extiende el dedo índice hacia arriba y el pulgar hacia un lado formando un ángulo recto de 90 grados.",
+    O: "curva los dedos de tu mano tocando suavemente la punta del pulgar para formar un círculo visible O.",
+    U: "levanta el dedo índice y el dedo medio juntos y pegados apuntando hacia arriba (sin separación en V).",
+    V: "levanta el dedo índice y el dedo medio separados en forma de victoria."
+  };
+
+  static GREETING_STARTERS = [
+    "buenos dias", "buenas tardes", "buenas noches", "buen dia", "buenas",
+    "hola zorrito", "hola amigo", "hola profe", "hola tutor", "hola manitas",
+    "hola", "saludos", "hey", "alo", "ola"
+  ];
+
+  static CATALOG_KEYWORDS = [
+    "catalogo", "menu", "opciones", "que senas", "que tienes", "que hay",
+    "cuales senas", "cuales son", "lista", "que puedo aprender", "que palabras"
+  ];
+
+  static IDENTITY_KEYWORDS = [
+    "quien eres", "como te llamas", "que eres", "presentate", "tu nombre", "tu creador"
+  ];
+
+  static GRATITUDE_KEYWORDS = [
+    "gracias", "muchas gracias", "te agradezco", "mil gracias", "genial gracias"
+  ];
+
+  static normalize(text) {
+    if (!text) return "";
+    return text
+      .trim()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^\w\s]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  static parse(message) {
+    const raw = (message || "").trim();
+    const norm = this.normalize(raw);
+    if (!norm) {
+      return { intent: 'UNKNOWN', targetSign: null, isClarification: false, greetingPreamble: null, rawMessage: raw };
+    }
+
+    // 1. Gratitud
+    for (const kw of this.GRATITUDE_KEYWORDS) {
+      if (norm.includes(kw) && norm.split(' ').length <= 4) {
+        return { intent: 'GRATITUDE', targetSign: null, isClarification: false, greetingPreamble: null, rawMessage: raw };
+      }
+    }
+
+    // 2. Identidad
+    for (const kw of this.IDENTITY_KEYWORDS) {
+      if (norm.includes(kw)) {
+        return { intent: 'IDENTITY', targetSign: null, isClarification: false, greetingPreamble: null, rawMessage: raw };
+      }
+    }
+
+    // 3. Catálogo
+    for (const kw of this.CATALOG_KEYWORDS) {
+      if (norm.includes(kw)) {
+        return { intent: 'CATALOG', targetSign: null, isClarification: false, greetingPreamble: null, rawMessage: raw };
+      }
+    }
+
+    // 4. Preámbulo de saludo
+    let detectedPreamble = null;
+    let cleanedText = norm;
+    for (const g of this.GREETING_STARTERS) {
+      if (norm === g || norm.startsWith(g + " ")) {
+        detectedPreamble = g;
+        cleanedText = norm === g ? "" : norm.slice(g.length).trim();
+        break;
+      }
+    }
+
+    if (detectedPreamble && !cleanedText) {
+      return { intent: 'GREETING', targetSign: null, isClarification: false, greetingPreamble: detectedPreamble, rawMessage: raw };
+    }
+
+    // 5. Aclaración / Corrección
+    let isClarif = false;
+    if (cleanedText.startsWith("no quiero aprender a") ||
+        cleanedText.startsWith("no ") ||
+        cleanedText.includes(" no quiero ") ||
+        cleanedText.includes(" no esa ") ||
+        cleanedText.startsWith("no,") ||
+        cleanedText.startsWith("no.")) {
+      isClarif = true;
+    }
+
+    // Contraste: "no quiero la a, prefiero la c"
+    const contrastMatch = cleanedText.match(/\b(?:prefiero|sino|mejor|cambia a|dame|ponme)\s+(?:la\s+|el\s+)?(\w+)/);
+    if (contrastMatch) {
+      const candidate = contrastMatch[1];
+      if (this.LETTERS[candidate]) {
+        return { intent: 'LEARN_SIGN', targetSign: this.LETTERS[candidate], isClarification: true, greetingPreamble: detectedPreamble, rawMessage: raw };
+      }
+      if (this.VOCABULARY_WORDS[candidate]) {
+        return { intent: 'LEARN_SIGN', targetSign: this.VOCABULARY_WORDS[candidate], isClarification: true, greetingPreamble: detectedPreamble, rawMessage: raw };
+      }
+    }
+
+    // 6. Letra específica con indicadores
+    for (const [letter, signId] of Object.entries(this.LETTERS)) {
+      const pattern = new RegExp(`\\b(?:letra|vocal|la|alfabeto)\\s+${letter}\\b`);
+      if (pattern.test(cleanedText)) {
+        return { intent: 'LEARN_SIGN', targetSign: signId, isClarification: isClarif, greetingPreamble: detectedPreamble, rawMessage: raw };
+      }
+    }
+
+    // Caso especial letra 'A' vs preposición 'a'
+    const aMatch = cleanedText.match(/\b(?:aprender|ensename|practicar|quiero|hacer|pon)\s+a\s*$/);
+    if (aMatch || cleanedText === 'a' || cleanedText === 'la a' || cleanedText.endsWith(' letra a')) {
+      return { intent: 'LEARN_SIGN', targetSign: 'A', isClarification: isClarif, greetingPreamble: detectedPreamble, rawMessage: raw };
+    }
+
+    // Consonantes aisladas
+    for (const cons of ['b', 'c', 'd', 'l', 'v']) {
+      const pattern = new RegExp(`\\b${cons}\\b`);
+      if (pattern.test(cleanedText)) {
+        return { intent: 'LEARN_SIGN', targetSign: this.LETTERS[cons], isClarification: isClarif, greetingPreamble: detectedPreamble, rawMessage: raw };
+      }
+    }
+
+    // Vocales (e, i, o, u)
+    for (const vowel of ['e', 'i', 'o', 'u']) {
+      const pattern = new RegExp(`\\b(?:aprender|ensename|practicar|quiero|hacer|pon|la|vocal)\\s+${vowel}\\b`);
+      if (pattern.test(cleanedText) || cleanedText === vowel) {
+        return { intent: 'LEARN_SIGN', targetSign: this.LETTERS[vowel], isClarification: isClarif, greetingPreamble: detectedPreamble, rawMessage: raw };
+      }
+    }
+
+    // 7. Palabras oficiales
+    for (const [word, signId] of Object.entries(this.VOCABULARY_WORDS)) {
+      const pattern = new RegExp(`\\b${word}\\b`);
+      if (pattern.test(cleanedText)) {
+        if (word === 'hola' && !["sena", "palabra", "aprender", "como se", "decir"].some(k => cleanedText.includes(k))) {
+          continue;
+        }
+        if ((word === 'yo' || word === 'mi') && ["quiero", "puedo", "gustaria", "voy"].some(k => cleanedText.includes(k))) {
+          continue;
+        }
+        return { intent: 'LEARN_SIGN', targetSign: signId, isClarification: isClarif, greetingPreamble: detectedPreamble, rawMessage: raw };
+      }
+    }
+
+    if (detectedPreamble) {
+      return { intent: 'GREETING', targetSign: null, isClarification: false, greetingPreamble: detectedPreamble, rawMessage: raw };
+    }
+
+    return { intent: 'UNKNOWN', targetSign: null, isClarification: false, greetingPreamble: null, rawMessage: raw };
+  }
+
+  static buildReply(parsed) {
+    const sign = parsed.targetSign;
+    const desc = this.SIGN_DESCRIPTIONS[sign] || "";
+
+    if (parsed.intent === 'LEARN_SIGN' && sign) {
+      if (parsed.isClarification) {
+        return `¡Entendido perfectamente! Enfoquémonos en la seña de '${sign}': ${desc}`;
+      } else if (parsed.greetingPreamble) {
+        const greetMap = {
+          "buenos dias": "¡Buenos días! Con mucho gusto",
+          "buenas tardes": "¡Buenas tardes! Con mucho gusto",
+          "buenas noches": "¡Buenas noches! Con mucho gusto",
+          "hola": "¡Hola! Con mucho gusto",
+          "saludos": "¡Saludos! Con mucho gusto",
+          "hey": "¡Hola! Con mucho gusto"
+        };
+        const greet = greetMap[parsed.greetingPreamble] || "¡Hola! Con mucho gusto";
+        return `${greet}, vamos a aprender la seña de '${sign}': ${desc}`;
+      } else {
+        return `¡Excelente elección! Para la seña de '${sign}': ${desc}`;
+      }
+    }
+
+    if (parsed.intent === 'GREETING') {
+      return "¡Hola! Qué alegría saludarte. Soy Zorrito, tu tutor interactivo de Lengua de Señas Colombiana (LSC). ¿Qué seña te gustaría practicar hoy? Puedes decirme por ejemplo: 'Quiero aprender la letra A', 'Enséñame HOLA' o 'Cómo se hace DÍAS'.";
+    }
+
+    if (parsed.intent === 'CATALOG') {
+      return "En Manitas tenemos señas oficiales del dataset LSC70 listas para practicar:\n• Palabras de uso cotidiano: HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE, AÑOS y LICOR.\n• Alfabeto dactilológico: A, B, C, D, E, I, L, O, U y V.\n¿Cuál de ellas te gustaría practicar ahora mismo?";
+    }
+
+    if (parsed.intent === 'IDENTITY') {
+      return "¡Hola! Soy Zorrito, tu tutor inteligente de Lengua de Señas Colombiana (LSC) en Manitas. Mi misión es guiarte con visión artificial por webcam y modelos pedagógicos para que aprendas con precisión.";
+    }
+
+    if (parsed.intent === 'GRATITUDE') {
+      return "¡Con todo el gusto! La práctica constante frente a la cámara es el mejor camino para dominar la lengua de señas. ¿Deseas continuar con otra seña o prefieres repasar?";
+    }
+
+    return "¡Hola! Comprendo tu mensaje. Para guiarte con la cámara y los videos de LSC, puedes pedirme cualquiera de nuestras señas oficiales, por ejemplo: 'Quiero aprender la letra A', 'Enséñame HOLA' o 'Practicar DÍAS'. ¿Cuál eliges?";
+  }
+}
 
   function appendMessage(role, text) {
     const container = document.getElementById('chatMessages');
