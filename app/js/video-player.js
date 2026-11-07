@@ -422,6 +422,23 @@ const VideoPlayer = (() => {
       : "Bucle continuo · Anime IA";
   }
 
+  function pause() {
+    if (els.video) {
+      try { els.video.pause(); } catch (e) {}
+    }
+    stopFallbackTimer();
+    isPlaying = false;
+    updatePlayPauseUI();
+  }
+
+  function play() {
+    if (els.video) {
+      try { els.video.play(); } catch (e) {}
+    }
+    isPlaying = true;
+    updatePlayPauseUI();
+  }
+
   return {
     init,
     setSign,
@@ -429,6 +446,8 @@ const VideoPlayer = (() => {
     setView,
     setMode,
     togglePlayPause,
+    pause,
+    play,
     getSign: () => currentSignId,
     getMode: () => currentMode,
     getView: () => currentView,

@@ -47,3 +47,8 @@ scratch/
 # Graphify (caché e internos temporales; se conservan los reportes y visualizadores)
 graphify-out/cache/
 graphify-out/.*
+
+# Temporales de pruebas y recursos extraídos
+test-results/
+logo.zip
+logo_extracted/

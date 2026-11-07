@@ -6,19 +6,19 @@
 
 /* --- Custom Properties & Tokens de Diseño --- */
 :root {
-  --bg-main: #0a0e17;
-  --bg-surface: #121824;
+  --bg-main: #14213D;
+  --bg-surface: #1B2B4D;
   --bg-surface-elevated: #1a2232;
   --bg-surface-subtle: #0f141f;
 
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-medium: rgba(255, 255, 255, 0.16);
-  --border-focus: #f59e0b;
+  --border-focus: #00B8A9;
 
-  --color-primary: #f59e0b;
-  --color-primary-hover: #d97706;
+  --color-primary: #00B8A9;
+  --color-primary-hover: #009688;
   --color-primary-active: #b45309;
-  --color-primary-subtle: rgba(245, 158, 11, 0.18);
+  --color-primary-subtle: rgba(0, 184, 169, 0.18);
 
   --color-teal: #0d9488;
   --color-teal-hover: #0f766e;
@@ -45,24 +45,40 @@
   color: #ffffff;
 }
 
-/* --- Base Body & Tipografía --- */
+/* --- Base Body & Tipografía Rediseñada Impeccable --- */
 html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   overflow-x: hidden;
   max-width: 100%;
-  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
   background-color: var(--bg-main);
   background-image: 
-    radial-gradient(circle at 15% 10%, rgba(245, 158, 11, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 15% 10%, rgba(0, 184, 169, 0.05) 0%, transparent 40%),
     radial-gradient(circle at 85% 90%, rgba(13, 148, 136, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, #101623 0%, #0a0e17 100%);
+    radial-gradient(circle at 50% 50%, #101623 0%, #14213D 100%);
   background-attachment: fixed;
   color: var(--text-primary);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display, 'Lexend', 'Plus Jakarta Sans', sans-serif);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+  line-height: 1.6;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
 }
 
 /* --- Contenedores y Tarjetas --- */
@@ -154,11 +170,11 @@ html, body {
 
 /* Chip de Seña Activa: Fondo sólido ámbar brillante con texto oscuro (Contrast Ratio 8.5:1 > AAA) */
 .sign-chip-active {
-  background-color: #f59e0b !important;
+  background-color: #00B8A9 !important;
   color: #090d16 !important;
-  border: 1px solid #d97706 !important;
+  border: 1px solid #009688 !important;
   font-weight: 700 !important;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 184, 169, 0.35);
 }
 
 .sign-chip-inactive {
@@ -234,32 +250,32 @@ html, body {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #f59e0b;
-  border: 2px solid #0a0e17;
+  background: #00B8A9;
+  border: 2px solid #14213D;
   cursor: pointer;
-  box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+  box-shadow: 0 0 8px rgba(0, 184, 169, 0.6);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .video-timeline-range::-webkit-slider-thumb:hover {
   transform: scale(1.25);
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.9);
+  box-shadow: 0 0 12px rgba(0, 184, 169, 0.9);
 }
 
 .video-timeline-range::-moz-range-thumb {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #f59e0b;
-  border: 2px solid #0a0e17;
+  background: #00B8A9;
+  border: 2px solid #14213D;
   cursor: pointer;
-  box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+  box-shadow: 0 0 8px rgba(0, 184, 169, 0.6);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .video-timeline-range::-moz-range-thumb:hover {
   transform: scale(1.25);
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.9);
+  box-shadow: 0 0 12px rgba(0, 184, 169, 0.9);
 }
 
 /* Toast informativo Anime IA con animación de entrada elegante */
@@ -364,12 +380,12 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(245, 158, 11, 0.3);
+  background: rgba(0, 184, 169, 0.3);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(245, 158, 11, 0.55);
+  background: rgba(0, 184, 169, 0.55);
 }
 
 /* --- Selector de Señas sin Scrollbar Gruesa --- */
@@ -406,7 +422,7 @@ main, main section, main .grid, header > div {
 /* --- Animaciones de Guía de Trayectoria (Connect-the-Dots) --- */
 #trajectoryStatusPill {
   animation: trajectoryPillFadeIn 0.3s var(--bounce-easing) forwards;
-  box-shadow: 0 4px 20px -2px rgba(245, 158, 11, 0.25), 0 0 12px rgba(245, 158, 11, 0.15);
+  box-shadow: 0 4px 20px -2px rgba(0, 184, 169, 0.25), 0 0 12px rgba(0, 184, 169, 0.15);
 }
 
 @keyframes trajectoryPillFadeIn {
@@ -483,6 +499,301 @@ main, main section, main .grid, header > div {
     box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.6) !important;
   }
 }
+
+/* ==========================================================================
+   Plataforma de Aprendizaje, Rutas IA, Mapa Hexagonal y Modo Examen
+   ========================================================================== */
+
+/* Números tabulares para cronómetros, porcentajes, XP y estadísticas */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* Tarjetas Bento Glassmorphism */
+.bento-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: border-color 0.2s var(--spring-easing), box-shadow 0.2s var(--spring-easing);
+}
+.bento-card:hover {
+  border-color: rgba(0, 184, 169, 0.25);
+}
+
+/* Contenedor del Mapa Hexagonal (Skill Tree) */
+.hex-skill-tree {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding: 0.5rem 0.25rem 0.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 184, 169, 0.3) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+.hex-skill-tree::-webkit-scrollbar {
+  height: 6px;
+}
+.hex-skill-tree::-webkit-scrollbar-track {
+  background: transparent;
+}
+.hex-skill-tree::-webkit-scrollbar-thumb {
+  background: rgba(0, 184, 169, 0.3);
+  border-radius: 3px;
+}
+
+/* ==========================================================================
+   Ruta Serpenteante Estilo Duolingo (Winding Path)
+   ========================================================================== */
+.duolingo-winding-path {
+  position: relative;
+  width: 100%;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem 1rem;
+}
+
+/* Línea conectora central de fondo */
+.duolingo-winding-path::before {
+  content: '';
+  position: absolute;
+  top: 2rem;
+  bottom: 5rem;
+  left: 50%;
+  width: 4px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(0, 184, 169, 0.4) 0%, rgba(0, 184, 169, 0.15) 80%, rgba(0, 184, 169, 0.05) 100%);
+  border-radius: 9999px;
+  z-index: 1;
+}
+
+/* Nodos Duolingo */
+.duolingo-node {
+  min-width: 78px;
+  min-height: 88px;
+  background: rgba(18, 24, 36, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 1.25rem;
+  box-shadow: 0 5px 0 rgba(15, 23, 42, 0.9), 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s var(--spring-easing), box-shadow 0.2s var(--spring-easing), border-color 0.2s ease;
+  z-index: 5;
+}
+
+.duolingo-node:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0, 184, 169, 0.4);
+}
+
+.duolingo-node:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(15, 23, 42, 0.9);
+}
+
+/* Posicionamiento Serpenteante */
+.duolingo-pos-center {
+  transform: translateX(0);
+}
+
+.duolingo-pos-left {
+  transform: translateX(-48px);
+}
+.duolingo-pos-left:hover {
+  transform: translateX(-48px) translateY(-3px);
+}
+.duolingo-pos-left:active {
+  transform: translateX(-48px) translateY(2px);
+}
+
+.duolingo-pos-right {
+  transform: translateX(48px);
+}
+.duolingo-pos-right:hover {
+  transform: translateX(48px) translateY(-3px);
+}
+.duolingo-pos-right:active {
+  transform: translateX(48px) translateY(2px);
+}
+
+/* Adaptación responsive para pantallas móviles (390px) */
+@media (max-width: 640px) {
+  .duolingo-pos-left {
+    transform: translateX(-24px);
+  }
+  .duolingo-pos-left:hover {
+    transform: translateX(-24px) translateY(-3px);
+  }
+  .duolingo-pos-left:active {
+    transform: translateX(-24px) translateY(2px);
+  }
+
+  .duolingo-pos-right {
+    transform: translateX(24px);
+  }
+  .duolingo-pos-right:hover {
+    transform: translateX(24px) translateY(-3px);
+  }
+  .duolingo-pos-right:active {
+    transform: translateX(24px) translateY(2px);
+  }
+}
+
+/* Badge de inicio "¡EMPEZAR!" flotante */
+.duolingo-start-pill {
+  animation: floatBounce 1.5s ease-in-out infinite;
+  box-shadow: 0 4px 12px rgba(0, 184, 169, 0.4);
+}
+.duolingo-start-pill::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 4px 4px 0 4px;
+  border-style: solid;
+  border-color: #00B8A9 transparent transparent transparent;
+}
+
+@keyframes floatBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Nodo de Trofeo Final de Unidad */
+.duolingo-trophy-node {
+  z-index: 10;
+  box-shadow: 0 6px 0 rgba(15, 23, 42, 0.95), 0 10px 25px rgba(0, 184, 169, 0.2);
+  transition: transform 0.2s var(--spring-easing), box-shadow 0.2s var(--spring-easing);
+}
+.duolingo-trophy-node:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 0 rgba(15, 23, 42, 0.95), 0 14px 30px rgba(0, 184, 169, 0.3);
+}
+.duolingo-trophy-node:active {
+  transform: translateY(3px) scale(0.99);
+  box-shadow: 0 2px 0 rgba(15, 23, 42, 0.95);
+}
+
+/* Nodo Checkpoint de Examen Intermedio */
+.duolingo-checkpoint-node {
+  z-index: 10;
+  position: relative;
+  touch-action: manipulation;
+  box-shadow: 0 4px 0 rgba(15, 23, 42, 0.9), 0 8px 20px rgba(245, 158, 11, 0.15);
+  transition: transform 0.2s var(--spring-easing), box-shadow 0.2s var(--spring-easing);
+}
+.duolingo-checkpoint-node:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 0 rgba(15, 23, 42, 0.9), 0 12px 24px rgba(245, 158, 11, 0.25);
+}
+.duolingo-checkpoint-node:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: 0 2px 0 rgba(15, 23, 42, 0.9);
+}
+
+/* Nodos Hexagonales Interactivos */
+.hex-node {
+  min-width: 72px;
+  min-height: 84px;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: transform 0.2s var(--spring-easing), filter 0.2s var(--spring-easing);
+  touch-action: manipulation;
+}
+.hex-node:hover {
+  transform: translateY(-2px);
+}
+.hex-node:active {
+  transform: scale(0.96);
+  transition-duration: 50ms;
+}
+.hex-polygon {
+  transition: stroke 0.2s ease, fill 0.2s ease;
+}
+.hex-node-locked .hex-polygon {
+  stroke: rgba(148, 163, 184, 0.25);
+  fill: rgba(18, 24, 36, 0.8);
+}
+.hex-node-active .hex-polygon {
+  stroke: #00B8A9;
+  fill: rgba(0, 184, 169, 0.15);
+  filter: drop-shadow(0 0 8px rgba(0, 184, 169, 0.4));
+}
+.hex-node-completed .hex-polygon {
+  stroke: #10b981;
+  fill: rgba(16, 185, 129, 0.12);
+}
+
+/* Escudo Protector de Evaluación Ciega (Modo Examen Sin Video) */
+.blind-exam-shield {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  background: #14213D;
+  background-image: 
+    radial-gradient(circle at 50% 25%, rgba(0, 184, 169, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 50% 80%, rgba(15, 23, 42, 0.95) 0%, #14213D 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid rgba(0, 184, 169, 0.2);
+  animation: fadeInExam 0.22s var(--spring-easing);
+}
+
+@keyframes fadeInExam {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- Animaciones de la Mascota Zorrito (Manitas Craft Floor) --- */
+@keyframes zorritoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+@keyframes zorritoWave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg) scale(1.02); }
+  75% { transform: rotate(-4deg) scale(1.02); }
+}
+
+@keyframes zorritoBounce {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  30% { transform: translateY(-14px) scale(0.96, 1.05); }
+  50% { transform: translateY(0) scale(1.03, 0.96); }
+}
+
+@keyframes zorritoPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 4px 12px rgba(0, 184, 169, 0.25)); }
+  50% { transform: scale(1.03) translateY(-2px); filter: drop-shadow(0 8px 18px rgba(255, 200, 87, 0.4)); }
+}
+
+@keyframes zorritoWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-4deg) translateY(-2px); }
+  75% { transform: rotate(4deg) translateY(-2px); }
+}
+
+.anim-float { animation: zorritoFloat 3s ease-in-out infinite; }
+.anim-wave { animation: zorritoWave 2s ease-in-out infinite; }
+.anim-bounce { animation: zorritoBounce 1.5s ease-in-out infinite; }
+.anim-pulse { animation: zorritoPulse 2.5s ease-in-out infinite; }
+.anim-wiggle { animation: zorritoWiggle 1.8s ease-in-out infinite; }
 
 /* --- Accesibilidad: Respetar prefers-reduced-motion --- */
 @media (prefers-reduced-motion: reduce) {

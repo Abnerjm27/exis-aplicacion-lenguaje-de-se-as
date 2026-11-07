@@ -26,6 +26,49 @@ document.addEventListener('DOMContentLoaded', () => {
     window.VideoPlayer.init();
   }
 
+  // Inicializar Gestores de Plataforma de Aprendizaje, Perfil y Examen
+  if (window.AuthProfileManager) {
+    window.AuthProfileManager.init((profile) => {
+      if (window.LearningPlanManager) {
+        window.LearningPlanManager.update();
+      }
+    });
+    window.AuthProfileManager.start();
+  }
+
+  if (window.LearningPlanManager) {
+    window.LearningPlanManager.init({
+      onSelectSign: (signId) => selectSign(signId),
+      onStartExamRequest: (plan) => {
+        if (window.BlindExamController) {
+          window.BlindExamController.start(plan);
+        }
+      }
+    });
+    window.LearningPlanManager.start();
+  }
+
+  if (window.BlindExamController) {
+    window.BlindExamController.init();
+  }
+
+  // Inicializar Controlador de Sesión de Lección Interactiva
+  if (window.LessonSessionController) {
+    window.LessonSessionController.init({
+      onLessonComplete: (summary) => {
+        if (window.LearningPlanManager) {
+          window.LearningPlanManager.renderHexSkillTree();
+        }
+      }
+    });
+  }
+
+  // Inicializar enrutador de vistas (Mapa Duolingo vs Estudio de Práctica)
+  if (window.ViewRouter) {
+    window.ViewRouter.init();
+    window.ViewRouter.start();
+  }
+
   // Establecer seña inicial (con soporte para parámetro ?sign=ID)
   const urlParams = new URLSearchParams(window.location.search);
   const signParam = urlParams.get('sign');
@@ -203,8 +246,13 @@ function selectSign(id) {
   const tipEl = document.getElementById('targetSignTip');
 
   if (badgeEl) badgeEl.textContent = currentSign.name;
-  if (descEl) descEl.textContent = currentSign.desc;
-  if (tipEl) tipEl.innerHTML = `💡 <strong>Instrucción para replicarla:</strong> ${currentSign.tip}`;
+  if (window.BlindExamController && window.BlindExamController.isExamActive()) {
+    if (descEl) descEl.textContent = 'Evaluación Ciega sin Demostración';
+    if (tipEl) tipEl.innerHTML = `<span class="text-amber-400 font-semibold font-mono text-[11px]">🛡️ MODO EXAMEN ACTIVO:</span> Demuestra la seña de memoria frente a la cámara sin guía de video ni pistas visuales.`;
+  } else {
+    if (descEl) descEl.textContent = currentSign.desc;
+    if (tipEl) tipEl.innerHTML = `💡 <strong>Instrucción para replicarla:</strong> ${currentSign.tip}`;
+  }
 
   renderSignButtons();
 }
@@ -219,8 +267,24 @@ function explainSignVoice() {
 
 // Hook disparado por vision-evaluator al alcanzar el umbral de acierto
 window.onSignMastered = function(sign, score) {
+  // Si el Modo Examen Sin Video está activo, delegar exclusivamente a BlindExamController
+  if (window.BlindExamController && window.BlindExamController.isExamActive()) {
+    window.BlindExamController.handleSignMasteredInExam(sign, score);
+    return;
+  }
+
   if (window.VisionEvaluator) {
-    window.VisionEvaluator.setPaused(true);
+    window.VisionEvaluator.stop();
+  }
+
+  // Registrar seña dominada y otorgar +25 XP en modo práctica
+  if (window.AuthProfileManager) {
+    window.AuthProfileManager.recordSignMastered(sign.id, 25);
+  }
+
+  // Avanzar y marcar progreso en el mapa hexagonal del plan activo
+  if (window.LearningPlanManager) {
+    window.LearningPlanManager.markSignCompletedInPlan(sign.id);
   }
 
   if (typeof confetti === 'function') {
@@ -247,11 +311,24 @@ function dismissSuccessModal(goToNext) {
     popup.classList.remove('modal-enter');
   }
 
-  if (goToNext && window.SIGNS_DATA) {
-    const list = window.SIGNS_DATA[currentCategory];
-    const idx = list.findIndex(s => s.id === currentSign.id);
-    const nextIdx = (idx + 1) % list.length;
-    selectSign(list[nextIdx].id);
+  if (goToNext) {
+    // Si hay un plan activo en LearningPlanManager, seguir el orden de la ruta hexagonal
+    if (window.LearningPlanManager) {
+      const plan = window.LearningPlanManager.getActivePlan();
+      const signs = plan.signs || [];
+      const curIdx = signs.indexOf(currentSign.id);
+      if (curIdx >= 0 && curIdx + 1 < signs.length) {
+        selectSign(signs[curIdx + 1]);
+        return;
+      }
+    }
+
+    if (window.SIGNS_DATA) {
+      const list = window.SIGNS_DATA[currentCategory];
+      const idx = list.findIndex(s => s.id === currentSign.id);
+      const nextIdx = (idx + 1) % list.length;
+      selectSign(list[nextIdx].id);
+    }
   } else {
     // Seguir practicando la misma seña: reiniciar evaluación de inmediato
     if (window.VisionEvaluator) {

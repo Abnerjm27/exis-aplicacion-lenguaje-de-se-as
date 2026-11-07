@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Logo Oficial · Manitas (Del ZIP)</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <style>
+    body {
+      background: var(--manitas-navy);
+      color: var(--manitas-bone);
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+    }
+    h1 { margin: 0; font-size: 26px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      width: 100%;
+    }
+    .card {
+      background: var(--manitas-navy-raised);
+      border: 1px solid var(--manitas-navy-line);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+    .card.light {
+      background: var(--manitas-bone);
+      color: var(--manitas-navy);
+      border-color: #e3dccd;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--manitas-turquoise);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .card.light .card-title {
+      color: var(--manitas-turquoise-dark);
+    }
+  </style>
+</head>
+<body>
+  <h1>Identidad Oficial · Manitas (Vectores SVG del ZIP)</h1>
+  <div class="grid">
+    <!-- 1: Icono App -->
+    <div class="card">
+      <div class="card-title">1. Icono de Aplicación (Squircle)</div>
+      <img src="img/manitas-icono-app.svg" width="120" height="120" alt="Icono App Manitas">
+      <span style="font-size: 12px; color: #a3b0c7;">manitas-icono-app.svg</span>
+    </div>
+
+    <!-- 2: Símbolo Aislado -->
+    <div class="card">
+      <div class="card-title">2. Símbolo Manos M + Corazón</div>
+      <img src="img/manitas-simbolo.svg" width="150" height="110" alt="Símbolo Manitas">
+      <span style="font-size: 12px; color: #a3b0c7;">manitas-simbolo.svg</span>
+    </div>
+
+    <!-- 3: Logo Horizontal Oscuro -->
+    <div class="card" style="grid-column: span 2;">
+      <div class="card-title">3. Logo Completo Horizontal (Fondo Oscuro)</div>
+      <img src="img/manitas-logo-oscuro.svg" style="max-width: 500px; width: 100%; height: auto;" alt="Logo Oscuro">
+      <span style="font-size: 12px; color: #a3b0c7;">manitas-logo-oscuro.svg</span>
+    </div>
+
+    <!-- 4: Logo Horizontal Claro -->
+    <div class="card light" style="grid-column: span 2;">
+      <div class="card-title">4. Logo Completo Horizontal (Fondo Claro)</div>
+      <img src="img/manitas-logo-claro.svg" style="max-width: 500px; width: 100%; height: auto;" alt="Logo Claro">
+      <span style="font-size: 12px; color: #64748b;">manitas-logo-claro.svg</span>
+    </div>
+  </div>
+</body>
+</html>

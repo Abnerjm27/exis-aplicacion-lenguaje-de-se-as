@@ -5,7 +5,7 @@ Este documento es de **lectura obligatoria para cualquier Agente de IA** (Google
 ---
 
 ## 1. Identidad y Misión del Proyecto
-- **Proyecto:** EXIS — Tutor Inteligente Interactivo para Lengua de Señas Colombiana (LSC).
+- **Proyecto:** Manitas (EXIS es el nombre del concurso) — Tutor Inteligente Interactivo para Lengua de Señas Colombiana (LSC).
 - **Dataset Oficial:** LSC70 (Universidad Tecnológica de Pereira - UTP).
 - **Paradigma de Visualización:** **Rama de Video Interactivo (HTML5 + WebP)**.
   *(Nota crítica: NO usar avatares 3D ni armaduras Three.js/VRoid; fueron descartados porque el rigging de dedos no logra la precisión anatómica requerida en lengua de señas).*

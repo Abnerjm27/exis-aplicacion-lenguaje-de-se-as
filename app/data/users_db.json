@@ -1,0 +1,249 @@
+{
+  "users": [
+    {
+      "username": "estudiante_test",
+      "displayName": "Estudiante Test",
+      "level": "Principiante",
+      "xp": 120,
+      "streak": 3,
+      "masteredSigns": [
+        "HOLA",
+        "A"
+      ],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T03:35:47Z"
+    },
+    {
+      "username": "abner_lsc",
+      "displayName": "Abner LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T23:37:30Z"
+    },
+    {
+      "username": "camila_lsc",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T18:32:22Z"
+    },
+    {
+      "username": "camila1793991018603",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T18:50:21Z"
+    },
+    {
+      "username": "camila1793991026613",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T18:50:28Z"
+    },
+    {
+      "username": "camila_1793991155906",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T18:52:37Z"
+    },
+    {
+      "username": "camila1793992167632",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:09:30Z"
+    },
+    {
+      "username": "camila1793992174588",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:09:35Z"
+    },
+    {
+      "username": "camila_1793992263531",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:11:05Z"
+    },
+    {
+      "username": "camila1793992297443",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:11:39Z"
+    },
+    {
+      "username": "camila1793992304082",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:11:45Z"
+    },
+    {
+      "username": "camila1793993992909",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:39:55Z"
+    },
+    {
+      "username": "camila1793993999879",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:40:00Z"
+    },
+    {
+      "username": "camila_1793994012977",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:40:14Z"
+    },
+    {
+      "username": "camila1793994819534",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:53:42Z"
+    },
+    {
+      "username": "camila1793994826268",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T19:53:47Z"
+    },
+    {
+      "username": "camila1793995693971",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T20:08:16Z"
+    },
+    {
+      "username": "camila1793995701683",
+      "displayName": "Camila Torres",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T20:08:23Z"
+    },
+    {
+      "username": "camila_1793995826814",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T20:10:28Z"
+    },
+    {
+      "username": "camila_1793997954173",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T20:45:55Z"
+    },
+    {
+      "username": "camila_1793998010876",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T20:46:52Z"
+    },
+    {
+      "username": "camila_1794004598504",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-06T22:36:40Z"
+    }
+  ]
+}

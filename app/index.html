@@ -3,17 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EXIS · Lengua de Señas Colombiana (LSC)</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <title>Manitas · Lengua de Señas Colombiana (LSC)</title>
+  <link rel="icon" type="image/svg+xml" href="img/manitas-icono-app.svg">
 
   <!-- Fuentes Tipográficas Locales (Offline) -->
   <link rel="stylesheet" href="css/fonts.css">
 
   <!-- Tailwind CSS Local (Offline Standalone) -->
   <script src="lib/tailwind/tailwind.js"></script>
+  <script src="js/tailwind-config.js?v=20261107"></script>
+
+  <!-- Tokens de Diseño Manitas e Impeccable -->
+  <link rel="stylesheet" href="css/tokens.css?v=20261107">
 
   <!-- Estilos Externos (Sin estilos embebidos) -->
   <link rel="stylesheet" href="css/styles.css?v=20261102_v1">
+  <link rel="stylesheet" href="css/lesson.css?v=20261107">
 
   <!-- MediaPipe Hands & Camera Utils Locales (Offline) -->
   <script src="lib/mediapipe/camera_utils.js"></script>
@@ -30,6 +35,11 @@
   <script src="js/video-player.js?v=20261101_v6" defer></script>
   <script src="js/camera-manager.js?v=20261101_v6" defer></script>
   <script src="js/vision-evaluator.js?v=20261101_v6" defer></script>
+  <script src="js/auth-profile-manager.js?v=20261105_v1" defer></script>
+  <script src="js/learning-plan-manager.js?v=20261105_v1" defer></script>
+  <script src="js/blind-exam-controller.js?v=20261105_v1" defer></script>
+  <script src="js/lesson-session.js?v=20261107_v1" defer></script>
+  <script src="js/view-router.js?v=20261105_v1" defer></script>
   <script src="js/chat-tutor.js?v=20261101_v6" defer></script>
   <script src="js/main.js?v=20261101_v6" defer></script>
 </head>
@@ -40,42 +50,58 @@
   <header class="border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-md sticky top-0 z-50 px-3 sm:px-6 md:px-8 py-3 transition-all">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
       <div class="flex items-center gap-2.5 min-w-0">
-        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold shadow-sm shrink-0">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
-            <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
-            <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
-            <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
-          </svg>
-        </div>
+        <img src="img/manitas-simbolo.svg" alt="Manitas Logo" class="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0 drop-shadow-sm">
         <div class="truncate">
           <h1 class="text-sm sm:text-base md:text-lg font-bold tracking-tight text-slate-100 truncate">
-            EXIS · Lengua de Señas Colombiana
+            Manitas · Lengua de Señas Colombiana
           </h1>
           <p class="hidden sm:block text-xs text-slate-400 font-medium truncate">Tutor con Video Interactivo LSC, Visión Artificial e Inteligencia Artificial</p>
         </div>
       </div>
 
       <div class="flex items-center gap-2 shrink-0">
-        <!-- Enlace a Hoja de Personaje (Model Sheet) -->
-        <a href="hoja_personaje.html" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-amber-300 shadow-sm transition-colors" title="Ver Hoja de Referencia y Diseño de Personaje Sol">
-          <span>🎨</span>
-          <span>Hoja Personaje</span>
+        <!-- Acceso directo al Portal Landing -->
+        <a id="btnGoToLanding" href="landing.html" class="btn-spring flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-300 transition" aria-label="Ir al Portal de Bienvenida">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span class="hidden sm:inline">Portal</span>
         </a>
 
-        <!-- Botón Tutor IA -->
-        <button id="btnToggleChat" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-sm" aria-label="Abrir Tutor Virtual">
+        <!-- Selector de Pantallas (Mapa Duolingo vs Estudio de Práctica) -->
+        <div class="flex items-center bg-slate-900/90 rounded-lg p-0.5 border border-slate-800" role="group" aria-label="Selector de Pantalla">
+          <button id="btnNavViewPath" class="btn-spring px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700/80 transition" aria-label="Ver Mapa de Ruta">
+            <span>Mapa de Ruta</span>
+          </button>
+          <button id="btnNavViewStudio" class="btn-spring px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-sm transition" aria-label="Ver Estudio de Práctica">
+            <span>Estudio</span>
+          </button>
+        </div>
+
+        <!-- Modo Examen Sin Video -->
+        <button id="btnStartBlindExam" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white shadow-sm" aria-label="Iniciar Modo Examen Sin Video">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
           </svg>
-          <span class="hidden xs:inline">Tutor IA</span>
+          <span class="hidden xs:inline">Modo Examen</span>
+        </button>
+
+        <!-- Botón Tutor IA con Mascota Zorrito -->
+        <button id="btnToggleChat" class="btn-spring flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm" aria-label="Abrir Tutor Virtual Sol IA">
+          <img src="img/zorrito/svg/zorrito_saludo.svg" alt="" class="w-5 h-5 shrink-0 object-contain drop-shadow-sm">
+          <span class="hidden xs:inline">Sol IA</span>
           <span class="w-2 h-2 rounded-full bg-emerald-700 animate-pulse" aria-hidden="true"></span>
         </button>
 
-        <div class="hidden md:flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full text-xs text-amber-400 font-medium">
-          <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" aria-hidden="true"></span>
-          <span>LSC70 Video Player</span>
-        </div>
+        <!-- Botón Perfil / Login -->
+        <button id="btnOpenAuthModal" class="btn-spring flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 shadow-sm" aria-label="Abrir Perfil o Iniciar Sesión">
+          <div class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-[10px]">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <span id="userDisplayName" class="max-w-[75px] sm:max-w-[110px] truncate">Estudiante LSC</span>
+          <span id="userStreakCount" class="hidden sm:inline-block font-mono text-[10px] bg-amber-500/15 text-amber-300 px-1.5 py-0.5 rounded border border-amber-500/30 tabular-nums">1 d</span>
+        </button>
       </div>
     </div>
   </header>
@@ -83,8 +109,158 @@
   <!-- CONTENEDOR PRINCIPAL -->
   <main class="max-w-7xl mx-auto w-full p-3 sm:p-5 md:p-6 flex-1 flex flex-col gap-5">
 
-    <!-- SELECTOR DE SEÑAS -->
-    <section aria-label="Selector de Señas" class="surface-card p-3 sm:p-4 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
+    <!-- PANTALLA 2: VISTA DEDICADA DE RUTA ESTILO DUOLINGO (#viewLearningPath) -->
+    <div id="viewLearningPath" class="hidden flex flex-col gap-5">
+      <!-- Barra Superior de la Ruta con Botón para ir al Estudio -->
+      <div class="surface-card p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border border-amber-500/20">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-mono uppercase bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30 font-bold">Pantalla de Ruta</span>
+            <span class="text-xs text-slate-400">· Progreso Lineal Guiado</span>
+          </div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-100">Tu Ruta de Aprendizaje LSC</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Avanza paso a paso dominando señas con MediaPipe y supera el examen de unidad sin video.</p>
+        </div>
+        <button id="btnGoToStudioFromPath" class="btn-spring px-5 py-2.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/20 flex items-center gap-2 shrink-0" aria-label="Ir a la Cabina de Práctica">
+          <span>Ir a la Cabina de Práctica</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </div>
+
+      <!-- HUB BENTO DE APRENDIZAJE Y MAPA HEXAGONAL -->
+      <section id="learningHubSection" aria-label="Hub de Aprendizaje y Rutas LSC" class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      
+      <!-- Tarjeta Perfil & Maestría (4 cols en lg) -->
+      <div class="lg:col-span-4 bento-card p-4 flex flex-col justify-between gap-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold shrink-0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <div>
+              <span id="userLevelBadge" class="text-[10px] font-mono uppercase bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30 font-semibold">Principiante</span>
+              <h2 class="text-sm font-bold text-slate-100 mt-0.5">Progreso de Maestría</h2>
+            </div>
+          </div>
+          <button id="btnSwitchProfile" class="btn-spring px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">
+            Cambiar
+          </button>
+        </div>
+
+        <!-- Barra de XP -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-400 font-medium">Experiencia (XP):</span>
+            <span class="font-mono font-bold text-amber-400 tabular-nums"><span id="userXpValue">0</span> XP</span>
+          </div>
+          <div class="w-full h-2 rounded-full bg-slate-900 border border-slate-800 overflow-hidden">
+            <div id="userXpBar" class="h-full bg-amber-500 rounded-full transition-all duration-300" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- Contadores de Maestría Tabular -->
+        <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800/80 text-center font-mono">
+          <div class="bg-slate-900/60 p-2 rounded-lg border border-slate-800">
+            <span class="text-[10px] text-slate-400 block font-sans font-medium">Abecedario</span>
+            <span id="masteryLettersPct" class="text-xs font-bold text-amber-400 tabular-nums">0%</span>
+          </div>
+          <div class="bg-slate-900/60 p-2 rounded-lg border border-slate-800">
+            <span class="text-[10px] text-slate-400 block font-sans font-medium">Palabras</span>
+            <span id="masteryWordsPct" class="text-xs font-bold text-teal-400 tabular-nums">0%</span>
+          </div>
+          <div class="bg-slate-900/60 p-2 rounded-lg border border-slate-800">
+            <span class="text-[10px] text-slate-400 block font-sans font-medium">Total Señas</span>
+            <span id="masteryTotalCount" class="text-xs font-bold text-slate-200 tabular-nums">0 / 20</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjeta Central/Derecha: Sol IA + Rutas + Mapa Hexagonal (8 cols en lg) -->
+      <div class="lg:col-span-8 bento-card p-4 flex flex-col gap-3">
+        
+        <!-- Encabezado y Selector de Rutas -->
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <div class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" aria-hidden="true"></div>
+            <h3 id="activePlanTitle" class="text-sm font-bold text-slate-100">Desde Cero: Ruta Básica IA</h3>
+            <span id="activePlanProgressText" class="text-[11px] font-mono text-slate-400 tabular-nums">Paso 1 de 8 · 0% completado</span>
+          </div>
+
+          <!-- Chips de Rutas Predefinidas y Creación -->
+          <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="Planes de Aprendizaje">
+            <button id="btnPlanZeroAi" class="btn-spring px-3 py-1 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-sm transition">
+              Desde Cero
+            </button>
+            <button id="btnPlanAlphabet" class="btn-spring px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700/80 transition">
+              Abecedario
+            </button>
+            <button id="btnPlanWords" class="btn-spring px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700/80 transition">
+              Palabras
+            </button>
+            <button id="btnOpenCustomPlanModal" class="btn-spring px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 transition flex items-center gap-1" title="Crear ruta personalizada seleccionando señas">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>Mi Ruta</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Generador de Rutas con Sol IA -->
+        <div class="flex flex-col sm:flex-row items-center gap-2">
+          <div class="relative flex-1 w-full">
+            <input 
+              id="aiPlanPromptInput" 
+              type="text" 
+              placeholder="Pregúntale a Sol IA: 'No sé nada, enséñame desde cero' o 'Quiero saludar'..." 
+              class="w-full bg-slate-950/80 border border-slate-700/90 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition shadow-inner"
+            />
+          </div>
+          <button id="btnGenerateAiPlan" class="btn-spring px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm shrink-0 w-full sm:w-auto flex items-center justify-center gap-1.5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Crear Ruta con Sol IA</span>
+          </button>
+        </div>
+
+        <!-- Explicación Pedagógica de Sol IA -->
+        <p id="aiPlanRationaleText" class="text-xs text-amber-300/90 bg-amber-500/10 border border-amber-500/25 p-2.5 rounded-lg leading-relaxed">
+          Secuencia diseñada para principiantes absolutos: empieza con el saludo fundamental, vocales de una sola mano y presentación personal.
+        </p>
+
+        <!-- Mapa Hexagonal Interactivo (Skill Tree) -->
+        <div class="w-full">
+          <div id="hexSkillTreeContainer" class="hex-skill-tree">
+            <!-- Generado dinámicamente por LearningPlanManager -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+    </div>
+
+    <!-- PANTALLA 3: VISTA DEDICADA DE ESTUDIO Y EXAMEN (#viewPracticeStudio) -->
+    <div id="viewPracticeStudio" class="flex flex-col gap-5">
+      <!-- Barra de Navegación de Sesión y Migas de Pan -->
+      <div class="surface-card px-4 py-3 flex items-center justify-between gap-3 border border-slate-800">
+        <div class="flex items-center gap-3 min-w-0">
+          <button id="btnBackToPath" class="btn-spring flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 shrink-0 shadow-sm" aria-label="Volver a Mi Ruta Duolingo">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>← Volver a Mi Ruta Duolingo</span>
+          </button>
+          <div class="truncate hidden sm:flex items-center gap-2 text-xs">
+            <span class="text-slate-600">|</span>
+            <span class="text-slate-400 font-medium">Lección actual:</span>
+            <span id="studioBreadcrumbPlanTitle" class="font-bold text-slate-200">Desde Cero: Ruta Básica IA</span>
+            <span class="text-slate-600">·</span>
+            <span id="studioStepProgressText" class="font-mono font-bold text-amber-400 tabular-nums">Paso 1 de 8</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SELECTOR DE SEÑAS -->
+      <section aria-label="Selector de Señas" class="surface-card p-3 sm:p-4 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
       <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
         <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 mr-1">Categoría:</span>
         <button id="catWordsBtn" class="btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 shadow-sm">
@@ -118,7 +294,7 @@
       <section aria-label="Demostración de la Seña y Video Interactivo" class="surface-card flex flex-col overflow-hidden relative">
         <div class="surface-header flex items-center justify-between gap-2">
           <div class="flex items-center gap-2 min-w-0">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00B8A9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
               <polygon points="5 3 19 12 5 21 5 3"></polygon>
             </svg>
             <span class="font-bold text-xs sm:text-sm tracking-wide text-slate-100 truncate">1. Demostración de la Seña</span>
@@ -193,6 +369,40 @@
               <p class="text-[11px] text-slate-300 mt-0.5 leading-snug">El render Anime IA para esta seña se encuentra en generación. Reproduciendo el video de Persona Real LSC.</p>
             </div>
             <button id="btnDismissAnimeNotice" class="text-slate-400 hover:text-white p-1 text-xs shrink-0" aria-label="Cerrar aviso">✕</button>
+          </div>
+
+          <!-- Escudo Protector de Evaluación Ciega (Modo Examen Sin Video) -->
+          <div id="blindExamOverlay" class="blind-exam-shield hidden">
+            <div class="flex items-center gap-3 mb-2">
+              <img src="img/zorrito/svg/zorrito_pensando.svg" alt="Zorrito pensando" class="w-14 h-14 object-contain drop-shadow-lg anim-pulse">
+              <div class="w-10 h-10 rounded-xl bg-rose-500/15 border border-rose-500/40 text-rose-400 flex items-center justify-center shadow-lg shadow-rose-500/20">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </div>
+            </div>
+            <span id="examQuestionCounter" class="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold mb-1">Reto 1 de 5</span>
+            <p class="text-xs text-slate-400 mb-2 font-medium">Demuestra de memoria frente a la cámara:</p>
+            <h2 id="examPromptSignName" class="text-2xl sm:text-3xl font-extrabold text-amber-400 tracking-wider uppercase mb-3 drop-shadow">HOLA</h2>
+
+            <!-- Cronómetro Tabular -->
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-700 mb-4 shadow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span id="overlayExamTimerText" class="font-mono text-sm font-bold text-amber-300 tabular-nums">25s</span>
+            </div>
+
+            <!-- Controles del Examen -->
+            <div class="flex items-center gap-2">
+              <button id="btnSkipExamSign" class="btn-spring px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">
+                Saltar seña
+              </button>
+              <button id="btnExitExam" class="btn-spring px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-rose-400 border border-rose-500/40">
+                Salir del examen
+              </button>
+            </div>
           </div>
 
         </div>
@@ -370,20 +580,22 @@
       </section>
 
     </div>
+    </div> <!-- Fin de #viewPracticeStudio -->
 
     <!-- CHAT TUTOR DRAWER -->
     <aside id="chatDrawer" aria-label="Tutor IA Local" class="hidden fixed bottom-6 right-6 w-[380px] max-w-[calc(100vw-32px)] h-[540px] surface-card rounded-2xl flex flex-col z-50 shadow-2xl border border-amber-500/30 overflow-hidden">
       <!-- Encabezado del Chat -->
       <div class="px-4 py-3 bg-slate-900/95 border-b border-slate-800 flex items-center justify-between">
         <div class="flex items-center gap-2.5">
-          <div class="w-7 h-7 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-            </svg>
+          <div class="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0 p-1">
+            <img src="img/zorrito/svg/zorrito_explicando.svg" alt="Zorrito Sol IA" class="w-full h-full object-contain anim-float">
           </div>
           <div>
-            <h3 class="text-xs font-bold text-slate-100">Tutor Virtual LSC</h3>
-            <p class="text-[10px] text-emerald-400 font-mono">Conectado a Ollama (qwen2.5:3b)</p>
+            <h3 class="text-xs font-bold text-slate-100 flex items-center gap-1.5">
+              <span>Zorrito Sol IA</span>
+              <span class="text-[10px] font-normal px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300">Tutor LSC</span>
+            </h3>
+            <p class="text-[10px] text-emerald-400 font-mono">En vivo · Ollama qwen2.5:3b</p>
           </div>
         </div>
         <button id="btnCloseChat" class="btn-spring text-slate-400 hover:text-white p-1 rounded-lg text-sm" aria-label="Cerrar Chat">
@@ -436,7 +648,7 @@
     <!-- FOOTER / ESTADÍSTICAS -->
     <footer class="surface-card p-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-3">
       <div>
-        <span class="font-bold text-slate-200">Proyecto EXIS</span> · Base de Datos: <span class="text-amber-400 font-mono font-semibold">LSC70 (Universidad Tecnológica de Pereira)</span>
+        <span class="font-bold text-slate-200">Manitas</span> · Base de Datos: <span class="text-amber-400 font-mono font-semibold">LSC70 (Universidad Tecnológica de Pereira)</span>
       </div>
       <div class="flex items-center gap-4 font-mono text-[11px] text-slate-400">
         <span>Video: Reproductor Interactivo LSC (Real & Anime IA)</span>
@@ -448,6 +660,417 @@
     </footer>
 
   </main>
+
+  <!-- MODAL DE INICIO DE SESIÓN / REGISTRO / PERFIL -->
+  <div id="authModal" class="hidden fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+    <div class="surface-card w-full max-w-md p-6 rounded-2xl border border-amber-500/40 shadow-2xl flex flex-col gap-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div>
+            <h3 id="authModalTitle" class="text-base font-bold text-slate-100">Perfil de Estudiante LSC</h3>
+            <p class="text-xs text-slate-400">Inicia sesión o regístrate para guardar tu progreso</p>
+          </div>
+        </div>
+        <button id="btnCloseAuthModal" class="btn-spring text-slate-400 hover:text-white p-1 text-sm rounded-lg" aria-label="Cerrar modal de autenticación">✕</button>
+      </div>
+
+      <div id="authFormError" class="hidden text-xs text-rose-300 bg-rose-950/50 border border-rose-500/40 p-2.5 rounded-lg leading-snug"></div>
+
+      <form id="authForm" class="flex flex-col gap-3">
+        <div>
+          <label for="authUsernameInput" class="block text-xs font-semibold text-slate-300 mb-1">Usuario *</label>
+          <input id="authUsernameInput" type="text" required placeholder="Ej: maria_lsc" class="w-full bg-slate-950/90 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition" />
+        </div>
+        <div>
+          <label for="authDisplayNameInput" class="block text-xs font-semibold text-slate-300 mb-1">Nombre para mostrar</label>
+          <input id="authDisplayNameInput" type="text" placeholder="Ej: María Gómez" class="w-full bg-slate-950/90 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition" />
+        </div>
+        <div>
+          <label for="authLevelSelect" class="block text-xs font-semibold text-slate-300 mb-1">Nivel inicial</label>
+          <select id="authLevelSelect" class="w-full bg-slate-950/90 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 focus:outline-none focus:border-amber-500 transition">
+            <option value="Principiante">Desde Cero (Principiante)</option>
+            <option value="Intermedio">Básico - Abecedario</option>
+            <option value="Avanzado LSC">Conversación LSC</option>
+          </select>
+        </div>
+        <button id="btnSubmitAuth" type="submit" class="btn-spring mt-2 w-full py-2.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm">
+          Guardar y Entrar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL CONSTRUCTOR DE PLAN PROPIO -->
+  <div id="customPlanModal" class="hidden fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="customPlanModalTitle">
+    <div class="surface-card w-full max-w-xl p-6 rounded-2xl border border-amber-500/40 shadow-2xl flex flex-col gap-4 max-h-[90vh] overflow-hidden">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3 shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          </div>
+          <div>
+            <h3 id="customPlanModalTitle" class="text-base font-bold text-slate-100">Arma tu Propia Ruta LSC</h3>
+            <p class="text-xs text-slate-400">Selecciona las señas que deseas dominar en esta sesión</p>
+          </div>
+        </div>
+        <button id="btnCloseCustomPlanModal" class="btn-spring text-slate-400 hover:text-white p-1 text-sm rounded-lg" aria-label="Cerrar modal de plan propio">✕</button>
+      </div>
+
+      <div id="customPlanError" class="hidden text-xs text-rose-300 bg-rose-950/50 border border-rose-500/40 p-2.5 rounded-lg leading-snug shrink-0"></div>
+
+      <div class="shrink-0">
+        <label for="customPlanTitleInput" class="block text-xs font-semibold text-slate-300 mb-1">Nombre de tu ruta (opcional)</label>
+        <input id="customPlanTitleInput" type="text" placeholder="Ej: Mi Práctica Diaria LSC" class="w-full bg-slate-950/90 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition" />
+      </div>
+
+      <div class="flex items-center justify-between shrink-0 text-xs text-slate-400">
+        <span>Catálogo oficial LSC70 (20 señas):</span>
+        <span id="customPlanSelectedCount" class="font-mono font-bold text-amber-400 tabular-nums">0 seleccionadas</span>
+      </div>
+
+      <!-- Cuadrícula de señas seleccionables -->
+      <div id="customPlanSignsGrid" class="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 gap-2 p-1 border border-slate-800/80 rounded-xl bg-slate-950/50">
+        <!-- Renderizado dinámicamente por LearningPlanManager -->
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800 shrink-0">
+        <button id="btnSaveCustomPlan" type="button" class="btn-spring px-5 py-2.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm">
+          Activar Ruta en el Mapa
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CERTIFICADO Y RESUMEN DE EXAMEN -->
+  <div id="examSummaryModal" class="hidden fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="examSummaryModalTitle">
+    <div class="surface-card w-full max-w-md p-6 rounded-2xl border border-amber-500/40 shadow-2xl flex flex-col gap-4 text-center">
+      <div class="flex flex-col items-center justify-center">
+        <img src="img/zorrito/svg/zorrito_celebracion.svg" alt="Zorrito celebrando" class="w-20 h-20 object-contain drop-shadow-xl anim-bounce">
+      </div>
+
+      <div>
+        <span id="examSummaryPlanTitle" class="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-1">Examen Finalizado</span>
+        <h3 id="examSummaryModalTitle" class="text-xl font-bold text-slate-100">Resultado de Evaluación Ciega</h3>
+      </div>
+
+      <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-xl flex items-center justify-around font-mono">
+        <div>
+          <span class="text-[10px] text-slate-400 font-sans block">Calificación</span>
+          <span id="examFinalScorePct" class="text-3xl font-extrabold text-amber-400 tabular-nums">0%</span>
+        </div>
+        <div class="h-10 w-px bg-slate-800"></div>
+        <div>
+          <span class="text-[10px] text-slate-400 font-sans block">Aciertos</span>
+          <span id="examFinalFraction" class="text-sm font-bold text-slate-200 tabular-nums">0 / 0 señas</span>
+        </div>
+      </div>
+
+      <!-- Desglose de preguntas del examen -->
+      <div id="examBreakdownList" class="flex flex-col gap-2 max-h-48 overflow-y-auto text-left">
+        <!-- Renderizado dinámicamente por BlindExamController -->
+      </div>
+
+      <div class="flex items-center justify-center gap-3 pt-2">
+        <button id="btnRetryFailedSigns" class="btn-spring px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700">
+          Repasar Señas
+        </button>
+        <button id="btnCloseExamSummary" class="btn-spring px-5 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm">
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE SESIÓN DE LECCIÓN INTERACTIVA (TIPO DUOLINGO / TEST) -->
+  <div id="lessonSessionModal" class="hidden fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-3 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="lessonHeaderStepText">
+    <div class="lesson-modal-card w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl overflow-hidden shadow-2xl relative">
+      
+      <!-- Header de Lección -->
+      <header class="lesson-header px-4 sm:px-6 py-3.5 flex items-center justify-between border-b border-[#2A3B63]">
+        <button id="btnLessonClose" class="btn-spring text-slate-400 hover:text-white p-2 rounded-xl text-lg font-bold" aria-label="Salir de la lección">✕</button>
+        <div class="flex-1 max-w-md mx-4">
+          <div class="lesson-progress-track w-full h-3 rounded-full overflow-hidden">
+            <div id="lessonProgressBar" class="h-full rounded-full w-1/3"></div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <!-- Selector Modo Video Real / Anime IA -->
+          <div class="flex items-center bg-slate-900/90 rounded-xl p-0.5 border border-slate-700/80 shrink-0 text-[11px] font-semibold" role="group" aria-label="Modo de video">
+            <button id="btnLessonModeReal" type="button" class="btn-spring px-2.5 py-1 rounded-lg transition bg-amber-400 text-slate-950 font-bold shadow-sm" title="Ver actor real">Real</button>
+            <button id="btnLessonModeAnime" type="button" class="btn-spring px-2.5 py-1 rounded-lg transition text-slate-300 hover:text-white" title="Ver avatar Anime IA">Anime IA</button>
+          </div>
+          <div id="lessonHeaderStepText" class="lesson-step-badge text-xs font-mono font-bold px-3 py-1 rounded-lg">
+            Paso 1 de 3: Mira la seña
+          </div>
+        </div>
+      </header>
+
+      <!-- Contenido de Fases Pedagógicas -->
+      <main class="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col items-center">
+        
+        <!-- Fase 1: Demostración Guiada -->
+        <section id="phaseDemoContainer" class="lesson-phase-pane flex flex-col items-center gap-4 w-full max-w-xl text-center">
+          <div class="lesson-video-frame w-full max-w-md aspect-video rounded-2xl overflow-hidden relative">
+            <video id="lessonDemoVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
+            <img id="lessonDemoWebp" class="hidden w-full h-full object-contain" alt="Demostración animada en LSC" />
+          </div>
+          <div class="lesson-zorrito-tip-card w-full p-4 rounded-2xl flex items-center gap-4 text-left">
+            <img src="img/zorrito/svg/zorrito_explicando.svg" alt="Zorrito Tutor" class="w-16 h-16 shrink-0 object-contain drop-shadow-md">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs uppercase tracking-wider font-bold text-amber-400">Guía LSC</span>
+                <h3 id="lessonDemoSignName" class="text-lg font-bold text-slate-100">HOLA</h3>
+              </div>
+              <p id="lessonDemoDesc" class="text-xs text-slate-300 mb-1 leading-snug">Descripción de la seña...</p>
+              <p id="lessonDemoTip" class="text-[11px] text-amber-300/90 italic font-medium">Tip de postura...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Fase 2: Pregunta de Comprensión (Quiz) -->
+        <section id="phaseQuizContainer" class="lesson-phase-pane hidden flex flex-col items-center gap-5 w-full max-w-2xl text-center">
+          <div class="text-center">
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-400 font-semibold block mb-1">Pregunta de Comprensión</span>
+            <h3 class="text-xl font-bold text-slate-100">¿Qué seña representa este video?</h3>
+          </div>
+          <div class="lesson-video-frame w-full max-w-sm aspect-video rounded-2xl overflow-hidden relative">
+            <video id="lessonQuizVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
+            <img id="lessonQuizWebp" class="hidden w-full h-full object-contain" alt="Video pregunta LSC" />
+          </div>
+          <div id="quizOptionsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
+            <!-- Renderizado dinámicamente con 4 opciones -->
+          </div>
+        </section>
+
+        <!-- Fase 3: Práctica con Cámara (MediaPipe) -->
+        <section id="phasePracticeContainer" class="lesson-phase-pane hidden flex flex-col items-center gap-4 w-full max-w-3xl">
+          <div class="text-center mb-1">
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-400 font-semibold block mb-1">Práctica Activa</span>
+            <h3 class="text-lg font-bold text-slate-100">Replica la seña frente a tu cámara</h3>
+            <p id="lessonPracticeHint" class="text-xs text-slate-400">Mantén la postura con precisión ≥ 85% durante 1.2 segundos</p>
+          </div>
+          <div class="lesson-practice-split">
+            <!-- Guía espejo -->
+            <div class="lesson-practice-card flex flex-col">
+              <div class="px-3 py-2 bg-slate-900/90 border-b border-slate-700/60 flex items-center justify-between text-xs text-slate-300 font-medium">
+                <span>Video Guía Espejo</span>
+                <span class="text-[10px] text-amber-400 font-mono">REFERENCIA</span>
+              </div>
+              <div class="aspect-video w-full bg-slate-950 overflow-hidden relative">
+                <video id="lessonPracticeGuideVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
+                <img id="lessonPracticeGuideWebp" class="hidden w-full h-full object-contain" alt="Guía espejo LSC" />
+              </div>
+            </div>
+            <!-- Cámara en vivo -->
+            <div class="lesson-practice-card flex flex-col">
+              <div class="px-3 py-1.5 bg-slate-900/90 border-b border-slate-700/60 flex items-center justify-between text-xs text-slate-300 font-medium gap-2">
+                <div class="flex items-center gap-1.5 shrink-0">
+                  <span class="font-semibold text-slate-200">Tu Cámara</span>
+                  <span class="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> EN VIVO
+                  </span>
+                </div>
+                <!-- Selector de Cámara en Modal de Lección -->
+                <div class="flex items-center gap-1 overflow-hidden">
+                  <select id="lessonCameraSelect" class="bg-slate-950 hover:bg-slate-800 text-slate-200 text-[11px] font-medium rounded-lg px-2 py-1 border border-slate-700 focus:border-amber-400 focus:outline-none max-w-[130px] sm:max-w-[190px] truncate cursor-pointer transition shadow-sm" title="Cambiar cámara web"></select>
+                </div>
+              </div>
+              <div class="aspect-video w-full bg-slate-950 overflow-hidden relative flex items-center justify-center">
+                <video id="lessonPracticeWebcamVideo" playsinline autoplay muted class="w-full h-full object-cover transform -scale-x-100"></video>
+                <canvas id="lessonPracticeCanvas" class="absolute inset-0 w-full h-full pointer-events-none transform -scale-x-100"></canvas>
+                <!-- Pill flotante guía de trayectoria para palabras con movimiento -->
+                <div id="lessonTrajectoryPill" class="hidden absolute top-2 left-2 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-950/90 backdrop-blur-md border border-amber-500/60 text-amber-300 text-[11px] font-mono shadow-lg animate-pulse pointer-events-none">
+                  <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                  <span id="lessonTrajectoryText">Sigue los puntos de movimiento</span>
+                </div>
+                <div id="lessonCameraLoading" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/80 gap-2 p-3 text-center pointer-events-none">
+                  <div class="w-8 h-8 rounded-full border-2 border-emerald-400 border-t-transparent animate-spin"></div>
+                  <span class="text-xs text-slate-300 font-medium">Iniciando cámara y MediaPipe...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Barra radar de similitud -->
+          <div class="w-full max-w-md bg-slate-950/80 border border-slate-800 p-3 rounded-2xl flex flex-col gap-1.5">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-slate-400">Similitud Mantenida:</span>
+              <span id="lessonPracticeRadarText" class="font-bold text-amber-400 tabular-nums">0%</span>
+            </div>
+            <div class="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden">
+              <div id="lessonPracticeRadarBar" class="lesson-radar-bar h-full rounded-full w-0"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Fase 4: Resumen de Victoria -->
+        <section id="phaseSummaryContainer" class="lesson-phase-pane hidden flex flex-col items-center gap-4 w-full max-w-md text-center py-4">
+          <img src="img/zorrito/svg/zorrito_celebracion.svg" alt="Zorrito celebrando" class="w-24 h-24 object-contain drop-shadow-2xl anim-bounce">
+          <div>
+            <span class="text-xs font-mono uppercase tracking-widest text-amber-400 font-semibold block mb-1">¡Lección Dominada!</span>
+            <h3 id="lessonSummarySignName" class="text-2xl font-bold text-slate-100">HOLA</h3>
+          </div>
+          <div class="lesson-summary-stat-box w-full p-4 rounded-2xl grid grid-cols-2 gap-3 font-mono">
+            <div class="flex flex-col items-center">
+              <span class="text-[10px] text-slate-400 font-sans">Experiencia</span>
+              <span id="lessonSummaryXp" class="text-2xl font-extrabold text-amber-400 tabular-nums">+50 XP</span>
+            </div>
+            <div class="flex flex-col items-center border-l border-slate-800">
+              <span class="text-[10px] text-slate-400 font-sans">Precisión</span>
+              <span id="lessonSummaryScore" class="text-2xl font-extrabold text-emerald-400 tabular-nums">96%</span>
+            </div>
+          </div>
+          <button id="btnLessonFinish" class="btn-spring w-full py-3 rounded-xl text-sm font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-lg mt-2">
+            Continuar en el Mapa de Ruta →
+          </button>
+        </section>
+
+      </main>
+
+      <!-- Franja de Retroalimentación Inferior (Tipo Duolingo) -->
+      <footer id="lessonFeedbackSheet" class="lesson-feedback-sheet hidden px-4 sm:px-8 py-4 border-t flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <img src="img/zorrito/svg/zorrito_pulgar.svg" alt="Zorrito feedback" class="w-12 h-12 shrink-0 object-contain">
+          <div>
+            <h4 id="lessonFeedbackTitle" class="text-base font-bold text-slate-100">¡Correcto!</h4>
+            <p id="lessonFeedbackText" class="text-xs text-slate-300">Has identificado con precisión la seña.</p>
+          </div>
+        </div>
+        <button id="btnLessonContinue" class="btn-spring px-6 py-3 rounded-xl text-xs sm:text-sm font-bold shrink-0 transition" disabled>
+          Continuar →
+        </button>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- MODAL DEDICADO DE ARENA DE EXAMEN (CERO VIDEOS - EVALUACIÓN MOTRIZ PURA CON CÁMARA) -->
+  <div id="examSessionModal" class="hidden fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-3 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="examHeaderStepText">
+    <div class="lesson-modal-card w-full max-w-2xl max-h-[92vh] flex flex-col rounded-3xl overflow-hidden shadow-2xl relative">
+      
+      <!-- Header de la Arena de Examen -->
+      <header class="lesson-header px-4 sm:px-6 py-3.5 flex items-center justify-between border-b border-[#2A3B63]">
+        <button id="btnExamClose" class="btn-spring text-slate-400 hover:text-white p-2 rounded-xl text-lg font-bold" aria-label="Salir del examen">✕</button>
+        <div class="flex-1 max-w-xs sm:max-w-sm mx-3 sm:mx-4">
+          <div class="lesson-progress-track w-full h-3 rounded-full overflow-hidden">
+            <div id="examProgressBar" class="h-full rounded-full w-0 bg-amber-400 transition-all duration-300"></div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <!-- Cronómetro Tabular por Pregunta -->
+          <div class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/90 border border-slate-700/80 text-amber-300 font-mono text-xs font-bold tabular-nums shadow-sm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span id="examTimerText">25s</span>
+          </div>
+          <!-- Selector Real/Anime discreto para preguntas de Quiz -->
+          <div id="examVideoModeToggle" class="hidden sm:flex items-center bg-slate-900/90 rounded-xl p-0.5 border border-slate-700/80 shrink-0 text-[11px] font-semibold" role="group" aria-label="Modo de video">
+            <button id="btnExamModeReal" type="button" class="btn-spring px-2 py-0.5 rounded-lg transition bg-amber-400 text-slate-950 font-bold shadow-sm" title="Ver actor real">Real</button>
+            <button id="btnExamModeAnime" type="button" class="btn-spring px-2 py-0.5 rounded-lg transition text-slate-300 hover:text-white" title="Ver avatar Anime IA">Anime</button>
+          </div>
+          <!-- Contador de Preguntas y Nivel -->
+          <div id="examHeaderStepText" class="lesson-step-badge text-xs font-mono font-bold px-3 py-1 rounded-lg">
+            Reto 1 de 3 · Nivel 1
+          </div>
+        </div>
+      </header>
+
+      <!-- Contenido de la Arena de Examen (Alternado entre Reto de Cámara y Pregunta de Quiz) -->
+      <main class="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col items-center justify-center">
+        
+        <!-- PANEL 1: RETO MOTRIZ CON CÁMARA (Limpio, centrado, solo cámara y nombre en grande) -->
+        <section id="examPaneGesture" class="flex flex-col items-center gap-4 w-full max-w-md text-center">
+          <div>
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-400 font-semibold block mb-1">Evaluación de Memoria</span>
+            <h2 id="examGestureSignName" class="text-3xl sm:text-4xl font-extrabold text-amber-400 uppercase tracking-wider drop-shadow-md">HOLA</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1 font-medium">Realiza esta seña frente a la cámara de memoria</p>
+          </div>
+
+          <!-- Marco Centrado de la Cámara -->
+          <div class="lesson-practice-card w-full aspect-video rounded-2xl overflow-hidden relative border-2 border-slate-700 bg-slate-950 shadow-xl">
+            <div class="px-3 py-1.5 bg-slate-900/90 border-b border-slate-700/60 flex items-center justify-between text-xs text-slate-300 font-medium gap-2">
+              <div class="flex items-center gap-1.5 shrink-0">
+                <span class="font-semibold text-slate-200">Tu Cámara</span>
+                <span class="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> EN VIVO
+                </span>
+              </div>
+              <!-- Selector de cámara física -->
+              <div class="flex items-center gap-1 overflow-hidden">
+                <select id="examCameraSelect" class="bg-slate-950 hover:bg-slate-800 text-slate-200 text-[11px] font-medium rounded-lg px-2 py-1 border border-slate-700 focus:border-amber-400 focus:outline-none max-w-[130px] sm:max-w-[170px] truncate cursor-pointer transition shadow-sm" title="Cambiar cámara web"></select>
+              </div>
+            </div>
+            <div class="aspect-video w-full bg-slate-950 overflow-hidden relative flex items-center justify-center">
+              <video id="examPracticeWebcamVideo" playsinline autoplay muted class="w-full h-full object-cover transform -scale-x-100"></video>
+              <canvas id="examPracticeCanvas" class="absolute inset-0 w-full h-full pointer-events-none transform -scale-x-100"></canvas>
+              
+              <div id="examCameraLoading" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/80 gap-2 p-3 text-center pointer-events-none">
+                <div class="w-8 h-8 rounded-full border-2 border-emerald-400 border-t-transparent animate-spin"></div>
+                <span class="text-xs text-slate-300 font-medium">Activando cámara y MediaPipe...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Barra radar de similitud mantenida -->
+          <div class="w-full bg-slate-950/80 border border-slate-800 p-3 rounded-2xl flex flex-col gap-1.5 shadow-md">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-slate-400">Similitud Mantenida:</span>
+              <span id="examGestureRadarText" class="font-bold text-amber-400 tabular-nums">0%</span>
+            </div>
+            <div class="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden">
+              <div id="examGestureRadarBar" class="lesson-radar-bar h-full rounded-full w-0"></div>
+            </div>
+            <p class="text-[11px] text-slate-400 italic font-medium mt-0.5">Mantén la seña con precisión ≥ 85% durante 1 segundo</p>
+          </div>
+
+          <!-- Botones inferiores de gesto -->
+          <div class="flex items-center justify-center gap-3 w-full pt-1">
+            <button id="btnExamSkipGesture" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">
+              Saltar seña
+            </button>
+            <button id="btnExamExitGesture" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-rose-400 border border-rose-500/40">
+              Salir del examen
+            </button>
+          </div>
+        </section>
+
+        <!-- PANEL 2: PREGUNTA TIPO QUIZ / TEST (Comprensión con 4 opciones, cámara completamente apagada) -->
+        <section id="examPaneQuiz" class="hidden flex flex-col items-center gap-4 w-full max-w-lg text-center">
+          <div>
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-400 font-semibold block mb-1">Comprensión Visual</span>
+            <h3 class="text-xl sm:text-2xl font-bold text-slate-100">¿Qué seña representa este video?</h3>
+            <p class="text-xs text-slate-300 mt-1">Elige la opción correcta entre las 4 alternativas:</p>
+          </div>
+
+          <!-- Video mudo del Quiz (MP4 + WebP fallback) -->
+          <div class="lesson-video-frame w-full max-w-sm aspect-video rounded-2xl overflow-hidden relative border-2 border-slate-700 bg-slate-950 shadow-xl">
+            <video id="examQuizVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
+            <img id="examQuizWebp" class="hidden w-full h-full object-contain" alt="Video quiz de lengua de señas" />
+          </div>
+
+          <!-- Grid de 4 opciones interactivas -->
+          <div id="examQuizOptionsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
+            <!-- Renderizado dinámicamente por BlindExamController -->
+          </div>
+
+          <!-- Botones inferiores de quiz -->
+          <div class="flex items-center justify-center gap-3 w-full pt-1">
+            <button id="btnExamSkipQuiz" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">
+              Saltar pregunta
+            </button>
+            <button id="btnExamExitQuiz" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-rose-400 border border-rose-500/40">
+              Salir del examen
+            </button>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
 
 </body>
 </html>

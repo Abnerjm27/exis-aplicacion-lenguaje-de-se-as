@@ -5,6 +5,7 @@ import urllib.request
 import urllib.parse
 import os
 import sys
+import time
 
 PORT = 8000
 DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app")
@@ -107,6 +108,157 @@ def detect_sign(msg):
             return letters_map[token]
 
     return None
+
+VALID_SIGN_IDS = [
+    "HOLA", "YO", "BUENOS", "DIAS", "TARDES", "NOCHES",
+    "GUSTAR", "NOMBRE", "ANNOS", "LICOR",
+    "A", "B", "C", "D", "E", "I", "L", "O", "U", "V"
+]
+
+USERS_DB_PATH = os.path.join(DIRECTORY, "data", "users_db.json")
+
+def load_users_db():
+    """Carga la base de datos de usuarios desde app/data/users_db.json."""
+    if not os.path.exists(USERS_DB_PATH):
+        os.makedirs(os.path.dirname(USERS_DB_PATH), exist_ok=True)
+        default_db = {"users": []}
+        try:
+            with open(USERS_DB_PATH, "w", encoding="utf-8") as f:
+                json.dump(default_db, f, indent=2, ensure_ascii=False)
+        except Exception:
+            pass
+        return default_db
+    try:
+        with open(USERS_DB_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {"users": []}
+
+def save_user_to_db(user_data):
+    """Inserta o actualiza un usuario en la base de datos local app/data/users_db.json."""
+    if not isinstance(user_data, dict) or not user_data.get("username"):
+        raise ValueError("Datos de usuario inválidos: requiere campo 'username'")
+    username = str(user_data.get("username")).strip().lower()
+    db = load_users_db()
+    users = db.get("users", [])
+    found_idx = -1
+    for idx, u in enumerate(users):
+        if str(u.get("username", "")).strip().lower() == username:
+            found_idx = idx
+            break
+
+    clean_user = {
+        "username": username,
+        "displayName": user_data.get("displayName") or username,
+        "level": user_data.get("level", "Principiante"),
+        "xp": int(user_data.get("xp", 0)),
+        "streak": int(user_data.get("streak", 1)),
+        "masteredSigns": list(user_data.get("masteredSigns", [])),
+        "customPlans": list(user_data.get("customPlans", [])),
+        "examHistory": list(user_data.get("examHistory", [])),
+        "lastUpdated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    }
+
+    if found_idx >= 0:
+        users[found_idx] = clean_user
+    else:
+        users.append(clean_user)
+
+    db["users"] = users
+    os.makedirs(os.path.dirname(USERS_DB_PATH), exist_ok=True)
+    with open(USERS_DB_PATH, "w", encoding="utf-8") as f:
+        json.dump(db, f, indent=2, ensure_ascii=False)
+    return clean_user
+
+def build_pedagogical_plan(goal: str, level: str = "beginner") -> dict:
+    """Genera una ruta pedagógica de señas oficiales consultando a Ollama o mediante fallback pedagógico."""
+    import unicodedata
+    clean_goal = (goal or "").strip()
+    norm_goal = ''.join(c for c in unicodedata.normalize('NFD', clean_goal) if unicodedata.category(c) != 'Mn').lower()
+    plan_id = f"ai_plan_{int(time.time())}"
+
+    # 1. Intentar consultar Ollama (qwen2.5:3b) con timeout estricto de 2.2s
+    try:
+        ollama_prompt = f"""Eres Sol, la arquitecta pedagógica experta en Lengua de Señas Colombiana (LSC) de Manitas.
+Tu tarea es diseñar una ruta progresiva de aprendizaje para un estudiante.
+Objetivo del estudiante: "{clean_goal}"
+Nivel: {level}
+Catálogo estricto de señas disponibles (usa SOLAMENTE estos IDs en mayúscula exacta):
+HOLA, YO, BUENOS, DIAS, TARDES, NOCHES, GUSTAR, NOMBRE, ANNOS, LICOR, A, B, C, D, E, I, L, O, U, V.
+
+Responde ÚNICAMENTE un objeto JSON válido con este formato:
+{{"title": "Título corto y motivador", "rationale": "Breve explicación pedagógica de 1 o 2 oraciones", "signs": ["ID1", "ID2", "ID3", "ID4"]}}
+"""
+        req = urllib.request.Request(
+            OLLAMA_URL,
+            data=json.dumps({
+                "model": "qwen2.5:3b",
+                "prompt": ollama_prompt,
+                "stream": False,
+                "format": "json",
+                "options": {"num_predict": 120, "temperature": 0.2}
+            }).encode('utf-8'),
+            headers={"Content-Type": "application/json"}
+        )
+        with urllib.request.urlopen(req, timeout=2.2) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+            raw_text = data.get("response", "{}")
+            raw_json = json.loads(raw_text)
+            title = raw_json.get("title", "").strip() or "Ruta Personalizada LSC"
+            rationale = raw_json.get("rationale", "").strip() or "Ruta estructurada según tu objetivo de aprendizaje."
+            signs_candidate = raw_json.get("signs", [])
+            valid_signs = [s for s in signs_candidate if s in VALID_SIGN_IDS]
+            seen = set()
+            valid_unique = []
+            for s in valid_signs:
+                if s not in seen:
+                    seen.add(s)
+                    valid_unique.append(s)
+
+            if len(valid_unique) >= 3:
+                return {
+                    "id": plan_id,
+                    "title": title,
+                    "rationale": rationale,
+                    "signs": valid_unique,
+                    "source": "ollama"
+                }
+    except Exception:
+        pass
+
+    # 2. Clasificador pedagógico determinista inmediato (Garantiza < 5ms de latencia)
+    if any(k in norm_goal for k in ["abecedario", "letra", "alfabeto", "dactil", "deletrear"]):
+        return {
+            "id": plan_id,
+            "title": "Ruta IA: Abecedario Dactilológico LSC",
+            "rationale": "Sol ha seleccionado la secuencia dactilológica esencial para deletrear nombres propios y términos técnicos en LSC con soltura.",
+            "signs": ["A", "B", "C", "D", "E", "I", "L", "O", "U", "V"],
+            "source": "curated_fallback"
+        }
+    elif any(k in norm_goal for k in ["saludo", "presentar", "presentacion", "social", "conocer"]):
+        return {
+            "id": plan_id,
+            "title": "Ruta IA: Saludos y Presentación Personal",
+            "rationale": "Sol estructuró las señas fundamentales para iniciar una conversación cordial y presentarte con naturalidad ante personas sordas.",
+            "signs": ["HOLA", "YO", "NOMBRE", "BUENOS", "DIAS", "GUSTAR"],
+            "source": "curated_fallback"
+        }
+    elif any(k in norm_goal for k in ["palabra", "vocabulario", "conversacion", "frases"]):
+        return {
+            "id": plan_id,
+            "title": "Ruta IA: Vocabulario Esencial LSC",
+            "rationale": "Sol diseñó una inmersión directa en las expresiones y términos cotidianos más frecuentes del corpus LSC70.",
+            "signs": ["HOLA", "BUENOS", "DIAS", "TARDES", "NOCHES", "YO", "NOMBRE", "GUSTAR", "ANNOS", "LICOR"],
+            "source": "curated_fallback"
+        }
+    else:  # cero, basico, nada, default
+        return {
+            "id": plan_id,
+            "title": "Ruta IA: Fundamentos LSC Desde Cero",
+            "rationale": "Sol diseñó una ruta balanceada para principiantes: inicia con el saludo universal, continúa con vocales dactilológicas y culmina con cortesía y presentación.",
+            "signs": ["HOLA", "YO", "A", "E", "O", "BUENOS", "DIAS", "NOMBRE"],
+            "source": "curated_fallback"
+        }
 
 class RangeFileWrapper:
     """Wrapper para transmitir un rango de bytes específico de un archivo abierto (HTTP 206)."""
@@ -257,6 +409,23 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
         except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
             pass
 
+    def do_GET(self):
+        if self.path == '/api/users':
+            try:
+                db = load_users_db()
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({"users": db.get("users", [])}, ensure_ascii=False).encode('utf-8'))
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
+                return
+        super().do_GET()
+
     def do_OPTIONS(self):
         self.send_response(200)
         self.end_headers()
@@ -283,11 +452,11 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
                 if detected_sign and detected_sign in FALLBACK_REPLIES:
                     reply_text = FALLBACK_REPLIES[detected_sign]
                 elif any(w in user_lower for w in ["palabra", "seña", "opcion", "catalogo", "que hay", "que tienes", "cuales", "señas", "menu"]):
-                    reply_text = "En el Proyecto EXIS puedes aprender: Palabras LSC (HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE) y Alfabeto Dactilológico (A, B, C, I, L, O, V). ¿Cuál te gustaría practicar ahora?"
+                    reply_text = "En Manitas puedes aprender: Palabras LSC (HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE) y Alfabeto Dactilológico (A, B, C, I, L, O, V). ¿Cuál te gustaría practicar ahora?"
                 else:
                     # Try Ollama with low latency timeout (2.0s)
                     try:
-                        prompt = f"""Eres el tutor de Lengua de Señas Colombiana del Proyecto EXIS.
+                        prompt = f"""Eres el tutor de Lengua de Señas Colombiana de Manitas.
 Señas disponibles: HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE, y letras dactilológicas A, B, C, I, L, O, V.
 Usuario dice: "{user_msg}"
 Instrucciones: Responde amablemente en español en máximo 2 oraciones pedagógicas. Si el usuario pide aprender una seña, agrega al final exactamente [SELECCIONAR: <ID>] (ej: [SELECCIONAR: DIAS] o [SELECCIONAR: C]).
@@ -351,6 +520,46 @@ Respuesta:"""
             except Exception as e:
                 self.send_response(500)
                 self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
+                return
+
+        elif self.path == '/api/plan':
+            content_length = int(self.headers.get('Content-Length', 0))
+            raw_data = self.rfile.read(content_length)
+            try:
+                post_data = raw_data.decode('utf-8', errors='replace')
+                payload = json.loads(post_data) if post_data.strip() else {}
+                goal = str(payload.get("goal", "")).strip()
+                level = str(payload.get("level", "beginner")).strip()
+                plan = build_pedagogical_plan(goal, level)
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps(plan, ensure_ascii=False).encode('utf-8'))
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
+                return
+
+        elif self.path == '/api/users':
+            content_length = int(self.headers.get('Content-Length', 0))
+            raw_data = self.rfile.read(content_length)
+            try:
+                post_data = raw_data.decode('utf-8', errors='replace')
+                payload = json.loads(post_data) if post_data.strip() else {}
+                saved_user = save_user_to_db(payload)
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "ok", "user": saved_user}, ensure_ascii=False).encode('utf-8'))
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
                 self.end_headers()
                 self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
                 return
