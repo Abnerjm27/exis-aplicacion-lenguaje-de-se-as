@@ -556,18 +556,60 @@ main, main section, main .grid, header > div {
   padding: 1.5rem 1rem;
 }
 
-/* Línea conectora central de fondo */
+/* Línea estática anterior reemplazada por conector SVG dinámico */
 .duolingo-winding-path::before {
-  content: '';
+  display: none;
+}
+
+/* Conector SVG dinámico que serpentea siguiendo los hexágonos */
+.duolingo-svg-connector {
   position: absolute;
-  top: 2rem;
-  bottom: 5rem;
-  left: 50%;
-  width: 4px;
-  transform: translateX(-50%);
-  background: linear-gradient(180deg, rgba(0, 184, 169, 0.4) 0%, rgba(0, 184, 169, 0.15) 80%, rgba(0, 184, 169, 0.05) 100%);
-  border-radius: 9999px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
   z-index: 1;
+  overflow: visible;
+}
+
+.duolingo-path-base {
+  stroke: rgba(30, 41, 59, 0.85);
+  stroke-width: 8px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.duolingo-path-active {
+  stroke: url(#duolingoActiveGrad);
+  stroke-width: 6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.45));
+}
+
+.duolingo-path-pulse {
+  stroke: rgba(254, 240, 138, 0.85);
+  stroke-width: 6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 10 24;
+  animation: duolingoFlowDash 1.8s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes duolingoFlowDash {
+  to {
+    stroke-dashoffset: -34;
+  }
+}
+
+.duolingo-path-pending {
+  stroke: rgba(148, 163, 184, 0.35);
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 6 8;
 }
 
 /* Nodos Duolingo */

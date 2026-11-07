@@ -42,10 +42,10 @@
     "semantic_hash": "aeff13e066d0f6186561fc74eabbb0f9"
   },
   "app/js/learning-plan-manager.js": {
-    "mtime": 1794006690.1266952,
-    "seen": 1794006844.1977293,
-    "ast_hash": "d4f7fb87d2e176de848c03c761b0d1ad",
-    "semantic_hash": "d4f7fb87d2e176de848c03c761b0d1ad"
+    "mtime": 1794013109.0570488,
+    "seen": 1794013250.015254,
+    "ast_hash": "33f453cf0509e2b956fce95723cc530a",
+    "semantic_hash": "33f453cf0509e2b956fce95723cc530a"
   },
   "app/js/main.js": {
     "mtime": 1794007832.7771752,
@@ -484,5 +484,11 @@
     "seen": 1794012146.6737719,
     "ast_hash": "271d7d17d8d9af30698781e20139e639",
     "semantic_hash": "271d7d17d8d9af30698781e20139e639"
+  },
+  "tests/test_winding_path_visual.js": {
+    "mtime": 1794013176.6113698,
+    "seen": 1794013250.0918715,
+    "ast_hash": "6ad38ed5f8bedde052cc32492e14f196",
+    "semantic_hash": "6ad38ed5f8bedde052cc32492e14f196"
   }
 }

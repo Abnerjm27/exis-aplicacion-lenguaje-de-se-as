@@ -136,6 +136,82 @@
       "app_js_lesson_session_lessonsessioncontroller_updatevideomodeui"
     ],
     "2": [
+      "server_lscnaturallanguageparser",
+      "server_lscnaturallanguageparser_build_natural_reply",
+      "server_lscnaturallanguageparser_normalize",
+      "server_lscnaturallanguageparser_parse",
+      "server_lscparsedintent",
+      "server_lscparsedintent_init",
+      "server_lscparsedintent_repr",
+      "server_lsctutorservice",
+      "server_lsctutorservice_init",
+      "server_lsctutorservice_process_message",
+      "server_lsctutorservice_query_ollama_open",
+      "server_rationale_298",
+      "server_rationale_79",
+      "server_rationale_91",
+      "tests_test_natural_language_chat",
+      "tests_test_natural_language_chat_rationale_1",
+      "tests_test_natural_language_chat_rationale_17",
+      "tests_test_natural_language_chat_rationale_25",
+      "tests_test_natural_language_chat_rationale_32",
+      "tests_test_natural_language_chat_rationale_39",
+      "tests_test_natural_language_chat_rationale_46",
+      "tests_test_natural_language_chat_rationale_56",
+      "tests_test_natural_language_chat_rationale_64",
+      "tests_test_natural_language_chat_rationale_72",
+      "tests_test_natural_language_chat_rationale_79",
+      "tests_test_natural_language_chat_rationale_86",
+      "tests_test_natural_language_chat_testlscnaturallanguageparser",
+      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_catalog_intent",
+      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_clarification_with_letter_request",
+      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_contrast_rejection",
+      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_gratitude_intent",
+      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_greeting_with_letter_request",
+      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_greeting_with_word_request",
+      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_identity_intent",
+      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_letters_recognition",
+      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_preposition_a_not_confused_with_letter",
+      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_pure_greeting",
+      "unittest"
+    ],
+    "3": [
+      "http_server",
+      "server",
+      "server_build_pedagogical_plan",
+      "server_detect_sign",
+      "server_ensure_ollama_service",
+      "server_free_port",
+      "server_load_users_db",
+      "server_lschandler",
+      "server_lschandler_copyfile",
+      "server_lschandler_do_get",
+      "server_lschandler_do_options",
+      "server_lschandler_do_post",
+      "server_lschandler_end_headers",
+      "server_lschandler_handle_one_request",
+      "server_lschandler_init",
+      "server_lschandler_send_head",
+      "server_rangefilewrapper",
+      "server_rangefilewrapper_close",
+      "server_rangefilewrapper_init",
+      "server_rangefilewrapper_read",
+      "server_rationale_362",
+      "server_rationale_375",
+      "server_rationale_392",
+      "server_rationale_428",
+      "server_rationale_518",
+      "server_rationale_559",
+      "server_rationale_785",
+      "server_rationale_814",
+      "server_robustthreadingserver",
+      "server_robustthreadingserver_handle_error",
+      "server_save_user_to_db",
+      "socketserver",
+      "time",
+      "urllib_parse"
+    ],
+    "4": [
       "app_js_blind_exam_controller",
       "app_js_lesson_session",
       "tests_test_blind_exam_arena_unit",
@@ -170,7 +246,7 @@
       "tests_test_checkpoints_unit_lessonsessioncontroller",
       "tests_test_checkpoints_unit_path"
     ],
-    "3": [
+    "5": [
       "app_js_blind_exam_controller_blindexamcontroller",
       "app_js_blind_exam_controller_blindexamcontroller_advancequestion",
       "app_js_blind_exam_controller_blindexamcontroller_binduievents",
@@ -202,7 +278,7 @@
       "app_js_blind_exam_controller_blindexamcontroller_update",
       "app_js_blind_exam_controller_blindexamcontroller_updatetimerdisplay"
     ],
-    "4": [
+    "6": [
       "app_tools_mocap_extractor",
       "app_tools_mocap_extractor_euler_to_quaternion",
       "app_tools_mocap_extractor_mocapextractor",
@@ -234,7 +310,7 @@
       "json",
       "math"
     ],
-    "5": [
+    "7": [
       "app_js_camera_manager",
       "app_js_camera_manager_cameradevicemanager",
       "app_js_camera_manager_cameradevicemanager_attachselect",
@@ -261,34 +337,7 @@
       "app_js_vision_evaluator",
       "app_js_vision_evaluator_visionevaluator"
     ],
-    "6": [
-      "server_lscnaturallanguageparser",
-      "server_lscnaturallanguageparser_normalize",
-      "server_lscnaturallanguageparser_parse",
-      "server_rationale_91",
-      "tests_test_natural_language_chat_rationale_17",
-      "tests_test_natural_language_chat_rationale_25",
-      "tests_test_natural_language_chat_rationale_32",
-      "tests_test_natural_language_chat_rationale_39",
-      "tests_test_natural_language_chat_rationale_46",
-      "tests_test_natural_language_chat_rationale_56",
-      "tests_test_natural_language_chat_rationale_64",
-      "tests_test_natural_language_chat_rationale_72",
-      "tests_test_natural_language_chat_rationale_79",
-      "tests_test_natural_language_chat_rationale_86",
-      "tests_test_natural_language_chat_testlscnaturallanguageparser",
-      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_catalog_intent",
-      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_clarification_with_letter_request",
-      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_contrast_rejection",
-      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_gratitude_intent",
-      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_greeting_with_letter_request",
-      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_greeting_with_word_request",
-      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_identity_intent",
-      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_letters_recognition",
-      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_preposition_a_not_confused_with_letter",
-      "tests_test_natural_language_chat_testlscnaturallanguageparser_test_pure_greeting"
-    ],
-    "7": [
+    "8": [
       "app_js_auth_service",
       "app_js_auth_service_authservice",
       "app_js_auth_service_authservice_destroy",
@@ -314,7 +363,7 @@
       "app_js_auth_service_authservice_validatepassword",
       "app_js_auth_service_authservice_writeprofiles"
     ],
-    "8": [
+    "9": [
       "app_js_learning_plan_manager",
       "app_js_learning_plan_manager_learningplanmanager",
       "app_js_learning_plan_manager_learningplanmanager_binduievents",
@@ -340,7 +389,7 @@
       "app_js_learning_plan_manager_learningplanmanager_updateactiveplanheader",
       "app_js_learning_plan_manager_learningplanmanager_updatepresetplanchipstyles"
     ],
-    "9": [
+    "10": [
       "app_js_auth_profile_manager",
       "app_js_auth_profile_manager_authprofilemanager",
       "app_js_auth_profile_manager_authprofilemanager_bindmodalevents",
@@ -364,7 +413,7 @@
       "app_js_auth_profile_manager_authprofilemanager_update",
       "app_js_auth_profile_manager_authprofilemanager_updateui"
     ],
-    "10": [
+    "11": [
       "package",
       "package_devdependencies",
       "package_devdependencies_playwright",
@@ -386,7 +435,7 @@
       "tests_test_tardes_gustar_anime_chromium",
       "tests_test_tardes_gustar_anime_testanimetardesgustar"
     ],
-    "11": [
+    "12": [
       "app_js_view_router",
       "app_js_view_router_viewrouter",
       "app_js_view_router_viewrouter_bindnavigationevents",
@@ -403,24 +452,6 @@
       "app_js_view_router_viewrouter_update",
       "app_js_view_router_viewrouter_updatestudiobreadcrumb",
       "app_js_view_router_viewrouter_updateui"
-    ],
-    "12": [
-      "http_server",
-      "server",
-      "server_build_pedagogical_plan",
-      "server_detect_sign",
-      "server_free_port",
-      "server_lschandler_do_post",
-      "server_rationale_362",
-      "server_rationale_392",
-      "server_rationale_428",
-      "server_rationale_785",
-      "server_robustthreadingserver",
-      "server_robustthreadingserver_handle_error",
-      "server_save_user_to_db",
-      "socketserver",
-      "time",
-      "urllib_parse"
     ],
     "13": [
       "ref_fs",
@@ -527,19 +558,6 @@
       "app_js_onboarding_onboardingquizcontroller_update"
     ],
     "20": [
-      "server_load_users_db",
-      "server_lschandler",
-      "server_lschandler_copyfile",
-      "server_lschandler_do_get",
-      "server_lschandler_do_options",
-      "server_lschandler_end_headers",
-      "server_lschandler_handle_one_request",
-      "server_lschandler_init",
-      "server_lschandler_send_head",
-      "server_rationale_375",
-      "server_rationale_559"
-    ],
-    "21": [
       "app_js_gallery",
       "app_js_gallery_mascotgallerycontroller",
       "app_js_gallery_mascotgallerycontroller_constructor",
@@ -551,7 +569,7 @@
       "app_js_gallery_mascotgallerycontroller_updatebackgrounds",
       "app_js_gallery_mascotgallerycontroller_updateformatbuttons"
     ],
-    "22": [
+    "21": [
       "app_tools_check_console",
       "app_tools_check_console_http",
       "app_tools_check_console_main",
@@ -563,7 +581,7 @@
       "tests_backend_api_plan_users_http",
       "tests_backend_api_plan_users_requestjson"
     ],
-    "23": [
+    "22": [
       "app_tools_download_fonts",
       "app_tools_setup_offline_assets",
       "app_tools_setup_offline_assets_download_file",
@@ -575,7 +593,7 @@
       "re",
       "urllib_request"
     ],
-    "24": [
+    "23": [
       "ref_path",
       "tests_test_3_screens_flow_spec",
       "tests_test_3_screens_flow_spec_assert",
@@ -587,7 +605,7 @@
       "tests_test_live_hand_inference_path",
       "tests_test_live_hand_inference_testlivehandinference"
     ],
-    "25": [
+    "24": [
       "app_tools_curate_letter_i_animecurator",
       "app_tools_curate_letter_i_animecurator_extract_trimmed_frames",
       "app_tools_curate_letter_i_animecurator_init",
@@ -597,7 +615,7 @@
       "app_tools_curate_letter_i_main",
       "app_tools_curate_letter_i_rationale_7"
     ],
-    "26": [
+    "25": [
       "app_tools_curate_letter_o_animecurator",
       "app_tools_curate_letter_o_animecurator_extract_trimmed_frames",
       "app_tools_curate_letter_o_animecurator_init",
@@ -607,17 +625,7 @@
       "app_tools_curate_letter_o_main",
       "app_tools_curate_letter_o_rationale_7"
     ],
-    "27": [
-      "server_lsctutorservice",
-      "server_lsctutorservice_init",
-      "server_lsctutorservice_process_message",
-      "server_lsctutorservice_query_ollama_open",
-      "server_rationale_298",
-      "tests_test_natural_language_chat",
-      "tests_test_natural_language_chat_rationale_1",
-      "unittest"
-    ],
-    "28": [
+    "26": [
       "tests_test_auth_split_flow_spec",
       "tests_test_auth_split_flow_spec_assert",
       "tests_test_auth_split_flow_spec_chromium",
@@ -627,7 +635,7 @@
       "tests_test_auth_split_flow_spec_shots",
       "tests_test_auth_split_flow_spec_smalltargets"
     ],
-    "29": [
+    "27": [
       "tests_test_signs_data",
       "tests_test_signs_data_code",
       "tests_test_signs_data_fs",
@@ -637,7 +645,7 @@
       "tests_test_signs_data_signsdatapath",
       "tests_test_signs_data_window"
     ],
-    "30": [
+    "28": [
       "app_js_chat_tutor",
       "app_js_chat_tutor_chattutor",
       "tests_test_client_nlu",
@@ -646,7 +654,7 @@
       "tests_test_client_nlu_lscclientnlu_normalize",
       "tests_test_client_nlu_lscclientnlu_parse"
     ],
-    "31": [
+    "29": [
       "app_js_main",
       "app_js_main_binduievents",
       "app_js_main_dismisssuccessmodal",
@@ -655,7 +663,7 @@
       "app_js_main_selectsign",
       "app_js_main_switchcategory"
     ],
-    "32": [
+    "30": [
       "tests_test_playwright",
       "tests_test_playwright_chromium",
       "tests_test_playwright_fs",
@@ -663,7 +671,7 @@
       "tests_test_playwright_runtests",
       "tests_test_playwright_runtests_assert"
     ],
-    "33": [
+    "31": [
       "tests_test_vision_rules",
       "tests_test_vision_rules_code",
       "tests_test_vision_rules_fs",
@@ -671,88 +679,74 @@
       "tests_test_vision_rules_path",
       "tests_test_vision_rules_requiredbranches"
     ],
-    "34": [
-      "server_lscnaturallanguageparser_build_natural_reply",
-      "server_lscparsedintent",
-      "server_lscparsedintent_init",
-      "server_lscparsedintent_repr",
-      "server_rationale_79"
-    ],
-    "35": [
-      "server_rangefilewrapper",
-      "server_rangefilewrapper_close",
-      "server_rangefilewrapper_init",
-      "server_rangefilewrapper_read",
-      "server_rationale_518"
-    ],
-    "36": [
+    "32": [
       "tests_test_interactive_lesson_flow_spec",
       "tests_test_interactive_lesson_flow_spec_assert",
       "tests_test_interactive_lesson_flow_spec_chromium",
       "tests_test_interactive_lesson_flow_spec_fs",
       "tests_test_interactive_lesson_flow_spec_path"
     ],
-    "37": [
+    "33": [
       "tests_test_mascot_gallery_spec",
       "tests_test_mascot_gallery_spec_assert",
       "tests_test_mascot_gallery_spec_chromium",
       "tests_test_mascot_gallery_spec_fs",
       "tests_test_mascot_gallery_spec_path"
     ],
-    "38": [
+    "34": [
       "tests_verify_exam_arena_flow",
       "tests_verify_exam_arena_flow_assert",
       "tests_verify_exam_arena_flow_chromium",
       "tests_verify_exam_arena_flow_fs",
       "tests_verify_exam_arena_flow_path"
     ],
-    "39": [
+    "35": [
       "tests_verify_exam_arena_no_video",
       "tests_verify_exam_arena_no_video_assert",
       "tests_verify_exam_arena_no_video_chromium",
       "tests_verify_exam_arena_no_video_fs",
       "tests_verify_exam_arena_no_video_path"
     ],
-    "40": [
+    "36": [
       "app_js_avatar_3d",
       "app_js_avatar_3d_avatar3d"
     ],
-    "41": [
+    "37": [
       "app_js_signs_data",
       "app_js_signs_data_signs_data"
     ],
-    "42": [
+    "38": [
       "app_js_trajectory_tracker",
       "app_js_trajectory_tracker_trajectorytracker"
     ],
-    "43": [
+    "39": [
       "app_js_video_player",
       "app_js_video_player_videoplayer"
     ],
-    "44": [
+    "40": [
       "app_js_tailwind_config"
     ],
-    "45": [
+    "41": [
       "app_tools_update_index_mascot"
     ],
-    "46": [
+    "42": [
       "app_tools_update_landing_assets"
     ]
   },
   "cohesion": {
     "0": 0.05938375350140056,
     "1": 0.1178743961352657,
-    "2": 0.0625,
-    "3": 0.15632183908045977,
-    "4": 0.09655172413793103,
-    "5": 0.15666666666666668,
-    "6": 0.11666666666666667,
-    "7": 0.14130434782608695,
-    "8": 0.20652173913043478,
-    "9": 0.2077922077922078,
-    "10": 0.1,
-    "11": 0.26666666666666666,
-    "12": 0.15,
+    "2": 0.07539118065433854,
+    "3": 0.08021390374331551,
+    "4": 0.0625,
+    "5": 0.15632183908045977,
+    "6": 0.09655172413793103,
+    "7": 0.15666666666666668,
+    "8": 0.14130434782608695,
+    "9": 0.20652173913043478,
+    "10": 0.2077922077922078,
+    "11": 0.1,
+    "12": 0.26666666666666666,
     "13": 0.13333333333333333,
     "14": 0.23076923076923078,
     "15": 0.2564102564102564,
@@ -760,33 +754,29 @@
     "17": 0.16666666666666666,
     "18": 0.24242424242424243,
     "19": 0.3090909090909091,
-    "20": 0.23636363636363636,
-    "21": 0.4,
-    "22": 0.2,
-    "23": 0.4222222222222222,
-    "24": 0.2,
+    "20": 0.4,
+    "21": 0.2,
+    "22": 0.4222222222222222,
+    "23": 0.2,
+    "24": 0.35714285714285715,
     "25": 0.35714285714285715,
-    "26": 0.35714285714285715,
-    "27": 0.2857142857142857,
-    "28": 0.25,
-    "29": 0.25,
+    "26": 0.25,
+    "27": 0.25,
+    "28": 0.3333333333333333,
+    "29": 0.6190476190476191,
     "30": 0.3333333333333333,
-    "31": 0.6190476190476191,
-    "32": 0.3333333333333333,
-    "33": 0.3333333333333333,
+    "31": 0.3333333333333333,
+    "32": 0.4,
+    "33": 0.4,
     "34": 0.4,
     "35": 0.4,
-    "36": 0.4,
-    "37": 0.4,
-    "38": 0.4,
-    "39": 0.4,
+    "36": 1.0,
+    "37": 1.0,
+    "38": 1.0,
+    "39": 1.0,
     "40": 1.0,
     "41": 1.0,
-    "42": 1.0,
-    "43": 1.0,
-    "44": 1.0,
-    "45": 1.0,
-    "46": 1.0
+    "42": 1.0
   },
   "gods": [
     {

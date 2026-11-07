@@ -33,6 +33,7 @@ class LearningPlanManager {
   #customModalOpen;
   #selectedCustomSignIds;
   #boundHandleKeyDown;
+  #boundHandleResize;
 
   constructor() {
     this.#activePlan = { ...LearningPlanManager.PRESET_PLANS.plan_zero_ai, currentIndex: 0 };
@@ -42,6 +43,7 @@ class LearningPlanManager {
     this.#customModalOpen = false;
     this.#selectedCustomSignIds = new Set();
     this.#boundHandleKeyDown = this.#handleKeyDown.bind(this);
+    this.#boundHandleResize = this.#handleResize.bind(this);
   }
 
   init(options = {}) {
@@ -53,6 +55,7 @@ class LearningPlanManager {
     }
 
     this.#bindUIEvents();
+    window.addEventListener('resize', this.#boundHandleResize);
     this.selectPresetPlan('plan_zero_ai');
 
     // Comprobar objetivo pedagógico pendiente desde el Portal Landing
@@ -83,6 +86,7 @@ class LearningPlanManager {
   destroy() {
     this.closeCustomPlanModal();
     window.removeEventListener('keydown', this.#boundHandleKeyDown);
+    window.removeEventListener('resize', this.#boundHandleResize);
   }
 
   getActivePlan() {
@@ -389,6 +393,100 @@ class LearningPlanManager {
     container.appendChild(trophyBtn);
 
     this.#updateActivePlanHeader();
+
+    // Dibujar y conectar el trazado serpenteante SVG directamente a través de los nodos
+    requestAnimationFrame(() => {
+      this.#updateWindingPathConnector();
+      setTimeout(() => this.#updateWindingPathConnector(), 80);
+    });
+  }
+
+  #handleResize() {
+    requestAnimationFrame(() => this.#updateWindingPathConnector());
+  }
+
+  #updateWindingPathConnector() {
+    const container = document.getElementById('hexSkillTreeContainer');
+    if (!container) return;
+
+    // Si el contenedor o su vista no están visibles, posponer la medición
+    if (container.offsetParent === null && container.offsetWidth === 0) return;
+
+    const nodes = Array.from(container.querySelectorAll('.duolingo-node, .duolingo-checkpoint-node, .duolingo-trophy-node'));
+    if (nodes.length < 2) return;
+
+    let svg = container.querySelector('.duolingo-svg-connector');
+    if (!svg) {
+      svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('class', 'duolingo-svg-connector');
+      svg.setAttribute('aria-hidden', 'true');
+      container.prepend(svg);
+    }
+
+    const cRect = container.getBoundingClientRect();
+    if (cRect.width === 0 || cRect.height === 0) return;
+
+    svg.setAttribute('width', String(Math.round(cRect.width)));
+    svg.setAttribute('height', String(Math.round(cRect.height)));
+    svg.setAttribute('viewBox', `0 0 ${Math.round(cRect.width)} ${Math.round(cRect.height)}`);
+
+    // Calcular el punto central exacto de cada nodo relativo a container
+    const points = nodes.map(node => {
+      const nRect = node.getBoundingClientRect();
+      const cx = Math.round(nRect.left + nRect.width / 2 - cRect.left);
+      const cy = Math.round(nRect.top + nRect.height / 2 - cRect.top);
+      return { x: cx, y: cy, el: node };
+    });
+
+    const buildBezierSegment = (p0, p1) => {
+      const midY = Math.round((p0.y + p1.y) / 2);
+      return `C ${p0.x} ${midY}, ${p1.x} ${midY}, ${p1.x} ${p1.y}`;
+    };
+
+    let fullD = `M ${points[0].x} ${points[0].y}`;
+    for (let i = 0; i < points.length - 1; i++) {
+      fullD += ` ${buildBezierSegment(points[i], points[i + 1])}`;
+    }
+
+    const activeSignNode = container.querySelector('.hex-node-active');
+    let activeIndex = 0;
+    if (activeSignNode) {
+      const foundIdx = nodes.indexOf(activeSignNode);
+      if (foundIdx >= 0) activeIndex = foundIdx;
+    }
+
+    let activeD = '';
+    if (activeIndex > 0) {
+      activeD = `M ${points[0].x} ${points[0].y}`;
+      for (let i = 0; i < activeIndex; i++) {
+        activeD += ` ${buildBezierSegment(points[i], points[i + 1])}`;
+      }
+    }
+
+    let pendingD = '';
+    if (activeIndex < points.length - 1) {
+      pendingD = `M ${points[activeIndex].x} ${points[activeIndex].y}`;
+      for (let i = activeIndex; i < points.length - 1; i++) {
+        pendingD += ` ${buildBezierSegment(points[i], points[i + 1])}`;
+      }
+    }
+
+    svg.innerHTML = `
+      <defs>
+        <linearGradient id="duolingoActiveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#10b981" />
+          <stop offset="55%" stop-color="#f59e0b" />
+          <stop offset="100%" stop-color="#fbbf24" />
+        </linearGradient>
+      </defs>
+      <!-- Vía base oscura continua que serpentea por los centros de los hexágonos -->
+      <path d="${fullD}" fill="none" class="duolingo-path-base" />
+      <!-- Tramo recorrido/activo con degradado esmeralda a ámbar -->
+      ${activeD ? `<path d="${activeD}" fill="none" class="duolingo-path-active" />` : ''}
+      ${activeD ? `<path d="${activeD}" fill="none" class="duolingo-path-pulse" />` : ''}
+      <!-- Tramo futuro punteado guiando suavemente hacia el trofeo final -->
+      ${pendingD ? `<path d="${pendingD}" fill="none" class="duolingo-path-pending" />` : ''}
+    `;
   }
 
   #createCheckpointNode(cpNumber, cpSigns) {
