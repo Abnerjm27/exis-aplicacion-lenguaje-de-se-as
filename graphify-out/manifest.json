@@ -36,10 +36,10 @@
     "semantic_hash": "4292477d1f381d02993ef893de450e6f"
   },
   "app/js/chat-tutor.js": {
-    "mtime": 1793666651.3693647,
-    "seen": 1793933575.6117306,
-    "ast_hash": "7a4f38571469bd8bb3dcead4cba9920a",
-    "semantic_hash": "7a4f38571469bd8bb3dcead4cba9920a"
+    "mtime": 1794011981.52299,
+    "seen": 1794012146.6349719,
+    "ast_hash": "aeff13e066d0f6186561fc74eabbb0f9",
+    "semantic_hash": "aeff13e066d0f6186561fc74eabbb0f9"
   },
   "app/js/learning-plan-manager.js": {
     "mtime": 1794006690.1266952,
@@ -222,10 +222,10 @@
     "semantic_hash": "f81b8427f2341a9985f2300710870416"
   },
   "server.py": {
-    "mtime": 1793992103.7632542,
-    "seen": 1793992373.5685697,
-    "ast_hash": "2ba1d9df88b6350d8508ec41212c75b2",
-    "semantic_hash": "2ba1d9df88b6350d8508ec41212c75b2"
+    "mtime": 1794011833.140669,
+    "seen": 1794012146.6620486,
+    "ast_hash": "71277acbee3731003ac53c4d8fef2c53",
+    "semantic_hash": "71277acbee3731003ac53c4d8fef2c53"
   },
   "tests/backend_api_plan_users.js": {
     "mtime": 1793932562.5570886,
@@ -449,12 +449,6 @@
     "ast_hash": "a66c854efd9b0cd1b0494b2eb78f486b",
     "semantic_hash": "a66c854efd9b0cd1b0494b2eb78f486b"
   },
-  "test-results/.last-run.json": {
-    "mtime": 1794008237.5355477,
-    "seen": 1794009137.4874952,
-    "ast_hash": "ff6d5dab1dfd50cea584142bc288ce9e",
-    "semantic_hash": "ff6d5dab1dfd50cea584142bc288ce9e"
-  },
   "tests/test_blind_exam_arena_unit.js": {
     "mtime": 1794010489.7182796,
     "seen": 1794010568.2401278,
@@ -472,5 +466,23 @@
     "seen": 1794010568.2681718,
     "ast_hash": "0d6bdb4c397c27b68c0e32aa369dfb6c",
     "semantic_hash": "0d6bdb4c397c27b68c0e32aa369dfb6c"
+  },
+  "tests/test_chat_tutor_ui.js": {
+    "mtime": 1794012088.39822,
+    "seen": 1794012146.6682706,
+    "ast_hash": "a27ed83e4d451dd489bd37ece67f8f6b",
+    "semantic_hash": "a27ed83e4d451dd489bd37ece67f8f6b"
+  },
+  "tests/test_client_nlu.js": {
+    "mtime": 1794011933.5031211,
+    "seen": 1794012146.6689239,
+    "ast_hash": "61d22b5e4eec473dd2ca025348493063",
+    "semantic_hash": "61d22b5e4eec473dd2ca025348493063"
+  },
+  "tests/test_natural_language_chat.py": {
+    "mtime": 1794012016.1919491,
+    "seen": 1794012146.6737719,
+    "ast_hash": "271d7d17d8d9af30698781e20139e639",
+    "semantic_hash": "271d7d17d8d9af30698781e20139e639"
   }
 }

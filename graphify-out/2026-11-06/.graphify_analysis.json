@@ -71,12 +71,21 @@
       "app_tools_process_vl_dias_videos_process_sign",
       "app_tools_process_vl_dias_videos_rationale_1",
       "app_tools_update_onboarding_mascot",
+      "app_tools_verify_videos",
+      "app_tools_verify_videos_check_mp4_video",
+      "app_tools_verify_videos_check_webp_anim",
+      "app_tools_verify_videos_main",
+      "app_tools_verify_videos_rationale_1",
       "cv2",
       "ndarray",
       "numpy",
       "os",
       "pil",
-      "shutil"
+      "shutil",
+      "sys",
+      "tests_test_batch_5_media",
+      "tests_test_batch_5_media_test_media_assets",
+      "tests_test_prompts_doc"
     ],
     "1": [
       "app_js_lesson_session_lessonsessioncontroller",
@@ -127,10 +136,42 @@
       "app_js_lesson_session_lessonsessioncontroller_updatevideomodeui"
     ],
     "2": [
-      "app_tools_mocap_extractor_rationale_609",
-      "app_tools_mocap_extractor_verify_clips_json",
+      "app_js_blind_exam_controller",
+      "app_js_lesson_session",
+      "tests_test_blind_exam_arena_unit",
+      "tests_test_blind_exam_arena_unit_assert",
+      "tests_test_blind_exam_arena_unit_blindexamcontroller",
+      "tests_test_blind_exam_arena_unit_createmockelement",
+      "tests_test_blind_exam_arena_unit_fs",
+      "tests_test_blind_exam_arena_unit_gesturepane",
+      "tests_test_blind_exam_arena_unit_getmock",
+      "tests_test_blind_exam_arena_unit_mockelements",
+      "tests_test_blind_exam_arena_unit_modal",
+      "tests_test_blind_exam_arena_unit_path",
+      "tests_test_blind_exam_arena_unit_quizpane",
+      "tests_test_blind_exam_arena_unit_radarbar",
+      "tests_test_blind_exam_arena_unit_radartext",
+      "tests_test_blind_exam_arena_unit_signsdatacode",
+      "tests_test_blind_exam_arena_unit_signsdatapath",
+      "tests_test_blind_exam_arena_unit_storagemap",
+      "tests_test_blind_exam_arena_unit_testplan",
+      "tests_test_blind_exam_arena_unit_videotoggle",
+      "tests_test_checkpoints_unit",
+      "tests_test_checkpoints_unit_assert",
+      "tests_test_checkpoints_unit_blindexamcontroller",
+      "tests_test_checkpoints_unit_counterel",
+      "tests_test_checkpoints_unit_cp1config",
+      "tests_test_checkpoints_unit_demovideo",
+      "tests_test_checkpoints_unit_elements",
+      "tests_test_checkpoints_unit_fs",
+      "tests_test_checkpoints_unit_fullplanconfig",
+      "tests_test_checkpoints_unit_getmock",
+      "tests_test_checkpoints_unit_lesson",
+      "tests_test_checkpoints_unit_lessonsessioncontroller",
+      "tests_test_checkpoints_unit_path"
+    ],
+    "3": [
       "http_server",
-      "json",
       "server",
       "server_build_pedagogical_plan",
       "server_detect_sign",
@@ -162,39 +203,39 @@
       "time",
       "urllib_parse"
     ],
-    "3": [
-      "app_js_blind_exam_controller",
-      "app_js_lesson_session",
-      "tests_test_blind_exam_arena_unit",
-      "tests_test_blind_exam_arena_unit_assert",
-      "tests_test_blind_exam_arena_unit_blindexamcontroller",
-      "tests_test_blind_exam_arena_unit_createmockelement",
-      "tests_test_blind_exam_arena_unit_fs",
-      "tests_test_blind_exam_arena_unit_getmock",
-      "tests_test_blind_exam_arena_unit_mockelements",
-      "tests_test_blind_exam_arena_unit_modal",
-      "tests_test_blind_exam_arena_unit_path",
-      "tests_test_blind_exam_arena_unit_radarbar",
-      "tests_test_blind_exam_arena_unit_radartext",
-      "tests_test_blind_exam_arena_unit_signsdatacode",
-      "tests_test_blind_exam_arena_unit_signsdatapath",
-      "tests_test_blind_exam_arena_unit_storagemap",
-      "tests_test_blind_exam_arena_unit_testplan",
-      "tests_test_checkpoints_unit",
-      "tests_test_checkpoints_unit_assert",
-      "tests_test_checkpoints_unit_blindexamcontroller",
-      "tests_test_checkpoints_unit_counterel",
-      "tests_test_checkpoints_unit_cp1config",
-      "tests_test_checkpoints_unit_demovideo",
-      "tests_test_checkpoints_unit_elements",
-      "tests_test_checkpoints_unit_fs",
-      "tests_test_checkpoints_unit_fullplanconfig",
-      "tests_test_checkpoints_unit_getmock",
-      "tests_test_checkpoints_unit_lesson",
-      "tests_test_checkpoints_unit_lessonsessioncontroller",
-      "tests_test_checkpoints_unit_path"
-    ],
     "4": [
+      "app_js_blind_exam_controller_blindexamcontroller",
+      "app_js_blind_exam_controller_blindexamcontroller_advancequestion",
+      "app_js_blind_exam_controller_blindexamcontroller_binduievents",
+      "app_js_blind_exam_controller_blindexamcontroller_cleartimer",
+      "app_js_blind_exam_controller_blindexamcontroller_closesummarymodal",
+      "app_js_blind_exam_controller_blindexamcontroller_constructor",
+      "app_js_blind_exam_controller_blindexamcontroller_destroy",
+      "app_js_blind_exam_controller_blindexamcontroller_finishexam",
+      "app_js_blind_exam_controller_blindexamcontroller_generatedistractors",
+      "app_js_blind_exam_controller_blindexamcontroller_getvideomode",
+      "app_js_blind_exam_controller_blindexamcontroller_handlekeydown",
+      "app_js_blind_exam_controller_blindexamcontroller_handlepracticeframe",
+      "app_js_blind_exam_controller_blindexamcontroller_handlesignmasteredinexam",
+      "app_js_blind_exam_controller_blindexamcontroller_init",
+      "app_js_blind_exam_controller_blindexamcontroller_isexamactive",
+      "app_js_blind_exam_controller_blindexamcontroller_loadquestion",
+      "app_js_blind_exam_controller_blindexamcontroller_loadquizmedia",
+      "app_js_blind_exam_controller_blindexamcontroller_lookupsignname",
+      "app_js_blind_exam_controller_blindexamcontroller_lookupsignobject",
+      "app_js_blind_exam_controller_blindexamcontroller_renderquizoptions",
+      "app_js_blind_exam_controller_blindexamcontroller_reset",
+      "app_js_blind_exam_controller_blindexamcontroller_setvideomode",
+      "app_js_blind_exam_controller_blindexamcontroller_showsummarymodal",
+      "app_js_blind_exam_controller_blindexamcontroller_skipcurrentquestion",
+      "app_js_blind_exam_controller_blindexamcontroller_start",
+      "app_js_blind_exam_controller_blindexamcontroller_stopexam",
+      "app_js_blind_exam_controller_blindexamcontroller_submitquizoption",
+      "app_js_blind_exam_controller_blindexamcontroller_syncvideomodebuttons",
+      "app_js_blind_exam_controller_blindexamcontroller_update",
+      "app_js_blind_exam_controller_blindexamcontroller_updatetimerdisplay"
+    ],
+    "5": [
       "app_tools_mocap_extractor",
       "app_tools_mocap_extractor_euler_to_quaternion",
       "app_tools_mocap_extractor_mocapextractor",
@@ -218,12 +259,15 @@
       "app_tools_mocap_extractor_rationale_483",
       "app_tools_mocap_extractor_rationale_515",
       "app_tools_mocap_extractor_rationale_568",
+      "app_tools_mocap_extractor_rationale_609",
       "app_tools_mocap_extractor_rationale_61",
       "app_tools_mocap_extractor_rationale_84",
+      "app_tools_mocap_extractor_verify_clips_json",
       "argparse",
+      "json",
       "math"
     ],
-    "5": [
+    "6": [
       "app_js_camera_manager",
       "app_js_camera_manager_cameradevicemanager",
       "app_js_camera_manager_cameradevicemanager_attachselect",
@@ -250,7 +294,7 @@
       "app_js_vision_evaluator",
       "app_js_vision_evaluator_visionevaluator"
     ],
-    "6": [
+    "7": [
       "app_js_auth_service",
       "app_js_auth_service_authservice",
       "app_js_auth_service_authservice_destroy",
@@ -276,7 +320,7 @@
       "app_js_auth_service_authservice_validatepassword",
       "app_js_auth_service_authservice_writeprofiles"
     ],
-    "7": [
+    "8": [
       "app_js_learning_plan_manager",
       "app_js_learning_plan_manager_learningplanmanager",
       "app_js_learning_plan_manager_learningplanmanager_binduievents",
@@ -301,31 +345,6 @@
       "app_js_learning_plan_manager_learningplanmanager_update",
       "app_js_learning_plan_manager_learningplanmanager_updateactiveplanheader",
       "app_js_learning_plan_manager_learningplanmanager_updatepresetplanchipstyles"
-    ],
-    "8": [
-      "app_js_blind_exam_controller_blindexamcontroller",
-      "app_js_blind_exam_controller_blindexamcontroller_advancequestion",
-      "app_js_blind_exam_controller_blindexamcontroller_binduievents",
-      "app_js_blind_exam_controller_blindexamcontroller_cleartimer",
-      "app_js_blind_exam_controller_blindexamcontroller_closesummarymodal",
-      "app_js_blind_exam_controller_blindexamcontroller_constructor",
-      "app_js_blind_exam_controller_blindexamcontroller_destroy",
-      "app_js_blind_exam_controller_blindexamcontroller_finishexam",
-      "app_js_blind_exam_controller_blindexamcontroller_handlekeydown",
-      "app_js_blind_exam_controller_blindexamcontroller_handlepracticeframe",
-      "app_js_blind_exam_controller_blindexamcontroller_handlesignmasteredinexam",
-      "app_js_blind_exam_controller_blindexamcontroller_init",
-      "app_js_blind_exam_controller_blindexamcontroller_isexamactive",
-      "app_js_blind_exam_controller_blindexamcontroller_loadquestion",
-      "app_js_blind_exam_controller_blindexamcontroller_lookupsignname",
-      "app_js_blind_exam_controller_blindexamcontroller_lookupsignobject",
-      "app_js_blind_exam_controller_blindexamcontroller_reset",
-      "app_js_blind_exam_controller_blindexamcontroller_showsummarymodal",
-      "app_js_blind_exam_controller_blindexamcontroller_skipcurrentquestion",
-      "app_js_blind_exam_controller_blindexamcontroller_start",
-      "app_js_blind_exam_controller_blindexamcontroller_stopexam",
-      "app_js_blind_exam_controller_blindexamcontroller_update",
-      "app_js_blind_exam_controller_blindexamcontroller_updatetimerdisplay"
     ],
     "9": [
       "app_js_auth_profile_manager",
@@ -523,17 +542,6 @@
       "tests_test_live_hand_inference_testlivehandinference"
     ],
     "22": [
-      "app_tools_verify_videos",
-      "app_tools_verify_videos_check_mp4_video",
-      "app_tools_verify_videos_check_webp_anim",
-      "app_tools_verify_videos_main",
-      "app_tools_verify_videos_rationale_1",
-      "sys",
-      "tests_test_batch_5_media",
-      "tests_test_batch_5_media_test_media_assets",
-      "tests_test_prompts_doc"
-    ],
-    "23": [
       "app_tools_curate_letter_i_animecurator",
       "app_tools_curate_letter_i_animecurator_extract_trimmed_frames",
       "app_tools_curate_letter_i_animecurator_init",
@@ -543,7 +551,7 @@
       "app_tools_curate_letter_i_main",
       "app_tools_curate_letter_i_rationale_7"
     ],
-    "24": [
+    "23": [
       "app_tools_curate_letter_o_animecurator",
       "app_tools_curate_letter_o_animecurator_extract_trimmed_frames",
       "app_tools_curate_letter_o_animecurator_init",
@@ -553,7 +561,7 @@
       "app_tools_curate_letter_o_main",
       "app_tools_curate_letter_o_rationale_7"
     ],
-    "25": [
+    "24": [
       "tests_test_auth_split_flow_spec",
       "tests_test_auth_split_flow_spec_assert",
       "tests_test_auth_split_flow_spec_chromium",
@@ -563,7 +571,7 @@
       "tests_test_auth_split_flow_spec_shots",
       "tests_test_auth_split_flow_spec_smalltargets"
     ],
-    "26": [
+    "25": [
       "tests_test_signs_data",
       "tests_test_signs_data_code",
       "tests_test_signs_data_fs",
@@ -573,7 +581,7 @@
       "tests_test_signs_data_signsdatapath",
       "tests_test_signs_data_window"
     ],
-    "27": [
+    "26": [
       "app_js_main",
       "app_js_main_binduievents",
       "app_js_main_dismisssuccessmodal",
@@ -582,7 +590,7 @@
       "app_js_main_selectsign",
       "app_js_main_switchcategory"
     ],
-    "28": [
+    "27": [
       "tests_test_playwright",
       "tests_test_playwright_chromium",
       "tests_test_playwright_fs",
@@ -590,7 +598,7 @@
       "tests_test_playwright_runtests",
       "tests_test_playwright_runtests_assert"
     ],
-    "29": [
+    "28": [
       "tests_test_vision_rules",
       "tests_test_vision_rules_code",
       "tests_test_vision_rules_fs",
@@ -598,26 +606,33 @@
       "tests_test_vision_rules_path",
       "tests_test_vision_rules_requiredbranches"
     ],
-    "30": [
+    "29": [
       "tests_test_3_screens_flow_spec",
       "tests_test_3_screens_flow_spec_assert",
       "tests_test_3_screens_flow_spec_chromium",
       "tests_test_3_screens_flow_spec_fs",
       "tests_test_3_screens_flow_spec_path"
     ],
-    "31": [
+    "30": [
       "tests_test_interactive_lesson_flow_spec",
       "tests_test_interactive_lesson_flow_spec_assert",
       "tests_test_interactive_lesson_flow_spec_chromium",
       "tests_test_interactive_lesson_flow_spec_fs",
       "tests_test_interactive_lesson_flow_spec_path"
     ],
-    "32": [
+    "31": [
       "tests_test_mascot_gallery_spec",
       "tests_test_mascot_gallery_spec_assert",
       "tests_test_mascot_gallery_spec_chromium",
       "tests_test_mascot_gallery_spec_fs",
       "tests_test_mascot_gallery_spec_path"
+    ],
+    "32": [
+      "tests_verify_exam_arena_flow",
+      "tests_verify_exam_arena_flow_assert",
+      "tests_verify_exam_arena_flow_chromium",
+      "tests_verify_exam_arena_flow_fs",
+      "tests_verify_exam_arena_flow_path"
     ],
     "33": [
       "tests_verify_exam_arena_no_video",
@@ -657,15 +672,15 @@
     ]
   },
   "cohesion": {
-    "0": 0.06807017543859649,
+    "0": 0.05938375350140056,
     "1": 0.1178743961352657,
-    "2": 0.0855614973262032,
-    "3": 0.06896551724137931,
-    "4": 0.10541310541310542,
-    "5": 0.15666666666666668,
-    "6": 0.14130434782608695,
-    "7": 0.20652173913043478,
-    "8": 0.1976284584980237,
+    "2": 0.0625,
+    "3": 0.09032258064516129,
+    "4": 0.15632183908045977,
+    "5": 0.09655172413793103,
+    "6": 0.15666666666666668,
+    "7": 0.14130434782608695,
+    "8": 0.20652173913043478,
     "9": 0.2077922077922078,
     "10": 0.1111111111111111,
     "11": 0.26666666666666666,
@@ -679,14 +694,14 @@
     "19": 0.4222222222222222,
     "20": 0.2,
     "21": 0.2,
-    "22": 0.3333333333333333,
+    "22": 0.35714285714285715,
     "23": 0.35714285714285715,
-    "24": 0.35714285714285715,
+    "24": 0.25,
     "25": 0.25,
-    "26": 0.25,
-    "27": 0.6190476190476191,
+    "26": 0.6190476190476191,
+    "27": 0.3333333333333333,
     "28": 0.3333333333333333,
-    "29": 0.3333333333333333,
+    "29": 0.4,
     "30": 0.4,
     "31": 0.4,
     "32": 0.4,
@@ -707,6 +722,11 @@
       "degree": 46
     },
     {
+      "id": "app_js_blind_exam_controller_blindexamcontroller",
+      "label": "BlindExamController",
+      "degree": 30
+    },
+    {
       "id": "app_js_learning_plan_manager_learningplanmanager",
       "label": "LearningPlanManager",
       "degree": 23
@@ -714,11 +734,6 @@
     {
       "id": "app_js_auth_service_authservice",
       "label": "AuthService",
-      "degree": 23
-    },
-    {
-      "id": "app_js_blind_exam_controller_blindexamcontroller",
-      "label": "BlindExamController",
       "degree": 23
     },
     {
@@ -734,7 +749,7 @@
     {
       "id": "ref_playwright",
       "label": "playwright",
-      "degree": 20
+      "degree": 21
     },
     {
       "id": "app_js_view_router_viewrouter",
@@ -754,17 +769,6 @@
   ],
   "surprises": [
     {
-      "source": "check_mp4_video()",
-      "target": "cv2",
-      "source_files": [
-        "app/tools/verify_videos.py",
-        ""
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "note": "Bridges community 22 \u2192 community 0"
-    },
-    {
       "source": "download_file()",
       "target": "os",
       "source_files": [
@@ -776,6 +780,17 @@
       "note": "Bridges community 19 \u2192 community 0"
     },
     {
+      "source": "build_pedagogical_plan()",
+      "target": "json",
+      "source_files": [
+        "server.py",
+        ""
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 3 \u2192 community 5"
+    },
+    {
       "source": "free_port()",
       "target": "os",
       "source_files": [
@@ -784,7 +799,7 @@
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "note": "Bridges community 2 \u2192 community 0"
+      "note": "Bridges community 3 \u2192 community 0"
     },
     {
       "source": "normalize()",
@@ -795,18 +810,7 @@
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "note": "Bridges community 4 \u2192 community 0"
-    },
-    {
-      "source": "verify_clips_json()",
-      "target": "math",
-      "source_files": [
-        "app/tools/mocap_extractor.py",
-        ""
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "note": "Bridges community 2 \u2192 community 4"
+      "note": "Bridges community 5 \u2192 community 0"
     }
   ],
   "tokens": {

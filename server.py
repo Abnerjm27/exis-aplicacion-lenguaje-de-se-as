@@ -9,7 +9,7 @@ import time
 
 PORT = 8000
 DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app")
-OLLAMA_URL = "http://localhost:11434/api/generate"
+OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
 
 AVAILABLE_SIGNS = {
     "hola": "HOLA",
@@ -48,66 +48,320 @@ AVAILABLE_SIGNS = {
     "v": "V"
 }
 
-FALLBACK_REPLIES = {
-    "HOLA": "¡Excelente elección! Para la seña de 'HOLA', coloca tu mano derecha en la sien con los dedos juntos y proyéctala suavemente hacia adelante y afuera en diagonal saludando al frente. [SELECCIONAR: HOLA]",
-    "YO": "¡Muy bien! Para la seña de 'YO', forma un puño con tu mano derecha y deja únicamente el dedo índice extendido apuntando hacia tu pecho. [SELECCIONAR: YO]",
-    "BUENOS": "¡Perfecto! Para 'BUENOS / AS', coloca tu mano izquierda abierta como base en el pecho (palma arriba) y baja tu mano derecha para chocar apoyando la palma sobre la izquierda en el torso. [SELECCIONAR: BUENOS]",
-    "DIAS": "Para la seña de 'DÍAS', abre ambos brazos lateralmente a la altura del pecho con las palmas al frente simulando el amanecer. [SELECCIONAR: DIAS]",
-    "TARDES": "Para la seña de 'TARDES', cruza tus antebrazos horizontalmente frente a tu pecho con las palmas orientadas hacia tu cuerpo. [SELECCIONAR: TARDES]",
-    "NOCHES": "Para 'NOCHES', cruza ambos brazos sobre tu pecho con las manos reposando sobre los antebrazos opuestos. [SELECCIONAR: NOCHES]",
-    "GUSTAR": "Para la seña de 'GUSTAR', inclina levemente la cabeza hacia arriba, apoya tu dedo índice en la base de la garganta y deslízalo suavemente hacia arriba. [SELECCIONAR: GUSTAR]",
-    "NOMBRE": "Para 'NOMBRE', extiende los dedos índice y medio de ambas manos y apoya los de la mano derecha sobre los de la izquierda frente a tu torso. [SELECCIONAR: NOMBRE]",
-    "ANNOS": "Para la seña de 'AÑOS', ubica ambas manos frente a tu torso y realiza un suave frotamiento o movimiento circular con tu mano derecha sobre la izquierda indicando el transcurso del tiempo. [SELECCIONAR: ANNOS]",
-    "LICOR": "Para la seña de 'LICOR', configura tu mano derecha en copa (o letra Y con pulgar y meñique) y elévala hacia la barbilla o boca inclinándola con delicadeza. [SELECCIONAR: LICOR]",
-    "A": "Vamos a practicar la letra 'A': cierra los 4 dedos en un puño firme y mantén el pulgar erguido a un lado del índice. [SELECCIONAR: A]",
-    "B": "Para la letra 'B', extiende los cuatro dedos juntos rectos hacia arriba y dobla el pulgar sobre la palma. [SELECCIONAR: B]",
-    "C": "Para la letra 'C', arquea los 4 dedos y el pulgar enfrentados formando la curvatura semicircular de la letra C. [SELECCIONAR: C]",
-    "D": "Para la letra 'D', apunta tu dedo índice recto hacia arriba y junta la punta de tu pulgar con tu dedo medio formando un aro en la base. [SELECCIONAR: D]",
-    "E": "Para la letra 'E', curva los cuatro dedos juntos hacia abajo y apoya sus yemas sobre el pulgar doblado en la palma. [SELECCIONAR: E]",
-    "I": "Para la letra 'I', cierra tu mano en puño y extiende únicamente el dedo meñique hacia arriba en vertical. [SELECCIONAR: I]",
-    "L": "Para la letra 'L', extiende el dedo índice hacia arriba y el pulgar hacia un lado formando un ángulo recto de 90 grados. [SELECCIONAR: L]",
-    "O": "Para la letra 'O', curva los dedos de tu mano tocando suavemente la punta del pulgar para formar un círculo visible O. [SELECCIONAR: O]",
-    "U": "Para la letra 'U', levanta el dedo índice y el dedo medio juntos y pegados apuntando hacia arriba (sin separación en V). [SELECCIONAR: U]",
-    "V": "Para la letra 'V', levanta el dedo índice y el dedo medio separados en forma de victoria. [SELECCIONAR: V]",
+LSC_SIGN_DESCRIPTIONS = {
+    "HOLA": "coloca tu mano derecha en la sien con los dedos juntos y proyéctala suavemente hacia adelante y afuera en diagonal saludando al frente.",
+    "YO": "forma un puño con tu mano derecha y deja únicamente el dedo índice extendido apuntando hacia tu pecho.",
+    "BUENOS": "coloca tu mano izquierda abierta como base en el pecho (palma arriba) y baja tu mano derecha para chocar apoyando la palma sobre la izquierda en el torso.",
+    "DIAS": "abre ambos brazos lateralmente a la altura del pecho con las palmas al frente simulando el amanecer.",
+    "TARDES": "cruza tus antebrazos horizontalmente frente a tu pecho con las palmas orientadas hacia tu cuerpo.",
+    "NOCHES": "cruza ambos brazos sobre tu pecho con las manos reposando sobre los antebrazos opuestos.",
+    "GUSTAR": "inclina levemente la cabeza hacia arriba, apoya tu dedo índice en la base de la garganta y deslízalo suavemente hacia arriba.",
+    "NOMBRE": "extiende los dedos índice y medio de ambas manos y apoya los de la mano derecha sobre los de la izquierda frente a tu torso.",
+    "ANNOS": "ubica ambas manos frente a tu torso y realiza un suave frotamiento o movimiento circular con tu mano derecha sobre la izquierda indicando el transcurso del tiempo.",
+    "LICOR": "configura tu mano derecha en copa (o letra Y con pulgar y meñique) y elévala hacia la barbilla o boca inclinándola con delicadeza.",
+    "A": "cierra los 4 dedos en un puño firme y mantén el pulgar erguido a un lado del índice.",
+    "B": "extiende los cuatro dedos juntos rectos hacia arriba y dobla el pulgar sobre la palma.",
+    "C": "arquea los 4 dedos y el pulgar enfrentados formando la curvatura semicircular de la letra C.",
+    "D": "apunta tu dedo índice recto hacia arriba y junta la punta de tu pulgar con tu dedo medio formando un aro en la base.",
+    "E": "curva los cuatro dedos juntos hacia abajo y apoya sus yemas sobre el pulgar doblado en la palma.",
+    "I": "cierra tu mano en puño y extiende únicamente el dedo meñique hacia arriba en vertical.",
+    "L": "extiende el dedo índice hacia arriba y el pulgar hacia un lado formando un ángulo recto de 90 grados.",
+    "O": "curva los dedos de tu mano tocando suavemente la punta del pulgar para formar un círculo visible O.",
+    "U": "levanta el dedo índice y el dedo medio juntos y pegados apuntando hacia arriba (sin separación en V).",
+    "V": "levanta el dedo índice y el dedo medio separados en forma de victoria.",
 }
 
-def detect_sign(msg):
-    import unicodedata, re
-    norm = ''.join(c for c in unicodedata.normalize('NFD', msg) if unicodedata.category(c) != 'Mn').lower()
-    tokens = re.findall(r'\b\w+\b', norm)
+FALLBACK_REPLIES = {
+    k: f"Para la seña de '{k}', {v} [SELECCIONAR: {k}]" for k, v in LSC_SIGN_DESCRIPTIONS.items()
+}
 
-    words_map = {
-        'hola': 'HOLA', 'saludo': 'HOLA', 'salud': 'HOLA',
-        'yo': 'YO', 'mi': 'YO',
-        'buenos': 'BUENOS', 'buenas': 'BUENOS',
-        'dias': 'DIAS', 'dia': 'DIAS',
-        'tardes': 'TARDES', 'tarde': 'TARDES',
-        'noches': 'NOCHES', 'noche': 'NOCHES',
+class LSCParsedIntent:
+    """Contenedor de intención pedagógica extraída por el motor NLU."""
+    def __init__(self, intent: str, target_sign: str = None, is_clarification: bool = False, greeting_preamble: str = None, raw_message: str = ""):
+        self.intent = intent  # 'LEARN_SIGN', 'GREETING', 'CATALOG', 'IDENTITY', 'GRATITUDE', 'UNKNOWN'
+        self.target_sign = target_sign
+        self.is_clarification = is_clarification
+        self.greeting_preamble = greeting_preamble
+        self.raw_message = raw_message
+
+    def __repr__(self):
+        return f"<LSCParsedIntent intent={self.intent} target={self.target_sign} is_clarif={self.is_clarification} preamble={self.greeting_preamble}>"
+
+class LSCNaturalLanguageParser:
+    """
+    Motor de Comprensión de Lenguaje Natural (NLU) para el Tutor Manitas LSC.
+    Distingue preámbulos de cortesía ('hola quiero aprender a' -> foco en 'A'),
+    resuelve negaciones y aclaraciones ('no quiero aprender a' -> foco en 'A'),
+    y desambigua preposiciones gramaticales vs letras dactilológicas.
+    """
+    VOCABULARY_WORDS = {
+        'licor': 'LICOR', 'trago': 'LICOR', 'beber': 'LICOR', 'bebida': 'LICOR',
         'gustar': 'GUSTAR', 'gusta': 'GUSTAR', 'gusto': 'GUSTAR',
-        'nombre': 'NOMBRE',
+        'nombre': 'NOMBRE', 'llamo': 'NOMBRE', 'llamas': 'NOMBRE',
         'anos': 'ANNOS', 'ano': 'ANNOS', 'annos': 'ANNOS', 'edad': 'ANNOS',
-        'licor': 'LICOR', 'trago': 'LICOR', 'beber': 'LICOR', 'bebida': 'LICOR'
+        'noches': 'NOCHES', 'noche': 'NOCHES',
+        'tardes': 'TARDES', 'tarde': 'TARDES',
+        'dias': 'DIAS', 'dia': 'DIAS',
+        'buenos': 'BUENOS', 'buenas': 'BUENOS',
+        'hola': 'HOLA', 'saludo': 'HOLA', 'saludar': 'HOLA',
+        'yo': 'YO', 'mi': 'YO', 'mismo': 'YO'
     }
 
-    # 1. Check words first
-    for token in tokens:
-        if token in words_map:
-            return words_map[token]
+    LETTERS = {
+        'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D', 'e': 'E',
+        'i': 'I', 'l': 'L', 'o': 'O', 'u': 'U', 'v': 'V'
+    }
 
-    # 2. Check letters with 'letra X'
-    letters_map = {'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D', 'e': 'E', 'i': 'I', 'l': 'L', 'o': 'O', 'u': 'U', 'v': 'V'}
-    for l in letters_map:
-        if f'letra {l}' in norm or f'letra_{l}' in norm:
-            return letters_map[l]
+    GREETING_STARTERS = [
+        "buenos dias", "buenas tardes", "buenas noches", "buen dia", "buenas",
+        "hola zorrito", "hola amigo", "hola profe", "hola tutor", "hola manitas",
+        "hola", "saludos", "hey", "alo", "ola"
+    ]
 
-    # 3. Check isolated single letter tokens
-    for token in tokens:
-        if token in ['b', 'c', 'd', 'l', 'v']:
-            return letters_map[token]
-        if token in ['a', 'e', 'i', 'o', 'u'] and (len(tokens) == 1 or 'letra' in tokens):
-            return letters_map[token]
+    CATALOG_KEYWORDS = [
+        "catalogo", "menu", "opciones", "que senas", "que tienes", "que hay",
+        "cuales senas", "cuales son", "lista", "que puedo aprender", "que palabras"
+    ]
 
-    return None
+    IDENTITY_KEYWORDS = [
+        "quien eres", "como te llamas", "que eres", "presentate", "tu nombre", "tu creador"
+    ]
+
+    GRATITUDE_KEYWORDS = [
+        "gracias", "muchas gracias", "te agradezco", "mil gracias", "genial gracias"
+    ]
+
+    @classmethod
+    def normalize(cls, text: str) -> str:
+        import unicodedata, re
+        if not text:
+            return ""
+        norm = ''.join(c for c in unicodedata.normalize('NFD', text.strip()) if unicodedata.category(c) != 'Mn').lower()
+        norm = re.sub(r'[^\w\s]', ' ', norm)
+        return re.sub(r'\s+', ' ', norm).strip()
+
+    @classmethod
+    def parse(cls, message: str) -> LSCParsedIntent:
+        import re
+        raw = (message or "").strip()
+        norm = cls.normalize(raw)
+        if not norm:
+            return LSCParsedIntent('UNKNOWN', raw_message=raw)
+
+        # 1. Chequear gratitud
+        for kw in cls.GRATITUDE_KEYWORDS:
+            if kw in norm and len(norm.split()) <= 4:
+                return LSCParsedIntent('GRATITUDE', raw_message=raw)
+
+        # 2. Chequear identidad
+        for kw in cls.IDENTITY_KEYWORDS:
+            if kw in norm:
+                return LSCParsedIntent('IDENTITY', raw_message=raw)
+
+        # 3. Chequear catálogo
+        for kw in cls.CATALOG_KEYWORDS:
+            if kw in norm:
+                return LSCParsedIntent('CATALOG', raw_message=raw)
+
+        # 4. Detectar preámbulo de saludo
+        detected_preamble = None
+        cleaned_text = norm
+        for g in cls.GREETING_STARTERS:
+            if norm == g or norm.startswith(g + " "):
+                detected_preamble = g
+                if norm == g:
+                    cleaned_text = ""
+                else:
+                    cleaned_text = norm[len(g):].strip()
+                break
+
+        # Si solo era saludo sin contenido adicional ("hola", "buenos días")
+        if detected_preamble and not cleaned_text:
+            return LSCParsedIntent('GREETING', greeting_preamble=detected_preamble, raw_message=raw)
+
+        # 5. Detectar si es una aclaración / corrección
+        is_clarif = False
+        if (cleaned_text.startswith("no quiero aprender a") or 
+            cleaned_text.startswith("no ") or 
+            " no quiero " in cleaned_text or 
+            " no esa " in cleaned_text or
+            cleaned_text.startswith("no,") or
+            cleaned_text.startswith("no.")):
+            is_clarif = True
+
+        # Manejo de contraste: "no quiero la a, prefiero la c", "no quiero a, dame v"
+        contrast_match = re.search(r'\b(?:prefiero|sino|mejor|cambia a|dame|ponme)\s+(?:la\s+|el\s+)?(\w+)', cleaned_text)
+        if contrast_match:
+            candidate = contrast_match.group(1)
+            if candidate in cls.LETTERS:
+                return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[candidate], is_clarification=True, greeting_preamble=detected_preamble, raw_message=raw)
+            if candidate in cls.VOCABULARY_WORDS:
+                return LSCParsedIntent('LEARN_SIGN', target_sign=cls.VOCABULARY_WORDS[candidate], is_clarification=True, greeting_preamble=detected_preamble, raw_message=raw)
+
+        # 6. Extracción de letra específica con indicadores explícitos
+        for letter, sign_id in cls.LETTERS.items():
+            pattern = rf'\b(?:letra|vocal|la|alfabeto)\s+{letter}\b'
+            if re.search(pattern, cleaned_text):
+                return LSCParsedIntent('LEARN_SIGN', target_sign=sign_id, is_clarification=is_clarif, greeting_preamble=detected_preamble, raw_message=raw)
+
+        # Caso especial para la letra 'A' vs preposición 'a':
+        # "quiero aprender a", "ensename a", "no quiero aprender a", "practicar a", o "a" al final
+        a_match = re.search(r'\b(?:aprender|ensename|practicar|quiero|hacer|pon)\s+a\s*$', cleaned_text)
+        if a_match or cleaned_text == 'a' or cleaned_text == 'la a' or cleaned_text.endswith(' letra a'):
+            return LSCParsedIntent('LEARN_SIGN', target_sign='A', is_clarification=is_clarif, greeting_preamble=detected_preamble, raw_message=raw)
+
+        # Consonantes aisladas (b, c, d, l, v) nunca son preposiciones en español
+        for cons in ['b', 'c', 'd', 'l', 'v']:
+            if re.search(rf'\b{cons}\b', cleaned_text):
+                return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[cons], is_clarification=is_clarif, greeting_preamble=detected_preamble, raw_message=raw)
+
+        # Vocales (e, i, o, u) si van precedidas de acción o aisladas
+        for vowel in ['e', 'i', 'o', 'u']:
+            v_match = re.search(rf'\b(?:aprender|ensename|practicar|quiero|hacer|pon|la|vocal)\s+{vowel}\b', cleaned_text)
+            if v_match or cleaned_text == vowel:
+                return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[vowel], is_clarification=is_clarif, greeting_preamble=detected_preamble, raw_message=raw)
+
+        # 7. Palabras del vocabulario oficial
+        for word, sign_id in cls.VOCABULARY_WORDS.items():
+            if re.search(rf'\b{word}\b', cleaned_text):
+                # Evitar falso positivo si la palabra era 'hola' pero ya se procesó como saludo sin foco explícito
+                if word == 'hola' and not any(k in cleaned_text for k in ["sena", "palabra", "aprender", "como se", "decir"]):
+                    continue
+                # Evitar falso positivo con 'yo' si solo dice "yo quiero aprender..."
+                if word in ('yo', 'mi') and any(k in cleaned_text for k in ["quiero", "puedo", "gustaria", "voy"]):
+                    continue
+                return LSCParsedIntent('LEARN_SIGN', target_sign=sign_id, is_clarification=is_clarif, greeting_preamble=detected_preamble, raw_message=raw)
+
+        # Si el texto original tenía preámbulo de saludo pero nada más reconocido
+        if detected_preamble:
+            return LSCParsedIntent('GREETING', greeting_preamble=detected_preamble, raw_message=raw)
+
+        return LSCParsedIntent('UNKNOWN', raw_message=raw)
+
+    @classmethod
+    def build_natural_reply(cls, parsed: LSCParsedIntent, descriptions: dict) -> str:
+        sign = parsed.target_sign
+        desc = descriptions.get(sign, "")
+        tag = f"[SELECCIONAR: {sign}]" if sign else ""
+        clean_desc = desc.replace(tag, "").strip() if desc else ""
+
+        if parsed.intent == 'LEARN_SIGN' and sign:
+            if parsed.is_clarification:
+                return f"¡Entendido perfectamente! Enfoquémonos en la seña de '{sign}'. {clean_desc} {tag}".strip()
+            elif parsed.greeting_preamble:
+                greeting_map = {
+                    "buenos dias": "¡Buenos días! Con mucho gusto",
+                    "buenas tardes": "¡Buenas tardes! Con mucho gusto",
+                    "buenas noches": "¡Buenas noches! Con mucho gusto",
+                    "hola": "¡Hola! Con mucho gusto",
+                    "saludos": "¡Saludos! Con mucho gusto",
+                    "hey": "¡Hola! Con mucho gusto"
+                }
+                greet = greeting_map.get(parsed.greeting_preamble, "¡Hola! Con mucho gusto")
+                return f"{greet}, vamos a aprender la seña de '{sign}'. {clean_desc} {tag}".strip()
+            else:
+                return f"¡Excelente elección! Para la seña de '{sign}', {clean_desc} {tag}".strip()
+
+        if parsed.intent == 'GREETING':
+            return (
+                "¡Hola! Qué alegría saludarte. Soy Zorrito, tu tutor interactivo de Lengua de Señas Colombiana (LSC). "
+                "¿Qué seña te gustaría practicar hoy? Puedes decirme por ejemplo: 'Quiero aprender la letra A', "
+                "'Enséñame HOLA' o 'Cómo se hace DÍAS'."
+            )
+
+        if parsed.intent == 'CATALOG':
+            return (
+                "En Manitas tenemos señas oficiales del dataset LSC70 listas para practicar:\n"
+                "• Palabras de uso cotidiano: HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE, AÑOS y LICOR.\n"
+                "• Alfabeto dactilológico: A, B, C, D, E, I, L, O, U y V.\n"
+                "¿Cuál de ellas te gustaría practicar ahora mismo?"
+            )
+
+        if parsed.intent == 'IDENTITY':
+            return (
+                "¡Hola! Soy Zorrito, tu tutor inteligente de Lengua de Señas Colombiana (LSC) en Manitas. "
+                "Mi misión es guiarte con visión artificial por webcam y modelos pedagógicos para que aprendas con precisión."
+            )
+
+        if parsed.intent == 'GRATITUDE':
+            return (
+                "¡Con todo el gusto! La práctica constante frente a la cámara es el mejor camino para dominar la lengua de señas. "
+                "¿Deseas continuar con otra seña o prefieres repasar?"
+            )
+
+        return (
+            "¡Hola! Comprendo tu mensaje. Para guiarte con la cámara y los videos de LSC, puedes pedirme cualquiera de nuestras "
+            "señas oficiales, por ejemplo: 'Quiero aprender la letra A', 'Enséñame HOLA' o 'Practicar DÍAS'. ¿Cuál eliges?"
+        )
+
+class LSCTutorService:
+    """
+    Servicio de Tutoría Inteligente para LSC (POO).
+    Orquesta la comprensión de lenguaje natural y la comunicación con Ollama.
+    """
+    def __init__(self, ollama_url: str = OLLAMA_URL, model: str = "qwen2.5:3b", timeout: float = 3.5):
+        self.ollama_url = ollama_url
+        self.model = model
+        self.timeout = timeout
+
+    def process_message(self, user_msg: str, history: list = None) -> dict:
+        parsed = LSCNaturalLanguageParser.parse(user_msg)
+        target_sign = parsed.target_sign
+
+        reply_text = None
+        # Para preguntas abiertas o conversacionales, intentamos Ollama en GPU
+        if parsed.intent in ('UNKNOWN', 'OPEN_CONVERSATION'):
+            reply_text = self._query_ollama_open(user_msg)
+
+        # Si no hubo respuesta de Ollama o si es una seña/saludo/catálogo/identidad, usar NLU canónico
+        if not reply_text:
+            reply_text = LSCNaturalLanguageParser.build_natural_reply(parsed, LSC_SIGN_DESCRIPTIONS)
+
+        # Garantizar [SELECCIONAR: ID] si hay target_sign
+        if target_sign and f"[SELECCIONAR: {target_sign}]" not in reply_text:
+            reply_text = f"{reply_text.strip()} [SELECCIONAR: {target_sign}]"
+
+        return {
+            "reply": reply_text,
+            "detected_sign": target_sign,
+            "intent": parsed.intent,
+            "is_clarification": parsed.is_clarification
+        }
+
+    def _query_ollama_open(self, user_msg: str) -> str:
+        try:
+            prompt = (
+                f"Eres Zorrito, el tutor interactivo y empático de Lengua de Señas Colombiana (LSC) en Manitas.\n"
+                f"Usuario pregunta: \"{user_msg}\"\n"
+                f"Instrucciones: Responde amablemente en español con tono cálido y pedagógico en máximo 2 oraciones breves.\n"
+                f"Respuesta:"
+            )
+            req = urllib.request.Request(
+                self.ollama_url,
+                data=json.dumps({
+                    "model": self.model,
+                    "prompt": prompt,
+                    "stream": False,
+                    "options": {"num_predict": 75, "temperature": 0.4}
+                }).encode('utf-8'),
+                headers={"Content-Type": "application/json"}
+            )
+            with urllib.request.urlopen(req, timeout=self.timeout) as resp:
+                res_data = json.loads(resp.read().decode('utf-8'))
+                ans = res_data.get("response", "").strip()
+                if ans:
+                    return ans
+        except Exception:
+            pass
+        return None
+
+# Instancia global del servicio de tutoría
+tutor_service = LSCTutorService()
+
+def detect_sign(msg: str):
+    """Función de compatibilidad delegada al motor NLU."""
+    parsed = LSCNaturalLanguageParser.parse(msg)
+    return parsed.target_sign
 
 VALID_SIGN_IDS = [
     "HOLA", "YO", "BUENOS", "DIAS", "TARDES", "NOCHES",
@@ -441,53 +695,14 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
             try:
                 payload = json.loads(post_data)
                 user_msg = payload.get("message", "").strip()
-                user_lower = user_msg.lower()
+                history = payload.get("history", [])
 
-                # Detect which sign is mentioned
-                detected_sign = detect_sign(user_msg)
-
-                reply_text = ""
-
-                # Instant response for detected signs or menu queries
-                if detected_sign and detected_sign in FALLBACK_REPLIES:
-                    reply_text = FALLBACK_REPLIES[detected_sign]
-                elif any(w in user_lower for w in ["palabra", "seña", "opcion", "catalogo", "que hay", "que tienes", "cuales", "señas", "menu"]):
-                    reply_text = "En Manitas puedes aprender: Palabras LSC (HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE) y Alfabeto Dactilológico (A, B, C, I, L, O, V). ¿Cuál te gustaría practicar ahora?"
-                else:
-                    # Try Ollama with low latency timeout (2.0s)
-                    try:
-                        prompt = f"""Eres el tutor de Lengua de Señas Colombiana de Manitas.
-Señas disponibles: HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE, y letras dactilológicas A, B, C, I, L, O, V.
-Usuario dice: "{user_msg}"
-Instrucciones: Responde amablemente en español en máximo 2 oraciones pedagógicas. Si el usuario pide aprender una seña, agrega al final exactamente [SELECCIONAR: <ID>] (ej: [SELECCIONAR: DIAS] o [SELECCIONAR: C]).
-Respuesta:"""
-
-                        req = urllib.request.Request(
-                            OLLAMA_URL,
-                            data=json.dumps({
-                                "model": "qwen2.5:3b",
-                                "prompt": prompt,
-                                "stream": False,
-                                "options": {"num_predict": 45, "temperature": 0.3}
-                            }).encode('utf-8'),
-                            headers={"Content-Type": "application/json"}
-                        )
-                        with urllib.request.urlopen(req, timeout=2.0) as resp:
-                            res_data = json.loads(resp.read().decode('utf-8'))
-                            reply_text = res_data.get("response", "").strip()
-                    except Exception:
-                        reply_text = "¡Hola! Soy tu tutor interactivo de LSC. Puedes decirme: 'Quiero aprender Días', 'Enséñame Noches' o 'Practicar la letra C'."
-
-                if detected_sign and f"[SELECCIONAR: {detected_sign}]" not in reply_text:
-                    reply_text += f" [SELECCIONAR: {detected_sign}]"
+                result = tutor_service.process_message(user_msg, history)
 
                 self.send_response(200)
                 self.send_header('Content-Type', 'application/json; charset=utf-8')
                 self.end_headers()
-                self.wfile.write(json.dumps({
-                    "reply": reply_text,
-                    "detected_sign": detected_sign
-                }, ensure_ascii=False).encode('utf-8'))
+                self.wfile.write(json.dumps(result, ensure_ascii=False).encode('utf-8'))
                 return
 
             except Exception as e:

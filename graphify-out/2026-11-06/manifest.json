@@ -24,10 +24,10 @@
     "semantic_hash": "644e2da065abce9db79fd56edc3928fe"
   },
   "app/js/blind-exam-controller.js": {
-    "mtime": 1794009852.2458642,
-    "seen": 1794010120.9468842,
-    "ast_hash": "bfc20bd9fc1bec1586797298b3d3d364",
-    "semantic_hash": "bfc20bd9fc1bec1586797298b3d3d364"
+    "mtime": 1794010442.0693593,
+    "seen": 1794010568.1545644,
+    "ast_hash": "e3ce63be865069cf3389f2a3233de99b",
+    "semantic_hash": "e3ce63be865069cf3389f2a3233de99b"
   },
   "app/js/camera-manager.js": {
     "mtime": 1794009798.670074,
@@ -456,15 +456,21 @@
     "semantic_hash": "ff6d5dab1dfd50cea584142bc288ce9e"
   },
   "tests/test_blind_exam_arena_unit.js": {
-    "mtime": 1794009922.6206079,
-    "seen": 1794010120.9932053,
-    "ast_hash": "a5da6cc0dfba09eca0faa0fc7f9b2755",
-    "semantic_hash": "a5da6cc0dfba09eca0faa0fc7f9b2755"
+    "mtime": 1794010489.7182796,
+    "seen": 1794010568.2401278,
+    "ast_hash": "706adc2e3b0e62fb9a54dbda095c8a41",
+    "semantic_hash": "706adc2e3b0e62fb9a54dbda095c8a41"
   },
   "tests/verify_exam_arena_no_video.js": {
     "mtime": 1794010075.7228725,
     "seen": 1794010121.0173638,
     "ast_hash": "78b4904cca07afdedf24c07ce072c2c0",
     "semantic_hash": "78b4904cca07afdedf24c07ce072c2c0"
+  },
+  "tests/verify_exam_arena_flow.js": {
+    "mtime": 1794010512.2531512,
+    "seen": 1794010568.2681718,
+    "ast_hash": "0d6bdb4c397c27b68c0e32aa369dfb6c",
+    "semantic_hash": "0d6bdb4c397c27b68c0e32aa369dfb6c"
   }
 }
