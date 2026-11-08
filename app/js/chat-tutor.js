@@ -183,27 +183,30 @@ class LSCClientNLU {
       }
     }
 
-    // 2. Identidad
+    // 2. Identidad del Tutor
     for (const kw of this.IDENTITY_KEYWORDS) {
       if (norm.includes(kw)) {
         return { intent: 'IDENTITY', targetSign: null, isClarification: false, greetingPreamble: null, rawMessage: raw };
       }
     }
 
-    // 3. Catálogo
+    // 3. Catálogo oficial
     for (const kw of this.CATALOG_KEYWORDS) {
       if (norm.includes(kw)) {
         return { intent: 'CATALOG', targetSign: null, isClarification: false, greetingPreamble: null, rawMessage: raw };
       }
     }
 
-    // 4. Preámbulo de saludo
+    // 4. Extracción de preámbulo de saludo
     let detectedPreamble = null;
     let cleanedText = norm;
     for (const g of this.GREETING_STARTERS) {
-      if (norm === g || norm.startsWith(g + " ")) {
+      if (norm === g) {
+        return { intent: 'GREETING', targetSign: null, isClarification: false, greetingPreamble: g, rawMessage: raw };
+      }
+      if (norm.startsWith(g + " ")) {
         detectedPreamble = g;
-        cleanedText = norm === g ? "" : norm.slice(g.length).trim();
+        cleanedText = norm.slice(g.length).trim();
         break;
       }
     }
@@ -212,70 +215,71 @@ class LSCClientNLU {
       return { intent: 'GREETING', targetSign: null, isClarification: false, greetingPreamble: detectedPreamble, rawMessage: raw };
     }
 
-    // 5. Aclaración / Corrección
-    let isClarif = false;
-    if (cleanedText.startsWith("no quiero aprender a") ||
-        cleanedText.startsWith("no ") ||
-        cleanedText.includes(" no quiero ") ||
-        cleanedText.includes(" no esa ") ||
-        cleanedText.startsWith("no,") ||
-        cleanedText.startsWith("no.")) {
-      isClarif = true;
+    // 5. Principiante / Desde cero (Detectar antes de negaciones para evitar falsos positivos con 'no sé nada')
+    if (/\b(?:no se nada|soy nuevo|desde cero|principiante|por donde empiezo|que hago|como inicio|que me recomiendas|recomendacion)\b/i.test(cleanedText)) {
+      return { intent: 'BEGINNER_RECOMMENDATION', targetSign: 'HOLA', isClarification: false, greetingPreamble: detectedPreamble, rawMessage: raw };
     }
 
-    // Contraste: "no quiero la a, prefiero la c"
-    const contrastMatch = cleanedText.match(/\b(?:prefiero|sino|mejor|cambia a|dame|ponme)\s+(?:la\s+|el\s+)?(\w+)/);
-    if (contrastMatch) {
-      const candidate = contrastMatch[1];
-      if (this.LETTERS[candidate]) {
-        return { intent: 'LEARN_SIGN', targetSign: this.LETTERS[candidate], isClarification: true, greetingPreamble: detectedPreamble, rawMessage: raw };
+    // 6. Negaciones, Aclaraciones y Contrastes
+    const isNegation = /\b(?:no quiero|no deseo|no me gusta|no esa|no aprender|no practicar|no voy a|tampoco esa)\b/i.test(cleanedText) ||
+                       cleanedText.startsWith('no ') || cleanedText === 'no';
+    const contrastMatch = cleanedText.match(/\b(?:prefiero|sino|mejor|cambia a|dame|ponme)\s+(?:la\s+|el\s+)?(\w+)/i);
+    if (isNegation) {
+      if (contrastMatch) {
+        const candidate = contrastMatch[1].toLowerCase();
+        if (this.LETTERS[candidate]) {
+          return { intent: 'LEARN_SIGN', targetSign: this.LETTERS[candidate], isClarification: true, greetingPreamble: detectedPreamble, rawMessage: raw };
+        }
+        if (this.VOCABULARY_WORDS[candidate]) {
+          return { intent: 'LEARN_SIGN', targetSign: this.VOCABULARY_WORDS[candidate], isClarification: true, greetingPreamble: detectedPreamble, rawMessage: raw };
+        }
       }
-      if (this.VOCABULARY_WORDS[candidate]) {
-        return { intent: 'LEARN_SIGN', targetSign: this.VOCABULARY_WORDS[candidate], isClarification: true, greetingPreamble: detectedPreamble, rawMessage: raw };
-      }
+      // Rechazo sin alternativa: no forzar 'A'
+      return { intent: 'REJECT_SIGN', targetSign: null, isClarification: true, greetingPreamble: detectedPreamble, rawMessage: raw };
     }
 
-    // 6. Letra específica con indicadores
-    for (const [letter, signId] of Object.entries(this.LETTERS)) {
-      const pattern = new RegExp(`\\b(?:letra|vocal|la|alfabeto)\\s+${letter}\\b`);
-      if (pattern.test(cleanedText)) {
-        return { intent: 'LEARN_SIGN', targetSign: signId, isClarification: isClarif, greetingPreamble: detectedPreamble, rawMessage: raw };
-      }
+    // 7. Intención de aprendizaje abierta o incompleta ("quiero aprender a", "deseo aprender")
+    if (['quiero aprender a', 'quiero aprender', 'deseo aprender', 'ensename a', 'aprender', 'aprender a', 'quiero practicar', 'ensenar'].includes(cleanedText)) {
+      return { intent: 'OPEN_LEARNING_INTRO', targetSign: null, isClarification: false, greetingPreamble: detectedPreamble, rawMessage: raw };
     }
 
-    // Caso especial letra 'A' vs preposición 'a'
-    const aMatch = cleanedText.match(/\b(?:aprender|ensename|practicar|quiero|hacer|pon)\s+a\s*$/);
-    if (aMatch || cleanedText === 'a' || cleanedText === 'la a' || cleanedText.endsWith(' letra a')) {
-      return { intent: 'LEARN_SIGN', targetSign: 'A', isClarification: isClarif, greetingPreamble: detectedPreamble, rawMessage: raw };
+    // 8. Categorías Temáticas (Saludos, Presentación, Abecedario, Visión/Cámara)
+    if (/\b(?:saludos|saludo|saludar|como saludar|decir hola)\b/i.test(cleanedText)) {
+      return { intent: 'THEME_GREETINGS', targetSign: 'HOLA', isClarification: false, greetingPreamble: detectedPreamble, rawMessage: raw };
+    }
+    if (/\b(?:presentarme|presentacion|mi nombre|decir mi nombre|como me llamo)\b/i.test(cleanedText)) {
+      return { intent: 'THEME_PRESENTATION', targetSign: 'YO', isClarification: false, greetingPreamble: detectedPreamble, rawMessage: raw };
+    }
+    if (/\b(?:abecedario|alfabeto|vocales|vocal|dactilologico)\b/i.test(cleanedText)) {
+      return { intent: 'THEME_ALPHABET', targetSign: 'A', isClarification: false, greetingPreamble: detectedPreamble, rawMessage: raw };
+    }
+    if (/\b(?:camara|webcam|mediapipe|radar|como funciona|vision artificial|puntos de la mano)\b/i.test(cleanedText)) {
+      return { intent: 'TECH_EXPLANATION', targetSign: null, isClarification: false, greetingPreamble: detectedPreamble, rawMessage: raw };
     }
 
-    // Consonantes aisladas
+    // 9. Solicitud de Letra específica con indicadores
+    const letMatch = cleanedText.match(/\b(?:letra|vocal|la)\s+([a-z])\b/i);
+    if (letMatch && this.LETTERS[letMatch[1].toLowerCase()]) {
+      return { intent: 'LEARN_SIGN', targetSign: this.LETTERS[letMatch[1].toLowerCase()], isClarification: false, greetingPreamble: detectedPreamble, rawMessage: raw };
+    }
+
+    // Consonantes aisladas dactilológicas (b, c, d, l, v)
     for (const cons of ['b', 'c', 'd', 'l', 'v']) {
-      const pattern = new RegExp(`\\b${cons}\\b`);
-      if (pattern.test(cleanedText)) {
-        return { intent: 'LEARN_SIGN', targetSign: this.LETTERS[cons], isClarification: isClarif, greetingPreamble: detectedPreamble, rawMessage: raw };
+      if (new RegExp(`\\b${cons}\\b`, 'i').test(cleanedText)) {
+        return { intent: 'LEARN_SIGN', targetSign: this.LETTERS[cons], isClarification: false, greetingPreamble: detectedPreamble, rawMessage: raw };
       }
     }
 
-    // Vocales (e, i, o, u)
-    for (const vowel of ['e', 'i', 'o', 'u']) {
-      const pattern = new RegExp(`\\b(?:aprender|ensename|practicar|quiero|hacer|pon|la|vocal)\\s+${vowel}\\b`);
-      if (pattern.test(cleanedText) || cleanedText === vowel) {
-        return { intent: 'LEARN_SIGN', targetSign: this.LETTERS[vowel], isClarification: isClarif, greetingPreamble: detectedPreamble, rawMessage: raw };
-      }
-    }
-
-    // 7. Palabras oficiales
+    // 10. Vocabulario de Palabras Oficiales LSC70
     for (const [word, signId] of Object.entries(this.VOCABULARY_WORDS)) {
-      const pattern = new RegExp(`\\b${word}\\b`);
-      if (pattern.test(cleanedText)) {
-        if (word === 'hola' && !["sena", "palabra", "aprender", "como se", "decir"].some(k => cleanedText.includes(k))) {
+      if (new RegExp(`\\b${word}\\b`, 'i').test(cleanedText)) {
+        if (word === 'hola' && !["sena", "palabra", "aprender", "como se", "hacer", "decir"].some(k => cleanedText.includes(k))) {
           continue;
         }
-        if ((word === 'yo' || word === 'mi') && ["quiero", "puedo", "gustaria", "voy"].some(k => cleanedText.includes(k))) {
+        if ((word === 'yo' || word === 'mi') && ["quiero", "puedo", "gustaria", "voy", "tengo"].some(k => cleanedText.includes(k))) {
           continue;
         }
-        return { intent: 'LEARN_SIGN', targetSign: signId, isClarification: isClarif, greetingPreamble: detectedPreamble, rawMessage: raw };
+        return { intent: 'LEARN_SIGN', targetSign: signId, isClarification: false, greetingPreamble: detectedPreamble, rawMessage: raw };
       }
     }
 
@@ -292,7 +296,7 @@ class LSCClientNLU {
 
     if (parsed.intent === 'LEARN_SIGN' && sign) {
       if (parsed.isClarification) {
-        return `¡Entendido perfectamente! Enfoquémonos en la seña de '${sign}': ${desc}`;
+        return `¡Entendido perfectamente! Cambiemos el foco a la seña de '${sign}': ${desc}`;
       } else if (parsed.greetingPreamble) {
         const greetMap = {
           "buenos dias": "¡Buenos días! Con mucho gusto",
@@ -307,6 +311,34 @@ class LSCClientNLU {
       } else {
         return `¡Excelente elección! Para la seña de '${sign}': ${desc}`;
       }
+    }
+
+    if (parsed.intent === 'REJECT_SIGN') {
+      return "¡Entendido perfectamente! Disculpa la confusión, no practicaremos esa seña. 😊 ¿Qué otra palabra o letra te gustaría explorar? Puedes elegir entre: HOLA, BUENOS DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE, AÑOS, LICOR o las letras del abecedario (A, B, C, D, E, I, L, O, U, V).";
+    }
+
+    if (parsed.intent === 'OPEN_LEARNING_INTRO') {
+      return "¡Qué gran iniciativa! 🦊 En Manitas te enseño Lengua de Señas Colombiana paso a paso con videos oficiales y visión artificial por tu cámara. ¿Por dónde te gustaría arrancar? Te recomiendo empezar con saludos cotidianos como 'HOLA' o con las vocales del abecedario como la 'A'.";
+    }
+
+    if (parsed.intent === 'BEGINNER_RECOMMENDATION') {
+      return "¡Bienvenido a Manitas! 🦊 No te preocupes por empezar desde cero, ¡es la mejor forma de aprender con buena técnica! Te recomiendo iniciar con el saludo universal 'HOLA'. ¿Listo para ver la demostración y practicar frente a la cámara?";
+    }
+
+    if (parsed.intent === 'THEME_GREETINGS') {
+      return `¡Excelente elección! Para saludar en LSC tenemos señas fundamentales: HOLA, BUENOS DÍAS, TARDES y NOCHES. Comencemos practicando 'HOLA': ${desc}`;
+    }
+
+    if (parsed.intent === 'THEME_PRESENTATION') {
+      return `¡Muy bien! Para presentarte en LSC necesitas dominar tres señas clave: 'YO', 'NOMBRE' y 'AÑOS' (junto al abecedario para tu nombre). Comencemos con 'YO': ${desc}`;
+    }
+
+    if (parsed.intent === 'THEME_ALPHABET') {
+      return `¡Genial! En Manitas puedes practicar las vocales (A, E, I, O, U) y consonantes (B, C, D, L, V). Comencemos con la primera vocal: 'A': ${desc}`;
+    }
+
+    if (parsed.intent === 'TECH_EXPLANATION') {
+      return "¡Buena pregunta! 🖐️ Manitas utiliza visión artificial local con Google MediaPipe Hands. Tu cámara analiza 21 puntos anatómicos de tu mano 30 veces por segundo y compara su postura y ángulos contra el dataset oficial LSC70. ¡Al mantener más del 85% de similitud durante 1 segundo, apruebas la seña!";
     }
 
     if (parsed.intent === 'GREETING') {

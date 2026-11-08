@@ -244,6 +244,84 @@
       "customPlans": [],
       "examHistory": [],
       "lastUpdated": "2026-11-06T22:36:40Z"
+    },
+    {
+      "username": "camila_1794014060184",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-07T01:14:21Z"
+    },
+    {
+      "username": "camila_1794014137441",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-07T01:15:39Z"
+    },
+    {
+      "username": "camila_1794014193113",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-07T01:16:34Z"
+    },
+    {
+      "username": "camila_1794015831599",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-07T01:43:53Z"
+    },
+    {
+      "username": "camila_1794015874659",
+      "displayName": "Camila LSC",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [],
+      "customPlans": [],
+      "examHistory": [],
+      "lastUpdated": "2026-11-07T01:44:36Z"
+    },
+    {
+      "username": "abnermunevar.es",
+      "displayName": "Abner Joan Munevar Huertas",
+      "level": "Principiante",
+      "xp": 234,
+      "streak": 1,
+      "masteredSigns": [
+        "HOLA",
+        "YO",
+        "A"
+      ],
+      "customPlans": [],
+      "examHistory": [
+        {
+          "planTitle": "Checkpoint 1: Reto de 3 Señas",
+          "scorePct": 100,
+          "correct": 3,
+          "total": 3,
+          "dateIso": "2026-11-07T03:18:30.174Z"
+        }
+      ],
+      "lastUpdated": "2026-11-07T03:18:30Z"
     }
   ]
 }

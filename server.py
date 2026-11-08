@@ -136,7 +136,7 @@ class LSCNaturalLanguageParser:
         import unicodedata, re
         if not text:
             return ""
-        norm = ''.join(c for c in unicodedata.normalize('NFD', text.strip()) if unicodedata.category(c) != 'Mn').lower()
+        norm = ''.join(c for c in unicodedata.normalize('NFD', str(text).strip()) if unicodedata.category(c) != 'Mn').lower()
         norm = re.sub(r'[^\w\s]', ' ', norm)
         return re.sub(r'\s+', ' ', norm).strip()
 
@@ -148,91 +148,88 @@ class LSCNaturalLanguageParser:
         if not norm:
             return LSCParsedIntent('UNKNOWN', raw_message=raw)
 
-        # 1. Chequear gratitud
+        # 1. Gratitud
         for kw in cls.GRATITUDE_KEYWORDS:
             if kw in norm and len(norm.split()) <= 4:
                 return LSCParsedIntent('GRATITUDE', raw_message=raw)
 
-        # 2. Chequear identidad
+        # 2. Identidad del Tutor
         for kw in cls.IDENTITY_KEYWORDS:
             if kw in norm:
                 return LSCParsedIntent('IDENTITY', raw_message=raw)
 
-        # 3. Chequear catálogo
+        # 3. Catálogo oficial
         for kw in cls.CATALOG_KEYWORDS:
             if kw in norm:
                 return LSCParsedIntent('CATALOG', raw_message=raw)
 
-        # 4. Detectar preámbulo de saludo
+        # 4. Extracción de preámbulo de saludo
         detected_preamble = None
         cleaned_text = norm
         for g in cls.GREETING_STARTERS:
-            if norm == g or norm.startswith(g + " "):
+            if norm == g:
+                return LSCParsedIntent('GREETING', greeting_preamble=g, raw_message=raw)
+            if norm.startswith(g + " "):
                 detected_preamble = g
-                if norm == g:
-                    cleaned_text = ""
-                else:
-                    cleaned_text = norm[len(g):].strip()
+                cleaned_text = norm[len(g):].strip()
                 break
 
-        # Si solo era saludo sin contenido adicional ("hola", "buenos días")
         if detected_preamble and not cleaned_text:
             return LSCParsedIntent('GREETING', greeting_preamble=detected_preamble, raw_message=raw)
 
-        # 5. Detectar si es una aclaración / corrección
-        is_clarif = False
-        if (cleaned_text.startswith("no quiero aprender a") or 
-            cleaned_text.startswith("no ") or 
-            " no quiero " in cleaned_text or 
-            " no esa " in cleaned_text or
-            cleaned_text.startswith("no,") or
-            cleaned_text.startswith("no.")):
-            is_clarif = True
+        # 5. Principiante / Desde cero (Detectar antes de negaciones para evitar falsos positivos con 'no sé nada')
+        if re.search(r'\b(?:no se nada|soy nuevo|desde cero|principiante|por donde empiezo|que hago|como inicio|que me recomiendas|recomendacion)\b', cleaned_text):
+            return LSCParsedIntent('BEGINNER_RECOMMENDATION', target_sign='HOLA', greeting_preamble=detected_preamble, raw_message=raw)
 
-        # Manejo de contraste: "no quiero la a, prefiero la c", "no quiero a, dame v"
+        # 6. Negaciones, Aclaraciones y Contrastes
+        is_negation = bool(re.search(r'\b(?:no quiero|no deseo|no me gusta|no esa|no aprender|no practicar|no voy a|tampoco esa)\b', cleaned_text) or cleaned_text.startswith('no ') or cleaned_text == 'no')
         contrast_match = re.search(r'\b(?:prefiero|sino|mejor|cambia a|dame|ponme)\s+(?:la\s+|el\s+)?(\w+)', cleaned_text)
-        if contrast_match:
-            candidate = contrast_match.group(1)
-            if candidate in cls.LETTERS:
-                return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[candidate], is_clarification=True, greeting_preamble=detected_preamble, raw_message=raw)
-            if candidate in cls.VOCABULARY_WORDS:
-                return LSCParsedIntent('LEARN_SIGN', target_sign=cls.VOCABULARY_WORDS[candidate], is_clarification=True, greeting_preamble=detected_preamble, raw_message=raw)
+        if is_negation:
+            if contrast_match:
+                cand = contrast_match.group(1)
+                if cand in cls.LETTERS:
+                    return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[cand], is_clarification=True, greeting_preamble=detected_preamble, raw_message=raw)
+                if cand in cls.VOCABULARY_WORDS:
+                    return LSCParsedIntent('LEARN_SIGN', target_sign=cls.VOCABULARY_WORDS[cand], is_clarification=True, greeting_preamble=detected_preamble, raw_message=raw)
+            # Si no hay alternativa, es rechazo explícito a la seña previa (no forzar 'A')
+            return LSCParsedIntent('REJECT_SIGN', is_clarification=True, greeting_preamble=detected_preamble, raw_message=raw)
 
-        # 6. Extracción de letra específica con indicadores explícitos
-        for letter, sign_id in cls.LETTERS.items():
-            pattern = rf'\b(?:letra|vocal|la|alfabeto)\s+{letter}\b'
-            if re.search(pattern, cleaned_text):
-                return LSCParsedIntent('LEARN_SIGN', target_sign=sign_id, is_clarification=is_clarif, greeting_preamble=detected_preamble, raw_message=raw)
+        # 7. Intención de aprendizaje abierta o incompleta ("quiero aprender a", "deseo aprender")
+        if cleaned_text in ('quiero aprender a', 'quiero aprender', 'deseo aprender', 'ensename a', 'aprender', 'aprender a', 'quiero practicar', 'ensenar'):
+            return LSCParsedIntent('OPEN_LEARNING_INTRO', greeting_preamble=detected_preamble, raw_message=raw)
 
-        # Caso especial para la letra 'A' vs preposición 'a':
-        # "quiero aprender a", "ensename a", "no quiero aprender a", "practicar a", o "a" al final
-        a_match = re.search(r'\b(?:aprender|ensename|practicar|quiero|hacer|pon)\s+a\s*$', cleaned_text)
-        if a_match or cleaned_text == 'a' or cleaned_text == 'la a' or cleaned_text.endswith(' letra a'):
-            return LSCParsedIntent('LEARN_SIGN', target_sign='A', is_clarification=is_clarif, greeting_preamble=detected_preamble, raw_message=raw)
+        # 8. Categorías Temáticas (Saludos, Presentación, Abecedario, Visión/Cámara)
+        if re.search(r'\b(?:saludos|saludo|saludar|como saludar|decir hola)\b', cleaned_text):
+            return LSCParsedIntent('THEME_GREETINGS', target_sign='HOLA', greeting_preamble=detected_preamble, raw_message=raw)
+        if re.search(r'\b(?:presentarme|presentacion|mi nombre|decir mi nombre|como me llamo)\b', cleaned_text):
+            return LSCParsedIntent('THEME_PRESENTATION', target_sign='YO', greeting_preamble=detected_preamble, raw_message=raw)
+        if re.search(r'\b(?:abecedario|alfabeto|vocales|vocal|dactilologico)\b', cleaned_text):
+            return LSCParsedIntent('THEME_ALPHABET', target_sign='A', greeting_preamble=detected_preamble, raw_message=raw)
+        if re.search(r'\b(?:camara|webcam|mediapipe|radar|como funciona|vision artificial|puntos de la mano)\b', cleaned_text):
+            return LSCParsedIntent('TECH_EXPLANATION', greeting_preamble=detected_preamble, raw_message=raw)
 
-        # Consonantes aisladas (b, c, d, l, v) nunca son preposiciones en español
+        # 9. Solicitud de Letra específica con indicadores
+        let_match = re.search(r'\b(?:letra|vocal|la)\s+([a-z])\b', cleaned_text)
+        if let_match and let_match.group(1) in cls.LETTERS:
+            return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[let_match.group(1)], greeting_preamble=detected_preamble, raw_message=raw)
+
+        # Consonantes aisladas dactilológicas (b, c, d, l, v)
         for cons in ['b', 'c', 'd', 'l', 'v']:
             if re.search(rf'\b{cons}\b', cleaned_text):
-                return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[cons], is_clarification=is_clarif, greeting_preamble=detected_preamble, raw_message=raw)
+                return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[cons], greeting_preamble=detected_preamble, raw_message=raw)
 
-        # Vocales (e, i, o, u) si van precedidas de acción o aisladas
-        for vowel in ['e', 'i', 'o', 'u']:
-            v_match = re.search(rf'\b(?:aprender|ensename|practicar|quiero|hacer|pon|la|vocal)\s+{vowel}\b', cleaned_text)
-            if v_match or cleaned_text == vowel:
-                return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[vowel], is_clarification=is_clarif, greeting_preamble=detected_preamble, raw_message=raw)
-
-        # 7. Palabras del vocabulario oficial
+        # 10. Vocabulario de Palabras Oficiales LSC70
         for word, sign_id in cls.VOCABULARY_WORDS.items():
             if re.search(rf'\b{word}\b', cleaned_text):
-                # Evitar falso positivo si la palabra era 'hola' pero ya se procesó como saludo sin foco explícito
-                if word == 'hola' and not any(k in cleaned_text for k in ["sena", "palabra", "aprender", "como se", "decir"]):
+                # Evitar falso positivo si 'hola' era solo saludo
+                if word == 'hola' and not any(k in cleaned_text for k in ["sena", "palabra", "aprender", "como se", "hacer", "decir"]):
                     continue
-                # Evitar falso positivo con 'yo' si solo dice "yo quiero aprender..."
-                if word in ('yo', 'mi') and any(k in cleaned_text for k in ["quiero", "puedo", "gustaria", "voy"]):
+                # Evitar falso positivo si 'yo' o 'mi' es pronombre gramatical
+                if word in ('yo', 'mi') and any(k in cleaned_text for k in ["quiero", "puedo", "gustaria", "voy", "tengo"]):
                     continue
-                return LSCParsedIntent('LEARN_SIGN', target_sign=sign_id, is_clarification=is_clarif, greeting_preamble=detected_preamble, raw_message=raw)
+                return LSCParsedIntent('LEARN_SIGN', target_sign=sign_id, greeting_preamble=detected_preamble, raw_message=raw)
 
-        # Si el texto original tenía preámbulo de saludo pero nada más reconocido
+        # Si había preámbulo pero no se extrajo seña concreta
         if detected_preamble:
             return LSCParsedIntent('GREETING', greeting_preamble=detected_preamble, raw_message=raw)
 
@@ -247,7 +244,7 @@ class LSCNaturalLanguageParser:
 
         if parsed.intent == 'LEARN_SIGN' and sign:
             if parsed.is_clarification:
-                return f"¡Entendido perfectamente! Enfoquémonos en la seña de '{sign}'. {clean_desc} {tag}".strip()
+                return f"¡Entendido perfectamente! Cambiemos el foco a la seña de '{sign}': {clean_desc} {tag}".strip()
             elif parsed.greeting_preamble:
                 greeting_map = {
                     "buenos dias": "¡Buenos días! Con mucho gusto",
@@ -261,6 +258,51 @@ class LSCNaturalLanguageParser:
                 return f"{greet}, vamos a aprender la seña de '{sign}'. {clean_desc} {tag}".strip()
             else:
                 return f"¡Excelente elección! Para la seña de '{sign}', {clean_desc} {tag}".strip()
+
+        if parsed.intent == 'REJECT_SIGN':
+            return (
+                "¡Entendido perfectamente! Disculpa la confusión, no practicaremos esa seña. 😊 "
+                "¿Qué otra palabra o letra te gustaría explorar? Puedes elegir entre: HOLA, BUENOS DÍAS, "
+                "TARDES, NOCHES, GUSTAR, NOMBRE, AÑOS, LICOR o las letras del abecedario (A, B, C, D, E, I, L, O, U, V)."
+            )
+
+        if parsed.intent == 'OPEN_LEARNING_INTRO':
+            return (
+                "¡Qué gran iniciativa! 🦊 En Manitas te enseño Lengua de Señas Colombiana paso a paso con videos oficiales "
+                "y visión artificial por tu cámara. ¿Por dónde te gustaría arrancar? Te recomiendo empezar con saludos cotidianos "
+                "como 'HOLA' o con las vocales del abecedario como la 'A'."
+            )
+
+        if parsed.intent == 'BEGINNER_RECOMMENDATION':
+            return (
+                f"¡Bienvenido a Manitas! 🦊 No te preocupes por empezar desde cero, ¡es la mejor forma de aprender con buena técnica! "
+                f"Te recomiendo iniciar con el saludo universal 'HOLA'. ¿Listo para ver la demostración y practicar frente a la cámara? {tag}".strip()
+            )
+
+        if parsed.intent == 'THEME_GREETINGS':
+            return (
+                f"¡Excelente elección! Para saludar en LSC tenemos señas fundamentales: HOLA, BUENOS DÍAS, TARDES y NOCHES. "
+                f"Comencemos practicando 'HOLA'. {clean_desc} {tag}".strip()
+            )
+
+        if parsed.intent == 'THEME_PRESENTATION':
+            return (
+                f"¡Muy bien! Para presentarte en LSC necesitas dominar tres señas clave: 'YO', 'NOMBRE' y 'AÑOS' (junto al abecedario para tu nombre). "
+                f"Comencemos con 'YO'. {clean_desc} {tag}".strip()
+            )
+
+        if parsed.intent == 'THEME_ALPHABET':
+            return (
+                f"¡Genial! En Manitas puedes practicar las vocales (A, E, I, O, U) y consonantes (B, C, D, L, V). "
+                f"Comencemos con la primera vocal: 'A'. {clean_desc} {tag}".strip()
+            )
+
+        if parsed.intent == 'TECH_EXPLANATION':
+            return (
+                "¡Buena pregunta! 🖐️ Manitas utiliza visión artificial local con Google MediaPipe Hands. "
+                "Tu cámara analiza 21 puntos anatómicos de tu mano 30 veces por segundo y compara su postura y ángulos "
+                "contra el dataset oficial LSC70. ¡Al mantener más del 85% de similitud durante 1 segundo, apruebas la seña!"
+            )
 
         if parsed.intent == 'GREETING':
             return (

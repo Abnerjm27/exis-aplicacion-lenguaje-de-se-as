@@ -299,7 +299,7 @@ class LearningPlanManager {
       // Badge flotante "¡EMPEZAR!" sobre el nodo actual
       let startPillHtml = '';
       if (isCurrent) {
-        startPillHtml = `<span class="duolingo-start-pill absolute -top-4 font-bold text-[10px] tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/30 animate-bounce z-20">¡EMPEZAR!</span>`;
+        startPillHtml = `<span class="duolingo-start-pill absolute -top-4 font-bold text-[10px] tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/30 z-20">¡EMPEZAR!</span>`;
       }
 
       // Icono SVG y estado
@@ -384,10 +384,10 @@ class LearningPlanManager {
         difficultyLevel: maxDifficulty
       };
 
-      if (window.ViewRouter) {
+      if (window.BlindExamController) {
+        window.BlindExamController.start({ ...examConfig, returnView: 'path' });
+      } else if (window.ViewRouter) {
         window.ViewRouter.switchToStudioView(null, true, examConfig);
-      } else if (window.BlindExamController) {
-        window.BlindExamController.start(examConfig);
       }
     });
     container.appendChild(trophyBtn);
@@ -520,10 +520,10 @@ class LearningPlanManager {
         difficultyLevel: cpNumber
       };
 
-      if (window.ViewRouter) {
+      if (window.BlindExamController) {
+        window.BlindExamController.start({ ...examConfig, returnView: 'path' });
+      } else if (window.ViewRouter) {
         window.ViewRouter.switchToStudioView(null, true, examConfig);
-      } else if (window.BlindExamController) {
-        window.BlindExamController.start(examConfig);
       }
     });
 

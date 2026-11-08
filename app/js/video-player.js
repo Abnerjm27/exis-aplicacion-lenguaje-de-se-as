@@ -6,7 +6,7 @@
 
 const VideoPlayer = (() => {
   let currentSignId = 'HOLA';
-  let currentMode = 'real';    // 'real' | 'anime'
+  let currentMode = (typeof localStorage !== 'undefined' && localStorage.getItem('manitas_video_mode')) || 'real';
   let currentView = 'body';    // 'body' | 'hand'
   let currentSpeed = 1.0;      // 0.5 | 1.0
   let isPlaying = true;
@@ -226,6 +226,9 @@ const VideoPlayer = (() => {
   function setMode(modeType) {
     if (modeType !== 'real' && modeType !== 'anime') return;
     currentMode = modeType;
+    if (typeof localStorage !== 'undefined') {
+      try { localStorage.setItem('manitas_video_mode', modeType); } catch (e) {}
+    }
     updateModeButtons();
     updateBadge();
     loadMedia(currentSignId, currentMode, currentView);

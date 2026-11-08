@@ -5,12 +5,15 @@
    ========================================================================== */
 
 :root {
-  --bg-main: #14213D;
-  --bg-surface: #1B2B4D;
-  --bg-surface-elevated: #182030;
-  --color-primary: #00B8A9;
-  --color-primary-hover: #009688;
-  --color-emerald: #10b981;
+  --bg-main: #0F1A30;
+  --bg-surface: #172544;
+  --bg-surface-elevated: #1D2D52;
+  --color-primary: #1FC8BA;
+  --color-primary-hover: #3DE8D2;
+  --color-action: #FF6B5B;
+  --color-action-hover: #FF8274;
+  --color-sun: #FFC857;
+  --color-emerald: #3DDC97;
   --spring-easing: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -25,13 +28,9 @@ html, body {
   overflow-x: hidden;
   max-width: 100%;
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--bg-main);
-  background-image:
-    radial-gradient(circle at 14% 16%, rgba(0, 184, 169, 0.12) 0%, transparent 42%),
-    radial-gradient(circle at 86% 24%, rgba(16, 185, 129, 0.1) 0%, transparent 44%),
-    radial-gradient(circle at 50% 80%, rgba(0, 184, 169, 0.06) 0%, transparent 50%),
-    linear-gradient(180deg, #070a12 0%, #14213D 55%, #14213D 100%);
-  color: #f8fafc;
+  background-color: #0F1A30;
+  background-image: none;
+  color: #F4F6FA;
 }
 
 /* --- Barra Superior de Progreso de Scroll --- */
@@ -48,47 +47,17 @@ html, body {
 .scroll-progress-bar {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #00B8A9 0%, #10b981 100%);
-  box-shadow: 0 0 12px rgba(0, 184, 169, 0.65);
+  background: linear-gradient(90deg, #FFC857 0%, #1FC8BA 100%);
+  box-shadow: 0 0 12px rgba(31, 200, 186, 0.65);
   transition: width 0.08s linear;
 }
 
-/* --- Spotlight Reactivo de Cursor --- */
-.cursor-spotlight {
-  position: fixed;
-  width: 540px;
-  height: 540px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 184, 169, 0.08) 0%, transparent 68%);
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  transition: opacity 0.3s ease;
-}
-
-/* Haces volumétricos de ambiente */
-.ambient-beam-amber {
-  position: fixed;
-  top: -120px;
-  left: -140px;
-  width: 480px;
-  height: 480px;
-  background: radial-gradient(circle, rgba(0, 184, 169, 0.13) 0%, transparent 70%);
-  filter: blur(45px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.ambient-beam-emerald {
-  position: fixed;
-  top: -100px;
-  right: -140px;
-  width: 460px;
-  height: 460px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.11) 0%, transparent 70%);
-  filter: blur(45px);
-  pointer-events: none;
-  z-index: 0;
+/* --- Spotlight Reactivo de Cursor (Desactivado para mantener Azul Noche Plano #0F1A30) --- */
+.cursor-spotlight,
+.ambient-beam-amber,
+.ambient-beam-emerald,
+.hologram-grid-floor {
+  display: none;
 }
 
 .hologram-grid-floor {
@@ -96,8 +65,8 @@ html, body {
   inset: 0;
   background-size: 46px 46px;
   background-image:
-    linear-gradient(to right, rgba(0, 184, 169, 0.038) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(16, 185, 129, 0.032) 1px, transparent 1px);
+    linear-gradient(to right, rgba(31, 200, 186, 0.038) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(61, 220, 151, 0.032) 1px, transparent 1px);
   pointer-events: none;
   mask-image: radial-gradient(ellipse at 50% 55%, black 25%, transparent 78%);
   -webkit-mask-image: radial-gradient(ellipse at 50% 55%, black 25%, transparent 78%);
@@ -106,19 +75,19 @@ html, body {
 
 /* --- Navbar --- */
 .landing-navbar {
-  background: rgba(10, 14, 23, 0.84);
+  background: rgba(15, 26, 48, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #2A3A5E;
 }
 
 .logo-mark-box {
   width: 40px;
   height: 40px;
   border-radius: 0.75rem;
-  background: linear-gradient(145deg, rgba(0, 184, 169, 0.22), rgba(0, 184, 169, 0.06));
-  border: 1px solid rgba(0, 184, 169, 0.45);
-  box-shadow: 0 4px 16px -2px rgba(0, 184, 169, 0.25);
+  background: linear-gradient(145deg, rgba(31, 200, 186, 0.22), rgba(31, 200, 186, 0.06));
+  border: 1px solid rgba(31, 200, 186, 0.45);
+  box-shadow: 0 4px 16px -2px rgba(31, 200, 186, 0.25);
 }
 
 /* --- Tipografía Display & Números Tabulares --- */
@@ -142,17 +111,17 @@ html, body {
 
 .metric-glass-pill:hover {
   transform: translateY(-2px);
-  border-color: rgba(0, 184, 169, 0.35);
+  border-color: rgba(31, 200, 186, 0.35);
 }
 
 /* --- Escenario Holográfico 3D de Sol en el Hero --- */
 .holo-tilt-stage {
-  background: linear-gradient(155deg, rgba(22, 30, 46, 0.9), rgba(10, 14, 23, 0.95));
-  border: 1px solid rgba(0, 184, 169, 0.32);
+  background: linear-gradient(155deg, rgba(23, 37, 68, 0.9), rgba(15, 26, 48, 0.95));
+  border: 1px solid rgba(31, 200, 186, 0.32);
   border-radius: 1.5rem;
   box-shadow:
     0 24px 60px -12px rgba(0, 0, 0, 0.75),
-    0 0 40px -10px rgba(0, 184, 169, 0.18),
+    0 0 40px -10px rgba(31, 200, 186, 0.18),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
   transition: transform 0.25s var(--spring-easing), box-shadow 0.25s ease;
   will-change: transform;
@@ -181,7 +150,7 @@ html, body {
 
 .hud-orbit-ring {
   fill: none;
-  stroke: rgba(16, 185, 129, 0.4);
+  stroke: rgba(61, 220, 151, 0.4);
   stroke-width: 1.1;
   stroke-dasharray: 6 4;
   transform-origin: 52px 88px;
@@ -190,7 +159,7 @@ html, body {
 
 .hud-orbit-ring-outer {
   fill: none;
-  stroke: rgba(0, 184, 169, 0.3);
+  stroke: rgba(31, 200, 186, 0.3);
   stroke-width: 0.9;
   stroke-dasharray: 3 6;
 }
@@ -242,19 +211,19 @@ html, body {
 }
 
 .scrolly-step-card:hover {
-  border-color: rgba(0, 184, 169, 0.35);
+  border-color: rgba(31, 200, 186, 0.35);
 }
 
 .scrolly-step-card.is-active {
-  background: rgba(24, 32, 48, 0.95);
-  border-color: rgba(0, 184, 169, 0.65);
+  background: rgba(23, 37, 68, 0.95);
+  border-color: rgba(31, 200, 186, 0.65);
   transform: translateX(6px);
-  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), 0 0 28px -8px rgba(0, 184, 169, 0.2);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), 0 0 28px -8px rgba(31, 200, 186, 0.2);
 }
 
 .scrolly-stage-window {
-  background: linear-gradient(160deg, rgba(20, 27, 42, 0.96), rgba(11, 15, 25, 0.98));
-  border: 1px solid rgba(0, 184, 169, 0.35);
+  background: linear-gradient(160deg, rgba(23, 37, 68, 0.96), rgba(15, 26, 48, 0.98));
+  border: 1px solid rgba(31, 200, 186, 0.35);
   box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.75);
   min-height: 340px;
 }
@@ -282,15 +251,15 @@ html, body {
 }
 
 .preview-duo-node.completed {
-  background: rgba(16, 185, 129, 0.18);
-  border: 1px solid rgba(16, 185, 129, 0.5);
-  color: #6ee7b7;
+  background: rgba(61, 220, 151, 0.18);
+  border: 1px solid rgba(61, 220, 151, 0.5);
+  color: #3DDC97;
 }
 
 .preview-duo-node.active {
-  background: #00B8A9;
-  color: #090d16;
-  box-shadow: 0 0 20px rgba(0, 184, 169, 0.45);
+  background: #1FC8BA;
+  color: #0F1A30;
+  box-shadow: 0 0 20px rgba(31, 200, 186, 0.45);
 }
 
 .preview-duo-node.locked {
@@ -300,21 +269,21 @@ html, body {
 }
 
 .preview-duo-node.trophy {
-  background: rgba(0, 184, 169, 0.15);
-  border: 1px dashed rgba(0, 184, 169, 0.6);
-  color: #fcd34d;
+  background: rgba(31, 200, 186, 0.15);
+  border: 1px dashed rgba(31, 200, 186, 0.6);
+  color: #FFC857;
 }
 
 .preview-duo-connector {
   width: 2px;
   height: 16px;
-  background: rgba(0, 184, 169, 0.4);
+  background: rgba(31, 200, 186, 0.4);
 }
 
 /* --- Consola Clásica Moderna de Login / Registro --- */
 .auth-glass-console {
-  background: linear-gradient(165deg, rgba(22, 30, 46, 0.94) 0%, rgba(13, 18, 29, 0.98) 100%);
-  border: 1px solid rgba(0, 184, 169, 0.35);
+  background: linear-gradient(165deg, rgba(23, 37, 68, 0.94) 0%, rgba(15, 26, 48, 0.98) 100%);
+  border: 1px solid rgba(31, 200, 186, 0.35);
   border-radius: 1.5rem;
   box-shadow:
     0 24px 60px -12px rgba(0, 0, 0, 0.75),
@@ -322,9 +291,9 @@ html, body {
 }
 
 .auth-tab-active {
-  background: #00B8A9;
-  color: #090d16;
-  box-shadow: 0 2px 10px rgba(0, 184, 169, 0.3);
+  background: #1FC8BA;
+  color: #0F1A30;
+  box-shadow: 0 2px 10px rgba(31, 200, 186, 0.3);
 }
 
 .auth-field-input {
@@ -334,33 +303,40 @@ html, body {
 }
 
 .auth-field-input:hover {
-  border-color: rgba(0, 184, 169, 0.45);
+  border-color: rgba(31, 200, 186, 0.45);
 }
 
 .auth-field-input:focus {
   outline: none;
-  border-color: #00B8A9;
-  background-color: #060911;
-  box-shadow: 0 0 0 3px rgba(0, 184, 169, 0.18);
+  border-color: #1FC8BA;
+  background-color: #0c1527;
+  box-shadow: 0 0 0 3px rgba(31, 200, 186, 0.18);
 }
 
 .auth-submit-btn {
   background: #FF6B5B;
-  border: 1px solid #FF8A7C;
-  color: #14213D;
+  border: 1px solid #FF8274;
+  color: #0F1A30;
+  font-weight: 800;
   box-shadow:
     inset 0 1px 0 0 rgba(255, 255, 255, 0.35),
     0 8px 24px -4px rgba(255, 107, 91, 0.4);
 }
 
 .auth-submit-btn:hover {
-  background: #FF8A7C;
+  background: #FF8274;
+  color: #0F1A30;
+}
+
+.auth-submit-btn:active {
+  background: #E85544;
+  transform: translateY(1px) scale(0.98);
 }
 
 /* --- Wizard Modal del Cuestionario de Diagnóstico LSC --- */
 .quiz-wizard-card {
-  background: linear-gradient(165deg, #1B2B4D 0%, #14213D 100%);
-  border: 1px solid rgba(0, 184, 169, 0.45);
+  background: linear-gradient(165deg, #172544 0%, #0F1A30 100%);
+  border: 1px solid rgba(31, 200, 186, 0.45);
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.85);
 }
 
@@ -376,16 +352,16 @@ html, body {
 .quiz-option-card:hover,
 .quiz-focus-card:hover,
 .quiz-time-card:hover {
-  border-color: rgba(0, 184, 169, 0.5);
+  border-color: rgba(31, 200, 186, 0.5);
   transform: translateY(-1px);
 }
 
 .quiz-option-card.is-selected,
 .quiz-focus-card.is-selected,
 .quiz-time-card.is-selected {
-  background: rgba(0, 184, 169, 0.14);
-  border-color: #00B8A9;
-  box-shadow: 0 0 0 1px #00B8A9;
+  background: rgba(31, 200, 186, 0.14);
+  border-color: #1FC8BA;
+  box-shadow: 0 0 0 1px #1FC8BA;
 }
 
 /* Tarjetas de características */
@@ -399,7 +375,7 @@ html, body {
 
 .step-feature-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(0, 184, 169, 0.38);
+  border-color: rgba(31, 200, 186, 0.38);
 }
 
 /* Botones Spring */

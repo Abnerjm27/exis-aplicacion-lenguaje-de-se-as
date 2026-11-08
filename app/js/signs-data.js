@@ -16,12 +16,13 @@ const SIGNS_DATA = {
       rules: { type: 'open_hand_head', height: 'high' },
       trajectory: {
         enabled: true,
+        bodyZone: 'Sien Derecha',
         trackingLandmark: 0, // Muñeca
         hitRadius: 0.16,
         points: [
-          { id: 1, x: 0.38, y: 0.36, label: 'Sien' },
-          { id: 2, x: 0.52, y: 0.30, label: 'Proyección' },
-          { id: 3, x: 0.66, y: 0.24, label: 'Saludo al frente' }
+          { id: 1, x: 0.38, y: 0.36, anchor: 'temple', dx: 0.0, dy: 0.0, label: 'Sien' },
+          { id: 2, x: 0.52, y: 0.30, anchor: 'temple', dx: 0.14, dy: -0.06, label: 'Proyección' },
+          { id: 3, x: 0.66, y: 0.24, anchor: 'temple', dx: 0.28, dy: -0.12, label: 'Saludo al frente' }
         ]
       }
     },
@@ -35,11 +36,12 @@ const SIGNS_DATA = {
       rules: { type: 'pointing_chest', height: 'mid' },
       trajectory: {
         enabled: true,
+        bodyZone: 'Centro del Pecho',
         trackingLandmark: 8, // Yema del índice
         hitRadius: 0.14,
         points: [
-          { id: 1, x: 0.38, y: 0.45, label: 'Inicio' },
-          { id: 2, x: 0.50, y: 0.65, label: 'Pecho' }
+          { id: 1, x: 0.38, y: 0.45, anchor: 'chest', dx: -0.12, dy: -0.18, label: 'Inicio' },
+          { id: 2, x: 0.50, y: 0.65, anchor: 'chest', dx: 0.0, dy: 0.0, label: 'Pecho' }
         ]
       }
     },
@@ -53,11 +55,12 @@ const SIGNS_DATA = {
       rules: { type: 'flat_chest', height: 'mid' },
       trajectory: {
         enabled: true,
+        bodyZone: 'Mano Base / Pecho',
         trackingLandmark: 0, // Muñeca
         hitRadius: 0.16,
         points: [
-          { id: 1, x: 0.50, y: 0.38, label: 'Inicio (Arriba)' },
-          { id: 2, x: 0.50, y: 0.65, label: 'Contacto (Palma)' }
+          { id: 1, x: 0.50, y: 0.38, anchor: 'chest', dx: 0.0, dy: -0.24, label: 'Inicio (Arriba)' },
+          { id: 2, x: 0.50, y: 0.65, anchor: 'base_hand_or_chest', dx: 0.0, dy: 0.0, label: 'Contacto (Palma)' }
         ]
       }
     },
@@ -71,11 +74,12 @@ const SIGNS_DATA = {
       rules: { type: 'open_arms_day', height: 'mid' },
       trajectory: {
         enabled: true,
+        bodyZone: 'Eje del Pecho',
         trackingLandmark: 0, // Muñeca
         hitRadius: 0.16,
         points: [
-          { id: 1, x: 0.45, y: 0.60, label: 'Centro' },
-          { id: 2, x: 0.72, y: 0.50, label: 'Apertura' }
+          { id: 1, x: 0.45, y: 0.60, anchor: 'chest', dx: -0.05, dy: -0.03, label: 'Centro' },
+          { id: 2, x: 0.72, y: 0.50, anchor: 'chest', dx: 0.22, dy: -0.13, label: 'Apertura' }
         ]
       }
     },
@@ -89,11 +93,12 @@ const SIGNS_DATA = {
       rules: { type: 'crossed_arms_night', height: 'mid' },
       trajectory: {
         enabled: true,
+        bodyZone: 'Eje del Pecho',
         trackingLandmark: 0, // Muñeca
         hitRadius: 0.16,
         points: [
-          { id: 1, x: 0.70, y: 0.55, label: 'Inicio' },
-          { id: 2, x: 0.42, y: 0.60, label: 'Cruce' }
+          { id: 1, x: 0.70, y: 0.55, anchor: 'chest', dx: 0.20, dy: -0.08, label: 'Inicio' },
+          { id: 2, x: 0.42, y: 0.60, anchor: 'chest', dx: -0.08, dy: -0.03, label: 'Cruce' }
         ]
       }
     },
@@ -107,11 +112,12 @@ const SIGNS_DATA = {
       rules: { type: 'two_fingers_chest', height: 'mid' },
       trajectory: {
         enabled: true,
+        bodyZone: 'Mano Base / Torso',
         trackingLandmark: 8, // Índice
         hitRadius: 0.14,
         points: [
-          { id: 1, x: 0.62, y: 0.52, label: 'Acercar' },
-          { id: 2, x: 0.50, y: 0.60, label: 'Contacto' }
+          { id: 1, x: 0.62, y: 0.52, anchor: 'chest', dx: 0.12, dy: -0.10, label: 'Acercar' },
+          { id: 2, x: 0.50, y: 0.60, anchor: 'base_hand_or_chest', dx: 0.0, dy: 0.0, label: 'Contacto' }
         ]
       }
     },
@@ -125,11 +131,12 @@ const SIGNS_DATA = {
       rules: { type: 'crossed_arms_chest', height: 'mid' },
       trajectory: {
         enabled: true,
+        bodyZone: 'Eje del Pecho',
         trackingLandmark: 0, // Muñeca
         hitRadius: 0.16,
         points: [
-          { id: 1, x: 0.65, y: 0.50, label: 'Inicio' },
-          { id: 2, x: 0.40, y: 0.55, label: 'Cruce horizontal' }
+          { id: 1, x: 0.65, y: 0.50, anchor: 'chest', dx: 0.15, dy: -0.12, label: 'Inicio' },
+          { id: 2, x: 0.40, y: 0.55, anchor: 'chest', dx: -0.10, dy: -0.07, label: 'Cruce horizontal' }
         ]
       }
     },
@@ -143,11 +150,12 @@ const SIGNS_DATA = {
       rules: { type: 'index_to_throat', height: 'high' },
       trajectory: {
         enabled: true,
+        bodyZone: 'Garganta y Cuello',
         trackingLandmark: 8, // Yema del índice
         hitRadius: 0.15,
         points: [
-          { id: 1, x: 0.50, y: 0.46, label: 'Base garganta' },
-          { id: 2, x: 0.50, y: 0.35, label: 'Deslizar arriba' }
+          { id: 1, x: 0.50, y: 0.46, anchor: 'throat', dx: 0.0, dy: 0.04, label: 'Base garganta' },
+          { id: 2, x: 0.50, y: 0.35, anchor: 'throat', dx: 0.0, dy: -0.07, label: 'Deslizar arriba' }
         ]
       }
     },
@@ -161,12 +169,13 @@ const SIGNS_DATA = {
       rules: { type: 'rubbing_hands_chest', height: 'mid' },
       trajectory: {
         enabled: true,
+        bodyZone: 'Mano Base / Torso',
         trackingLandmark: 0, // Muñeca derecha
         hitRadius: 0.16,
         points: [
-          { id: 1, x: 0.55, y: 0.65, label: 'Inicio' },
-          { id: 2, x: 0.65, y: 0.72, label: 'Giro' },
-          { id: 3, x: 0.55, y: 0.70, label: 'Retorno' }
+          { id: 1, x: 0.55, y: 0.65, anchor: 'base_hand_or_chest', dx: 0.03, dy: -0.03, label: 'Inicio' },
+          { id: 2, x: 0.65, y: 0.72, anchor: 'base_hand_or_chest', dx: 0.12, dy: 0.05, label: 'Giro' },
+          { id: 3, x: 0.55, y: 0.70, anchor: 'base_hand_or_chest', dx: 0.03, dy: 0.02, label: 'Retorno' }
         ]
       }
     },
@@ -180,11 +189,12 @@ const SIGNS_DATA = {
       rules: { type: 'cup_to_mouth', height: 'high' },
       trajectory: {
         enabled: true,
+        bodyZone: 'Barbilla y Boca',
         trackingLandmark: 4, // Yema del pulgar
         hitRadius: 0.16,
         points: [
-          { id: 1, x: 0.50, y: 0.65, label: 'Pecho' },
-          { id: 2, x: 0.52, y: 0.48, label: 'Boca / Barbilla' }
+          { id: 1, x: 0.50, y: 0.65, anchor: 'chest', dx: 0.0, dy: 0.0, label: 'Pecho' },
+          { id: 2, x: 0.52, y: 0.48, anchor: 'chin', dx: 0.01, dy: 0.0, label: 'Boca / Barbilla' }
         ]
       }
     }

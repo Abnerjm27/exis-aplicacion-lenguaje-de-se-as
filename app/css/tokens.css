@@ -5,28 +5,28 @@
  */
 :root {
   /* Primitivos de marca */
-  --manitas-navy: #14213D;
-  --manitas-navy-raised: #1B2B4D;
-  --manitas-navy-line: #2A3B63;
-  --manitas-turquoise: #00B8A9;
-  --manitas-turquoise-dark: #007A70;
+  --manitas-navy: #0F1A30;
+  --manitas-navy-raised: #172544;
+  --manitas-navy-line: #2A3A5E;
+  --manitas-turquoise: #1FC8BA;
+  --manitas-turquoise-dark: #0FA89B;
   --manitas-sun: #FFC857;
   --manitas-coral: #FF6B5B;
-  --manitas-bone: #F8F5EF;
+  --manitas-bone: #F4F6FA;
   --manitas-success: #3DDC97;
   --manitas-danger: #E5484D;
 
   /* Semánticos (tema oscuro por defecto) */
-  --color-bg: var(--manitas-navy);
-  --color-surface: var(--manitas-navy-raised);
-  --color-border: var(--manitas-navy-line);
-  --color-text: var(--manitas-bone);
-  --color-text-muted: #cbd5e1;
-  --color-text-dim: #94a3b8;
-  --color-primary: var(--manitas-turquoise);
+  --color-bg: #0F1A30;
+  --color-surface: #172544;
+  --color-border: #2A3A5E;
+  --color-text: #F4F6FA;
+  --color-text-muted: #B9C4D6;
+  --color-text-dim: #94A3B8;
+  --color-primary: #1FC8BA;
   --color-on-primary: var(--manitas-navy);
-  --color-accent: var(--manitas-sun);
-  --color-action: var(--manitas-coral);
+  --color-accent: #FFC857;
+  --color-action: #FF6B5B;
   --color-success: var(--manitas-success);
   --color-danger: var(--manitas-danger);
   --color-focus-ring: var(--manitas-sun);

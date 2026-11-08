@@ -6,29 +6,37 @@
 
 /* --- Custom Properties & Tokens de Diseño --- */
 :root {
-  --bg-main: #14213D;
-  --bg-surface: #1B2B4D;
-  --bg-surface-elevated: #1a2232;
-  --bg-surface-subtle: #0f141f;
+  --bg-main: #0F1A30;
+  --bg-surface: #172544;
+  --bg-surface-elevated: #1D2D52;
+  --bg-surface-subtle: #0C1527;
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-medium: rgba(255, 255, 255, 0.16);
-  --border-focus: #00B8A9;
+  --border-subtle: #2A3A5E;
+  --border-medium: #384D7A;
+  --border-focus: #1FC8BA;
 
-  --color-primary: #00B8A9;
-  --color-primary-hover: #009688;
-  --color-primary-active: #b45309;
-  --color-primary-subtle: rgba(0, 184, 169, 0.18);
+  --color-primary: #1FC8BA;
+  --color-primary-hover: #3DE8D2;
+  --color-primary-active: #0FA89B;
+  --color-primary-subtle: rgba(31, 200, 186, 0.18);
 
-  --color-teal: #0d9488;
-  --color-teal-hover: #0f766e;
-  --color-emerald: #047857;
-  --color-emerald-hover: #065f46;
-  --color-rose: #e11d48;
+  --color-action: #FF6B5B;
+  --color-action-hover: #FF8274;
+  --color-action-active: #E85544;
 
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
+  --color-sun: #FFC857;
+  --color-sun-light: #FFD453;
+  --color-sun-dark: #F6A93C;
+
+  --color-teal: #1FC8BA;
+  --color-teal-hover: #0FA89B;
+  --color-emerald: #3DDC97;
+  --color-emerald-hover: #2cb57b;
+  --color-rose: #FF6B5B;
+
+  --text-primary: #F4F6FA;
+  --text-secondary: #B9C4D6;
+  --text-muted: #94A3B8;
 
   --spring-easing: cubic-bezier(0.16, 1, 0.3, 1);
   --bounce-easing: cubic-bezier(0.34, 1.4, 0.64, 1);
@@ -37,12 +45,12 @@
 /* --- Superficies del Navegador & Selección --- */
 ::selection {
   background-color: var(--color-primary-hover);
-  color: #ffffff;
+  color: #0F1A30;
 }
 
 ::-moz-selection {
   background-color: var(--color-primary-hover);
-  color: #ffffff;
+  color: #0F1A30;
 }
 
 /* --- Base Body & Tipografía Rediseñada Impeccable --- */
@@ -53,12 +61,8 @@ html, body {
   overflow-x: hidden;
   max-width: 100%;
   font-family: var(--font-sans, 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
-  background-color: var(--bg-main);
-  background-image: 
-    radial-gradient(circle at 15% 10%, rgba(0, 184, 169, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 85% 90%, rgba(13, 148, 136, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, #101623 0%, #14213D 100%);
-  background-attachment: fixed;
+  background-color: #0F1A30;
+  background-image: none;
   color: var(--text-primary);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -144,16 +148,37 @@ p {
 }
 
 /* --- Botones de Categoría y Señas con Alto Contraste (WCAG AAA) --- */
+.btn-coral-primary {
+  background-color: #FF6B5B;
+  color: #0F1A30;
+  font-weight: 800;
+  border: 1px solid #FF8274;
+  box-shadow: 0 4px 14px rgba(255, 107, 91, 0.35);
+  transition: background-color 0.15s ease, transform 0.18s var(--spring-easing), box-shadow 0.18s ease;
+}
+
+.btn-coral-primary:hover {
+  background-color: #FF8274;
+  color: #0F1A30;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 107, 91, 0.45);
+}
+
+.btn-coral-primary:active {
+  background-color: #E85544;
+  transform: translateY(1px) scale(0.98);
+}
+
 .btn-primary {
   background-color: var(--color-primary);
-  color: #090d16;
+  color: #0F1A30;
   font-weight: 700;
   border: 1px solid transparent;
 }
 
 .btn-primary:hover {
   background-color: var(--color-primary-hover);
-  color: #ffffff;
+  color: #0F1A30;
 }
 
 .btn-secondary {
@@ -163,18 +188,18 @@ p {
 }
 
 .btn-secondary:hover {
-  background-color: #242e40;
+  background-color: #24355a;
   color: var(--text-primary);
   border-color: var(--border-medium);
 }
 
-/* Chip de Seña Activa: Fondo sólido ámbar brillante con texto oscuro (Contrast Ratio 8.5:1 > AAA) */
+/* Chip de Seña Activa: Fondo sólido turquesa con texto oscuro (Contrast Ratio 8.5:1 > AAA) */
 .sign-chip-active {
-  background-color: #00B8A9 !important;
-  color: #090d16 !important;
-  border: 1px solid #009688 !important;
+  background-color: #1FC8BA !important;
+  color: #0F1A30 !important;
+  border: 1px solid #0FA89B !important;
   font-weight: 700 !important;
-  box-shadow: 0 2px 8px rgba(0, 184, 169, 0.35);
+  box-shadow: 0 2px 8px rgba(31, 200, 186, 0.35);
 }
 
 .sign-chip-inactive {
@@ -250,32 +275,32 @@ p {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #00B8A9;
-  border: 2px solid #14213D;
+  background: #1FC8BA;
+  border: 2px solid #0F1A30;
   cursor: pointer;
-  box-shadow: 0 0 8px rgba(0, 184, 169, 0.6);
+  box-shadow: 0 0 8px rgba(31, 200, 186, 0.6);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .video-timeline-range::-webkit-slider-thumb:hover {
   transform: scale(1.25);
-  box-shadow: 0 0 12px rgba(0, 184, 169, 0.9);
+  box-shadow: 0 0 12px rgba(31, 200, 186, 0.9);
 }
 
 .video-timeline-range::-moz-range-thumb {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #00B8A9;
-  border: 2px solid #14213D;
+  background: #1FC8BA;
+  border: 2px solid #0F1A30;
   cursor: pointer;
-  box-shadow: 0 0 8px rgba(0, 184, 169, 0.6);
+  box-shadow: 0 0 8px rgba(31, 200, 186, 0.6);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .video-timeline-range::-moz-range-thumb:hover {
   transform: scale(1.25);
-  box-shadow: 0 0 12px rgba(0, 184, 169, 0.9);
+  box-shadow: 0 0 12px rgba(31, 200, 186, 0.9);
 }
 
 /* Toast informativo Anime IA con animación de entrada elegante */
@@ -328,7 +353,16 @@ p {
 }
 
 .progress-bar-glow {
-  box-shadow: 0 0 14px rgba(16, 185, 129, 0.5);
+  box-shadow: 0 0 14px rgba(255, 200, 87, 0.55);
+}
+
+/* Barra de progreso de ruta y lecciones (Amarillo oficial del logo #FFC857) */
+.path-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FFC857 0%, #FFD453 100%);
+  box-shadow: 0 0 14px rgba(255, 200, 87, 0.6);
+  border-radius: 9999px;
+  transition: width 0.3s var(--spring-easing);
 }
 
 /* --- Modal de Felicitación --- */
@@ -380,12 +414,12 @@ p {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 184, 169, 0.3);
+  background: rgba(31, 200, 186, 0.3);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 184, 169, 0.55);
+  background: rgba(31, 200, 186, 0.55);
 }
 
 /* --- Selector de Señas sin Scrollbar Gruesa --- */
@@ -422,7 +456,7 @@ main, main section, main .grid, header > div {
 /* --- Animaciones de Guía de Trayectoria (Connect-the-Dots) --- */
 #trajectoryStatusPill {
   animation: trajectoryPillFadeIn 0.3s var(--bounce-easing) forwards;
-  box-shadow: 0 4px 20px -2px rgba(0, 184, 169, 0.25), 0 0 12px rgba(0, 184, 169, 0.15);
+  box-shadow: 0 4px 20px -2px rgba(31, 200, 186, 0.25), 0 0 12px rgba(31, 200, 186, 0.15);
 }
 
 @keyframes trajectoryPillFadeIn {
@@ -519,7 +553,7 @@ main, main section, main .grid, header > div {
   transition: border-color 0.2s var(--spring-easing), box-shadow 0.2s var(--spring-easing);
 }
 .bento-card:hover {
-  border-color: rgba(0, 184, 169, 0.25);
+  border-color: rgba(31, 200, 186, 0.25);
 }
 
 /* Contenedor del Mapa Hexagonal (Skill Tree) */
@@ -530,7 +564,7 @@ main, main section, main .grid, header > div {
   overflow-x: auto;
   padding: 0.5rem 0.25rem 0.75rem;
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 184, 169, 0.3) transparent;
+  scrollbar-color: rgba(31, 200, 186, 0.3) transparent;
   -webkit-overflow-scrolling: touch;
 }
 .hex-skill-tree::-webkit-scrollbar {
@@ -540,7 +574,7 @@ main, main section, main .grid, header > div {
   background: transparent;
 }
 .hex-skill-tree::-webkit-scrollbar-thumb {
-  background: rgba(0, 184, 169, 0.3);
+  background: rgba(31, 200, 186, 0.3);
   border-radius: 3px;
 }
 
@@ -574,7 +608,7 @@ main, main section, main .grid, header > div {
 }
 
 .duolingo-path-base {
-  stroke: rgba(30, 41, 59, 0.85);
+  stroke: rgba(42, 58, 94, 0.85);
   stroke-width: 8px;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -585,17 +619,17 @@ main, main section, main .grid, header > div {
   stroke-width: 6px;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.45));
+  filter: drop-shadow(0 0 8px rgba(255, 200, 87, 0.55));
 }
 
 .duolingo-path-pulse {
-  stroke: rgba(254, 240, 138, 0.85);
+  stroke: #FFD453;
   stroke-width: 6px;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 10 24;
   animation: duolingoFlowDash 1.8s linear infinite;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 @keyframes duolingoFlowDash {
@@ -612,80 +646,64 @@ main, main section, main .grid, header > div {
   stroke-dasharray: 6 8;
 }
 
-/* Nodos Duolingo */
-.duolingo-node {
+/* Nodos Duolingo & Hexagonales */
+.duolingo-node,
+.hex-node {
   min-width: 78px;
   min-height: 88px;
   background: rgba(18, 24, 36, 0.85);
   border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: 1.25rem;
   box-shadow: 0 5px 0 rgba(15, 23, 42, 0.9), 0 8px 16px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s var(--spring-easing), box-shadow 0.2s var(--spring-easing), border-color 0.2s ease;
+  transition: transform 0.2s var(--spring-easing), box-shadow 0.2s var(--spring-easing), border-color 0.2s ease, filter 0.2s var(--spring-easing);
   z-index: 5;
+  touch-action: manipulation;
 }
 
-.duolingo-node:hover {
+.duolingo-node:hover,
+.hex-node:hover {
   transform: translateY(-3px);
-  border-color: rgba(0, 184, 169, 0.4);
+  border-color: rgba(31, 200, 186, 0.4);
 }
 
-.duolingo-node:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 rgba(15, 23, 42, 0.9);
+.duolingo-node:active,
+.hex-node:active {
+  transform: translateY(2px) scale(0.97);
+  box-shadow: 0 2px 0 rgba(15, 26, 48, 0.9);
+  transition-duration: 50ms;
 }
 
-/* Posicionamiento Serpenteante */
+/* Posicionamiento Serpenteante (Desacoplado de transform para 100% estabilidad en hover/active/animaciones) */
 .duolingo-pos-center {
-  transform: translateX(0);
+  position: relative;
+  left: 0;
 }
 
 .duolingo-pos-left {
-  transform: translateX(-48px);
-}
-.duolingo-pos-left:hover {
-  transform: translateX(-48px) translateY(-3px);
-}
-.duolingo-pos-left:active {
-  transform: translateX(-48px) translateY(2px);
+  position: relative;
+  left: -48px;
 }
 
 .duolingo-pos-right {
-  transform: translateX(48px);
-}
-.duolingo-pos-right:hover {
-  transform: translateX(48px) translateY(-3px);
-}
-.duolingo-pos-right:active {
-  transform: translateX(48px) translateY(2px);
+  position: relative;
+  left: 48px;
 }
 
 /* Adaptación responsive para pantallas móviles (390px) */
 @media (max-width: 640px) {
   .duolingo-pos-left {
-    transform: translateX(-24px);
+    left: -24px;
   }
-  .duolingo-pos-left:hover {
-    transform: translateX(-24px) translateY(-3px);
-  }
-  .duolingo-pos-left:active {
-    transform: translateX(-24px) translateY(2px);
-  }
-
   .duolingo-pos-right {
-    transform: translateX(24px);
-  }
-  .duolingo-pos-right:hover {
-    transform: translateX(24px) translateY(-3px);
-  }
-  .duolingo-pos-right:active {
-    transform: translateX(24px) translateY(2px);
+    left: 24px;
   }
 }
+
 
 /* Badge de inicio "¡EMPEZAR!" flotante */
 .duolingo-start-pill {
   animation: floatBounce 1.5s ease-in-out infinite;
-  box-shadow: 0 4px 12px rgba(0, 184, 169, 0.4);
+  box-shadow: 0 4px 12px rgba(31, 200, 186, 0.4);
 }
 .duolingo-start-pill::after {
   content: '';
@@ -695,7 +713,7 @@ main, main section, main .grid, header > div {
   transform: translateX(-50%);
   border-width: 4px 4px 0 4px;
   border-style: solid;
-  border-color: #00B8A9 transparent transparent transparent;
+  border-color: #1FC8BA transparent transparent transparent;
 }
 
 @keyframes floatBounce {
@@ -710,16 +728,16 @@ main, main section, main .grid, header > div {
 /* Nodo de Trofeo Final de Unidad */
 .duolingo-trophy-node {
   z-index: 10;
-  box-shadow: 0 6px 0 rgba(15, 23, 42, 0.95), 0 10px 25px rgba(0, 184, 169, 0.2);
+  box-shadow: 0 6px 0 rgba(15, 26, 48, 0.95), 0 10px 25px rgba(255, 200, 87, 0.25);
   transition: transform 0.2s var(--spring-easing), box-shadow 0.2s var(--spring-easing);
 }
 .duolingo-trophy-node:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 0 rgba(15, 23, 42, 0.95), 0 14px 30px rgba(0, 184, 169, 0.3);
+  box-shadow: 0 8px 0 rgba(15, 26, 48, 0.95), 0 14px 30px rgba(255, 200, 87, 0.4);
 }
 .duolingo-trophy-node:active {
   transform: translateY(3px) scale(0.99);
-  box-shadow: 0 2px 0 rgba(15, 23, 42, 0.95);
+  box-shadow: 0 2px 0 rgba(15, 26, 48, 0.95);
 }
 
 /* Nodo Checkpoint de Examen Intermedio */
@@ -727,33 +745,24 @@ main, main section, main .grid, header > div {
   z-index: 10;
   position: relative;
   touch-action: manipulation;
-  box-shadow: 0 4px 0 rgba(15, 23, 42, 0.9), 0 8px 20px rgba(245, 158, 11, 0.15);
+  box-shadow: 0 4px 0 rgba(15, 26, 48, 0.9), 0 8px 20px rgba(255, 200, 87, 0.2);
   transition: transform 0.2s var(--spring-easing), box-shadow 0.2s var(--spring-easing);
 }
 .duolingo-checkpoint-node:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 6px 0 rgba(15, 23, 42, 0.9), 0 12px 24px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 6px 0 rgba(15, 26, 48, 0.9), 0 12px 24px rgba(255, 200, 87, 0.35);
 }
 .duolingo-checkpoint-node:active {
   transform: translateY(2px) scale(0.98);
-  box-shadow: 0 2px 0 rgba(15, 23, 42, 0.9);
+  box-shadow: 0 2px 0 rgba(15, 26, 48, 0.9);
 }
 
-/* Nodos Hexagonales Interactivos */
+/* Nodos Hexagonales Específicos */
 .hex-node {
   min-width: 72px;
   min-height: 84px;
   background: transparent;
   border: 1px solid transparent;
-  transition: transform 0.2s var(--spring-easing), filter 0.2s var(--spring-easing);
-  touch-action: manipulation;
-}
-.hex-node:hover {
-  transform: translateY(-2px);
-}
-.hex-node:active {
-  transform: scale(0.96);
-  transition-duration: 50ms;
 }
 .hex-polygon {
   transition: stroke 0.2s ease, fill 0.2s ease;
@@ -763,13 +772,13 @@ main, main section, main .grid, header > div {
   fill: rgba(18, 24, 36, 0.8);
 }
 .hex-node-active .hex-polygon {
-  stroke: #00B8A9;
-  fill: rgba(0, 184, 169, 0.15);
-  filter: drop-shadow(0 0 8px rgba(0, 184, 169, 0.4));
+  stroke: #1FC8BA;
+  fill: rgba(31, 200, 186, 0.15);
+  filter: drop-shadow(0 0 8px rgba(31, 200, 186, 0.4));
 }
 .hex-node-completed .hex-polygon {
-  stroke: #10b981;
-  fill: rgba(16, 185, 129, 0.12);
+  stroke: #3DDC97;
+  fill: rgba(61, 220, 151, 0.12);
 }
 
 /* Escudo Protector de Evaluación Ciega (Modo Examen Sin Video) */
@@ -777,17 +786,17 @@ main, main section, main .grid, header > div {
   position: absolute;
   inset: 0;
   z-index: 25;
-  background: #14213D;
+  background: #0F1A30;
   background-image: 
-    radial-gradient(circle at 50% 25%, rgba(0, 184, 169, 0.08) 0%, transparent 60%),
-    radial-gradient(circle at 50% 80%, rgba(15, 23, 42, 0.95) 0%, #14213D 100%);
+    radial-gradient(circle at 50% 25%, rgba(31, 200, 186, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 50% 80%, rgba(23, 37, 68, 0.95) 0%, #0F1A30 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
   text-align: center;
-  border: 1px solid rgba(0, 184, 169, 0.2);
+  border: 1px solid rgba(31, 200, 186, 0.2);
   animation: fadeInExam 0.22s var(--spring-easing);
 }
 
@@ -821,8 +830,8 @@ main, main section, main .grid, header > div {
 }
 
 @keyframes zorritoPulse {
-  0%, 100% { transform: scale(1); filter: drop-shadow(0 4px 12px rgba(0, 184, 169, 0.25)); }
-  50% { transform: scale(1.03) translateY(-2px); filter: drop-shadow(0 8px 18px rgba(255, 200, 87, 0.4)); }
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 4px 12px rgba(31, 200, 186, 0.25)); }
+  50% { transform: scale(1.03) translateY(-2px); filter: drop-shadow(0 8px 18px rgba(255, 200, 87, 0.5)); }
 }
 
 @keyframes zorritoWiggle {
