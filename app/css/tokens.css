@@ -1,45 +1,46 @@
 /**
- * Manitas · Design Tokens (Opción C: Esmeralda Abisal / Verde Petróleo Noche + Ámbar Sol)
- * Paleta orgánica e inclusiva de alto impacto (Forest EdTech / Bio-Humano):
- * Fondo Abisal Noche (#061312), Superficie Jade Oscuro (#0C211F), Borde Musgo (#1C423E), Ámbar Sol (#F59E0B / #FFC857).
- * Cero sensación genérica. Conexión con calidez humana, accesibilidad y crecimiento.
+ * Manitas · Design Tokens (Tema Claro Editorial / Clean EdTech)
+ * Inspirado en Duolingo Pro / Brilliant / Apple Education:
+ * Lienzo Blanco Nieve (#F8FAFC), Superficies Blanco Puro (#FFFFFF),
+ * Bordes Limpios (#E2E8F0), Texto Carbón Nítido (#0F172A),
+ * Acentos Energéticos: Ámbar Dorado (#F59E0B / #D97706), Verde Esmeralda (#10B981) y Coral (#F43F5E).
  */
 :root {
   /* Primitivos de marca */
-  --manitas-navy: #061312;
-  --manitas-navy-raised: #0C211F;
-  --manitas-navy-elevated: #122D2B;
-  --manitas-navy-line: #1C423E;
+  --manitas-navy: #0F172A;
+  --manitas-navy-raised: #FFFFFF;
+  --manitas-navy-elevated: #F1F5F9;
+  --manitas-navy-line: #E2E8F0;
   --manitas-sun: #F59E0B;
-  --manitas-sun-light: #FFC857;
-  --manitas-sun-hover: #FBBF24;
+  --manitas-sun-light: #FBBF24;
+  --manitas-sun-hover: #D97706;
   --manitas-coral: #FF6B5B;
-  --manitas-bone: #F0FDF4;
+  --manitas-bone: #F8FAFC;
   --manitas-success: #10B981;
   --manitas-danger: #EF4444;
   --manitas-emerald: #10B981;
-  --manitas-emerald-mint: #34D399;
+  --manitas-emerald-mint: #059669;
 
-  /* Semánticos (tema oscuro esmeralda abisal por defecto) */
-  --color-bg: #061312;
-  --color-surface: #0C211F;
-  --color-surface-elevated: #122D2B;
-  --color-border: #1C423E;
-  --color-text: #F0FDF4;
-  --color-text-muted: #94B5AC;
-  --color-text-dim: #6E9187;
+  /* Semánticos (tema claro editorial) */
+  --color-bg: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #F1F5F9;
+  --color-border: #E2E8F0;
+  --color-text: #0F172A;
+  --color-text-muted: #475569;
+  --color-text-dim: #64748B;
   --color-primary: #F59E0B;
-  --color-on-primary: #061312;
-  --color-accent: #FFC857;
+  --color-on-primary: #FFFFFF;
+  --color-accent: #D97706;
   --color-action: #F59E0B;
   --color-success: #10B981;
   --color-danger: #EF4444;
   --color-focus-ring: #F59E0B;
 
-  /* Tema claro (tarjetas de login/registro si aplica) */
-  --color-light-bg: var(--manitas-bone);
-  --color-light-text: var(--manitas-navy);
-  --color-light-muted: #3B5A53;
+  /* Tema claro */
+  --color-light-bg: #FFFFFF;
+  --color-light-text: #0F172A;
+  --color-light-muted: #64748B;
   --color-light-link: #D97706;
 
   /* Tipografía Impeccable (Plus Jakarta Sans + Lexend) */
