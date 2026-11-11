@@ -1,4 +1,14 @@
 {
+  "name": "manitas-exis-lsc",
+  "version": "1.0.0",
+  "description": "Tutor Inteligente Interactivo para Lengua de Señas Colombiana (LSC) - Proyecto EXIS",
+  "scripts": {
+    "test": "npm run test:unit && npm run test:media",
+    "test:unit": "node tests/test_signs_data.js && node tests/test_vision_rules.js && node tests/test_client_nlu.js && node tests/test_checkpoints_unit.js && node tests/test_lesson_session_unit.js && node tests/test_blind_exam_arena_unit.js",
+    "test:media": "python tests/test_batch_5_media.py",
+    "test:console": "node tests/test_console_check.js",
+    "test:e2e": "node tests/test_playwright.js"
+  },
   "devDependencies": {
     "playwright": "^1.64.1"
   }

@@ -1,11 +1,21 @@
 import http.server
-import socketserver
 import json
-import urllib.request
-import urllib.parse
+import logging
 import os
+import re
+import shutil
+import socketserver
+import subprocess
 import sys
+import threading
 import time
+import unicodedata
+import urllib.parse
+import urllib.request
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional, Tuple
+
+logger = logging.getLogger("server")
 
 PORT = 8000
 DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app")
@@ -75,17 +85,22 @@ FALLBACK_REPLIES = {
     k: f"Para la seña de '{k}', {v} [SELECCIONAR: {k}]" for k, v in LSC_SIGN_DESCRIPTIONS.items()
 }
 
-class LSCParsedIntent:
-    """Contenedor de intención pedagógica extraída por el motor NLU."""
-    def __init__(self, intent: str, target_sign: str = None, is_clarification: bool = False, greeting_preamble: str = None, raw_message: str = ""):
-        self.intent = intent  # 'LEARN_SIGN', 'GREETING', 'CATALOG', 'IDENTITY', 'GRATITUDE', 'UNKNOWN'
-        self.target_sign = target_sign
-        self.is_clarification = is_clarification
-        self.greeting_preamble = greeting_preamble
-        self.raw_message = raw_message
+VALID_SIGN_IDS = [
+    "HOLA", "YO", "BUENOS", "DIAS", "TARDES", "NOCHES",
+    "GUSTAR", "NOMBRE", "ANNOS", "LICOR",
+    "A", "B", "C", "D", "E", "I", "L", "O", "U", "V"
+]
 
-    def __repr__(self):
-        return f"<LSCParsedIntent intent={self.intent} target={self.target_sign} is_clarif={self.is_clarification} preamble={self.greeting_preamble}>"
+USERS_DB_PATH = os.path.join(DIRECTORY, "data", "users_db.json")
+
+@dataclass(slots=True)
+class LSCParsedIntent:
+    """Contenedor de intención pedagógica extraída por el motor NLU (inmutable)."""
+    intent: str
+    target_sign: Optional[str] = None
+    is_clarification: bool = False
+    greeting_preamble: Optional[str] = None
+    raw_message: str = ""
 
 class LSCNaturalLanguageParser:
     """
@@ -133,7 +148,6 @@ class LSCNaturalLanguageParser:
 
     @classmethod
     def normalize(cls, text: str) -> str:
-        import unicodedata, re
         if not text:
             return ""
         norm = ''.join(c for c in unicodedata.normalize('NFD', str(text).strip()) if unicodedata.category(c) != 'Mn').lower()
@@ -142,7 +156,6 @@ class LSCNaturalLanguageParser:
 
     @classmethod
     def parse(cls, message: str) -> LSCParsedIntent:
-        import re
         raw = (message or "").strip()
         norm = cls.normalize(raw)
         if not norm:
@@ -177,7 +190,7 @@ class LSCNaturalLanguageParser:
         if detected_preamble and not cleaned_text:
             return LSCParsedIntent('GREETING', greeting_preamble=detected_preamble, raw_message=raw)
 
-        # 5. Principiante / Desde cero (Detectar antes de negaciones para evitar falsos positivos con 'no sé nada')
+        # 5. Principiante / Desde cero
         if re.search(r'\b(?:no se nada|soy nuevo|desde cero|principiante|por donde empiezo|que hago|como inicio|que me recomiendas|recomendacion)\b', cleaned_text):
             return LSCParsedIntent('BEGINNER_RECOMMENDATION', target_sign='HOLA', greeting_preamble=detected_preamble, raw_message=raw)
 
@@ -191,14 +204,13 @@ class LSCNaturalLanguageParser:
                     return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[cand], is_clarification=True, greeting_preamble=detected_preamble, raw_message=raw)
                 if cand in cls.VOCABULARY_WORDS:
                     return LSCParsedIntent('LEARN_SIGN', target_sign=cls.VOCABULARY_WORDS[cand], is_clarification=True, greeting_preamble=detected_preamble, raw_message=raw)
-            # Si no hay alternativa, es rechazo explícito a la seña previa (no forzar 'A')
             return LSCParsedIntent('REJECT_SIGN', is_clarification=True, greeting_preamble=detected_preamble, raw_message=raw)
 
-        # 7. Intención de aprendizaje abierta o incompleta ("quiero aprender a", "deseo aprender")
+        # 7. Intención de aprendizaje abierta o incompleta
         if cleaned_text in ('quiero aprender a', 'quiero aprender', 'deseo aprender', 'ensename a', 'aprender', 'aprender a', 'quiero practicar', 'ensenar'):
             return LSCParsedIntent('OPEN_LEARNING_INTRO', greeting_preamble=detected_preamble, raw_message=raw)
 
-        # 8. Categorías Temáticas (Saludos, Presentación, Abecedario, Visión/Cámara)
+        # 8. Categorías Temáticas
         if re.search(r'\b(?:saludos|saludo|saludar|como saludar|decir hola)\b', cleaned_text):
             return LSCParsedIntent('THEME_GREETINGS', target_sign='HOLA', greeting_preamble=detected_preamble, raw_message=raw)
         if re.search(r'\b(?:presentarme|presentacion|mi nombre|decir mi nombre|como me llamo)\b', cleaned_text):
@@ -208,28 +220,24 @@ class LSCNaturalLanguageParser:
         if re.search(r'\b(?:camara|webcam|mediapipe|radar|como funciona|vision artificial|puntos de la mano)\b', cleaned_text):
             return LSCParsedIntent('TECH_EXPLANATION', greeting_preamble=detected_preamble, raw_message=raw)
 
-        # 9. Solicitud de Letra específica con indicadores
+        # 9. Solicitud de Letra específica
         let_match = re.search(r'\b(?:letra|vocal|la)\s+([a-z])\b', cleaned_text)
         if let_match and let_match.group(1) in cls.LETTERS:
             return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[let_match.group(1)], greeting_preamble=detected_preamble, raw_message=raw)
 
-        # Consonantes aisladas dactilológicas (b, c, d, l, v)
         for cons in ['b', 'c', 'd', 'l', 'v']:
             if re.search(rf'\b{cons}\b', cleaned_text):
                 return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[cons], greeting_preamble=detected_preamble, raw_message=raw)
 
-        # 10. Vocabulario de Palabras Oficiales LSC70
+        # 10. Vocabulario de Palabras Oficiales
         for word, sign_id in cls.VOCABULARY_WORDS.items():
             if re.search(rf'\b{word}\b', cleaned_text):
-                # Evitar falso positivo si 'hola' era solo saludo
                 if word == 'hola' and not any(k in cleaned_text for k in ["sena", "palabra", "aprender", "como se", "hacer", "decir"]):
                     continue
-                # Evitar falso positivo si 'yo' o 'mi' es pronombre gramatical
                 if word in ('yo', 'mi') and any(k in cleaned_text for k in ["quiero", "puedo", "gustaria", "voy", "tengo"]):
                     continue
                 return LSCParsedIntent('LEARN_SIGN', target_sign=sign_id, greeting_preamble=detected_preamble, raw_message=raw)
 
-        # Si había preámbulo pero no se extrajo seña concreta
         if detected_preamble:
             return LSCParsedIntent('GREETING', greeting_preamble=detected_preamble, raw_message=raw)
 
@@ -346,20 +354,18 @@ class LSCTutorService:
         self.model = model
         self.timeout = timeout
 
-    def process_message(self, user_msg: str, history: list = None) -> dict:
-        parsed = LSCNaturalLanguageParser.parse(user_msg)
+    def process_message(self, user_msg: str, history: Optional[list] = None) -> dict:
+        clean_msg = str(user_msg or "").strip()[:300]
+        parsed = LSCNaturalLanguageParser.parse(clean_msg)
         target_sign = parsed.target_sign
 
         reply_text = None
-        # Para preguntas abiertas o conversacionales, intentamos Ollama en GPU
         if parsed.intent in ('UNKNOWN', 'OPEN_CONVERSATION'):
-            reply_text = self._query_ollama_open(user_msg)
+            reply_text = self._query_ollama_open(clean_msg)
 
-        # Si no hubo respuesta de Ollama o si es una seña/saludo/catálogo/identidad, usar NLU canónico
         if not reply_text:
             reply_text = LSCNaturalLanguageParser.build_natural_reply(parsed, LSC_SIGN_DESCRIPTIONS)
 
-        # Garantizar [SELECCIONAR: ID] si hay target_sign
         if target_sign and f"[SELECCIONAR: {target_sign}]" not in reply_text:
             reply_text = f"{reply_text.strip()} [SELECCIONAR: {target_sign}]"
 
@@ -370,11 +376,12 @@ class LSCTutorService:
             "is_clarification": parsed.is_clarification
         }
 
-    def _query_ollama_open(self, user_msg: str) -> str:
+    def _query_ollama_open(self, user_msg: str) -> Optional[str]:
         try:
+            safe_msg = user_msg[:250]
             prompt = (
                 f"Eres Zorrito, el tutor interactivo y empático de Lengua de Señas Colombiana (LSC) en Manitas.\n"
-                f"Usuario pregunta: \"{user_msg}\"\n"
+                f"Usuario pregunta: \"{safe_msg}\"\n"
                 f"Instrucciones: Responde amablemente en español con tono cálido y pedagógico en máximo 2 oraciones breves.\n"
                 f"Respuesta:"
             )
@@ -393,89 +400,115 @@ class LSCTutorService:
                 ans = res_data.get("response", "").strip()
                 if ans:
                     return ans
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug(f"Ollama fallback activo para chat: {e}")
         return None
 
-# Instancia global del servicio de tutoría
 tutor_service = LSCTutorService()
 
-def detect_sign(msg: str):
+def detect_sign(msg: str) -> Optional[str]:
     """Función de compatibilidad delegada al motor NLU."""
     parsed = LSCNaturalLanguageParser.parse(msg)
     return parsed.target_sign
 
-VALID_SIGN_IDS = [
-    "HOLA", "YO", "BUENOS", "DIAS", "TARDES", "NOCHES",
-    "GUSTAR", "NOMBRE", "ANNOS", "LICOR",
-    "A", "B", "C", "D", "E", "I", "L", "O", "U", "V"
-]
+class UserRepository:
+    """Repositorio POO para la persistencia segura de usuarios en JSON con exclusión mutua."""
 
-USERS_DB_PATH = os.path.join(DIRECTORY, "data", "users_db.json")
+    def __init__(self, db_path: str = USERS_DB_PATH):
+        self.db_path = db_path
+        self._lock = threading.Lock()
 
-def load_users_db():
-    """Carga la base de datos de usuarios desde app/data/users_db.json."""
-    if not os.path.exists(USERS_DB_PATH):
-        os.makedirs(os.path.dirname(USERS_DB_PATH), exist_ok=True)
-        default_db = {"users": []}
+    def get_all_users(self) -> dict:
+        """Retorna todos los usuarios de forma thread-safe."""
+        with self._lock:
+            return self._read_db_unlocked()
+
+    def save_user(self, user_data: dict) -> dict:
+        """Inserta o actualiza un usuario de forma atómica y thread-safe."""
+        if not isinstance(user_data, dict) or not user_data.get("username"):
+            raise ValueError("Datos de usuario inválidos: requiere campo 'username'")
+
+        username = str(user_data.get("username")).strip().lower()
+        clean_user = {
+            "username": username,
+            "displayName": str(user_data.get("displayName") or username).strip()[:100],
+            "level": str(user_data.get("level", "Principiante")).strip()[:50],
+            "xp": int(user_data.get("xp", 0)),
+            "streak": int(user_data.get("streak", 1)),
+            "masteredSigns": [str(s) for s in user_data.get("masteredSigns", []) if s in VALID_SIGN_IDS],
+            "customPlans": list(user_data.get("customPlans", [])),
+            "examHistory": list(user_data.get("examHistory", [])),
+            "lastUpdated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        }
+
+        with self._lock:
+            db = self._read_db_unlocked()
+            users = db.get("users", [])
+            found_idx = -1
+            for idx, u in enumerate(users):
+                if str(u.get("username", "")).strip().lower() == username:
+                    found_idx = idx
+                    break
+
+            if found_idx >= 0:
+                users[found_idx] = clean_user
+            else:
+                users.append(clean_user)
+
+            db["users"] = users
+            self._write_db_unlocked(db)
+
+        return clean_user
+
+    def _read_db_unlocked(self) -> dict:
+        if not os.path.exists(self.db_path):
+            os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
+            default_db = {"users": []}
+            try:
+                with open(self.db_path, "w", encoding="utf-8") as f:
+                    json.dump(default_db, f, indent=2, ensure_ascii=False)
+            except OSError as e:
+                logger.warning(f"Error creando {self.db_path}: {e}")
+            return default_db
         try:
-            with open(USERS_DB_PATH, "w", encoding="utf-8") as f:
-                json.dump(default_db, f, indent=2, ensure_ascii=False)
-        except Exception:
-            pass
-        return default_db
-    try:
-        with open(USERS_DB_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:
-        return {"users": []}
+            with open(self.db_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, OSError) as e:
+            logger.warning(f"Error leyendo {self.db_path}: {e}")
+            return {"users": []}
 
-def save_user_to_db(user_data):
-    """Inserta o actualiza un usuario en la base de datos local app/data/users_db.json."""
-    if not isinstance(user_data, dict) or not user_data.get("username"):
-        raise ValueError("Datos de usuario inválidos: requiere campo 'username'")
-    username = str(user_data.get("username")).strip().lower()
-    db = load_users_db()
-    users = db.get("users", [])
-    found_idx = -1
-    for idx, u in enumerate(users):
-        if str(u.get("username", "")).strip().lower() == username:
-            found_idx = idx
-            break
+    def _write_db_unlocked(self, db: dict) -> None:
+        os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
+        tmp_path = f"{self.db_path}.tmp"
+        with open(tmp_path, "w", encoding="utf-8") as f:
+            json.dump(db, f, indent=2, ensure_ascii=False)
+        os.replace(tmp_path, self.db_path)
 
-    clean_user = {
-        "username": username,
-        "displayName": user_data.get("displayName") or username,
-        "level": user_data.get("level", "Principiante"),
-        "xp": int(user_data.get("xp", 0)),
-        "streak": int(user_data.get("streak", 1)),
-        "masteredSigns": list(user_data.get("masteredSigns", [])),
-        "customPlans": list(user_data.get("customPlans", [])),
-        "examHistory": list(user_data.get("examHistory", [])),
-        "lastUpdated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    }
+user_repository = UserRepository()
 
-    if found_idx >= 0:
-        users[found_idx] = clean_user
-    else:
-        users.append(clean_user)
+def load_users_db() -> dict:
+    """Wrapper de compatibilidad para consultar usuarios."""
+    return user_repository.get_all_users()
 
-    db["users"] = users
-    os.makedirs(os.path.dirname(USERS_DB_PATH), exist_ok=True)
-    with open(USERS_DB_PATH, "w", encoding="utf-8") as f:
-        json.dump(db, f, indent=2, ensure_ascii=False)
-    return clean_user
+def save_user_to_db(user_data: dict) -> dict:
+    """Wrapper de compatibilidad para persistir un usuario."""
+    return user_repository.save_user(user_data)
 
-def build_pedagogical_plan(goal: str, level: str = "beginner") -> dict:
-    """Genera una ruta pedagógica de señas oficiales consultando a Ollama o mediante fallback pedagógico."""
-    import unicodedata
-    clean_goal = (goal or "").strip()
-    norm_goal = ''.join(c for c in unicodedata.normalize('NFD', clean_goal) if unicodedata.category(c) != 'Mn').lower()
-    plan_id = f"ai_plan_{int(time.time())}"
+class PedagogicalPlanner:
+    """Planificador pedagógico POO que diseña rutas de aprendizaje con IA o fallback."""
 
-    # 1. Intentar consultar Ollama (qwen2.5:3b) con timeout estricto de 2.2s
-    try:
-        ollama_prompt = f"""Eres Sol, la arquitecta pedagógica experta en Lengua de Señas Colombiana (LSC) de Manitas.
+    def __init__(self, ollama_url: str = OLLAMA_URL, model: str = "qwen2.5:3b", timeout: float = 2.2):
+        self.ollama_url = ollama_url
+        self.model = model
+        self.timeout = timeout
+
+    def build_plan(self, goal: str, level: str = "beginner") -> dict:
+        clean_goal = str(goal or "").strip()[:300]
+        norm_goal = ''.join(c for c in unicodedata.normalize('NFD', clean_goal) if unicodedata.category(c) != 'Mn').lower()
+        plan_id = f"ai_plan_{int(time.time())}"
+
+        try:
+            ollama_prompt = f"""Eres Sol, la arquitecta pedagógica experta en Lengua de Señas Colombiana (LSC) de Manitas.
 Tu tarea es diseñar una ruta progresiva de aprendizaje para un estudiante.
 Objetivo del estudiante: "{clean_goal}"
 Nivel: {level}
@@ -485,84 +518,89 @@ HOLA, YO, BUENOS, DIAS, TARDES, NOCHES, GUSTAR, NOMBRE, ANNOS, LICOR, A, B, C, D
 Responde ÚNICAMENTE un objeto JSON válido con este formato:
 {{"title": "Título corto y motivador", "rationale": "Breve explicación pedagógica de 1 o 2 oraciones", "signs": ["ID1", "ID2", "ID3", "ID4"]}}
 """
-        req = urllib.request.Request(
-            OLLAMA_URL,
-            data=json.dumps({
-                "model": "qwen2.5:3b",
-                "prompt": ollama_prompt,
-                "stream": False,
-                "format": "json",
-                "options": {"num_predict": 120, "temperature": 0.2}
-            }).encode('utf-8'),
-            headers={"Content-Type": "application/json"}
-        )
-        with urllib.request.urlopen(req, timeout=2.2) as resp:
-            data = json.loads(resp.read().decode('utf-8'))
-            raw_text = data.get("response", "{}")
-            raw_json = json.loads(raw_text)
-            title = raw_json.get("title", "").strip() or "Ruta Personalizada LSC"
-            rationale = raw_json.get("rationale", "").strip() or "Ruta estructurada según tu objetivo de aprendizaje."
-            signs_candidate = raw_json.get("signs", [])
-            valid_signs = [s for s in signs_candidate if s in VALID_SIGN_IDS]
-            seen = set()
-            valid_unique = []
-            for s in valid_signs:
-                if s not in seen:
-                    seen.add(s)
-                    valid_unique.append(s)
+            req = urllib.request.Request(
+                self.ollama_url,
+                data=json.dumps({
+                    "model": self.model,
+                    "prompt": ollama_prompt,
+                    "stream": False,
+                    "format": "json",
+                    "options": {"num_predict": 120, "temperature": 0.2}
+                }).encode('utf-8'),
+                headers={"Content-Type": "application/json"}
+            )
+            with urllib.request.urlopen(req, timeout=self.timeout) as resp:
+                data = json.loads(resp.read().decode('utf-8'))
+                raw_text = data.get("response", "{}")
+                raw_json = json.loads(raw_text)
+                title = str(raw_json.get("title", "")).strip() or "Ruta Personalizada LSC"
+                rationale = str(raw_json.get("rationale", "")).strip() or "Ruta estructurada según tu objetivo de aprendizaje."
+                signs_candidate = raw_json.get("signs", [])
+                valid_signs = [s for s in signs_candidate if s in VALID_SIGN_IDS]
+                seen = set()
+                valid_unique = []
+                for s in valid_signs:
+                    if s not in seen:
+                        seen.add(s)
+                        valid_unique.append(s)
 
-            if len(valid_unique) >= 3:
-                return {
-                    "id": plan_id,
-                    "title": title,
-                    "rationale": rationale,
-                    "signs": valid_unique,
-                    "source": "ollama"
-                }
-    except Exception:
-        pass
+                if len(valid_unique) >= 3:
+                    return {
+                        "id": plan_id,
+                        "title": title,
+                        "rationale": rationale,
+                        "signs": valid_unique,
+                        "source": "ollama"
+                    }
+        except Exception as e:
+            logger.debug(f"Ollama plan fallback activo: {e}")
 
-    # 2. Clasificador pedagógico determinista inmediato (Garantiza < 5ms de latencia)
-    if any(k in norm_goal for k in ["abecedario", "letra", "alfabeto", "dactil", "deletrear"]):
-        return {
-            "id": plan_id,
-            "title": "Ruta IA: Abecedario Dactilológico LSC",
-            "rationale": "Sol ha seleccionado la secuencia dactilológica esencial para deletrear nombres propios y términos técnicos en LSC con soltura.",
-            "signs": ["A", "B", "C", "D", "E", "I", "L", "O", "U", "V"],
-            "source": "curated_fallback"
-        }
-    elif any(k in norm_goal for k in ["saludo", "presentar", "presentacion", "social", "conocer"]):
-        return {
-            "id": plan_id,
-            "title": "Ruta IA: Saludos y Presentación Personal",
-            "rationale": "Sol estructuró las señas fundamentales para iniciar una conversación cordial y presentarte con naturalidad ante personas sordas.",
-            "signs": ["HOLA", "YO", "NOMBRE", "BUENOS", "DIAS", "GUSTAR"],
-            "source": "curated_fallback"
-        }
-    elif any(k in norm_goal for k in ["palabra", "vocabulario", "conversacion", "frases"]):
-        return {
-            "id": plan_id,
-            "title": "Ruta IA: Vocabulario Esencial LSC",
-            "rationale": "Sol diseñó una inmersión directa en las expresiones y términos cotidianos más frecuentes del corpus LSC70.",
-            "signs": ["HOLA", "BUENOS", "DIAS", "TARDES", "NOCHES", "YO", "NOMBRE", "GUSTAR", "ANNOS", "LICOR"],
-            "source": "curated_fallback"
-        }
-    else:  # cero, basico, nada, default
-        return {
-            "id": plan_id,
-            "title": "Ruta IA: Fundamentos LSC Desde Cero",
-            "rationale": "Sol diseñó una ruta balanceada para principiantes: inicia con el saludo universal, continúa con vocales dactilológicas y culmina con cortesía y presentación.",
-            "signs": ["HOLA", "YO", "A", "E", "O", "BUENOS", "DIAS", "NOMBRE"],
-            "source": "curated_fallback"
-        }
+        if any(k in norm_goal for k in ["abecedario", "letra", "alfabeto", "dactil", "deletrear"]):
+            return {
+                "id": plan_id,
+                "title": "Ruta IA: Abecedario Dactilológico LSC",
+                "rationale": "Sol ha seleccionado la secuencia dactilológica esencial para deletrear nombres propios y términos técnicos en LSC con soltura.",
+                "signs": ["A", "B", "C", "D", "E", "I", "L", "O", "U", "V"],
+                "source": "curated_fallback"
+            }
+        elif any(k in norm_goal for k in ["saludo", "presentar", "presentacion", "social", "conocer"]):
+            return {
+                "id": plan_id,
+                "title": "Ruta IA: Saludos y Presentación Personal",
+                "rationale": "Sol estructuró las señas fundamentales para iniciar una conversación cordial y presentarte con naturalidad ante personas sordas.",
+                "signs": ["HOLA", "YO", "NOMBRE", "BUENOS", "DIAS", "GUSTAR"],
+                "source": "curated_fallback"
+            }
+        elif any(k in norm_goal for k in ["palabra", "vocabulario", "conversacion", "frases"]):
+            return {
+                "id": plan_id,
+                "title": "Ruta IA: Vocabulario Esencial LSC",
+                "rationale": "Sol diseñó una inmersión directa en las expresiones y términos cotidianos más frecuentes del corpus LSC70.",
+                "signs": ["HOLA", "BUENOS", "DIAS", "TARDES", "NOCHES", "YO", "NOMBRE", "GUSTAR", "ANNOS", "LICOR"],
+                "source": "curated_fallback"
+            }
+        else:
+            return {
+                "id": plan_id,
+                "title": "Ruta IA: Fundamentos LSC Desde Cero",
+                "rationale": "Sol diseñó una ruta balanceada para principiantes: inicia con el saludo universal, continúa con vocales dactilológicas y culmina con cortesía y presentación.",
+                "signs": ["HOLA", "YO", "A", "E", "O", "BUENOS", "DIAS", "NOMBRE"],
+                "source": "curated_fallback"
+            }
+
+pedagogical_planner = PedagogicalPlanner()
+
+def build_pedagogical_plan(goal: str, level: str = "beginner") -> dict:
+    """Wrapper de compatibilidad para generar rutas pedagógicas."""
+    return pedagogical_planner.build_plan(goal, level)
 
 class RangeFileWrapper:
     """Wrapper para transmitir un rango de bytes específico de un archivo abierto (HTTP 206)."""
-    def __init__(self, file_obj, length):
+    def __init__(self, file_obj, length: int):
         self.file_obj = file_obj
         self.remaining = length
 
-    def read(self, size=-1):
+    def read(self, size: int = -1) -> bytes:
         if self.remaining <= 0:
             return b""
         if size < 0 or size > self.remaining:
@@ -575,6 +613,8 @@ class RangeFileWrapper:
         self.file_obj.close()
 
 class LSCHandler(http.server.SimpleHTTPRequestHandler):
+    MAX_PAYLOAD_SIZE = 1024 * 1024  # 1 MB
+
     extensions_map = {
         **http.server.SimpleHTTPRequestHandler.extensions_map,
         '.mp4': 'video/mp4',
@@ -599,6 +639,11 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
 
     def send_head(self):
         """Maneja solicitudes GET/HEAD con soporte completo para rangos de bytes (HTTP 206 Partial Content)."""
+        clean_req_path = self.path.split('?', 1)[0].split('#', 1)[0]
+        if clean_req_path.endswith(('users_db.json', '.env', '.git')) or '/data/users_db.json' in clean_req_path:
+            self.send_error(403, "Acceso restringido a datos protegidos del sistema")
+            return None
+
         path = self.translate_path(self.path)
         f = None
         if os.path.isdir(path):
@@ -672,8 +717,8 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
                     self.send_header("Last-Modified", self.date_time_string(fs.st_mtime))
                     self.end_headers()
                     return RangeFileWrapper(f, content_length)
-                except Exception:
-                    pass  # Fallback a respuesta 200 completa
+                except Exception as ex:
+                    logger.debug(f"Range fallback: {ex}")
 
             self.send_response(200)
             self.send_header("Content-Type", ctype)
@@ -685,12 +730,24 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
             f.close()
             raise
 
+    def list_directory(self, path: str):
+        """Deshabilita el listado público de directorios."""
+        self.send_error(403, "Listado de directorio deshabilitado")
+        return None
+
     def end_headers(self):
-        self.send_header('Access-Control-Allow-Origin', '*')
+        origin = self.headers.get("Origin", "")
+        if origin and any(origin.startswith(p) for p in ("http://localhost", "http://127.0.0.1")):
+            self.send_header('Access-Control-Allow-Origin', origin)
+        else:
+            self.send_header('Access-Control-Allow-Origin', 'http://localhost:8000')
+
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type, Range')
         self.send_header('Accept-Ranges', 'bytes')
         self.send_header('Cache-Control', 'no-cache, must-revalidate')
+        self.send_header('X-Content-Type-Options', 'nosniff')
+        self.send_header('X-Frame-Options', 'SAMEORIGIN')
         super().end_headers()
 
     def copyfile(self, source, outputfile):
@@ -705,20 +762,53 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
         except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
             pass
 
+    def _send_json_response(self, status_code: int, data: dict):
+        self.send_response(status_code)
+        self.send_header('Content-Type', 'application/json; charset=utf-8')
+        self.end_headers()
+        self.wfile.write(json.dumps(data, ensure_ascii=False).encode('utf-8'))
+
+    def _send_json_error(self, status_code: int, message: str):
+        self.send_response(status_code)
+        self.send_header('Content-Type', 'application/json; charset=utf-8')
+        self.end_headers()
+        self.wfile.write(json.dumps({"error": message}, ensure_ascii=False).encode('utf-8'))
+
+    def _read_json_payload(self) -> Tuple[Optional[dict], Optional[str]]:
+        try:
+            content_length = int(self.headers.get('Content-Length', 0))
+        except (ValueError, TypeError):
+            return None, "Encabezado Content-Length inválido"
+
+        if content_length > self.MAX_PAYLOAD_SIZE:
+            return None, "Payload demasiado grande (máximo permitido 1MB)"
+
+        if content_length <= 0:
+            return {}, None
+
+        raw_data = self.rfile.read(content_length)
+        try:
+            post_data = raw_data.decode('utf-8')
+        except UnicodeDecodeError:
+            post_data = raw_data.decode('latin-1', errors='replace')
+
+        try:
+            payload = json.loads(post_data) if post_data.strip() else {}
+            if not isinstance(payload, dict):
+                return None, "El cuerpo de la petición debe ser un objeto JSON"
+            return payload, None
+        except json.JSONDecodeError:
+            return None, "JSON malformado"
+
     def do_GET(self):
         if self.path == '/api/users':
             try:
-                db = load_users_db()
-                self.send_response(200)
-                self.send_header('Content-Type', 'application/json; charset=utf-8')
-                self.end_headers()
-                self.wfile.write(json.dumps({"users": db.get("users", [])}, ensure_ascii=False).encode('utf-8'))
+                users_data = user_repository.get_all_users()
+                self._send_json_response(200, users_data)
                 return
             except Exception as e:
-                self.send_response(500)
-                self.send_header('Content-Type', 'application/json; charset=utf-8')
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
+                logger.error(f"Error procesando GET /api/users: {e}")
+                self._send_json_error(500, "Error interno al consultar usuarios")
                 return
         super().do_GET()
 
@@ -728,177 +818,149 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_POST(self):
         if self.path == '/api/chat':
-            content_length = int(self.headers.get('Content-Length', 0))
-            raw_data = self.rfile.read(content_length)
+            payload, err = self._read_json_payload()
+            if err:
+                self._send_json_error(400 if "grande" not in err else 413, err)
+                return
             try:
-                post_data = raw_data.decode('utf-8')
-            except UnicodeDecodeError:
-                post_data = raw_data.decode('latin-1', errors='replace')
-            try:
-                payload = json.loads(post_data)
-                user_msg = payload.get("message", "").strip()
+                user_msg = str(payload.get("message", "")).strip()[:300]
                 history = payload.get("history", [])
+                if not isinstance(history, list):
+                    history = []
 
                 result = tutor_service.process_message(user_msg, history)
-
-                self.send_response(200)
-                self.send_header('Content-Type', 'application/json; charset=utf-8')
-                self.end_headers()
-                self.wfile.write(json.dumps(result, ensure_ascii=False).encode('utf-8'))
-                return
-
+                self._send_json_response(200, result)
             except Exception as e:
-                self.send_response(500)
-                self.send_header('Content-Type', 'application/json; charset=utf-8')
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
-                return
-
-        elif self.path.startswith('/api/save_screenshot'):
-            content_length = int(self.headers.get('Content-Length', 0))
-            post_data = self.rfile.read(content_length).decode('utf-8')
-            try:
-                payload = json.loads(post_data)
-                data_url = payload.get("image", "")
-                filename = payload.get("filename", "screenshot.png")
-                if "," in data_url:
-                    data_url = data_url.split(",", 1)[1]
-                import base64
-                img_bytes = base64.b64decode(data_url)
-                save_dir = r"C:\Users\abner\.gemini\antigravity\brain\adc682e4-fa3e-4853-a6ce-7c2d4c68b532"
-                save_path = os.path.join(save_dir, filename)
-                with open(save_path, "wb") as f:
-                    f.write(img_bytes)
-                self.send_response(200)
-                self.send_header('Content-Type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"status": "saved", "path": save_path}).encode('utf-8'))
-                return
-            except Exception as e:
-                self.send_response(500)
-                self.send_header('Content-Type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
-                return
+                logger.error(f"Error procesando /api/chat: {e}")
+                self._send_json_error(500, "Error procesando mensaje en el tutor")
+            return
 
         elif self.path == '/api/plan':
-            content_length = int(self.headers.get('Content-Length', 0))
-            raw_data = self.rfile.read(content_length)
+            payload, err = self._read_json_payload()
+            if err:
+                self._send_json_error(400 if "grande" not in err else 413, err)
+                return
             try:
-                post_data = raw_data.decode('utf-8', errors='replace')
-                payload = json.loads(post_data) if post_data.strip() else {}
-                goal = str(payload.get("goal", "")).strip()
-                level = str(payload.get("level", "beginner")).strip()
-                plan = build_pedagogical_plan(goal, level)
-                self.send_response(200)
-                self.send_header('Content-Type', 'application/json; charset=utf-8')
-                self.end_headers()
-                self.wfile.write(json.dumps(plan, ensure_ascii=False).encode('utf-8'))
-                return
+                goal = str(payload.get("goal", "")).strip()[:300]
+                level = str(payload.get("level", "beginner")).strip()[:50]
+                plan = pedagogical_planner.build_plan(goal, level)
+                self._send_json_response(200, plan)
             except Exception as e:
-                self.send_response(500)
-                self.send_header('Content-Type', 'application/json; charset=utf-8')
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
-                return
+                logger.error(f"Error procesando /api/plan: {e}")
+                self._send_json_error(500, "Error generando ruta pedagógica")
+            return
 
         elif self.path == '/api/users':
-            content_length = int(self.headers.get('Content-Length', 0))
-            raw_data = self.rfile.read(content_length)
+            payload, err = self._read_json_payload()
+            if err:
+                self._send_json_error(400 if "grande" not in err else 413, err)
+                return
             try:
-                post_data = raw_data.decode('utf-8', errors='replace')
-                payload = json.loads(post_data) if post_data.strip() else {}
-                saved_user = save_user_to_db(payload)
-                self.send_response(200)
-                self.send_header('Content-Type', 'application/json; charset=utf-8')
-                self.end_headers()
-                self.wfile.write(json.dumps({"status": "ok", "user": saved_user}, ensure_ascii=False).encode('utf-8'))
-                return
+                saved_user = user_repository.save_user(payload)
+                self._send_json_response(200, {"status": "ok", "user": saved_user})
+            except ValueError as ve:
+                self._send_json_error(400, str(ve))
             except Exception as e:
-                self.send_response(500)
-                self.send_header('Content-Type', 'application/json; charset=utf-8')
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
-                return
+                logger.error(f"Error procesando POST /api/users: {e}")
+                self._send_json_error(500, "Error al persistir usuario")
+            return
 
         self.send_error(404, "Endpoint no encontrado")
 
-def free_port(port):
-    """Libera el puerto si quedó retenido por un proceso previo huérfano."""
-    try:
-        import subprocess
-        # Buscar PIDs escuchando en el puerto
-        cmd = f'powershell -NoProfile -Command "Get-NetTCPConnection -LocalPort {port} -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess"'
-        out = subprocess.check_output(cmd, shell=True, text=True).strip()
-        if out:
-            for line in out.splitlines():
-                pid = int(line.strip())
-                if pid > 0 and pid != os.getpid():
-                    print(f"[AUTO-REPAIR] Terminando proceso huérfano PID {pid} en puerto {port}...")
-                    subprocess.call(f'taskkill /F /PID {pid}', shell=True)
-            import time
-            time.sleep(1)
-    except Exception as e:
-        pass
+class ProcessLifecycleManager:
+    """Administrador POO del ciclo de vida de procesos del backend (puertos y Ollama)."""
+
+    @classmethod
+    def free_port(cls, port: int) -> None:
+        """Libera el puerto si quedó retenido por un proceso huérfano (sin shell=True)."""
+        if sys.platform != "win32":
+            return
+        try:
+            cmd = [
+                "powershell", "-NoProfile", "-Command",
+                f"Get-NetTCPConnection -LocalPort {port} -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess"
+            ]
+            out = subprocess.check_output(cmd, text=True, stderr=subprocess.DEVNULL).strip()
+            if out:
+                current_pid = os.getpid()
+                for line in out.splitlines():
+                    val = line.strip()
+                    if val.isdigit():
+                        pid = int(val)
+                        if pid > 0 and pid != current_pid:
+                            logger.info(f"[AUTO-REPAIR] Terminando proceso huérfano PID {pid} en puerto {port}...")
+                            subprocess.call(["taskkill", "/F", "/PID", str(pid)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                time.sleep(1.0)
+        except Exception as e:
+            logger.debug(f"Aviso en liberación de puerto {port}: {e}")
+
+    @classmethod
+    def ensure_ollama_service(cls) -> bool:
+        """Verifica si Ollama está activo en GPU; si no, intenta arrancarlo en segundo plano."""
+        try:
+            req = urllib.request.Request("http://127.0.0.1:11434/api/tags")
+            with urllib.request.urlopen(req, timeout=1.2) as resp:
+                if resp.status == 200:
+                    logger.info("[OK] Ollama activo en http://127.0.0.1:11434 (GPU listo)")
+                    return True
+        except Exception:
+            pass
+
+        ollama_path = shutil.which("ollama")
+        if not ollama_path:
+            local_app = os.path.expanduser(r"~\AppData\Local\Programs\Ollama\ollama.exe")
+            if os.path.exists(local_app):
+                ollama_path = local_app
+
+        if ollama_path:
+            try:
+                logger.info("[INFO] Ollama no detectado. Levantando 'ollama serve' en segundo plano...")
+                flags = 0
+                if sys.platform == "win32":
+                    flags = subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS
+                subprocess.Popen([ollama_path, "serve"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, creationflags=flags)
+                time.sleep(2.0)
+                logger.info("[OK] Proceso 'ollama serve' lanzado exitosamente.")
+                return True
+            except Exception as e:
+                logger.warning(f"[AVISO] No se pudo lanzar Ollama automáticamente: {e}")
+        else:
+            logger.info("[AVISO] Comando 'ollama' no encontrado en el sistema.")
+        return False
+
+def free_port(port: int):
+    """Función de compatibilidad para liberar puertos."""
+    ProcessLifecycleManager.free_port(port)
+
+def ensure_ollama_service() -> bool:
+    """Función de compatibilidad para asegurar Ollama."""
+    return ProcessLifecycleManager.ensure_ollama_service()
 
 class RobustThreadingServer(socketserver.ThreadingTCPServer):
     allow_reuse_address = True
     daemon_threads = True
 
     def handle_error(self, request, client_address):
-        import sys
         exc_type, _, _ = sys.exc_info()
         if exc_type in (ConnectionResetError, ConnectionAbortedError, BrokenPipeError):
             return
         super().handle_error(request, client_address)
 
-def ensure_ollama_service():
-    """Verifica si Ollama está respondiendo en 127.0.0.1:11434; si no, intenta arrancarlo en segundo plano."""
-    import shutil, subprocess
-    try:
-        req = urllib.request.Request("http://127.0.0.1:11434/api/tags")
-        with urllib.request.urlopen(req, timeout=1.2) as resp:
-            if resp.status == 200:
-                print("[OK] Ollama activo en http://127.0.0.1:11434 (GPU listo)")
-                return True
-    except Exception:
-        pass
-
-    ollama_path = shutil.which("ollama")
-    if not ollama_path:
-        local_app = os.path.expanduser(r"~\AppData\Local\Programs\Ollama\ollama.exe")
-        if os.path.exists(local_app):
-            ollama_path = local_app
-
-    if ollama_path:
-        try:
-            print("[INFO] Ollama no detectado. Levantando 'ollama serve' en segundo plano...")
-            flags = 0
-            if sys.platform == "win32":
-                flags = subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS
-            subprocess.Popen([ollama_path, "serve"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, creationflags=flags)
-            time.sleep(2.0)
-            print("[OK] Proceso 'ollama serve' lanzado exitosamente.")
-            return True
-        except Exception as e:
-            print(f"[AVISO] No se pudo lanzar Ollama automáticamente: {e}")
-    else:
-        print("[AVISO] Comando 'ollama' no encontrado en el sistema.")
-    return False
-
 if __name__ == '__main__':
-    free_port(PORT)
-    ensure_ollama_service()
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+    HOST = "127.0.0.1"
+    ProcessLifecycleManager.free_port(PORT)
+    ProcessLifecycleManager.ensure_ollama_service()
     RobustThreadingServer.allow_reuse_address = True
-    print(f"Iniciando Servidor LSC Learn con Proxy Ollama en http://localhost:{PORT}")
+    print(f"Iniciando Servidor LSC Learn con Proxy Ollama en http://{HOST}:{PORT}")
     try:
-        with RobustThreadingServer(("", PORT), LSCHandler) as httpd:
+        with RobustThreadingServer((HOST, PORT), LSCHandler) as httpd:
             httpd.serve_forever()
     except OSError as e:
-        if e.winerror == 10048 if hasattr(e, 'winerror') else False:
+        if hasattr(e, 'winerror') and e.winerror == 10048:
             print(f"[AVISO] Puerto {PORT} en espera de reciclado, forzando liberación...")
-            free_port(PORT)
-            with RobustThreadingServer(("", PORT), LSCHandler) as httpd:
+            ProcessLifecycleManager.free_port(PORT)
+            with RobustThreadingServer((HOST, PORT), LSCHandler) as httpd:
                 httpd.serve_forever()
         else:
             raise e
