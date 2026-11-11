@@ -133,9 +133,161 @@
       "app_js_lesson_session_lessonsessioncontroller_update",
       "app_js_lesson_session_lessonsessioncontroller_updatepracticeprogressui",
       "app_js_lesson_session_lessonsessioncontroller_updateprogressui",
-      "app_js_lesson_session_lessonsessioncontroller_updatevideomodeui"
+      "app_js_lesson_session_lessonsessioncontroller_updatevideomodeui",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_brief_objetivo"
     ],
     "2": [
+      "app_js_auth_profile_manager",
+      "app_js_auth_profile_manager_authprofilemanager",
+      "app_js_auth_profile_manager_authprofilemanager_bindmodalevents",
+      "app_js_auth_profile_manager_authprofilemanager_closeauthmodal",
+      "app_js_auth_profile_manager_authprofilemanager_constructor",
+      "app_js_auth_profile_manager_authprofilemanager_destroy",
+      "app_js_auth_profile_manager_authprofilemanager_getallstoredprofiles",
+      "app_js_auth_profile_manager_authprofilemanager_getcurrentprofile",
+      "app_js_auth_profile_manager_authprofilemanager_handlekeydown",
+      "app_js_auth_profile_manager_authprofilemanager_init",
+      "app_js_auth_profile_manager_authprofilemanager_loadactiveprofile",
+      "app_js_auth_profile_manager_authprofilemanager_loginorregister",
+      "app_js_auth_profile_manager_authprofilemanager_openauthmodal",
+      "app_js_auth_profile_manager_authprofilemanager_recordexamresult",
+      "app_js_auth_profile_manager_authprofilemanager_recordsignmastered",
+      "app_js_auth_profile_manager_authprofilemanager_reset",
+      "app_js_auth_profile_manager_authprofilemanager_savecustomplan",
+      "app_js_auth_profile_manager_authprofilemanager_saveprofile",
+      "app_js_auth_profile_manager_authprofilemanager_start",
+      "app_js_auth_profile_manager_authprofilemanager_syncwithserver",
+      "app_js_auth_profile_manager_authprofilemanager_update",
+      "app_js_auth_profile_manager_authprofilemanager_updateui",
+      "docs_superpowers_plans_2026_11_05_exis_learning_platform_plan",
+      "docs_superpowers_plans_2026_11_05_exis_learning_platform_plan_exis_learning_platform_ai_paths_blind_exam_mode_implementation_plan",
+      "docs_superpowers_plans_2026_11_05_exis_learning_platform_plan_global_constraints",
+      "docs_superpowers_plans_2026_11_05_exis_learning_platform_plan_mapa_de_archivos_a_crear_y_modificar",
+      "docs_superpowers_plans_2026_11_05_exis_learning_platform_plan_task_2_clase_poo_authprofilemanager_app_js_auth_profile_manager_js",
+      "docs_superpowers_plans_2026_11_05_exis_learning_platform_plan_task_3_clase_poo_learningplanmanager_y_mapa_hexagonal_app_js_learning_plan_manager_js",
+      "docs_superpowers_plans_2026_11_05_exis_learning_platform_plan_task_4_clase_poo_blindexamcontroller_modo_examen_sin_video_app_js_blind_exam_controller_js",
+      "docs_superpowers_plans_2026_11_05_exis_learning_platform_plan_task_5_integraci\u00f3n_ui_h\u00edbrida_en_app_index_html_estilos_en_app_css_styles_css_y_orquestaci\u00f3n_en_app_js_main_js",
+      "docs_superpowers_plans_2026_11_05_exis_learning_platform_plan_task_6_suite_de_pruebas_end_to_end_en_playwright_tests_learning_platform_and_exam_spec_js_y_actualizaci\u00f3n_de_graphify",
+      "docs_superpowers_plans_2026_11_06_interactive_lesson_quiz_plan_review_focus",
+      "docs_superpowers_plans_2026_11_06_interactive_lesson_quiz_plan_task_1_controlador_poo_de_la_sesi\u00f3n_de_lecci\u00f3n_app_js_lesson_session_js",
+      "docs_superpowers_plans_2026_11_06_interactive_lesson_quiz_plan_task_2_estilos_dedicados_de_lecci\u00f3n_interactiva_app_css_lesson_css",
+      "docs_superpowers_plans_2026_11_06_interactive_lesson_quiz_plan_task_3_estructura_html_del_contenedor_de_lecci\u00f3n_en_app_index_html",
+      "docs_superpowers_plans_2026_11_06_interactive_lesson_quiz_plan_task_4_integraci\u00f3n_con_la_ruta_duolingo_app_js_learning_plan_manager_js_y_app_js_main_js",
+      "docs_superpowers_plans_2026_11_06_interactive_lesson_quiz_plan_task_5_pruebas_e2e_automatizadas_con_playwright_y_verificaci\u00f3n"
+    ],
+    "3": [
+      "app_js_blind_exam_controller_blindexamcontroller",
+      "app_js_blind_exam_controller_blindexamcontroller_advancequestion",
+      "app_js_blind_exam_controller_blindexamcontroller_binduievents",
+      "app_js_blind_exam_controller_blindexamcontroller_cleartimer",
+      "app_js_blind_exam_controller_blindexamcontroller_closesummarymodal",
+      "app_js_blind_exam_controller_blindexamcontroller_constructor",
+      "app_js_blind_exam_controller_blindexamcontroller_destroy",
+      "app_js_blind_exam_controller_blindexamcontroller_finishexam",
+      "app_js_blind_exam_controller_blindexamcontroller_generatedistractors",
+      "app_js_blind_exam_controller_blindexamcontroller_getvideomode",
+      "app_js_blind_exam_controller_blindexamcontroller_handlekeydown",
+      "app_js_blind_exam_controller_blindexamcontroller_handlepracticeframe",
+      "app_js_blind_exam_controller_blindexamcontroller_handlesignmasteredinexam",
+      "app_js_blind_exam_controller_blindexamcontroller_init",
+      "app_js_blind_exam_controller_blindexamcontroller_isexamactive",
+      "app_js_blind_exam_controller_blindexamcontroller_loadquestion",
+      "app_js_blind_exam_controller_blindexamcontroller_loadquizmedia",
+      "app_js_blind_exam_controller_blindexamcontroller_lookupsignname",
+      "app_js_blind_exam_controller_blindexamcontroller_lookupsignobject",
+      "app_js_blind_exam_controller_blindexamcontroller_renderquizoptions",
+      "app_js_blind_exam_controller_blindexamcontroller_reset",
+      "app_js_blind_exam_controller_blindexamcontroller_setvideomode",
+      "app_js_blind_exam_controller_blindexamcontroller_showsummarymodal",
+      "app_js_blind_exam_controller_blindexamcontroller_skipcurrentquestion",
+      "app_js_blind_exam_controller_blindexamcontroller_start",
+      "app_js_blind_exam_controller_blindexamcontroller_stopexam",
+      "app_js_blind_exam_controller_blindexamcontroller_submitquizoption",
+      "app_js_blind_exam_controller_blindexamcontroller_syncvideomodebuttons",
+      "app_js_blind_exam_controller_blindexamcontroller_update",
+      "app_js_blind_exam_controller_blindexamcontroller_updatetimerdisplay",
+      "docs_superpowers_plans_2026_11_05_exis_3_screens_duolingo_flow_plan",
+      "docs_superpowers_plans_2026_11_05_exis_3_screens_duolingo_flow_plan_exis_3_screen_flow_futuristic_landing_page_duolingo_style_path_view_dedicated_practice_studio_plan",
+      "docs_superpowers_plans_2026_11_05_exis_3_screens_duolingo_flow_plan_global_constraints_agents_md_impeccable_emil_kowalski",
+      "docs_superpowers_plans_2026_11_05_exis_3_screens_duolingo_flow_plan_task_1_landing_page_futurista_y_portal_auth_app_landing_html_app_css_landing_css_app_js_landing_js",
+      "docs_superpowers_plans_2026_11_05_exis_3_screens_duolingo_flow_plan_task_2_separaci\u00f3n_en_2_vistas_de_pantalla_completa_dentro_de_app_index_html_viewrouter_mapa_estilo_duolingo_vs_cabina_de_pr\u00e1ctica",
+      "docs_superpowers_plans_2026_11_05_exis_3_screens_duolingo_flow_plan_task_3_verificaci\u00f3n_e2e_de_las_3_pantallas_con_playwright_y_actualizaci\u00f3n_de_graphify",
+      "docs_superpowers_plans_2026_11_05_exis_learning_platform_plan_review_focus"
+    ],
+    "4": [
+      "agents",
+      "agents_1_identidad_y_misi\u00f3n_del_proyecto",
+      "agents_2_reglas_duras_de_desarrollo_hard_rules",
+      "agents_3_especificaci\u00f3n_de_hardware_y_optimizaci\u00f3n",
+      "agents_4_protocolo_de_colaboraci\u00f3n_en_pareja_evitar_choques",
+      "agents_5_estructura_de_directorios",
+      "agents_agents_md_reglas_y_contexto_t\u00e9cnico_para_agentes_de_ia_proyecto_exis",
+      "agents_comandos_de_instalaci\u00f3n_para_el_agente_terminal_windows",
+      "agents_graphify",
+      "agents_m\u00e1quina_de_colaboraci\u00f3n_nodo_2",
+      "agents_recomendaciones_para_el_agente_en_esta_m\u00e1quina",
+      "agents_reglas_de_oro_de_colaboraci\u00f3n",
+      "app_js_camera_manager",
+      "app_js_camera_manager_cameradevicemanager",
+      "app_js_camera_manager_cameradevicemanager_attachselect",
+      "app_js_camera_manager_cameradevicemanager_bindselectelement",
+      "app_js_camera_manager_cameradevicemanager_boundondevicechange",
+      "app_js_camera_manager_cameradevicemanager_constructor",
+      "app_js_camera_manager_cameradevicemanager_currentstream",
+      "app_js_camera_manager_cameradevicemanager_destroy",
+      "app_js_camera_manager_cameradevicemanager_devices",
+      "app_js_camera_manager_cameradevicemanager_formatdevicelabel",
+      "app_js_camera_manager_cameradevicemanager_getstream",
+      "app_js_camera_manager_cameradevicemanager_init",
+      "app_js_camera_manager_cameradevicemanager_isstreaming",
+      "app_js_camera_manager_cameradevicemanager_needspermissionforlabels",
+      "app_js_camera_manager_cameradevicemanager_refreshdevicelist",
+      "app_js_camera_manager_cameradevicemanager_renderselectoptions",
+      "app_js_camera_manager_cameradevicemanager_requestpermissionandrefresh",
+      "app_js_camera_manager_cameradevicemanager_selecteddeviceid",
+      "app_js_camera_manager_cameradevicemanager_start",
+      "app_js_camera_manager_cameradevicemanager_startframepump",
+      "app_js_camera_manager_cameradevicemanager_stop",
+      "app_js_camera_manager_cameradevicemanager_stopframepump",
+      "app_js_camera_manager_cameradevicemanager_updateactivepillui"
+    ],
+    "5": [
+      "app_js_learning_plan_manager",
+      "app_js_learning_plan_manager_learningplanmanager",
+      "app_js_learning_plan_manager_learningplanmanager_binduievents",
+      "app_js_learning_plan_manager_learningplanmanager_closecustomplanmodal",
+      "app_js_learning_plan_manager_learningplanmanager_constructor",
+      "app_js_learning_plan_manager_learningplanmanager_createcheckpointnode",
+      "app_js_learning_plan_manager_learningplanmanager_createcustomplan",
+      "app_js_learning_plan_manager_learningplanmanager_destroy",
+      "app_js_learning_plan_manager_learningplanmanager_generateaiplanfromprompt",
+      "app_js_learning_plan_manager_learningplanmanager_getactiveplan",
+      "app_js_learning_plan_manager_learningplanmanager_handlekeydown",
+      "app_js_learning_plan_manager_learningplanmanager_handleresize",
+      "app_js_learning_plan_manager_learningplanmanager_init",
+      "app_js_learning_plan_manager_learningplanmanager_marksigncompleted",
+      "app_js_learning_plan_manager_learningplanmanager_marksigncompletedinplan",
+      "app_js_learning_plan_manager_learningplanmanager_opencustomplanmodal",
+      "app_js_learning_plan_manager_learningplanmanager_rendercustomsignsgrid",
+      "app_js_learning_plan_manager_learningplanmanager_renderhexskilltree",
+      "app_js_learning_plan_manager_learningplanmanager_reset",
+      "app_js_learning_plan_manager_learningplanmanager_selectpresetplan",
+      "app_js_learning_plan_manager_learningplanmanager_start",
+      "app_js_learning_plan_manager_learningplanmanager_triggersignselection",
+      "app_js_learning_plan_manager_learningplanmanager_update",
+      "app_js_learning_plan_manager_learningplanmanager_updateactiveplanheader",
+      "app_js_learning_plan_manager_learningplanmanager_updatepresetplanchipstyles",
+      "app_js_learning_plan_manager_learningplanmanager_updatewindingpathconnector",
+      "docs_superpowers_plans_2026_11_06_interactive_lesson_quiz_plan",
+      "docs_superpowers_plans_2026_11_06_interactive_lesson_quiz_plan_global_constraints",
+      "docs_superpowers_plans_2026_11_06_interactive_lesson_quiz_plan_sistema_de_lecci\u00f3n_interactiva_tipo_test_y_pr\u00e1ctica_con_c\u00e1mara_plan_de_implementaci\u00f3n",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_brief",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_brief_l\u00f3gica_y_fases_de_la_lecci\u00f3n",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_brief_pruebas",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_brief_reglas_obligatorias_agents_md",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_brief_task_1_brief_controlador_poo_de_la_sesi\u00f3n_de_lecci\u00f3n_app_js_lesson_session_js"
+    ],
+    "6": [
       "app_js_blind_exam_controller",
       "app_js_lesson_session",
       "tests_test_blind_exam_arena_unit",
@@ -170,39 +322,7 @@
       "tests_test_checkpoints_unit_lessonsessioncontroller",
       "tests_test_checkpoints_unit_path"
     ],
-    "3": [
-      "app_js_blind_exam_controller_blindexamcontroller",
-      "app_js_blind_exam_controller_blindexamcontroller_advancequestion",
-      "app_js_blind_exam_controller_blindexamcontroller_binduievents",
-      "app_js_blind_exam_controller_blindexamcontroller_cleartimer",
-      "app_js_blind_exam_controller_blindexamcontroller_closesummarymodal",
-      "app_js_blind_exam_controller_blindexamcontroller_constructor",
-      "app_js_blind_exam_controller_blindexamcontroller_destroy",
-      "app_js_blind_exam_controller_blindexamcontroller_finishexam",
-      "app_js_blind_exam_controller_blindexamcontroller_generatedistractors",
-      "app_js_blind_exam_controller_blindexamcontroller_getvideomode",
-      "app_js_blind_exam_controller_blindexamcontroller_handlekeydown",
-      "app_js_blind_exam_controller_blindexamcontroller_handlepracticeframe",
-      "app_js_blind_exam_controller_blindexamcontroller_handlesignmasteredinexam",
-      "app_js_blind_exam_controller_blindexamcontroller_init",
-      "app_js_blind_exam_controller_blindexamcontroller_isexamactive",
-      "app_js_blind_exam_controller_blindexamcontroller_loadquestion",
-      "app_js_blind_exam_controller_blindexamcontroller_loadquizmedia",
-      "app_js_blind_exam_controller_blindexamcontroller_lookupsignname",
-      "app_js_blind_exam_controller_blindexamcontroller_lookupsignobject",
-      "app_js_blind_exam_controller_blindexamcontroller_renderquizoptions",
-      "app_js_blind_exam_controller_blindexamcontroller_reset",
-      "app_js_blind_exam_controller_blindexamcontroller_setvideomode",
-      "app_js_blind_exam_controller_blindexamcontroller_showsummarymodal",
-      "app_js_blind_exam_controller_blindexamcontroller_skipcurrentquestion",
-      "app_js_blind_exam_controller_blindexamcontroller_start",
-      "app_js_blind_exam_controller_blindexamcontroller_stopexam",
-      "app_js_blind_exam_controller_blindexamcontroller_submitquizoption",
-      "app_js_blind_exam_controller_blindexamcontroller_syncvideomodebuttons",
-      "app_js_blind_exam_controller_blindexamcontroller_update",
-      "app_js_blind_exam_controller_blindexamcontroller_updatetimerdisplay"
-    ],
-    "4": [
+    "7": [
       "app_tools_mocap_extractor",
       "app_tools_mocap_extractor_euler_to_quaternion",
       "app_tools_mocap_extractor_mocapextractor",
@@ -231,37 +351,66 @@
       "app_tools_mocap_extractor_rationale_84",
       "app_tools_mocap_extractor_verify_clips_json",
       "argparse",
-      "json",
       "math"
     ],
-    "5": [
-      "app_js_camera_manager",
-      "app_js_camera_manager_cameradevicemanager",
-      "app_js_camera_manager_cameradevicemanager_attachselect",
-      "app_js_camera_manager_cameradevicemanager_bindselectelement",
-      "app_js_camera_manager_cameradevicemanager_boundondevicechange",
-      "app_js_camera_manager_cameradevicemanager_constructor",
-      "app_js_camera_manager_cameradevicemanager_currentstream",
-      "app_js_camera_manager_cameradevicemanager_destroy",
-      "app_js_camera_manager_cameradevicemanager_devices",
-      "app_js_camera_manager_cameradevicemanager_formatdevicelabel",
-      "app_js_camera_manager_cameradevicemanager_getstream",
-      "app_js_camera_manager_cameradevicemanager_init",
-      "app_js_camera_manager_cameradevicemanager_isstreaming",
-      "app_js_camera_manager_cameradevicemanager_needspermissionforlabels",
-      "app_js_camera_manager_cameradevicemanager_refreshdevicelist",
-      "app_js_camera_manager_cameradevicemanager_renderselectoptions",
-      "app_js_camera_manager_cameradevicemanager_requestpermissionandrefresh",
-      "app_js_camera_manager_cameradevicemanager_selecteddeviceid",
-      "app_js_camera_manager_cameradevicemanager_start",
-      "app_js_camera_manager_cameradevicemanager_startframepump",
-      "app_js_camera_manager_cameradevicemanager_stop",
-      "app_js_camera_manager_cameradevicemanager_stopframepump",
-      "app_js_camera_manager_cameradevicemanager_updateactivepillui",
-      "app_js_vision_evaluator",
-      "app_js_vision_evaluator_visionevaluator"
+    "8": [
+      "referencias_para_gemini_prompts_gemini",
+      "referencias_para_gemini_prompts_gemini_01_se\u00f1a_hola_saludo_oficial_lsc70",
+      "referencias_para_gemini_prompts_gemini_02_se\u00f1a_yo_pronombre_primera_persona",
+      "referencias_para_gemini_prompts_gemini_03_se\u00f1a_buenos_buenas_cortes\u00eda_lsc70",
+      "referencias_para_gemini_prompts_gemini_04_se\u00f1a_d\u00edas_tiempo_amanecer",
+      "referencias_para_gemini_prompts_gemini_05_se\u00f1a_noches_tiempo_anochecer",
+      "referencias_para_gemini_prompts_gemini_06_se\u00f1a_nombre_identificaci\u00f3n",
+      "referencias_para_gemini_prompts_gemini_07_dactilolog\u00eda_letra_a",
+      "referencias_para_gemini_prompts_gemini_08_dactilolog\u00eda_letra_b",
+      "referencias_para_gemini_prompts_gemini_09_dactilolog\u00eda_letra_c",
+      "referencias_para_gemini_prompts_gemini_10_dactilolog\u00eda_letra_l",
+      "referencias_para_gemini_prompts_gemini_11_dactilolog\u00eda_letra_v_victoria",
+      "referencias_para_gemini_prompts_gemini_12_se\u00f1a_tardes_cortes\u00eda_y_tiempo_lsc70",
+      "referencias_para_gemini_prompts_gemini_13_se\u00f1a_gustar_expresi\u00f3n_agrado_lsc70",
+      "referencias_para_gemini_prompts_gemini_14_dactilolog\u00eda_letra_i",
+      "referencias_para_gemini_prompts_gemini_15_dactilolog\u00eda_letra_o_lsc70",
+      "referencias_para_gemini_prompts_gemini_16_se\u00f1a_annos_a\u00f1os_tiempo_oficial_lsc70",
+      "referencias_para_gemini_prompts_gemini_17_se\u00f1a_licor_licor_bebida_oficial_lsc70",
+      "referencias_para_gemini_prompts_gemini_18_se\u00f1a_d_dactilolog\u00eda_lsc70",
+      "referencias_para_gemini_prompts_gemini_19_se\u00f1a_e_dactilolog\u00eda_lsc70",
+      "referencias_para_gemini_prompts_gemini_1_identidad_visual_del_personaje_oficial_sol_consistencia_global",
+      "referencias_para_gemini_prompts_gemini_20_se\u00f1a_u_dactilolog\u00eda_lsc70",
+      "referencias_para_gemini_prompts_gemini_2_flujo_de_trabajo_paso_a_paso_para_generar_en_gemini_web_o_kling",
+      "referencias_para_gemini_prompts_gemini_3_tabla_resumen_de_las_20_se\u00f1as_oficiales",
+      "referencias_para_gemini_prompts_gemini_4_prompts_detallados_para_copiar_y_pegar",
+      "referencias_para_gemini_prompts_gemini_5_par\u00e1metros_negativos_recomendados_negative_prompts",
+      "referencias_para_gemini_prompts_gemini_gu\u00eda_oficial_de_prompts_y_referencias_anime_ia_proyecto_exis_lsc"
     ],
-    "6": [
+    "9": [
+      "package",
+      "package_devdependencies",
+      "package_devdependencies_playwright",
+      "ref_playwright",
+      "tests_test_15_signs",
+      "tests_test_15_signs_chromium",
+      "tests_test_15_signs_test15signs",
+      "tests_test_20_signs",
+      "tests_test_20_signs_chromium",
+      "tests_test_20_signs_test20signs",
+      "tests_test_chat_tutor_ui",
+      "tests_test_chat_tutor_ui_chromium",
+      "tests_test_exam_anime_video",
+      "tests_test_exam_anime_video_chromium",
+      "tests_test_hover_drift",
+      "tests_test_hover_drift_chromium",
+      "tests_test_offline_mode",
+      "tests_test_offline_mode_chromium",
+      "tests_test_offline_mode_testoffline",
+      "tests_test_pause_and_overlap",
+      "tests_test_pause_and_overlap_chromium",
+      "tests_test_pwa_browser",
+      "tests_test_pwa_browser_chromium",
+      "tests_test_tardes_gustar_anime",
+      "tests_test_tardes_gustar_anime_chromium",
+      "tests_test_tardes_gustar_anime_testanimetardesgustar"
+    ],
+    "10": [
       "server_lscnaturallanguageparser",
       "server_lscnaturallanguageparser_normalize",
       "server_lscnaturallanguageparser_parse",
@@ -288,7 +437,7 @@
       "tests_test_natural_language_chat_testlscnaturallanguageparser_test_preposition_a_not_confused_with_letter",
       "tests_test_natural_language_chat_testlscnaturallanguageparser_test_pure_greeting"
     ],
-    "7": [
+    "11": [
       "app_js_auth_service",
       "app_js_auth_service_authservice",
       "app_js_auth_service_authservice_destroy",
@@ -314,79 +463,9 @@
       "app_js_auth_service_authservice_validatepassword",
       "app_js_auth_service_authservice_writeprofiles"
     ],
-    "8": [
-      "app_js_learning_plan_manager",
-      "app_js_learning_plan_manager_learningplanmanager",
-      "app_js_learning_plan_manager_learningplanmanager_binduievents",
-      "app_js_learning_plan_manager_learningplanmanager_closecustomplanmodal",
-      "app_js_learning_plan_manager_learningplanmanager_constructor",
-      "app_js_learning_plan_manager_learningplanmanager_createcheckpointnode",
-      "app_js_learning_plan_manager_learningplanmanager_createcustomplan",
-      "app_js_learning_plan_manager_learningplanmanager_destroy",
-      "app_js_learning_plan_manager_learningplanmanager_generateaiplanfromprompt",
-      "app_js_learning_plan_manager_learningplanmanager_getactiveplan",
-      "app_js_learning_plan_manager_learningplanmanager_handlekeydown",
-      "app_js_learning_plan_manager_learningplanmanager_init",
-      "app_js_learning_plan_manager_learningplanmanager_marksigncompleted",
-      "app_js_learning_plan_manager_learningplanmanager_marksigncompletedinplan",
-      "app_js_learning_plan_manager_learningplanmanager_opencustomplanmodal",
-      "app_js_learning_plan_manager_learningplanmanager_rendercustomsignsgrid",
-      "app_js_learning_plan_manager_learningplanmanager_renderhexskilltree",
-      "app_js_learning_plan_manager_learningplanmanager_reset",
-      "app_js_learning_plan_manager_learningplanmanager_selectpresetplan",
-      "app_js_learning_plan_manager_learningplanmanager_start",
-      "app_js_learning_plan_manager_learningplanmanager_triggersignselection",
-      "app_js_learning_plan_manager_learningplanmanager_update",
-      "app_js_learning_plan_manager_learningplanmanager_updateactiveplanheader",
-      "app_js_learning_plan_manager_learningplanmanager_updatepresetplanchipstyles"
-    ],
-    "9": [
-      "app_js_auth_profile_manager",
-      "app_js_auth_profile_manager_authprofilemanager",
-      "app_js_auth_profile_manager_authprofilemanager_bindmodalevents",
-      "app_js_auth_profile_manager_authprofilemanager_closeauthmodal",
-      "app_js_auth_profile_manager_authprofilemanager_constructor",
-      "app_js_auth_profile_manager_authprofilemanager_destroy",
-      "app_js_auth_profile_manager_authprofilemanager_getallstoredprofiles",
-      "app_js_auth_profile_manager_authprofilemanager_getcurrentprofile",
-      "app_js_auth_profile_manager_authprofilemanager_handlekeydown",
-      "app_js_auth_profile_manager_authprofilemanager_init",
-      "app_js_auth_profile_manager_authprofilemanager_loadactiveprofile",
-      "app_js_auth_profile_manager_authprofilemanager_loginorregister",
-      "app_js_auth_profile_manager_authprofilemanager_openauthmodal",
-      "app_js_auth_profile_manager_authprofilemanager_recordexamresult",
-      "app_js_auth_profile_manager_authprofilemanager_recordsignmastered",
-      "app_js_auth_profile_manager_authprofilemanager_reset",
-      "app_js_auth_profile_manager_authprofilemanager_savecustomplan",
-      "app_js_auth_profile_manager_authprofilemanager_saveprofile",
-      "app_js_auth_profile_manager_authprofilemanager_start",
-      "app_js_auth_profile_manager_authprofilemanager_syncwithserver",
-      "app_js_auth_profile_manager_authprofilemanager_update",
-      "app_js_auth_profile_manager_authprofilemanager_updateui"
-    ],
-    "10": [
-      "package",
-      "package_devdependencies",
-      "package_devdependencies_playwright",
-      "ref_playwright",
-      "tests_test_15_signs",
-      "tests_test_15_signs_chromium",
-      "tests_test_15_signs_test15signs",
-      "tests_test_20_signs",
-      "tests_test_20_signs_chromium",
-      "tests_test_20_signs_test20signs",
-      "tests_test_chat_tutor_ui",
-      "tests_test_chat_tutor_ui_chromium",
-      "tests_test_offline_mode",
-      "tests_test_offline_mode_chromium",
-      "tests_test_offline_mode_testoffline",
-      "tests_test_pause_and_overlap",
-      "tests_test_pause_and_overlap_chromium",
-      "tests_test_tardes_gustar_anime",
-      "tests_test_tardes_gustar_anime_chromium",
-      "tests_test_tardes_gustar_anime_testanimetardesgustar"
-    ],
-    "11": [
+    "12": [
+      "app_js_trajectory_tracker",
+      "app_js_trajectory_tracker_trajectorytracker",
       "app_js_view_router",
       "app_js_view_router_viewrouter",
       "app_js_view_router_viewrouter_bindnavigationevents",
@@ -402,44 +481,67 @@
       "app_js_view_router_viewrouter_syncurlquery",
       "app_js_view_router_viewrouter_update",
       "app_js_view_router_viewrouter_updatestudiobreadcrumb",
-      "app_js_view_router_viewrouter_updateui"
+      "app_js_view_router_viewrouter_updateui",
+      "app_js_vision_evaluator",
+      "app_js_vision_evaluator_visionevaluator"
     ],
-    "12": [
+    "13": [
+      "ref_assert",
+      "tests_learning_platform_and_exam_spec",
+      "tests_learning_platform_and_exam_spec_assert",
+      "tests_learning_platform_and_exam_spec_chromium",
+      "tests_test_console_check",
+      "tests_test_console_check_assert",
+      "tests_test_console_check_chromium",
+      "tests_test_exam_finish_route",
+      "tests_test_exam_finish_route_assert",
+      "tests_test_exam_finish_route_chromium",
+      "tests_test_palette_and_hud",
+      "tests_test_palette_and_hud_assert",
+      "tests_test_palette_and_hud_chromium",
+      "tests_verify_anime_and_checkpoints_spec",
+      "tests_verify_anime_and_checkpoints_spec_assert",
+      "tests_verify_anime_and_checkpoints_spec_chromium",
+      "tests_verify_video_and_camera_lesson",
+      "tests_verify_video_and_camera_lesson_assert",
+      "tests_verify_video_and_camera_lesson_chromium"
+    ],
+    "14": [
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_1_a\u00f1os_annos_palabra",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_1_contexto_e_intenci\u00f3n",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_2_licor_licor_palabra",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_2_metas_y_no_metas",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_3_enfoques_considerados_y_selecci\u00f3n",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_3_letra_d_d_letra_dactilol\u00f3gica",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_4_especificaci\u00f3n_t\u00e9cnica_de_las_5_nuevas_se\u00f1as",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_4_letra_e_e_letra_dactilol\u00f3gica",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_5_letra_u_u_letra_dactilol\u00f3gica",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_5_plan_de_ejecuci\u00f3n_y_verificaci\u00f3n",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_enfoque_a_integraci\u00f3n_unificada_de_pipeline_completo_seleccionado",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_enfoque_b_despliegue_escalonado_en_dos_fases_descartado",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_especificaci\u00f3n_de_dise\u00f1o_expansi\u00f3n_de_5_nuevas_se\u00f1as_lsc_a\u00f1os_licor_d_e_u",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_metas_goals",
+      "docs_superpowers_specs_2026_11_02_expansion_5_senas_design_no_metas_anti_goals"
+    ],
+    "15": [
       "http_server",
       "server",
       "server_build_pedagogical_plan",
       "server_detect_sign",
+      "server_ensure_ollama_service",
       "server_free_port",
-      "server_lschandler_do_post",
-      "server_rationale_362",
-      "server_rationale_392",
-      "server_rationale_428",
-      "server_rationale_785",
+      "server_rationale_404",
+      "server_rationale_470",
+      "server_rationale_827",
+      "server_rationale_856",
       "server_robustthreadingserver",
       "server_robustthreadingserver_handle_error",
-      "server_save_user_to_db",
       "socketserver",
       "time",
       "urllib_parse"
     ],
-    "13": [
-      "ref_fs",
-      "tests_take_all_screenshots",
-      "tests_take_all_screenshots_chromium",
-      "tests_take_all_screenshots_fs",
-      "tests_take_all_screenshots_path",
-      "tests_test_letter_i_anime",
-      "tests_test_letter_i_anime_chromium",
-      "tests_test_letter_i_anime_fs",
-      "tests_test_letter_i_anime_path",
-      "tests_test_letter_i_anime_testletterianime",
-      "tests_test_letter_o_anime",
-      "tests_test_letter_o_anime_chromium",
-      "tests_test_letter_o_anime_fs",
-      "tests_test_letter_o_anime_path",
-      "tests_test_letter_o_anime_testletteroanime"
-    ],
-    "14": [
+    "16": [
       "app_js_landing",
       "app_js_landing_landingportalcontroller",
       "app_js_landing_landingportalcontroller_activatescrollystep",
@@ -455,7 +557,23 @@
       "app_js_landing_landingportalcontroller_start",
       "app_js_landing_landingportalcontroller_update"
     ],
-    "15": [
+    "17": [
+      "ref_fs",
+      "tests_take_all_screenshots",
+      "tests_take_all_screenshots_chromium",
+      "tests_take_all_screenshots_fs",
+      "tests_take_all_screenshots_path",
+      "tests_test_letter_o_anime",
+      "tests_test_letter_o_anime_chromium",
+      "tests_test_letter_o_anime_fs",
+      "tests_test_letter_o_anime_path",
+      "tests_test_letter_o_anime_testletteroanime",
+      "tests_test_winding_path_visual",
+      "tests_test_winding_path_visual_chromium",
+      "tests_test_winding_path_visual_fs",
+      "tests_test_winding_path_visual_path"
+    ],
+    "18": [
       "app_js_auth_page",
       "app_js_auth_page_authpagecontroller",
       "app_js_auth_page_authpagecontroller_constructor",
@@ -470,22 +588,37 @@
       "app_js_auth_page_authpagecontroller_start",
       "app_js_auth_page_authpagecontroller_update"
     ],
-    "16": [
-      "ref_assert",
-      "tests_learning_platform_and_exam_spec",
-      "tests_learning_platform_and_exam_spec_assert",
-      "tests_learning_platform_and_exam_spec_chromium",
-      "tests_test_console_check",
-      "tests_test_console_check_assert",
-      "tests_test_console_check_chromium",
-      "tests_verify_anime_and_checkpoints_spec",
-      "tests_verify_anime_and_checkpoints_spec_assert",
-      "tests_verify_anime_and_checkpoints_spec_chromium",
-      "tests_verify_video_and_camera_lesson",
-      "tests_verify_video_and_camera_lesson_assert",
-      "tests_verify_video_and_camera_lesson_chromium"
+    "19": [
+      "app_manifest",
+      "app_manifest_background_color",
+      "app_manifest_categories",
+      "app_manifest_description",
+      "app_manifest_display",
+      "app_manifest_icons",
+      "app_manifest_lang",
+      "app_manifest_name",
+      "app_manifest_orientation",
+      "app_manifest_scope",
+      "app_manifest_short_name",
+      "app_manifest_start_url",
+      "app_manifest_theme_color"
     ],
-    "17": [
+    "20": [
+      "readme",
+      "readme_1_instalar_git_y_github_desktop",
+      "readme_2_instalar_ollama_tutor_de_ia_local",
+      "readme_3_instalar_python_3_10_o_superior",
+      "readme_4_clonar_el_repositorio_y_puesta_en_marcha",
+      "readme_caracter\u00edsticas_principales",
+      "readme_cat\u00e1logo_de_se\u00f1as_disponibles",
+      "readme_cr\u00e9ditos_y_licencia",
+      "readme_descargar_el_modelo_del_tutor_qwen2_5_3b",
+      "readme_exis_tutor_interactivo_de_lengua_de_se\u00f1as_colombiana_lsc",
+      "readme_generaci\u00f3n_de_videos_anime_ia_gemini_kling_runway",
+      "readme_gu\u00eda_de_instalaci\u00f3n_paso_a_paso_para_tu_compa\u00f1ero_y_nuevos_desarrolladores",
+      "readme_protocolo_de_colaboraci\u00f3n_en_pareja_git_workflow"
+    ],
+    "21": [
       "tests_test_lesson_session_unit",
       "tests_test_lesson_session_unit_assert",
       "tests_test_lesson_session_unit_createmockelement",
@@ -499,7 +632,7 @@
       "tests_test_lesson_session_unit_signsdatacode",
       "tests_test_lesson_session_unit_signsdatapath"
     ],
-    "18": [
+    "22": [
       "tests_test_natural_language_chat_rationale_106",
       "tests_test_natural_language_chat_rationale_117",
       "tests_test_natural_language_chat_rationale_127",
@@ -513,7 +646,7 @@
       "tests_test_natural_language_chat_testlivechatapi_test_live_pure_greeting",
       "tests_test_natural_language_chat_testlivechatapi_test_live_sign_licor"
     ],
-    "19": [
+    "23": [
       "app_js_onboarding",
       "app_js_onboarding_onboardingquizcontroller",
       "app_js_onboarding_onboardingquizcontroller_bindselectable",
@@ -526,20 +659,33 @@
       "app_js_onboarding_onboardingquizcontroller_start",
       "app_js_onboarding_onboardingquizcontroller_update"
     ],
-    "20": [
-      "server_load_users_db",
+    "24": [
+      "app_js_pwa_manager",
+      "app_js_pwa_manager_pwamanager",
+      "app_js_pwa_manager_pwamanager_checkstandalonemode",
+      "app_js_pwa_manager_pwamanager_hideinstallbutton",
+      "app_js_pwa_manager_pwamanager_init",
+      "app_js_pwa_manager_pwamanager_isinstalled",
+      "app_js_pwa_manager_pwamanager_promptinstall",
+      "app_js_pwa_manager_pwamanager_registerserviceworker",
+      "app_js_pwa_manager_pwamanager_setupinstallpromptlistener",
+      "app_js_pwa_manager_pwamanager_setupuilisteners",
+      "app_js_pwa_manager_pwamanager_showinstallbutton"
+    ],
+    "25": [
+      "docs_superpowers_plans_2026_11_05_exis_learning_platform_plan_task_1_endpoints_backend_de_planes_ia_api_plan_y_perfiles_api_users_en_server_py",
       "server_lschandler",
       "server_lschandler_copyfile",
       "server_lschandler_do_get",
       "server_lschandler_do_options",
+      "server_lschandler_do_post",
       "server_lschandler_end_headers",
       "server_lschandler_handle_one_request",
       "server_lschandler_init",
       "server_lschandler_send_head",
-      "server_rationale_375",
-      "server_rationale_559"
+      "server_rationale_601"
     ],
-    "21": [
+    "26": [
       "app_js_gallery",
       "app_js_gallery_mascotgallerycontroller",
       "app_js_gallery_mascotgallerycontroller_constructor",
@@ -551,7 +697,7 @@
       "app_js_gallery_mascotgallerycontroller_updatebackgrounds",
       "app_js_gallery_mascotgallerycontroller_updateformatbuttons"
     ],
-    "22": [
+    "27": [
       "app_tools_check_console",
       "app_tools_check_console_http",
       "app_tools_check_console_main",
@@ -563,7 +709,7 @@
       "tests_backend_api_plan_users_http",
       "tests_backend_api_plan_users_requestjson"
     ],
-    "23": [
+    "28": [
       "app_tools_download_fonts",
       "app_tools_setup_offline_assets",
       "app_tools_setup_offline_assets_download_file",
@@ -575,19 +721,100 @@
       "re",
       "urllib_request"
     ],
-    "24": [
+    "29": [
+      "docs_plans_2026_10_31_trayectorias_puntos_guiados",
+      "docs_plans_2026_10_31_trayectorias_puntos_guiados_an\u00e1lisis_de_agentes_necesarios",
+      "docs_plans_2026_10_31_trayectorias_puntos_guiados_plan_de_implementaci\u00f3n_sistema_de_puntos_y_trayectorias_de_movimiento_lsc_connect_the_dots",
+      "docs_plans_2026_10_31_trayectorias_puntos_guiados_restricciones_globales_hard_rules",
+      "docs_plans_2026_10_31_trayectorias_puntos_guiados_tarea_1_modelado_de_datos_de_trayectorias_en_signs_data_js",
+      "docs_plans_2026_10_31_trayectorias_puntos_guiados_tarea_2_creaci\u00f3n_del_motor_app_js_trajectory_tracker_js",
+      "docs_plans_2026_10_31_trayectorias_puntos_guiados_tarea_3_integraci\u00f3n_en_vision_evaluator_js_y_evaluaci\u00f3n_concurrente",
+      "docs_plans_2026_10_31_trayectorias_puntos_guiados_tarea_4_actualizaci\u00f3n_de_ui_y_accesibilidad_en_index_html_styles_css_y_main_js",
+      "docs_plans_2026_10_31_trayectorias_puntos_guiados_tarea_5_verificaci\u00f3n_funcional_responsiva_y_cero_errores",
+      "docs_plans_2026_10_31_trayectorias_puntos_guiados_tareas_de_implementaci\u00f3n"
+    ],
+    "30": [
+      "docs_superpowers_specs_2026_11_05_exis_learning_platform_design",
+      "docs_superpowers_specs_2026_11_05_exis_learning_platform_design_1_intenci\u00f3n_y_prop\u00f3sito_the_why",
+      "docs_superpowers_specs_2026_11_05_exis_learning_platform_design_2_metas_no_metas_y_anti_metas",
+      "docs_superpowers_specs_2026_11_05_exis_learning_platform_design_3_enfoques_evaluados_approaches",
+      "docs_superpowers_specs_2026_11_05_exis_learning_platform_design_4_arquitectura_de_componentes_y_m\u00f3dulos_poo",
+      "docs_superpowers_specs_2026_11_05_exis_learning_platform_design_5_directrices_de_calidad_visual_y_pruebas_impeccable_emil_kowalski_playwright",
+      "docs_superpowers_specs_2026_11_05_exis_learning_platform_design_anti_metas_anti_goals_qu\u00e9_har\u00eda_fallar_el_dise\u00f1o_aunque_funcione",
+      "docs_superpowers_specs_2026_11_05_exis_learning_platform_design_especificaci\u00f3n_de_dise\u00f1o_exis_plataforma_de_aprendizaje_lsc_rutas_ia_y_modo_examen_sin_video",
+      "docs_superpowers_specs_2026_11_05_exis_learning_platform_design_metas_goals",
+      "docs_superpowers_specs_2026_11_05_exis_learning_platform_design_no_metas_non_goals"
+    ],
+    "31": [
       "ref_path",
-      "tests_test_3_screens_flow_spec",
-      "tests_test_3_screens_flow_spec_assert",
-      "tests_test_3_screens_flow_spec_chromium",
-      "tests_test_3_screens_flow_spec_fs",
-      "tests_test_3_screens_flow_spec_path",
+      "tests_test_letter_i_anime",
+      "tests_test_letter_i_anime_chromium",
+      "tests_test_letter_i_anime_fs",
+      "tests_test_letter_i_anime_path",
+      "tests_test_letter_i_anime_testletterianime",
       "tests_test_live_hand_inference",
       "tests_test_live_hand_inference_chromium",
       "tests_test_live_hand_inference_path",
       "tests_test_live_hand_inference_testlivehandinference"
     ],
-    "25": [
+    "32": [
+      "referencias_para_gemini_hoja_de_personaje",
+      "referencias_para_gemini_hoja_de_personaje_1_concepto_e_identidad",
+      "referencias_para_gemini_hoja_de_personaje_2_anatom\u00eda_y_silueta_dise\u00f1ada_para_lengua_de_se\u00f1as_lsc",
+      "referencias_para_gemini_hoja_de_personaje_3_paleta_crom\u00e1tica_oficial_color_swatches",
+      "referencias_para_gemini_hoja_de_personaje_4_vistas_obligatorias_en_la_hoja_de_referencia_model_sheet",
+      "referencias_para_gemini_hoja_de_personaje_5_c\u00f3mo_usar_esta_hoja_como_referencia_en_gemini_kling_runway",
+      "referencias_para_gemini_hoja_de_personaje_a_rostro_y_cabeza_componente_no_manual",
+      "referencias_para_gemini_hoja_de_personaje_b_manos_y_mu\u00f1ecas_componente_manual",
+      "referencias_para_gemini_hoja_de_personaje_c_torso_y_contraste_de_ropa",
+      "referencias_para_gemini_hoja_de_personaje_hoja_de_dise\u00f1o_y_especificaciones_del_personaje_anime_sol"
+    ],
+    "33": [
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_report",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_report_1_resumen_ejecutivo",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_report_2_cumplimiento_de_reglas_duras_agents_md",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_report_3_arquitectura_y_l\u00f3gica_implementada",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_report_4_resultados_de_pruebas_unitarias_node_tests_test_lesson_session_unit_js",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_report_5_archivos_afectados",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_report_a_estado_privado_encapsulado",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_report_b_generador_de_opciones_sin_duplicados",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_report_c_fases_pedag\u00f3gicas",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_1_report_reporte_de_ejecuci\u00f3n_task_1_controlador_poo_de_la_sesi\u00f3n_de_lecci\u00f3n_app_js_lesson_session_js"
+    ],
+    "34": [
+      "docs_superpowers_plans_2026_11_02_expansion_5_senas",
+      "docs_superpowers_plans_2026_11_02_expansion_5_senas_expansi\u00f3n_de_5_nuevas_se\u00f1as_lsc_a\u00f1os_licor_d_e_u_implementation_plan",
+      "docs_superpowers_plans_2026_11_02_expansion_5_senas_global_constraints",
+      "docs_superpowers_plans_2026_11_02_expansion_5_senas_review_focus",
+      "docs_superpowers_plans_2026_11_02_expansion_5_senas_task_1_generaci\u00f3n_y_verificaci\u00f3n_de_videos_y_muestras_multimedia_app_tools_generate_batch_5_signs_py",
+      "docs_superpowers_plans_2026_11_02_expansion_5_senas_task_2_actualizaci\u00f3n_del_cat\u00e1logo_oficial_app_js_signs_data_js",
+      "docs_superpowers_plans_2026_11_02_expansion_5_senas_task_3_implementaci\u00f3n_de_reglas_de_evaluaci\u00f3n_mediapipe_app_js_vision_evaluator_js",
+      "docs_superpowers_plans_2026_11_02_expansion_5_senas_task_4_documentaci\u00f3n_de_prompts_oficiales_anime_ia_referencias_para_gemini_prompts_gemini_md",
+      "docs_superpowers_plans_2026_11_02_expansion_5_senas_task_5_verificaci\u00f3n_integral_del_sistema_en_servidor_local"
+    ],
+    "35": [
+      "json",
+      "server_load_users_db",
+      "server_rationale_417",
+      "server_rationale_434",
+      "server_save_user_to_db",
+      "tests_test_nlp_and_pwa",
+      "tests_test_nlp_and_pwa_rationale_1",
+      "tests_test_nlp_and_pwa_test_nlp_engine",
+      "tests_test_nlp_and_pwa_test_pwa_assets"
+    ],
+    "36": [
+      "server_lscnaturallanguageparser_build_natural_reply",
+      "server_lsctutorservice",
+      "server_lsctutorservice_init",
+      "server_lsctutorservice_process_message",
+      "server_lsctutorservice_query_ollama_open",
+      "server_rationale_340",
+      "tests_test_natural_language_chat",
+      "tests_test_natural_language_chat_rationale_1",
+      "unittest"
+    ],
+    "37": [
       "app_tools_curate_letter_i_animecurator",
       "app_tools_curate_letter_i_animecurator_extract_trimmed_frames",
       "app_tools_curate_letter_i_animecurator_init",
@@ -597,7 +824,7 @@
       "app_tools_curate_letter_i_main",
       "app_tools_curate_letter_i_rationale_7"
     ],
-    "26": [
+    "38": [
       "app_tools_curate_letter_o_animecurator",
       "app_tools_curate_letter_o_animecurator_extract_trimmed_frames",
       "app_tools_curate_letter_o_animecurator_init",
@@ -607,17 +834,7 @@
       "app_tools_curate_letter_o_main",
       "app_tools_curate_letter_o_rationale_7"
     ],
-    "27": [
-      "server_lsctutorservice",
-      "server_lsctutorservice_init",
-      "server_lsctutorservice_process_message",
-      "server_lsctutorservice_query_ollama_open",
-      "server_rationale_298",
-      "tests_test_natural_language_chat",
-      "tests_test_natural_language_chat_rationale_1",
-      "unittest"
-    ],
-    "28": [
+    "39": [
       "tests_test_auth_split_flow_spec",
       "tests_test_auth_split_flow_spec_assert",
       "tests_test_auth_split_flow_spec_chromium",
@@ -627,7 +844,7 @@
       "tests_test_auth_split_flow_spec_shots",
       "tests_test_auth_split_flow_spec_smalltargets"
     ],
-    "29": [
+    "40": [
       "tests_test_signs_data",
       "tests_test_signs_data_code",
       "tests_test_signs_data_fs",
@@ -637,7 +854,7 @@
       "tests_test_signs_data_signsdatapath",
       "tests_test_signs_data_window"
     ],
-    "30": [
+    "41": [
       "app_js_chat_tutor",
       "app_js_chat_tutor_chattutor",
       "tests_test_client_nlu",
@@ -646,7 +863,7 @@
       "tests_test_client_nlu_lscclientnlu_normalize",
       "tests_test_client_nlu_lscclientnlu_parse"
     ],
-    "31": [
+    "42": [
       "app_js_main",
       "app_js_main_binduievents",
       "app_js_main_dismisssuccessmodal",
@@ -655,7 +872,7 @@
       "app_js_main_selectsign",
       "app_js_main_switchcategory"
     ],
-    "32": [
+    "43": [
       "tests_test_playwright",
       "tests_test_playwright_chromium",
       "tests_test_playwright_fs",
@@ -663,7 +880,7 @@
       "tests_test_playwright_runtests",
       "tests_test_playwright_runtests_assert"
     ],
-    "33": [
+    "44": [
       "tests_test_vision_rules",
       "tests_test_vision_rules_code",
       "tests_test_vision_rules_fs",
@@ -671,138 +888,188 @@
       "tests_test_vision_rules_path",
       "tests_test_vision_rules_requiredbranches"
     ],
-    "34": [
-      "server_lscnaturallanguageparser_build_natural_reply",
-      "server_lscparsedintent",
-      "server_lscparsedintent_init",
-      "server_lscparsedintent_repr",
-      "server_rationale_79"
-    ],
-    "35": [
+    "45": [
       "server_rangefilewrapper",
       "server_rangefilewrapper_close",
       "server_rangefilewrapper_init",
       "server_rangefilewrapper_read",
-      "server_rationale_518"
+      "server_rationale_560"
     ],
-    "36": [
+    "46": [
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_3_brief",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_3_brief_estructura_sem\u00e1ntica_requerida",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_3_brief_objetivo",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_3_brief_restricciones_duras",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_3_brief_task_3_brief_estructura_html_del_contenedor_de_lecci\u00f3n_en_app_index_html"
+    ],
+    "47": [
+      "tests_test_3_screens_flow_spec",
+      "tests_test_3_screens_flow_spec_assert",
+      "tests_test_3_screens_flow_spec_chromium",
+      "tests_test_3_screens_flow_spec_fs",
+      "tests_test_3_screens_flow_spec_path"
+    ],
+    "48": [
       "tests_test_interactive_lesson_flow_spec",
       "tests_test_interactive_lesson_flow_spec_assert",
       "tests_test_interactive_lesson_flow_spec_chromium",
       "tests_test_interactive_lesson_flow_spec_fs",
       "tests_test_interactive_lesson_flow_spec_path"
     ],
-    "37": [
+    "49": [
       "tests_test_mascot_gallery_spec",
       "tests_test_mascot_gallery_spec_assert",
       "tests_test_mascot_gallery_spec_chromium",
       "tests_test_mascot_gallery_spec_fs",
       "tests_test_mascot_gallery_spec_path"
     ],
-    "38": [
+    "50": [
       "tests_verify_exam_arena_flow",
       "tests_verify_exam_arena_flow_assert",
       "tests_verify_exam_arena_flow_chromium",
       "tests_verify_exam_arena_flow_fs",
       "tests_verify_exam_arena_flow_path"
     ],
-    "39": [
+    "51": [
       "tests_verify_exam_arena_no_video",
       "tests_verify_exam_arena_no_video_assert",
       "tests_verify_exam_arena_no_video_chromium",
       "tests_verify_exam_arena_no_video_fs",
       "tests_verify_exam_arena_no_video_path"
     ],
-    "40": [
+    "52": [
+      "server_lscparsedintent",
+      "server_lscparsedintent_init",
+      "server_lscparsedintent_repr",
+      "server_rationale_79"
+    ],
+    "53": [
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_progress",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_progress_pre_flight_checklist",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_progress_sdd_ledger_plan_docs_superpowers_plans_2026_11_06_interactive_lesson_quiz_plan_md",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_progress_tasks_status"
+    ],
+    "54": [
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_2_brief",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_2_brief_objetivo",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_2_brief_requisitos_de_dise\u00f1o",
+      "superpowers_sdd_2026_11_06_interactive_lesson_quiz_task_2_brief_task_2_brief_estilos_dedicados_de_lecci\u00f3n_interactiva_app_css_lesson_css"
+    ],
+    "55": [
       "app_js_avatar_3d",
       "app_js_avatar_3d_avatar3d"
     ],
-    "41": [
+    "56": [
       "app_js_signs_data",
       "app_js_signs_data_signs_data"
     ],
-    "42": [
-      "app_js_trajectory_tracker",
-      "app_js_trajectory_tracker_trajectorytracker"
-    ],
-    "43": [
+    "57": [
       "app_js_video_player",
       "app_js_video_player_videoplayer"
     ],
-    "44": [
+    "58": [
+      "app_sw",
+      "app_sw_assets_to_cache"
+    ],
+    "59": [
       "app_js_tailwind_config"
     ],
-    "45": [
+    "60": [
       "app_tools_update_index_mascot"
     ],
-    "46": [
+    "61": [
       "app_tools_update_landing_assets"
     ]
   },
   "cohesion": {
     "0": 0.05938375350140056,
-    "1": 0.1178743961352657,
-    "2": 0.0625,
-    "3": 0.15632183908045977,
-    "4": 0.09655172413793103,
-    "5": 0.15666666666666668,
-    "6": 0.11666666666666667,
-    "7": 0.14130434782608695,
-    "8": 0.20652173913043478,
-    "9": 0.2077922077922078,
-    "10": 0.1,
-    "11": 0.26666666666666666,
-    "12": 0.15,
-    "13": 0.13333333333333333,
-    "14": 0.23076923076923078,
-    "15": 0.2564102564102564,
-    "16": 0.15384615384615385,
-    "17": 0.16666666666666666,
-    "18": 0.24242424242424243,
-    "19": 0.3090909090909091,
-    "20": 0.23636363636363636,
-    "21": 0.4,
-    "22": 0.2,
-    "23": 0.4222222222222222,
-    "24": 0.2,
-    "25": 0.35714285714285715,
-    "26": 0.35714285714285715,
-    "27": 0.2857142857142857,
-    "28": 0.25,
-    "29": 0.25,
-    "30": 0.3333333333333333,
-    "31": 0.6190476190476191,
-    "32": 0.3333333333333333,
-    "33": 0.3333333333333333,
-    "34": 0.4,
-    "35": 0.4,
-    "36": 0.4,
-    "37": 0.4,
-    "38": 0.4,
-    "39": 0.4,
-    "40": 1.0,
-    "41": 1.0,
-    "42": 1.0,
-    "43": 1.0,
-    "44": 1.0,
-    "45": 1.0,
-    "46": 1.0
+    "1": 0.1147086031452359,
+    "2": 0.10510510510510511,
+    "3": 0.11711711711711711,
+    "4": 0.0957983193277311,
+    "5": 0.12299465240641712,
+    "6": 0.0625,
+    "7": 0.09852216748768473,
+    "8": 0.07407407407407407,
+    "9": 0.07692307692307693,
+    "10": 0.11666666666666667,
+    "11": 0.14130434782608695,
+    "12": 0.20526315789473684,
+    "13": 0.10526315789473684,
+    "14": 0.125,
+    "15": 0.1523809523809524,
+    "16": 0.23076923076923078,
+    "17": 0.14285714285714285,
+    "18": 0.2564102564102564,
+    "19": 0.15384615384615385,
+    "20": 0.15384615384615385,
+    "21": 0.16666666666666666,
+    "22": 0.24242424242424243,
+    "23": 0.3090909090909091,
+    "24": 0.34545454545454546,
+    "25": 0.2727272727272727,
+    "26": 0.4,
+    "27": 0.2,
+    "28": 0.4222222222222222,
+    "29": 0.2,
+    "30": 0.2,
+    "31": 0.2,
+    "32": 0.2,
+    "33": 0.2,
+    "34": 0.2222222222222222,
+    "35": 0.3055555555555556,
+    "36": 0.25,
+    "37": 0.35714285714285715,
+    "38": 0.35714285714285715,
+    "39": 0.25,
+    "40": 0.25,
+    "41": 0.3333333333333333,
+    "42": 0.6190476190476191,
+    "43": 0.3333333333333333,
+    "44": 0.3333333333333333,
+    "45": 0.4,
+    "46": 0.4,
+    "47": 0.4,
+    "48": 0.4,
+    "49": 0.4,
+    "50": 0.4,
+    "51": 0.4,
+    "52": 0.5,
+    "53": 0.5,
+    "54": 0.5,
+    "55": 1.0,
+    "56": 1.0,
+    "57": 1.0,
+    "58": 1.0,
+    "59": 1.0,
+    "60": 1.0,
+    "61": 1.0
   },
   "gods": [
     {
       "id": "app_js_lesson_session_lessonsessioncontroller",
       "label": "LessonSessionController",
-      "degree": 46
+      "degree": 49
     },
     {
       "id": "app_js_blind_exam_controller_blindexamcontroller",
       "label": "BlindExamController",
-      "degree": 30
+      "degree": 38
     },
     {
       "id": "app_js_learning_plan_manager_learningplanmanager",
       "label": "LearningPlanManager",
-      "degree": 23
+      "degree": 34
+    },
+    {
+      "id": "app_js_auth_profile_manager_authprofilemanager",
+      "label": "AuthProfileManager",
+      "degree": 31
+    },
+    {
+      "id": "ref_playwright",
+      "label": "playwright",
+      "degree": 28
     },
     {
       "id": "app_js_auth_service_authservice",
@@ -812,45 +1079,79 @@
     {
       "id": "app_js_camera_manager_cameradevicemanager",
       "label": "CameraDeviceManager",
-      "degree": 22
+      "degree": 23
     },
     {
-      "id": "ref_playwright",
-      "label": "playwright",
-      "degree": 22
-    },
-    {
-      "id": "app_js_auth_profile_manager_authprofilemanager",
-      "label": "AuthProfileManager",
+      "id": "referencias_para_gemini_prompts_gemini_4_prompts_detallados_para_copiar_y_pegar",
+      "label": "4. Prompts Detallados para Copiar y Pegar",
       "degree": 21
     },
     {
       "id": "app_js_view_router_viewrouter",
       "label": "ViewRouter",
-      "degree": 15
+      "degree": 17
     },
     {
       "id": "app_js_landing_landingportalcontroller",
       "label": "LandingPortalController",
-      "degree": 13
-    },
-    {
-      "id": "app_js_auth_page_authpagecontroller",
-      "label": "AuthPageController",
-      "degree": 12
+      "degree": 15
     }
   ],
   "surprises": [
     {
-      "source": "TestLSCNaturalLanguageParser",
-      "target": "LSCNaturalLanguageParser",
+      "source": "4. Arquitectura de Componentes y M\u00f3dulos (POO)",
+      "target": "LSCHandler",
       "source_files": [
-        "tests/test_natural_language_chat.py",
+        "docs/superpowers/specs/2026-11-05-exis-learning-platform-design.md",
         "server.py"
       ],
       "confidence": "INFERRED",
-      "relation": "uses",
-      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+      "relation": "references",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories; bridges separate communities; peripheral node `4. Arquitectura de Componentes y M\u00f3dulos (POO)` unexpectedly reaches hub `LSCHandler`"
+    },
+    {
+      "source": "1. Resumen Ejecutivo",
+      "target": "LessonSessionController",
+      "source_files": [
+        ".superpowers/sdd/2026-11-06-interactive-lesson-quiz/task-1-report.md",
+        "app/js/lesson-session.js"
+      ],
+      "confidence": "INFERRED",
+      "relation": "references",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories; bridges separate communities; peripheral node `1. Resumen Ejecutivo` unexpectedly reaches hub `LessonSessionController`"
+    },
+    {
+      "source": "Task 1: Landing Page Futurista y Portal Auth (`app/landing.html`, `app/css/landing.css`, `app/js/landing.js`)",
+      "target": "LandingPortalController",
+      "source_files": [
+        "docs/superpowers/plans/2026-11-05-exis-3-screens-duolingo-flow-plan.md",
+        "app/js/landing.js"
+      ],
+      "confidence": "INFERRED",
+      "relation": "references",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories; bridges separate communities; peripheral node `Task 1: Landing Page Futurista y Portal Auth (`app/landing.html`, `app/css/landing.css`, `app/js/landing.js`)` unexpectedly reaches hub `LandingPortalController`"
+    },
+    {
+      "source": "EXIS 3-Screen Flow: Futuristic Landing Page, Duolingo-Style Path View & Dedicated Practice Studio Plan",
+      "target": "LearningPlanManager",
+      "source_files": [
+        "docs/superpowers/plans/2026-11-05-exis-3-screens-duolingo-flow-plan.md",
+        "app/js/learning-plan-manager.js"
+      ],
+      "confidence": "INFERRED",
+      "relation": "references",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "EXIS Learning Platform, AI Paths & Blind Exam Mode Implementation Plan",
+      "target": "LearningPlanManager",
+      "source_files": [
+        "docs/superpowers/plans/2026-11-05-exis-learning-platform-plan.md",
+        "app/js/learning-plan-manager.js"
+      ],
+      "confidence": "INFERRED",
+      "relation": "references",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (code \u2194 doc); connects across different repos/directories; bridges separate communities"
     }
   ],
   "tokens": {

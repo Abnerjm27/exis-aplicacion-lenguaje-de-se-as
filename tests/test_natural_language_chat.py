@@ -14,19 +14,25 @@ from server import LSCNaturalLanguageParser, LSCTutorService, tutor_service
 
 class TestLSCNaturalLanguageParser(unittest.TestCase):
     def test_greeting_with_letter_request(self):
-        """Caso 1: 'hola quiero aprender a' debe identificar la letra A y preámbulo hola, no la seña HOLA."""
-        parsed = LSCNaturalLanguageParser.parse("hola quiero aprender a")
+        """Caso 1: 'hola quiero aprender la letra a' debe identificar la letra A y preámbulo hola, no la seña HOLA."""
+        parsed = LSCNaturalLanguageParser.parse("hola quiero aprender la letra a")
         self.assertEqual(parsed.intent, "LEARN_SIGN")
         self.assertEqual(parsed.target_sign, "A")
         self.assertEqual(parsed.greeting_preamble, "hola")
         self.assertFalse(parsed.is_clarification)
 
     def test_clarification_with_letter_request(self):
-        """Caso 2: 'no quiero aprender a' debe identificar la letra A como corrección/aclaración."""
-        parsed = LSCNaturalLanguageParser.parse("no quiero aprender a")
+        """Caso 2: aclaración con alternativa 'no quiero aprender la a, prefiero la c'."""
+        parsed = LSCNaturalLanguageParser.parse("no quiero la a, prefiero la c")
         self.assertEqual(parsed.intent, "LEARN_SIGN")
-        self.assertEqual(parsed.target_sign, "A")
+        self.assertEqual(parsed.target_sign, "C")
         self.assertTrue(parsed.is_clarification)
+
+    def test_open_learning_intro(self):
+        """Caso: 'hola quiero aprender a' es una frase abierta/incompleta que debe invitar a elegir."""
+        parsed = LSCNaturalLanguageParser.parse("hola quiero aprender a")
+        self.assertEqual(parsed.intent, "OPEN_LEARNING_INTRO")
+        self.assertEqual(parsed.greeting_preamble, "hola")
 
     def test_contrast_rejection(self):
         """Caso 3: 'no quiero la a, prefiero la c' debe seleccionar la seña preferida (C)."""
@@ -91,6 +97,19 @@ class TestLSCNaturalLanguageParser(unittest.TestCase):
 
 class TestLiveChatAPI(unittest.TestCase):
     API_URL = "http://localhost:8000/api/chat"
+
+    @classmethod
+    def setUpClass(cls):
+        try:
+            req = urllib.request.Request("http://localhost:8000/api/users")
+            with urllib.request.urlopen(req, timeout=0.8) as resp:
+                cls.server_available = (resp.status == 200)
+        except Exception:
+            cls.server_available = False
+
+    def setUp(self):
+        if not getattr(self, "server_available", False):
+            self.skipTest("Servidor HTTP local en http://localhost:8000 no activo. Saltando test en vivo.")
 
     def _send_chat(self, msg):
         req = urllib.request.Request(

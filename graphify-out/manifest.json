@@ -1,488 +1,3404 @@
 {
   ".codex/hooks.json": {
-    "mtime": 1793675076.2047598,
-    "seen": 1793933575.611699,
+    "mtime": 1794353694.8478527,
+    "seen": 1794354409.1535788,
     "ast_hash": "639cbb2ba9ff31dc1d12bec3d6b1a143",
     "semantic_hash": "639cbb2ba9ff31dc1d12bec3d6b1a143"
   },
   "app/data/users_db.json": {
-    "mtime": 1794008250.3075101,
-    "seen": 1794009137.4560678,
-    "ast_hash": "c54e288f74dc8653b93ed10440f6f08c",
-    "semantic_hash": "c54e288f74dc8653b93ed10440f6f08c"
+    "mtime": 1794353694.9228928,
+    "seen": 1794354409.1535947,
+    "ast_hash": "0ae1f0178ec11148fc65b97c0582a883",
+    "semantic_hash": ""
   },
   "app/js/auth-profile-manager.js": {
-    "mtime": 1793932798.3228874,
-    "seen": 1793933575.6117175,
-    "ast_hash": "65af4fac56530676f27a59571baca590",
-    "semantic_hash": "65af4fac56530676f27a59571baca590"
+    "mtime": 1794353695.4844077,
+    "seen": 1794354409.1536076,
+    "ast_hash": "7e3c4694ab7883a16dd66cbe6322c919",
+    "semantic_hash": ""
   },
   "app/js/avatar-3d.js": {
-    "mtime": 1793259297.5110998,
-    "seen": 1793933575.6117213,
-    "ast_hash": "644e2da065abce9db79fd56edc3928fe",
-    "semantic_hash": "644e2da065abce9db79fd56edc3928fe"
+    "mtime": 1794353695.4896088,
+    "seen": 1794354409.1536176,
+    "ast_hash": "5ff6117210d9934efa64bc90e7990c71",
+    "semantic_hash": ""
   },
   "app/js/blind-exam-controller.js": {
-    "mtime": 1794010442.0693593,
-    "seen": 1794010568.1545644,
-    "ast_hash": "e3ce63be865069cf3389f2a3233de99b",
-    "semantic_hash": "e3ce63be865069cf3389f2a3233de99b"
+    "mtime": 1794353695.4919071,
+    "seen": 1794354409.1536226,
+    "ast_hash": "89e7e05ab18d90a5f2959931e3527cbd",
+    "semantic_hash": ""
   },
   "app/js/camera-manager.js": {
-    "mtime": 1794009798.670074,
-    "seen": 1794010120.946894,
+    "mtime": 1794353695.4941444,
+    "seen": 1794354409.1536272,
     "ast_hash": "4292477d1f381d02993ef893de450e6f",
     "semantic_hash": "4292477d1f381d02993ef893de450e6f"
   },
   "app/js/chat-tutor.js": {
-    "mtime": 1794011981.52299,
-    "seen": 1794012146.6349719,
-    "ast_hash": "aeff13e066d0f6186561fc74eabbb0f9",
-    "semantic_hash": "aeff13e066d0f6186561fc74eabbb0f9"
+    "mtime": 1794353695.495851,
+    "seen": 1794354409.1536317,
+    "ast_hash": "b971b45b1d8bd64ef79dff76da04cace",
+    "semantic_hash": "b971b45b1d8bd64ef79dff76da04cace"
   },
   "app/js/learning-plan-manager.js": {
-    "mtime": 1794006690.1266952,
-    "seen": 1794006844.1977293,
-    "ast_hash": "d4f7fb87d2e176de848c03c761b0d1ad",
-    "semantic_hash": "d4f7fb87d2e176de848c03c761b0d1ad"
+    "mtime": 1794353695.5026815,
+    "seen": 1794354409.1536448,
+    "ast_hash": "afe948dfd406b349578257b44355b756",
+    "semantic_hash": ""
   },
   "app/js/main.js": {
-    "mtime": 1794007832.7771752,
-    "seen": 1794009137.4630382,
+    "mtime": 1794353695.507159,
+    "seen": 1794354409.1536531,
     "ast_hash": "18b907c3e8e27ea95561a546ecee33ff",
     "semantic_hash": "18b907c3e8e27ea95561a546ecee33ff"
   },
   "app/js/signs-data.js": {
-    "mtime": 1793671417.7641983,
-    "seen": 1793933575.6117399,
-    "ast_hash": "9da3ca9b65de40b0d609b58bdafa36c6",
-    "semantic_hash": "9da3ca9b65de40b0d609b58bdafa36c6"
+    "mtime": 1794353695.5125496,
+    "seen": 1794354409.1536658,
+    "ast_hash": "347fcd76e2c91423fd862aca1d170548",
+    "semantic_hash": ""
   },
   "app/js/trajectory-tracker.js": {
-    "mtime": 1793666651.3774981,
-    "seen": 1793933575.611743,
-    "ast_hash": "828501045efaa53cf82585c0abac71da",
-    "semantic_hash": "828501045efaa53cf82585c0abac71da"
+    "mtime": 1794353695.5159614,
+    "seen": 1794354409.1536746,
+    "ast_hash": "397b274fb783d9e7aaf294b4a21ab1b2",
+    "semantic_hash": ""
   },
   "app/js/video-player.js": {
-    "mtime": 1794007770.332924,
-    "seen": 1794009137.4664776,
-    "ast_hash": "181a4a38150a3f4959fab4580d4fcc5e",
-    "semantic_hash": "181a4a38150a3f4959fab4580d4fcc5e"
+    "mtime": 1794353695.5169613,
+    "seen": 1794354409.1536787,
+    "ast_hash": "212f0f3223626127aa9446a058d780d6",
+    "semantic_hash": "212f0f3223626127aa9446a058d780d6"
   },
   "app/js/vision-evaluator.js": {
-    "mtime": 1794007898.133272,
-    "seen": 1794009137.4664893,
-    "ast_hash": "9ca8fb44485547c8430bdda6aa6514e1",
-    "semantic_hash": "9ca8fb44485547c8430bdda6aa6514e1"
+    "mtime": 1794353695.5204687,
+    "seen": 1794354409.1536863,
+    "ast_hash": "3024c1da581959ff32fcba1c392aad6e",
+    "semantic_hash": ""
   },
   "app/tools/check_console.js": {
-    "mtime": 1793666651.648558,
-    "seen": 1793933575.6117525,
+    "mtime": 1794353696.1556947,
+    "seen": 1794354409.153735,
     "ast_hash": "b6c36f232f49a43fffb01aebdd51e12a",
     "semantic_hash": "b6c36f232f49a43fffb01aebdd51e12a"
   },
   "app/tools/copy_samples.py": {
-    "mtime": 1793666651.650257,
-    "seen": 1793933575.6117556,
+    "mtime": 1794353696.157382,
+    "seen": 1794354409.1537392,
     "ast_hash": "dde086f0c52c3c66dadd3165e3c78a9a",
     "semantic_hash": "dde086f0c52c3c66dadd3165e3c78a9a"
   },
   "app/tools/curate_anime_videos.py": {
-    "mtime": 1793666651.6525805,
-    "seen": 1793933575.611759,
+    "mtime": 1794353696.1602564,
+    "seen": 1794354409.1537435,
     "ast_hash": "9a75c862e730fc0a2aa9b6f5b7d9ce23",
     "semantic_hash": "9a75c862e730fc0a2aa9b6f5b7d9ce23"
   },
   "app/tools/curate_letter_i.py": {
-    "mtime": 1793666651.6543732,
-    "seen": 1793933575.6117618,
+    "mtime": 1794353696.163196,
+    "seen": 1794354409.153747,
     "ast_hash": "24132dd93c0d2769e98ac23f5ab67480",
     "semantic_hash": "24132dd93c0d2769e98ac23f5ab67480"
   },
   "app/tools/curate_letter_o.py": {
-    "mtime": 1793666651.6555026,
-    "seen": 1793933575.6117647,
+    "mtime": 1794353696.1672504,
+    "seen": 1794354409.1537514,
     "ast_hash": "166faa9e349f3ac188f61170368442ec",
     "semantic_hash": "166faa9e349f3ac188f61170368442ec"
   },
   "app/tools/curate_tardes_gustar.py": {
-    "mtime": 1793666651.657233,
-    "seen": 1793933575.6117678,
+    "mtime": 1794353696.169621,
+    "seen": 1794354409.1537552,
     "ast_hash": "84af2caddc12ca2bfdac9518f8ea909d",
     "semantic_hash": "84af2caddc12ca2bfdac9518f8ea909d"
   },
   "app/tools/generate_batch_5_signs.py": {
-    "mtime": 1793671285.3275573,
-    "seen": 1793933575.6117709,
-    "ast_hash": "7b25b863cf7a1dafbb8529c1dd6a5925",
-    "semantic_hash": "7b25b863cf7a1dafbb8529c1dd6a5925"
+    "mtime": 1794353696.1743956,
+    "seen": 1794354409.1537633,
+    "ast_hash": "591f4a339347cdd6b5b243f3a9529d16",
+    "semantic_hash": ""
   },
   "app/tools/generate_expansion_signs.py": {
-    "mtime": 1793666651.659058,
-    "seen": 1793933575.611774,
+    "mtime": 1794353696.1761453,
+    "seen": 1794354409.153767,
     "ast_hash": "b128dd85608f8ff58083dac7aa9a5269",
     "semantic_hash": "b128dd85608f8ff58083dac7aa9a5269"
   },
   "app/tools/generate_videos.py": {
-    "mtime": 1793284779.726396,
-    "seen": 1793933575.611777,
-    "ast_hash": "ce1144d690073530b47b26e53d833831",
-    "semantic_hash": "ce1144d690073530b47b26e53d833831"
+    "mtime": 1794353696.177818,
+    "seen": 1794354409.1537707,
+    "ast_hash": "382aef741855b86815a4e2b12f1b6ed3",
+    "semantic_hash": ""
   },
   "app/tools/legacy_processors/process_anime_dias.py": {
-    "mtime": 1793666651.6629748,
-    "seen": 1793933575.6117811,
+    "mtime": 1794353696.1800635,
+    "seen": 1794354409.1537755,
     "ast_hash": "09588f7dc073268ce8322b4016f19898",
     "semantic_hash": "09588f7dc073268ce8322b4016f19898"
   },
   "app/tools/legacy_processors/process_anime_hola.py": {
-    "mtime": 1793666651.6654088,
-    "seen": 1793933575.6117842,
+    "mtime": 1794353696.183046,
+    "seen": 1794354409.1537795,
     "ast_hash": "02590bb04274c1f0f309b619cc04f259",
     "semantic_hash": "02590bb04274c1f0f309b619cc04f259"
   },
   "app/tools/legacy_processors/process_anime_noches.py": {
-    "mtime": 1793666651.668318,
-    "seen": 1793933575.611787,
+    "mtime": 1794353696.1853826,
+    "seen": 1794354409.1537836,
     "ast_hash": "df11860d8d6c4de0ae06f3ffe76ca0f7",
     "semantic_hash": "df11860d8d6c4de0ae06f3ffe76ca0f7"
   },
   "app/tools/legacy_processors/process_anime_nombre.py": {
-    "mtime": 1793666651.6709173,
-    "seen": 1793933575.6117902,
+    "mtime": 1794353696.1877525,
+    "seen": 1794354409.1537876,
     "ast_hash": "892175c0ff0005a7ac1611d394755782",
     "semantic_hash": "892175c0ff0005a7ac1611d394755782"
   },
   "app/tools/legacy_processors/process_anime_yo.py": {
-    "mtime": 1793666651.6732173,
-    "seen": 1793933575.611793,
+    "mtime": 1794353696.1895456,
+    "seen": 1794354409.1537912,
     "ast_hash": "019dea9ea815e3f14069a0111eaac1e1",
     "semantic_hash": "019dea9ea815e3f14069a0111eaac1e1"
   },
   "app/tools/mocap_extractor.py": {
-    "mtime": 1793258723.465073,
-    "seen": 1793933575.6117964,
-    "ast_hash": "0384c0d71bae189ead9274f0ab33011b",
-    "semantic_hash": "0384c0d71bae189ead9274f0ab33011b"
+    "mtime": 1794353696.1912656,
+    "seen": 1794354409.1537948,
+    "ast_hash": "f70d280bad6711f8237739912c72f823",
+    "semantic_hash": ""
   },
   "app/tools/process_b_video.py": {
-    "mtime": 1793666651.674975,
-    "seen": 1793933575.6117992,
+    "mtime": 1794353696.4913726,
+    "seen": 1794354409.1537986,
     "ast_hash": "37303c5cf2ffc0ca8a01dad6a84eda3c",
     "semantic_hash": "37303c5cf2ffc0ca8a01dad6a84eda3c"
   },
   "app/tools/process_buenos_video.py": {
-    "mtime": 1793666651.6763077,
-    "seen": 1793933575.611802,
+    "mtime": 1794353696.4933903,
+    "seen": 1794354409.1538036,
     "ast_hash": "49628c2e6e4c2cf8c8262c68b2aac7b9",
     "semantic_hash": "49628c2e6e4c2cf8c8262c68b2aac7b9"
   },
   "app/tools/process_c_video.py": {
-    "mtime": 1793666651.678416,
-    "seen": 1793933575.611805,
+    "mtime": 1794353696.4963882,
+    "seen": 1794354409.1538072,
     "ast_hash": "3ffd0f6386fceffb943e1d2697b8a8c7",
     "semantic_hash": "3ffd0f6386fceffb943e1d2697b8a8c7"
   },
   "app/tools/process_hola_video.py": {
-    "mtime": 1793666651.6814668,
-    "seen": 1793933575.6118078,
+    "mtime": 1794353696.498754,
+    "seen": 1794354409.1538112,
     "ast_hash": "09d454a9fceae1585a413a96d82321d1",
     "semantic_hash": "09d454a9fceae1585a413a96d82321d1"
   },
   "app/tools/process_new_anime_videos.py": {
-    "mtime": 1793666651.6836574,
-    "seen": 1793933575.611811,
+    "mtime": 1794353696.499753,
+    "seen": 1794354409.1538155,
     "ast_hash": "2778e8f71610dbbb9c675f7980a0a2c9",
     "semantic_hash": "2778e8f71610dbbb9c675f7980a0a2c9"
   },
   "app/tools/process_vl_dias_videos.py": {
-    "mtime": 1793666651.6855059,
-    "seen": 1793933575.6118138,
+    "mtime": 1794353696.502749,
+    "seen": 1794354409.1538332,
     "ast_hash": "b942f8594d1a673ea38db718a424bacc",
     "semantic_hash": "b942f8594d1a673ea38db718a424bacc"
   },
   "app/tools/setup_offline_assets.py": {
-    "mtime": 1793672651.7953093,
-    "seen": 1793933575.6118166,
+    "mtime": 1794353696.5062826,
+    "seen": 1794354409.1538382,
     "ast_hash": "d88a29b504d39e06a5dc4617e0d082ad",
     "semantic_hash": "d88a29b504d39e06a5dc4617e0d082ad"
   },
   "app/tools/verify_videos.py": {
-    "mtime": 1793284950.8813283,
-    "seen": 1793933575.6118195,
-    "ast_hash": "eb4eac3cbe6d075c7cc6d37b1adf9217",
-    "semantic_hash": "eb4eac3cbe6d075c7cc6d37b1adf9217"
+    "mtime": 1794353696.513698,
+    "seen": 1794354409.1538541,
+    "ast_hash": "8c780f449baaa214e6c33b89f3fc2382",
+    "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1793666652.4818673,
-    "seen": 1793933575.6118226,
-    "ast_hash": "f81b8427f2341a9985f2300710870416",
-    "semantic_hash": "f81b8427f2341a9985f2300710870416"
+    "mtime": 1794354295.1014328,
+    "seen": 1794354409.1540692,
+    "ast_hash": "ee875f23ba0dc22b08466b08347d649d",
+    "semantic_hash": ""
   },
   "server.py": {
-    "mtime": 1794012439.3232093,
-    "seen": 1794012520.5542696,
-    "ast_hash": "e8971c7ed0fe13bf1260cc8f2a9819a1",
-    "semantic_hash": "e8971c7ed0fe13bf1260cc8f2a9819a1"
+    "mtime": 1794356011.2076101,
+    "seen": 1794356124.6112807,
+    "ast_hash": "5fe9501dda0603ea5e79f2cf1e43cfcb",
+    "semantic_hash": ""
   },
   "tests/backend_api_plan_users.js": {
-    "mtime": 1793932562.5570886,
-    "seen": 1793933575.6118293,
-    "ast_hash": "0faef39f21a06a86f86fad2593271ae9",
-    "semantic_hash": "0faef39f21a06a86f86fad2593271ae9"
+    "mtime": 1794353698.3213289,
+    "seen": 1794354409.1540775,
+    "ast_hash": "1b1ae9ae453a4981e6f39a52e2c64b48",
+    "semantic_hash": ""
   },
   "tests/learning_platform_and_exam.spec.js": {
-    "mtime": 1793936070.8755188,
-    "seen": 1793936514.0735838,
-    "ast_hash": "5f8e817d2a0227e1f939d640336506c5",
-    "semantic_hash": "5f8e817d2a0227e1f939d640336506c5"
+    "mtime": 1794353698.3232052,
+    "seen": 1794354409.1540813,
+    "ast_hash": "b7541b519606138ed31455f01f466b24",
+    "semantic_hash": ""
   },
   "tests/test_15_signs.js": {
-    "mtime": 1793666652.5982394,
-    "seen": 1793933575.6118357,
+    "mtime": 1794353698.7222528,
+    "seen": 1794354409.154089,
     "ast_hash": "d93a1262ce663c5c2a11ede186fbf307",
     "semantic_hash": "d93a1262ce663c5c2a11ede186fbf307"
   },
   "tests/test_20_signs.js": {
-    "mtime": 1793671879.0423172,
-    "seen": 1793933575.611839,
-    "ast_hash": "04656795ed374f390ffdd30190161df1",
-    "semantic_hash": "04656795ed374f390ffdd30190161df1"
+    "mtime": 1794353698.7246268,
+    "seen": 1794354409.154093,
+    "ast_hash": "8e94efa2c966afc7b9bf539a05eb0447",
+    "semantic_hash": ""
   },
   "tests/test_batch_5_media.py": {
-    "mtime": 1793671242.0448425,
-    "seen": 1793933575.6118426,
-    "ast_hash": "633cb5b77e562ae832ef16b8f13ba6af",
-    "semantic_hash": "633cb5b77e562ae832ef16b8f13ba6af"
+    "mtime": 1794353698.730294,
+    "seen": 1794354409.1541045,
+    "ast_hash": "4a086c58db114befcb85c7b0721fbcc3",
+    "semantic_hash": ""
   },
   "tests/test_console_check.js": {
-    "mtime": 1793933432.7331057,
-    "seen": 1793933575.6118464,
-    "ast_hash": "30aef552d8383f2430cca5f8cda51357",
-    "semantic_hash": "30aef552d8383f2430cca5f8cda51357"
+    "mtime": 1794353698.740391,
+    "seen": 1794354409.1541252,
+    "ast_hash": "94ef6a5aab4ac4005a5be17cb6e2d5d4",
+    "semantic_hash": ""
   },
   "tests/test_letter_i_anime.js": {
-    "mtime": 1793666652.6010773,
-    "seen": 1793933575.6118495,
+    "mtime": 1794353698.753763,
+    "seen": 1794354409.1541536,
     "ast_hash": "8803b89deaef9860cb308733f71d8153",
     "semantic_hash": "8803b89deaef9860cb308733f71d8153"
   },
   "tests/test_letter_o_anime.js": {
-    "mtime": 1793666652.6028726,
-    "seen": 1793933575.6118522,
+    "mtime": 1794353698.754979,
+    "seen": 1794354409.1541576,
     "ast_hash": "14c48286116f9205e431dcd4e9e451a9",
     "semantic_hash": "14c48286116f9205e431dcd4e9e451a9"
   },
   "tests/test_live_hand_inference.js": {
-    "mtime": 1793673073.629948,
-    "seen": 1793933575.6118555,
-    "ast_hash": "4a6497079aae7d30851c13630eff07dc",
-    "semantic_hash": "4a6497079aae7d30851c13630eff07dc"
+    "mtime": 1794353698.7574701,
+    "seen": 1794354409.1541612,
+    "ast_hash": "143ef08476a24db2b71eca988e84bcb8",
+    "semantic_hash": ""
   },
   "tests/test_offline_mode.js": {
-    "mtime": 1793666652.6051166,
-    "seen": 1793933575.6118586,
+    "mtime": 1794353698.765414,
+    "seen": 1794354409.154176,
     "ast_hash": "70f61d0c8990c7f5aa160712d45e4f8c",
     "semantic_hash": "70f61d0c8990c7f5aa160712d45e4f8c"
   },
   "tests/test_pause_and_overlap.js": {
-    "mtime": 1793666652.6073492,
-    "seen": 1793933575.6118615,
+    "mtime": 1794353698.7687502,
+    "seen": 1794354409.154184,
     "ast_hash": "c79b30550e9bf4a97ee26b2615b4d79c",
     "semantic_hash": "c79b30550e9bf4a97ee26b2615b4d79c"
   },
   "tests/test_playwright.js": {
-    "mtime": 1793992103.7687638,
-    "seen": 1793992373.5774589,
+    "mtime": 1794353698.7710245,
+    "seen": 1794354409.1541877,
     "ast_hash": "4f40301992b50c0d6debc0a9bc095d3d",
     "semantic_hash": "4f40301992b50c0d6debc0a9bc095d3d"
   },
   "tests/test_prompts_doc.py": {
-    "mtime": 1793671548.3543205,
-    "seen": 1793933575.6118674,
-    "ast_hash": "0d40df78e72d0a4b557292a64ce4d129",
-    "semantic_hash": "0d40df78e72d0a4b557292a64ce4d129"
+    "mtime": 1794353698.772698,
+    "seen": 1794354409.1541917,
+    "ast_hash": "70e894d5faf813d0d010782c650bdcde",
+    "semantic_hash": ""
   },
   "tests/test_signs_data.js": {
-    "mtime": 1793671371.1887164,
-    "seen": 1793933575.6118703,
-    "ast_hash": "f71f2626926340c9df63212da73f2609",
-    "semantic_hash": "f71f2626926340c9df63212da73f2609"
+    "mtime": 1794353698.7754097,
+    "seen": 1794354409.154199,
+    "ast_hash": "442bc75c0b7cf3c3e10b7daf31699449",
+    "semantic_hash": ""
   },
   "tests/test_tardes_gustar_anime.js": {
-    "mtime": 1793666652.611353,
-    "seen": 1793933575.6118734,
+    "mtime": 1794353698.7776976,
+    "seen": 1794354409.154203,
     "ast_hash": "d6d0fc9e46a15a79d14006a589258d85",
     "semantic_hash": "d6d0fc9e46a15a79d14006a589258d85"
   },
   "tests/test_vision_rules.js": {
-    "mtime": 1793671458.7539482,
-    "seen": 1793933575.611876,
-    "ast_hash": "eb8cc90a7a5b51d0a2e239e393640be3",
-    "semantic_hash": "eb8cc90a7a5b51d0a2e239e393640be3"
+    "mtime": 1794353698.7801938,
+    "seen": 1794354409.1542068,
+    "ast_hash": "f859c8e8ef60cd0ef797573a5b426b74",
+    "semantic_hash": ""
   },
   "app/js/landing.js": {
-    "mtime": 1793990984.5199387,
-    "seen": 1793991197.5339153,
-    "ast_hash": "be4291c509982949bef05a02aded885f",
-    "semantic_hash": "be4291c509982949bef05a02aded885f"
+    "mtime": 1794353695.500997,
+    "seen": 1794354409.1536407,
+    "ast_hash": "eaf227fe988ece5ac39df5604e6dccdb",
+    "semantic_hash": ""
   },
   "app/js/view-router.js": {
-    "mtime": 1794007845.7583334,
-    "seen": 1794009137.4664848,
-    "ast_hash": "7d0c2eb906e5be5a907db3989f589d19",
-    "semantic_hash": "7d0c2eb906e5be5a907db3989f589d19"
+    "mtime": 1794353695.5179622,
+    "seen": 1794354409.1536822,
+    "ast_hash": "2c3dd4fa271d7f8aa95b7ca97c92ff27",
+    "semantic_hash": ""
   },
   "tests/test_3_screens_flow.spec.js": {
-    "mtime": 1793998001.0850067,
-    "seen": 1793998080.703516,
-    "ast_hash": "41488ffbc138ad534eae0fabaa76e3db",
-    "semantic_hash": "41488ffbc138ad534eae0fabaa76e3db"
+    "mtime": 1794353698.7257097,
+    "seen": 1794354409.1540968,
+    "ast_hash": "529598478aeef5057d69ecc3dc19d35e",
+    "semantic_hash": ""
   },
   "app/js/auth-page.js": {
-    "mtime": 1793990852.0722492,
-    "seen": 1793991197.525731,
-    "ast_hash": "9088510b86157495819e57b5c1018ec1",
-    "semantic_hash": "9088510b86157495819e57b5c1018ec1"
+    "mtime": 1794353695.4815784,
+    "seen": 1794354409.1536026,
+    "ast_hash": "a6a2a3028586315283d34868c56d91a2",
+    "semantic_hash": ""
   },
   "app/js/auth-service.js": {
-    "mtime": 1793990844.5171883,
-    "seen": 1793991197.5265343,
-    "ast_hash": "15e96c1222885dc17e9f589da3092d52",
-    "semantic_hash": "15e96c1222885dc17e9f589da3092d52"
+    "mtime": 1794353695.4873326,
+    "seen": 1794354409.1536129,
+    "ast_hash": "d211eeb984db5f40cb6c1539b62d193f",
+    "semantic_hash": ""
   },
   "app/js/onboarding.js": {
-    "mtime": 1793990852.3814707,
-    "seen": 1793991197.5357738,
-    "ast_hash": "62dfcecd41cbcd59000386c4cbdd3977",
-    "semantic_hash": "62dfcecd41cbcd59000386c4cbdd3977"
+    "mtime": 1794353695.5096674,
+    "seen": 1794354409.1536572,
+    "ast_hash": "667ad36aa05b254d24aab6bde228aba2",
+    "semantic_hash": ""
   },
   "tests/test_auth_split_flow.spec.js": {
-    "mtime": 1793991007.6182537,
-    "seen": 1793991197.6008039,
-    "ast_hash": "e44b43a7df0cf49ebc346db530ea43c2",
-    "semantic_hash": "e44b43a7df0cf49ebc346db530ea43c2"
+    "mtime": 1794353698.728038,
+    "seen": 1794354409.154101,
+    "ast_hash": "1d3c050cb02b11bd9f17fe515a2d1aac",
+    "semantic_hash": ""
   },
   "app/js/tailwind-config.js": {
-    "mtime": 1793995308.8010817,
-    "seen": 1793995861.3602986,
-    "ast_hash": "a3c0f9e1b9657c6a8240142a242ad4f2",
-    "semantic_hash": "a3c0f9e1b9657c6a8240142a242ad4f2"
+    "mtime": 1794353695.5136516,
+    "seen": 1794354409.15367,
+    "ast_hash": "3a6a93beaf0d06d8824f581895e263ad",
+    "semantic_hash": ""
   },
   "app/js/gallery.js": {
-    "mtime": 1793994651.8925521,
-    "seen": 1793994875.500555,
-    "ast_hash": "97410a58af4c46afe3c7068bac8bc52e",
-    "semantic_hash": "97410a58af4c46afe3c7068bac8bc52e"
+    "mtime": 1794353695.4987352,
+    "seen": 1794354409.153636,
+    "ast_hash": "75e191a5897c50048d8c7d74e5841e00",
+    "semantic_hash": ""
   },
   "app/tools/update_onboarding_mascot.py": {
-    "mtime": 1793994802.251621,
-    "seen": 1793994875.5203338,
-    "ast_hash": "4f135a4b23e21c57856796afc7679a5a",
-    "semantic_hash": "4f135a4b23e21c57856796afc7679a5a"
+    "mtime": 1794353696.511928,
+    "seen": 1794354409.1538503,
+    "ast_hash": "5cdd24e495cda5325fd5aad16d62a1cb",
+    "semantic_hash": ""
   },
   "tests/test_mascot_gallery.spec.js": {
-    "mtime": 1793994698.3821313,
-    "seen": 1793994875.529108,
-    "ast_hash": "5a11605b6fe5db90f70dd7d73ea70c3c",
-    "semantic_hash": "5a11605b6fe5db90f70dd7d73ea70c3c"
+    "mtime": 1794353698.7597442,
+    "seen": 1794354409.154165,
+    "ast_hash": "cfc6a764dd2bec2e131071024bd6ede5",
+    "semantic_hash": ""
   },
   "app/tools/download_fonts.py": {
-    "mtime": 1793995244.9683924,
-    "seen": 1793995861.3666975,
-    "ast_hash": "6fcd6da7b8cb56dc1bd23fbe1bcf3b87",
-    "semantic_hash": "6fcd6da7b8cb56dc1bd23fbe1bcf3b87"
+    "mtime": 1794353696.1720057,
+    "seen": 1794354409.1537595,
+    "ast_hash": "4fb2917705cfbc10308b577e5e6c47ca",
+    "semantic_hash": ""
   },
   "app/tools/update_index_mascot.py": {
-    "mtime": 1793995581.306585,
-    "seen": 1793995861.378294,
-    "ast_hash": "45064c9126a2d5a06084adeacc15666f",
-    "semantic_hash": "45064c9126a2d5a06084adeacc15666f"
+    "mtime": 1794353696.5079358,
+    "seen": 1794354409.153842,
+    "ast_hash": "9db91a736d7e3b7b3ce942ae1299804b",
+    "semantic_hash": ""
   },
   "app/tools/update_landing_assets.py": {
-    "mtime": 1793995555.1753204,
-    "seen": 1793995861.3783045,
-    "ast_hash": "b2ec76700c828c13d8755a8c557ac309",
-    "semantic_hash": "b2ec76700c828c13d8755a8c557ac309"
+    "mtime": 1794353696.5102265,
+    "seen": 1794354409.1538463,
+    "ast_hash": "c8cbc83e8627d8fa542dc534fb1d2936",
+    "semantic_hash": ""
   },
   "tests/take_all_screenshots.js": {
-    "mtime": 1793995737.5487678,
-    "seen": 1793995861.382637,
-    "ast_hash": "ed323533537de4ade55ae09b9580af38",
-    "semantic_hash": "ed323533537de4ade55ae09b9580af38"
+    "mtime": 1794353698.7210865,
+    "seen": 1794354409.1540852,
+    "ast_hash": "dabf88701d5eeef1cf3a4812bada4022",
+    "semantic_hash": ""
   },
   "app/js/lesson-session.js": {
-    "mtime": 1794007809.1907527,
-    "seen": 1794009137.4630284,
-    "ast_hash": "36b4a70cfbc774211a2fad001a0f094c",
-    "semantic_hash": "36b4a70cfbc774211a2fad001a0f094c"
+    "mtime": 1794353695.504896,
+    "seen": 1794354409.1536486,
+    "ast_hash": "1daf819ebc71501219894c8945a0f63a",
+    "semantic_hash": ""
   },
   "tests/test_interactive_lesson_flow.spec.js": {
-    "mtime": 1793997833.6714964,
-    "seen": 1793998080.705438,
-    "ast_hash": "5e5f6f0297aa8a6c88b3ae37ec338c34",
-    "semantic_hash": "5e5f6f0297aa8a6c88b3ae37ec338c34"
+    "mtime": 1794353698.7486777,
+    "seen": 1794354409.1541455,
+    "ast_hash": "0703436bed7a372fd9a9fce8b6eb2fdb",
+    "semantic_hash": ""
   },
   "tests/test_lesson_session_unit.js": {
-    "mtime": 1794006394.1868243,
-    "seen": 1794006844.278948,
-    "ast_hash": "94607acfa8caed66c9458d176e31d40e",
-    "semantic_hash": "94607acfa8caed66c9458d176e31d40e"
+    "mtime": 1794353698.7509317,
+    "seen": 1794354409.1541493,
+    "ast_hash": "7268cb1a4d5268e3dacd3ba70ef0ca04",
+    "semantic_hash": ""
   },
   "tests/verify_video_and_camera_lesson.js": {
-    "mtime": 1794005529.592228,
-    "seen": 1794005613.3215625,
-    "ast_hash": "7b7e51b1e6a6ce0a03aedf2aad5eff87",
-    "semantic_hash": "7b7e51b1e6a6ce0a03aedf2aad5eff87"
+    "mtime": 1794353698.7892807,
+    "seen": 1794354409.1542256,
+    "ast_hash": "00787717174303dc318e47a217404480",
+    "semantic_hash": ""
   },
   "tests/test_checkpoints_unit.js": {
-    "mtime": 1794006548.9074156,
-    "seen": 1794006844.2753787,
-    "ast_hash": "631489a57932bfbcf0431a8ba479294a",
-    "semantic_hash": "631489a57932bfbcf0431a8ba479294a"
+    "mtime": 1794353698.7356727,
+    "seen": 1794354409.1541176,
+    "ast_hash": "73095d64ae93b1c2e4186dfc89d81106",
+    "semantic_hash": ""
   },
   "tests/verify_anime_and_checkpoints.spec.js": {
-    "mtime": 1794006785.9810603,
-    "seen": 1794006844.2926543,
-    "ast_hash": "a66c854efd9b0cd1b0494b2eb78f486b",
-    "semantic_hash": "a66c854efd9b0cd1b0494b2eb78f486b"
+    "mtime": 1794353698.7836082,
+    "seen": 1794354409.1542144,
+    "ast_hash": "82fcbeb580a1e3e1a472a57695a5b062",
+    "semantic_hash": ""
   },
   "tests/test_blind_exam_arena_unit.js": {
-    "mtime": 1794010489.7182796,
-    "seen": 1794010568.2401278,
-    "ast_hash": "706adc2e3b0e62fb9a54dbda095c8a41",
-    "semantic_hash": "706adc2e3b0e62fb9a54dbda095c8a41"
+    "mtime": 1794353698.7322757,
+    "seen": 1794354409.1541092,
+    "ast_hash": "532910cf4b45ff71a38d0442683b16dc",
+    "semantic_hash": ""
   },
   "tests/verify_exam_arena_no_video.js": {
-    "mtime": 1794010075.7228725,
-    "seen": 1794010121.0173638,
-    "ast_hash": "78b4904cca07afdedf24c07ce072c2c0",
-    "semantic_hash": "78b4904cca07afdedf24c07ce072c2c0"
+    "mtime": 1794353698.7875853,
+    "seen": 1794354409.1542218,
+    "ast_hash": "c341afd6c3f82559247980f252abe27f",
+    "semantic_hash": ""
   },
   "tests/verify_exam_arena_flow.js": {
-    "mtime": 1794010512.2531512,
-    "seen": 1794010568.2681718,
-    "ast_hash": "0d6bdb4c397c27b68c0e32aa369dfb6c",
-    "semantic_hash": "0d6bdb4c397c27b68c0e32aa369dfb6c"
+    "mtime": 1794353698.7853706,
+    "seen": 1794354409.154218,
+    "ast_hash": "43b660e22e26d6eb3de1176acf4f5d70",
+    "semantic_hash": ""
   },
   "tests/test_chat_tutor_ui.js": {
-    "mtime": 1794012088.39822,
-    "seen": 1794012146.6682706,
-    "ast_hash": "a27ed83e4d451dd489bd37ece67f8f6b",
-    "semantic_hash": "a27ed83e4d451dd489bd37ece67f8f6b"
+    "mtime": 1794353698.7339272,
+    "seen": 1794354409.1541133,
+    "ast_hash": "78992fe9691075f48fbab660c8a83b4a",
+    "semantic_hash": ""
   },
   "tests/test_client_nlu.js": {
-    "mtime": 1794011933.5031211,
-    "seen": 1794012146.6689239,
-    "ast_hash": "61d22b5e4eec473dd2ca025348493063",
-    "semantic_hash": "61d22b5e4eec473dd2ca025348493063"
+    "mtime": 1794353698.7380621,
+    "seen": 1794354409.1541214,
+    "ast_hash": "6dc9f5e06d7da725e4a169dc4b0b659d",
+    "semantic_hash": ""
   },
   "tests/test_natural_language_chat.py": {
-    "mtime": 1794012016.1919491,
-    "seen": 1794012146.6737719,
-    "ast_hash": "271d7d17d8d9af30698781e20139e639",
-    "semantic_hash": "271d7d17d8d9af30698781e20139e639"
+    "mtime": 1794356058.8796575,
+    "seen": 1794356124.6211255,
+    "ast_hash": "77cc95d62718ce2ec596b5b8ceebcd6b",
+    "semantic_hash": ""
+  },
+  "tests/test_winding_path_visual.js": {
+    "mtime": 1794353698.781882,
+    "seen": 1794354409.1542106,
+    "ast_hash": "79facf2df55edc1ebda611d36848e92d",
+    "semantic_hash": ""
+  },
+  "tests/test_hover_drift.js": {
+    "mtime": 1794353698.7463171,
+    "seen": 1794354409.1541417,
+    "ast_hash": "34571b5f0d8176d9701a853b6de45164",
+    "semantic_hash": ""
+  },
+  "tests/test_exam_anime_video.js": {
+    "mtime": 1794353698.7427337,
+    "seen": 1794354409.1541338,
+    "ast_hash": "0a19deb912ebc76dd257020428a2f766",
+    "semantic_hash": ""
+  },
+  "tests/test_exam_finish_route.js": {
+    "mtime": 1794353698.7439134,
+    "seen": 1794354409.1541378,
+    "ast_hash": "51ebc4e0889a2fe5d7bd892ed128d3dc",
+    "semantic_hash": ""
+  },
+  "app/js/pwa-manager.js": {
+    "mtime": 1794353695.5107439,
+    "seen": 1794354409.1536615,
+    "ast_hash": "bcffe31e53fc31b7fe1b262fdf9e3626",
+    "semantic_hash": ""
+  },
+  "app/manifest.json": {
+    "mtime": 1794353695.9653924,
+    "seen": 1794354409.1537259,
+    "ast_hash": "e9c75a1124e7bb43b2293d8d2d5bd376",
+    "semantic_hash": ""
+  },
+  "app/sw.js": {
+    "mtime": 1794353696.143776,
+    "seen": 1794354409.1537304,
+    "ast_hash": "fed75249da41c4c99c9cb001131428d8",
+    "semantic_hash": ""
+  },
+  "tests/test_nlp_and_pwa.py": {
+    "mtime": 1794353698.763714,
+    "seen": 1794354409.1541724,
+    "ast_hash": "3accf23b98cc2215c47331970b6c203d",
+    "semantic_hash": ""
+  },
+  "tests/test_pwa_browser.js": {
+    "mtime": 1794353698.7737694,
+    "seen": 1794354409.1541953,
+    "ast_hash": "3388152d346558a01c8a9262ddccfcde",
+    "semantic_hash": ""
+  },
+  ".superpowers/sdd/2026-11-06-interactive-lesson-quiz/progress.md": {
+    "mtime": 1794353694.8557682,
+    "seen": 1794354409.1542337,
+    "ast_hash": "73ba925b11332c39252c527d23b278fb",
+    "semantic_hash": ""
+  },
+  ".superpowers/sdd/2026-11-06-interactive-lesson-quiz/task-1-brief.md": {
+    "mtime": 1794353694.857992,
+    "seen": 1794354409.1542377,
+    "ast_hash": "b8f173eea7d517d6e4e5e8ab919230e6",
+    "semantic_hash": ""
+  },
+  ".superpowers/sdd/2026-11-06-interactive-lesson-quiz/task-1-report.md": {
+    "mtime": 1794353694.8596814,
+    "seen": 1794354409.1542418,
+    "ast_hash": "2fc7c5440138d8159f647bc891935680",
+    "semantic_hash": ""
+  },
+  ".superpowers/sdd/2026-11-06-interactive-lesson-quiz/task-2-brief.md": {
+    "mtime": 1794353694.8619604,
+    "seen": 1794354409.1542456,
+    "ast_hash": "1b917c57b9291549b1f6a8f3e317b8a4",
+    "semantic_hash": ""
+  },
+  ".superpowers/sdd/2026-11-06-interactive-lesson-quiz/task-3-brief.md": {
+    "mtime": 1794353694.864282,
+    "seen": 1794354409.15425,
+    "ast_hash": "0fc6db95089321284453985eca6ba83b",
+    "semantic_hash": ""
+  },
+  "AGENTS.md": {
+    "mtime": 1794354346.1528938,
+    "seen": 1794354409.1542535,
+    "ast_hash": "6118682a6377a2ab385312bb10b569ca",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1794353694.8699243,
+    "seen": 1794354409.1542573,
+    "ast_hash": "32f2d745bf323ac17bf5d4bc3a014197",
+    "semantic_hash": ""
+  },
+  "app/calibrate_interactive.html": {
+    "mtime": 1794353694.9082565,
+    "seen": 1794354409.1542609,
+    "ast_hash": "8f5604a5c5f38032670aee6cf4adb4c2",
+    "semantic_hash": ""
+  },
+  "app/hoja_personaje.html": {
+    "mtime": 1794353695.069412,
+    "seen": 1794354409.154265,
+    "ast_hash": "b14e09b84859074d44d6f3dbcbba467d",
+    "semantic_hash": ""
+  },
+  "app/index.html": {
+    "mtime": 1794353695.478698,
+    "seen": 1794354409.1542685,
+    "ast_hash": "405c33b48f9f8e40037d5ea0c66029c0",
+    "semantic_hash": ""
+  },
+  "app/landing.html": {
+    "mtime": 1794353695.5220337,
+    "seen": 1794354409.154272,
+    "ast_hash": "451e5ea9ac4f23f0bf46489c700f8700",
+    "semantic_hash": ""
+  },
+  "app/login.html": {
+    "mtime": 1794353695.963095,
+    "seen": 1794354409.1542754,
+    "ast_hash": "ae91ce33e6f593392cc94583cfb67365",
+    "semantic_hash": ""
+  },
+  "app/mascot_gallery.html": {
+    "mtime": 1794353695.9671192,
+    "seen": 1794354409.154279,
+    "ast_hash": "71505a7fff57c9251df3ce3d28d7853b",
+    "semantic_hash": ""
+  },
+  "app/onboarding.html": {
+    "mtime": 1794353696.1281161,
+    "seen": 1794354409.154283,
+    "ast_hash": "b1873b94132e2ac6274a4696d8464301",
+    "semantic_hash": ""
+  },
+  "app/register.html": {
+    "mtime": 1794353696.13041,
+    "seen": 1794354409.1542864,
+    "ast_hash": "64c4ee5f360b81ec9f944d409c8a557f",
+    "semantic_hash": ""
+  },
+  "app/test_all_poses.html": {
+    "mtime": 1794353696.1468036,
+    "seen": 1794354409.1542902,
+    "ast_hash": "bf5a73ed209af808b8f22bdaddaf3ac0",
+    "semantic_hash": ""
+  },
+  "app/test_anime.html": {
+    "mtime": 1794353696.148983,
+    "seen": 1794354409.1542935,
+    "ast_hash": "ed694d91974bd9d357a9f06091dd426e",
+    "semantic_hash": ""
+  },
+  "app/test_clavicle.html": {
+    "mtime": 1794353696.1510253,
+    "seen": 1794354409.154297,
+    "ast_hash": "d4a06cb2fe291779d06bb9f47e919540",
+    "semantic_hash": ""
+  },
+  "app/test_logo_preview.html": {
+    "mtime": 1794353696.1534755,
+    "seen": 1794354409.154301,
+    "ast_hash": "1d1d1dde9fc9432224fac32d847df5dd",
+    "semantic_hash": ""
+  },
+  "docs/plans/2026-10-31-trayectorias-puntos-guiados.md": {
+    "mtime": 1794353698.1725965,
+    "seen": 1794354409.1545336,
+    "ast_hash": "066de51c8cf49e3691977404c9e5e9d9",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-11-02-expansion-5-senas.md": {
+    "mtime": 1794353698.1759534,
+    "seen": 1794354409.1545374,
+    "ast_hash": "514db7a4f44f5cc60ff2172823430043",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-11-05-exis-3-screens-duolingo-flow-plan.md": {
+    "mtime": 1794353698.17904,
+    "seen": 1794354409.1545417,
+    "ast_hash": "f03a7378631e8364711ed7fbdcaf9788",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-11-05-exis-learning-platform-plan.md": {
+    "mtime": 1794353698.1821697,
+    "seen": 1794354409.154546,
+    "ast_hash": "3709f5e16e5be6b9e5807c6428c0bf1c",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-11-06-interactive-lesson-quiz-plan.md": {
+    "mtime": 1794353698.1844091,
+    "seen": 1794354409.15455,
+    "ast_hash": "a61df7c4dbaba82bda219bdc2e8a7161",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-11-02-expansion-5-senas-design.md": {
+    "mtime": 1794353698.1866968,
+    "seen": 1794354409.154554,
+    "ast_hash": "8842f981a96b94095f1cb7044c692912",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-11-05-exis-learning-platform-design.md": {
+    "mtime": 1794353698.1888692,
+    "seen": 1794354409.1545577,
+    "ast_hash": "fc63f9295d6fb8c55f12d0fc4eacb84d",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/HOJA_DE_PERSONAJE.md": {
+    "mtime": 1794353698.240617,
+    "seen": 1794354409.1545618,
+    "ast_hash": "321611a3cff492e6e3a842316c292588",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/PROMPTS_GEMINI.md": {
+    "mtime": 1794353698.243461,
+    "seen": 1794354409.1545656,
+    "ast_hash": "ef19c2af5e47cfdbea676f3c53dafd37",
+    "semantic_hash": ""
+  },
+  "requirements.txt": {
+    "mtime": 1794353698.3168602,
+    "seen": 1794354409.1545696,
+    "ast_hash": "3d3beb4c6aa7f31c2a66671f91803f5a",
+    "semantic_hash": ""
+  },
+  "app/anime_character_render.png": {
+    "mtime": 1794353694.9054596,
+    "seen": 1794354409.1545732,
+    "ast_hash": "b11ae4c40ed1a9f89aa90b90b2672366",
+    "semantic_hash": ""
+  },
+  "app/hoja_personaje_referencia.png": {
+    "mtime": 1794353695.0885522,
+    "seen": 1794354409.1547074,
+    "ast_hash": "2fbea4408cc53796a059ed69b39b6511",
+    "semantic_hash": ""
+  },
+  "app/img/brand_board.jpg": {
+    "mtime": 1794353695.0979407,
+    "seen": 1794354409.1547112,
+    "ast_hash": "14e3f496ae7e025f548987c6c0aad03d",
+    "semantic_hash": ""
+  },
+  "app/img/crop_app_icon.png": {
+    "mtime": 1794353695.101338,
+    "seen": 1794354409.1547153,
+    "ast_hash": "5ebec27864fa8ccb7f0269141583f875",
+    "semantic_hash": ""
+  },
+  "app/img/crop_horizontal.png": {
+    "mtime": 1794353695.106555,
+    "seen": 1794354409.1547196,
+    "ast_hash": "4e39f0c7b2779bb394f3681103fc196c",
+    "semantic_hash": ""
+  },
+  "app/img/crop_symbol_bl.png": {
+    "mtime": 1794353695.1111336,
+    "seen": 1794354409.1547234,
+    "ast_hash": "fe0c6b66cb1912292d1142d8fa3172e5",
+    "semantic_hash": ""
+  },
+  "app/img/icons/icon-192.png": {
+    "mtime": 1794353695.112829,
+    "seen": 1794354409.154727,
+    "ast_hash": "756556fc082cc424679c8474cc7ee0dc",
+    "semantic_hash": ""
+  },
+  "app/img/icons/icon-512.png": {
+    "mtime": 1794353695.1152499,
+    "seen": 1794354409.1547306,
+    "ast_hash": "944951694c4660342d1af087446bc913",
+    "semantic_hash": ""
+  },
+  "app/img/icons/icon-maskable-192.png": {
+    "mtime": 1794353695.116783,
+    "seen": 1794354409.1547346,
+    "ast_hash": "00ed4a05762ce8b34076c25d881bb871",
+    "semantic_hash": ""
+  },
+  "app/img/icons/icon-maskable-512.png": {
+    "mtime": 1794353695.1198268,
+    "seen": 1794354409.1547384,
+    "ast_hash": "c2c68968e0c49913f8b6c38c610c255a",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-fox.jpg": {
+    "mtime": 1794353695.1262982,
+    "seen": 1794354409.1547425,
+    "ast_hash": "ebbeea8b58213a5026307c86f6797904",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-geometric-mark.svg": {
+    "mtime": 1794353695.1290233,
+    "seen": 1794354409.154746,
+    "ast_hash": "2999fd68b75c9be7ae19f8a85586f011",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-icono-app-1024.png": {
+    "mtime": 1794353695.1344736,
+    "seen": 1794354409.1547496,
+    "ast_hash": "2cd906d0b6855911ddad00ff608c2490",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-icono-app.svg": {
+    "mtime": 1794353695.1373332,
+    "seen": 1794354409.1547532,
+    "ast_hash": "5649ff333c226b29f13b489d35ef28ba",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo-azul.svg": {
+    "mtime": 1794353695.1401103,
+    "seen": 1794354409.1547568,
+    "ast_hash": "1da1d444f817cd5caf548a0e6c8904c6",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo-blanco.svg": {
+    "mtime": 1794353695.1435478,
+    "seen": 1794354409.1547601,
+    "ast_hash": "a09779b98c82e2926a014555a412946c",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo-claro.png": {
+    "mtime": 1794353695.1492076,
+    "seen": 1794354409.1547637,
+    "ast_hash": "9f0bfeb3ed46569c91d0f31a37b8a281",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo-claro.svg": {
+    "mtime": 1794353695.153262,
+    "seen": 1794354409.1547673,
+    "ast_hash": "15acc448fb072e11679862758ca4ce57",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo-oscuro.png": {
+    "mtime": 1794353695.1590016,
+    "seen": 1794354409.1547709,
+    "ast_hash": "a122cf0af0ec27ae7b7750568d8e6cab",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo-oscuro.svg": {
+    "mtime": 1794353695.1696439,
+    "seen": 1794354409.1547744,
+    "ast_hash": "3ac082511876f0ecfd3e8e8abde2fc9f",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo.svg": {
+    "mtime": 1794353695.1718602,
+    "seen": 1794354409.154778,
+    "ast_hash": "3ac082511876f0ecfd3e8e8abde2fc9f",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-mark.svg": {
+    "mtime": 1794353695.1746457,
+    "seen": 1794354409.1547816,
+    "ast_hash": "34bcd54adb5a8434c4591528f992d364",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-simbolo.svg": {
+    "mtime": 1794353695.1757724,
+    "seen": 1794354409.154785,
+    "ast_hash": "34bcd54adb5a8434c4591528f992d364",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_celebracion.png": {
+    "mtime": 1794353695.1888044,
+    "seen": 1794354409.154789,
+    "ast_hash": "33bd79017b0e0ebeabe5869ba0084a97",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_celebracion_raw.png": {
+    "mtime": 1794353695.2014117,
+    "seen": 1794354409.1547928,
+    "ast_hash": "493a1248a22bacb9b9ee2b66215e810c",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_celebracion_solido.png": {
+    "mtime": 1794353695.212015,
+    "seen": 1794354409.1547966,
+    "ast_hash": "5b10f013c5673f4b106d8518a46e5e2c",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_explicando.png": {
+    "mtime": 1794353695.218555,
+    "seen": 1794354409.1548002,
+    "ast_hash": "ad64326eb3378ca82a51642a97460883",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_explicando_raw.png": {
+    "mtime": 1794353695.2243912,
+    "seen": 1794354409.1548038,
+    "ast_hash": "5a7a7cca539118311ac0e7ba87e65d65",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_explicando_solido.png": {
+    "mtime": 1794353695.229356,
+    "seen": 1794354409.1548076,
+    "ast_hash": "8a00cdfb8d9d52ff8c7763ae624fc502",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pensando.png": {
+    "mtime": 1794353695.2410505,
+    "seen": 1794354409.1548111,
+    "ast_hash": "6b9754a09dac3acd20fb72485c3f8ff3",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pensando_raw.png": {
+    "mtime": 1794353695.255034,
+    "seen": 1794354409.154815,
+    "ast_hash": "91216b9453f98aa03574d37c8feea560",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pensando_sheet_raw.png": {
+    "mtime": 1794353695.2596786,
+    "seen": 1794354409.1548185,
+    "ast_hash": "5cd28ecd1e77f7c56da87b2ce5a5cbce",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pensando_solido.png": {
+    "mtime": 1794353695.2706547,
+    "seen": 1794354409.154822,
+    "ast_hash": "d234f47afa443987b610355f13d069e7",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pulgar.png": {
+    "mtime": 1794353695.284978,
+    "seen": 1794354409.154826,
+    "ast_hash": "4820de63c9e9f6ccc72491003d451d4e",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pulgar_raw.png": {
+    "mtime": 1794353695.290853,
+    "seen": 1794354409.1548297,
+    "ast_hash": "bf10bc497ee08c01569a93e444ac2298",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pulgar_solido.png": {
+    "mtime": 1794353695.2959726,
+    "seen": 1794354409.1548333,
+    "ast_hash": "2f5089ff323dab7a5fab262d84f82466",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_saludo.png": {
+    "mtime": 1794353695.300952,
+    "seen": 1794354409.1548371,
+    "ast_hash": "3e72c721de159566a094feb0c32ec914",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_saludo_raw.png": {
+    "mtime": 1794353695.3070242,
+    "seen": 1794354409.1548412,
+    "ast_hash": "8458ffb3d7012a7bac57ca1740d25e80",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_saludo_solido.png": {
+    "mtime": 1794353695.3135996,
+    "seen": 1794354409.1548448,
+    "ast_hash": "e0bbe0c072914c42d935ff0047dfff5e",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_1_saludo.png": {
+    "mtime": 1794353695.3193834,
+    "seen": 1794354409.1548483,
+    "ast_hash": "53f80019773b2314bc2d64285f86e5ac",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_1_saludo_transparent.png": {
+    "mtime": 1794353695.323945,
+    "seen": 1794354409.1548522,
+    "ast_hash": "2220c9bf301f4d6dbaeb80ed3fbc874e",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_2_explicando.png": {
+    "mtime": 1794353695.3275254,
+    "seen": 1794354409.1548557,
+    "ast_hash": "8a00cdfb8d9d52ff8c7763ae624fc502",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_2_explicando_transparent.png": {
+    "mtime": 1794353695.3344288,
+    "seen": 1794354409.1548595,
+    "ast_hash": "5bfdc7b15f436b7707ce50725e728f9e",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_3_pensando.png": {
+    "mtime": 1794353695.3390083,
+    "seen": 1794354409.1548634,
+    "ast_hash": "17171152747f5ed28b60c2138cf8853c",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_4_pulgar.png": {
+    "mtime": 1794353695.3428226,
+    "seen": 1794354409.1548672,
+    "ast_hash": "2dc5b0f04b03ea7e090061e53f1a9841",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_4_pulgar_transparent.png": {
+    "mtime": 1794353695.3477786,
+    "seen": 1794354409.1548707,
+    "ast_hash": "18dfb4f1138e401d76a5045ea0972749",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/svg/zorrito_celebracion.svg": {
+    "mtime": 1794353695.3614507,
+    "seen": 1794354409.154874,
+    "ast_hash": "3fd2919d742ca7e016f18edb69e896b9",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/svg/zorrito_explicando.svg": {
+    "mtime": 1794353695.3689013,
+    "seen": 1794354409.1548777,
+    "ast_hash": "14cc088ad91c631e71e60a25943208fc",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/svg/zorrito_pensando.svg": {
+    "mtime": 1794353695.3796284,
+    "seen": 1794354409.1548812,
+    "ast_hash": "11209e8ab1b604dbc647fd4da0fbc71b",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/svg/zorrito_pulgar.svg": {
+    "mtime": 1794353695.3847015,
+    "seen": 1794354409.1548848,
+    "ast_hash": "3bde039b5b8c06eb076f28865ad8d8be",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/svg/zorrito_saludo.svg": {
+    "mtime": 1794353695.3897774,
+    "seen": 1794354409.1548884,
+    "ast_hash": "69b5ae5a71e6a9676580167d4a0ff971",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_celebracion.png": {
+    "mtime": 1794353695.3999422,
+    "seen": 1794354409.1548922,
+    "ast_hash": "1124f86f8d41a9f139ddf71222cbc96b",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_celebracion_transparent.png": {
+    "mtime": 1794353695.4089017,
+    "seen": 1794354409.1548965,
+    "ast_hash": "9c7993e6037ffe3bf726f59de46b996f",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_hoja_4_poses.png": {
+    "mtime": 1794353695.4206882,
+    "seen": 1794354409.1549006,
+    "ast_hash": "2873b793cd39e538c404952f2ceb651b",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_pensando.png": {
+    "mtime": 1794353695.4279215,
+    "seen": 1794354409.1549044,
+    "ast_hash": "91216b9453f98aa03574d37c8feea560",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_pensando_sentado.png": {
+    "mtime": 1794353695.4333189,
+    "seen": 1794354409.154908,
+    "ast_hash": "dfe0943f86a492a53e1624c19ff681eb",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_pensando_solo.png": {
+    "mtime": 1794353695.4434085,
+    "seen": 1794354409.1549118,
+    "ast_hash": "85234f7824acbe28f3a60aae243dd9a4",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_pensando_solo_transparent.png": {
+    "mtime": 1794353695.4541123,
+    "seen": 1794354409.1549156,
+    "ast_hash": "26b3e21d2a39b7614457ea54bced1220",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_pulgar_animo.png": {
+    "mtime": 1794353695.4585285,
+    "seen": 1794354409.1549191,
+    "ast_hash": "14c571d3fed6155d85584b2a99d2b41c",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_saltando_estrellas.png": {
+    "mtime": 1794353695.4638321,
+    "seen": 1794354409.1549227,
+    "ast_hash": "7ab3285b5f59baae0b213e93fb6c64fe",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_saludo.png": {
+    "mtime": 1794353695.4689872,
+    "seen": 1794354409.1549265,
+    "ast_hash": "9d2805750d886747b4eeaeefefaa576e",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_sheet_original.png": {
+    "mtime": 1794353695.4764128,
+    "seen": 1794354409.1549304,
+    "ast_hash": "2873b793cd39e538c404952f2ceb651b",
+    "semantic_hash": ""
+  },
+  "app/sol_hologram_hero.jpg": {
+    "mtime": 1794353696.1427763,
+    "seen": 1794354409.1549342,
+    "ast_hash": "d0cd3cae93bf97b218aac3b2b99a1a07",
+    "semantic_hash": ""
+  },
+  "app_preview_desktop_1280.png": {
+    "mtime": 1794353698.1309726,
+    "seen": 1794354409.1551738,
+    "ast_hash": "0ece6bf8e0191a552e75d4693083ebc7",
+    "semantic_hash": ""
+  },
+  "app_preview_mobile_390.png": {
+    "mtime": 1794353698.134423,
+    "seen": 1794354409.1551774,
+    "ast_hash": "bdad6bda0c7a4acc14175755ad442a43",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/anime_character_render.png": {
+    "mtime": 1794353698.2591348,
+    "seen": 1794354409.1551816,
+    "ast_hash": "b11ae4c40ed1a9f89aa90b90b2672366",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/hoja_personaje_referencia.png": {
+    "mtime": 1794353698.3157434,
+    "seen": 1794354409.1552541,
+    "ast_hash": "2fbea4408cc53796a059ed69b39b6511",
+    "semantic_hash": ""
+  },
+  "tests/test_palette_and_hud.js": {
+    "mtime": 1794353698.7670028,
+    "seen": 1794354409.15418,
+    "ast_hash": "c95ea3d51961e80b124459faa4a6cd2c",
+    "semantic_hash": ""
+  },
+  "tests/test_dynamic_trajectory.js": {
+    "mtime": 1794353698.7415488,
+    "seen": 1794354409.1541297,
+    "ast_hash": "c35462470a1d6268b78f58d9b9220952",
+    "semantic_hash": ""
+  },
+  "app/lib/canvas-confetti/confetti.browser.min.js": {
+    "mtime": 1794353695.525033,
+    "seen": 1794354409.1536915,
+    "ast_hash": "73119db3c4e248ed0754ae31706b7f42",
+    "semantic_hash": ""
+  },
+  "app/lib/mediapipe/camera_utils.js": {
+    "mtime": 1794353695.5277226,
+    "seen": 1794354409.153696,
+    "ast_hash": "9da3bf23d9c7aff7546d53f2ecfc8c6a",
+    "semantic_hash": ""
+  },
+  "app/lib/mediapipe/control_utils.js": {
+    "mtime": 1794353695.5299761,
+    "seen": 1794354409.1536999,
+    "ast_hash": "0849470c6ddeb737e6a7c711c6594a30",
+    "semantic_hash": ""
+  },
+  "app/lib/mediapipe/drawing_utils.js": {
+    "mtime": 1794353695.532212,
+    "seen": 1794354409.1537032,
+    "ast_hash": "7c58f5b1ba7313096fba0ddb3d30df55",
+    "semantic_hash": ""
+  },
+  "app/lib/mediapipe/hands/hands.js": {
+    "mtime": 1794353695.6784966,
+    "seen": 1794354409.153707,
+    "ast_hash": "b4936faed7a3fe00feff1328e14c03d2",
+    "semantic_hash": ""
+  },
+  "app/lib/mediapipe/hands/hands_solution_packed_assets_loader.js": {
+    "mtime": 1794353695.7500186,
+    "seen": 1794354409.1537108,
+    "ast_hash": "60f077c2a52186f33fa19f20c3cf9b1f",
+    "semantic_hash": ""
+  },
+  "app/lib/mediapipe/hands/hands_solution_simd_wasm_bin.js": {
+    "mtime": 1794353695.7560065,
+    "seen": 1794354409.1537142,
+    "ast_hash": "c67cd7de41dfbc332cdbbcee0691056b",
+    "semantic_hash": ""
+  },
+  "app/lib/mediapipe/hands/hands_solution_wasm_bin.js": {
+    "mtime": 1794353695.8700671,
+    "seen": 1794354409.1537175,
+    "ast_hash": "95b8cea740fd51ac95e4e3520997d4bc",
+    "semantic_hash": ""
+  },
+  "app/lib/tailwind/tailwind.js": {
+    "mtime": 1794353695.9603746,
+    "seen": 1794354409.1537216,
+    "ast_hash": "b28ab717c61dd04266240bd8f9c97b4f",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/cdp_verify.py": {
+    "mtime": 1794353696.516422,
+    "seen": 1794354409.1538582,
+    "ast_hash": "51cc7881b9244722f6ddd779140ed1dd",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/check_eulers.py": {
+    "mtime": 1794353696.522382,
+    "seen": 1794354409.153862,
+    "ast_hash": "341059432ad20652b3fde553c525fffc",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/check_hand_pos.py": {
+    "mtime": 1794353696.5258348,
+    "seen": 1794354409.1538658,
+    "ast_hash": "c0a32bf86cc4eff7dd7a8e13433eccb9",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/check_head_screen.py": {
+    "mtime": 1794353696.5306082,
+    "seen": 1794354409.1538692,
+    "ast_hash": "4e183665ca08bfeb3b3eeb14e0bb51a0",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/check_screen_coords.py": {
+    "mtime": 1794353696.5367436,
+    "seen": 1794354409.1538725,
+    "ast_hash": "767cef79b841d8c9390f99351c678441",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/check_scroll_width.py": {
+    "mtime": 1794353696.5384636,
+    "seen": 1794354409.1538763,
+    "ast_hash": "4f7ef9fb321dbf0cfa319582d23aa464",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/debug_dias_variations.py": {
+    "mtime": 1794353696.5419574,
+    "seen": 1794354409.1538796,
+    "ast_hash": "b956f46b93180c5d8639e6707f2d8635",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/debug_forward_arms.py": {
+    "mtime": 1794353696.545412,
+    "seen": 1794354409.1538832,
+    "ast_hash": "9b2674bedbb2a9f4db6b457bfe787af6",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/dump_bones.py": {
+    "mtime": 1794353696.5485382,
+    "seen": 1794354409.1538866,
+    "ast_hash": "488c45e77b4b5d231cd6d83839e9bef9",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/dump_ik.py": {
+    "mtime": 1794353696.5502896,
+    "seen": 1794354409.1538901,
+    "ast_hash": "4aaff8d1c66fcf2bd47314876a94f30c",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/dump_landmarks.py": {
+    "mtime": 1794353696.5519607,
+    "seen": 1794354409.1538937,
+    "ast_hash": "2d93b71ee0bd8081030cb5f3775b33be",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/find_dias.py": {
+    "mtime": 1794353696.5539763,
+    "seen": 1794354409.153897,
+    "ast_hash": "2e6a5b42d8d7ba4994db8b759498ffa6",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/make_comparison_sheets.py": {
+    "mtime": 1794353696.5694964,
+    "seen": 1794354409.1539006,
+    "ast_hash": "94bf8f694f71d0f87aca111cdfb131d2",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/measure_temp.py": {
+    "mtime": 1794353696.5727825,
+    "seen": 1794354409.1539047,
+    "ast_hash": "c783985f57ec7a5de765a61319a37825",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/run_arm_delta.py": {
+    "mtime": 1794353696.587098,
+    "seen": 1794354409.1539085,
+    "ast_hash": "25c7d854438761fe3c1dd61f9fdbbdbc",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/run_arm_grid.py": {
+    "mtime": 1794353696.5888214,
+    "seen": 1794354409.153912,
+    "ast_hash": "ead0202c26b190a0401258b58a2f623c",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/run_forearm_grid.py": {
+    "mtime": 1794353696.590504,
+    "seen": 1794354409.1539154,
+    "ast_hash": "d4c334bd0127a62515d197f39350ce5d",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/run_pose_checks.py": {
+    "mtime": 1794353696.5923903,
+    "seen": 1794354409.153919,
+    "ast_hash": "5ccbaad44c3d227aa61ab727b94e10e3",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/run_pose_checks_fast.py": {
+    "mtime": 1794353696.5941265,
+    "seen": 1794354409.1539228,
+    "ast_hash": "6f975f365c4b39d246f3cfd9faf42dcc",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/run_precise_verification.py": {
+    "mtime": 1794353696.5963912,
+    "seen": 1794354409.1539264,
+    "ast_hash": "6f5890478531dd72a6574c6fa1176929",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/run_tests.py": {
+    "mtime": 1794353696.5980842,
+    "seen": 1794354409.15393,
+    "ast_hash": "8c87ddfe937bb501b85378b41d657fad",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/run_thumb_tests.py": {
+    "mtime": 1794353696.600341,
+    "seen": 1794354409.1539338,
+    "ast_hash": "87d47f7555b997faa26fe184ebc2acc9",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/run_verification.py": {
+    "mtime": 1794353696.6026158,
+    "seen": 1794354409.1539373,
+    "ast_hash": "dc17ccb08bffa2892f5ad40ec60cd08d",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/solve_dias_compact.py": {
+    "mtime": 1794353696.6048298,
+    "seen": 1794354409.1539407,
+    "ast_hash": "a2dbd7c5d13ab94be382b649ae043163",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/solve_dias_fine.py": {
+    "mtime": 1794353696.6073158,
+    "seen": 1794354409.1539443,
+    "ast_hash": "97ed59192837774933a19874da3c2541",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/solve_dias_screen.py": {
+    "mtime": 1794353696.6095943,
+    "seen": 1794354409.1539478,
+    "ast_hash": "3d03f4bd9bf1171a1bed3805ac96bb18",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/solve_letters_exact.py": {
+    "mtime": 1794353696.613591,
+    "seen": 1794354409.1539516,
+    "ast_hash": "d7591956c96bf4bfdf678461e772ef6a",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/solve_poses.py": {
+    "mtime": 1794353696.6152928,
+    "seen": 1794354409.1539552,
+    "ast_hash": "87a4f2c0436e55f3d692866e36619f88",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_all_landmarks.py": {
+    "mtime": 1794353696.6190853,
+    "seen": 1794354409.1539586,
+    "ast_hash": "5f2c9739b1308205d0a1b8511bd25f3e",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_app_live.py": {
+    "mtime": 1794353696.6202352,
+    "seen": 1794354409.153962,
+    "ast_hash": "4722d366fa474c8a7d93cc19ca054bb2",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_bc_shapes.py": {
+    "mtime": 1794353696.6273882,
+    "seen": 1794354409.1539655,
+    "ast_hash": "a543f418fb3a320d9ab88ff674ee7a6a",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_clavicle.py": {
+    "mtime": 1794353696.6331038,
+    "seen": 1794354409.1539688,
+    "ast_hash": "3ff2939af6c9a39e3bebfa31fcaa8368",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_desktop.py": {
+    "mtime": 1794353696.63591,
+    "seen": 1794354409.1539724,
+    "ast_hash": "bfd8e274785680dc36f49bb397eda360",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_desktop2.py": {
+    "mtime": 1794353696.638728,
+    "seen": 1794354409.1539762,
+    "ast_hash": "00957fa378d34952acff3413793409ea",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_final.py": {
+    "mtime": 1794353696.6410494,
+    "seen": 1794354409.15398,
+    "ast_hash": "bed46f849e4adb7efdfc252b95c10257",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_final2.py": {
+    "mtime": 1794353696.642583,
+    "seen": 1794354409.1539836,
+    "ast_hash": "3b793c5feef32847292bc289f6fc25c9",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_suite.py": {
+    "mtime": 1794353696.664457,
+    "seen": 1794354409.1539872,
+    "ast_hash": "e98af343c47f9e71814f7eb264322d6a",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_suite2.py": {
+    "mtime": 1794353696.667406,
+    "seen": 1794354409.1539907,
+    "ast_hash": "9ea41c93669477f18f2ce4d79ed25c54",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_suite3.py": {
+    "mtime": 1794353696.668579,
+    "seen": 1794354409.1539943,
+    "ast_hash": "41a176fc4c8f98a06ac94883b50fcc7d",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_hand_b.py": {
+    "mtime": 1794353696.6921625,
+    "seen": 1794354409.153998,
+    "ast_hash": "bde662881789e965c75d42af227c2dbe",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_hand_framing.py": {
+    "mtime": 1794353696.6945493,
+    "seen": 1794354409.1540015,
+    "ast_hash": "588eee33d89b709f57475f63cca0c72a",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_letters_upright.py": {
+    "mtime": 1794353696.7062342,
+    "seen": 1794354409.1540048,
+    "ast_hash": "1456e67281ff1f23f03c7a46297b6d2a",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_natural_rest.py": {
+    "mtime": 1794353696.7120392,
+    "seen": 1794354409.1540089,
+    "ast_hash": "6421f6fecab5189c6d545f84b044913a",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_noches_depth.py": {
+    "mtime": 1794353696.7142954,
+    "seen": 1794354409.1540127,
+    "ast_hash": "1620d877d1976f6b45da340b3731c6fe",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_noches_sep.py": {
+    "mtime": 1794353696.7160017,
+    "seen": 1794354409.154016,
+    "ast_hash": "687b1d2effe08648b3d5cf9d36520241",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_orig_dias.py": {
+    "mtime": 1794353696.7182767,
+    "seen": 1794354409.1540196,
+    "ast_hash": "06c6aa73f94c6d3fd1252787d3c57897",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_pos_forearm.py": {
+    "mtime": 1794353696.7258582,
+    "seen": 1794354409.1540232,
+    "ast_hash": "0becfa38c99c7d675255c0a01e239c54",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_raise_forearm.py": {
+    "mtime": 1794353696.7298577,
+    "seen": 1794354409.1540265,
+    "ast_hash": "cf97f9d0816b019915f43e33feec5c60",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_specific_dias.py": {
+    "mtime": 1794353696.735742,
+    "seen": 1794354409.15403,
+    "ast_hash": "f56bd2097c26875a5e6fdc9da6a7e21f",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/tune_dias.py": {
+    "mtime": 1794353696.7391784,
+    "seen": 1794354409.1540334,
+    "ast_hash": "1c2dc4e20b1ffc4e408571bc74475c5e",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/tune_left_arm.py": {
+    "mtime": 1794353696.740925,
+    "seen": 1794354409.1540372,
+    "ast_hash": "2c7545a113e4be73b3d7733c6be8d949",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/tune_letter_arm.py": {
+    "mtime": 1794353696.7433715,
+    "seen": 1794354409.1540408,
+    "ast_hash": "da9ca7b6de9bea76021d703d6bd35ccc",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/tune_poses.py": {
+    "mtime": 1794353696.745109,
+    "seen": 1794354409.1540444,
+    "ast_hash": "6510d449aafb00170a071a9fb34a6964",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/tune_wrist.py": {
+    "mtime": 1794353696.7497234,
+    "seen": 1794354409.1540477,
+    "ast_hash": "442c30b55b6fb9139edea72d6c28da71",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/tune_yo.py": {
+    "mtime": 1794353696.7514393,
+    "seen": 1794354409.1540513,
+    "ast_hash": "65e8b175e93765943bffb29feba88e08",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/verify_final.py": {
+    "mtime": 1794353696.7532067,
+    "seen": 1794354409.1540544,
+    "ast_hash": "6cda92e8c1edbaf57e3345eb5adaa3a8",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/verify_live_avatar.py": {
+    "mtime": 1794353696.755069,
+    "seen": 1794354409.154058,
+    "ast_hash": "6888e03527c9db05e37072b4103b671a",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/verify_overflow.py": {
+    "mtime": 1794353696.7573285,
+    "seen": 1794354409.1540613,
+    "ast_hash": "1a83ff3b092d1d197d1524e01b8f6e90",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/verify_redesign.py": {
+    "mtime": 1794353696.7589881,
+    "seen": 1794354409.154065,
+    "ast_hash": "8f54c3216a0dfbc57f52092864b1e190",
+    "semantic_hash": ""
+  },
+  ".agents/rules/ecc.md": {
+    "mtime": 1794354326.7315173,
+    "seen": 1794354409.1542294,
+    "ast_hash": "4bc0f50fd089508901c29a4a07b1e861",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/check_dias_orig.html": {
+    "mtime": 1794353696.5190077,
+    "seen": 1794354409.154305,
+    "ast_hash": "ecd68fe96425db774e772c566f9937c6",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/check_eulers.html": {
+    "mtime": 1794353696.5206742,
+    "seen": 1794354409.1543086,
+    "ast_hash": "5ed067dbaa125b388df9e8b0548a01ff",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/check_hand_pos.html": {
+    "mtime": 1794353696.5241466,
+    "seen": 1794354409.154312,
+    "ast_hash": "1889ae0afee57d2672b2bb3fc3a36390",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/check_head_screen.html": {
+    "mtime": 1794353696.5280952,
+    "seen": 1794354409.1543155,
+    "ast_hash": "10b4c89e33708c3ef6520fe44bb511f6",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/check_noches_depth.html": {
+    "mtime": 1794353696.5333717,
+    "seen": 1794354409.154319,
+    "ast_hash": "8e2b1db684743fe9f00281f8577c24f1",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/check_screen_coords.html": {
+    "mtime": 1794353696.5350616,
+    "seen": 1794354409.1543226,
+    "ast_hash": "e6bd6b73495126fca3590b10cb30011e",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/debug_dias_variations.html": {
+    "mtime": 1794353696.5401618,
+    "seen": 1794354409.1543262,
+    "ast_hash": "83e490a7b3aa23afa1493e705bb26a1f",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/debug_forward_arms.html": {
+    "mtime": 1794353696.5436985,
+    "seen": 1794354409.1543298,
+    "ast_hash": "8db038bae172c844bd2bec49ea835d42",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/find_dias_compact.html": {
+    "mtime": 1794353696.5564198,
+    "seen": 1794354409.154333,
+    "ast_hash": "3d1f6281dedb41db51cde3bdcee168f1",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/find_dias_fine.html": {
+    "mtime": 1794353696.5587661,
+    "seen": 1794354409.1543365,
+    "ast_hash": "dcdd6186e84ff1f4ada2d13dbf71510e",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/find_dias_pose.html": {
+    "mtime": 1794353696.5605097,
+    "seen": 1794354409.15434,
+    "ast_hash": "74e7b51283112926774444d63ab23082",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/find_dias_screen.html": {
+    "mtime": 1794353696.5621848,
+    "seen": 1794354409.1543436,
+    "ast_hash": "cec55a2bfb728b45de35e53b34dda926",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/ik_letters.html": {
+    "mtime": 1794353696.5640414,
+    "seen": 1794354409.1543474,
+    "ast_hash": "c6940e2aab7224587a174b83f952958d",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/ik_solver.html": {
+    "mtime": 1794353696.566291,
+    "seen": 1794354409.154351,
+    "ast_hash": "69bd227abc0da2f303d3d3a00e753f3a",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/measure_poses.html": {
+    "mtime": 1794353696.5711477,
+    "seen": 1794354409.154354,
+    "ast_hash": "dc395faef9e480378cd096de30811d4a",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/render_dias_desktop.html": {
+    "mtime": 1794353696.5749974,
+    "seen": 1794354409.154358,
+    "ast_hash": "193cc337e4c0248e739d090673b23547",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/render_dias_desktop2.html": {
+    "mtime": 1794353696.577108,
+    "seen": 1794354409.1543612,
+    "ast_hash": "f2dbd3974aa2714e064c0d351c14a09e",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/render_dias_final_c1.html": {
+    "mtime": 1794353696.5788596,
+    "seen": 1794354409.1543648,
+    "ast_hash": "e27c479d236468b01cc2f7e1e6741e7f",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/render_dias_final_c2.html": {
+    "mtime": 1794353696.5814068,
+    "seen": 1794354409.1543689,
+    "ast_hash": "7ad1e88f3c30c74f00053715df5acc50",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/render_dias_final_c3.html": {
+    "mtime": 1794353696.583093,
+    "seen": 1794354409.1543727,
+    "ast_hash": "44aec653f04e60ebbf1339e6e24ead75",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/render_dias_final_c4.html": {
+    "mtime": 1794353696.5854115,
+    "seen": 1794354409.154376,
+    "ast_hash": "5a4baa44390c1a151150ccbe62e4f2b2",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/solve_letters_exact.html": {
+    "mtime": 1794353696.6112857,
+    "seen": 1794354409.1543794,
+    "ast_hash": "579924f9dfc8d6fab33fd5bd67e74f5d",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/temp_dias.html": {
+    "mtime": 1794353696.6174912,
+    "seen": 1794354409.154383,
+    "ast_hash": "be8aa778fed346a0c49e8c387b89706f",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_arm_delta.html": {
+    "mtime": 1794353696.622576,
+    "seen": 1794354409.1543865,
+    "ast_hash": "e32f1867c584cb95566d18bd428262ef",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_arm_grid.html": {
+    "mtime": 1794353696.6256747,
+    "seen": 1794354409.15439,
+    "ast_hash": "2533392576ba3cd9e526827285ef284d",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_chest_b.html": {
+    "mtime": 1794353696.6290905,
+    "seen": 1794354409.154394,
+    "ast_hash": "f39a7fe5f449374d5e45408223801674",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_clavicle.html": {
+    "mtime": 1794353696.6314013,
+    "seen": 1794354409.1544015,
+    "ast_hash": "e9b587973d92a85121c80d31b1883150",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_debug_bones.html": {
+    "mtime": 1794353696.6342456,
+    "seen": 1794354409.154405,
+    "ast_hash": "117c720990441da053fbfab8625987cb",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_narrow1.html": {
+    "mtime": 1794353696.6443477,
+    "seen": 1794354409.1544087,
+    "ast_hash": "306d140475f74f3b06de06ca11fb97f8",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_narrow2.html": {
+    "mtime": 1794353696.6461535,
+    "seen": 1794354409.1544123,
+    "ast_hash": "761a6d54b0d624716280b387c223f5d4",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_narrow3.html": {
+    "mtime": 1794353696.648435,
+    "seen": 1794354409.1544154,
+    "ast_hash": "a60259dbccc0fd66d8a57d9a3455299a",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_narrow4.html": {
+    "mtime": 1794353696.65236,
+    "seen": 1794354409.154419,
+    "ast_hash": "bbe9c1e793745aaf80824a8a8cc3b050",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_opt1.html": {
+    "mtime": 1794353696.653496,
+    "seen": 1794354409.1544225,
+    "ast_hash": "46c0671be4b5862a2230de9c23a0ee53",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_opt2.html": {
+    "mtime": 1794353696.6555226,
+    "seen": 1794354409.154426,
+    "ast_hash": "88ea988810b3bc64142ac39506fbf3fc",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_opt3.html": {
+    "mtime": 1794353696.6581173,
+    "seen": 1794354409.1544294,
+    "ast_hash": "85b96dc76d331279d104f37b3bd8b8d6",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_opt4.html": {
+    "mtime": 1794353696.6598663,
+    "seen": 1794354409.154433,
+    "ast_hash": "372a02fe255a37a2eaeab09b137e7a70",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_opt5.html": {
+    "mtime": 1794353696.6615639,
+    "seen": 1794354409.1544363,
+    "ast_hash": "7d38126126d8d102c6df685e17c0627a",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_t1.html": {
+    "mtime": 1794353696.67117,
+    "seen": 1794354409.1544394,
+    "ast_hash": "1fee0d8e276fe529083898357cffac91",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_t2.html": {
+    "mtime": 1794353696.6729517,
+    "seen": 1794354409.1544428,
+    "ast_hash": "766aee0ca71f6ef62772a959dfe5080d",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_t3.html": {
+    "mtime": 1794353696.6746576,
+    "seen": 1794354409.1544461,
+    "ast_hash": "2b11e7fc0a68611979da981940fbb461",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_t4.html": {
+    "mtime": 1794353696.6764643,
+    "seen": 1794354409.1544495,
+    "ast_hash": "051299a66701e74de4040b8065a78b1b",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_t5.html": {
+    "mtime": 1794353696.6781762,
+    "seen": 1794354409.1544528,
+    "ast_hash": "343bb27b98926aa7427025351851fbe1",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_dias_tune.html": {
+    "mtime": 1794353696.6810703,
+    "seen": 1794354409.1544564,
+    "ast_hash": "7cf37804a3907ffa4e8a513732642c16",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_fingers.html": {
+    "mtime": 1794353696.6833317,
+    "seen": 1794354409.1544597,
+    "ast_hash": "4f2e7c9e107dd329dd5fe4dd797879b3",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_fingers_up.html": {
+    "mtime": 1794353696.685086,
+    "seen": 1794354409.154463,
+    "ast_hash": "381621958cd0a57ebb68771e3982eac0",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_forearm.html": {
+    "mtime": 1794353696.6868794,
+    "seen": 1794354409.1544669,
+    "ast_hash": "f04a1b5f670285bc8cc45c1f4538f8dd",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_hand_C.html": {
+    "mtime": 1794353696.6886742,
+    "seen": 1794354409.15447,
+    "ast_hash": "85ec886e80fe3f76a4d2ee03ca597a65",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_hand_b.html": {
+    "mtime": 1794353696.6903515,
+    "seen": 1794354409.1544735,
+    "ast_hash": "c1e35129f02cae390480fce8c71ac064",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_hola_calib.html": {
+    "mtime": 1794353696.6962543,
+    "seen": 1794354409.154477,
+    "ast_hash": "ab25ba5ee08511bbd100b2fc59b560ba",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_human.html": {
+    "mtime": 1794353696.700282,
+    "seen": 1794354409.1544802,
+    "ast_hash": "842b438034f7a676e73cb27f69f79ace",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_left_arm.html": {
+    "mtime": 1794353696.7024846,
+    "seen": 1794354409.1544838,
+    "ast_hash": "e5da902451e7a517313896e3e05ac952",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_letters_upright.html": {
+    "mtime": 1794353696.7042112,
+    "seen": 1794354409.1544874,
+    "ast_hash": "f4b0b76989ead237b7478c6bb453403c",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_letters_view.html": {
+    "mtime": 1794353696.7079525,
+    "seen": 1794354409.1544907,
+    "ast_hash": "7bd7c47eba05788f9512e23f9776afed",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_natural_rest.html": {
+    "mtime": 1794353696.7103329,
+    "seen": 1794354409.1544945,
+    "ast_hash": "e84d60bf89f591ab1951b097fa0881a0",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_noches_separated.html": {
+    "mtime": 1794353696.7182767,
+    "seen": 1794354409.1544983,
+    "ast_hash": "7747553e9561bd8db76a5353494f3d1a",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_overflow_simple.html": {
+    "mtime": 1794353696.7182767,
+    "seen": 1794354409.1545017,
+    "ast_hash": "daa207d158c9b5263acdd1616ca4a05c",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_overflow_sync.html": {
+    "mtime": 1794353696.7225585,
+    "seen": 1794354409.1545053,
+    "ast_hash": "8c3a79713997d95fd79b368abfc5b95a",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_pos_forearm.html": {
+    "mtime": 1794353696.7241888,
+    "seen": 1794354409.1545086,
+    "ast_hash": "543c794fce0971891430267c5a8eab5f",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_raise_forearm.html": {
+    "mtime": 1794353696.727523,
+    "seen": 1794354409.1545122,
+    "ast_hash": "00817d5afae6974cf78bdc805354dcdf",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_rest_pose.html": {
+    "mtime": 1794353696.7321632,
+    "seen": 1794354409.1545157,
+    "ast_hash": "ea70a81cc1ca0b66660407b8e4f81ec3",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_specific_dias.html": {
+    "mtime": 1794353696.733954,
+    "seen": 1794354409.1545193,
+    "ast_hash": "c9adf86bc5c1a5a292cb72d2e002d897",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/test_thumb.html": {
+    "mtime": 1794353696.7374573,
+    "seen": 1794354409.154523,
+    "ast_hash": "a97788fc46723a6a251fd2395a685863",
+    "semantic_hash": ""
+  },
+  "app/tools_archive/tune_single_sign.html": {
+    "mtime": 1794353696.747984,
+    "seen": 1794354409.1545262,
+    "ast_hash": "200d74d20976b1724a6ec134b9541776",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/README.md": {
+    "mtime": 1794353697.3536353,
+    "seen": 1794354409.1545296,
+    "ast_hash": "04678e9262ca34774b3880603e7add88",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/A.jpg": {
+    "mtime": 1794353694.926366,
+    "seen": 1794354409.1545768,
+    "ast_hash": "c4a0a31ba60868462abb59a873d57326",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/ANNOS.jpg": {
+    "mtime": 1794353694.9292648,
+    "seen": 1794354409.1545806,
+    "ast_hash": "d44d9870e9c3dbf90bfff6b520d34a53",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/B.jpg": {
+    "mtime": 1794353694.9322069,
+    "seen": 1794354409.1545837,
+    "ast_hash": "c512d2e377a8d63d9a0b78e7d3bfc7f1",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/BUENOS.jpg": {
+    "mtime": 1794353694.936099,
+    "seen": 1794354409.1545875,
+    "ast_hash": "b2dd2bbaf57d95d96b39a6dd866abae5",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/C.jpg": {
+    "mtime": 1794353694.938329,
+    "seen": 1794354409.1545906,
+    "ast_hash": "a92934f3a03f2f23db8089a336bbbe35",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/D.jpg": {
+    "mtime": 1794353694.9417655,
+    "seen": 1794354409.154594,
+    "ast_hash": "647e167abb063b6cbff7e7c46b856e20",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/DIAS.jpg": {
+    "mtime": 1794353694.9440267,
+    "seen": 1794354409.1545975,
+    "ast_hash": "b61780bae55e813bdb28b6c42323f3a5",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/E.jpg": {
+    "mtime": 1794353694.9462519,
+    "seen": 1794354409.154601,
+    "ast_hash": "f78f971a123014018b1c904fb15b6dcd",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/F.jpg": {
+    "mtime": 1794353694.9496913,
+    "seen": 1794354409.1546044,
+    "ast_hash": "54ee99c0585a5168225d8342b08c250e",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/G.jpg": {
+    "mtime": 1794353694.9525356,
+    "seen": 1794354409.1546075,
+    "ast_hash": "a94df704e46b21e2a54a5298503f6d4c",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/GUSTAR.jpg": {
+    "mtime": 1794353694.9554632,
+    "seen": 1794354409.154611,
+    "ast_hash": "e282f5adc74e4f00747f5c9356e714a9",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/H.jpg": {
+    "mtime": 1794353694.9576912,
+    "seen": 1794354409.1546147,
+    "ast_hash": "093a806219dbabdfd9c5489db6ab82f4",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/HOLA.jpg": {
+    "mtime": 1794353694.959923,
+    "seen": 1794354409.154618,
+    "ast_hash": "4bcee2bd139f67d0f6eb45513f9e92b4",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/I.jpg": {
+    "mtime": 1794353694.963407,
+    "seen": 1794354409.1546216,
+    "ast_hash": "cf166ae0b47acfb3432eb711ca9d8973",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/J.jpg": {
+    "mtime": 1794353694.967387,
+    "seen": 1794354409.154625,
+    "ast_hash": "17bc420121f3f132be21192b824c6117",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/K.jpg": {
+    "mtime": 1794353694.9702966,
+    "seen": 1794354409.1546283,
+    "ast_hash": "b4f4b55a232450b05ea68c9a9cef0801",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/L.jpg": {
+    "mtime": 1794353694.973164,
+    "seen": 1794354409.1546319,
+    "ast_hash": "ed460e221aa353acd2024a15ab87ead1",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/LICOR.jpg": {
+    "mtime": 1794353694.9765325,
+    "seen": 1794354409.1546357,
+    "ast_hash": "1b3cf2ff19835bc172837f3926f63f63",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/M.jpg": {
+    "mtime": 1794353694.97938,
+    "seen": 1794354409.154639,
+    "ast_hash": "31e8493a2aa3ce15e6c7f4c69958835c",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/N.jpg": {
+    "mtime": 1794353694.9827588,
+    "seen": 1794354409.1546423,
+    "ast_hash": "56eadfdeebd1fe49ca8218f5420d6a4f",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/NOCHES.jpg": {
+    "mtime": 1794353694.9861984,
+    "seen": 1794354409.1546457,
+    "ast_hash": "163f8db4b016d5b575dd8fac76d14389",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/NOMBRE.jpg": {
+    "mtime": 1794353694.988567,
+    "seen": 1794354409.1546562,
+    "ast_hash": "55db2544ee80717759bfffed70bae2e4",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/O.jpg": {
+    "mtime": 1794353694.9914708,
+    "seen": 1794354409.15466,
+    "ast_hash": "7754c37870986f132b6818e81a877800",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/P.jpg": {
+    "mtime": 1794353694.9943237,
+    "seen": 1794354409.1546636,
+    "ast_hash": "1558d6fecbcad82603b91c1efc150185",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/Q.jpg": {
+    "mtime": 1794353694.9971085,
+    "seen": 1794354409.1546674,
+    "ast_hash": "5f2adca7f9a506f8fb8dcf6b945c3c65",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/R.jpg": {
+    "mtime": 1794353695.0006702,
+    "seen": 1794354409.1546705,
+    "ast_hash": "9301ee37f6a843f72455597b4b2094e1",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/S.jpg": {
+    "mtime": 1794353695.0035057,
+    "seen": 1794354409.1546743,
+    "ast_hash": "4797ccde574d5059f8177c20ad7c825d",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/T.jpg": {
+    "mtime": 1794353695.006379,
+    "seen": 1794354409.1546774,
+    "ast_hash": "51da0ce45e62066db1d39626245de542",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/TARDES.jpg": {
+    "mtime": 1794353695.0086915,
+    "seen": 1794354409.1546805,
+    "ast_hash": "bfc17a0d43f65520dd5b0c2b1fe848cd",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/U.jpg": {
+    "mtime": 1794353695.0115683,
+    "seen": 1794354409.154684,
+    "ast_hash": "24240b0845e27d9313e292c29974685e",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/V.jpg": {
+    "mtime": 1794353695.0138488,
+    "seen": 1794354409.1546874,
+    "ast_hash": "0addae664dde16a01e2f39525088a895",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/W.jpg": {
+    "mtime": 1794353695.0167513,
+    "seen": 1794354409.1546905,
+    "ast_hash": "90f02f419404661612757256184e7fc5",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/X.jpg": {
+    "mtime": 1794353695.0201344,
+    "seen": 1794354409.1546938,
+    "ast_hash": "dfbf7203723e6417e8f3505ba53b5fc2",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/Y.jpg": {
+    "mtime": 1794353695.0237317,
+    "seen": 1794354409.1546972,
+    "ast_hash": "ca25d618f3887f2eec5c59baf8db7606",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/YO.jpg": {
+    "mtime": 1794353695.0267205,
+    "seen": 1794354409.1547003,
+    "ast_hash": "32d9ba8b6dea2bb4f48c630f85fdd059",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/Z.jpg": {
+    "mtime": 1794353695.029018,
+    "seen": 1794354409.1547036,
+    "ast_hash": "340936ee6d39e37a8fef62ee6b1ea7b2",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/A_body.webp": {
+    "mtime": 1794353696.7925487,
+    "seen": 1794354409.1549377,
+    "ast_hash": "b07b644c20e917338ee44a820f4badd6",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/A_hand.webp": {
+    "mtime": 1794353696.809361,
+    "seen": 1794354409.1549416,
+    "ast_hash": "9d825fe5179b8c960c05d3381ea43bd3",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/BUENOS_body.webp": {
+    "mtime": 1794353696.853854,
+    "seen": 1794354409.1549447,
+    "ast_hash": "a9a6f453a5ca423a72a1896ae60e6c32",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/BUENOS_hand.webp": {
+    "mtime": 1794353696.8716025,
+    "seen": 1794354409.154948,
+    "ast_hash": "71ed1cd5f9e84cf8e5e3b884bc3a2237",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/B_body.webp": {
+    "mtime": 1794353696.9077652,
+    "seen": 1794354409.1549513,
+    "ast_hash": "201da1ea14906ee5ad032434cb1910e4",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/B_hand.webp": {
+    "mtime": 1794353696.933772,
+    "seen": 1794354409.1549556,
+    "ast_hash": "0641b983adc16938a49f951cc4838a25",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/C_body.webp": {
+    "mtime": 1794353696.9586341,
+    "seen": 1794354409.154959,
+    "ast_hash": "f9fd05bb502c7d3554102159ffab24c4",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/C_hand.webp": {
+    "mtime": 1794353696.975928,
+    "seen": 1794354409.154962,
+    "ast_hash": "61768dfa5aab8e6bb139793b91741732",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/DIAS_body.webp": {
+    "mtime": 1794353697.0067954,
+    "seen": 1794354409.1549654,
+    "ast_hash": "70c8466110a94b715503e84b0a9a3f8a",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/DIAS_hand.webp": {
+    "mtime": 1794353697.0281062,
+    "seen": 1794354409.1549685,
+    "ast_hash": "bbab2c28cacefb35452bc89fc3e73d25",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/GUSTAR_body.webp": {
+    "mtime": 1794353697.0612516,
+    "seen": 1794354409.1549718,
+    "ast_hash": "ad4c67b37bf92a89f0be352495d74ca2",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/GUSTAR_hand.webp": {
+    "mtime": 1794353697.0817256,
+    "seen": 1794354409.1549754,
+    "ast_hash": "617e72bc6c52a6111e2ff5cdedc94b12",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/HOLA_body.webp": {
+    "mtime": 1794353697.1014714,
+    "seen": 1794354409.1549788,
+    "ast_hash": "d50ece8536053233ed97644bab9c8919",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/HOLA_hand.webp": {
+    "mtime": 1794353697.118062,
+    "seen": 1794354409.1549823,
+    "ast_hash": "5f6122415ee7e9d07b98d09a91ebb722",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/I_body.webp": {
+    "mtime": 1794353697.1577733,
+    "seen": 1794354409.1549854,
+    "ast_hash": "a97bded668ec626f596452c8d47849ca",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/I_hand.webp": {
+    "mtime": 1794353697.1752062,
+    "seen": 1794354409.1549888,
+    "ast_hash": "67bc157f12f2c43bec99d754045f231d",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/L_body.webp": {
+    "mtime": 1794353697.1991813,
+    "seen": 1794354409.154992,
+    "ast_hash": "190f7134cfb3ced9a844af84c4315449",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/L_hand.webp": {
+    "mtime": 1794353697.2146664,
+    "seen": 1794354409.1549954,
+    "ast_hash": "7569f74baaf1d9af14667ad0051adddd",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/NOCHES_body.webp": {
+    "mtime": 1794353697.2317193,
+    "seen": 1794354409.1549985,
+    "ast_hash": "e63d2a4fe05ad05c40fe2c10ce973bd5",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/NOCHES_hand.webp": {
+    "mtime": 1794353697.2623837,
+    "seen": 1794354409.155002,
+    "ast_hash": "32e2356ba062f15375bb9c7b5306fe08",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/NOMBRE_body.webp": {
+    "mtime": 1794353697.2864761,
+    "seen": 1794354409.1550052,
+    "ast_hash": "f41f642646129d0141f65e2b104ba955",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/NOMBRE_hand.webp": {
+    "mtime": 1794353697.30356,
+    "seen": 1794354409.1550088,
+    "ast_hash": "40737666afe707773c7fdff856211bd7",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/O_body.webp": {
+    "mtime": 1794353697.3328648,
+    "seen": 1794354409.1550121,
+    "ast_hash": "1e751e4dad43b5727fd3413dc4361944",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/O_hand.webp": {
+    "mtime": 1794353697.3518612,
+    "seen": 1794354409.1550155,
+    "ast_hash": "c0dfb39b3d650bfa9bbc5f1495e0a092",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/TARDES_body.webp": {
+    "mtime": 1794353697.3903341,
+    "seen": 1794354409.1550188,
+    "ast_hash": "b61940d2b114fd79b051fa2bafabd013",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/TARDES_hand.webp": {
+    "mtime": 1794353697.4171877,
+    "seen": 1794354409.1550221,
+    "ast_hash": "605fe8e58d4c590a9a7b43d7ab5a69c2",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/V_body.webp": {
+    "mtime": 1794353697.4457526,
+    "seen": 1794354409.1550255,
+    "ast_hash": "c6865f1e13a1ba64e2c94b714e4e4a1b",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/V_hand.webp": {
+    "mtime": 1794353697.464524,
+    "seen": 1794354409.155029,
+    "ast_hash": "38cf7caefe02c04ad1f698ec34a28469",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/YO_body.webp": {
+    "mtime": 1794353697.487314,
+    "seen": 1794354409.1550324,
+    "ast_hash": "e734fd8e0e641d68b1e251cb0aa70f3b",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/YO_hand.webp": {
+    "mtime": 1794353697.5065515,
+    "seen": 1794354409.155036,
+    "ast_hash": "7c2c2d2bc8035d005570b9278d0c79a8",
+    "semantic_hash": ""
+  },
+  "app/videos/real/ANNOS_body.webp": {
+    "mtime": 1794353697.5194485,
+    "seen": 1794354409.1550395,
+    "ast_hash": "7fb8cecde09d73354965dbb57f7e0571",
+    "semantic_hash": ""
+  },
+  "app/videos/real/ANNOS_hand.webp": {
+    "mtime": 1794353697.5451572,
+    "seen": 1794354409.155043,
+    "ast_hash": "b704eda118a9259ed340e9ec920c5b8d",
+    "semantic_hash": ""
+  },
+  "app/videos/real/A_body.webp": {
+    "mtime": 1794353697.5593004,
+    "seen": 1794354409.1550462,
+    "ast_hash": "77fb0d362720fda634c8b38a417c0540",
+    "semantic_hash": ""
+  },
+  "app/videos/real/A_hand.webp": {
+    "mtime": 1794353697.5831184,
+    "seen": 1794354409.1550496,
+    "ast_hash": "bca49d6648b93342534fe266f2f995e0",
+    "semantic_hash": ""
+  },
+  "app/videos/real/BUENOS_body.webp": {
+    "mtime": 1794353697.5985754,
+    "seen": 1794354409.1550534,
+    "ast_hash": "a70ca303e97675d8c21963dd87936ffd",
+    "semantic_hash": ""
+  },
+  "app/videos/real/BUENOS_hand.webp": {
+    "mtime": 1794353697.6125326,
+    "seen": 1794354409.155057,
+    "ast_hash": "73271f1e0539f5b63a12e6af1127a16d",
+    "semantic_hash": ""
+  },
+  "app/videos/real/B_body.webp": {
+    "mtime": 1794353697.6265037,
+    "seen": 1794354409.1550603,
+    "ast_hash": "272fa9f6aec51cf187ba7f1341c37c65",
+    "semantic_hash": ""
+  },
+  "app/videos/real/B_hand.webp": {
+    "mtime": 1794353697.6444728,
+    "seen": 1794354409.1550639,
+    "ast_hash": "2fea0d05bf71117caf355234827d46ae",
+    "semantic_hash": ""
+  },
+  "app/videos/real/C_body.webp": {
+    "mtime": 1794353697.6698296,
+    "seen": 1794354409.1550672,
+    "ast_hash": "857dda50da3b2e7a6bba7fe1f5465ed1",
+    "semantic_hash": ""
+  },
+  "app/videos/real/C_hand.webp": {
+    "mtime": 1794353697.6884513,
+    "seen": 1794354409.1550705,
+    "ast_hash": "ba45a7b79ddfd415ff7f5f537a5dff43",
+    "semantic_hash": ""
+  },
+  "app/videos/real/DIAS_body.webp": {
+    "mtime": 1794353697.70627,
+    "seen": 1794354409.155074,
+    "ast_hash": "df0605954ada65577c7daf91c78a1468",
+    "semantic_hash": ""
+  },
+  "app/videos/real/DIAS_hand.webp": {
+    "mtime": 1794353697.7224958,
+    "seen": 1794354409.1550772,
+    "ast_hash": "dd5a9b57c2b23e0dd057211b5bc4a709",
+    "semantic_hash": ""
+  },
+  "app/videos/real/D_body.webp": {
+    "mtime": 1794353697.7336094,
+    "seen": 1794354409.15508,
+    "ast_hash": "bc9b751332b297d4114030e18b350dd5",
+    "semantic_hash": ""
+  },
+  "app/videos/real/D_hand.webp": {
+    "mtime": 1794353697.7482371,
+    "seen": 1794354409.155084,
+    "ast_hash": "fe47d26415b25889ab7e1d2748897495",
+    "semantic_hash": ""
+  },
+  "app/videos/real/E_body.webp": {
+    "mtime": 1794353697.758123,
+    "seen": 1794354409.155087,
+    "ast_hash": "e896984508c7185c59e5a394d0be196b",
+    "semantic_hash": ""
+  },
+  "app/videos/real/E_hand.webp": {
+    "mtime": 1794353697.773839,
+    "seen": 1794354409.1550903,
+    "ast_hash": "cd788beef2483fecf4befe6d56cb578b",
+    "semantic_hash": ""
+  },
+  "app/videos/real/GUSTAR_body.webp": {
+    "mtime": 1794353697.7854166,
+    "seen": 1794354409.155094,
+    "ast_hash": "82f7e89bac55c0a3a33368c1390448ba",
+    "semantic_hash": ""
+  },
+  "app/videos/real/GUSTAR_hand.webp": {
+    "mtime": 1794353697.7980494,
+    "seen": 1794354409.155097,
+    "ast_hash": "d80ef3c22952f2bfc61b2ae4b7eb21f9",
+    "semantic_hash": ""
+  },
+  "app/videos/real/HOLA_body.webp": {
+    "mtime": 1794353697.8166885,
+    "seen": 1794354409.1551006,
+    "ast_hash": "22acaf7f97e5ccf082f064a95e60c0db",
+    "semantic_hash": ""
+  },
+  "app/videos/real/HOLA_hand.webp": {
+    "mtime": 1794353697.8299453,
+    "seen": 1794354409.1551037,
+    "ast_hash": "6d2d57d742a9956f3809403c4fc86b4f",
+    "semantic_hash": ""
+  },
+  "app/videos/real/I_body.webp": {
+    "mtime": 1794353697.8405907,
+    "seen": 1794354409.155107,
+    "ast_hash": "d5da7728ef8a2f7e73750eabe0acc396",
+    "semantic_hash": ""
+  },
+  "app/videos/real/I_hand.webp": {
+    "mtime": 1794353697.8544204,
+    "seen": 1794354409.1551104,
+    "ast_hash": "7d029c3d708af5d2bd40c550b14b57e3",
+    "semantic_hash": ""
+  },
+  "app/videos/real/LICOR_body.webp": {
+    "mtime": 1794353697.8659537,
+    "seen": 1794354409.1551135,
+    "ast_hash": "153b82dfa4683ca2d1a8cc63448ad773",
+    "semantic_hash": ""
+  },
+  "app/videos/real/LICOR_hand.webp": {
+    "mtime": 1794353697.881674,
+    "seen": 1794354409.155117,
+    "ast_hash": "a968297712e704425443836be35e0550",
+    "semantic_hash": ""
+  },
+  "app/videos/real/L_body.webp": {
+    "mtime": 1794353697.899452,
+    "seen": 1794354409.1551204,
+    "ast_hash": "df7903e3b275a38b5884edac04dd4bf2",
+    "semantic_hash": ""
+  },
+  "app/videos/real/L_hand.webp": {
+    "mtime": 1794353697.913745,
+    "seen": 1794354409.1551237,
+    "ast_hash": "8c52ad9dadb5702d35f1e5aa26473ffc",
+    "semantic_hash": ""
+  },
+  "app/videos/real/NOCHES_body.webp": {
+    "mtime": 1794353697.9312656,
+    "seen": 1794354409.1551268,
+    "ast_hash": "b31f22ba8beb7dd85a6cc0855c63a4c8",
+    "semantic_hash": ""
+  },
+  "app/videos/real/NOCHES_hand.webp": {
+    "mtime": 1794353697.9494014,
+    "seen": 1794354409.1551304,
+    "ast_hash": "33271dc471f7f24b4e12575161fc86b7",
+    "semantic_hash": ""
+  },
+  "app/videos/real/NOMBRE_body.webp": {
+    "mtime": 1794353697.9641068,
+    "seen": 1794354409.1551337,
+    "ast_hash": "dc9726f877cbaef75fd620433038cbac",
+    "semantic_hash": ""
+  },
+  "app/videos/real/NOMBRE_hand.webp": {
+    "mtime": 1794353697.9806325,
+    "seen": 1794354409.155137,
+    "ast_hash": "d53ec38dc6d8c4f01315cdb5c0c9095e",
+    "semantic_hash": ""
+  },
+  "app/videos/real/O_body.webp": {
+    "mtime": 1794353697.9923098,
+    "seen": 1794354409.1551402,
+    "ast_hash": "2686a72d0d1f97144a023219fe0a787c",
+    "semantic_hash": ""
+  },
+  "app/videos/real/O_hand.webp": {
+    "mtime": 1794353698.0053442,
+    "seen": 1794354409.1551437,
+    "ast_hash": "135705c15afe9805c3a4e9f730623e28",
+    "semantic_hash": ""
+  },
+  "app/videos/real/TARDES_body.webp": {
+    "mtime": 1794353698.0168407,
+    "seen": 1794354409.155147,
+    "ast_hash": "b2f7389831608564999d49839325c537",
+    "semantic_hash": ""
+  },
+  "app/videos/real/TARDES_hand.webp": {
+    "mtime": 1794353698.0303707,
+    "seen": 1794354409.1551504,
+    "ast_hash": "9a18c82bc07e7fa3ac2e002b9f630927",
+    "semantic_hash": ""
+  },
+  "app/videos/real/U_body.webp": {
+    "mtime": 1794353698.0407932,
+    "seen": 1794354409.1551538,
+    "ast_hash": "be9333a28ae287383795f1f2a097993e",
+    "semantic_hash": ""
+  },
+  "app/videos/real/U_hand.webp": {
+    "mtime": 1794353698.055701,
+    "seen": 1794354409.155157,
+    "ast_hash": "45474799b2e0747ecda15aca951ecd63",
+    "semantic_hash": ""
+  },
+  "app/videos/real/V_body.webp": {
+    "mtime": 1794353698.0685139,
+    "seen": 1794354409.15516,
+    "ast_hash": "96de5db971e592ce70b7a4a15cbc4027",
+    "semantic_hash": ""
+  },
+  "app/videos/real/V_hand.webp": {
+    "mtime": 1794353698.0850258,
+    "seen": 1794354409.1551633,
+    "ast_hash": "d68b3dbb516c8ec0ead5e9c37cc67003",
+    "semantic_hash": ""
+  },
+  "app/videos/real/YO_body.webp": {
+    "mtime": 1794353698.1065817,
+    "seen": 1794354409.1551666,
+    "ast_hash": "42f0f7663372c9eb9c575401fad24a32",
+    "semantic_hash": ""
+  },
+  "app/videos/real/YO_hand.webp": {
+    "mtime": 1794353698.122184,
+    "seen": 1794354409.15517,
+    "ast_hash": "73232ca50bc55236f12a5286e438a8c8",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/ANNOS_ref.jpg": {
+    "mtime": 1794353698.2631533,
+    "seen": 1794354409.155185,
+    "ast_hash": "d44d9870e9c3dbf90bfff6b520d34a53",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/A_ref.jpg": {
+    "mtime": 1794353698.2659414,
+    "seen": 1794354409.1551886,
+    "ast_hash": "96f346b13b6042668f2627df75e09e56",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/BUENOS_ref.jpg": {
+    "mtime": 1794353698.268762,
+    "seen": 1794354409.155192,
+    "ast_hash": "19193271b9b8d58aa7e0153b924729ce",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/B_ref.jpg": {
+    "mtime": 1794353698.2704597,
+    "seen": 1794354409.1551952,
+    "ast_hash": "7d1e214907cbedf6486a9f1673cd1a89",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/C_ref.jpg": {
+    "mtime": 1794353698.2736022,
+    "seen": 1794354409.1551988,
+    "ast_hash": "abbdcd9799844feda7a89e3a8d1987e0",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/DIAS_ref.jpg": {
+    "mtime": 1794353698.2766066,
+    "seen": 1794354409.1552017,
+    "ast_hash": "360c9c5ccac3b9ee20fd3dfa918025a3",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/D_ref.jpg": {
+    "mtime": 1794353698.2797587,
+    "seen": 1794354409.1552055,
+    "ast_hash": "647e167abb063b6cbff7e7c46b856e20",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/E_ref.jpg": {
+    "mtime": 1794353698.2815018,
+    "seen": 1794354409.1552083,
+    "ast_hash": "f78f971a123014018b1c904fb15b6dcd",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/GUSTAR_ref.jpg": {
+    "mtime": 1794353698.2826219,
+    "seen": 1794354409.155212,
+    "ast_hash": "e282f5adc74e4f00747f5c9356e714a9",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/HOLA_ref.jpg": {
+    "mtime": 1794353698.2854688,
+    "seen": 1794354409.1552155,
+    "ast_hash": "19c62b8e5d254055f6b52b5f46f41dfa",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/I_ref.jpg": {
+    "mtime": 1794353698.2871025,
+    "seen": 1794354409.1552188,
+    "ast_hash": "cf166ae0b47acfb3432eb711ca9d8973",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/LICOR_ref.jpg": {
+    "mtime": 1794353698.288823,
+    "seen": 1794354409.1552224,
+    "ast_hash": "1b3cf2ff19835bc172837f3926f63f63",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/L_ref.jpg": {
+    "mtime": 1794353698.291299,
+    "seen": 1794354409.1552258,
+    "ast_hash": "c89f17f7283f5123777af36faced661a",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/NOCHES_ref.jpg": {
+    "mtime": 1794353698.2945957,
+    "seen": 1794354409.1552293,
+    "ast_hash": "d3c8f687a9a7f3375209d0cd380f2d5e",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/NOMBRE_ref.jpg": {
+    "mtime": 1794353698.2975192,
+    "seen": 1794354409.1552327,
+    "ast_hash": "3c5ff60a73c9bf114190596e2c2caae9",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/O_ref.jpg": {
+    "mtime": 1794353698.2992187,
+    "seen": 1794354409.155236,
+    "ast_hash": "7754c37870986f132b6818e81a877800",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/TARDES_ref.jpg": {
+    "mtime": 1794353698.300347,
+    "seen": 1794354409.1552396,
+    "ast_hash": "bfc17a0d43f65520dd5b0c2b1fe848cd",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/U_ref.jpg": {
+    "mtime": 1794353698.3026834,
+    "seen": 1794354409.1552432,
+    "ast_hash": "24240b0845e27d9313e292c29974685e",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/V_ref.jpg": {
+    "mtime": 1794353698.3049717,
+    "seen": 1794354409.1552465,
+    "ast_hash": "22c20d3a46568326a94b55169fda72f9",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/fotos/YO_ref.jpg": {
+    "mtime": 1794353698.3072684,
+    "seen": 1794354409.1552498,
+    "ast_hash": "16d6640e86fe82c14ec32ab8c0b97d8f",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/01_pagina_inicio.png": {
+    "mtime": 1794353698.332285,
+    "seen": 1794354409.1552577,
+    "ast_hash": "a6d90e691b3e15dc05db91493fd7d83d",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/02_trayectoria_completada.png": {
+    "mtime": 1794353698.3397238,
+    "seen": 1794354409.1552613,
+    "ast_hash": "748e2e39b193d6cb797acf5418b1c72e",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/03_vista_movil_390px.png": {
+    "mtime": 1794353698.3438375,
+    "seen": 1794354409.1552646,
+    "ast_hash": "3dd614574115ea99fa2e3d456688c0fe",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/04_anime_ia_buenos.png": {
+    "mtime": 1794353698.3502417,
+    "seen": 1794354409.1552675,
+    "ast_hash": "8407daf11831279769abf28c8cc2950f",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/arena_examen_cero_videos.png": {
+    "mtime": 1794353698.3560252,
+    "seen": 1794354409.1552715,
+    "ast_hash": "5bd4e9f4dca935c536ef137ba90a2a78",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/arena_pregunta2_quiz.png": {
+    "mtime": 1794353698.362075,
+    "seen": 1794354409.1552749,
+    "ast_hash": "ed42d7a5be70bbba3af0955b29af640a",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/arena_reto1_camara.png": {
+    "mtime": 1794353698.3679347,
+    "seen": 1794354409.155278,
+    "ast_hash": "b386b25b463ba24d5ee48bdcd2e92e20",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/audit_landing_palette.png": {
+    "mtime": 1794353698.3736293,
+    "seen": 1794354409.1552818,
+    "ast_hash": "e2c2602a9868b12f9e50f3d84ff9533b",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/audit_path_palette.png": {
+    "mtime": 1794353698.3752375,
+    "seen": 1794354409.1552854,
+    "ast_hash": "640dc1e94aa6c4aae6f2075cb4ce2b94",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/audit_studio_palette.png": {
+    "mtime": 1794353698.380386,
+    "seen": 1794354409.1552885,
+    "ast_hash": "ade9ff12137bf3f2d57104c4fe06a343",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/catalogo_20_senas.png": {
+    "mtime": 1794353698.3881464,
+    "seen": 1794354409.1552918,
+    "ast_hash": "ca195756b4c0be00d8a432e5ea34c8a7",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/deteccion_mano_con_skeleton.png": {
+    "mtime": 1794353698.3951669,
+    "seen": 1794354409.1552954,
+    "ast_hash": "bbad9cf9d232283c749f65875c07cfae",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/deteccion_mano_verificada.png": {
+    "mtime": 1794353698.4014168,
+    "seen": 1794354409.1552992,
+    "ast_hash": "dc7aae3e7e8fbcc0be0409b96bfa8522",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/landing_desktop.png": {
+    "mtime": 1794353698.4159644,
+    "seen": 1794354409.1553023,
+    "ast_hash": "8ff8192a9f5b3206bb1487f5e6712406",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/landing_mobile.png": {
+    "mtime": 1794353698.4226525,
+    "seen": 1794354409.1553056,
+    "ast_hash": "32057e9ceb292aeefa53a75186b3218f",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/learning_platform_exam_passed.png": {
+    "mtime": 1794353698.431432,
+    "seen": 1794354409.1553092,
+    "ast_hash": "b96719938219e3e16250f9e77116c6a8",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/lesson_phase1_demo.png": {
+    "mtime": 1794353698.4378183,
+    "seen": 1794354409.1553125,
+    "ast_hash": "0372eb68df7383a52736012b200031f5",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/lesson_phase2_quiz.png": {
+    "mtime": 1794353698.4448318,
+    "seen": 1794354409.155316,
+    "ast_hash": "49caaaf4c819e175cb10cb042dd8b794",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/lesson_phase3_practice.png": {
+    "mtime": 1794353698.4500072,
+    "seen": 1794354409.1553197,
+    "ast_hash": "38255bf9494e8444fb9b1a36744758be",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/lesson_phase4_summary.png": {
+    "mtime": 1794353698.4556415,
+    "seen": 1794354409.1553235,
+    "ast_hash": "efd1c34efb6805ebdc507c9703df1c96",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/letter_i_anime_body.png": {
+    "mtime": 1794353698.4637067,
+    "seen": 1794354409.155327,
+    "ast_hash": "8cb4800c6d2b63cb2e94327b804badf1",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/letter_i_anime_hand.png": {
+    "mtime": 1794353698.496895,
+    "seen": 1794354409.1553304,
+    "ast_hash": "71f6d7a8110719a93842f7f45e2c2917",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/letter_o_anime_body.png": {
+    "mtime": 1794353698.504066,
+    "seen": 1794354409.155334,
+    "ast_hash": "bfdeae78bc7d4d98487026145bd40323",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/letter_o_anime_hand.png": {
+    "mtime": 1794353698.5156453,
+    "seen": 1794354409.1553373,
+    "ast_hash": "05767699ee92b782864478b4b305c762",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/login_desktop.png": {
+    "mtime": 1794353698.5238101,
+    "seen": 1794354409.1553402,
+    "ast_hash": "3ca3886ef5c8650cf2ef673f2aa8f4ef",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/login_mobile.png": {
+    "mtime": 1794353698.5286763,
+    "seen": 1794354409.1553438,
+    "ast_hash": "56a306895909e2dd3fa7bcbad38bfa8a",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/logos_svg_rendered.png": {
+    "mtime": 1794353698.5315335,
+    "seen": 1794354409.1553473,
+    "ast_hash": "b8a006d593b0ddaf17eabbe3952778f4",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/mascot_gallery_desktop.png": {
+    "mtime": 1794353698.5447626,
+    "seen": 1794354409.1553507,
+    "ast_hash": "f45af7cc83dc9b8a0cda5ba74b208686",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/mascot_gallery_light_png.png": {
+    "mtime": 1794353698.55646,
+    "seen": 1794354409.155354,
+    "ast_hash": "3116861e4a7c1f7884981a7a7568e2d6",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/mascot_gallery_mobile.png": {
+    "mtime": 1794353698.5691364,
+    "seen": 1794354409.1553576,
+    "ast_hash": "ccbfb4ae71c11258b26f3da97ab42997",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/mobile_full_page.png": {
+    "mtime": 1794353698.578157,
+    "seen": 1794354409.1553612,
+    "ast_hash": "665e67335e74502ee6cce8571aed1a8e",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/official_zip_logos_rendered.png": {
+    "mtime": 1794353698.5829139,
+    "seen": 1794354409.1553645,
+    "ast_hash": "a816bc7c29517a99051d45bc241c80ce",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/onboarding_desktop.png": {
+    "mtime": 1794353698.589326,
+    "seen": 1794354409.155368,
+    "ast_hash": "e55dfab6768b32d56fbd26e162d233bf",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/onboarding_mobile.png": {
+    "mtime": 1794353698.5952048,
+    "seen": 1794354409.1553717,
+    "ast_hash": "9c023e760814fd94fa76b37a0f1e0836",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/register_desktop.png": {
+    "mtime": 1794353698.6038668,
+    "seen": 1794354409.155375,
+    "ast_hash": "fc62c41f6d5aa263e74b6bdd7eb950ff",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/register_mobile.png": {
+    "mtime": 1794353698.6080055,
+    "seen": 1794354409.1553786,
+    "ast_hash": "07ec42e8fab00d136d1b3e2b0844c8e5",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/screen1_futuristic_landing.png": {
+    "mtime": 1794353698.6207786,
+    "seen": 1794354409.1553826,
+    "ast_hash": "75f3f3e9a095cf9b835741133e4917b9",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/screen1b_scrollytelling_showcase.png": {
+    "mtime": 1794353698.6313748,
+    "seen": 1794354409.155386,
+    "ast_hash": "bceb95bf247695ec783377b94d5d04ec",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/screen1c_standard_login_register.png": {
+    "mtime": 1794353698.640195,
+    "seen": 1794354409.1553895,
+    "ast_hash": "c251ca30f6857b6d4d3e55181520aab8",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/screen1d_placement_quiz_modal.png": {
+    "mtime": 1794353698.648532,
+    "seen": 1794354409.1553931,
+    "ast_hash": "2f349df488b396c7822ec94cdf03c9f0",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/screen2_duolingo_path.png": {
+    "mtime": 1794353698.6535547,
+    "seen": 1794354409.1553967,
+    "ast_hash": "56c39e5efa4692af23ba7b74f53823bd",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/screen3_practice_studio.png": {
+    "mtime": 1794353698.660097,
+    "seen": 1794354409.1554003,
+    "ast_hash": "ef8abf279292b8c7f27ad3a528f5fa1e",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/v2_app_studio_chat.png": {
+    "mtime": 1794353698.668869,
+    "seen": 1794354409.1554039,
+    "ast_hash": "0a9c74740b7eeef3f0b8fb6dce956aab",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/v2_landing_hero.png": {
+    "mtime": 1794353698.681603,
+    "seen": 1794354409.1554072,
+    "ast_hash": "637df8d3022aee6328dfbb8af3626156",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/v2_login_page.png": {
+    "mtime": 1794353698.691662,
+    "seen": 1794354409.1554103,
+    "ast_hash": "171fb200d1a0b0ca2b3fb990d16e378b",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/v2_onboarding_quiz.png": {
+    "mtime": 1794353698.7019546,
+    "seen": 1794354409.1554139,
+    "ast_hash": "ae86e480528e0a05b1bf3a89b100f86b",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/v2_register_page.png": {
+    "mtime": 1794353698.7090883,
+    "seen": 1794354409.1554174,
+    "ast_hash": "ae86e480528e0a05b1bf3a89b100f86b",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/winding_path_desktop.png": {
+    "mtime": 1794353698.7121613,
+    "seen": 1794354409.1554213,
+    "ast_hash": "0e911c6162b7c83b4da64d64a4c2d5dd",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/winding_path_mobile.png": {
+    "mtime": 1794353698.7148583,
+    "seen": 1794354409.1554246,
+    "ast_hash": "c560cbc53fdd12cd88895afb53fe61ee",
+    "semantic_hash": ""
+  },
+  "tests/screenshots/winding_path_progress.png": {
+    "mtime": 1794353698.7189097,
+    "seen": 1794354409.1554282,
+    "ast_hash": "84fc48a9d243ad79047a768cfda0d4e8",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/A_body.mp4": {
+    "mtime": 1794353696.786565,
+    "seen": 1794354409.1554315,
+    "ast_hash": "f8ef1fb0c7b4927540be1777ac4adf0d",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/A_hand.mp4": {
+    "mtime": 1794353696.8028288,
+    "seen": 1794354409.1554348,
+    "ast_hash": "3d144bba1e0ab9af08fda011d272846d",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/BUENOS_body.mp4": {
+    "mtime": 1794353696.8488379,
+    "seen": 1794354409.1554382,
+    "ast_hash": "12ee5864723805e214557df558f57790",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/BUENOS_hand.mp4": {
+    "mtime": 1794353696.8655722,
+    "seen": 1794354409.1554415,
+    "ast_hash": "be094ecc5a3abe7d5c2510368a1f0a88",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/B_body.mp4": {
+    "mtime": 1794353696.89922,
+    "seen": 1794354409.1554446,
+    "ast_hash": "9dc40f0d50f08a3c6c1fb6af1fceb6c0",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/B_hand.mp4": {
+    "mtime": 1794353696.9233363,
+    "seen": 1794354409.1554484,
+    "ast_hash": "08d22646d7420d267d69c2468e494c05",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/C_body.mp4": {
+    "mtime": 1794353696.9523644,
+    "seen": 1794354409.155452,
+    "ast_hash": "e88609b15cedae5f5e662d55504b4c43",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/C_hand.mp4": {
+    "mtime": 1794353696.9687788,
+    "seen": 1794354409.1554554,
+    "ast_hash": "8cb19422bf00b9bd0cf47d9311a60370",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/DIAS_body.mp4": {
+    "mtime": 1794353696.9994721,
+    "seen": 1794354409.155459,
+    "ast_hash": "708ccfb730d51d36a5e491f292845ea1",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/DIAS_hand.mp4": {
+    "mtime": 1794353697.0198965,
+    "seen": 1794354409.155462,
+    "ast_hash": "8959e3859b09aa1433a9d7d3ad6f3555",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/GUSTAR_body.mp4": {
+    "mtime": 1794353697.0420787,
+    "seen": 1794354409.1554651,
+    "ast_hash": "f538288335fbad99b6cd33db1dae106c",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/GUSTAR_hand.mp4": {
+    "mtime": 1794353697.0712402,
+    "seen": 1794354409.1554682,
+    "ast_hash": "c758a18f2cba01c451310fec52441c06",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/HOLA_body.mp4": {
+    "mtime": 1794353697.0942073,
+    "seen": 1794354409.155472,
+    "ast_hash": "fd13538e0d461edb8e532b1a713c1c85",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/HOLA_hand.mp4": {
+    "mtime": 1794353697.109771,
+    "seen": 1794354409.1554754,
+    "ast_hash": "92a01121d8c9565418e7f865b0432d1c",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/I_body.mp4": {
+    "mtime": 1794353697.132839,
+    "seen": 1794354409.1554792,
+    "ast_hash": "bb894469a98323400647db98631be2b5",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/I_hand.mp4": {
+    "mtime": 1794353697.164196,
+    "seen": 1794354409.1554825,
+    "ast_hash": "6e7275a32d821f219263de1a11516b9b",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/L_body.mp4": {
+    "mtime": 1794353697.191172,
+    "seen": 1794354409.1554856,
+    "ast_hash": "b6bcf28085347c021a4dffc455f253a5",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/L_hand.mp4": {
+    "mtime": 1794353697.2076828,
+    "seen": 1794354409.155489,
+    "ast_hash": "8170658760c5ae13e01f75cc18631b58",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/NOCHES_body.mp4": {
+    "mtime": 1794353697.2234304,
+    "seen": 1794354409.1554923,
+    "ast_hash": "d89145cba3ae66d2466a7d49f7143b69",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/NOCHES_hand.mp4": {
+    "mtime": 1794353697.2538543,
+    "seen": 1794354409.1554956,
+    "ast_hash": "55f63993a52f79ec0339fde26204cdc3",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/NOMBRE_body.mp4": {
+    "mtime": 1794353697.2794976,
+    "seen": 1794354409.155499,
+    "ast_hash": "11da12c8106fbdcc7745798238c4f393",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/NOMBRE_hand.mp4": {
+    "mtime": 1794353697.2963047,
+    "seen": 1794354409.1555026,
+    "ast_hash": "4686c7b9c265eb43ab453279c1830a14",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/O_body.mp4": {
+    "mtime": 1794353697.3153493,
+    "seen": 1794354409.155506,
+    "ast_hash": "193b9e02224c8dffe5dd5360e0fcbab9",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/O_hand.mp4": {
+    "mtime": 1794353697.3399913,
+    "seen": 1794354409.155509,
+    "ast_hash": "6fc94dc105ae57e34eb0bc008c37c4a5",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/TARDES_body.mp4": {
+    "mtime": 1794353697.3703392,
+    "seen": 1794354409.1555123,
+    "ast_hash": "6029edbfafbfd96b0fce8827a38584a7",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/TARDES_hand.mp4": {
+    "mtime": 1794353697.4019463,
+    "seen": 1794354409.155516,
+    "ast_hash": "a638f32531ae25e883ba802a543e992a",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/V_body.mp4": {
+    "mtime": 1794353697.4372027,
+    "seen": 1794354409.155519,
+    "ast_hash": "e1bbaeff7494bf658de1ea1332195d29",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/V_hand.mp4": {
+    "mtime": 1794353697.455813,
+    "seen": 1794354409.1555226,
+    "ast_hash": "ff95211ac3fec4bb52e93ead5e768c6a",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/YO_body.mp4": {
+    "mtime": 1794353697.481943,
+    "seen": 1794354409.1555257,
+    "ast_hash": "ef23933b59c72fa296601de199d67779",
+    "semantic_hash": ""
+  },
+  "app/videos/anime/YO_hand.mp4": {
+    "mtime": 1794353697.500072,
+    "seen": 1794354409.1555293,
+    "ast_hash": "ba3450bdd774f8c87fb6b9bbda6d228c",
+    "semantic_hash": ""
+  },
+  "app/videos/real/ANNOS_body.mp4": {
+    "mtime": 1794353697.5132418,
+    "seen": 1794354409.1555326,
+    "ast_hash": "57b83ef4cc0b9db3fcc58a8ba2a5f466",
+    "semantic_hash": ""
+  },
+  "app/videos/real/ANNOS_hand.mp4": {
+    "mtime": 1794353697.5369594,
+    "seen": 1794354409.155536,
+    "ast_hash": "cc6ef3514dd105648a0bc126d67da954",
+    "semantic_hash": ""
+  },
+  "app/videos/real/A_body.mp4": {
+    "mtime": 1794353697.5515842,
+    "seen": 1794354409.1555395,
+    "ast_hash": "8f4a655229cfbeb1700fef637ff0d9a4",
+    "semantic_hash": ""
+  },
+  "app/videos/real/A_hand.mp4": {
+    "mtime": 1794353697.567232,
+    "seen": 1794354409.1555429,
+    "ast_hash": "c76d37a648946b5359c34d2f905cd1f0",
+    "semantic_hash": ""
+  },
+  "app/videos/real/BUENOS_body.mp4": {
+    "mtime": 1794353697.590435,
+    "seen": 1794354409.1555464,
+    "ast_hash": "443d44eb7e56bf47a9a80027bc04a522",
+    "semantic_hash": ""
+  },
+  "app/videos/real/BUENOS_hand.mp4": {
+    "mtime": 1794353697.6045208,
+    "seen": 1794354409.1555498,
+    "ast_hash": "674ca566751d93a5a9d274ba713aff4e",
+    "semantic_hash": ""
+  },
+  "app/videos/real/B_body.mp4": {
+    "mtime": 1794353697.6190362,
+    "seen": 1794354409.155553,
+    "ast_hash": "5e323d0e701c94f17e7052b69ec1f6bd",
+    "semantic_hash": ""
+  },
+  "app/videos/real/B_hand.mp4": {
+    "mtime": 1794353697.6369667,
+    "seen": 1794354409.1555564,
+    "ast_hash": "986999e537c4fb49608f6bfba2469b94",
+    "semantic_hash": ""
+  },
+  "app/videos/real/C_body.mp4": {
+    "mtime": 1794353697.6507473,
+    "seen": 1794354409.1555598,
+    "ast_hash": "d2e3690ae2998ddfbef8b25754eb3681",
+    "semantic_hash": ""
+  },
+  "app/videos/real/C_hand.mp4": {
+    "mtime": 1794353697.6811078,
+    "seen": 1794354409.155563,
+    "ast_hash": "d917eb77ad393838dae88a8e6f05326c",
+    "semantic_hash": ""
+  },
+  "app/videos/real/DIAS_body.mp4": {
+    "mtime": 1794353697.6977842,
+    "seen": 1794354409.1555665,
+    "ast_hash": "bb9b0e67709fb24aabf76c495f1f15bf",
+    "semantic_hash": ""
+  },
+  "app/videos/real/DIAS_hand.mp4": {
+    "mtime": 1794353697.7144866,
+    "seen": 1794354409.1555696,
+    "ast_hash": "506d834b91ca96e558311d5f5198be90",
+    "semantic_hash": ""
+  },
+  "app/videos/real/D_body.mp4": {
+    "mtime": 1794353697.7269905,
+    "seen": 1794354409.155573,
+    "ast_hash": "9da29d4fbd87e2a5192fc327aa2f03c4",
+    "semantic_hash": ""
+  },
+  "app/videos/real/D_hand.mp4": {
+    "mtime": 1794353697.7387855,
+    "seen": 1794354409.155576,
+    "ast_hash": "357d75959e33888c4030140b1923dcf9",
+    "semantic_hash": ""
+  },
+  "app/videos/real/E_body.mp4": {
+    "mtime": 1794353697.7527146,
+    "seen": 1794354409.1555793,
+    "ast_hash": "7d8abc0e095fb80953d6e563adac71c5",
+    "semantic_hash": ""
+  },
+  "app/videos/real/E_hand.mp4": {
+    "mtime": 1794353697.7648609,
+    "seen": 1794354409.1555827,
+    "ast_hash": "4583f50ed5c280cfa24a0dab03119535",
+    "semantic_hash": ""
+  },
+  "app/videos/real/GUSTAR_body.mp4": {
+    "mtime": 1794353697.7792635,
+    "seen": 1794354409.155586,
+    "ast_hash": "81486fa9d4c38ba3e2b677c2ca914e35",
+    "semantic_hash": ""
+  },
+  "app/videos/real/GUSTAR_hand.mp4": {
+    "mtime": 1794353697.7904418,
+    "seen": 1794354409.1555893,
+    "ast_hash": "c71fced92e870e9d5393a467414c5bdb",
+    "semantic_hash": ""
+  },
+  "app/videos/real/HOLA_body.mp4": {
+    "mtime": 1794353697.804877,
+    "seen": 1794354409.1555927,
+    "ast_hash": "a8585a50622b08e9a41d41758248cbfe",
+    "semantic_hash": ""
+  },
+  "app/videos/real/HOLA_hand.mp4": {
+    "mtime": 1794353697.8231227,
+    "seen": 1794354409.1555963,
+    "ast_hash": "1705a6284d66b35f59e74171250911cd",
+    "semantic_hash": ""
+  },
+  "app/videos/real/I_body.mp4": {
+    "mtime": 1794353697.8350832,
+    "seen": 1794354409.1555996,
+    "ast_hash": "cc9dd7243b803b158dcce06d5eebd65e",
+    "semantic_hash": ""
+  },
+  "app/videos/real/I_hand.mp4": {
+    "mtime": 1794353697.8472016,
+    "seen": 1794354409.155603,
+    "ast_hash": "62bcc096a54ca1377b95e307a62d3bbd",
+    "semantic_hash": ""
+  },
+  "app/videos/real/LICOR_body.mp4": {
+    "mtime": 1794353697.859576,
+    "seen": 1794354409.1556065,
+    "ast_hash": "0c831a663a00f2cc7f64a826b7b2fe9f",
+    "semantic_hash": ""
+  },
+  "app/videos/real/LICOR_hand.mp4": {
+    "mtime": 1794353697.8736062,
+    "seen": 1794354409.1556096,
+    "ast_hash": "943d00df308a0b6a33d87165143c4365",
+    "semantic_hash": ""
+  },
+  "app/videos/real/L_body.mp4": {
+    "mtime": 1794353697.8875444,
+    "seen": 1794354409.155613,
+    "ast_hash": "09c9033b2579196d985cb2de38a4744b",
+    "semantic_hash": ""
+  },
+  "app/videos/real/L_hand.mp4": {
+    "mtime": 1794353697.906139,
+    "seen": 1794354409.155616,
+    "ast_hash": "314ef8ab12eafd6d09ffeb91a3c31f30",
+    "semantic_hash": ""
+  },
+  "app/videos/real/NOCHES_body.mp4": {
+    "mtime": 1794353697.9223492,
+    "seen": 1794354409.1556196,
+    "ast_hash": "78f8106a516a4d3a179cfc51f86a5d64",
+    "semantic_hash": ""
+  },
+  "app/videos/real/NOCHES_hand.mp4": {
+    "mtime": 1794353697.9401016,
+    "seen": 1794354409.155623,
+    "ast_hash": "b7c5dfccf8686e9869b51da1a6da9784",
+    "semantic_hash": ""
+  },
+  "app/videos/real/NOMBRE_body.mp4": {
+    "mtime": 1794353697.9557047,
+    "seen": 1794354409.155626,
+    "ast_hash": "6e70f5048031cb9647df9d7ee669e4d2",
+    "semantic_hash": ""
+  },
+  "app/videos/real/NOMBRE_hand.mp4": {
+    "mtime": 1794353697.972967,
+    "seen": 1794354409.1556294,
+    "ast_hash": "629f23d04f0d0eed00f1c8b3d8b91089",
+    "semantic_hash": ""
+  },
+  "app/videos/real/O_body.mp4": {
+    "mtime": 1794353697.9860942,
+    "seen": 1794354409.1556327,
+    "ast_hash": "691e234b7efcf2d49183d5d55355a344",
+    "semantic_hash": ""
+  },
+  "app/videos/real/O_hand.mp4": {
+    "mtime": 1794353697.9987266,
+    "seen": 1794354409.155636,
+    "ast_hash": "730ccc864323a21e3c05f7e4a1eb287c",
+    "semantic_hash": ""
+  },
+  "app/videos/real/TARDES_body.mp4": {
+    "mtime": 1794353698.01021,
+    "seen": 1794354409.1556394,
+    "ast_hash": "2bca73117019f9a6bc411b03e12c1134",
+    "semantic_hash": ""
+  },
+  "app/videos/real/TARDES_hand.mp4": {
+    "mtime": 1794353698.021996,
+    "seen": 1794354409.1556425,
+    "ast_hash": "30cabc33948ff53023c8c1bc9c15b1f6",
+    "semantic_hash": ""
+  },
+  "app/videos/real/U_body.mp4": {
+    "mtime": 1794353698.034892,
+    "seen": 1794354409.1556456,
+    "ast_hash": "be8d21f453234c2243ec796f11d3db2d",
+    "semantic_hash": ""
+  },
+  "app/videos/real/U_hand.mp4": {
+    "mtime": 1794353698.0470753,
+    "seen": 1794354409.155649,
+    "ast_hash": "0d3eea8b9b9bd2c6d27435a7a078388c",
+    "semantic_hash": ""
+  },
+  "app/videos/real/V_body.mp4": {
+    "mtime": 1794353698.059993,
+    "seen": 1794354409.1556523,
+    "ast_hash": "c35d57d9233bf98b8c9c718316d1a9fd",
+    "semantic_hash": ""
+  },
+  "app/videos/real/V_hand.mp4": {
+    "mtime": 1794353698.077243,
+    "seen": 1794354409.1556556,
+    "ast_hash": "118bc595c67737f68f4870f1bdea3df4",
+    "semantic_hash": ""
+  },
+  "app/videos/real/YO_body.mp4": {
+    "mtime": 1794353698.0910232,
+    "seen": 1794354409.155659,
+    "ast_hash": "8472cfec039fe6fa5ba8e1d98bae4d2b",
+    "semantic_hash": ""
+  },
+  "app/videos/real/YO_hand.mp4": {
+    "mtime": 1794353698.1150448,
+    "seen": 1794354409.1556623,
+    "ast_hash": "0630927f3a23f8c194423a3965e7a4a1",
+    "semantic_hash": ""
   }
 }

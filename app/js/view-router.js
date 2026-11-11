@@ -65,7 +65,7 @@ class ViewRouter {
     if (studioView) studioView.classList.add('hidden');
 
     if (navBtnPath) {
-      navBtnPath.className = 'btn-spring px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-sm transition';
+      navBtnPath.className = 'btn-spring px-3 py-1.5 rounded-lg text-xs font-bold bg-coral-500 text-slate-950 shadow-sm transition';
       navBtnPath.setAttribute('aria-current', 'page');
     }
     if (navBtnStudio) {
@@ -98,7 +98,7 @@ class ViewRouter {
     if (studioView) studioView.classList.remove('hidden');
 
     if (navBtnStudio) {
-      navBtnStudio.className = 'btn-spring px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-sm transition';
+      navBtnStudio.className = 'btn-spring px-3 py-1.5 rounded-lg text-xs font-bold bg-coral-500 text-slate-950 shadow-sm transition';
       navBtnStudio.setAttribute('aria-current', 'page');
     }
     if (navBtnPath) {

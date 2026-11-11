@@ -190,9 +190,9 @@ const VisionEvaluator = (() => {
     canvasCtx.save();
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
 
-    // Actualizar y renderizar la guía de trayectoria interactiva (Connect-the-Dots)
+    // Actualizar y renderizar la guía de trayectoria interactiva (Connect-the-Dots) con detección corporal en vivo
     if (window.TrajectoryTracker && !isEvaluationPaused) {
-      window.TrajectoryTracker.update(results.multiHandLandmarks, canvasElement.width, canvasElement.height);
+      window.TrajectoryTracker.update(results.multiHandLandmarks, canvasElement.width, canvasElement.height, videoElement);
       window.TrajectoryTracker.render(canvasCtx, canvasElement.width, canvasElement.height);
     }
 
@@ -200,8 +200,8 @@ const VisionEvaluator = (() => {
       // Draw MediaPipe Skeleton for all detected hands
       for (let i = 0; i < results.multiHandLandmarks.length; i++) {
         const lm = results.multiHandLandmarks[i];
-        drawConnectors(canvasCtx, lm, HAND_CONNECTIONS, { color: i === 0 ? '#06b6d4' : '#14b8a6', lineWidth: 3 });
-        drawLandmarks(canvasCtx, lm, { color: i === 0 ? '#6366f1' : '#a855f7', lineWidth: 2, radius: 4 });
+        drawConnectors(canvasCtx, lm, HAND_CONNECTIONS, { color: '#1FC8BA', lineWidth: 3 });
+        drawLandmarks(canvasCtx, lm, { color: '#1FC8BA', fillColor: '#FFC857', lineWidth: 2, radius: 4 });
       }
 
       // Renderizar también en el canvas de la lección interactiva si está activo
@@ -221,8 +221,8 @@ const VisionEvaluator = (() => {
 
         for (let i = 0; i < results.multiHandLandmarks.length; i++) {
           const lm = results.multiHandLandmarks[i];
-          drawConnectors(lessonCtx, lm, HAND_CONNECTIONS, { color: '#00B8A9', lineWidth: 3 });
-          drawLandmarks(lessonCtx, lm, { color: '#FFC857', lineWidth: 2, radius: 4 });
+          drawConnectors(lessonCtx, lm, HAND_CONNECTIONS, { color: '#1FC8BA', lineWidth: 3 });
+          drawLandmarks(lessonCtx, lm, { color: '#1FC8BA', fillColor: '#FFC857', lineWidth: 2, radius: 4 });
         }
         lessonCtx.restore();
       }
@@ -238,8 +238,8 @@ const VisionEvaluator = (() => {
         examCtx.clearRect(0, 0, examCanvas.width, examCanvas.height);
         for (let i = 0; i < results.multiHandLandmarks.length; i++) {
           const lm = results.multiHandLandmarks[i];
-          drawConnectors(examCtx, lm, HAND_CONNECTIONS, { color: '#00B8A9', lineWidth: 3 });
-          drawLandmarks(examCtx, lm, { color: '#FFC857', lineWidth: 2, radius: 4 });
+          drawConnectors(examCtx, lm, HAND_CONNECTIONS, { color: '#1FC8BA', lineWidth: 3 });
+          drawLandmarks(examCtx, lm, { color: '#1FC8BA', fillColor: '#FFC857', lineWidth: 2, radius: 4 });
         }
         examCtx.restore();
       }
@@ -945,20 +945,42 @@ const VisionEvaluator = (() => {
     const btnText = document.getElementById('cameraBtnText');
     const placeholder = document.getElementById('cameraPlaceholder');
     const overlay = document.getElementById('detectionOverlay');
+    const statusDot = document.getElementById('cameraStatusDot');
+    const activePill = document.getElementById('activeCameraPill');
+
+    // Indicador en vivo sincronizado con Turquesa (#1FC8BA)
+    if (statusDot) {
+      statusDot.className = "w-2 h-2 rounded-full animate-pulse";
+      statusDot.style.backgroundColor = "#1FC8BA";
+    }
 
     if (state === 'running') {
       if (btn) btn.className = "btn-spring px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-700 hover:bg-rose-600 text-white shadow transition flex items-center gap-1.5";
       if (btnText) btnText.textContent = "Detener Cámara";
       if (placeholder) placeholder.classList.add('hidden');
       if (overlay) overlay.classList.remove('hidden');
+      if (activePill) {
+        activePill.style.borderColor = 'rgba(31, 200, 186, 0.5)';
+        activePill.style.color = '#1FC8BA';
+        const pillDot = activePill.querySelector('span');
+        if (pillDot) pillDot.style.backgroundColor = '#1FC8BA';
+      }
+      document.querySelectorAll('#lessonPracticeModal span.text-emerald-400, #blindExamModal span.text-emerald-400').forEach(el => {
+        el.style.color = '#1FC8BA';
+        const dot = el.querySelector('span');
+        if (dot) dot.style.backgroundColor = '#1FC8BA';
+      });
     } else if (state === 'connecting') {
       if (btnText) btnText.textContent = "Conectando...";
     } else {
-      // WCAG AA compliant emerald button
-      if (btn) btn.className = "btn-spring px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-700 hover:bg-emerald-600 text-white shadow transition flex items-center gap-1.5";
+      // Estado detenido: Acción principal Coral (Manitas UI)
+      if (btn) btn.className = "btn-spring px-3 py-1.5 rounded-lg text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-950 shadow transition flex items-center gap-1.5";
       if (btnText) btnText.textContent = "Iniciar Cámara";
       if (placeholder) placeholder.classList.remove('hidden');
       if (overlay) overlay.classList.add('hidden');
+      if (activePill) {
+        activePill.classList.add('hidden');
+      }
     }
   }
 

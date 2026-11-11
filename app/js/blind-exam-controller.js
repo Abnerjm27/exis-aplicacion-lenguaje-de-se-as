@@ -29,6 +29,7 @@ class BlindExamController {
   #isQuestionFinished;
   #originalTipHtml;
   #originalDescText;
+  #returnView;
   #boundHandleKeyDown;
 
   constructor() {
@@ -46,6 +47,7 @@ class BlindExamController {
     this.#isQuestionFinished = false;
     this.#originalTipHtml = '';
     this.#originalDescText = '';
+    this.#returnView = 'path';
     this.#boundHandleKeyDown = this.#handleKeyDown.bind(this);
   }
 
@@ -104,10 +106,22 @@ class BlindExamController {
     this.#isQuestionFinished = false;
     this.#practiceHoldMs = 0;
 
-    // Asegurar que la pantalla de estudio esté activa para rendir el examen
-    if (window.ViewRouter && typeof window.ViewRouter.switchToStudioView === 'function') {
-      window.ViewRouter.switchToStudioView(null, false);
+    // Determinar la vista a la cual retornar (Ruta por defecto o la vista de origen)
+    const currentView = (window.ViewRouter && typeof window.ViewRouter.getCurrentView === 'function')
+      ? window.ViewRouter.getCurrentView()
+      : 'path';
+    this.#returnView = (planOrSigns && planOrSigns.returnView) ? planOrSigns.returnView : currentView;
+
+    // Sincronizar preferencia activa de modo de video (Real / Anime IA)
+    let activeMode = 'real';
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('manitas_video_mode')) {
+      activeMode = localStorage.getItem('manitas_video_mode');
+    } else if (window.VideoPlayer && typeof window.VideoPlayer.getMode === 'function') {
+      activeMode = window.VideoPlayer.getMode();
+    } else if (window.LessonSessionController && typeof window.LessonSessionController.getVideoMode === 'function') {
+      activeMode = window.LessonSessionController.getVideoMode();
     }
+    this.#videoMode = (activeMode === 'anime') ? 'anime' : 'real';
 
     // Cerrar inmediatamente cualquier popup de victoria previo
     const successPopup = document.getElementById('successPopup');
@@ -342,7 +356,7 @@ class BlindExamController {
   /**
    * Detiene el examen y restaura el estado normal
    */
-  stopExam() {
+  stopExam(triggerReturn = true) {
     this.#clearTimer();
     this.#isActive = false;
     this.#isQuestionFinished = true;
@@ -391,10 +405,15 @@ class BlindExamController {
     if (typeof window.removeEventListener === 'function') {
       window.removeEventListener('keydown', this.#boundHandleKeyDown);
     }
+
+    // Si el usuario sale voluntariamente y la vista origen es la Ruta, retornar a la Ruta
+    if (triggerReturn && this.#returnView === 'path' && window.ViewRouter && typeof window.ViewRouter.switchToPathView === 'function') {
+      window.ViewRouter.switchToPathView();
+    }
   }
 
   /**
-   * Cierra el modal de resumen/certificado del examen
+   * Cierra el modal de resumen/certificado del examen y retorna a la Ruta de Aprendizaje
    */
   closeSummaryModal() {
     const modal = document.getElementById('examSummaryModal');
@@ -404,6 +423,11 @@ class BlindExamController {
     }
     if (typeof window.removeEventListener === 'function') {
       window.removeEventListener('keydown', this.#boundHandleKeyDown);
+    }
+
+    // Retornar siempre a la Ruta de Aprendizaje (Skill Tree) para ver el progreso gamificado
+    if (window.ViewRouter && typeof window.ViewRouter.switchToPathView === 'function') {
+      window.ViewRouter.switchToPathView();
     }
   }
 
@@ -459,6 +483,7 @@ class BlindExamController {
       }
       if (videoToggle) {
         videoToggle.classList.add('hidden');
+        videoToggle.classList.remove('flex');
       }
 
       // Detener cualquier video que estuviera reproduciéndose
@@ -521,6 +546,7 @@ class BlindExamController {
       }
       if (videoToggle) {
         videoToggle.classList.remove('hidden');
+        videoToggle.classList.add('flex');
       }
 
       // APAGAR CÁMARA COMPLETAMENTE para ahorrar recursos y apagar LED físico
@@ -553,32 +579,53 @@ class BlindExamController {
   #loadQuizMedia(signId) {
     const quizVideo = document.getElementById('examQuizVideo');
     const quizWebp = document.getElementById('examQuizWebp');
-    if (!quizVideo) return;
+    if (!quizVideo && !quizWebp) return;
 
-    const folder = this.#videoMode === 'anime' ? 'anime' : 'real';
-    const videoSrc = `videos/${folder}/${signId}_body.mp4`;
-    const webpSrc = `videos/${folder}/${signId}_body.webp`;
+    const folder = this.#videoMode === 'anime' ? 'videos/anime' : 'videos/real';
+    const mp4Url = `${folder}/${signId}_body.mp4`;
+    const webpUrl = `${folder}/${signId}_body.webp`;
 
-    quizVideo.classList.remove('hidden');
-    if (quizWebp) quizWebp.classList.add('hidden');
-
-    quizVideo.src = videoSrc;
-    quizVideo.onerror = () => {
-      if (folder === 'anime') {
-        quizVideo.src = `videos/real/${signId}_body.mp4`;
-      } else if (quizWebp) {
+    const activateWebp = () => {
+      if (quizVideo) {
         quizVideo.classList.add('hidden');
-        quizWebp.src = webpSrc;
+        try { quizVideo.pause(); } catch (e) {}
+      }
+      if (quizWebp) {
+        quizWebp.src = webpUrl;
         quizWebp.classList.remove('hidden');
       }
     };
 
-    try {
-      const playPromise = quizVideo.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {});
+    if (quizVideo) {
+      if (quizWebp) quizWebp.classList.add('hidden');
+      quizVideo.classList.remove('hidden');
+      quizVideo.muted = true;
+      quizVideo.loop = true;
+      quizVideo.setAttribute('playsinline', 'true');
+
+      quizVideo.onerror = () => {
+        console.warn(`[BlindExam] Fallo decodificación MP4 (${mp4Url}), activando fallback WebP (${webpUrl})`);
+        activateWebp();
+      };
+
+      quizVideo.src = mp4Url;
+      if (typeof quizVideo.load === 'function') {
+        try { quizVideo.load(); } catch (e) {}
       }
-    } catch (e) {}
+
+      if (typeof quizVideo.play === 'function') {
+        const playPromise = quizVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((err) => {
+            if (err.name === 'AbortError') return;
+            console.warn(`[BlindExam] Autoplay MP4 prevenido (${err.message}), activando WebP (${webpUrl})`);
+            activateWebp();
+          });
+        }
+      }
+    } else if (quizWebp) {
+      activateWebp();
+    }
   }
 
   #renderQuizOptions(currentQuestion) {
@@ -723,8 +770,8 @@ class BlindExamController {
   }
 
   #finishExam() {
-    // 1. Detener examen y apagar cámara completamente
-    this.stopExam();
+    // 1. Detener examen y apagar cámara completamente (sin cambiar de vista aún, se mostrará el resumen)
+    this.stopExam(false);
 
     const total = this.#results.length;
     const correct = this.#results.filter(r => r.passed).length;

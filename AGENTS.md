@@ -144,6 +144,28 @@ exis-lenguaje-senas/
 └── tests/                     # Pruebas automatizadas Playwright y capturas
 ```
 
+---
+
+## 6. Integración y Protocolo de Agentes ECC (Everything Claude Code)
+
+El proyecto cuenta con el plugin **ECC** activo. Para mantener total coherencia con las 9 Reglas Duras de Manitas, los agentes de ECC deben apegarse a los siguientes principios:
+
+### Mapeo de Especialistas ECC:
+- **`ecc:tdd-guide` / `ecc:e2e-runner`**: Ejecutan y supervisan las pruebas con los comandos `npm test` (unitarios + verificación multimedia) y `npm run test:e2e` (Playwright).
+- **`ecc:python-reviewer`**: Supervisa `server.py` y herramientas Python bajo estándares PEP 8, POO y control de excepciones.
+- **`ecc:code-reviewer`**: Supervisa módulos frontend en `app/js/` asegurando el cumplimiento de la **Regla 8 (POO estricto)**: clases ES6, estado protegido y métodos uniformes de ciclo de vida (`init`, `start`, `update`, `reset`, `destroy`).
+- **`ecc:security-reviewer`**: Audita endpoints locales en `http://localhost:8000/`, validación de payloads JSON en `/api/chat` y proxy Ollama.
+- **`ecc:a11y-architect` / `wcag-audit-patterns`**: Vela por la **Regla 6 (WCAG AAA)**: ratio de contraste ámbar/oscuro, ausencia de desbordamientos y accesibilidad táctil ($\ge 44\text{px}$).
+- **`ecc:planner` & `ecc:architect`**: Planifican desgloses técnicos antes de escribir código.
+
+### Armonización Reglas ECC vs EXIS:
+1. **POO sobre Inmutabilidad en Frontend:** En JavaScript, el estado de los componentes interactivos se maneja en clases encapsuladas con ciclo de vida explícito, no con estructuras procedurales.
+2. **Cero CSS/JS Embebido (Regla 2):** Ningún agente ECC agregará estilos o scripts en línea en `app/index.html`.
+3. **Límite de Líneas (Regla 1):** Ningún archivo de código superará las 1,100 líneas.
+4. **Verificación Continua Obligatoria:** Toda modificación de código debe verificarse ejecutando `npm test` en verde antes de dar por cerrada la tarea.
+
+---
+
 ## graphify
 
 This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.

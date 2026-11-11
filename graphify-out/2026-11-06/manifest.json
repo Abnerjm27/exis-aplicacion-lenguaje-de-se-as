@@ -6,10 +6,10 @@
     "semantic_hash": "639cbb2ba9ff31dc1d12bec3d6b1a143"
   },
   "app/data/users_db.json": {
-    "mtime": 1794008250.3075101,
-    "seen": 1794009137.4560678,
-    "ast_hash": "c54e288f74dc8653b93ed10440f6f08c",
-    "semantic_hash": "c54e288f74dc8653b93ed10440f6f08c"
+    "mtime": 1794018991.6545253,
+    "seen": 1794019067.984341,
+    "ast_hash": "4af041368a9664cd271aa3072da8a5b9",
+    "semantic_hash": "4af041368a9664cd271aa3072da8a5b9"
   },
   "app/js/auth-profile-manager.js": {
     "mtime": 1793932798.3228874,
@@ -24,10 +24,10 @@
     "semantic_hash": "644e2da065abce9db79fd56edc3928fe"
   },
   "app/js/blind-exam-controller.js": {
-    "mtime": 1794010442.0693593,
-    "seen": 1794010568.1545644,
-    "ast_hash": "e3ce63be865069cf3389f2a3233de99b",
-    "semantic_hash": "e3ce63be865069cf3389f2a3233de99b"
+    "mtime": 1794015735.2037032,
+    "seen": 1794015980.3114257,
+    "ast_hash": "986cee7fe8080d99aace6e04211ae20e",
+    "semantic_hash": "986cee7fe8080d99aace6e04211ae20e"
   },
   "app/js/camera-manager.js": {
     "mtime": 1794009798.670074,
@@ -36,16 +36,16 @@
     "semantic_hash": "4292477d1f381d02993ef893de450e6f"
   },
   "app/js/chat-tutor.js": {
-    "mtime": 1794011981.52299,
-    "seen": 1794012146.6349719,
-    "ast_hash": "aeff13e066d0f6186561fc74eabbb0f9",
-    "semantic_hash": "aeff13e066d0f6186561fc74eabbb0f9"
+    "mtime": 1794017170.4986196,
+    "seen": 1794017305.8733447,
+    "ast_hash": "b971b45b1d8bd64ef79dff76da04cace",
+    "semantic_hash": "b971b45b1d8bd64ef79dff76da04cace"
   },
   "app/js/learning-plan-manager.js": {
-    "mtime": 1794006690.1266952,
-    "seen": 1794006844.1977293,
-    "ast_hash": "d4f7fb87d2e176de848c03c761b0d1ad",
-    "semantic_hash": "d4f7fb87d2e176de848c03c761b0d1ad"
+    "mtime": 1794015343.77352,
+    "seen": 1794015980.3202112,
+    "ast_hash": "eeaf8318ee991eb6651cf901b51777e2",
+    "semantic_hash": "eeaf8318ee991eb6651cf901b51777e2"
   },
   "app/js/main.js": {
     "mtime": 1794007832.7771752,
@@ -60,22 +60,22 @@
     "semantic_hash": "9da3ca9b65de40b0d609b58bdafa36c6"
   },
   "app/js/trajectory-tracker.js": {
-    "mtime": 1793666651.3774981,
-    "seen": 1793933575.611743,
-    "ast_hash": "828501045efaa53cf82585c0abac71da",
-    "semantic_hash": "828501045efaa53cf82585c0abac71da"
+    "mtime": 1794018445.4202628,
+    "seen": 1794018591.1807969,
+    "ast_hash": "8a56d2c2f41846d8bc2f2255fd3627f4",
+    "semantic_hash": "8a56d2c2f41846d8bc2f2255fd3627f4"
   },
   "app/js/video-player.js": {
-    "mtime": 1794007770.332924,
-    "seen": 1794009137.4664776,
-    "ast_hash": "181a4a38150a3f4959fab4580d4fcc5e",
-    "semantic_hash": "181a4a38150a3f4959fab4580d4fcc5e"
+    "mtime": 1794015184.298607,
+    "seen": 1794015980.3308856,
+    "ast_hash": "212f0f3223626127aa9446a058d780d6",
+    "semantic_hash": "212f0f3223626127aa9446a058d780d6"
   },
   "app/js/vision-evaluator.js": {
-    "mtime": 1794007898.133272,
-    "seen": 1794009137.4664893,
-    "ast_hash": "9ca8fb44485547c8430bdda6aa6514e1",
-    "semantic_hash": "9ca8fb44485547c8430bdda6aa6514e1"
+    "mtime": 1794018317.7367022,
+    "seen": 1794018591.1819892,
+    "ast_hash": "dd7a0ab0b0b1b5934032bd1ff188649a",
+    "semantic_hash": "dd7a0ab0b0b1b5934032bd1ff188649a"
   },
   "app/tools/check_console.js": {
     "mtime": 1793666651.648558,
@@ -222,10 +222,10 @@
     "semantic_hash": "f81b8427f2341a9985f2300710870416"
   },
   "server.py": {
-    "mtime": 1794011833.140669,
-    "seen": 1794012146.6620486,
-    "ast_hash": "71277acbee3731003ac53c4d8fef2c53",
-    "semantic_hash": "71277acbee3731003ac53c4d8fef2c53"
+    "mtime": 1794017116.1319153,
+    "seen": 1794017305.925583,
+    "ast_hash": "e4360490dbd686378463fbb2b57acf4f",
+    "semantic_hash": "e4360490dbd686378463fbb2b57acf4f"
   },
   "tests/backend_api_plan_users.js": {
     "mtime": 1793932562.5570886,
@@ -330,16 +330,16 @@
     "semantic_hash": "be4291c509982949bef05a02aded885f"
   },
   "app/js/view-router.js": {
-    "mtime": 1794007845.7583334,
-    "seen": 1794009137.4664848,
-    "ast_hash": "7d0c2eb906e5be5a907db3989f589d19",
-    "semantic_hash": "7d0c2eb906e5be5a907db3989f589d19"
+    "mtime": 1794018261.7216794,
+    "seen": 1794018591.1819813,
+    "ast_hash": "52c276c3e112111bebac04fa7c58347f",
+    "semantic_hash": "52c276c3e112111bebac04fa7c58347f"
   },
   "tests/test_3_screens_flow.spec.js": {
-    "mtime": 1793998001.0850067,
-    "seen": 1793998080.703516,
-    "ast_hash": "41488ffbc138ad534eae0fabaa76e3db",
-    "semantic_hash": "41488ffbc138ad534eae0fabaa76e3db"
+    "mtime": 1794015861.7244415,
+    "seen": 1794015980.402721,
+    "ast_hash": "977a08a108da64c16f8cebaf0f199f7a",
+    "semantic_hash": "977a08a108da64c16f8cebaf0f199f7a"
   },
   "app/js/auth-page.js": {
     "mtime": 1793990852.0722492,
@@ -366,10 +366,10 @@
     "semantic_hash": "e44b43a7df0cf49ebc346db530ea43c2"
   },
   "app/js/tailwind-config.js": {
-    "mtime": 1793995308.8010817,
-    "seen": 1793995861.3602986,
-    "ast_hash": "a3c0f9e1b9657c6a8240142a242ad4f2",
-    "semantic_hash": "a3c0f9e1b9657c6a8240142a242ad4f2"
+    "mtime": 1794018057.7847793,
+    "seen": 1794018591.1807868,
+    "ast_hash": "2f117329da536ea531784dddca3727db",
+    "semantic_hash": "2f117329da536ea531784dddca3727db"
   },
   "app/js/gallery.js": {
     "mtime": 1793994651.8925521,
@@ -484,5 +484,641 @@
     "seen": 1794012146.6737719,
     "ast_hash": "271d7d17d8d9af30698781e20139e639",
     "semantic_hash": "271d7d17d8d9af30698781e20139e639"
+  },
+  "tests/test_winding_path_visual.js": {
+    "mtime": 1794013176.6113698,
+    "seen": 1794013250.0918715,
+    "ast_hash": "6ad38ed5f8bedde052cc32492e14f196",
+    "semantic_hash": "6ad38ed5f8bedde052cc32492e14f196"
+  },
+  "tests/test_hover_drift.js": {
+    "mtime": 1794013955.4686537,
+    "seen": 1794014007.2772894,
+    "ast_hash": "0b022e0cd259245b79edeb843287d7e2",
+    "semantic_hash": "0b022e0cd259245b79edeb843287d7e2"
+  },
+  "tests/test_exam_anime_video.js": {
+    "mtime": 1794014966.991645,
+    "seen": 1794015980.4269612,
+    "ast_hash": "69d9a61860782825c722126125b47850",
+    "semantic_hash": "69d9a61860782825c722126125b47850"
+  },
+  "tests/test_exam_finish_route.js": {
+    "mtime": 1794015798.847158,
+    "seen": 1794015980.4269707,
+    "ast_hash": "1a8a9b50b75145086aa07a0596c202f1",
+    "semantic_hash": "1a8a9b50b75145086aa07a0596c202f1"
+  },
+  "app/js/pwa-manager.js": {
+    "mtime": 1794016904.941234,
+    "seen": 1794017305.8782651,
+    "ast_hash": "fd8c914089d7b00b49e04db8807a6fed",
+    "semantic_hash": "fd8c914089d7b00b49e04db8807a6fed"
+  },
+  "app/manifest.json": {
+    "mtime": 1794018021.185038,
+    "seen": 1794018591.181995,
+    "ast_hash": "62e4bfd0307faf2f5bf747e2fc4999d0",
+    "semantic_hash": "62e4bfd0307faf2f5bf747e2fc4999d0"
+  },
+  "app/sw.js": {
+    "mtime": 1794016892.472445,
+    "seen": 1794017305.8839655,
+    "ast_hash": "c22340f005722d4a5c1a01810a2e3345",
+    "semantic_hash": "c22340f005722d4a5c1a01810a2e3345"
+  },
+  "tests/test_nlp_and_pwa.py": {
+    "mtime": 1794017227.001749,
+    "seen": 1794017305.9629903,
+    "ast_hash": "35d3acfeeb6fabb4351c154c6471b3ca",
+    "semantic_hash": "35d3acfeeb6fabb4351c154c6471b3ca"
+  },
+  "tests/test_pwa_browser.js": {
+    "mtime": 1794017284.0777879,
+    "seen": 1794017305.980696,
+    "ast_hash": "4e9103ac95dc61cc44fbce762649a92d",
+    "semantic_hash": "4e9103ac95dc61cc44fbce762649a92d"
+  },
+  ".superpowers/sdd/2026-11-06-interactive-lesson-quiz/progress.md": {
+    "mtime": 1793998064.6863499,
+    "seen": 1794018493.3678663,
+    "ast_hash": "9ae688ab7144722f66d476e8b1da09b4",
+    "semantic_hash": ""
+  },
+  ".superpowers/sdd/2026-11-06-interactive-lesson-quiz/task-1-brief.md": {
+    "mtime": 1793996800.9237342,
+    "seen": 1794018493.367873,
+    "ast_hash": "294f384430dda7a04eacb2a53027031e",
+    "semantic_hash": ""
+  },
+  ".superpowers/sdd/2026-11-06-interactive-lesson-quiz/task-1-report.md": {
+    "mtime": 1793997229.4515934,
+    "seen": 1794018493.3678775,
+    "ast_hash": "a9110681aed81ae283106ce8c381c86e",
+    "semantic_hash": ""
+  },
+  ".superpowers/sdd/2026-11-06-interactive-lesson-quiz/task-2-brief.md": {
+    "mtime": 1793996826.4056425,
+    "seen": 1794018493.3678813,
+    "ast_hash": "a7775286caa76e3d4bc2153c319320a1",
+    "semantic_hash": ""
+  },
+  ".superpowers/sdd/2026-11-06-interactive-lesson-quiz/task-3-brief.md": {
+    "mtime": 1793996841.8544292,
+    "seen": 1794018493.367885,
+    "ast_hash": "f7a41915d166c91d983b6dc237c79989",
+    "semantic_hash": ""
+  },
+  "AGENTS.md": {
+    "mtime": 1793992259.113202,
+    "seen": 1794018493.3678885,
+    "ast_hash": "4ea3c828567b2cde61b79ad6f4831649",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1793286668.7656581,
+    "seen": 1794018493.367892,
+    "ast_hash": "89c8092fda363e7dc4c0e633318699dd",
+    "semantic_hash": ""
+  },
+  "app/calibrate_interactive.html": {
+    "mtime": 1793993949.5399883,
+    "seen": 1794018493.367896,
+    "ast_hash": "dd8731c473e703bf275788256885b4cd",
+    "semantic_hash": ""
+  },
+  "app/hoja_personaje.html": {
+    "mtime": 1793993949.5423138,
+    "seen": 1794018493.3679001,
+    "ast_hash": "b14e09b84859074d44d6f3dbcbba467d",
+    "semantic_hash": ""
+  },
+  "app/index.html": {
+    "mtime": 1794018481.4978878,
+    "seen": 1794018493.367904,
+    "ast_hash": "37bbf1750f810a7bea6f7211836a40fa",
+    "semantic_hash": ""
+  },
+  "app/landing.html": {
+    "mtime": 1794018087.1720712,
+    "seen": 1794018493.3679073,
+    "ast_hash": "451e5ea9ac4f23f0bf46489c700f8700",
+    "semantic_hash": ""
+  },
+  "app/login.html": {
+    "mtime": 1793995509.7404215,
+    "seen": 1794018493.3679104,
+    "ast_hash": "b10a4ff9147d1f769e1e8dcc29962863",
+    "semantic_hash": ""
+  },
+  "app/mascot_gallery.html": {
+    "mtime": 1793994681.3979774,
+    "seen": 1794018493.3679144,
+    "ast_hash": "cca3f1d4f92c91c80a0edcbb6c242d49",
+    "semantic_hash": ""
+  },
+  "app/onboarding.html": {
+    "mtime": 1793994809.6898468,
+    "seen": 1794018493.367918,
+    "ast_hash": "b1873b94132e2ac6274a4696d8464301",
+    "semantic_hash": ""
+  },
+  "app/register.html": {
+    "mtime": 1793995684.9817574,
+    "seen": 1794018493.367921,
+    "ast_hash": "1a01f9abc4fff7f69f1c0def739855cf",
+    "semantic_hash": ""
+  },
+  "app/test_all_poses.html": {
+    "mtime": 1793993949.5525901,
+    "seen": 1794018493.3679245,
+    "ast_hash": "a52558041fb177272c4ae431d2501646",
+    "semantic_hash": ""
+  },
+  "app/test_anime.html": {
+    "mtime": 1793993949.554491,
+    "seen": 1794018493.3679283,
+    "ast_hash": "c53cb1438c6e1900809a17e5748bb2fa",
+    "semantic_hash": ""
+  },
+  "app/test_clavicle.html": {
+    "mtime": 1793993949.5561943,
+    "seen": 1794018493.367932,
+    "ast_hash": "d4a06cb2fe291779d06bb9f47e919540",
+    "semantic_hash": ""
+  },
+  "app/test_logo_preview.html": {
+    "mtime": 1793993949.5584276,
+    "seen": 1794018493.3679357,
+    "ast_hash": "9520773f12dc56a126c66e079fe32d06",
+    "semantic_hash": ""
+  },
+  "docs/plans/2026-10-31-trayectorias-puntos-guiados.md": {
+    "mtime": 1793666652.4756396,
+    "seen": 1794018493.36794,
+    "ast_hash": "066de51c8cf49e3691977404c9e5e9d9",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-11-02-expansion-5-senas.md": {
+    "mtime": 1793671165.780632,
+    "seen": 1794018493.3679435,
+    "ast_hash": "3c1b874092fd4fc80f3c32e7050c540a",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-11-05-exis-3-screens-duolingo-flow-plan.md": {
+    "mtime": 1793934851.2735977,
+    "seen": 1794018493.367947,
+    "ast_hash": "2f57436a43739b505a9a9f9cc45536e1",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-11-05-exis-learning-platform-plan.md": {
+    "mtime": 1793932376.2841551,
+    "seen": 1794018493.3679504,
+    "ast_hash": "9e697cf314952466b428d58ee1956bc6",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-11-06-interactive-lesson-quiz-plan.md": {
+    "mtime": 1793996594.2625363,
+    "seen": 1794018493.3679533,
+    "ast_hash": "64cfc89abd358a280888b9973e9f983b",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-11-02-expansion-5-senas-design.md": {
+    "mtime": 1793670955.4927664,
+    "seen": 1794018493.3679569,
+    "ast_hash": "b94f149028b6c56545ee727914d91642",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-11-05-exis-learning-platform-design.md": {
+    "mtime": 1793931656.4768713,
+    "seen": 1794018493.367961,
+    "ast_hash": "c4634eaf71b5bf020fb36a5cef936350",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/HOJA_DE_PERSONAJE.md": {
+    "mtime": 1793666652.4841757,
+    "seen": 1794018493.3679645,
+    "ast_hash": "321611a3cff492e6e3a842316c292588",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/PROMPTS_GEMINI.md": {
+    "mtime": 1793671611.6660018,
+    "seen": 1794018493.367968,
+    "ast_hash": "ef19c2af5e47cfdbea676f3c53dafd37",
+    "semantic_hash": ""
+  },
+  "requirements.txt": {
+    "mtime": 1793286864.4698365,
+    "seen": 1794018493.3679714,
+    "ast_hash": "09c5124982837306050dd9e9770801e7",
+    "semantic_hash": ""
+  },
+  "app/anime_character_render.png": {
+    "mtime": 1793666652.5007727,
+    "seen": 1794018493.3679748,
+    "ast_hash": "b11ae4c40ed1a9f89aa90b90b2672366",
+    "semantic_hash": ""
+  },
+  "app/hoja_personaje_referencia.png": {
+    "mtime": 1793666651.3629322,
+    "seen": 1794018493.3679795,
+    "ast_hash": "2fbea4408cc53796a059ed69b39b6511",
+    "semantic_hash": ""
+  },
+  "app/img/brand_board.jpg": {
+    "mtime": 1793990574.9797459,
+    "seen": 1794018493.3679836,
+    "ast_hash": "14e3f496ae7e025f548987c6c0aad03d",
+    "semantic_hash": ""
+  },
+  "app/img/crop_app_icon.png": {
+    "mtime": 1793993209.5812795,
+    "seen": 1794018493.367987,
+    "ast_hash": "5ebec27864fa8ccb7f0269141583f875",
+    "semantic_hash": ""
+  },
+  "app/img/crop_horizontal.png": {
+    "mtime": 1793993209.6199334,
+    "seen": 1794018493.36799,
+    "ast_hash": "4e39f0c7b2779bb394f3681103fc196c",
+    "semantic_hash": ""
+  },
+  "app/img/crop_symbol_bl.png": {
+    "mtime": 1793993209.572266,
+    "seen": 1794018493.3679934,
+    "ast_hash": "fe0c6b66cb1912292d1142d8fa3172e5",
+    "semantic_hash": ""
+  },
+  "app/img/icons/icon-192.png": {
+    "mtime": 1794016870.8161774,
+    "seen": 1794018493.367997,
+    "ast_hash": "756556fc082cc424679c8474cc7ee0dc",
+    "semantic_hash": ""
+  },
+  "app/img/icons/icon-512.png": {
+    "mtime": 1794016870.8680198,
+    "seen": 1794018493.3680003,
+    "ast_hash": "944951694c4660342d1af087446bc913",
+    "semantic_hash": ""
+  },
+  "app/img/icons/icon-maskable-192.png": {
+    "mtime": 1794016870.898019,
+    "seen": 1794018493.3680036,
+    "ast_hash": "00ed4a05762ce8b34076c25d881bb871",
+    "semantic_hash": ""
+  },
+  "app/img/icons/icon-maskable-512.png": {
+    "mtime": 1794016870.9465463,
+    "seen": 1794018493.3680074,
+    "ast_hash": "c2c68968e0c49913f8b6c38c610c255a",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-fox.jpg": {
+    "mtime": 1793990703.030862,
+    "seen": 1794018493.3680108,
+    "ast_hash": "ebbeea8b58213a5026307c86f6797904",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-geometric-mark.svg": {
+    "mtime": 1793992870.8501709,
+    "seen": 1794018493.3680146,
+    "ast_hash": "f4c25fd891d312e9bdeac0ad8601d8a9",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-icono-app-1024.png": {
+    "mtime": 1794011186.0,
+    "seen": 1794018493.3680182,
+    "ast_hash": "2cd906d0b6855911ddad00ff608c2490",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-icono-app.svg": {
+    "mtime": 1794011186.0,
+    "seen": 1794018493.3680222,
+    "ast_hash": "008c4212f443ed77ac110d08392da919",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo-azul.svg": {
+    "mtime": 1794011186.0,
+    "seen": 1794018493.3680258,
+    "ast_hash": "e40f1203e6dcf4ed8530abe443663379",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo-blanco.svg": {
+    "mtime": 1794011186.0,
+    "seen": 1794018493.3680294,
+    "ast_hash": "1b49b860a6afb2849159bb4c459acef6",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo-claro.png": {
+    "mtime": 1794011188.0,
+    "seen": 1794018493.3680325,
+    "ast_hash": "9f0bfeb3ed46569c91d0f31a37b8a281",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo-claro.svg": {
+    "mtime": 1794011186.0,
+    "seen": 1794018493.3680356,
+    "ast_hash": "384c81d28909d2cac033f4178fe07458",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo-oscuro.png": {
+    "mtime": 1794011186.0,
+    "seen": 1794018493.3680391,
+    "ast_hash": "a122cf0af0ec27ae7b7750568d8e6cab",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo-oscuro.svg": {
+    "mtime": 1794011186.0,
+    "seen": 1794018493.368042,
+    "ast_hash": "b6f2e0c23d3842c1e102fcfbb1e573ca",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-logo.svg": {
+    "mtime": 1794011186.0,
+    "seen": 1794018493.368045,
+    "ast_hash": "b6f2e0c23d3842c1e102fcfbb1e573ca",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-mark.svg": {
+    "mtime": 1794011186.0,
+    "seen": 1794018493.3680484,
+    "ast_hash": "d87d1ea32198a5695799845be2495c4d",
+    "semantic_hash": ""
+  },
+  "app/img/manitas-simbolo.svg": {
+    "mtime": 1794011186.0,
+    "seen": 1794018493.3680513,
+    "ast_hash": "d87d1ea32198a5695799845be2495c4d",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_celebracion.png": {
+    "mtime": 1793994614.7619855,
+    "seen": 1794018493.3680546,
+    "ast_hash": "33bd79017b0e0ebeabe5869ba0084a97",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_celebracion_raw.png": {
+    "mtime": 1793994606.2307262,
+    "seen": 1794018493.3680584,
+    "ast_hash": "493a1248a22bacb9b9ee2b66215e810c",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_celebracion_solido.png": {
+    "mtime": 1793994614.58089,
+    "seen": 1794018493.3680618,
+    "ast_hash": "5b10f013c5673f4b106d8518a46e5e2c",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_explicando.png": {
+    "mtime": 1793994608.0718048,
+    "seen": 1794018493.368065,
+    "ast_hash": "ad64326eb3378ca82a51642a97460883",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_explicando_raw.png": {
+    "mtime": 1793994605.9378667,
+    "seen": 1794018493.3680687,
+    "ast_hash": "5a7a7cca539118311ac0e7ba87e65d65",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_explicando_solido.png": {
+    "mtime": 1793994608.0246356,
+    "seen": 1794018493.3680723,
+    "ast_hash": "8a00cdfb8d9d52ff8c7763ae624fc502",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pensando.png": {
+    "mtime": 1793994610.923108,
+    "seen": 1794018493.3680756,
+    "ast_hash": "6b9754a09dac3acd20fb72485c3f8ff3",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pensando_raw.png": {
+    "mtime": 1793994606.4133625,
+    "seen": 1794018493.3680787,
+    "ast_hash": "91216b9453f98aa03574d37c8feea560",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pensando_sheet_raw.png": {
+    "mtime": 1793994605.9998364,
+    "seen": 1794018493.3680816,
+    "ast_hash": "5cd28ecd1e77f7c56da87b2ce5a5cbce",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pensando_solido.png": {
+    "mtime": 1793994610.8387704,
+    "seen": 1794018493.368085,
+    "ast_hash": "d234f47afa443987b610355f13d069e7",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pulgar.png": {
+    "mtime": 1793994611.9361959,
+    "seen": 1794018493.368088,
+    "ast_hash": "4820de63c9e9f6ccc72491003d451d4e",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pulgar_raw.png": {
+    "mtime": 1793994606.0478363,
+    "seen": 1794018493.3680916,
+    "ast_hash": "bf10bc497ee08c01569a93e444ac2298",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_pulgar_solido.png": {
+    "mtime": 1793994611.8945422,
+    "seen": 1794018493.368095,
+    "ast_hash": "2f5089ff323dab7a5fab262d84f82466",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_saludo.png": {
+    "mtime": 1793994607.2850778,
+    "seen": 1794018493.368098,
+    "ast_hash": "3e72c721de159566a094feb0c32ec914",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_saludo_raw.png": {
+    "mtime": 1793994605.8917289,
+    "seen": 1794018493.3681014,
+    "ast_hash": "8458ffb3d7012a7bac57ca1740d25e80",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/png/zorrito_saludo_solido.png": {
+    "mtime": 1793994607.2236168,
+    "seen": 1794018493.3681047,
+    "ast_hash": "e0bbe0c072914c42d935ff0047dfff5e",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_1_saludo.png": {
+    "mtime": 1793994487.9076,
+    "seen": 1794018493.368108,
+    "ast_hash": "53f80019773b2314bc2d64285f86e5ac",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_1_saludo_transparent.png": {
+    "mtime": 1793994514.0194492,
+    "seen": 1794018493.3681111,
+    "ast_hash": "2220c9bf301f4d6dbaeb80ed3fbc874e",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_2_explicando.png": {
+    "mtime": 1793994487.960133,
+    "seen": 1794018493.3681142,
+    "ast_hash": "8a00cdfb8d9d52ff8c7763ae624fc502",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_2_explicando_transparent.png": {
+    "mtime": 1793994514.457565,
+    "seen": 1794018493.368118,
+    "ast_hash": "5bfdc7b15f436b7707ce50725e728f9e",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_3_pensando.png": {
+    "mtime": 1793994488.0071387,
+    "seen": 1794018493.3681214,
+    "ast_hash": "17171152747f5ed28b60c2138cf8853c",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_4_pulgar.png": {
+    "mtime": 1793994488.0544856,
+    "seen": 1794018493.3681247,
+    "ast_hash": "2dc5b0f04b03ea7e090061e53f1a9841",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/pose_4_pulgar_transparent.png": {
+    "mtime": 1793994514.7840521,
+    "seen": 1794018493.3681278,
+    "ast_hash": "18dfb4f1138e401d76a5045ea0972749",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/svg/zorrito_celebracion.svg": {
+    "mtime": 1793994615.326483,
+    "seen": 1794018493.3681312,
+    "ast_hash": "c02efda8cb9e1a740590926c2909b7aa",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/svg/zorrito_explicando.svg": {
+    "mtime": 1793994608.2399037,
+    "seen": 1794018493.3681343,
+    "ast_hash": "22d2bd787b3b36d3f095080900494d2b",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/svg/zorrito_pensando.svg": {
+    "mtime": 1793994611.223174,
+    "seen": 1794018493.3681378,
+    "ast_hash": "d995c5d71c99672c35ac2806ac6cbeb6",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/svg/zorrito_pulgar.svg": {
+    "mtime": 1793994612.0596886,
+    "seen": 1794018493.3681414,
+    "ast_hash": "8d49373a1482839be5532e57b4be7c0c",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/svg/zorrito_saludo.svg": {
+    "mtime": 1793994607.4065852,
+    "seen": 1794018493.3681443,
+    "ast_hash": "d9dce22787fd6a6d3badc1bd152a8b94",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_celebracion.png": {
+    "mtime": 1793994488.2645073,
+    "seen": 1794018493.3681483,
+    "ast_hash": "1124f86f8d41a9f139ddf71222cbc96b",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_celebracion_transparent.png": {
+    "mtime": 1793994512.2780576,
+    "seen": 1794018493.3681576,
+    "ast_hash": "9c7993e6037ffe3bf726f59de46b996f",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_hoja_4_poses.png": {
+    "mtime": 1793994378.3241847,
+    "seen": 1794018493.368161,
+    "ast_hash": "2873b793cd39e538c404952f2ceb651b",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_pensando.png": {
+    "mtime": 1793994378.696279,
+    "seen": 1794018493.3681643,
+    "ast_hash": "91216b9453f98aa03574d37c8feea560",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_pensando_sentado.png": {
+    "mtime": 1793994378.8144476,
+    "seen": 1794018493.3681676,
+    "ast_hash": "dfe0943f86a492a53e1624c19ff681eb",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_pensando_solo.png": {
+    "mtime": 1793994488.4739697,
+    "seen": 1794018493.368171,
+    "ast_hash": "85234f7824acbe28f3a60aae243dd9a4",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_pensando_solo_transparent.png": {
+    "mtime": 1793994513.6733203,
+    "seen": 1794018493.3681743,
+    "ast_hash": "26b3e21d2a39b7614457ea54bced1220",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_pulgar_animo.png": {
+    "mtime": 1793994378.849548,
+    "seen": 1794018493.3681777,
+    "ast_hash": "14c571d3fed6155d85584b2a99d2b41c",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_saltando_estrellas.png": {
+    "mtime": 1793994378.7798386,
+    "seen": 1794018493.368181,
+    "ast_hash": "7ab3285b5f59baae0b213e93fb6c64fe",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_saludo.png": {
+    "mtime": 1793994378.734805,
+    "seen": 1794018493.368184,
+    "ast_hash": "9d2805750d886747b4eeaeefefaa576e",
+    "semantic_hash": ""
+  },
+  "app/img/zorrito/zorrito_sheet_original.png": {
+    "mtime": 1793994487.854116,
+    "seen": 1794018493.3681877,
+    "ast_hash": "2873b793cd39e538c404952f2ceb651b",
+    "semantic_hash": ""
+  },
+  "app/sol_hologram_hero.jpg": {
+    "mtime": 1793988452.6879077,
+    "seen": 1794018493.3681908,
+    "ast_hash": "d0cd3cae93bf97b218aac3b2b99a1a07",
+    "semantic_hash": ""
+  },
+  "app_preview_desktop_1280.png": {
+    "mtime": 1793663478.7424192,
+    "seen": 1794018493.368194,
+    "ast_hash": "0ece6bf8e0191a552e75d4693083ebc7",
+    "semantic_hash": ""
+  },
+  "app_preview_mobile_390.png": {
+    "mtime": 1793284862.2956274,
+    "seen": 1794018493.3681974,
+    "ast_hash": "bdad6bda0c7a4acc14175755ad442a43",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/anime_character_render.png": {
+    "mtime": 1793666652.5007727,
+    "seen": 1794018493.368201,
+    "ast_hash": "b11ae4c40ed1a9f89aa90b90b2672366",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/hoja_personaje_referencia.png": {
+    "mtime": 1793666652.5210624,
+    "seen": 1794018493.3682044,
+    "ast_hash": "2fbea4408cc53796a059ed69b39b6511",
+    "semantic_hash": ""
+  },
+  "tests/test_palette_and_hud.js": {
+    "mtime": 1794018781.5568967,
+    "seen": 1794019068.0804992,
+    "ast_hash": "a9bef4be5aadbe9ae974f7f46ccef8da",
+    "semantic_hash": "a9bef4be5aadbe9ae974f7f46ccef8da"
   }
 }
