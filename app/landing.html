@@ -234,12 +234,19 @@
             </div>
           </div>
 
-          <!-- Mascota Zorrito con Diálogo Pedagógico Interactivo -->
+          <!-- Mascota Zorrito con Diálogo Pedagógico Interactivo (Seguimiento de Cursor y Curiosidad) -->
           <div class="flex items-center gap-3 bg-amber-50/80 border border-amber-200/80 p-2.5 sm:p-3 rounded-2xl shadow-sm mt-1">
-            <img src="img/zorrito/svg/zorrito_saludo.svg" alt="Zorrito tutor de Manitas" class="zorrito-pop w-11 h-11 sm:w-12 sm:h-12 object-contain shrink-0 anim-wave" title="¡Haz clic en Zorrito para un saludo!">
+            <img 
+              id="heroZorritoImg" 
+              src="img/zorrito/pose_1_saludo_transparent.png" 
+              alt="Zorrito tutor de Manitas" 
+              class="hero-zorrito-interactive zorrito-pop w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0 select-none cursor-pointer" 
+              title="¡Haz clic en Zorrito para un saludo o acércate despacio para ver su curiosidad!"
+            >
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2">
                 <span class="text-[10px] font-bold text-amber-700 uppercase tracking-wider">Zorrito Tutor LSC:</span>
+                <span id="zorritoStatusMood" class="text-[9px] font-mono text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200 hidden sm:inline-block">Curioso 👀</span>
               </div>
               <p id="zorritoTipText" class="text-xs text-slate-600 leading-snug mt-0.5 truncate sm:text-clip">
                 ¡Haz clic en cualquier seña arriba para ver el movimiento canónico en Anime IA o Persona Real!
@@ -458,6 +465,25 @@
     </section>
 
   </main>
+
+  <!-- COMPAÑERO FLOTANTE INTERACTIVO DE ZORRITO (OPCIÓN C) -->
+  <aside id="floatingZorritoDock" class="floating-zorrito-dock fixed bottom-5 right-5 flex flex-col items-end pointer-events-none" aria-label="Zorrito Compañero LSC">
+    <div id="floatingZorritoBubble" class="floating-zorrito-bubble text-slate-800 text-xs font-semibold px-3.5 py-2.5 rounded-2xl shadow-xl mb-2 max-w-[240px] transition-all duration-300 opacity-0 transform translate-y-2 pointer-events-auto leading-snug">
+      <span id="floatingZorritoText">¡Hola! Mueve tus manos o el cursor para aprender señas conmigo 👋</span>
+    </div>
+    <div id="floatingZorritoWrapper" class="floating-zorrito-wrapper pointer-events-auto cursor-pointer relative" title="¡Haz clic en Zorrito para un tip!">
+      <img 
+        id="floatingZorritoImg" 
+        src="img/zorrito/pose_1_saludo_transparent.png" 
+        alt="Zorrito tutor interactivo" 
+        class="w-16 h-16 sm:w-20 sm:h-20 object-contain select-none"
+      >
+      <span class="absolute top-0 right-1 flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+      </span>
+    </div>
+  </aside>
 
   <!-- FOOTER -->
   <footer class="border-t border-[#E7E3DC] bg-[#F5F2EC] py-6 px-4 text-xs text-slate-600 font-mono relative z-10">
