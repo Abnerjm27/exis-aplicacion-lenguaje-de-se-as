@@ -1,35 +1,33 @@
 /**
- * Manitas · Design Tokens (Opción B: Índigo Amatista Cósmico + Ámbar Sol)
- * Paleta de autor inspirada en animación Makoto Shinkai y contraste complementario:
- * Fondo Índigo Nocturno (#0D0B18), Superficie Amatista (#1A152E), Borde Místico (#342A56), Ámbar Sol (#F59E0B / #FFB703).
- * Roles semánticos al estilo radix-ui/colors, primer/primitives y Craft Floor de Impeccable.
+ * Manitas · Design Tokens (Opción A: Obsidiana & Grafito Cálido + Ámbar Sol)
+ * Paleta editorial de estudio estilo Apple Pro / MasterClass / Linear:
+ * Fondo Obsidiana Cálida (#0C0D10), Superficie Grafito (#15161C), Borde Titanio (#292B38), Ámbar Sol (#F59E0B / #FFC857).
+ * Cero sensación de plantilla azul o púrpura. Sobriedad cinemática y máximo contraste.
  */
 :root {
   /* Primitivos de marca */
-  --manitas-navy: #0D0B18;
-  --manitas-navy-raised: #1A152E;
-  --manitas-navy-elevated: #241E3D;
-  --manitas-navy-line: #342A56;
+  --manitas-navy: #0C0D10;
+  --manitas-navy-raised: #15161C;
+  --manitas-navy-elevated: #1D1E26;
+  --manitas-navy-line: #292B38;
   --manitas-sun: #F59E0B;
   --manitas-sun-light: #FFC857;
   --manitas-sun-hover: #FBBF24;
   --manitas-coral: #FF6B5B;
-  --manitas-bone: #F5F3FF;
+  --manitas-bone: #F7F7FA;
   --manitas-success: #10B981;
   --manitas-danger: #EF4444;
-  --manitas-amethyst: #8B5CF6;
-  --manitas-amethyst-subtle: #3D2D68;
 
-  /* Semánticos (tema oscuro amatista cósmico por defecto) */
-  --color-bg: #0D0B18;
-  --color-surface: #1A152E;
-  --color-surface-elevated: #241E3D;
-  --color-border: #342A56;
-  --color-text: #F5F3FF;
-  --color-text-muted: #C4B9E0;
-  --color-text-dim: #998DAF;
+  /* Semánticos (tema oscuro obsidiana grafito por defecto) */
+  --color-bg: #0C0D10;
+  --color-surface: #15161C;
+  --color-surface-elevated: #1D1E26;
+  --color-border: #292B38;
+  --color-text: #F7F7FA;
+  --color-text-muted: #A1A3B0;
+  --color-text-dim: #737584;
   --color-primary: #F59E0B;
-  --color-on-primary: #0D0B18;
+  --color-on-primary: #0C0D10;
   --color-accent: #FFC857;
   --color-action: #F59E0B;
   --color-success: #10B981;
@@ -39,7 +37,7 @@
   /* Tema claro (tarjetas de login/registro si aplica) */
   --color-light-bg: var(--manitas-bone);
   --color-light-text: var(--manitas-navy);
-  --color-light-muted: #5B4E75;
+  --color-light-muted: #4B4D5A;
   --color-light-link: #D97706;
 
   /* Tipografía Impeccable (Plus Jakarta Sans + Lexend) */

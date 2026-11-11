@@ -5,10 +5,10 @@
    ========================================================================== */
 
 :root {
-  --bg-main: #0D0B18;
-  --bg-surface: #1A152E;
-  --bg-surface-elevated: #241E3D;
-  --color-border: #342A56;
+  --bg-main: #0C0D10;
+  --bg-surface: #15161C;
+  --bg-surface-elevated: #1D1E26;
+  --color-border: #292B38;
   --color-primary: #F59E0B;
   --color-primary-hover: #FBBF24;
   --color-action: #F59E0B;
@@ -16,7 +16,6 @@
   --color-sun: #FFC857;
   --color-emerald: #10B981;
   --color-rose: #F43F5E;
-  --color-amethyst: #8B5CF6;
   --spring-easing: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -31,9 +30,9 @@ html, body {
   overflow-x: hidden;
   max-width: 100%;
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #0D0B18;
+  background-color: #0C0D10;
   background-image: none;
-  color: #F5F3FF;
+  color: #F7F7FA;
 }
 
 /* --- Barra Superior de Progreso de Scroll --- */
@@ -78,17 +77,17 @@ html, body {
 
 /* --- Navbar --- */
 .landing-navbar {
-  background: rgba(13, 11, 24, 0.92);
+  background: rgba(12, 13, 16, 0.94);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid #342A56;
+  border-bottom: 1px solid #292B38;
 }
 
 .logo-mark-box {
   width: 40px;
   height: 40px;
   border-radius: 0.75rem;
-  background: linear-gradient(145deg, rgba(245, 158, 11, 0.22), rgba(139, 92, 246, 0.15));
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.22), rgba(255, 255, 255, 0.05));
   border: 1px solid rgba(245, 158, 11, 0.45);
   box-shadow: 0 4px 16px -2px rgba(245, 158, 11, 0.25);
 }
@@ -107,8 +106,8 @@ html, body {
 }
 
 .metric-glass-pill {
-  background: rgba(26, 21, 46, 0.75);
-  border: 1px solid #342A56;
+  background: rgba(21, 22, 28, 0.78);
+  border: 1px solid #292B38;
   transition: transform 0.22s var(--spring-easing), border-color 0.2s ease;
 }
 
@@ -119,7 +118,7 @@ html, body {
 
 /* --- Escenario Holográfico 3D de Sol en el Hero --- */
 .holo-tilt-stage {
-  background: linear-gradient(155deg, rgba(26, 21, 46, 0.92), rgba(13, 11, 24, 0.96));
+  background: linear-gradient(155deg, rgba(21, 22, 28, 0.92), rgba(12, 13, 16, 0.96));
   border: 1px solid rgba(245, 158, 11, 0.35);
   border-radius: 1.5rem;
   box-shadow:
@@ -208,8 +207,8 @@ html, body {
 
 /* --- Sección Scrollytelling Interactivo --- */
 .scrolly-step-card {
-  background: rgba(26, 21, 46, 0.65);
-  border: 1px solid #342A56;
+  background: rgba(21, 22, 28, 0.65);
+  border: 1px solid #292B38;
   transition: transform 0.3s var(--spring-easing), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -218,15 +217,15 @@ html, body {
 }
 
 .scrolly-step-card.is-active {
-  background: rgba(36, 30, 61, 0.95);
+  background: rgba(29, 30, 38, 0.95);
   border-color: rgba(245, 158, 11, 0.75);
   transform: translateX(6px);
-  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), 0 0 28px -8px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.75), 0 0 28px -8px rgba(245, 158, 11, 0.2);
 }
 
 .scrolly-stage-window {
-  background: linear-gradient(160deg, rgba(26, 21, 46, 0.96), rgba(13, 11, 24, 0.98));
-  border: 1px solid #342A56;
+  background: linear-gradient(160deg, rgba(21, 22, 28, 0.96), rgba(12, 13, 16, 0.98));
+  border: 1px solid #292B38;
   box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.75);
   min-height: 340px;
 }
@@ -261,14 +260,14 @@ html, body {
 
 .preview-duo-node.active {
   background: #F59E0B;
-  color: #0D0B18;
+  color: #0C0D10;
   box-shadow: 0 0 20px rgba(245, 158, 11, 0.45);
 }
 
 .preview-duo-node.locked {
-  background: rgba(26, 21, 46, 0.8);
-  border: 1px solid rgba(153, 141, 175, 0.2);
-  color: #998DAF;
+  background: rgba(21, 22, 28, 0.8);
+  border: 1px solid rgba(161, 163, 176, 0.2);
+  color: #737584;
 }
 
 .preview-duo-node.trophy {
@@ -285,8 +284,8 @@ html, body {
 
 /* --- Consola Clásica Moderna de Login / Registro --- */
 .auth-glass-console {
-  background: linear-gradient(165deg, rgba(26, 21, 46, 0.94) 0%, rgba(13, 11, 24, 0.98) 100%);
-  border: 1px solid #342A56;
+  background: linear-gradient(165deg, rgba(21, 22, 28, 0.94) 0%, rgba(12, 13, 16, 0.98) 100%);
+  border: 1px solid #292B38;
   border-radius: 1.5rem;
   box-shadow:
     0 24px 60px -12px rgba(0, 0, 0, 0.75),
@@ -295,13 +294,13 @@ html, body {
 
 .auth-tab-active {
   background: #F59E0B;
-  color: #0D0B18;
+  color: #0C0D10;
   box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35);
 }
 
 .auth-field-input {
-  background-color: rgba(13, 11, 24, 0.92);
-  border: 1px solid #342A56;
+  background-color: rgba(12, 13, 16, 0.92);
+  border: 1px solid #292B38;
   transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
 }
 
@@ -312,14 +311,14 @@ html, body {
 .auth-field-input:focus {
   outline: none;
   border-color: #F59E0B;
-  background-color: #1A152E;
+  background-color: #15161C;
   box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
 }
 
 .auth-submit-btn {
   background: #F59E0B;
   border: 1px solid #FBBF24;
-  color: #0D0B18;
+  color: #0C0D10;
   font-weight: 800;
   box-shadow:
     inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
@@ -328,7 +327,7 @@ html, body {
 
 .auth-submit-btn:hover {
   background: #FBBF24;
-  color: #0D0B18;
+  color: #0C0D10;
 }
 
 .auth-submit-btn:active {
@@ -338,16 +337,16 @@ html, body {
 
 /* --- Wizard Modal del Cuestionario de Diagnóstico LSC --- */
 .quiz-wizard-card {
-  background: linear-gradient(165deg, #1A152E 0%, #0D0B18 100%);
-  border: 1px solid #342A56;
+  background: linear-gradient(165deg, #15161C 0%, #0C0D10 100%);
+  border: 1px solid #292B38;
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.85);
 }
 
 .quiz-option-card,
 .quiz-focus-card,
 .quiz-time-card {
-  background: rgba(13, 11, 24, 0.85);
-  border: 1px solid #342A56;
+  background: rgba(12, 13, 16, 0.85);
+  border: 1px solid #292B38;
   transition: transform 0.18s var(--spring-easing), border-color 0.18s ease, background-color 0.18s ease;
   cursor: pointer;
 }
@@ -369,8 +368,8 @@ html, body {
 
 /* Tarjetas de características */
 .step-feature-card {
-  background: rgba(26, 21, 46, 0.75);
-  border: 1px solid #342A56;
+  background: rgba(21, 22, 28, 0.75);
+  border: 1px solid #292B38;
   border-radius: 1.15rem;
   box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.5);
   transition: transform 0.22s var(--spring-easing), border-color 0.2s ease;
@@ -401,17 +400,17 @@ html, body {
    Visor Multimedia Interactivo en Hero (Anime IA + Persona Real)
    ========================================================================== */
 .hero-player-card {
-  background: linear-gradient(165deg, rgba(26, 21, 46, 0.95) 0%, rgba(13, 11, 24, 0.98) 100%);
+  background: linear-gradient(165deg, rgba(21, 22, 28, 0.95) 0%, rgba(12, 13, 16, 0.98) 100%);
   border: 1px solid rgba(245, 158, 11, 0.35);
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8), 0 0 30px -5px rgba(139, 92, 246, 0.2);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.85), 0 0 30px -5px rgba(245, 158, 11, 0.15);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
 
 .hero-toggle-group {
   display: inline-flex;
-  background: rgba(13, 11, 24, 0.9);
-  border: 1px solid #342A56;
+  background: rgba(12, 13, 16, 0.9);
+  border: 1px solid #292B38;
   border-radius: 0.75rem;
   padding: 2px;
   gap: 2px;
@@ -422,7 +421,7 @@ html, body {
   font-size: 0.7rem;
   font-weight: 700;
   border-radius: 0.6rem;
-  color: #998DAF;
+  color: #858796;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -431,12 +430,12 @@ html, body {
 }
 
 .hero-toggle-btn:hover {
-  color: #F5F3FF;
+  color: #F7F7FA;
 }
 
 .hero-toggle-btn.is-active {
   background: #F59E0B;
-  color: #0D0B18;
+  color: #0C0D10;
   box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
 }
 
@@ -463,9 +462,9 @@ html, body {
   font-size: 0.72rem;
   font-weight: 800;
   border-radius: 0.65rem;
-  background: rgba(26, 21, 46, 0.85);
-  border: 1px solid #342A56;
-  color: #C4B9E0;
+  background: rgba(21, 22, 28, 0.85);
+  border: 1px solid #292B38;
+  color: #A1A3B0;
   cursor: pointer;
   transition: all 0.18s var(--spring-easing);
   white-space: nowrap;
@@ -491,7 +490,7 @@ html, body {
   aspect-ratio: 16 / 9;
   border-radius: 1rem;
   overflow: hidden;
-  background: #080610;
+  background: #08080A;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -510,8 +509,8 @@ html, body {
 
 .zorrito-dialog-bubble {
   position: relative;
-  background: rgba(13, 11, 24, 0.96);
-  border: 1px solid #342A56;
+  background: rgba(12, 13, 16, 0.96);
+  border: 1px solid #292B38;
   box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.6);
 }
 
@@ -525,7 +524,7 @@ html, body {
   height: 0;
   border-top: 7px solid transparent;
   border-bottom: 7px solid transparent;
-  border-right: 8px solid #342A56;
+  border-right: 8px solid #292B38;
 }
 
 @media (prefers-reduced-motion: reduce) {
