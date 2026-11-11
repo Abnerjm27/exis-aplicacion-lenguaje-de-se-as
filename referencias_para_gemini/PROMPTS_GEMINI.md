@@ -413,18 +413,18 @@ Holds the exact canonical pose steadily for 1.8s matching reference (fotos/D_ref
 ### 19. Seña: E (Dactilología LSC70)
 **Español:**
 ```text
-Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, fondo neutro #070c18).
-Plano medio con enfoque en mano derecha. Letra dactilológica 'E' (LSC70AN):
-La mano derecha se eleva frente al pecho. Los cuatro dedos (índice, medio, anular y meñique) se curvan juntos hacia abajo, apoyando sus cuatro yemas uniformemente sobre la punta del pulgar plegado horizontalmente en la base de la palma, mostrando el perfil semicerrado característico de la letra E.
-Sostiene la pose fija durante 1.8 segundos con expresión cálida (fotos/E_ref.jpg). 5 dedos nítidos, sin artefactos visuales, bucle continuo.
+Video en bucle continuo de 2.5 segundos. Tutora anime de Lengua de Señas Colombiana (estilo cel-shading nítido, fondo neutro #070c18).
+Plano medio mostrando torso y rostro. Letra dactilológica 'E' (LSC70AN):
+El brazo derecho está alzado flexionando el codo, situando la mano derecha al lado de la mandíbula y mejilla derecha (a la altura de la boca/mentón, NO en el pecho). Los cuatro dedos (índice, medio, anular y meñique) están curvados juntos en un arco semicerrado compacto con los nudillos y el dorso orientados de tres cuartos hacia la cámara al lateral de la cara, apoyados suavemente sobre el pulgar recogido en la base.
+Sostiene la pose fija durante 1.8 segundos con expresión cálida (fotos/E_ref.jpg). 5 dedos nítidos, sin artefactos visuales, bucle continuo a 24 fps.
 ```
 
 **English:**
 ```text
-Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp anime style, studio backdrop #070c18).
-Medium shot showing upper body and right hand. Canonical manual alphabet letter 'E' (LSC70AN dataset):
-The right hand is held up in front of the chest. All four fingers (index, middle, ring, pinky) curl tightly together downward, resting their fingertips firmly on the tip of the thumb folded across the palm, clearly displaying the iconic curved silhouette of letter E.
-Holds steady for 1.8s matching reference (fotos/E_ref.jpg). Precise hand anatomy, smooth loop.
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (crisp anime style, studio backdrop #070c18).
+Medium shot showing upper body and head. Canonical manual alphabet letter 'E' (LSC70AN dataset):
+The right arm is raised with elbow bent, positioning the right hand elevated beside the right jawline / cheek at mouth level (beside the chin, NOT down at the chest). All four fingers (index, middle, ring, pinky) curl neatly together in a compact semi-closed curved arch resting their tips against the folded thumb. The hand is angled in a three-quarter orientation so the back of the curved fingers and knuckles face toward the camera beside the jaw.
+Holds steady for 1.8s matching reference (fotos/E_ref.jpg). Precise hand anatomy, smooth 24 fps loop.
 ```
 
 ---
@@ -433,17 +433,36 @@ Holds steady for 1.8s matching reference (fotos/E_ref.jpg). Precise hand anatomy
 **Español:**
 ```text
 Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, fondo neutro #070c18).
-Plano medio con vista clara de la mano derecha. Letra dactilológica 'U' (LSC70AN):
-La mano derecha se eleva al pecho/hombro. Los dedos índice y medio se extienden completamente rectos y verticales hacia arriba, FIRMEMENTE UNIDOS Y PEGADOS entre sí (paralelos sin separación, ¡no es una V!). El anular y meñique se pliegan hacia la palma sujetados suavemente por el pulgar.
-Mantiene la pose canónica firme durante 1.8 segundos (fotos/U_ref.jpg). Dedos bien definidos, 60 fps, render limpio y bucle fluido.
+Plano medio con vista clara de la mano derecha a la altura del pecho, palma orientada hacia el frente a la cámara. Letra dactilológica 'U' (LSC70AN):
+La mano derecha se eleva al pecho/hombro. El dedo índice se extiende completamente recto y vertical hacia arriba, y el dedo meñique se extiende completamente recto y vertical hacia arriba (ambos extremos erguidos formando la silueta en U / cuernos suaves). Los dedos medio y anular se pliegan hacia la palma sujetados suavemente por el pulgar.
+Mantiene la pose canónica firme durante 1.8 segundos (fotos/U_ref.jpg). Dedos bien definidos, 24 fps, render limpio y bucle fluido.
 ```
 
 **English:**
 ```text
 Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, studio backdrop #070c18).
-Medium shot displaying chest and right hand. Canonical manual alphabet letter 'U' (LSC70AN dataset):
-The right hand is raised at chest height. Index and middle fingers are extended completely straight upward and TIGHTLY JOINED together (parallel with NO gap, strictly distinguishing it from letter V). Ring and pinky fingers are tucked into the palm held by the thumb.
-Holds pose steadily for 1.8s matching reference (fotos/U_ref.jpg). Flawless fingers, clean studio lighting, seamless loop.
+Medium shot displaying chest and right hand, palm facing forward toward viewer. Canonical manual alphabet letter 'U' (LSC70AN dataset):
+The right hand is raised at chest height. Index finger and pinky finger are extended completely straight vertically pointing upward (forming the two upright sides of a 'U'). Middle finger and ring finger are tucked firmly into the palm, held down by the thumb. 
+Holds pose steadily for 1.8s matching reference (fotos/U_ref.jpg). Flawless fingers, clean studio lighting, seamless 24 fps loop.
+```
+
+---
+
+### 21. Seña: F (Dactilología LSC70)
+**Español:**
+```text
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, fondo neutro #070c18).
+Plano medio mostrando torso y rostro. Letra dactilológica 'F' (LSC70AN):
+La mano derecha se eleva frente a la barbilla/boca con la palma orientada hacia adelante hacia la cámara. El dedo índice se mantiene completamente erguido y vertical hacia arriba, mientras los otros tres dedos (medio, anular y meñique) se curvan hacia adelante en un arco abierto escalonado (simulando los trazos horizontales característicos de la letra F), con el pulgar apoyado en la base de la palma.
+Mantiene la postura estática y nítida durante 1.8 segundos (fotos/F_ref.jpg). 5 dedos anatómicamente perfectos, iluminación difusa de estudio, bucle fluido a 24 fps.
+```
+
+**English:**
+```text
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, studio backdrop #070c18).
+Medium shot framing torso and face. Canonical manual alphabet letter 'F' (LSC70AN dataset):
+The right hand is raised in front of the chin/mouth with the palm facing forward toward the camera. The index finger points straight vertically upward, while the other three fingers (middle, ring, pinky) are curved forward in an open, cascading arch (mimicking the horizontal crossbars of letter F), with the thumb resting at the base of the palm.
+Holds the canonical pose steadily for 1.8s matching reference (fotos/F_ref.jpg). Flawless 5-finger anatomy, studio lighting, smooth 24 fps loop.
 ```
 
 ---
