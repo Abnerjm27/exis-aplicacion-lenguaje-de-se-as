@@ -453,7 +453,11 @@ Holds pose steadily for 1.8s matching reference (fotos/U_ref.jpg). Flawless fing
 ```text
 Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, fondo neutro #070c18).
 Plano medio mostrando torso y rostro. Letra dactilológica 'F' (LSC70AN):
-La mano derecha se eleva frente a la barbilla/boca con la palma orientada hacia adelante hacia la cámara. El dedo índice se mantiene completamente erguido y vertical hacia arriba, mientras los otros tres dedos (medio, anular y meñique) se curvan hacia adelante en un arco abierto escalonado (simulando los trazos horizontales característicos de la letra F), con el pulgar apoyado en la base de la palma.
+La mano derecha se eleva frente a la barbilla/boca con la palma orientada hacia adelante hacia la cámara.
+ANATOMÍA CANÓNICA LSC70:
+1. El dedo índice se mantiene completamente erguido y vertical hacia arriba.
+2. El dedo pulgar está EXTENDIDO Y ABIERTO hacia el lateral exterior/arriba (¡NO está recogido ni doblado sobre la palma!).
+3. Los otros tres dedos (medio, anular y meñique) se curvan hacia adelante en un arco abierto escalonado (simulando los trazos horizontales de la letra F).
 Mantiene la postura estática y nítida durante 1.8 segundos (fotos/F_ref.jpg). 5 dedos anatómicamente perfectos, iluminación difusa de estudio, bucle fluido a 24 fps.
 ```
 
@@ -461,7 +465,11 @@ Mantiene la postura estática y nítida durante 1.8 segundos (fotos/F_ref.jpg). 
 ```text
 Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, studio backdrop #070c18).
 Medium shot framing torso and face. Canonical manual alphabet letter 'F' (LSC70AN dataset):
-The right hand is raised in front of the chin/mouth with the palm facing forward toward the camera. The index finger points straight vertically upward, while the other three fingers (middle, ring, pinky) are curved forward in an open, cascading arch (mimicking the horizontal crossbars of letter F), with the thumb resting at the base of the palm.
+The right hand is raised in front of the chin/mouth with the palm facing forward toward the camera.
+CANONICAL LSC70 ANATOMY:
+1. The index finger points straight vertically upward.
+2. The thumb is EXTENDED AND OPEN pointing outward/laterally (NOT curled or tucked across the palm!).
+3. The other three fingers (middle, ring, pinky) are curved forward in an open, cascading arch (mimicking the horizontal crossbars of letter F).
 Holds the canonical pose steadily for 1.8s matching reference (fotos/F_ref.jpg). Flawless 5-finger anatomy, studio lighting, smooth 24 fps loop.
 ```
 
