@@ -614,6 +614,11 @@ class RangeFileWrapper:
 
 class LSCHandler(http.server.SimpleHTTPRequestHandler):
     MAX_PAYLOAD_SIZE = 1024 * 1024  # 1 MB
+    index_pages = getattr(
+        http.server.SimpleHTTPRequestHandler,
+        "index_pages",
+        ("index.html", "index.htm"),
+    )
 
     extensions_map = {
         **http.server.SimpleHTTPRequestHandler.extensions_map,
@@ -656,7 +661,7 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_header("Content-Length", "0")
                 self.end_headers()
                 return None
-            for index in self.index_pages:
+            for index in getattr(self, "index_pages", ("index.html", "index.htm")):
                 index = os.path.join(path, index)
                 if os.path.isfile(index):
                     path = index
