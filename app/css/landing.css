@@ -391,6 +391,7 @@ html, body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-height: 48px;
 }
 
 .btn-duo-3d-primary:hover {
@@ -420,6 +421,7 @@ html, body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-height: 48px;
 }
 
 .btn-duo-3d-secondary:hover {
@@ -754,6 +756,82 @@ html, body {
 
 .floating-zorrito-wrapper:hover #floatingZorritoImg {
   filter: drop-shadow(0 10px 22px rgba(245, 158, 11, 0.38));
+}
+
+/* --- Clases Semánticas y Tipografía Referenciada (Cero CSS en HTML) --- */
+.landing-body {
+  background-color: var(--color-bg, #FAF8F5);
+  color: var(--color-text, #0F172A);
+}
+
+.hero-kinetic-stage {
+  min-height: 84vh;
+}
+
+.hero-active-badge-tag {
+  font-size: 0.625rem; /* 10px */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #FCD34D;
+  background-color: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  flex-shrink: 0;
+}
+
+.hero-live-badge-text {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #6EE7B7;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-caption-note {
+  font-size: 0.6875rem; /* 11px */
+  color: #64748B;
+  margin-top: 0.125rem;
+}
+
+.hero-label-sm {
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 700;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hero-badge-tag-amber {
+  color: #FBBF24;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.625rem; /* 10px */
+}
+
+.zorrito-title-tag {
+  font-size: 0.625rem; /* 10px */
+  font-weight: 700;
+  color: #B45309;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.zorrito-status-tag {
+  font-size: 0.5625rem; /* 9px */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #059669;
+  background-color: #ECFDF5;
+  padding: 0.05rem 0.375rem;
+  border-radius: 0.25rem;
+  border: 1px solid #A7F3D0;
+}
+
+.floating-zorrito-bubble {
+  max-width: 240px;
+}
+
+.landing-footer {
+  border-top: 1px solid #E7E3DC;
+  background-color: #F5F2EC;
 }
 
 @media (prefers-reduced-motion: reduce) {

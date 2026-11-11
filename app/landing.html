@@ -22,7 +22,7 @@
   <script src="js/landing.js?v=20261107" defer></script>
 </head>
 
-<body class="flex flex-col min-h-screen bg-[#FAF8F5] text-[#0F172A] antialiased relative selection:bg-amber-500 selection:text-slate-950">
+<body class="landing-body flex flex-col min-h-screen antialiased relative selection:bg-amber-500 selection:text-slate-950">
 
   <!-- Barra Superior de Progreso de Scroll (Scrollytelling Progress Line) -->
   <div id="scrollProgressTrack" class="scroll-progress-track" aria-hidden="true">
@@ -46,7 +46,7 @@
           <span class="text-lg font-extrabold tracking-tight text-slate-900 leading-none">
             Mani<span class="text-amber-500">tas</span> <span class="text-amber-500 font-mono text-xs font-semibold ml-1">LSC</span>
           </span>
-          <span class="hidden sm:block text-[11px] text-slate-500 mt-0.5">Lengua de Señas Colombiana · Corpus UTP</span>
+          <span class="hidden sm:block hero-caption-note">Lengua de Señas Colombiana · Corpus UTP</span>
         </div>
       </a>
 
@@ -88,7 +88,7 @@
     <!-- =======================================================================
          SECCIÓN 1: HERO CINEMÁTICO CON VISOR MULTIMEDIA INTERACTIVO
          ======================================================================= -->
-    <section id="heroShowcaseSection" aria-labelledby="heroTitle" class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 pt-8 pb-16 sm:py-14 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center min-h-[84vh] kinetic-3d-stage">
+    <section id="heroShowcaseSection" aria-labelledby="heroTitle" class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 pt-8 pb-16 sm:py-14 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center hero-kinetic-stage kinetic-3d-stage">
       
       <!-- Columna Izquierda: Narrativa, Impacto y CTAs (6 cols) -->
       <div class="lg:col-span-6 flex flex-col gap-5 scroll-reveal is-visible">
@@ -108,17 +108,17 @@
 
         <!-- Botones Principales de Acción con Efecto Táctil 3D Duolingo -->
         <div class="flex flex-wrap items-center gap-3 pt-2">
-          <a id="btnHeroStartRegister" href="register.html" class="btn-duo-3d-primary px-5 sm:px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-extrabold flex items-center gap-2 min-h-[48px]">
+          <a id="btnHeroStartRegister" href="register.html" class="btn-duo-3d-primary px-5 sm:px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-extrabold flex items-center gap-2">
             <span>Comenzar Gratis con Sol IA</span>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
 
-          <a id="btnHeroDemoDirect" href="index.html?screen=studio" class="btn-duo-3d-secondary px-4 sm:px-5 py-3.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 min-h-[48px]">
+          <a id="btnHeroDemoDirect" href="index.html?screen=studio" class="btn-duo-3d-secondary px-4 sm:px-5 py-3.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
             <span>Probar Estudio sin Registro</span>
           </a>
 
-          <a id="btnScrollToAuth" href="login.html" class="btn-duo-3d-secondary px-4 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold flex items-center gap-1.5 min-h-[48px]">
+          <a id="btnScrollToAuth" href="login.html" class="btn-duo-3d-secondary px-4 py-3.5 rounded-2xl text-xs sm:text-sm font-semibold flex items-center gap-1.5">
             <span>Iniciar Sesión</span>
           </a>
         </div>
@@ -127,15 +127,15 @@
         <div class="grid grid-cols-3 gap-2.5 sm:gap-4 pt-4 border-t border-slate-200 max-w-xl">
           <div class="metric-glass-pill p-3 rounded-xl bg-white border border-slate-200">
             <div id="telemetryFpsBadge" class="text-base sm:text-xl font-extrabold text-amber-500 font-mono tabular-nums">30 FPS</div>
-            <div class="text-[11px] text-slate-500 mt-0.5">Tracking Articular</div>
+            <div class="hero-caption-note">Tracking Articular</div>
           </div>
           <div class="metric-glass-pill p-3 rounded-xl bg-white border border-slate-200">
             <div id="telemetryModelBadge" class="text-base sm:text-xl font-extrabold text-emerald-600 font-mono tabular-nums">100% Local</div>
-            <div class="text-[11px] text-slate-500 mt-0.5">Qwen 2.5 en tu GPU</div>
+            <div class="hero-caption-note">Qwen 2.5 en tu GPU</div>
           </div>
           <div class="metric-glass-pill p-3 rounded-xl bg-white border border-slate-200">
             <div id="telemetryLatencyBadge" class="text-base sm:text-xl font-extrabold text-slate-900 font-mono tabular-nums">LSC70 UTP</div>
-            <div class="text-[11px] text-slate-500 mt-0.5">Corpus Académico</div>
+            <div class="hero-caption-note">Corpus Académico</div>
           </div>
         </div>
 
@@ -148,7 +148,7 @@
           <!-- Barra de Controles Superiores: Modo (Anime/Real) y Vista (Cuerpo/Mano) -->
           <div class="flex items-center justify-between gap-2 flex-wrap">
             <div class="flex items-center gap-2">
-              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Modo:</span>
+              <span class="hero-label-sm">Modo:</span>
               <div class="hero-toggle-group" role="group" aria-label="Selector de Modelo de Video">
                 <button type="button" id="btnHeroModeAnime" class="hero-toggle-btn is-active" data-mode="anime">
                   ✨ Anime IA (Sol)
@@ -160,7 +160,7 @@
             </div>
 
             <div class="flex items-center gap-2">
-              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Vista:</span>
+              <span class="hero-label-sm">Vista:</span>
               <div class="hero-toggle-group" role="group" aria-label="Selector de Encuadre">
                 <button type="button" id="btnHeroViewBody" class="hero-toggle-btn is-active" data-view="body">
                   Cuerpo
@@ -196,7 +196,7 @@
             <!-- Badges Flotantes sobre el Video -->
             <div class="floating-hud-Tag top-3 left-3 flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping" aria-hidden="true"></span>
-              <span id="heroLiveBadgeText" class="font-mono text-[10px] sm:text-[11px] font-bold text-emerald-300 tabular-nums">
+              <span id="heroLiveBadgeText" class="hero-live-badge-text">
                 EN VIVO · ANIME IA 24 FPS
               </span>
             </div>
@@ -208,7 +208,7 @@
                   HOLA · Saludo Oficial LSC
                 </span>
               </div>
-              <span id="heroActiveBadgeTag" class="text-[10px] font-mono text-amber-300 bg-amber-500/15 px-2 py-0.5 rounded border border-amber-500/30 shrink-0">
+              <span id="heroActiveBadgeTag" class="hero-active-badge-tag">
                 LSC70
               </span>
             </div>
@@ -216,9 +216,9 @@
 
           <!-- Selector Rápido de Señas (Pills Horizontales) -->
           <div class="flex flex-col gap-1.5 pt-1">
-            <div class="flex items-center justify-between text-[11px] text-slate-400 px-0.5">
+            <div class="flex items-center justify-between hero-caption-note px-0.5">
               <span>Explora señas oficiales de muestra:</span>
-              <span class="text-amber-400 font-mono text-[10px]">10 señas disponibles</span>
+              <span class="hero-badge-tag-amber">10 señas disponibles</span>
             </div>
             <div id="heroSignSelector" class="hero-sign-scroll" role="tablist" aria-label="Señas para probar en el visor">
               <button type="button" class="hero-sign-pill is-active" data-sign="HOLA" data-tip="¡La mano derecha parte de la sien y se proyecta hacia adelante en diagonal!">HOLA</button>
@@ -238,15 +238,15 @@
           <div class="flex items-center gap-3 bg-amber-50/80 border border-amber-200/80 p-2.5 sm:p-3 rounded-2xl shadow-sm mt-1">
             <img 
               id="heroZorritoImg" 
-              src="img/zorrito/pose_1_saludo_transparent.png" 
+              src="img/zorrito/zorrito_idle.webp" 
               alt="Zorrito tutor de Manitas" 
               class="hero-zorrito-interactive zorrito-pop w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0 select-none cursor-pointer" 
               title="¡Haz clic en Zorrito para un saludo o acércate despacio para ver su curiosidad!"
             >
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2">
-                <span class="text-[10px] font-bold text-amber-700 uppercase tracking-wider">Zorrito Tutor LSC:</span>
-                <span id="zorritoStatusMood" class="text-[9px] font-mono text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200 hidden sm:inline-block">Curioso 👀</span>
+                <span class="zorrito-title-tag">Zorrito Tutor LSC:</span>
+                <span id="zorritoStatusMood" class="zorrito-status-tag hidden sm:inline-block">Curioso 👀</span>
               </div>
               <p id="zorritoTipText" class="text-xs text-slate-600 leading-snug mt-0.5 truncate sm:text-clip">
                 ¡Haz clic en cualquier seña arriba para ver el movimiento canónico en Anime IA o Persona Real!
@@ -456,9 +456,9 @@
             Crea tu cuenta, responde un test de nivel de 3 preguntas y Sol IA arma tu ruta.
           </p>
           <div class="flex flex-wrap items-center gap-3 pt-2">
-            <a id="ctaRegister" href="register.html" class="btn-duo-3d-primary px-6 min-h-[48px] text-sm font-extrabold">Crear cuenta gratis</a>
-            <a id="ctaGuestDirect" href="index.html?screen=studio" class="btn-duo-3d-secondary px-5 min-h-[48px] text-sm font-bold">Probar sin registrarse</a>
-            <a id="ctaLogin" href="login.html" class="btn-duo-3d-secondary px-5 min-h-[48px] text-sm font-semibold">Ya tengo cuenta</a>
+            <a id="ctaRegister" href="register.html" class="btn-duo-3d-primary px-6 text-sm font-extrabold">Crear cuenta gratis</a>
+            <a id="ctaGuestDirect" href="index.html?screen=studio" class="btn-duo-3d-secondary px-5 text-sm font-bold">Probar sin registrarse</a>
+            <a id="ctaLogin" href="login.html" class="btn-duo-3d-secondary px-5 text-sm font-semibold">Ya tengo cuenta</a>
           </div>
         </div>
       </div>
@@ -468,13 +468,13 @@
 
   <!-- COMPAÑERO FLOTANTE INTERACTIVO DE ZORRITO (OPCIÓN C) -->
   <aside id="floatingZorritoDock" class="floating-zorrito-dock fixed bottom-5 right-5 flex flex-col items-end pointer-events-none" aria-label="Zorrito Compañero LSC">
-    <div id="floatingZorritoBubble" class="floating-zorrito-bubble text-slate-800 text-xs font-semibold px-3.5 py-2.5 rounded-2xl shadow-xl mb-2 max-w-[240px] transition-all duration-300 opacity-0 transform translate-y-2 pointer-events-auto leading-snug">
+    <div id="floatingZorritoBubble" class="floating-zorrito-bubble text-slate-800 text-xs font-semibold px-3.5 py-2.5 rounded-2xl shadow-xl mb-2 transition-all duration-300 opacity-0 transform translate-y-2 pointer-events-auto leading-snug">
       <span id="floatingZorritoText">¡Hola! Mueve tus manos o el cursor para aprender señas conmigo 👋</span>
     </div>
     <div id="floatingZorritoWrapper" class="floating-zorrito-wrapper pointer-events-auto cursor-pointer relative" title="¡Haz clic en Zorrito para un tip!">
       <img 
         id="floatingZorritoImg" 
-        src="img/zorrito/pose_1_saludo_transparent.png" 
+        src="img/zorrito/zorrito_idle.webp" 
         alt="Zorrito tutor interactivo" 
         class="w-16 h-16 sm:w-20 sm:h-20 object-contain select-none"
       >
@@ -486,7 +486,7 @@
   </aside>
 
   <!-- FOOTER -->
-  <footer class="border-t border-[#E7E3DC] bg-[#F5F2EC] py-6 px-4 text-xs text-slate-600 font-mono relative z-10">
+  <footer class="landing-footer py-6 px-4 text-xs text-slate-600 font-mono relative z-10">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
       <span>Manitas · Academia Interactiva de Lengua de Señas Colombiana</span>
       <span>Dataset Oficial: LSC70 (Universidad Tecnológica de Pereira)</span>

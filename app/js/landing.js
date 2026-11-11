@@ -310,8 +310,8 @@ class ZorritoCompanionController {
     if (!this.#heroFoxImg || this.#isCurious) return;
     this.#isCurious = true;
 
-    // Cambia a pose curiosa e intrigada
-    this.#heroFoxImg.src = 'img/zorrito/pose_2_explicando_transparent.png';
+    // Cambia a animación de curiosidad e intriga (WebP animado)
+    this.#heroFoxImg.src = 'img/zorrito/zorrito_curioso.webp';
     this.#heroFoxImg.classList.add('is-curious');
     if (this.#statusMood) {
       this.#statusMood.textContent = '¡Curioso! 🐾';
@@ -332,10 +332,10 @@ class ZorritoCompanionController {
     if (!this.#isCurious || !this.#heroFoxImg) return;
     this.#isCurious = false;
 
-    // Regresa a la posición base con rebote elástico
+    // Regresa a la animación base de reposo con rebote elástico
     this.#heroFoxImg.classList.remove('is-curious');
     this.#heroFoxImg.classList.add('anim-bounce-squish');
-    this.#heroFoxImg.src = 'img/zorrito/pose_1_saludo_transparent.png';
+    this.#heroFoxImg.src = 'img/zorrito/zorrito_idle.webp';
     this.#heroFoxImg.style.transform = 'translate3d(0, 0, 0) rotate(0deg) scale(1)';
     if (this.#statusMood) {
       this.#statusMood.textContent = 'Atento 👀';
@@ -347,15 +347,15 @@ class ZorritoCompanionController {
   }
 
   #bindClickInteractions() {
-    // Clic en Hero Zorrito
+    // Clic en Hero Zorrito: Celebración animada con estrellas
     if (this.#heroFoxImg) {
       this.#heroFoxImg.addEventListener('click', () => {
-        this.#heroFoxImg.src = 'img/zorrito/zorrito_celebracion_transparent.png';
+        this.#heroFoxImg.src = 'img/zorrito/zorrito_celebracion.webp';
         this.#heroFoxImg.classList.add('anim-bounce-squish');
         setTimeout(() => {
-          this.#heroFoxImg.src = 'img/zorrito/pose_1_saludo_transparent.png';
+          this.#heroFoxImg.src = 'img/zorrito/zorrito_idle.webp';
           this.#heroFoxImg.classList.remove('anim-bounce-squish');
-        }, 1200);
+        }, 1800);
       });
     }
 
@@ -363,25 +363,25 @@ class ZorritoCompanionController {
     const wrapper = document.getElementById('floatingZorritoWrapper');
     if (wrapper && this.#floatingFoxImg) {
       wrapper.addEventListener('click', () => {
-        this.#floatingFoxImg.src = 'img/zorrito/zorrito_celebracion_transparent.png';
+        this.#floatingFoxImg.src = 'img/zorrito/zorrito_celebracion.webp';
         this.#floatingFoxImg.classList.add('anim-bounce-squish');
         this.#showRandomTip();
 
         setTimeout(() => {
-          this.#floatingFoxImg.src = 'img/zorrito/pose_1_saludo_transparent.png';
+          this.#floatingFoxImg.src = 'img/zorrito/zorrito_idle.webp';
           this.#floatingFoxImg.classList.remove('anim-bounce-squish');
-        }, 1500);
+        }, 1800);
       });
 
       wrapper.addEventListener('pointerenter', () => {
         if (!this.#floatingFoxImg.classList.contains('anim-bounce-squish')) {
-          this.#floatingFoxImg.src = 'img/zorrito/pose_4_pulgar_transparent.png';
+          this.#floatingFoxImg.src = 'img/zorrito/zorrito_atento.webp';
         }
       });
 
       wrapper.addEventListener('pointerleave', () => {
         if (!this.#floatingFoxImg.classList.contains('anim-bounce-squish')) {
-          this.#floatingFoxImg.src = 'img/zorrito/pose_1_saludo_transparent.png';
+          this.#floatingFoxImg.src = 'img/zorrito/zorrito_idle.webp';
         }
       });
     }
