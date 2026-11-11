@@ -51,23 +51,30 @@
       </a>
 
       <!-- Enlaces de Scrollytelling -->
-      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-300">
+      <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
+        <a id="navHeroVisor" href="#heroShowcaseSection" class="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse" aria-hidden="true"></span>
+          <span>Visor Anime IA</span>
+        </a>
         <a id="navFeatures" href="#scrollyShowcaseSection" class="hover:text-amber-400 transition-colors">Experiencia Interactiva</a>
         <a href="#pillarsSection" class="hover:text-amber-400 transition-colors">Tecnología IA</a>
         <a href="mascot_gallery.html" class="hover:text-[#FFC857] text-[#00B8A9] font-bold transition-colors flex items-center gap-1.5">
           <span>🦊</span>
           <span>Mascota Zorrito</span>
         </a>
-        <a id="navAuthPortal" href="register.html" class="hover:text-amber-400 transition-colors">Crear Cuenta</a>
       </nav>
 
-      <!-- Botones de Login y Registro Normales -->
-      <div class="flex items-center gap-2.5">
+      <!-- Botones de Login, Registro y Demo Rápida -->
+      <div class="flex items-center gap-2">
+        <a id="btnNavDemoDirect" href="index.html?screen=studio" class="hidden sm:inline-flex btn-spring px-3 py-2 rounded-xl text-xs font-bold text-slate-950 bg-[#1FC8BA] hover:bg-[#3DE8D2] shadow-sm items-center gap-1.5">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+          <span>Probar Demo</span>
+        </a>
         <a id="btnHeaderLogin" href="login.html" class="btn-spring px-3.5 py-2 rounded-xl text-xs font-bold text-slate-200 hover:text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80">
           Iniciar Sesión
         </a>
-        <a id="btnNavEnter" href="register.html" class="btn-spring px-4 py-2 rounded-xl text-xs font-extrabold bg-coral-500 hover:bg-coral-400 text-slate-950 shadow-sm flex items-center gap-1.5">
-          <span>Registrarse Gratis</span>
+        <a id="btnNavEnter" href="register.html" class="btn-spring px-3.5 py-2 rounded-xl text-xs font-extrabold bg-coral-500 hover:bg-coral-400 text-slate-950 shadow-sm flex items-center gap-1.5">
+          <span>Crear Cuenta</span>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
       </div>
@@ -79,12 +86,12 @@
   <main class="w-full flex-1 flex flex-col relative z-10">
 
     <!-- =======================================================================
-         SECCIÓN 1: HERO CINEMÁTICO FULL-VIEWPORT (ESTILO AGENCIA 50K)
+         SECCIÓN 1: HERO CINEMÁTICO CON VISOR MULTIMEDIA INTERACTIVO
          ======================================================================= -->
-    <section aria-labelledby="heroTitle" class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 pt-8 pb-16 sm:py-16 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center min-h-[84vh]">
+    <section id="heroShowcaseSection" aria-labelledby="heroTitle" class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 pt-8 pb-16 sm:py-14 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center min-h-[84vh]">
       
-      <!-- Columna Izquierda: Narrativa e Impacto (7 cols) -->
-      <div class="lg:col-span-7 flex flex-col gap-6 scroll-reveal is-visible">
+      <!-- Columna Izquierda: Narrativa, Impacto y CTAs (6 cols) -->
+      <div class="lg:col-span-6 flex flex-col gap-5 scroll-reveal is-visible">
         
         <div class="inline-flex items-center gap-2.5 self-start px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/35 text-xs font-mono text-amber-300 shadow-lg">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span>
@@ -95,85 +102,148 @@
           Aprende Lengua de Señas Colombiana con <span class="text-amber-400">Visión Artificial</span> que responde a tus manos.
         </h1>
 
-        <p class="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed max-w-2xl">
-          Olvídate de ver videos pasivos. En <strong>Manitas</strong> tu cámara analiza 21 puntos biomecánicos de tu mano en tiempo real mientras <strong>Sol IA</strong> diseña tu plan estilo Duolingo desde cero.
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
+          Olvídate de ver videos pasivos. En <strong>Manitas</strong> tu cámara analiza 21 puntos biomecánicos de tu mano en tiempo real mientras <strong>Sol IA</strong> guía tu aprendizaje con lecciones gamificadas estilo Duolingo.
         </p>
 
-        <!-- Botones Principales de Acción -->
-        <div class="flex flex-wrap items-center gap-3.5 pt-1">
-          <a id="btnHeroStartRegister" href="register.html" class="btn-spring auth-submit-btn bg-coral-500 hover:bg-coral-400 px-6 py-3.5 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 flex items-center gap-2.5">
-            <span>Comenzar Ahora — Crear Cuenta</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        <!-- Botones Principales de Acción (Flujo de Acceso Pulido) -->
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <a id="btnHeroStartRegister" href="register.html" class="btn-spring auth-submit-btn bg-coral-500 hover:bg-coral-400 px-5 sm:px-6 py-3.5 rounded-xl text-xs sm:text-sm font-extrabold text-slate-950 flex items-center gap-2 shadow-lg min-h-[46px]">
+            <span>Comenzar Gratis con Sol IA</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
 
-          <a id="btnScrollToAuth" href="login.html" class="btn-spring px-5 py-3.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700 flex items-center gap-2">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00B8A9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
-            <span>Ya tengo cuenta · Iniciar Sesión</span>
+          <a id="btnHeroDemoDirect" href="index.html?screen=studio" class="btn-spring px-4 sm:px-5 py-3.5 rounded-xl text-xs sm:text-sm font-bold bg-[#1FC8BA] hover:bg-[#3DE8D2] text-slate-950 flex items-center gap-2 shadow-md min-h-[46px]">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+            <span>Probar Estudio sin Registro</span>
           </a>
 
-          <a id="btnQuickGuestPath" href="index.html?screen=path" class="btn-spring px-4 py-3.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-amber-300 flex items-center gap-1.5">
-            <span>Probar como invitado</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <a id="btnScrollToAuth" href="login.html" class="btn-spring px-4 py-3.5 rounded-xl text-xs sm:text-sm font-semibold bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700/80 flex items-center gap-1.5 min-h-[46px]">
+            <span>Iniciar Sesión</span>
           </a>
         </div>
 
         <!-- Métricas de Impacto con Contadores Tabulares -->
-        <div class="grid grid-cols-3 gap-3 sm:gap-5 pt-5 border-t border-slate-800/80 max-w-xl">
-          <div class="metric-glass-pill p-3 rounded-xl">
-            <div id="telemetryFpsBadge" class="text-lg sm:text-2xl font-extrabold text-amber-400 font-mono tabular-nums">30 FPS</div>
-            <div class="text-[11px] text-slate-400 mt-0.5">Tracking Biomecánico</div>
+        <div class="grid grid-cols-3 gap-2.5 sm:gap-4 pt-4 border-t border-slate-800/80 max-w-xl">
+          <div class="metric-glass-pill p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+            <div id="telemetryFpsBadge" class="text-base sm:text-xl font-extrabold text-amber-400 font-mono tabular-nums">30 FPS</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Tracking Articular</div>
           </div>
-          <div class="metric-glass-pill p-3 rounded-xl">
-            <div id="telemetryModelBadge" class="text-lg sm:text-2xl font-extrabold text-emerald-400 font-mono tabular-nums">Qwen 2.5</div>
-            <div class="text-[11px] text-slate-400 mt-0.5">Tutora IA 100% Local</div>
+          <div class="metric-glass-pill p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+            <div id="telemetryModelBadge" class="text-base sm:text-xl font-extrabold text-emerald-400 font-mono tabular-nums">100% Local</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Qwen 2.5 en tu GPU</div>
           </div>
-          <div class="metric-glass-pill p-3 rounded-xl">
-            <div id="telemetryLatencyBadge" class="text-lg sm:text-2xl font-extrabold text-white font-mono tabular-nums">20 Señas</div>
-            <div class="text-[11px] text-slate-400 mt-0.5">Corpus Oficial LSC70</div>
+          <div class="metric-glass-pill p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+            <div id="telemetryLatencyBadge" class="text-base sm:text-xl font-extrabold text-white font-mono tabular-nums">LSC70 UTP</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Corpus Académico</div>
           </div>
         </div>
 
       </div>
 
-      <!-- Columna Derecha: Escenario Holográfico 3D con Tilt Interactivo (5 cols) -->
-      <div class="lg:col-span-5 relative scroll-reveal is-visible">
-        <div id="solHoloCapsule" class="holo-tilt-stage p-3 sm:p-4 relative">
+      <!-- Columna Derecha: Visor Interactivo de Videos Anime IA + Mascota Zorrito (6 cols) -->
+      <div class="lg:col-span-6 relative scroll-reveal is-visible">
+        <div id="solHoloCapsule" class="hero-player-card p-4 sm:p-5 rounded-3xl relative flex flex-col gap-3.5">
           
-          <div class="relative rounded-2xl overflow-hidden bg-slate-950 border border-amber-500/30">
-            <img 
-              id="solHologramImg" 
-              src="sol_hologram_hero.jpg" 
-              alt="Sol realizando seña con constelación biomecánica de 21 articulaciones MediaPipe" 
-              class="sol-hero-artwork"
-            />
-            <!-- Anillos orbitales animados sobre la mano -->
-            <svg id="svgHandLandmarks" class="holo-hud-overlay" viewBox="0 0 200 200" aria-hidden="true">
-              <circle cx="52" cy="88" r="32" class="hud-orbit-ring" />
-              <circle cx="52" cy="88" r="46" class="hud-orbit-ring-outer" />
-            </svg>
-
-            <!-- Tarjeta Flotante Superior -->
-            <div class="floating-hud-Tag top-3 left-3 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-[#1FC8BA] animate-ping" aria-hidden="true"></span>
-              <span class="font-mono text-[11px] font-bold text-[#1FC8BA] tabular-nums">PRECISIÓN EN VIVO: 98.4% (EJEMPLO)</span>
+          <!-- Barra de Controles Superiores: Modo (Anime/Real) y Vista (Cuerpo/Mano) -->
+          <div class="flex items-center justify-between gap-2 flex-wrap">
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Modo:</span>
+              <div class="hero-toggle-group" role="group" aria-label="Selector de Modelo de Video">
+                <button type="button" id="btnHeroModeAnime" class="hero-toggle-btn is-active" data-mode="anime">
+                  ✨ Anime IA (Sol)
+                </button>
+                <button type="button" id="btnHeroModeReal" class="hero-toggle-btn" data-mode="real">
+                  👤 Persona Real
+                </button>
+              </div>
             </div>
 
-            <!-- Tarjeta Flotante Inferior -->
-            <div class="floating-hud-Tag bottom-3 left-3 right-3 flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-amber-400" aria-hidden="true"></span>
-                <span class="text-xs font-bold text-white">Sol · Arquitecta de Rutas LSC</span>
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Vista:</span>
+              <div class="hero-toggle-group" role="group" aria-label="Selector de Encuadre">
+                <button type="button" id="btnHeroViewBody" class="hero-toggle-btn is-active" data-view="body">
+                  Cuerpo
+                </button>
+                <button type="button" id="btnHeroViewHand" class="hero-toggle-btn" data-view="hand">
+                  Mano
+                </button>
               </div>
-              <span class="text-[10px] font-mono text-amber-300 bg-amber-500/15 px-2 py-0.5 rounded border border-amber-500/30">IA Activa</span>
             </div>
           </div>
 
-          <!-- Mascota Zorrito Tutor Flotante -->
-          <div class="absolute -bottom-6 -left-3 sm:-bottom-7 sm:-left-5 z-20 flex items-center gap-3 bg-[#172544]/95 backdrop-blur-md border border-[#2A3A5E] p-2.5 sm:p-3 pr-4 rounded-2xl shadow-2xl">
-            <img src="img/zorrito/svg/zorrito_saludo.svg" alt="Zorrito tutor de Manitas saludando" class="w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0 anim-wave">
-            <div>
-              <span class="text-[10px] font-bold text-[#FFC857] uppercase tracking-wider block">¡Hola, bienvenido!</span>
-              <p class="text-xs font-extrabold text-white leading-tight">Tu tutor personal de LSC</p>
+          <!-- Contenedor del Reproductor Multimedia con Fallback WebP -->
+          <div id="heroVideoViewport" class="hero-video-viewport">
+            <video 
+              id="heroDemoVideo" 
+              class="hero-video-element" 
+              autoplay 
+              loop 
+              muted 
+              playsinline
+              poster="videos/anime/HOLA_body.webp"
+            >
+              <source id="heroVideoSource" src="videos/anime/HOLA_body.mp4" type="video/mp4">
+            </video>
+            
+            <img 
+              id="heroWebpFallback" 
+              src="videos/anime/HOLA_body.webp" 
+              alt="Demostración de seña" 
+              class="hero-video-element hidden"
+            >
+
+            <!-- Badges Flotantes sobre el Video -->
+            <div class="floating-hud-Tag top-3 left-3 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping" aria-hidden="true"></span>
+              <span id="heroLiveBadgeText" class="font-mono text-[10px] sm:text-[11px] font-bold text-emerald-300 tabular-nums">
+                EN VIVO · ANIME IA 24 FPS
+              </span>
+            </div>
+
+            <div class="floating-hud-Tag bottom-3 left-3 right-3 flex items-center justify-between">
+              <div class="flex items-center gap-2 truncate">
+                <span class="w-2 h-2 rounded-full bg-amber-400 shrink-0" aria-hidden="true"></span>
+                <span id="heroActiveSignLabel" class="text-xs font-bold text-white truncate">
+                  HOLA · Saludo Oficial LSC
+                </span>
+              </div>
+              <span id="heroActiveBadgeTag" class="text-[10px] font-mono text-amber-300 bg-amber-500/15 px-2 py-0.5 rounded border border-amber-500/30 shrink-0">
+                LSC70
+              </span>
+            </div>
+          </div>
+
+          <!-- Selector Rápido de Señas (Pills Horizontales) -->
+          <div class="flex flex-col gap-1.5 pt-1">
+            <div class="flex items-center justify-between text-[11px] text-slate-400 px-0.5">
+              <span>Explora señas oficiales de muestra:</span>
+              <span class="text-amber-400 font-mono text-[10px]">10 señas disponibles</span>
+            </div>
+            <div id="heroSignSelector" class="hero-sign-scroll" role="tablist" aria-label="Señas para probar en el visor">
+              <button type="button" class="hero-sign-pill is-active" data-sign="HOLA" data-tip="¡La mano derecha parte de la sien y se proyecta hacia adelante en diagonal!">HOLA</button>
+              <button type="button" class="hero-sign-pill" data-sign="BUENOS" data-tip="¡La mano derecha baja desde arriba y contacta la palma izquierda en el centro!">BUENOS</button>
+              <button type="button" class="hero-sign-pill" data-sign="DIAS" data-tip="¡Ambos brazos se abren hacia los lados simulando la salida del sol!">DÍAS</button>
+              <button type="button" class="hero-sign-pill" data-sign="U" data-tip="¡En la U los dedos índice y meñique apuntan erguidos como dos postes (LSC70)!">Letra U</button>
+              <button type="button" class="hero-sign-pill" data-sign="D" data-tip="¡El índice apunta recto hacia arriba y el pulgar toca el dedo medio en aro!">Letra D</button>
+              <button type="button" class="hero-sign-pill" data-sign="E" data-tip="¡La mano se eleva junto a la mandíbula con los cuatro dedos curvados al frente!">Letra E</button>
+              <button type="button" class="hero-sign-pill" data-sign="A" data-tip="¡Puño cerrado con el pulgar erguido al lateral del índice!">Letra A</button>
+              <button type="button" class="hero-sign-pill" data-sign="B" data-tip="¡Cuatro dedos extendidos hacia arriba y pulgar doblado sobre la palma!">Letra B</button>
+              <button type="button" class="hero-sign-pill" data-sign="C" data-tip="¡Mano arqueada formando el semicírculo de la letra C!">Letra C</button>
+              <button type="button" class="hero-sign-pill" data-sign="V" data-tip="¡Dedos índice y medio abiertos en V (símbolo de victoria)!">Letra V</button>
+            </div>
+          </div>
+
+          <!-- Mascota Zorrito con Diálogo Pedagógico Interactivo -->
+          <div class="flex items-center gap-3 bg-slate-950/80 border border-[#2A3A5E] p-2.5 sm:p-3 rounded-2xl shadow-md mt-1">
+            <img src="img/zorrito/svg/zorrito_saludo.svg" alt="Zorrito tutor de Manitas" class="w-11 h-11 sm:w-12 sm:h-12 object-contain shrink-0 anim-wave">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-bold text-[#FFC857] uppercase tracking-wider">Zorrito Tutor LSC:</span>
+              </div>
+              <p id="zorritoTipText" class="text-xs text-slate-200 leading-snug mt-0.5 truncate sm:text-clip">
+                ¡Haz clic en cualquier seña arriba para ver el movimiento canónico en Anime IA o Persona Real!
+              </p>
             </div>
           </div>
 
@@ -374,7 +444,8 @@
           </p>
           <div class="flex flex-wrap items-center gap-3 pt-2">
             <a id="ctaRegister" href="register.html" class="btn-spring auth-submit-btn bg-coral-500 hover:bg-coral-400 px-6 min-h-[48px] inline-flex items-center rounded-xl text-sm font-extrabold text-slate-950">Crear cuenta gratis</a>
-            <a id="ctaLogin" href="login.html" class="btn-spring px-6 min-h-[48px] inline-flex items-center rounded-xl text-sm font-bold bg-slate-900 hover:bg-slate-800 text-slate-100 border border-slate-700">Ya tengo cuenta</a>
+            <a id="ctaGuestDirect" href="index.html?screen=studio" class="btn-spring px-5 min-h-[48px] inline-flex items-center rounded-xl text-sm font-bold bg-[#1FC8BA] hover:bg-[#3DE8D2] text-slate-950">Probar sin registrarse</a>
+            <a id="ctaLogin" href="login.html" class="btn-spring px-5 min-h-[48px] inline-flex items-center rounded-xl text-sm font-bold bg-slate-900 hover:bg-slate-800 text-slate-100 border border-slate-700">Ya tengo cuenta</a>
           </div>
         </div>
       </div>

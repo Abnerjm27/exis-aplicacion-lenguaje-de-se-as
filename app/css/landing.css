@@ -394,6 +394,137 @@ html, body {
   transition-duration: 50ms !important;
 }
 
+/* ==========================================================================
+   Visor Multimedia Interactivo en Hero (Anime IA + Persona Real)
+   ========================================================================== */
+.hero-player-card {
+  background: linear-gradient(165deg, rgba(23, 37, 68, 0.95) 0%, rgba(15, 26, 48, 0.98) 100%);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8), 0 0 30px -5px rgba(251, 191, 36, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.hero-toggle-group {
+  display: inline-flex;
+  background: rgba(10, 14, 23, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 2px;
+  gap: 2px;
+}
+
+.hero-toggle-btn {
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 0.6rem;
+  color: #94A3B8;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.hero-toggle-btn:hover {
+  color: #F8FAFC;
+}
+
+.hero-toggle-btn.is-active {
+  background: #FF6B5B;
+  color: #0F1A30;
+  box-shadow: 0 2px 8px rgba(255, 107, 91, 0.4);
+}
+
+.hero-sign-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(251, 191, 36, 0.3) transparent;
+  padding-bottom: 4px;
+}
+
+.hero-sign-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.hero-sign-scroll::-webkit-scrollbar-thumb {
+  background: rgba(251, 191, 36, 0.3);
+  border-radius: 9999px;
+}
+
+.hero-sign-pill {
+  padding: 5px 11px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  border-radius: 0.65rem;
+  background: rgba(15, 26, 48, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  color: #CBD5E1;
+  cursor: pointer;
+  transition: all 0.18s var(--spring-easing);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.hero-sign-pill:hover {
+  border-color: rgba(251, 191, 36, 0.6);
+  color: #FBBF24;
+  transform: translateY(-1px);
+}
+
+.hero-sign-pill.is-active {
+  background: rgba(251, 191, 36, 0.2);
+  border-color: #FBBF24;
+  color: #FBBF24;
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.35);
+}
+
+.hero-video-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #070c18;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-video-viewport.is-hand-mode {
+  aspect-ratio: 1 / 1;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.hero-video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.zorrito-dialog-bubble {
+  position: relative;
+  background: rgba(15, 26, 48, 0.96);
+  border: 1px solid #2A3A5E;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.6);
+}
+
+.zorrito-dialog-bubble::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 8px solid #2A3A5E;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

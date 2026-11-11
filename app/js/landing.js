@@ -1,7 +1,10 @@
 /**
  * LSC Learn · Proyecto EXIS
- * landing.js - Controlador POO de Scrollytelling Cinemático (landing.html)
- * El login, el registro y el cuestionario de nivel viven en login.html, register.html y onboarding.html.
+ * landing.js - Controlador POO de Scrollytelling Cinemático y Visor Multimedia (landing.html)
+ * Cumple con las Reglas Duras de AGENTS.md:
+ * - POO estricto (Clases ES6 con estado protegido y ciclo de vida estándar)
+ * - Doble salida multimedia MP4 + WebP con fallback automático
+ * - < 1,100 líneas
  */
 
 // Registro global de errores de consola para auditoría visual automatizada (Regla 7 AGENTS.md)
@@ -9,45 +12,218 @@ window.__consoleErrors = window.__consoleErrors || [];
 window.addEventListener('error', e => window.__consoleErrors.push(e.message || String(e)));
 window.addEventListener('unhandledrejection', e => window.__consoleErrors.push(e.reason ? (e.reason.message || String(e.reason)) : 'Unhandled Rejection'));
 
+class LandingHeroPlayer {
+  #currentSign = 'HOLA';
+  #currentMode = 'anime'; // 'anime' | 'real'
+  #currentView = 'body';  // 'body' | 'hand'
+
+  #tips = {
+    HOLA: '¡La mano derecha parte de la sien y se proyecta hacia adelante en diagonal!',
+    BUENOS: '¡La mano derecha baja desde arriba y contacta la palma izquierda en el centro!',
+    DIAS: '¡Ambos brazos se abren hacia los lados simulando la salida del sol!',
+    U: '¡En la U los dedos índice y meñique apuntan erguidos como dos postes (LSC70)!',
+    D: '¡El índice apunta recto hacia arriba y el pulgar toca el dedo medio en aro!',
+    E: '¡La mano se eleva junto a la mandíbula con los cuatro dedos curvados al frente!',
+    A: '¡Puño cerrado con el pulgar erguido al lateral del índice!',
+    B: '¡Cuatro dedos extendidos hacia arriba y pulgar doblado sobre la palma!',
+    C: '¡Mano arqueada formando el semicírculo de la letra C!',
+    V: '¡Dedos índice y medio abiertos en V (símbolo de victoria)!'
+  };
+
+  #labels = {
+    HOLA: 'HOLA · Saludo Oficial LSC',
+    BUENOS: 'BUENOS · Cortesía LSC',
+    DIAS: 'DÍAS · Tiempo LSC',
+    U: 'Letra U · Dactilología Canónica',
+    D: 'Letra D · Dactilología Canónica',
+    E: 'Letra E · Dactilología Canónica',
+    A: 'Letra A · Dactilología Canónica',
+    B: 'Letra B · Dactilología Canónica',
+    C: 'Letra C · Dactilología Canónica',
+    V: 'Letra V · Dactilología Canónica'
+  };
+
+  init() {
+    this.#bindToggles();
+    this.#bindPills();
+    this.#updateMedia();
+  }
+
+  start() {
+    this.#playVideo();
+  }
+
+  update() {
+    this.#updateMedia();
+  }
+
+  reset() {
+    this.#currentSign = 'HOLA';
+    this.#currentMode = 'anime';
+    this.#currentView = 'body';
+    this.#updateMedia();
+  }
+
+  destroy() {
+    const video = document.getElementById('heroDemoVideo');
+    if (video) {
+      video.pause();
+      video.src = '';
+    }
+  }
+
+  #bindToggles() {
+    const btnAnime = document.getElementById('btnHeroModeAnime');
+    const btnReal = document.getElementById('btnHeroModeReal');
+    if (btnAnime && btnReal) {
+      btnAnime.addEventListener('click', () => {
+        this.#currentMode = 'anime';
+        btnAnime.classList.add('is-active');
+        btnReal.classList.remove('is-active');
+        this.#updateMedia();
+      });
+      btnReal.addEventListener('click', () => {
+        this.#currentMode = 'real';
+        btnReal.classList.add('is-active');
+        btnAnime.classList.remove('is-active');
+        this.#updateMedia();
+      });
+    }
+
+    const btnBody = document.getElementById('btnHeroViewBody');
+    const btnHand = document.getElementById('btnHeroViewHand');
+    if (btnBody && btnHand) {
+      btnBody.addEventListener('click', () => {
+        this.#currentView = 'body';
+        btnBody.classList.add('is-active');
+        btnHand.classList.remove('is-active');
+        const viewport = document.getElementById('heroVideoViewport');
+        if (viewport) viewport.classList.remove('is-hand-mode');
+        this.#updateMedia();
+      });
+      btnHand.addEventListener('click', () => {
+        this.#currentView = 'hand';
+        btnHand.classList.add('is-active');
+        btnBody.classList.remove('is-active');
+        const viewport = document.getElementById('heroVideoViewport');
+        if (viewport) viewport.classList.add('is-hand-mode');
+        this.#updateMedia();
+      });
+    }
+  }
+
+  #bindPills() {
+    const pills = document.querySelectorAll('.hero-sign-pill');
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const sign = pill.getAttribute('data-sign');
+        if (!sign) return;
+        this.#currentSign = sign;
+        pills.forEach(p => p.classList.toggle('is-active', p === pill));
+        this.#updateMedia();
+      });
+    });
+  }
+
+  #updateMedia() {
+    const video = document.getElementById('heroDemoVideo');
+    const fallback = document.getElementById('heroWebpFallback');
+    const badgeText = document.getElementById('heroLiveBadgeText');
+    const labelText = document.getElementById('heroActiveSignLabel');
+    const tipText = document.getElementById('zorritoTipText');
+
+    const basePath = `videos/${this.#currentMode}/${this.#currentSign}_${this.#currentView}`;
+    const mp4Url = `${basePath}.mp4`;
+    const webpUrl = `${basePath}.webp`;
+
+    if (badgeText) {
+      const modeLabel = this.#currentMode === 'anime' ? 'ANIME IA (SOL)' : 'PERSONA REAL (LSC70)';
+      badgeText.textContent = `EN VIVO · ${modeLabel} 24 FPS`;
+    }
+
+    if (labelText) {
+      labelText.textContent = this.#labels[this.#currentSign] || `${this.#currentSign} · LSC70`;
+    }
+
+    if (tipText) {
+      tipText.textContent = this.#tips[this.#currentSign] || '¡Observa la postura canónica de la mano y los ángulos de los dedos!';
+    }
+
+    if (video) {
+      video.classList.remove('hidden');
+      if (fallback) fallback.classList.add('hidden');
+      video.poster = webpUrl;
+      video.src = mp4Url;
+      video.load();
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Si el navegador bloquea autoplay, usamos el WebP animado como fallback cruzado (Regla 4 AGENTS.md)
+          if (fallback) {
+            fallback.src = webpUrl;
+            fallback.classList.remove('hidden');
+            video.classList.add('hidden');
+          }
+        });
+      }
+    }
+  }
+
+  #playVideo() {
+    const video = document.getElementById('heroDemoVideo');
+    if (video && typeof video.play === 'function') {
+      video.play().catch(() => {});
+    }
+  }
+}
+
 class LandingPortalController {
   #boundHandleScroll;
   #boundPointerMove;
+  #heroPlayer;
 
   constructor() {
     this.#boundHandleScroll = this.#handleWindowScroll.bind(this);
     this.#boundPointerMove = this.#handleSpotlightMove.bind(this);
+    this.#heroPlayer = new LandingHeroPlayer();
   }
 
   init() {
     this.#initScrollytelling();
     this.#initInteractiveTiltAndSpotlight();
-    this.#bindGuestLink();
+    this.#bindGuestLinks();
+    this.#heroPlayer.init();
   }
 
   start() {
     this.#handleWindowScroll();
+    this.#heroPlayer.start();
   }
 
   update() {
     this.#handleWindowScroll();
+    this.#heroPlayer.update();
   }
 
   reset() {
     window.scrollTo({ top: 0 });
+    this.#heroPlayer.reset();
   }
 
   destroy() {
     window.removeEventListener('scroll', this.#boundHandleScroll);
     window.removeEventListener('pointermove', this.#boundPointerMove);
+    this.#heroPlayer.destroy();
   }
 
-  #bindGuestLink() {
-    const guest = document.getElementById('btnQuickGuestPath');
-    if (!guest) return;
-    guest.addEventListener('click', (e) => {
-      e.preventDefault();
-      try { localStorage.setItem('exis_active_profile_v1', 'invitado'); } catch (err) {}
-      window.location.href = 'index.html?screen=path';
+  #bindGuestLinks() {
+    const guestLinks = ['btnQuickGuestPath', 'btnHeroDemoDirect', 'btnNavDemoDirect', 'ctaGuestDirect'];
+    guestLinks.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('click', (e) => {
+        try { localStorage.setItem('exis_active_profile_v1', 'invitado'); } catch (err) {}
+      });
     });
   }
 
@@ -118,7 +294,7 @@ class LandingPortalController {
       const rect = tiltCard.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      tiltCard.style.transform = `perspective(900px) rotateY(${(x * 7).toFixed(2)}deg) rotateX(${(-y * 7).toFixed(2)}deg)`;
+      tiltCard.style.transform = `perspective(900px) rotateY(${(x * 4).toFixed(2)}deg) rotateX(${(-y * 4).toFixed(2)}deg)`;
     });
     tiltCard.addEventListener('pointerleave', () => {
       tiltCard.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg)';
