@@ -1,41 +1,43 @@
 /**
- * Manitas · Design Tokens
- * Paleta definida por el equipo: Azul Noche, Turquesa Cámara, Amarillo Sol, Coral Mano, Blanco Hueso.
+ * Manitas · Design Tokens (Opción 1: EdTech Cálida - Ámbar Sol + Azul Noche Profundo)
+ * Paleta armonizada: Azul Noche Profundo (#0A1128), Superficie (#121E3A), Borde (#223354), Ámbar Sol (#F59E0B / #FFC857).
  * Roles semánticos al estilo radix-ui/colors, primer/primitives y Craft Floor de Impeccable.
  */
 :root {
   /* Primitivos de marca */
-  --manitas-navy: #0F1A30;
-  --manitas-navy-raised: #172544;
-  --manitas-navy-line: #2A3A5E;
-  --manitas-turquoise: #1FC8BA;
-  --manitas-turquoise-dark: #0FA89B;
-  --manitas-sun: #FFC857;
+  --manitas-navy: #0A1128;
+  --manitas-navy-raised: #121E3A;
+  --manitas-navy-elevated: #1A2A4E;
+  --manitas-navy-line: #223354;
+  --manitas-sun: #F59E0B;
+  --manitas-sun-light: #FFC857;
+  --manitas-sun-hover: #FBBF24;
   --manitas-coral: #FF6B5B;
   --manitas-bone: #F4F6FA;
-  --manitas-success: #3DDC97;
-  --manitas-danger: #E5484D;
+  --manitas-success: #10B981;
+  --manitas-danger: #EF4444;
 
-  /* Semánticos (tema oscuro por defecto) */
-  --color-bg: #0F1A30;
-  --color-surface: #172544;
-  --color-border: #2A3A5E;
+  /* Semánticos (tema oscuro noche profundo por defecto) */
+  --color-bg: #0A1128;
+  --color-surface: #121E3A;
+  --color-surface-elevated: #1A2A4E;
+  --color-border: #223354;
   --color-text: #F4F6FA;
-  --color-text-muted: #B9C4D6;
+  --color-text-muted: #CBD5E1;
   --color-text-dim: #94A3B8;
-  --color-primary: #1FC8BA;
-  --color-on-primary: var(--manitas-navy);
+  --color-primary: #F59E0B;
+  --color-on-primary: #0A1128;
   --color-accent: #FFC857;
-  --color-action: #FF6B5B;
-  --color-success: var(--manitas-success);
-  --color-danger: var(--manitas-danger);
-  --color-focus-ring: var(--manitas-sun);
+  --color-action: #F59E0B;
+  --color-success: #10B981;
+  --color-danger: #EF4444;
+  --color-focus-ring: #F59E0B;
 
-  /* Tema claro (tarjetas de login/registro) */
+  /* Tema claro (tarjetas de login/registro si aplica) */
   --color-light-bg: var(--manitas-bone);
   --color-light-text: var(--manitas-navy);
-  --color-light-muted: #4a5a7a;
-  --color-light-link: var(--manitas-turquoise-dark);
+  --color-light-muted: #475569;
+  --color-light-link: #D97706;
 
   /* Tipografía Impeccable (Plus Jakarta Sans + Lexend) */
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
