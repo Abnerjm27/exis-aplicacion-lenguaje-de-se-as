@@ -1,32 +1,35 @@
 /**
- * Manitas · Design Tokens (Opción 1: EdTech Cálida - Ámbar Sol + Azul Noche Profundo)
- * Paleta armonizada: Azul Noche Profundo (#0A1128), Superficie (#121E3A), Borde (#223354), Ámbar Sol (#F59E0B / #FFC857).
+ * Manitas · Design Tokens (Opción B: Índigo Amatista Cósmico + Ámbar Sol)
+ * Paleta de autor inspirada en animación Makoto Shinkai y contraste complementario:
+ * Fondo Índigo Nocturno (#0D0B18), Superficie Amatista (#1A152E), Borde Místico (#342A56), Ámbar Sol (#F59E0B / #FFB703).
  * Roles semánticos al estilo radix-ui/colors, primer/primitives y Craft Floor de Impeccable.
  */
 :root {
   /* Primitivos de marca */
-  --manitas-navy: #0A1128;
-  --manitas-navy-raised: #121E3A;
-  --manitas-navy-elevated: #1A2A4E;
-  --manitas-navy-line: #223354;
+  --manitas-navy: #0D0B18;
+  --manitas-navy-raised: #1A152E;
+  --manitas-navy-elevated: #241E3D;
+  --manitas-navy-line: #342A56;
   --manitas-sun: #F59E0B;
   --manitas-sun-light: #FFC857;
   --manitas-sun-hover: #FBBF24;
   --manitas-coral: #FF6B5B;
-  --manitas-bone: #F4F6FA;
+  --manitas-bone: #F5F3FF;
   --manitas-success: #10B981;
   --manitas-danger: #EF4444;
+  --manitas-amethyst: #8B5CF6;
+  --manitas-amethyst-subtle: #3D2D68;
 
-  /* Semánticos (tema oscuro noche profundo por defecto) */
-  --color-bg: #0A1128;
-  --color-surface: #121E3A;
-  --color-surface-elevated: #1A2A4E;
-  --color-border: #223354;
-  --color-text: #F4F6FA;
-  --color-text-muted: #CBD5E1;
-  --color-text-dim: #94A3B8;
+  /* Semánticos (tema oscuro amatista cósmico por defecto) */
+  --color-bg: #0D0B18;
+  --color-surface: #1A152E;
+  --color-surface-elevated: #241E3D;
+  --color-border: #342A56;
+  --color-text: #F5F3FF;
+  --color-text-muted: #C4B9E0;
+  --color-text-dim: #998DAF;
   --color-primary: #F59E0B;
-  --color-on-primary: #0A1128;
+  --color-on-primary: #0D0B18;
   --color-accent: #FFC857;
   --color-action: #F59E0B;
   --color-success: #10B981;
@@ -36,7 +39,7 @@
   /* Tema claro (tarjetas de login/registro si aplica) */
   --color-light-bg: var(--manitas-bone);
   --color-light-text: var(--manitas-navy);
-  --color-light-muted: #475569;
+  --color-light-muted: #5B4E75;
   --color-light-link: #D97706;
 
   /* Tipografía Impeccable (Plus Jakarta Sans + Lexend) */
