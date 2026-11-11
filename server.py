@@ -876,6 +876,13 @@ class ProcessLifecycleManager:
         if sys.platform != "win32":
             return
         try:
+            import socket
+            # Comprobar primero rápidamente si el puerto está realmente ocupado
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.settimeout(0.3)
+                if s.connect_ex(("127.0.0.1", port)) != 0:
+                    return  # Puerto libre, no requiere llamadas lentas a procesos externos
+
             cmd = [
                 "powershell", "-NoProfile", "-Command",
                 f"Get-NetTCPConnection -LocalPort {port} -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess"
@@ -890,19 +897,28 @@ class ProcessLifecycleManager:
                         if pid > 0 and pid != current_pid:
                             logger.info(f"[AUTO-REPAIR] Terminando proceso huérfano PID {pid} en puerto {port}...")
                             subprocess.call(["taskkill", "/F", "/PID", str(pid)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                time.sleep(1.0)
+                time.sleep(0.5)
         except Exception as e:
             logger.debug(f"Aviso en liberación de puerto {port}: {e}")
 
     @classmethod
     def ensure_ollama_service(cls) -> bool:
-        """Verifica si Ollama está activo en GPU; si no, intenta arrancarlo en segundo plano."""
+        """Verifica si Ollama está respondiendo en 127.0.0.1:11434 sin lanzar terminales duplicadas."""
         try:
             req = urllib.request.Request("http://127.0.0.1:11434/api/tags")
-            with urllib.request.urlopen(req, timeout=1.2) as resp:
+            with urllib.request.urlopen(req, timeout=1.5) as resp:
                 if resp.status == 200:
                     logger.info("[OK] Ollama activo en http://127.0.0.1:11434 (GPU listo)")
                     return True
+        except Exception:
+            pass
+
+        # Si no respondió inmediatamente, verificar si el proceso ya está corriendo en segundo plano para evitar terminales duplicadas
+        try:
+            out = subprocess.check_output(['tasklist'], text=True, stderr=subprocess.DEVNULL)
+            if 'ollama.exe' in out.lower():
+                logger.info("[INFO] Proceso de Ollama detectado en memoria. Inicializando modelos...")
+                return True
         except Exception:
             pass
 
@@ -925,7 +941,7 @@ class ProcessLifecycleManager:
             except Exception as e:
                 logger.warning(f"[AVISO] No se pudo lanzar Ollama automáticamente: {e}")
         else:
-            logger.info("[AVISO] Comando 'ollama' no encontrado en el sistema.")
+            logger.info("[INFO] Ollama no detectado en puerto 11434. El tutor funcionará con el motor NLU local integrado (100% offline).")
         return False
 
 def free_port(port: int):
