@@ -784,19 +784,25 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
 def free_port(port):
     """Libera el puerto si quedó retenido por un proceso previo huérfano."""
     try:
+        import socket
+        # Comprobar primero rápidamente si el puerto está realmente ocupado
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(0.3)
+            if s.connect_ex(("127.0.0.1", port)) != 0:
+                return  # Puerto libre, no requiere llamadas lentas a procesos externos
+
         import subprocess
-        # Buscar PIDs escuchando en el puerto
         cmd = f'powershell -NoProfile -Command "Get-NetTCPConnection -LocalPort {port} -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess"'
-        out = subprocess.check_output(cmd, shell=True, text=True).strip()
+        out = subprocess.check_output(cmd, shell=False, text=True).strip()
         if out:
             for line in out.splitlines():
                 pid = int(line.strip())
                 if pid > 0 and pid != os.getpid():
                     print(f"[AUTO-REPAIR] Terminando proceso huérfano PID {pid} en puerto {port}...")
-                    subprocess.call(f'taskkill /F /PID {pid}', shell=True)
+                    subprocess.call(['taskkill', '/F', '/PID', str(pid)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             import time
-            time.sleep(1)
-    except Exception as e:
+            time.sleep(0.5)
+    except Exception:
         pass
 
 class RobustThreadingServer(socketserver.ThreadingTCPServer):
@@ -811,37 +817,27 @@ class RobustThreadingServer(socketserver.ThreadingTCPServer):
         super().handle_error(request, client_address)
 
 def ensure_ollama_service():
-    """Verifica si Ollama está respondiendo en 127.0.0.1:11434; si no, intenta arrancarlo en segundo plano."""
-    import shutil, subprocess
+    """Verifica si Ollama está respondiendo en 127.0.0.1:11434 sin lanzar terminales duplicadas."""
     try:
         req = urllib.request.Request("http://127.0.0.1:11434/api/tags")
-        with urllib.request.urlopen(req, timeout=1.2) as resp:
+        with urllib.request.urlopen(req, timeout=1.5) as resp:
             if resp.status == 200:
                 print("[OK] Ollama activo en http://127.0.0.1:11434 (GPU listo)")
                 return True
     except Exception:
         pass
 
-    ollama_path = shutil.which("ollama")
-    if not ollama_path:
-        local_app = os.path.expanduser(r"~\AppData\Local\Programs\Ollama\ollama.exe")
-        if os.path.exists(local_app):
-            ollama_path = local_app
-
-    if ollama_path:
-        try:
-            print("[INFO] Ollama no detectado. Levantando 'ollama serve' en segundo plano...")
-            flags = 0
-            if sys.platform == "win32":
-                flags = subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS
-            subprocess.Popen([ollama_path, "serve"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, creationflags=flags)
-            time.sleep(2.0)
-            print("[OK] Proceso 'ollama serve' lanzado exitosamente.")
+    # Si no respondió inmediatamente, verificar si el proceso ya está corriendo en segundo plano
+    try:
+        import subprocess
+        out = subprocess.check_output(['tasklist'], text=True, stderr=subprocess.DEVNULL)
+        if 'ollama.exe' in out.lower():
+            print("[INFO] Proceso de Ollama detectado en memoria. Inicializando modelos...")
             return True
-        except Exception as e:
-            print(f"[AVISO] No se pudo lanzar Ollama automáticamente: {e}")
-    else:
-        print("[AVISO] Comando 'ollama' no encontrado en el sistema.")
+    except Exception:
+        pass
+
+    print("[INFO] Ollama no detectado en puerto 11434. El tutor inteligente funcionará con el motor NLU local integrado (100% offline).")
     return False
 
 if __name__ == '__main__':
