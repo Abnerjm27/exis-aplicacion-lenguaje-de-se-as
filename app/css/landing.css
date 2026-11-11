@@ -32,8 +32,13 @@ html, body {
   overflow-x: hidden;
   max-width: 100%;
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #F8FAFC;
-  background-image: none;
+  background-color: #FAF8F5;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 15% 12%, rgba(254, 215, 170, 0.32), transparent 70%),
+    radial-gradient(ellipse 60% 45% at 85% 18%, rgba(167, 243, 208, 0.28), transparent 70%),
+    radial-gradient(ellipse 75% 55% at 50% 65%, rgba(254, 240, 138, 0.22), transparent 70%),
+    radial-gradient(ellipse 65% 50% at 20% 90%, rgba(167, 243, 208, 0.25), transparent 70%);
+  background-attachment: fixed;
   color: #0F172A;
 }
 
@@ -56,21 +61,61 @@ html, body {
   transition: width 0.08s linear;
 }
 
-/* --- Elementos Decorativos Ocultos para Máxima Limpieza --- */
+/* --- Atmósfera Aurora Bicolor Fluida (Ámbar Melocotón + Menta Pastel) --- */
+.ambient-beam-amber {
+  position: fixed;
+  top: -8vw;
+  left: -6vw;
+  width: 50vw;
+  height: 50vw;
+  max-width: 650px;
+  max-height: 650px;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.22) 0%, rgba(254, 215, 170, 0.16) 45%, transparent 72%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatBeamAmber 20s ease-in-out infinite alternate;
+}
+
+.ambient-beam-emerald {
+  position: fixed;
+  top: 18vh;
+  right: -6vw;
+  width: 48vw;
+  height: 48vw;
+  max-width: 620px;
+  max-height: 620px;
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.2) 0%, rgba(167, 243, 208, 0.14) 45%, transparent 72%);
+  filter: blur(85px);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatBeamMint 24s ease-in-out infinite alternate;
+}
+
+@keyframes floatBeamAmber {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5vw, 7vh) scale(1.08); }
+  100% { transform: translate(-3vw, 11vh) scale(0.96); }
+}
+
+@keyframes floatBeamMint {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-7vw, 9vh) scale(1.1); }
+  100% { transform: translate(4vw, 5vh) scale(0.93); }
+}
+
 .cursor-spotlight,
-.ambient-beam-amber,
-.ambient-beam-emerald,
 .hologram-grid-floor {
   display: none;
 }
 
-/* --- Navbar Flotante Limpia --- */
+/* --- Navbar Flotante Translúcida con Desenfoque de Vidrio --- */
 .landing-navbar {
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid #E2E8F0;
-  box-shadow: 0 2px 12px -2px rgba(15, 23, 42, 0.04);
+  background: rgba(250, 248, 245, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03);
 }
 
 .logo-mark-box {
@@ -111,9 +156,10 @@ html, body {
 
 /* --- Marquesina de Señas --- */
 .sign-ticker-strip {
-  background: #FFFFFF;
-  border-top: 1px solid #E2E8F0;
-  border-bottom: 1px solid #E2E8F0;
+  background: linear-gradient(90deg, rgba(254, 243, 199, 0.75) 0%, rgba(236, 253, 245, 0.75) 50%, rgba(254, 243, 199, 0.75) 100%);
+  border-top: 1px solid rgba(253, 230, 138, 0.85);
+  border-bottom: 1px solid rgba(167, 243, 208, 0.85);
+  backdrop-filter: blur(8px);
 }
 
 .sign-ticker-track {
@@ -159,9 +205,9 @@ html, body {
 }
 
 .scrolly-stage-window {
-  background: #FFFFFF;
+  background: linear-gradient(160deg, #FFFFFF 0%, #FDFBF7 100%);
   border: 1px solid #E2E8F0;
-  box-shadow: 0 16px 40px -10px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 20px 48px -12px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(254, 215, 170, 0.35);
   min-height: 340px;
 }
 
@@ -219,10 +265,10 @@ html, body {
 
 /* --- Consola Clásica Moderna de Login / Registro --- */
 .auth-glass-console {
-  background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%);
-  border: 1px solid #FDE68A;
+  background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 48%, #ECFDF5 100%);
+  border: 1px solid rgba(253, 230, 138, 0.9);
   border-radius: 1.5rem;
-  box-shadow: 0 20px 48px -12px rgba(245, 158, 11, 0.15);
+  box-shadow: 0 24px 50px -12px rgba(245, 158, 11, 0.16), 0 0 0 1px rgba(167, 243, 208, 0.3);
 }
 
 .auth-tab-active {

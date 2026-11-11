@@ -1,30 +1,34 @@
 /**
- * Manitas · Design Tokens (Tema Claro Editorial / Clean EdTech)
- * Inspirado en Duolingo Pro / Brilliant / Apple Education:
- * Lienzo Blanco Nieve (#F8FAFC), Superficies Blanco Puro (#FFFFFF),
- * Bordes Limpios (#E2E8F0), Texto Carbón Nítido (#0F172A),
- * Acentos Energéticos: Ámbar Dorado (#F59E0B / #D97706), Verde Esmeralda (#10B981) y Coral (#F43F5E).
+ * Manitas · Design Tokens (Blanco Hueso Cálido + Atmósfera Aurora Cítrica & Menta)
+ * Inspirado en Stripe / TikTok Web / Duolingo Pro:
+ * Lienzo Blanco Hueso Cálido (#FAF8F5), Nubes de Aurora en Ámbar Melocotón (#FEF3C7) y Menta Pastel (#ECFDF5),
+ * Superficies Blanco Puro (#FFFFFF), Bordes Suaves (#E2E8F0), Texto Carbón Nítido (#0F172A).
  */
 :root {
   /* Primitivos de marca */
   --manitas-navy: #0F172A;
   --manitas-navy-raised: #FFFFFF;
-  --manitas-navy-elevated: #F1F5F9;
+  --manitas-navy-elevated: #F8F6F2;
   --manitas-navy-line: #E2E8F0;
   --manitas-sun: #F59E0B;
   --manitas-sun-light: #FBBF24;
   --manitas-sun-hover: #D97706;
   --manitas-coral: #FF6B5B;
-  --manitas-bone: #F8FAFC;
+  --manitas-bone: #FAF8F5;
   --manitas-success: #10B981;
   --manitas-danger: #EF4444;
   --manitas-emerald: #10B981;
   --manitas-emerald-mint: #059669;
 
-  /* Semánticos (tema claro editorial) */
-  --color-bg: #F8FAFC;
+  /* Atmósfera Aurora Pastel */
+  --aurora-amber: rgba(251, 191, 36, 0.16);
+  --aurora-peach: rgba(254, 215, 170, 0.22);
+  --aurora-mint: rgba(52, 211, 153, 0.14);
+
+  /* Semánticos (tema claro editorial cálido) */
+  --color-bg: #FAF8F5;
   --color-surface: #FFFFFF;
-  --color-surface-elevated: #F1F5F9;
+  --color-surface-elevated: #F8F6F2;
   --color-border: #E2E8F0;
   --color-text: #0F172A;
   --color-text-muted: #475569;
