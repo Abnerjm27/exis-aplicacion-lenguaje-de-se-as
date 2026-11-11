@@ -121,6 +121,14 @@ class LandingHeroPlayer {
         this.#currentSign = sign;
         pills.forEach(p => p.classList.toggle('is-active', p === pill));
         this.#updateMedia();
+
+        // Reacción visual y rebote estilo Duolingo en Zorrito
+        const zorritoImg = document.querySelector('.zorrito-dialog-bubble img') || document.querySelector('.anim-wave');
+        if (zorritoImg) {
+          zorritoImg.classList.remove('anim-bounce-squish');
+          void zorritoImg.offsetWidth; // Force reflow
+          zorritoImg.classList.add('anim-bounce-squish');
+        }
       });
     });
   }
@@ -276,6 +284,15 @@ class LandingPortalController {
     const docHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     const pct = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
     bar.style.width = `${pct.toFixed(1)}%`;
+
+    // Efecto Apple / TikTok 3D Scroll Perspective en el visor Hero
+    const heroCard = document.getElementById('solHoloCapsule');
+    if (heroCard && scrollTop < 850) {
+      const scrollRatio = scrollTop / 850;
+      const tiltX = Math.min(6.5, scrollRatio * 6.5);
+      const translateY = (scrollTop * 0.05).toFixed(1);
+      heroCard.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) translateY(${translateY}px)`;
+    }
   }
 
   #handleSpotlightMove(e) {
@@ -288,16 +305,53 @@ class LandingPortalController {
   #initInteractiveTiltAndSpotlight() {
     window.addEventListener('pointermove', this.#boundPointerMove, { passive: true });
 
+    // Tilt Magnético 3D en el visor hero
     const tiltCard = document.getElementById('solHoloCapsule');
-    if (!tiltCard) return;
-    tiltCard.addEventListener('pointermove', (e) => {
-      const rect = tiltCard.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      tiltCard.style.transform = `perspective(900px) rotateY(${(x * 4).toFixed(2)}deg) rotateX(${(-y * 4).toFixed(2)}deg)`;
+    if (tiltCard) {
+      tiltCard.addEventListener('pointermove', (e) => {
+        const rect = tiltCard.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        tiltCard.style.transform = `perspective(900px) rotateY(${(x * 5).toFixed(2)}deg) rotateX(${(-y * 5).toFixed(2)}deg) scale3d(1.008, 1.008, 1)`;
+      });
+      tiltCard.addEventListener('pointerleave', () => {
+        this.#handleWindowScroll(); // Vuelve al ángulo de scroll suave
+      });
+    }
+
+    // Micro-inclinación magnética 3D en tarjetas interactivas
+    const glareCards = document.querySelectorAll('.card-3d-glare');
+    glareCards.forEach(card => {
+      card.addEventListener('pointermove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(800px) rotateY(${(x * 4).toFixed(2)}deg) rotateX(${(-y * 4).toFixed(2)}deg) translateY(-2px)`;
+      });
+      card.addEventListener('pointerleave', () => {
+        card.style.transform = '';
+      });
     });
-    tiltCard.addEventListener('pointerleave', () => {
-      tiltCard.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg)';
+
+    // Reacción táctil con rebote gomoso estilo Duolingo en Zorrito
+    const zorritos = document.querySelectorAll('.zorrito-pop, .auth-fox, .anim-wave');
+    zorritos.forEach(fox => {
+      fox.addEventListener('click', () => {
+        fox.classList.remove('anim-bounce-squish');
+        void fox.offsetWidth;
+        fox.classList.add('anim-bounce-squish');
+      });
+    });
+
+    // Interactividad en los nodos del mapa Duolingo (Preview 1)
+    const duoNodes = document.querySelectorAll('.preview-duo-node');
+    duoNodes.forEach(node => {
+      node.addEventListener('click', () => {
+        duoNodes.forEach(n => {
+          n.classList.remove('active', 'duo-radar-pulse');
+        });
+        node.classList.add('active', 'duo-radar-pulse');
+      });
     });
   }
 }
