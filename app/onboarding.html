@@ -7,14 +7,14 @@
   <link rel="icon" type="image/svg+xml" href="img/manitas-icono-app.svg">
   <link rel="stylesheet" href="css/fonts.css">
   <script src="lib/tailwind/tailwind.js"></script>
-  <script src="js/tailwind-config.js?v=20261107"></script>
-  <link rel="stylesheet" href="css/tokens.css?v=20261107">
-  <link rel="stylesheet" href="css/landing.css?v=20261107">
-  <link rel="stylesheet" href="css/auth.css?v=20261107">
+  <script src="js/tailwind-config.js?v=20261116_v6"></script>
+  <link rel="stylesheet" href="css/tokens.css?v=20261116_v6">
+  <link rel="stylesheet" href="css/landing.css?v=20261116_v6">
+  <link rel="stylesheet" href="css/auth.css?v=20261116_v6">
   <script src="js/auth-service.js" defer></script>
   <script src="js/onboarding.js" defer></script>
 </head>
-<body class="text-slate-100 antialiased relative selection:bg-amber-600 selection:text-white">
+<body class="text-slate-900 antialiased relative selection:bg-amber-500 selection:text-slate-900">
   <div class="ambient-beam-amber" aria-hidden="true"></div>
   <div class="hologram-grid-floor" aria-hidden="true"></div>
   <main class="onboarding-wrap">    <div class="quiz-wizard-card max-w-xl w-full p-6 sm:p-8 rounded-3xl flex flex-col gap-6 relative">
@@ -22,12 +22,12 @@
       <!-- Barra superior de progreso del cuestionario -->
       <div class="flex flex-col gap-2">
         <div class="flex items-center justify-between text-xs font-mono">
-          <span id="quizStepBadge" class="text-amber-400 font-bold tabular-nums">PREGUNTA 1 DE 3</span>
-          <button id="btnSkipQuiz" type="button" class="text-slate-400 hover:text-white text-xs font-semibold">
+          <span id="quizStepBadge" class="text-amber-700 font-bold tabular-nums">PREGUNTA 1 DE 3</span>
+          <button id="btnSkipQuiz" type="button" class="text-slate-600 hover:text-slate-900 text-xs font-semibold">
             Saltar diagnóstico ➔
           </button>
         </div>
-        <div class="w-full h-2 rounded-full bg-slate-900 overflow-hidden">
+        <div class="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
           <div id="quizProgressBar" class="h-full bg-amber-500 transition-all duration-300 w-1/3"></div>
         </div>
       </div>
@@ -64,7 +64,7 @@
               <div class="text-sm font-bold text-white">Ya conozco lo básico · Quiero conversar y certificarme</div>
               <div class="text-xs text-slate-400 mt-0.5">Quiero practicar frases, saludos y probarme en el Modo Examen Sin Video.</div>
             </div>
-            <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-mono text-[11px] font-bold shrink-0">Nivel 3</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-300 font-mono text-[11px] font-bold shrink-0">Nivel 3</span>
           </button>
         </div>
       </div>
@@ -142,8 +142,8 @@
       </div>
 
       <!-- Botones de navegación del cuestionario -->
-      <div class="flex items-center justify-between pt-3 border-t border-slate-800">
-        <button id="btnQuizPrev" type="button" class="hidden btn-spring px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700">
+      <div class="flex items-center justify-between pt-3 border-t border-slate-200">
+        <button id="btnQuizPrev" type="button" class="hidden btn-spring px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300">
           ← Anterior
         </button>
         <div class="flex-1"></div>

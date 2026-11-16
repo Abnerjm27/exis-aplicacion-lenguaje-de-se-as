@@ -1,9 +1,8 @@
 /**
- * Manitas · Configuración Tailwind (paleta de marca + tipografía Impeccable)
- * Se carga justo después de lib/tailwind/tailwind.js. Sin estilos ni scripts embebidos en HTML.
- * Re-mapea la escala `amber` al turquesa de marca (#00B8A9), `slate` teñido con Azul Noche,
- * `sun` (#FFC857), `coral` (#FF6B5B) y `bone` (#F8F5EF).
- * Configura Plus Jakarta Sans como fuente sans principal y Lexend para display.
+ * Manitas · Configuración Tailwind (Regla 60-30-10 · Paleta Cálida, Cero Azul)
+ * - 60% Dominante: Blanco Crema Cálido (#FAF8F5), Superficies (#FFFFFF), Elevado (#F3EFEA)
+ * - 30% Secundario: Carbón Espresso Cálido (#1C1917), Marrón Topo (#574F47), Piedra (#E6DFD5) en `slate`/`navy`
+ * - 10% Acento: Melocotón / Coral Cálido (#FF7A45) mapeado en `amber`, `coral` y `sun`
  */
 tailwind.config = {
   theme: {
@@ -15,17 +14,17 @@ tailwind.config = {
       },
       colors: {
         amber: {
-          50: '#E6FAF8', 100: '#C2F3EF', 200: '#8FE8E1', 300: '#4DD8CC', 400: '#3DE8D2',
-          500: '#1FC8BA', 600: '#0FA89B', 700: '#0C8A7F', 800: '#0A6E66', 900: '#07504A', 950: '#04322E'
+          50: '#FFF2EC', 100: '#FFE4D6', 200: '#FFC9B0', 300: '#FFB088', 400: '#FF9266',
+          500: '#FF7A45', 600: '#E85D2A', 700: '#C84B1C', 800: '#9E3B16', 900: '#7C2D12', 950: '#4A1808'
         },
         slate: {
-          50: '#f8fafc', 100: '#F4F6FA', 200: '#E2E8F4', 300: '#B9C4D6', 400: '#94A3B8',
-          500: '#64748B', 600: '#475569', 700: '#2A3A5E', 800: '#2A3A5E', 900: '#172544', 950: '#0F1A30'
+          50: '#FAF8F5', 100: '#F3EFEA', 200: '#E6DFD5', 300: '#D4C9BC', 400: '#A69B8E',
+          500: '#786E63', 600: '#574F47', 700: '#3D3630', 800: '#292524', 900: '#1C1917', 950: '#141210'
         },
-        sun: { 300: '#FFD453', 400: '#FFC857', 500: '#F6A93C' },
-        coral: { 400: '#FF8274', 500: '#FF6B5B', 600: '#E85544' },
-        bone: { 50: '#FCFAF6', 100: '#F4F6FA', 200: '#EDE7DB' },
-        navy: { 700: '#2A3A5E', 800: '#172544', 900: '#0F1A30' }
+        sun: { 300: '#FFB088', 400: '#FF9266', 500: '#FF7A45' },
+        coral: { 400: '#FF9266', 500: '#FF7A45', 600: '#E85D2A' },
+        bone: { 50: '#FFFFFF', 100: '#FAF8F5', 200: '#F3EFEA' },
+        navy: { 700: '#574F47', 800: '#292524', 900: '#1C1917' }
       }
     }
   }

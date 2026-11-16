@@ -1,59 +1,61 @@
 /**
  * Manitas · LSC Learn
- * lesson.css - Estilos Dedicados para la Sesión de Lección Interactiva
- * 
- * Diseñado bajo tokens de diseño Manitas (tokens.css) y principios Impeccable:
- * - Paleta oficial: Navy (#0F1A30), Turquesa (#1FC8BA), Amarillo (#FFC857), Coral (#FF6B5B), Blanco (#F4F6FA).
- * - Tipografía: Plus Jakarta Sans / Lexend / JetBrains Mono.
- * - Animaciones con curvas cúbicas suaves y soporte para prefers-reduced-motion.
- * - Accesibilidad táctil >= 48px y contraste WCAG AAA.
+ * lesson.css - Estilos Dedicados para la Sesión de Lección Interactiva y Arena de Examen
+ * Sistema Cromático 60-30-10 · Paleta Cálida EdTech (Cero Azul):
+ * - 60% Dominante: Blanco Crema (#FAF8F5) / Superficie (#FFFFFF)
+ * - 30% Secundario: Carbón Espresso (#1C1917), Marrón Topo (#574F47), Piedra (#E6DFD5)
+ * - 10% Acento: Melocotón / Coral Cálido (#FF7A45)
  */
 
 /* ==========================================================================
    1. CONTENEDOR RAÍZ Y MODAL INMERSIVO
    ========================================================================== */
 
-#lessonSessionModal {
+#lessonSessionModal,
+#examSessionModal {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  background-color: rgba(15, 26, 48, 0.88);
+  background-color: rgba(28, 25, 23, 0.55);
   transition: opacity 0.25s var(--ease-out);
 }
 
 .lesson-modal-card {
-  background: radial-gradient(120% 120% at 50% 0%, #172544 0%, #0F1A30 60%, #0B1426 100%);
-  border: 1px solid var(--manitas-navy-line);
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7),
-              0 0 40px -10px rgba(31, 200, 186, 0.15);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF8F5 100%);
+  border: 1px solid #E6DFD5;
+  color: #1C1917;
+  box-shadow: 0 25px 60px -15px rgba(28, 25, 23, 0.28),
+              0 0 40px -10px rgba(255, 122, 69, 0.14);
   transition: transform 0.3s var(--ease-spring);
 }
 
 /* ==========================================================================
-   2. HEADER Y BARRA DE PROGRESO SEGMENTADA
+   2. HEADER Y BARRA DE PROGRESO SEGMENTADA (30% Superficie Piedra Cálida)
    ========================================================================== */
 
 .lesson-header {
-  background-color: rgba(23, 37, 68, 0.95);
-  border-bottom: 1px solid var(--manitas-navy-line);
+  background-color: #F3EFEA;
+  border-bottom: 1px solid #E6DFD5;
+  color: #1C1917;
 }
 
 .lesson-progress-track {
-  background-color: var(--manitas-navy-raised);
-  border: 1px solid var(--manitas-navy-line);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  background-color: #E6DFD5;
+  border: 1px solid #D4C9BC;
+  box-shadow: inset 0 1px 2px rgba(28, 25, 23, 0.10);
 }
 
-#lessonProgressBar {
-  background: linear-gradient(90deg, #FFC857 0%, #1FC8BA 100%);
-  box-shadow: 0 0 12px rgba(255, 200, 87, 0.5);
+#lessonProgressBar,
+#examProgressBar {
+  background: linear-gradient(90deg, #FF7A45 0%, #FF9266 100%);
+  box-shadow: 0 0 12px rgba(255, 122, 69, 0.5);
   transition: width 0.35s var(--ease-spring);
 }
 
 .lesson-step-badge {
   font-family: var(--font-mono);
-  background-color: rgba(255, 200, 87, 0.12);
-  border: 1px solid rgba(255, 200, 87, 0.35);
-  color: var(--manitas-sun);
+  background-color: #FFF2EC;
+  border: 1px solid rgba(255, 122, 69, 0.45);
+  color: #C84B1C;
 }
 
 /* ==========================================================================
@@ -61,15 +63,16 @@
    ========================================================================== */
 
 .lesson-video-frame {
-  border: 2px solid var(--manitas-navy-line);
-  background-color: #0c1527;
-  box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.5);
+  border: 2px solid #E6DFD5;
+  background-color: #F3EFEA;
+  box-shadow: 0 12px 30px -8px rgba(28, 25, 23, 0.12);
 }
 
 .lesson-zorrito-tip-card {
-  background-color: rgba(23, 37, 68, 0.85);
-  border: 1px solid rgba(255, 200, 87, 0.35);
-  box-shadow: 0 4px 20px -4px rgba(255, 200, 87, 0.12);
+  background-color: #FFFFFF;
+  border: 1px solid #FFC9B0;
+  color: #1C1917;
+  box-shadow: 0 4px 20px -4px rgba(255, 122, 69, 0.14);
 }
 
 /* ==========================================================================
@@ -77,9 +80,9 @@
    ========================================================================== */
 
 .quiz-choice-btn {
-  background-color: rgba(23, 37, 68, 0.85);
-  border: 2px solid var(--manitas-navy-line);
-  color: var(--manitas-bone);
+  background-color: #FFFFFF;
+  border: 2px solid #E6DFD5;
+  color: #1C1917;
   min-height: 54px;
   cursor: pointer;
   transition: transform 0.18s var(--ease-spring),
@@ -90,35 +93,46 @@
 
 .quiz-choice-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  border-color: rgba(255, 200, 87, 0.6);
-  background-color: rgba(30, 48, 86, 0.95);
-  box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.4);
+  border-color: #FF7A45;
+  background-color: #FFF2EC;
+  box-shadow: 0 6px 16px -4px rgba(255, 122, 69, 0.18);
 }
 
 .quiz-choice-btn:active:not(:disabled) {
   transform: translateY(0);
 }
 
+.quiz-choice-btn:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.quiz-choice-btn:disabled:not(.is-selected):not(.border-emerald-500):not(.border-rose-500) {
+  opacity: 0.5;
+}
+
 .quiz-choice-btn.is-selected {
-  border-color: var(--manitas-turquoise);
-  background-color: rgba(31, 200, 186, 0.15);
-  box-shadow: 0 0 16px -2px rgba(31, 200, 186, 0.3);
+  border-color: #FF7A45;
+  background-color: #FFF2EC;
+  box-shadow: 0 0 16px -2px rgba(255, 122, 69, 0.28);
 }
 
 .quiz-choice-btn.is-selected .choice-indicator {
-  border-color: var(--manitas-turquoise);
-  background-color: var(--manitas-turquoise);
-  color: #0F1A30;
+  border-color: #E85D2A;
+  background-color: #FF7A45;
+  color: #1C1917;
 }
 
 .quiz-choice-btn.border-emerald-500 {
-  border-color: var(--manitas-success) !important;
-  background-color: rgba(61, 220, 151, 0.15) !important;
+  border-color: #10B981 !important;
+  background-color: #ECFDF5 !important;
+  color: #065F46 !important;
 }
 
 .quiz-choice-btn.border-rose-500 {
-  border-color: var(--manitas-coral) !important;
-  background-color: rgba(255, 107, 91, 0.15) !important;
+  border-color: #E85D2A !important;
+  background-color: #FFF2EC !important;
+  color: #9E3B16 !important;
 }
 
 /* ==========================================================================
@@ -139,16 +153,17 @@
 }
 
 .lesson-practice-card {
-  background-color: rgba(23, 37, 68, 0.6);
-  border: 1px solid var(--manitas-navy-line);
+  background-color: #FFFFFF;
+  border: 1px solid #E6DFD5;
   border-radius: var(--radius-lg);
   overflow: hidden;
   position: relative;
+  box-shadow: 0 6px 20px -4px rgba(28, 25, 23, 0.08);
 }
 
 .lesson-radar-bar {
-  background: linear-gradient(90deg, #FFC857 0%, #1FC8BA 70%, #3DDC97 100%);
-  box-shadow: 0 0 10px rgba(61, 220, 151, 0.5);
+  background: linear-gradient(90deg, #FF7A45 0%, #FF9266 65%, #10B981 100%);
+  box-shadow: 0 0 10px rgba(255, 122, 69, 0.45);
   transition: width 0.15s ease-out;
 }
 
@@ -176,49 +191,59 @@
   }
 }
 
-/* Variante de Acierto (Verde Turquesa) */
+/* Variante de Acierto */
 .lesson-feedback-sheet.is-correct {
-  background-color: rgba(15, 42, 48, 0.95);
-  border-top-color: var(--manitas-turquoise);
-  box-shadow: 0 -8px 24px -4px rgba(31, 200, 186, 0.18);
+  background-color: #ECFDF5;
+  border-top-color: #10B981;
+  color: #065F46;
+  box-shadow: 0 -8px 24px -4px rgba(16, 185, 129, 0.16);
 }
 
 .lesson-feedback-sheet.is-correct #lessonFeedbackTitle {
-  color: var(--manitas-turquoise);
+  color: #065F46;
+}
+
+.lesson-feedback-sheet.is-correct #lessonFeedbackText {
+  color: #047857;
 }
 
 .lesson-feedback-sheet.is-correct #btnLessonContinue {
-  background-color: var(--manitas-turquoise);
-  color: #0F1A30;
+  background-color: #10B981;
+  color: #1C1917;
   font-weight: 800;
-  box-shadow: 0 4px 14px rgba(31, 200, 186, 0.35);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
 }
 
 .lesson-feedback-sheet.is-correct #btnLessonContinue:hover {
-  background-color: #3DE8D2;
+  background-color: #34D399;
   transform: translateY(-1px);
 }
 
-/* Variante de Error (Coral) */
+/* Variante de Error / Reintento */
 .lesson-feedback-sheet.is-incorrect {
-  background-color: rgba(48, 22, 28, 0.95);
-  border-top-color: var(--manitas-coral);
-  box-shadow: 0 -8px 24px -4px rgba(255, 107, 91, 0.18);
+  background-color: #FFF2EC;
+  border-top-color: #E85D2A;
+  color: #9E3B16;
+  box-shadow: 0 -8px 24px -4px rgba(255, 122, 69, 0.18);
 }
 
 .lesson-feedback-sheet.is-incorrect #lessonFeedbackTitle {
-  color: var(--manitas-coral);
+  color: #C84B1C;
+}
+
+.lesson-feedback-sheet.is-incorrect #lessonFeedbackText {
+  color: #7C2D12;
 }
 
 .lesson-feedback-sheet.is-incorrect #btnLessonContinue {
-  background-color: var(--manitas-coral);
-  color: #0F1A30;
+  background-color: #FF7A45;
+  color: #1C1917;
   font-weight: 800;
-  box-shadow: 0 4px 14px rgba(255, 107, 91, 0.35);
+  box-shadow: 0 4px 14px rgba(255, 122, 69, 0.35);
 }
 
 .lesson-feedback-sheet.is-incorrect #btnLessonContinue:hover {
-  background-color: #FF8274;
+  background-color: #FF9266;
   transform: translateY(-1px);
 }
 
@@ -227,8 +252,9 @@
    ========================================================================== */
 
 .lesson-summary-stat-box {
-  background-color: rgba(23, 37, 68, 0.9);
-  border: 1px solid var(--manitas-navy-line);
+  background-color: #FFFFFF;
+  border: 1px solid #E6DFD5;
+  color: #1C1917;
 }
 
 /* ==========================================================================

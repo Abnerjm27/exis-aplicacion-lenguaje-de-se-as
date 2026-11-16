@@ -113,10 +113,10 @@ function bindUIEvents() {
         window.TrajectoryTracker.setEnabled(nextState);
         btnToggleTrajectory.setAttribute('aria-pressed', String(nextState));
         if (nextState) {
-          btnToggleTrajectory.className = "btn-spring px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 flex items-center gap-1.5 shadow-sm";
+          btnToggleTrajectory.className = "btn-spring px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1.5 shadow-sm";
           if (trajectoryBtnText) trajectoryBtnText.textContent = "Puntos: ON";
         } else {
-          btnToggleTrajectory.className = "btn-spring px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 text-slate-500 border border-slate-800 flex items-center gap-1.5 shadow-sm";
+          btnToggleTrajectory.className = "btn-spring px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-500 border border-slate-200 flex items-center gap-1.5 shadow-sm";
           if (trajectoryBtnText) trajectoryBtnText.textContent = "Puntos: OFF";
         }
       }
@@ -141,6 +141,11 @@ function bindUIEvents() {
 
   if (btnToggleChat) btnToggleChat.addEventListener('click', () => window.ChatTutor && window.ChatTutor.toggleDrawer());
   if (btnCloseChat) btnCloseChat.addEventListener('click', () => window.ChatTutor && window.ChatTutor.toggleDrawer());
+
+  const urlChatParam = new URLSearchParams(window.location.search).get('chat');
+  if (urlChatParam === 'open' && window.ChatTutor && typeof window.ChatTutor.toggleDrawer === 'function') {
+    window.ChatTutor.toggleDrawer();
+  }
   if (btnSendChat) btnSendChat.addEventListener('click', () => window.ChatTutor && window.ChatTutor.sendMessage());
   if (inputChat) {
     inputChat.addEventListener('keydown', (e) => {
@@ -165,11 +170,11 @@ function switchCategory(cat) {
   const lettersBtn = document.getElementById('catLettersBtn');
 
   if (cat === 'words') {
-    if (wordsBtn) wordsBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 shadow-sm transition";
-    if (lettersBtn) lettersBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition";
+    if (wordsBtn) wordsBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-900 shadow-sm transition";
+    if (lettersBtn) lettersBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-200 transition";
   } else {
-    if (lettersBtn) lettersBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 shadow-sm transition";
-    if (wordsBtn) wordsBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition";
+    if (lettersBtn) lettersBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-900 shadow-sm transition";
+    if (wordsBtn) wordsBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-200 transition";
   }
 
   renderSignButtons();
@@ -223,11 +228,11 @@ function selectSign(id) {
   const wordsBtn = document.getElementById('catWordsBtn');
   const lettersBtn = document.getElementById('catLettersBtn');
   if (currentCategory === 'words') {
-    if (wordsBtn) wordsBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 shadow-sm transition";
-    if (lettersBtn) lettersBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition";
+    if (wordsBtn) wordsBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-900 shadow-sm transition";
+    if (lettersBtn) lettersBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-200 transition";
   } else {
-    if (lettersBtn) lettersBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 shadow-sm transition";
-    if (wordsBtn) wordsBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition";
+    if (lettersBtn) lettersBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-900 shadow-sm transition";
+    if (wordsBtn) wordsBtn.className = "btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-200 transition";
   }
 
   // Actualizar Reproductor de Video Interactivo LSC
@@ -248,7 +253,7 @@ function selectSign(id) {
   if (badgeEl) badgeEl.textContent = currentSign.name;
   if (window.BlindExamController && window.BlindExamController.isExamActive()) {
     if (descEl) descEl.textContent = 'Evaluación Ciega sin Demostración';
-    if (tipEl) tipEl.innerHTML = `<span class="text-amber-400 font-semibold font-mono text-[11px]">🛡️ MODO EXAMEN ACTIVO:</span> Demuestra la seña de memoria frente a la cámara sin guía de video ni pistas visuales.`;
+    if (tipEl) tipEl.innerHTML = `<span class="text-amber-800 font-semibold font-mono text-[11px]">🛡️ MODO EXAMEN ACTIVO:</span> Demuestra la seña de memoria frente a la cámara sin guía de video ni pistas visuales.`;
   } else {
     if (descEl) descEl.textContent = currentSign.desc;
     if (tipEl) tipEl.innerHTML = `💡 <strong>Instrucción para replicarla:</strong> ${currentSign.tip}`;
@@ -292,7 +297,11 @@ window.onSignMastered = function(sign, score) {
   }
   if (window.ChatTutor) {
     window.ChatTutor.playVictorySound();
-    window.ChatTutor.speakText(`¡Excelente trabajo! Has logrado la seña ${sign.name} con un ${score}% de precisión.`);
+    if (typeof window.ChatTutor.speakCelebration === 'function') {
+      window.ChatTutor.speakCelebration(sign.name, score);
+    } else {
+      window.ChatTutor.speakText(`¡Muy bien! Hiciste ${sign.name} con ${score} por ciento de precisión.`);
+    }
   }
 
   const popup = document.getElementById('successPopup');

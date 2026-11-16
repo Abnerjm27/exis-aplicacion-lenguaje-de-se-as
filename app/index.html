@@ -6,7 +6,7 @@
   <title>Manitas · Lengua de Señas Colombiana (LSC)</title>
   <link rel="icon" type="image/svg+xml" href="img/manitas-icono-app.svg">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0F1A30">
+  <meta name="theme-color" content="#FAF8F5">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Manitas LSC">
@@ -17,197 +17,160 @@
 
   <!-- Tailwind CSS Local (Offline Standalone) -->
   <script src="lib/tailwind/tailwind.js"></script>
-  <script src="js/tailwind-config.js?v=20261107"></script>
+  <script src="js/tailwind-config.js?v=20261116_v6"></script>
 
   <!-- Tokens de Diseño Manitas e Impeccable -->
-  <link rel="stylesheet" href="css/tokens.css?v=20261107">
+  <link rel="stylesheet" href="css/tokens.css?v=20261116_v13">
 
   <!-- Estilos Externos (Sin estilos embebidos) -->
-  <link rel="stylesheet" href="css/styles.css?v=20261102_v1">
-  <link rel="stylesheet" href="css/lesson.css?v=20261107">
+  <link rel="stylesheet" href="css/styles.css?v=20261116_v13">
+  <link rel="stylesheet" href="css/lesson.css?v=20261116_v13">
 
-  <!-- MediaPipe Hands & Camera Utils Locales (Offline) -->
+  <!-- MediaPipe Hands, Pose & Camera Utils Locales (Offline) -->
   <script src="lib/mediapipe/camera_utils.js"></script>
   <script src="lib/mediapipe/control_utils.js"></script>
   <script src="lib/mediapipe/drawing_utils.js"></script>
   <script src="lib/mediapipe/hands/hands.js"></script>
+  <script src="lib/mediapipe/pose/pose.js"></script>
 
   <!-- Canvas Confetti Local (Offline) -->
   <script src="lib/canvas-confetti/confetti.browser.min.js"></script>
 
   <!-- Scripts Modulares -->
-  <script src="js/signs-data.js?v=20261101_v6" defer></script>
-  <script src="js/trajectory-tracker.js?v=20261101_v6" defer></script>
-  <script src="js/video-player.js?v=20261101_v6" defer></script>
-  <script src="js/camera-manager.js?v=20261101_v6" defer></script>
-  <script src="js/vision-evaluator.js?v=20261101_v6" defer></script>
-  <script src="js/auth-profile-manager.js?v=20261105_v1" defer></script>
-  <script src="js/learning-plan-manager.js?v=20261105_v1" defer></script>
-  <script src="js/blind-exam-controller.js?v=20261105_v1" defer></script>
-  <script src="js/lesson-session.js?v=20261107_v1" defer></script>
-  <script src="js/view-router.js?v=20261105_v1" defer></script>
-  <script src="js/pwa-manager.js?v=20261107_v1" defer></script>
-  <script src="js/chat-tutor.js?v=20261101_v6" defer></script>
-  <script src="js/main.js?v=20261101_v6" defer></script>
+  <script src="js/signs-data.js?v=20261116_v6" defer></script>
+  <script src="js/sign-anatomy-validator.js?v=20261116_v7" defer></script>
+  <script src="js/body-anchor-detector.js?v=20261116_v7" defer></script>
+  <script src="js/trajectory-tracker.js?v=20261116_v7" defer></script>
+  <script src="js/video-player.js?v=20261116_v7" defer></script>
+  <script src="js/camera-manager.js?v=20261116_v7" defer></script>
+  <script src="js/vision-evaluator.js?v=20261116_v7" defer></script>
+  <script src="js/auth-profile-manager.js?v=20261116_v6" defer></script>
+  <script src="js/learning-plan-manager.js?v=20261116_v6" defer></script>
+  <script src="js/blind-exam-controller.js?v=20261116_v6" defer></script>
+  <script src="js/lesson-session.js?v=20261116_v6" defer></script>
+  <script src="js/view-router.js?v=20261116_v13" defer></script>
+  <script src="js/pwa-manager.js?v=20261116_v13" defer></script>
+  <script src="js/chat-tutor.js?v=20261116_v13" defer></script>
+  <script src="js/main.js?v=20261116_v13" defer></script>
 </head>
 
-<body class="flex flex-col min-h-screen text-slate-100 antialiased selection:bg-amber-600 selection:text-white">
+<body class="app-shell text-slate-900 antialiased selection:bg-amber-500 selection:text-slate-900">
 
-  <!-- TOP NAVBAR -->
-  <header class="border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-md sticky top-0 z-50 px-3 sm:px-6 md:px-8 py-3 transition-all">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
-      <a id="btnGoToLanding" href="landing.html" class="flex items-center gap-2.5 min-w-0 group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-xl transition" aria-label="Ir al Portal de Bienvenida">
-        <img src="img/manitas-simbolo.svg" alt="Manitas Logo" class="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0 drop-shadow-sm group-hover:scale-105 transition-transform">
-        <div class="truncate">
-          <h1 class="text-sm sm:text-base md:text-lg font-bold tracking-tight text-slate-100 group-hover:text-amber-400 transition-colors truncate">
-            Manitas · Lengua de Señas Colombiana
-          </h1>
-          <p class="hidden sm:block text-xs text-slate-400 font-medium truncate">Tutor con Video Interactivo LSC, Visión Artificial e Inteligencia Artificial</p>
+  <div id="sidebarBackdrop" class="sidebar-backdrop hidden lg:hidden" aria-hidden="true"></div>
+
+  <!-- BARRA LATERAL DE NAVEGACIÓN PRINCIPAL (Acceso directo a todos los apartados) -->
+  <aside id="appSidebar" class="app-sidebar" aria-label="Menú principal de Manitas">
+    <div class="flex flex-col gap-5">
+      <a id="btnGoToLanding" href="landing.html" class="flex items-center gap-2.5 px-2 py-1 group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-xl transition" aria-label="Ir al Portal de Bienvenida">
+        <img src="img/manitas-simbolo.svg" alt="Manitas Logo" class="w-9 h-9 object-contain shrink-0 group-hover:scale-105 transition-transform">
+        <div class="min-w-0">
+          <span class="block text-base font-extrabold tracking-tight text-slate-900 leading-none">Manitas</span>
+          <span class="block text-[11px] font-semibold text-amber-700 mt-0.5">Lengua de Señas LSC</span>
         </div>
       </a>
 
+      <nav class="flex flex-col gap-1.5" aria-label="Apartados de la aplicación">
+        <span class="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-0.5">Aprendizaje</span>
+
+        <button id="btnNavViewPath" class="sidebar-nav-btn btn-spring" aria-label="Ver Mapa de Ruta">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path><circle cx="18" cy="5" r="3"></circle></svg>
+          <span>Mi Ruta</span>
+        </button>
+
+        <button id="btnNavViewStudio" class="sidebar-nav-btn btn-spring bg-coral-500 text-slate-900 font-bold" aria-label="Ver Estudio de Práctica">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+          <span>Estudio</span>
+        </button>
+
+        <button id="btnStartBlindExam" class="sidebar-nav-btn sidebar-nav-exam btn-spring" aria-label="Iniciar Modo Examen Sin Video">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>Modo Examen</span>
+        </button>
+
+        <button id="btnToggleChat" class="sidebar-nav-btn btn-spring" aria-label="Abrir Tutor Virtual Sol IA">
+          <img src="img/zorrito/svg/zorrito_saludo.svg" alt="" class="w-4 h-4 shrink-0 object-contain">
+          <span class="flex-1 text-left">Tutor Sol IA</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" aria-hidden="true"></span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Pie de Sidebar: Perfil y Cerrar Sesión (Fijo abajo) -->
+    <div class="mt-auto pt-4 border-t border-stone-200 flex flex-col gap-1">
+      <a id="btnNavViewProfile" href="perfil.html" class="sidebar-nav-btn btn-spring" aria-label="Ver Mi Perfil y Progreso">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Mi Perfil</span>
+      </a>
+
+      <button id="btnSidebarLogout" class="sidebar-nav-btn sidebar-nav-logout btn-spring" aria-label="Cerrar Sesión">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        <span>Cerrar Sesión</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO DERECHO (Header limpio + Vistas) -->
+  <div class="app-content-col">
+    <header class="app-topbar border-b border-slate-200 bg-white/95 backdrop-blur-md sticky top-0 z-40 px-3 sm:px-6 py-3 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button id="btnMobileMenuToggle" class="lg:hidden btn-spring p-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-slate-900 border border-stone-200 shrink-0" aria-label="Abrir menú lateral" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <div class="min-w-0">
+          <h1 id="topbarSectionTitle" class="text-sm sm:text-base font-extrabold text-slate-900 truncate">Estudio de Práctica LSC</h1>
+          <p class="hidden sm:block text-xs text-slate-500 truncate">Video interactivo, visión artificial en tiempo real y tutoría con Tito</p>
+        </div>
+      </div>
+
       <div class="flex items-center gap-2 shrink-0">
-        <!-- Botón Instalar App (PWA) -->
-        <button id="btnInstallPwaNav" class="hidden btn-spring flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-950 shadow-sm transition" aria-label="Instalar Manitas en el dispositivo">
+        <span id="userStreakCount" title="Racha diaria" class="font-mono text-xs bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full border border-amber-300 font-bold tabular-nums">1 d</span>
+        <button id="btnInstallPwaNav" class="hidden btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-900 shadow-sm transition shrink-0" aria-label="Instalar Manitas en el dispositivo">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           <span class="hidden md:inline">Instalar App</span>
         </button>
-
-        <!-- Selector de Pantallas (Mapa Duolingo vs Estudio de Práctica) -->
-        <div class="flex items-center bg-slate-900/90 rounded-lg p-0.5 border border-slate-800" role="group" aria-label="Selector de Pantalla">
-          <button id="btnNavViewPath" class="btn-spring px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700/80 transition" aria-label="Ver Mapa de Ruta">
-            <span>Mapa de Ruta</span>
-          </button>
-          <button id="btnNavViewStudio" class="btn-spring px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-950 shadow-sm transition" aria-label="Ver Estudio de Práctica">
-            <span>Estudio</span>
-          </button>
-        </div>
-
-        <!-- Modo Examen Sin Video -->
-        <button id="btnStartBlindExam" class="btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white shadow-sm" aria-label="Iniciar Modo Examen Sin Video">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          </svg>
-          <span class="hidden xs:inline">Modo Examen</span>
-        </button>
-
-        <!-- Botón Tutor IA con Mascota Zorrito -->
-        <button id="btnToggleChat" class="btn-spring flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-950 shadow-sm" aria-label="Abrir Tutor Virtual Sol IA">
-          <img src="img/zorrito/svg/zorrito_saludo.svg" alt="" class="w-5 h-5 shrink-0 object-contain drop-shadow-sm">
-          <span class="hidden xs:inline">Sol IA</span>
-          <span class="w-2 h-2 rounded-full bg-emerald-700 animate-pulse" aria-hidden="true"></span>
-        </button>
-
-        <!-- Botón Perfil / Login -->
-        <button id="btnOpenAuthModal" class="btn-spring flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 shadow-sm" aria-label="Abrir Perfil o Iniciar Sesión">
-          <div class="w-5 h-5 rounded-full bg-sun-500/20 text-sun-400 flex items-center justify-center font-bold text-[10px]">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </div>
-          <span id="userDisplayName" class="max-w-[75px] sm:max-w-[110px] truncate">Estudiante LSC</span>
-          <span id="userStreakCount" class="hidden sm:inline-block font-mono text-[10px] bg-sun-500/15 text-sun-400 px-1.5 py-0.5 rounded border border-sun-500/30 tabular-nums">1 d</span>
-        </button>
       </div>
-    </div>
-  </header>
+    </header>
 
   <!-- CONTENEDOR PRINCIPAL -->
-  <main class="max-w-7xl mx-auto w-full p-3 sm:p-5 md:p-6 flex-1 flex flex-col gap-5">
+  <main class="max-w-6xl mx-auto w-full p-3 sm:p-5 md:p-6 flex-1 flex flex-col gap-5">
 
-    <!-- PANTALLA 2: VISTA DEDICADA DE RUTA ESTILO DUOLINGO (#viewLearningPath) -->
+    <!-- PANTALLA 2: VISTA DEDICADA DE RUTA (#viewLearningPath) -->
     <div id="viewLearningPath" class="hidden flex flex-col gap-5">
-      <!-- Barra Superior de la Ruta con Botón para ir al Estudio -->
-      <div class="surface-card p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border border-amber-500/20">
+      <div class="surface-card p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-200">
         <div>
-          <div class="flex items-center gap-2 mb-1">
-            <span class="text-[10px] font-mono uppercase bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30 font-bold">Pantalla de Ruta</span>
-            <span class="text-xs text-slate-400">· Progreso Lineal Guiado</span>
-          </div>
-          <h2 class="text-base sm:text-lg font-bold text-slate-100">Tu Ruta de Aprendizaje LSC</h2>
-          <p class="text-xs text-slate-400 mt-0.5">Avanza paso a paso dominando señas con MediaPipe y supera el examen de unidad sin video.</p>
+          <span class="text-[10px] font-mono uppercase bg-amber-50 text-amber-800 px-2 py-0.5 rounded border border-amber-200 font-bold">Mi Ruta LSC</span>
+          <h2 class="text-base sm:text-lg font-bold text-slate-900 mt-1">Tu Ruta de Aprendizaje</h2>
+          <p class="text-xs text-slate-600 mt-0.5">Avanza paso a paso dominando señas con MediaPipe y supera el examen final sin video.</p>
         </div>
-        <button id="btnGoToStudioFromPath" class="btn-spring px-5 py-2.5 rounded-xl text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-950 shadow-lg shadow-coral-500/20 flex items-center gap-2 shrink-0" aria-label="Ir a la Cabina de Práctica">
-          <span>Ir a la Cabina de Práctica</span>
+        <button id="btnGoToStudioFromPath" class="btn-spring px-5 py-2.5 rounded-xl text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-900 shadow-sm flex items-center gap-2 shrink-0" aria-label="Ir a la Cabina de Práctica">
+          <span>Ir al Estudio</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </button>
       </div>
 
-      <!-- HUB BENTO DE APRENDIZAJE Y MAPA HEXAGONAL -->
-      <section id="learningHubSection" aria-label="Hub de Aprendizaje y Rutas LSC" class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-      
-      <!-- Tarjeta Perfil & Maestría (4 cols en lg) -->
-      <div class="lg:col-span-4 bento-card p-4 flex flex-col justify-start gap-4 self-start">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-xl bg-sun-500/15 border border-sun-500/30 flex items-center justify-center text-sun-400 font-bold shrink-0">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </div>
-            <div>
-              <span id="userLevelBadge" class="text-[10px] font-mono uppercase bg-sun-500/20 text-sun-400 px-2 py-0.5 rounded border border-sun-500/30 font-semibold">Principiante</span>
-              <h2 class="text-sm font-bold text-slate-100 mt-0.5">Progreso de Maestría</h2>
-            </div>
-          </div>
-          <button id="btnSwitchProfile" class="btn-spring px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">
-            Cambiar
-          </button>
-        </div>
-
-        <!-- Barra de XP -->
-        <div class="space-y-1.5">
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-slate-400 font-medium">Experiencia (XP):</span>
-            <span class="font-mono font-bold text-sun-400 tabular-nums"><span id="userXpValue">0</span> XP</span>
-          </div>
-          <div class="w-full h-2 rounded-full bg-slate-900 border border-slate-800 overflow-hidden">
-            <div id="userXpBar" class="w-0 h-full bg-sun-400 rounded-full transition-all duration-300"></div>
-          </div>
-        </div>
-
-        <!-- Contadores de Maestría Tabular -->
-        <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800/80 text-center font-mono">
-          <div class="bg-slate-900/60 p-2 rounded-lg border border-slate-800">
-            <span class="text-[10px] text-slate-400 block font-sans font-medium">Abecedario</span>
-            <span id="masteryLettersPct" class="text-xs font-bold text-sun-400 tabular-nums">0%</span>
-          </div>
-          <div class="bg-slate-900/60 p-2 rounded-lg border border-slate-800">
-            <span class="text-[10px] text-slate-400 block font-sans font-medium">Palabras</span>
-            <span id="masteryWordsPct" class="text-xs font-bold text-teal-400 tabular-nums">0%</span>
-          </div>
-          <div class="bg-slate-900/60 p-2 rounded-lg border border-slate-800">
-            <span class="text-[10px] text-slate-400 block font-sans font-medium">Total Señas</span>
-            <span id="masteryTotalCount" class="text-xs font-bold text-slate-200 tabular-nums">0 / 20</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tarjeta Central/Derecha: Sol IA + Rutas + Mapa Hexagonal (8 cols en lg) -->
-      <div class="lg:col-span-8 bento-card p-4 flex flex-col gap-3">
+      <!-- HUB DE RUTA A ANCHO COMPLETO (Sin tarjeta de perfil apretada) -->
+      <section id="learningHubSection" aria-label="Hub de Aprendizaje y Rutas LSC" class="bento-card p-4 sm:p-6 flex flex-col gap-4">
         
         <!-- Encabezado y Selector de Rutas -->
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div class="flex items-center gap-2">
-            <div class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" aria-hidden="true"></div>
-            <h3 id="activePlanTitle" class="text-sm font-bold text-slate-100">Desde Cero: Ruta Básica IA</h3>
-            <span id="activePlanProgressText" class="text-[11px] font-mono text-slate-400 tabular-nums">Paso 1 de 8 · 0% completado</span>
+            <div class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" aria-hidden="true"></div>
+            <h3 id="activePlanTitle" class="text-sm font-bold text-slate-900">Desde Cero: Ruta Básica IA</h3>
+            <span id="activePlanProgressText" class="text-[11px] font-mono text-slate-600 tabular-nums">Paso 1 de 8 · 0% completado</span>
           </div>
 
           <!-- Chips de Rutas Predefinidas y Creación -->
           <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="Planes de Aprendizaje">
-            <button id="btnPlanZeroAi" class="btn-spring px-3 py-1 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-sm transition">
+            <button id="btnPlanZeroAi" class="btn-spring px-3 py-1 rounded-lg text-xs font-bold bg-amber-500 text-slate-900 shadow-sm transition">
               Desde Cero
             </button>
-            <button id="btnPlanAlphabet" class="btn-spring px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700/80 transition">
+            <button id="btnPlanAlphabet" class="btn-spring px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 transition">
               Abecedario
             </button>
-            <button id="btnPlanWords" class="btn-spring px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700/80 transition">
+            <button id="btnPlanWords" class="btn-spring px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 transition">
               Palabras
             </button>
-            <button id="btnOpenCustomPlanModal" class="btn-spring px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 transition flex items-center gap-1" title="Crear ruta personalizada seleccionando señas">
+            <button id="btnOpenCustomPlanModal" class="btn-spring px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-amber-50 text-amber-800 border border-amber-300 transition flex items-center gap-1" title="Crear ruta personalizada seleccionando señas">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
               <span>Mi Ruta</span>
             </button>
@@ -221,47 +184,45 @@
               id="aiPlanPromptInput" 
               type="text" 
               placeholder="Pregúntale a Sol IA: 'No sé nada, enséñame desde cero' o 'Quiero saludar'..." 
-              class="w-full bg-slate-950/80 border border-slate-700/90 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition shadow-inner"
+              class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition shadow-inner"
             />
           </div>
-          <button id="btnGenerateAiPlan" class="btn-spring px-4 py-2 rounded-xl text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-950 shadow-sm shrink-0 w-full sm:w-auto flex items-center justify-center gap-1.5">
+          <button id="btnGenerateAiPlan" class="btn-spring px-4 py-2 rounded-xl text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-900 shadow-sm shrink-0 w-full sm:w-auto flex items-center justify-center gap-1.5">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
             <span>Crear Ruta con Sol IA</span>
           </button>
         </div>
 
         <!-- Explicación Pedagógica de Sol IA -->
-        <p id="aiPlanRationaleText" class="text-xs text-amber-300/90 bg-amber-500/10 border border-amber-500/25 p-2.5 rounded-lg leading-relaxed">
+        <p id="aiPlanRationaleText" class="text-xs text-slate-800 bg-amber-50 border border-amber-200 p-2.5 rounded-lg leading-relaxed">
           Secuencia diseñada para principiantes absolutos: empieza con el saludo fundamental, vocales de una sola mano y presentación personal.
         </p>
 
-        <!-- Mapa Hexagonal Interactivo (Skill Tree) -->
+        <!-- Mapa Interactivo de Nodos -->
         <div class="w-full">
           <div id="hexSkillTreeContainer" class="hex-skill-tree">
             <!-- Generado dinámicamente por LearningPlanManager -->
           </div>
         </div>
 
-      </div>
-
-    </section>
+      </section>
     </div>
 
     <!-- PANTALLA 3: VISTA DEDICADA DE ESTUDIO Y EXAMEN (#viewPracticeStudio) -->
     <div id="viewPracticeStudio" class="flex flex-col gap-5">
       <!-- Barra de Navegación de Sesión y Migas de Pan -->
-      <div class="surface-card px-4 py-3 flex items-center justify-between gap-3 border border-slate-800">
+      <div class="surface-card px-4 py-3 flex items-center justify-between gap-3 border border-slate-200">
         <div class="flex items-center gap-3 min-w-0">
-          <button id="btnBackToPath" class="btn-spring flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 shrink-0 shadow-sm" aria-label="Volver a Mi Ruta Duolingo">
+          <button id="btnBackToPath" class="btn-spring flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-amber-50 text-slate-900 border border-slate-300 shrink-0 shadow-sm" aria-label="Volver a Mi Ruta">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            <span>← Volver a Mi Ruta Duolingo</span>
+            <span>Volver a Mi Ruta</span>
           </button>
           <div class="truncate hidden sm:flex items-center gap-2 text-xs">
-            <span class="text-slate-600">|</span>
-            <span class="text-slate-400 font-medium">Lección actual:</span>
-            <span id="studioBreadcrumbPlanTitle" class="font-bold text-slate-200">Desde Cero: Ruta Básica IA</span>
-            <span class="text-slate-600">·</span>
-            <span id="studioStepProgressText" class="font-mono font-bold text-sun-400 tabular-nums">Paso 1 de 8</span>
+            <span class="text-slate-300">|</span>
+            <span class="text-slate-600 font-medium">Lección actual:</span>
+            <span id="studioBreadcrumbPlanTitle" class="font-bold text-slate-900">Desde Cero: Ruta Básica IA</span>
+            <span class="text-slate-400">·</span>
+            <span id="studioStepProgressText" class="font-mono font-bold text-amber-700 tabular-nums">Paso 1 de 8</span>
           </div>
         </div>
       </div>
@@ -269,11 +230,11 @@
       <!-- SELECTOR DE SEÑAS -->
       <section aria-label="Selector de Señas" class="surface-card p-3 sm:p-4 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
       <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
-        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 mr-1">Categoría:</span>
-        <button id="catWordsBtn" class="btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 shadow-sm">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-600 mr-1">Categoría:</span>
+        <button id="catWordsBtn" class="btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-900 shadow-sm">
           Palabras LSC
         </button>
-        <button id="catLettersBtn" class="btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">
+        <button id="catLettersBtn" class="btn-spring px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-200">
           Alfabeto Dactilológico
         </button>
       </div>
@@ -284,7 +245,7 @@
       </div>
 
       <!-- Explicación por Voz -->
-      <button id="btnExplainVoice" class="btn-spring flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-amber-300 shrink-0 self-start md:self-auto">
+      <button id="btnExplainVoice" class="btn-spring flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-amber-50 border border-slate-200 text-slate-900 shrink-0 self-start md:self-auto">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
           <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
@@ -301,21 +262,21 @@
       <section aria-label="Demostración de la Seña y Video Interactivo" class="surface-card flex flex-col overflow-hidden relative">
         <div class="surface-header flex items-center justify-between gap-2">
           <div class="flex items-center gap-2 min-w-0">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00B8A9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF7A45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
               <polygon points="5 3 19 12 5 21 5 3"></polygon>
             </svg>
-            <span class="font-bold text-xs sm:text-sm tracking-wide text-slate-100 truncate">1. Demostración de la Seña</span>
-            <span class="hidden sm:inline-block px-2 py-0.5 rounded text-[10px] bg-emerald-500/15 text-emerald-400 font-mono border border-emerald-500/30 shrink-0">LSC Oficial</span>
+            <span class="font-bold text-xs sm:text-sm tracking-wide text-slate-900 truncate">1. Demostración de la Seña</span>
+            <span class="hidden sm:inline-block px-2 py-0.5 rounded text-[10px] bg-amber-50 text-amber-800 font-mono border border-amber-200 shrink-0">LSC Oficial</span>
           </div>
 
           <!-- Selector de Modo: Persona Real vs Anime IA -->
-          <div class="flex items-center bg-slate-900/90 rounded-lg p-0.5 text-xs border border-slate-800 shrink-0" role="group" aria-label="Selector de Modo">
-            <button id="btnModeReal" class="btn-spring px-2.5 sm:px-3 py-1 rounded-md font-semibold bg-amber-500 text-slate-950 flex items-center gap-1.5" aria-pressed="true">
+          <div class="flex items-center bg-white rounded-lg p-0.5 text-xs border border-slate-200 shrink-0" role="group" aria-label="Selector de Modo">
+            <button id="btnModeReal" class="btn-spring px-2.5 sm:px-3 py-1 rounded-md font-semibold bg-amber-500 text-slate-900 flex items-center gap-1.5" aria-pressed="true">
               <span>👤</span>
               <span class="hidden xs:inline sm:inline">Persona Real LSC</span>
               <span class="inline xs:hidden sm:hidden">Real</span>
             </button>
-            <button id="btnModeAnime" class="btn-spring px-2.5 sm:px-3 py-1 rounded-md font-semibold text-slate-400 hover:text-white flex items-center gap-1.5" aria-pressed="false">
+            <button id="btnModeAnime" class="btn-spring px-2.5 sm:px-3 py-1 rounded-md font-semibold text-slate-700 hover:text-slate-900 flex items-center gap-1.5" aria-pressed="false">
               <span>✨</span>
               <span class="hidden xs:inline sm:inline">Anime IA</span>
               <span class="inline xs:hidden sm:hidden">Anime</span>
@@ -323,8 +284,8 @@
           </div>
         </div>
 
-        <!-- Escenario del Reproductor de Video -->
-        <div id="videoPlayerStage" class="relative w-full h-[360px] sm:h-[400px] bg-slate-950 flex items-center justify-center overflow-hidden">
+        <!-- Escenario del Reproductor de Video (Superficie Cálida Piedra #F3EFEA) -->
+        <div id="videoPlayerStage" class="relative w-full h-[360px] sm:h-[400px] bg-slate-100 flex items-center justify-center overflow-hidden">
           
           <!-- Elemento Video HTML5 Semántico -->
           <video id="signVideo" autoplay loop muted playsinline class="video-element w-full h-full object-contain" preload="auto">
@@ -335,21 +296,21 @@
           <canvas id="webpFreezeCanvas" class="hidden w-full h-full object-contain pointer-events-none"></canvas>
 
           <!-- Badge Flotante de Estado -->
-          <div id="videoFloatingBadge" class="video-floating-badge absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950/85 backdrop-blur-md border border-slate-700/60 text-[11px] text-amber-300 font-medium shadow-md">
-            <span id="badgeDot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span>
+          <div id="videoFloatingBadge" class="video-floating-badge absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/90 backdrop-blur-md border border-slate-200 text-[11px] text-slate-900 font-semibold shadow-md">
+            <span id="badgeDot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true"></span>
             <span id="badgeText">Bucle continuo · LSC Oficial</span>
           </div>
 
           <!-- Selector de Vista Flotante: Cuerpo vs Mano -->
-          <div class="absolute top-3 right-3 z-20 flex items-center gap-1 bg-slate-950/85 backdrop-blur-md border border-slate-700/60 rounded-lg p-1 text-[11px] shadow-md" role="group" aria-label="Selector de Vista">
-            <button id="btnViewBody" class="btn-spring flex items-center gap-1 px-2.5 py-1 rounded font-bold text-amber-300 bg-slate-800 border border-amber-500/40" aria-pressed="true">
+          <div class="absolute top-3 right-3 z-20 flex items-center gap-1 bg-white/90 backdrop-blur-md border border-slate-200 rounded-lg p-1 text-[11px] shadow-md" role="group" aria-label="Selector de Vista">
+            <button id="btnViewBody" class="btn-spring flex items-center gap-1 px-2.5 py-1 rounded font-bold text-amber-800 bg-amber-50 border border-amber-400 shadow-sm" aria-pressed="true">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
               <span>Vista Cuerpo</span>
             </button>
-            <button id="btnViewHand" class="btn-spring flex items-center gap-1 px-2.5 py-1 rounded font-medium text-slate-400 hover:text-white hover:bg-slate-800" aria-pressed="false">
+            <button id="btnViewHand" class="btn-spring flex items-center gap-1 px-2.5 py-1 rounded font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-100" aria-pressed="false">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
                 <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
@@ -361,52 +322,52 @@
           </div>
 
           <!-- Spinner de Carga -->
-          <div id="videoLoadingSpinner" class="hidden absolute inset-0 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm z-10">
-            <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-700 rounded-lg px-3.5 py-2 text-xs text-amber-300 font-mono shadow-lg">
-              <svg class="animate-spin h-4 w-4 text-amber-400" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>
+          <div id="videoLoadingSpinner" class="hidden absolute inset-0 flex items-center justify-center bg-slate-50/75 backdrop-blur-sm z-10">
+            <div class="flex items-center gap-2 bg-white/95 border border-slate-200 rounded-lg px-3.5 py-2 text-xs text-amber-700 font-mono shadow-lg">
+              <svg class="animate-spin h-4 w-4 text-amber-500" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>
               <span>Sincronizando video LSC...</span>
             </div>
           </div>
 
           <!-- Aviso Elegante Anime IA (Toast Fallback) -->
-          <div id="animeNoticeToast" class="hidden absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:max-w-sm z-30 bg-slate-900/95 backdrop-blur-md border border-amber-500/50 rounded-xl p-3 text-xs shadow-2xl flex items-start gap-2.5">
-            <div class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 mt-0.5 font-bold">✨</div>
+          <div id="animeNoticeToast" class="hidden absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:max-w-sm z-30 bg-white/95 backdrop-blur-md border border-amber-300 rounded-xl p-3 text-xs shadow-2xl flex items-start gap-2.5">
+            <div class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5 font-bold">✨</div>
             <div class="flex-1 min-w-0">
-              <div class="font-bold text-amber-300 text-xs">Anime IA en Preparación</div>
-              <p class="text-[11px] text-slate-300 mt-0.5 leading-snug">El render Anime IA para esta seña se encuentra en generación. Reproduciendo el video de Persona Real LSC.</p>
+              <div class="font-bold text-amber-800 text-xs">Anime IA en Preparación</div>
+              <p class="text-[11px] text-slate-600 mt-0.5 leading-snug">El render Anime IA para esta seña se encuentra en generación. Reproduciendo el video de Persona Real LSC.</p>
             </div>
-            <button id="btnDismissAnimeNotice" class="text-slate-400 hover:text-white p-1 text-xs shrink-0" aria-label="Cerrar aviso">✕</button>
+            <button id="btnDismissAnimeNotice" class="text-slate-500 hover:text-slate-900 p-1 text-xs shrink-0" aria-label="Cerrar aviso">✕</button>
           </div>
 
           <!-- Escudo Protector de Evaluación Ciega (Modo Examen Sin Video) -->
           <div id="blindExamOverlay" class="blind-exam-shield hidden">
             <div class="flex items-center gap-3 mb-2">
               <img src="img/zorrito/svg/zorrito_pensando.svg" alt="Zorrito pensando" class="w-14 h-14 object-contain drop-shadow-lg anim-pulse">
-              <div class="w-10 h-10 rounded-xl bg-rose-500/15 border border-rose-500/40 text-rose-400 flex items-center justify-center shadow-lg shadow-rose-500/20">
+              <div class="w-10 h-10 rounded-xl bg-rose-500/15 border border-rose-500/40 text-rose-600 flex items-center justify-center shadow-sm">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
               </div>
             </div>
-            <span id="examQuestionCounter" class="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold mb-1">Reto 1 de 5</span>
-            <p class="text-xs text-slate-400 mb-2 font-medium">Demuestra de memoria frente a la cámara:</p>
-            <h2 id="examPromptSignName" class="text-2xl sm:text-3xl font-extrabold text-amber-400 tracking-wider uppercase mb-3 drop-shadow">HOLA</h2>
+            <span id="examQuestionCounter" class="text-xs font-mono uppercase tracking-widest text-slate-600 font-semibold mb-1">Reto 1 de 5</span>
+            <p class="text-xs text-slate-600 mb-2 font-medium">Demuestra de memoria frente a la cámara:</p>
+            <h2 id="examPromptSignName" class="text-2xl sm:text-3xl font-extrabold text-amber-700 tracking-wider uppercase mb-3">HOLA</h2>
 
             <!-- Cronómetro Tabular -->
-            <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-700 mb-4 shadow">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400" aria-hidden="true">
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 mb-4 shadow-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-600" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
-              <span id="overlayExamTimerText" class="font-mono text-sm font-bold text-amber-300 tabular-nums">25s</span>
+              <span id="overlayExamTimerText" class="font-mono text-sm font-bold text-amber-700 tabular-nums">25s</span>
             </div>
 
             <!-- Controles del Examen -->
             <div class="flex items-center gap-2">
-              <button id="btnSkipExamSign" class="btn-spring px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">
+              <button id="btnSkipExamSign" class="btn-spring px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white hover:bg-slate-100 text-slate-800 border border-slate-300">
                 Saltar seña
               </button>
-              <button id="btnExitExam" class="btn-spring px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-rose-400 border border-rose-500/40">
+              <button id="btnExitExam" class="btn-spring px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white hover:bg-rose-50 text-rose-700 border border-rose-300">
                 Salir del examen
               </button>
             </div>
@@ -414,11 +375,11 @@
 
         </div>
 
-        <!-- Barra de Controles Pedagógicos -->
-        <div class="video-controls-bar p-3 sm:p-3.5 bg-slate-950/90 border-t border-slate-800 flex flex-col gap-2.5">
+        <!-- Barra de Controles Pedagógicos (Superficie Secundaria Cálida #F3EFEA) -->
+        <div class="video-controls-bar p-3 sm:p-3.5 bg-slate-100 border-t border-slate-200 flex flex-col gap-2.5">
           <!-- Fila de Reproducción y Línea de Tiempo -->
           <div class="flex items-center gap-3">
-            <button id="btnPlayPause" class="btn-spring p-2 rounded-lg bg-coral-500 hover:bg-coral-400 text-slate-950 font-bold text-xs shadow shrink-0 w-8 h-8 flex items-center justify-center" aria-label="Pausar video">
+            <button id="btnPlayPause" class="btn-spring p-2 rounded-lg bg-coral-500 hover:bg-coral-400 text-slate-900 font-bold text-xs shadow shrink-0 w-8 h-8 flex items-center justify-center" aria-label="Pausar video">
               <svg id="iconPause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
               <svg id="iconPlay" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="hidden"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             </button>
@@ -426,39 +387,39 @@
               <div class="relative w-full flex items-center">
                 <input id="videoTimeline" type="range" min="0" max="100" value="0" step="0.1" class="video-timeline-range w-full cursor-pointer accent-amber-500" aria-label="Línea de tiempo del video" />
               </div>
-              <div class="flex justify-between items-center text-[10px] font-mono text-slate-400">
+              <div class="flex justify-between items-center text-[10px] font-mono text-slate-600">
                 <span id="videoCurrentTime">0.0s</span>
-                <span class="text-amber-400/80">LSC70 · UTP</span>
+                <span class="text-amber-700 font-semibold">LSC70 · UTP</span>
                 <span id="videoDuration">0.0s</span>
               </div>
             </div>
           </div>
 
           <!-- Fila de Selectores de Velocidad y Estado -->
-          <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-800/60 text-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-200 text-xs">
             <div class="flex items-center gap-1.5">
-              <span class="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Velocidad:</span>
-              <button id="btnSpeed05" class="btn-spring px-2.5 py-1 rounded-md text-xs font-medium text-slate-400 hover:text-white" aria-label="Velocidad 0.5x Lento">0.5x Lento</button>
-              <button id="btnSpeed10" class="btn-spring px-2.5 py-1 rounded-md text-xs font-bold text-amber-300 bg-slate-800 border border-amber-500/40" aria-label="Velocidad 1.0x Normal">1.0x Normal</button>
+              <span class="text-[10px] text-slate-600 font-mono uppercase tracking-wider">Velocidad:</span>
+              <button id="btnSpeed05" class="btn-spring px-2.5 py-1 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900" aria-label="Velocidad 0.5x Lento">0.5x Lento</button>
+              <button id="btnSpeed10" class="btn-spring px-2.5 py-1 rounded-md text-xs font-bold text-amber-800 bg-white border border-amber-400 shadow-sm" aria-label="Velocidad 1.0x Normal">1.0x Normal</button>
             </div>
             
             <div class="flex items-center gap-1.5">
-              <span class="text-[10px] text-slate-400 font-mono uppercase tracking-wider">Modo Activo:</span>
-              <span id="currentModeLabel" class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-amber-300 border border-slate-700">Real LSC</span>
+              <span class="text-[10px] text-slate-600 font-mono uppercase tracking-wider">Modo Activo:</span>
+              <span id="currentModeLabel" class="text-[11px] font-mono px-2 py-0.5 rounded bg-white text-amber-800 border border-slate-200 font-semibold">Real LSC</span>
             </div>
           </div>
         </div>
 
         <!-- Ficha técnica de la seña activa -->
-        <div class="p-4 bg-slate-900/80 border-t border-slate-800 flex flex-col gap-2.5">
+        <div class="p-4 bg-white border-t border-slate-200 flex flex-col gap-2.5">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <span id="targetSignBadge" class="text-xl md:text-2xl font-bold text-amber-400 tracking-wide">HOLA</span>
-              <span id="targetSignDesc" class="text-xs text-slate-300 font-medium leading-relaxed">Cargando seña...</span>
+              <span id="targetSignBadge" class="text-xl md:text-2xl font-bold text-slate-900 tracking-wide">HOLA</span>
+              <span id="targetSignDesc" class="text-xs text-slate-600 font-medium leading-relaxed">Cargando seña...</span>
             </div>
-            <span class="text-[11px] font-mono uppercase bg-amber-400 text-slate-950 font-bold px-2.5 py-0.5 rounded shadow-sm shrink-0">LSC Oficial</span>
+            <span class="text-[11px] font-mono uppercase bg-amber-500 text-slate-900 font-bold px-2.5 py-0.5 rounded shadow-sm shrink-0">LSC Oficial</span>
           </div>
-          <p id="targetSignTip" class="text-xs text-slate-300 leading-relaxed bg-slate-950/60 p-3 rounded-lg border border-slate-800/80">
+          <p id="targetSignTip" class="text-xs text-slate-700 leading-relaxed bg-slate-50 p-3 rounded-lg border border-slate-200">
             Instrucción para replicarla...
           </p>
         </div>
@@ -468,90 +429,90 @@
       <section aria-label="Práctica por Cámara y Visión Artificial" class="surface-card flex flex-col overflow-hidden relative">
         <div class="surface-header flex items-center justify-between gap-2">
           <div class="flex items-center gap-2 min-w-0">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1C1917" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
               <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
               <circle cx="12" cy="13" r="4"></circle>
             </svg>
-            <span class="font-bold text-xs sm:text-sm tracking-wide text-slate-100 truncate">2. Práctica con Cámara e IA</span>
+            <span class="font-bold text-xs sm:text-sm tracking-wide text-slate-900 truncate">2. Práctica con Cámara e IA</span>
           </div>
           <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <!-- Selector de Cámara (Cámara Principal / Secundaria / Externa) -->
             <div class="flex items-center gap-1">
-              <select id="cameraSourceSelect" class="bg-slate-900 hover:bg-slate-800 text-slate-300 text-[11px] font-medium rounded-lg px-2 py-1.5 border border-slate-700 focus:border-amber-500 focus:outline-none max-w-[130px] sm:max-w-[170px] truncate cursor-pointer transition shadow-sm" title="Seleccionar cámara disponible">
+              <select id="cameraSourceSelect" class="bg-white hover:bg-slate-50 text-slate-900 text-[11px] font-medium rounded-lg px-2 py-1.5 border border-slate-300 focus:border-amber-500 focus:outline-none max-w-[130px] sm:max-w-[170px] truncate cursor-pointer transition shadow-sm" title="Seleccionar cámara disponible">
                 <option value="">Detectando cámaras...</option>
               </select>
-              <button id="btnRefreshCameras" class="btn-spring p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs shadow-sm" title="Buscar cámaras conectadas">
+              <button id="btnRefreshCameras" class="btn-spring p-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-900 border border-slate-300 text-xs shadow-sm" title="Buscar cámaras conectadas">
                 🔄
               </button>
             </div>
 
-            <button id="btnToggleTrajectory" class="btn-spring px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 flex items-center gap-1.5 shadow-sm" title="Activar o desactivar guía de puntos en pantalla" aria-pressed="true">
-              <span class="text-amber-400">📍</span>
+            <button id="btnToggleTrajectory" class="btn-spring px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1.5 shadow-sm" title="Activar o desactivar guía de puntos en pantalla" aria-pressed="true">
+              <span class="text-amber-600">📍</span>
               <span id="trajectoryBtnText" class="hidden xs:inline">Puntos: ON</span>
             </button>
-            <button id="toggleCameraBtn" class="btn-spring px-3 py-1.5 rounded-lg text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-950 shadow-sm flex items-center gap-2 shrink-0">
-              <span id="cameraStatusDot" class="w-2 h-2 rounded-full bg-slate-950 animate-pulse" aria-hidden="true"></span>
+            <button id="toggleCameraBtn" class="btn-spring px-3 py-1.5 rounded-lg text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-900 shadow-sm flex items-center gap-2 shrink-0">
+              <span id="cameraStatusDot" class="w-2 h-2 rounded-full bg-slate-900 animate-pulse" aria-hidden="true"></span>
               <span id="cameraBtnText">Iniciar Cámara</span>
             </button>
           </div>
         </div>
 
-        <!-- Visor de Cámara y Canvas -->
-        <div class="relative w-full h-[360px] sm:h-[400px] bg-slate-950 flex items-center justify-center overflow-hidden">
+        <!-- Visor de Cámara y Canvas (Superficie Cálida #F3EFEA, cero azul) -->
+        <div id="webcamStage" class="relative w-full h-[360px] sm:h-[400px] bg-slate-100 flex items-center justify-center overflow-hidden">
           <video id="webcamVideo" playsinline autoplay muted></video>
           <canvas id="outputCanvas" class="pointer-events-none z-10"></canvas>
 
           <!-- Estado de Cámara Apagada -->
           <div id="cameraPlaceholder" class="flex flex-col items-center justify-center gap-3 p-6 text-center z-0">
-            <div class="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400">
+            <div class="w-14 h-14 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-600 shadow-sm">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path>
                 <circle cx="12" cy="13" r="3"></circle>
               </svg>
             </div>
-            <p class="text-sm font-semibold text-slate-200">Cámara Web Apagada</p>
-            <p class="text-xs text-slate-400 max-w-xs leading-relaxed">Haz clic en <strong>Iniciar Cámara</strong> para comenzar la evaluación de tus señas mediante visión artificial.</p>
+            <p class="text-sm font-semibold text-slate-900">Cámara Web Apagada</p>
+            <p class="text-xs text-slate-600 max-w-xs leading-relaxed">Haz clic en <strong>Iniciar Cámara</strong> para comenzar la evaluación de tus señas mediante visión artificial.</p>
           </div>
 
           <!-- Overlay de Diagnóstico de Dedos en Vivo -->
-          <div id="detectionOverlay" class="hidden absolute top-3 left-3 z-20 bg-slate-950/90 backdrop-blur-md border border-slate-700/80 rounded-xl p-3 flex flex-col gap-2 max-w-[240px]">
+          <div id="detectionOverlay" class="hidden absolute top-3 left-3 z-20 bg-white/95 backdrop-blur-md border border-slate-200 rounded-xl p-3 flex flex-col gap-2 max-w-[240px] shadow-lg">
             <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Dedos Detectados</span>
-              <span id="handStatusBadge" class="text-[10px] font-mono bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded border border-amber-500/30">Mano</span>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-600">Dedos Detectados</span>
+              <span id="handStatusBadge" class="text-[10px] font-mono bg-amber-50 text-amber-800 px-1.5 py-0.5 rounded border border-amber-300 font-semibold">Mano</span>
             </div>
             <div class="grid grid-cols-5 gap-1 text-[10px] font-mono text-center">
-              <div id="fingerThumb" class="p-1 rounded bg-slate-800 text-slate-400 font-semibold">PUL</div>
-              <div id="fingerIndex" class="p-1 rounded bg-slate-800 text-slate-400 font-semibold">ÍND</div>
-              <div id="fingerMiddle" class="p-1 rounded bg-slate-800 text-slate-400 font-semibold">MED</div>
-              <div id="fingerRing" class="p-1 rounded bg-slate-800 text-slate-400 font-semibold">ANU</div>
-              <div id="fingerPinky" class="p-1 rounded bg-slate-800 text-slate-400 font-semibold">MEÑ</div>
+              <div id="fingerThumb" class="p-1 rounded bg-slate-100 text-slate-600 border border-slate-200 font-semibold">PUL</div>
+              <div id="fingerIndex" class="p-1 rounded bg-slate-100 text-slate-600 border border-slate-200 font-semibold">ÍND</div>
+              <div id="fingerMiddle" class="p-1 rounded bg-slate-100 text-slate-600 border border-slate-200 font-semibold">MED</div>
+              <div id="fingerRing" class="p-1 rounded bg-slate-100 text-slate-600 border border-slate-200 font-semibold">ANU</div>
+              <div id="fingerPinky" class="p-1 rounded bg-slate-100 text-slate-600 border border-slate-200 font-semibold">MEÑ</div>
             </div>
-            <div id="poseDiagnostic" class="text-[10px] text-slate-300 font-mono bg-slate-900/90 p-1.5 rounded border border-slate-800">
+            <div id="poseDiagnostic" class="text-[10px] text-slate-700 font-mono bg-slate-50 p-1.5 rounded border border-slate-200">
               Diagnóstico: Esperando mano...
             </div>
           </div>
 
           <!-- Badge flotante de Trayectoria Activa (Connect-the-Dots) -->
-          <div id="trajectoryStatusPill" class="hidden absolute top-3 right-3 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/90 border border-amber-500/40 text-xs font-semibold text-amber-300 shadow-xl backdrop-blur-md">
-            <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping" aria-hidden="true"></span>
+          <div id="trajectoryStatusPill" class="hidden absolute top-3 right-3 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 border border-amber-400 text-xs font-semibold text-amber-800 shadow-lg backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping" aria-hidden="true"></span>
             <span id="trajectoryStatusText">Paso 1: Sien</span>
           </div>
 
           <!-- Badge Flotante de Cámara Activa Real -->
-          <div id="activeCameraPill" class="hidden absolute bottom-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950/90 backdrop-blur-md border border-amber-400/50 text-[11px] text-amber-400 font-mono shadow-md">
-            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <div id="activeCameraPill" class="hidden absolute bottom-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/95 backdrop-blur-md border border-amber-400 text-[11px] text-amber-800 font-mono font-semibold shadow-md">
+            <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
             <span id="activeCameraLabel">Cámara Activa</span>
           </div>
 
           <!-- Toast Informativo de Cámara / DroidCam -->
-          <div id="cameraNoticeToast" class="hidden absolute bottom-3 left-3 right-3 z-30 bg-slate-900/95 backdrop-blur-md border border-amber-500/50 rounded-xl p-2.5 text-xs shadow-xl flex items-start gap-2">
-            <span class="text-amber-400 font-bold shrink-0 mt-0.5">ℹ️</span>
-            <p id="cameraNoticeText" class="text-[11px] text-slate-200 leading-snug flex-1">Aviso de cámara</p>
-            <button id="btnDismissCameraNotice" class="text-slate-400 hover:text-white p-1 text-xs shrink-0" aria-label="Cerrar aviso">✕</button>
+          <div id="cameraNoticeToast" class="hidden absolute bottom-3 left-3 right-3 z-30 bg-white/95 backdrop-blur-md border border-amber-400 rounded-xl p-2.5 text-xs shadow-xl flex items-start gap-2">
+            <span class="text-amber-600 font-bold shrink-0 mt-0.5">ℹ️</span>
+            <p id="cameraNoticeText" class="text-[11px] text-slate-700 leading-snug flex-1">Aviso de cámara</p>
+            <button id="btnDismissCameraNotice" class="text-slate-500 hover:text-slate-900 p-1 text-xs shrink-0" aria-label="Cerrar aviso">✕</button>
           </div>
 
           <!-- Modal de Felicitación con Pausa Estricta -->
-          <div id="successPopup" class="hidden absolute inset-0 z-30 modal-backdrop-blur flex flex-col items-center justify-center text-center p-6">
+          <div id="successPopup" class="hidden absolute inset-0 z-30 modal-backdrop-blur bg-[#1C1917]/80 flex flex-col items-center justify-center text-center p-6">
             <div class="w-14 h-14 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 mb-3 shadow-lg shadow-emerald-500/30 animate-bounce">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="20 6 9 17 4 12"></polyline>
@@ -560,27 +521,27 @@
             <h2 class="text-lg md:text-xl font-bold text-white mb-1">¡Excelente trabajo!</h2>
             <p id="successMessage" class="text-xs text-emerald-300 max-w-sm mb-5 leading-relaxed">Has completado la seña correctamente.</p>
             <div class="flex items-center gap-3">
-              <button id="btnKeepPracticing" class="btn-spring px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">
+              <button id="btnKeepPracticing" class="btn-spring px-4 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-slate-100 text-slate-900 border border-slate-300">
                 Seguir practicando
               </button>
-              <button id="btnNextSign" class="btn-spring px-4 py-2 rounded-xl text-xs font-semibold bg-coral-500 hover:bg-coral-400 text-slate-950 font-bold shadow-sm">
+              <button id="btnNextSign" class="btn-spring px-4 py-2 rounded-xl text-xs font-semibold bg-coral-500 hover:bg-coral-400 text-slate-900 font-bold shadow-sm">
                 Siguiente seña ➔
               </button>
             </div>
-            <span class="mt-4 text-[10px] text-slate-400">Evaluación en pausa mientras eliges una opción</span>
+            <span class="mt-4 text-[10px] text-slate-200">Evaluación en pausa mientras eliges una opción</span>
           </div>
         </div>
 
         <!-- Barra de Progreso y Evaluación -->
-        <div class="p-4 bg-slate-900/80 border-t border-slate-800 flex flex-col gap-2.5">
+        <div class="p-4 bg-white border-t border-slate-200 flex flex-col gap-2.5">
           <div class="flex items-center justify-between text-xs">
-            <span class="font-semibold text-slate-300">Similitud con la Seña Objetivo:</span>
-            <span id="scoreText" class="font-mono font-bold text-slate-400">0%</span>
+            <span class="font-semibold text-slate-700">Similitud con la Seña Objetivo:</span>
+            <span id="scoreText" class="font-mono font-bold text-slate-700">0%</span>
           </div>
           <div class="progress-container">
             <div id="progressBar" class="progress-bar-fill bg-amber-500"></div>
           </div>
-          <p id="liveHint" class="text-xs font-mono text-slate-400 text-center">
+          <p id="liveHint" class="text-xs font-mono text-slate-600 text-center">
             Esperando detección de mano en la cámara...
           </p>
         </div>
@@ -590,44 +551,44 @@
     </div> <!-- Fin de #viewPracticeStudio -->
 
     <!-- CHAT TUTOR DRAWER -->
-    <aside id="chatDrawer" aria-label="Tutor IA Local" class="hidden fixed bottom-6 right-6 w-[380px] max-w-[calc(100vw-32px)] h-[540px] surface-card rounded-2xl flex flex-col z-50 shadow-2xl border border-amber-500/30 overflow-hidden">
-      <!-- Encabezado del Chat -->
-      <div class="px-4 py-3 bg-slate-900/95 border-b border-slate-800 flex items-center justify-between">
+    <aside id="chatDrawer" aria-label="Tutor IA Local" class="hidden fixed bottom-6 right-6 w-[380px] max-w-[calc(100vw-32px)] h-[540px] surface-card rounded-2xl flex flex-col z-50 shadow-2xl border border-slate-300 overflow-hidden">
+      <!-- Encabezado del Chat (Superficie Cálida Piedra #F3EFEA, cero azul) -->
+      <div class="px-4 py-3 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0 p-1">
+          <div class="w-8 h-8 rounded-xl bg-amber-50 border border-amber-300 flex items-center justify-center shrink-0 p-1">
             <img src="img/zorrito/svg/zorrito_explicando.svg" alt="Zorrito Sol IA" class="w-full h-full object-contain anim-float">
           </div>
           <div>
-            <h3 class="text-xs font-bold text-slate-100 flex items-center gap-1.5">
+            <h3 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
               <span>Zorrito Sol IA</span>
-              <span class="text-[10px] font-normal px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300">Tutor LSC</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 border border-amber-300">Tutor LSC</span>
             </h3>
-            <p class="text-[10px] text-emerald-400 font-mono">En vivo · Ollama qwen2.5:3b</p>
+            <p class="text-[10px] text-emerald-700 font-mono font-semibold">En vivo · Ollama qwen2.5:3b</p>
           </div>
         </div>
-        <button id="btnCloseChat" class="btn-spring text-slate-400 hover:text-white p-1 rounded-lg text-sm" aria-label="Cerrar Chat">
+        <button id="btnCloseChat" class="btn-spring text-slate-600 hover:text-slate-900 p-1 rounded-lg text-sm bg-white border border-slate-200" aria-label="Cerrar Chat">
           ✕
         </button>
       </div>
 
       <!-- Mensajes del Chat -->
-      <div id="chatMessages" class="flex-1 p-3 overflow-y-auto flex flex-col gap-3 text-xs">
+      <div id="chatMessages" class="flex-1 p-3 overflow-y-auto flex flex-col gap-3 text-xs bg-slate-50">
         <div class="flex flex-col gap-1.5 self-start max-w-[85%]">
-          <div class="bg-slate-800/90 border border-slate-700/60 p-3 rounded-2xl rounded-tl-sm text-slate-200 leading-relaxed shadow-sm">
+          <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-sm text-slate-900 leading-relaxed shadow-sm">
             ¡Hola! Soy tu tutor de Lengua de Señas Colombiana (LSC). Dime qué palabra o letra te gustaría aprender hoy.
           </div>
           <!-- Chips de Sugerencia Rápida -->
           <div class="flex flex-wrap gap-1.5 mt-1">
-            <button class="quick-chip btn-spring px-2 py-0.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-[11px]" data-prompt="Quiero aprender HOLA">
+            <button class="quick-chip btn-spring px-2 py-0.5 rounded-full bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 text-[11px]" data-prompt="Quiero aprender HOLA">
               Aprender "HOLA"
             </button>
-            <button class="quick-chip btn-spring px-2 py-0.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-[11px]" data-prompt="Quiero aprender YO">
+            <button class="quick-chip btn-spring px-2 py-0.5 rounded-full bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 text-[11px]" data-prompt="Quiero aprender YO">
               Aprender "YO"
             </button>
-            <button class="quick-chip btn-spring px-2 py-0.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-[11px]" data-prompt="Quiero aprender BUENOS">
+            <button class="quick-chip btn-spring px-2 py-0.5 rounded-full bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 text-[11px]" data-prompt="Quiero aprender BUENOS">
               Aprender "BUENOS"
             </button>
-            <button class="quick-chip btn-spring px-2 py-0.5 rounded-full bg-teal-500/15 hover:bg-teal-500/25 border border-teal-500/30 text-teal-300 text-[11px]" data-prompt="¿Qué señas tienes disponibles?">
+            <button class="quick-chip btn-spring px-2 py-0.5 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 text-[11px]" data-prompt="¿Qué señas tienes disponibles?">
               ¿Qué señas hay?
             </button>
           </div>
@@ -635,16 +596,16 @@
       </div>
 
       <!-- Campo de Entrada del Chat -->
-      <div class="p-2.5 bg-slate-900/95 border-t border-slate-800 flex items-center gap-2">
+      <div class="p-2.5 bg-white border-t border-slate-200 flex items-center gap-2">
         <input 
           id="chatInput" 
           type="text" 
           placeholder="Escribe: 'Quiero aprender Yo'..." 
-          class="flex-1 bg-slate-950/80 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition"
+          class="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition"
         />
         <button 
           id="chatSendBtn"
-          class="btn-spring p-2 rounded-xl bg-coral-500 hover:bg-coral-400 text-slate-950 font-bold text-xs shadow flex items-center justify-center w-8 h-8"
+          class="btn-spring p-2 rounded-xl bg-coral-500 hover:bg-coral-400 text-slate-900 font-bold text-xs shadow flex items-center justify-center w-8 h-8"
           aria-label="Enviar mensaje"
         >
           ➔
@@ -653,101 +614,57 @@
     </aside>
 
     <!-- FOOTER / ESTADÍSTICAS -->
-    <footer class="surface-card p-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-3">
+    <footer class="surface-card p-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 gap-3">
       <div>
-        <span class="font-bold text-slate-200">Manitas</span> · Base de Datos: <span class="text-amber-400 font-mono font-semibold">LSC70 (Universidad Tecnológica de Pereira)</span>
+        <span class="font-bold text-slate-900">Manitas</span> · Base de Datos: <span class="text-amber-700 font-mono font-semibold">LSC70 (Universidad Tecnológica de Pereira)</span>
       </div>
-      <div class="flex items-center gap-4 font-mono text-[11px] text-slate-400">
+      <div class="flex items-center gap-4 font-mono text-[11px] text-slate-600">
         <span>Video: Reproductor Interactivo LSC (Real & Anime IA)</span>
         <span>·</span>
-        <span>Visión: MediaPipe Hands</span>
+        <span>Visión: MediaPipe Hands + Pose</span>
         <span>·</span>
         <span>IA: Ollama qwen2.5:3b</span>
       </div>
     </footer>
 
   </main>
-
-  <!-- MODAL DE INICIO DE SESIÓN / REGISTRO / PERFIL -->
-  <div id="authModal" class="hidden fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
-    <div class="surface-card w-full max-w-md p-6 rounded-2xl border border-amber-500/40 shadow-2xl flex flex-col gap-4">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </div>
-          <div>
-            <h3 id="authModalTitle" class="text-base font-bold text-slate-100">Perfil de Estudiante LSC</h3>
-            <p class="text-xs text-slate-400">Inicia sesión o regístrate para guardar tu progreso</p>
-          </div>
-        </div>
-        <button id="btnCloseAuthModal" class="btn-spring text-slate-400 hover:text-white p-1 text-sm rounded-lg" aria-label="Cerrar modal de autenticación">✕</button>
-      </div>
-
-      <div id="authFormError" class="hidden text-xs text-rose-300 bg-rose-950/50 border border-rose-500/40 p-2.5 rounded-lg leading-snug"></div>
-
-      <form id="authForm" class="flex flex-col gap-3">
-        <div>
-          <label for="authUsernameInput" class="block text-xs font-semibold text-slate-300 mb-1">Usuario *</label>
-          <input id="authUsernameInput" type="text" required placeholder="Ej: maria_lsc" class="w-full bg-slate-950/90 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition" />
-        </div>
-        <div>
-          <label for="authDisplayNameInput" class="block text-xs font-semibold text-slate-300 mb-1">Nombre para mostrar</label>
-          <input id="authDisplayNameInput" type="text" placeholder="Ej: María Gómez" class="w-full bg-slate-950/90 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition" />
-        </div>
-        <div>
-          <label for="authLevelSelect" class="block text-xs font-semibold text-slate-300 mb-1">Nivel inicial</label>
-          <select id="authLevelSelect" class="w-full bg-slate-950/90 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 focus:outline-none focus:border-amber-500 transition">
-            <option value="Principiante">Desde Cero (Principiante)</option>
-            <option value="Intermedio">Básico - Abecedario</option>
-            <option value="Avanzado LSC">Conversación LSC</option>
-          </select>
-        </div>
-        <button id="btnSubmitAuth" type="submit" class="btn-spring mt-2 w-full py-2.5 rounded-xl text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-950 shadow-sm">
-          Guardar y Entrar
-        </button>
-      </form>
-    </div>
-  </div>
+  </div> <!-- /.app-content-col -->
 
   <!-- MODAL CONSTRUCTOR DE PLAN PROPIO -->
   <div id="customPlanModal" class="hidden fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="customPlanModalTitle">
-    <div class="surface-card w-full max-w-xl p-6 rounded-2xl border border-amber-500/40 shadow-2xl flex flex-col gap-4 max-h-[90vh] overflow-hidden">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3 shrink-0">
+    <div class="surface-card w-full max-w-xl p-6 rounded-2xl border border-slate-200 shadow-2xl flex flex-col gap-4 max-h-[90vh] overflow-hidden">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3 shrink-0">
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-xl bg-coral-500/20 text-coral-400 flex items-center justify-center font-bold">
+          <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center font-bold">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
           </div>
           <div>
-            <h3 id="customPlanModalTitle" class="text-base font-bold text-slate-100">Arma tu Propia Ruta LSC</h3>
-            <p class="text-xs text-slate-400">Selecciona las señas que deseas dominar en esta sesión</p>
+            <h3 id="customPlanModalTitle" class="text-base font-bold text-slate-900">Arma tu Propia Ruta LSC</h3>
+            <p class="text-xs text-slate-600">Selecciona las señas que deseas dominar en esta sesión</p>
           </div>
         </div>
-        <button id="btnCloseCustomPlanModal" class="btn-spring text-slate-400 hover:text-white p-1 text-sm rounded-lg" aria-label="Cerrar modal de plan propio">✕</button>
+        <button id="btnCloseCustomPlanModal" class="btn-spring text-slate-600 hover:text-slate-900 p-1 text-sm rounded-lg" aria-label="Cerrar modal de plan propio">✕</button>
       </div>
 
-      <div id="customPlanError" class="hidden text-xs text-rose-300 bg-rose-950/50 border border-rose-500/40 p-2.5 rounded-lg leading-snug shrink-0"></div>
+      <div id="customPlanError" class="hidden text-xs text-rose-800 bg-rose-50 border border-rose-300 p-2.5 rounded-lg leading-snug shrink-0"></div>
 
       <div class="shrink-0">
-        <label for="customPlanTitleInput" class="block text-xs font-semibold text-slate-300 mb-1">Nombre de tu ruta (opcional)</label>
-        <input id="customPlanTitleInput" type="text" placeholder="Ej: Mi Práctica Diaria LSC" class="w-full bg-slate-950/90 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition" />
+        <label for="customPlanTitleInput" class="block text-xs font-semibold text-slate-700 mb-1">Nombre de tu ruta (opcional)</label>
+        <input id="customPlanTitleInput" type="text" placeholder="Ej: Mi Práctica Diaria LSC" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition" />
       </div>
 
-      <div class="flex items-center justify-between shrink-0 text-xs text-slate-400">
+      <div class="flex items-center justify-between shrink-0 text-xs text-slate-600">
         <span>Catálogo oficial LSC70 (20 señas):</span>
-        <span id="customPlanSelectedCount" class="font-mono font-bold text-amber-400 tabular-nums">0 seleccionadas</span>
+        <span id="customPlanSelectedCount" class="font-mono font-bold text-amber-700 tabular-nums">0 seleccionadas</span>
       </div>
 
       <!-- Cuadrícula de señas seleccionables -->
-      <div id="customPlanSignsGrid" class="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 gap-2 p-1 border border-slate-800/80 rounded-xl bg-slate-950/50">
+      <div id="customPlanSignsGrid" class="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 gap-2 p-2 border border-slate-200 rounded-xl bg-slate-50">
         <!-- Renderizado dinámicamente por LearningPlanManager -->
       </div>
 
-      <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800 shrink-0">
-        <button id="btnSaveCustomPlan" type="button" class="btn-spring px-5 py-2.5 rounded-xl text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-950 shadow-sm">
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-200 shrink-0">
+        <button id="btnSaveCustomPlan" type="button" class="btn-spring px-5 py-2.5 rounded-xl text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-900 shadow-sm">
           Activar Ruta en el Mapa
         </button>
       </div>
@@ -756,25 +673,25 @@
 
   <!-- MODAL DE CERTIFICADO Y RESUMEN DE EXAMEN -->
   <div id="examSummaryModal" class="hidden fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="examSummaryModalTitle">
-    <div class="surface-card w-full max-w-md p-6 rounded-2xl border border-amber-500/40 shadow-2xl flex flex-col gap-4 text-center">
+    <div class="surface-card w-full max-w-md p-6 rounded-2xl border border-slate-200 shadow-2xl flex flex-col gap-4 text-center">
       <div class="flex flex-col items-center justify-center">
         <img src="img/zorrito/svg/zorrito_celebracion.svg" alt="Zorrito celebrando" class="w-20 h-20 object-contain drop-shadow-xl anim-bounce">
       </div>
 
       <div>
-        <span id="examSummaryPlanTitle" class="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-1">Examen Finalizado</span>
-        <h3 id="examSummaryModalTitle" class="text-xl font-bold text-slate-100">Resultado de Evaluación Ciega</h3>
+        <span id="examSummaryPlanTitle" class="text-xs font-mono uppercase tracking-widest text-slate-600 font-semibold block mb-1">Examen Finalizado</span>
+        <h3 id="examSummaryModalTitle" class="text-xl font-bold text-slate-900">Resultado de Evaluación Ciega</h3>
       </div>
 
-      <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-xl flex items-center justify-around font-mono">
+      <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-around font-mono">
         <div>
-          <span class="text-[10px] text-slate-400 font-sans block">Calificación</span>
-          <span id="examFinalScorePct" class="text-3xl font-extrabold text-sun-400 tabular-nums">0%</span>
+          <span class="text-[10px] text-slate-600 font-sans block">Calificación</span>
+          <span id="examFinalScorePct" class="text-3xl font-extrabold text-amber-700 tabular-nums">0%</span>
         </div>
-        <div class="h-10 w-px bg-slate-800"></div>
+        <div class="h-10 w-px bg-slate-200"></div>
         <div>
-          <span class="text-[10px] text-slate-400 font-sans block">Aciertos</span>
-          <span id="examFinalFraction" class="text-sm font-bold text-slate-200 tabular-nums">0 / 0 señas</span>
+          <span class="text-[10px] text-slate-600 font-sans block">Aciertos</span>
+          <span id="examFinalFraction" class="text-sm font-bold text-slate-900 tabular-nums">0 / 0 señas</span>
         </div>
       </div>
 
@@ -784,10 +701,10 @@
       </div>
 
       <div class="flex items-center justify-center gap-3 pt-2">
-        <button id="btnRetryFailedSigns" class="btn-spring px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700">
+        <button id="btnRetryFailedSigns" class="btn-spring px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-300">
           Repasar Señas
         </button>
-        <button id="btnCloseExamSummary" class="btn-spring px-5 py-2 rounded-xl text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-950 shadow-sm">
+        <button id="btnCloseExamSummary" class="btn-spring px-5 py-2 rounded-xl text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-900 shadow-sm">
           Aceptar
         </button>
       </div>
@@ -798,9 +715,9 @@
   <div id="lessonSessionModal" class="hidden fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-3 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="lessonHeaderStepText">
     <div class="lesson-modal-card w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl overflow-hidden shadow-2xl relative">
       
-      <!-- Header de Lección -->
-      <header class="lesson-header px-4 sm:px-6 py-3.5 flex items-center justify-between border-b border-[#2A3B63]">
-        <button id="btnLessonClose" class="btn-spring text-slate-400 hover:text-white p-2 rounded-xl text-lg font-bold" aria-label="Salir de la lección">✕</button>
+      <!-- Header de Lección (Superficie Piedra Cálida #F3EFEA, cero azul) -->
+      <header class="lesson-header px-4 sm:px-6 py-3.5 flex items-center justify-between border-b border-slate-200">
+        <button id="btnLessonClose" class="btn-spring text-slate-700 hover:text-slate-900 bg-white border border-slate-200 p-2 rounded-xl text-lg font-bold shadow-sm" aria-label="Salir de la lección">✕</button>
         <div class="flex-1 max-w-md mx-4">
           <div class="lesson-progress-track w-full h-3 rounded-full overflow-hidden">
             <div id="lessonProgressBar" class="h-full rounded-full w-1/3"></div>
@@ -808,9 +725,9 @@
         </div>
         <div class="flex items-center gap-2">
           <!-- Selector Modo Video Real / Anime IA -->
-          <div class="flex items-center bg-slate-900/90 rounded-xl p-0.5 border border-slate-700/80 shrink-0 text-[11px] font-semibold" role="group" aria-label="Modo de video">
-            <button id="btnLessonModeReal" type="button" class="btn-spring px-2.5 py-1 rounded-lg transition bg-amber-400 text-slate-950 font-bold shadow-sm" title="Ver actor real">Real</button>
-            <button id="btnLessonModeAnime" type="button" class="btn-spring px-2.5 py-1 rounded-lg transition text-slate-300 hover:text-white" title="Ver avatar Anime IA">Anime IA</button>
+          <div class="flex items-center bg-white rounded-xl p-0.5 border border-slate-200 shrink-0 text-[11px] font-semibold" role="group" aria-label="Modo de video">
+            <button id="btnLessonModeReal" type="button" class="btn-spring px-2.5 py-1 rounded-lg transition bg-amber-500 text-slate-900 font-bold shadow-sm" title="Ver actor real">Real</button>
+            <button id="btnLessonModeAnime" type="button" class="btn-spring px-2.5 py-1 rounded-lg transition text-slate-700 hover:text-slate-900" title="Ver avatar Anime IA">Anime IA</button>
           </div>
           <div id="lessonHeaderStepText" class="lesson-step-badge text-xs font-mono font-bold px-3 py-1 rounded-lg">
             Paso 1 de 3: Mira la seña
@@ -831,11 +748,11 @@
             <img src="img/zorrito/svg/zorrito_explicando.svg" alt="Zorrito Tutor" class="w-16 h-16 shrink-0 object-contain drop-shadow-md">
             <div>
               <div class="flex items-center gap-2 mb-1">
-                <span class="text-xs uppercase tracking-wider font-bold text-amber-400">Guía LSC</span>
-                <h3 id="lessonDemoSignName" class="text-lg font-bold text-slate-100">HOLA</h3>
+                <span class="text-xs uppercase tracking-wider font-bold text-amber-700">Guía LSC</span>
+                <h3 id="lessonDemoSignName" class="text-lg font-bold text-slate-900">HOLA</h3>
               </div>
-              <p id="lessonDemoDesc" class="text-xs text-slate-300 mb-1 leading-snug">Descripción de la seña...</p>
-              <p id="lessonDemoTip" class="text-[11px] text-amber-300/90 italic font-medium">Tip de postura...</p>
+              <p id="lessonDemoDesc" class="text-xs text-slate-700 mb-1 leading-snug">Descripción de la seña...</p>
+              <p id="lessonDemoTip" class="text-[11px] text-amber-700 italic font-medium">Tip de postura...</p>
             </div>
           </div>
         </section>
@@ -843,8 +760,8 @@
         <!-- Fase 2: Pregunta de Comprensión (Quiz) -->
         <section id="phaseQuizContainer" class="lesson-phase-pane hidden flex flex-col items-center gap-5 w-full max-w-2xl text-center">
           <div class="text-center">
-            <span class="text-xs uppercase font-mono tracking-widest text-amber-400 font-semibold block mb-1">Pregunta de Comprensión</span>
-            <h3 class="text-xl font-bold text-slate-100">¿Qué seña representa este video?</h3>
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-700 font-semibold block mb-1">Pregunta de Comprensión</span>
+            <h3 class="text-xl font-bold text-slate-900">¿Qué seña representa este video?</h3>
           </div>
           <div class="lesson-video-frame w-full max-w-sm aspect-video rounded-2xl overflow-hidden relative">
             <video id="lessonQuizVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
@@ -858,58 +775,58 @@
         <!-- Fase 3: Práctica con Cámara (MediaPipe) -->
         <section id="phasePracticeContainer" class="lesson-phase-pane hidden flex flex-col items-center gap-4 w-full max-w-3xl">
           <div class="text-center mb-1">
-            <span class="text-xs uppercase font-mono tracking-widest text-amber-400 font-semibold block mb-1">Práctica Activa</span>
-            <h3 class="text-lg font-bold text-slate-100">Replica la seña frente a tu cámara</h3>
-            <p id="lessonPracticeHint" class="text-xs text-slate-400">Mantén la postura con precisión ≥ 85% durante 1.2 segundos</p>
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-700 font-semibold block mb-1">Práctica Activa</span>
+            <h3 class="text-lg font-bold text-slate-900">Replica la seña frente a tu cámara</h3>
+            <p id="lessonPracticeHint" class="text-xs text-slate-600">Mantén la postura con precisión ≥ 85% durante 1.2 segundos</p>
           </div>
           <div class="lesson-practice-split">
             <!-- Guía espejo -->
             <div class="lesson-practice-card flex flex-col">
-              <div class="px-3 py-2 bg-slate-900/90 border-b border-slate-700/60 flex items-center justify-between text-xs text-slate-300 font-medium">
+              <div class="px-3 py-2 bg-slate-100 border-b border-slate-200 flex items-center justify-between text-xs text-slate-900 font-medium">
                 <span>Video Guía Espejo</span>
-                <span class="text-[10px] text-amber-400 font-mono">REFERENCIA</span>
+                <span class="text-[10px] text-amber-700 font-mono font-bold">REFERENCIA</span>
               </div>
-              <div class="aspect-video w-full bg-slate-950 overflow-hidden relative">
+              <div class="aspect-video w-full bg-slate-100 overflow-hidden relative">
                 <video id="lessonPracticeGuideVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
                 <img id="lessonPracticeGuideWebp" class="hidden w-full h-full object-contain" alt="Guía espejo LSC" />
               </div>
             </div>
             <!-- Cámara en vivo -->
             <div class="lesson-practice-card flex flex-col">
-              <div class="px-3 py-1.5 bg-slate-900/90 border-b border-slate-700/60 flex items-center justify-between text-xs text-slate-300 font-medium gap-2">
+              <div class="px-3 py-1.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between text-xs text-slate-900 font-medium gap-2">
                 <div class="flex items-center gap-1.5 shrink-0">
-                  <span class="font-semibold text-slate-200">Tu Cámara</span>
-                  <span class="text-[10px] text-amber-400 font-mono flex items-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> EN VIVO
+                  <span class="font-semibold text-slate-900">Tu Cámara</span>
+                  <span class="text-[10px] text-amber-700 font-mono font-bold flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span> EN VIVO
                   </span>
                 </div>
                 <!-- Selector de Cámara en Modal de Lección -->
                 <div class="flex items-center gap-1 overflow-hidden">
-                  <select id="lessonCameraSelect" class="bg-slate-950 hover:bg-slate-800 text-slate-200 text-[11px] font-medium rounded-lg px-2 py-1 border border-slate-700 focus:border-amber-400 focus:outline-none max-w-[130px] sm:max-w-[190px] truncate cursor-pointer transition shadow-sm" title="Cambiar cámara web"></select>
+                  <select id="lessonCameraSelect" class="bg-white hover:bg-slate-50 text-slate-900 text-[11px] font-medium rounded-lg px-2 py-1 border border-slate-300 focus:border-amber-500 focus:outline-none max-w-[130px] sm:max-w-[190px] truncate cursor-pointer transition shadow-sm" title="Cambiar cámara web"></select>
                 </div>
               </div>
-              <div class="aspect-video w-full bg-slate-950 overflow-hidden relative flex items-center justify-center">
+              <div class="aspect-video w-full bg-slate-100 overflow-hidden relative flex items-center justify-center">
                 <video id="lessonPracticeWebcamVideo" playsinline autoplay muted class="w-full h-full object-cover transform -scale-x-100"></video>
                 <canvas id="lessonPracticeCanvas" class="absolute inset-0 w-full h-full pointer-events-none transform -scale-x-100"></canvas>
                 <!-- Pill flotante guía de trayectoria para palabras con movimiento -->
-                <div id="lessonTrajectoryPill" class="hidden absolute top-2 left-2 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-950/90 backdrop-blur-md border border-amber-500/60 text-amber-300 text-[11px] font-mono shadow-lg animate-pulse pointer-events-none">
-                  <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                <div id="lessonTrajectoryPill" class="hidden absolute top-2 left-2 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md border border-amber-400 text-amber-800 text-[11px] font-mono font-bold shadow-lg animate-pulse pointer-events-none">
+                  <span class="w-2 h-2 rounded-full bg-amber-500"></span>
                   <span id="lessonTrajectoryText">Sigue los puntos de movimiento</span>
                 </div>
-                <div id="lessonCameraLoading" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/80 gap-2 p-3 text-center pointer-events-none">
-                  <div class="w-8 h-8 rounded-full border-2 border-amber-400 border-t-transparent animate-spin"></div>
-                  <span class="text-xs text-slate-300 font-medium">Iniciando cámara y MediaPipe...</span>
+                <div id="lessonCameraLoading" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-100/90 gap-2 p-3 text-center pointer-events-none">
+                  <div class="w-8 h-8 rounded-full border-2 border-amber-500 border-t-transparent animate-spin"></div>
+                  <span class="text-xs text-slate-800 font-medium">Iniciando cámara y MediaPipe...</span>
                 </div>
               </div>
             </div>
           </div>
           <!-- Barra radar de similitud -->
-          <div class="w-full max-w-md bg-slate-950/80 border border-slate-800 p-3 rounded-2xl flex flex-col gap-1.5">
+          <div class="w-full max-w-md bg-white border border-slate-200 p-3 rounded-2xl flex flex-col gap-1.5 shadow-sm">
             <div class="flex items-center justify-between text-xs font-mono">
-              <span class="text-slate-400">Similitud Mantenida:</span>
-              <span id="lessonPracticeRadarText" class="font-bold text-amber-400 tabular-nums">0%</span>
+              <span class="text-slate-700">Similitud Mantenida:</span>
+              <span id="lessonPracticeRadarText" class="font-bold text-amber-700 tabular-nums">0%</span>
             </div>
-            <div class="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden">
+            <div class="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden">
               <div id="lessonPracticeRadarBar" class="lesson-radar-bar h-full rounded-full w-0"></div>
             </div>
           </div>
@@ -919,20 +836,20 @@
         <section id="phaseSummaryContainer" class="lesson-phase-pane hidden flex flex-col items-center gap-4 w-full max-w-md text-center py-4">
           <img src="img/zorrito/svg/zorrito_celebracion.svg" alt="Zorrito celebrando" class="w-24 h-24 object-contain drop-shadow-2xl anim-bounce">
           <div>
-            <span class="text-xs font-mono uppercase tracking-widest text-amber-400 font-semibold block mb-1">¡Lección Dominada!</span>
-            <h3 id="lessonSummarySignName" class="text-2xl font-bold text-slate-100">HOLA</h3>
+            <span class="text-xs font-mono uppercase tracking-widest text-amber-700 font-semibold block mb-1">¡Lección Dominada!</span>
+            <h3 id="lessonSummarySignName" class="text-2xl font-bold text-slate-900">HOLA</h3>
           </div>
           <div class="lesson-summary-stat-box w-full p-4 rounded-2xl grid grid-cols-2 gap-3 font-mono">
             <div class="flex flex-col items-center">
-              <span class="text-[10px] text-slate-400 font-sans">Experiencia</span>
-              <span id="lessonSummaryXp" class="text-2xl font-extrabold text-sun-400 tabular-nums">+50 XP</span>
+              <span class="text-[10px] text-slate-600 font-sans">Experiencia</span>
+              <span id="lessonSummaryXp" class="text-2xl font-extrabold text-amber-700 tabular-nums">+50 XP</span>
             </div>
-            <div class="flex flex-col items-center border-l border-slate-800">
-              <span class="text-[10px] text-slate-400 font-sans">Precisión</span>
-              <span id="lessonSummaryScore" class="text-2xl font-extrabold text-emerald-400 tabular-nums">96%</span>
+            <div class="flex flex-col items-center border-l border-slate-200">
+              <span class="text-[10px] text-slate-600 font-sans">Precisión</span>
+              <span id="lessonSummaryScore" class="text-2xl font-extrabold text-emerald-700 tabular-nums">96%</span>
             </div>
           </div>
-          <button id="btnLessonFinish" class="btn-spring w-full py-3 rounded-xl text-sm font-bold bg-coral-500 hover:bg-coral-400 text-slate-950 shadow-lg mt-2">
+          <button id="btnLessonFinish" class="btn-spring w-full py-3 rounded-xl text-sm font-bold bg-coral-500 hover:bg-coral-400 text-slate-900 shadow-lg mt-2">
             Continuar en el Mapa de Ruta →
           </button>
         </section>
@@ -944,8 +861,8 @@
         <div class="flex items-center gap-3">
           <img src="img/zorrito/svg/zorrito_pulgar.svg" alt="Zorrito feedback" class="w-12 h-12 shrink-0 object-contain">
           <div>
-            <h4 id="lessonFeedbackTitle" class="text-base font-bold text-slate-100">¡Correcto!</h4>
-            <p id="lessonFeedbackText" class="text-xs text-slate-300">Has identificado con precisión la seña.</p>
+            <h4 id="lessonFeedbackTitle" class="text-base font-bold text-slate-900">¡Correcto!</h4>
+            <p id="lessonFeedbackText" class="text-xs text-slate-700">Has identificado con precisión la seña.</p>
           </div>
         </div>
         <button id="btnLessonContinue" class="btn-spring px-6 py-3 rounded-xl text-xs sm:text-sm font-bold shrink-0 transition" disabled>
@@ -960,24 +877,24 @@
   <div id="examSessionModal" class="hidden fixed inset-0 z-50 modal-backdrop-blur flex items-center justify-center p-3 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="examHeaderStepText">
     <div class="lesson-modal-card w-full max-w-2xl max-h-[92vh] flex flex-col rounded-3xl overflow-hidden shadow-2xl relative">
       
-      <!-- Header de la Arena de Examen -->
-      <header class="lesson-header px-4 sm:px-6 py-3.5 flex items-center justify-between border-b border-[#2A3B63]">
-        <button id="btnExamClose" class="btn-spring text-slate-400 hover:text-white p-2 rounded-xl text-lg font-bold" aria-label="Salir del examen">✕</button>
+      <!-- Header de la Arena de Examen (Superficie Piedra Cálida #F3EFEA, cero azul) -->
+      <header class="lesson-header px-4 sm:px-6 py-3.5 flex items-center justify-between border-b border-slate-200">
+        <button id="btnExamClose" class="btn-spring text-slate-700 hover:text-slate-900 bg-white border border-slate-200 p-2 rounded-xl text-lg font-bold shadow-sm" aria-label="Salir del examen">✕</button>
         <div class="flex-1 max-w-xs sm:max-w-sm mx-3 sm:mx-4">
           <div class="lesson-progress-track w-full h-3 rounded-full overflow-hidden">
-            <div id="examProgressBar" class="h-full rounded-full w-0 bg-amber-400 transition-all duration-300"></div>
+            <div id="examProgressBar" class="h-full rounded-full w-0 bg-amber-500 transition-all duration-300"></div>
           </div>
         </div>
         <div class="flex items-center gap-2">
           <!-- Cronómetro Tabular por Pregunta -->
-          <div class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/90 border border-slate-700/80 text-amber-300 font-mono text-xs font-bold tabular-nums shadow-sm">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <div class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-slate-200 text-amber-800 font-mono text-xs font-bold tabular-nums shadow-sm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-600" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             <span id="examTimerText">25s</span>
           </div>
           <!-- Selector Real/Anime discreto para preguntas de Quiz -->
-          <div id="examVideoModeToggle" class="hidden items-center bg-slate-900/90 rounded-xl p-0.5 border border-slate-700/80 shrink-0 text-[11px] font-semibold" role="group" aria-label="Modo de video">
-            <button id="btnExamModeReal" type="button" class="btn-spring px-2 py-0.5 rounded-lg transition bg-amber-400 text-slate-950 font-bold shadow-sm" title="Ver actor real">Real</button>
-            <button id="btnExamModeAnime" type="button" class="btn-spring px-2 py-0.5 rounded-lg transition text-slate-300 hover:text-white" title="Ver avatar Anime IA">Anime</button>
+          <div id="examVideoModeToggle" class="hidden items-center bg-white rounded-xl p-0.5 border border-slate-200 shrink-0 text-[11px] font-semibold" role="group" aria-label="Modo de video">
+            <button id="btnExamModeReal" type="button" class="btn-spring px-2 py-0.5 rounded-lg transition bg-amber-500 text-slate-900 font-bold shadow-sm" title="Ver actor real">Real</button>
+            <button id="btnExamModeAnime" type="button" class="btn-spring px-2 py-0.5 rounded-lg transition text-slate-700 hover:text-slate-900" title="Ver avatar Anime IA">Anime</button>
           </div>
           <!-- Contador de Preguntas y Nivel -->
           <div id="examHeaderStepText" class="lesson-step-badge text-xs font-mono font-bold px-3 py-1 rounded-lg">
@@ -992,54 +909,54 @@
         <!-- PANEL 1: RETO MOTRIZ CON CÁMARA (Limpio, centrado, solo cámara y nombre en grande) -->
         <section id="examPaneGesture" class="flex flex-col items-center gap-4 w-full max-w-md text-center">
           <div>
-            <span class="text-xs uppercase font-mono tracking-widest text-amber-400 font-semibold block mb-1">Evaluación de Memoria</span>
-            <h2 id="examGestureSignName" class="text-3xl sm:text-4xl font-extrabold text-amber-400 uppercase tracking-wider drop-shadow-md">HOLA</h2>
-            <p class="text-xs sm:text-sm text-slate-300 mt-1 font-medium">Realiza esta seña frente a la cámara de memoria</p>
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-700 font-semibold block mb-1">Evaluación de Memoria</span>
+            <h2 id="examGestureSignName" class="text-3xl sm:text-4xl font-extrabold text-slate-900 uppercase tracking-wider drop-shadow-sm">HOLA</h2>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1 font-medium">Realiza esta seña frente a la cámara de memoria</p>
           </div>
 
           <!-- Marco Centrado de la Cámara -->
-          <div class="lesson-practice-card w-full aspect-video rounded-2xl overflow-hidden relative border-2 border-slate-700 bg-slate-950 shadow-xl">
-            <div class="px-3 py-1.5 bg-slate-900/90 border-b border-slate-700/60 flex items-center justify-between text-xs text-slate-300 font-medium gap-2">
+          <div class="lesson-practice-card w-full aspect-video rounded-2xl overflow-hidden relative border-2 border-slate-200 bg-slate-100 shadow-xl">
+            <div class="px-3 py-1.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between text-xs text-slate-900 font-medium gap-2">
               <div class="flex items-center gap-1.5 shrink-0">
-                <span class="font-semibold text-slate-200">Tu Cámara</span>
-                <span class="text-[10px] text-amber-400 font-mono flex items-center gap-1">
-                  <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> EN VIVO
+                <span class="font-semibold text-slate-900">Tu Cámara</span>
+                <span class="text-[10px] text-amber-700 font-mono font-bold flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span> EN VIVO
                 </span>
               </div>
               <!-- Selector de cámara física -->
               <div class="flex items-center gap-1 overflow-hidden">
-                <select id="examCameraSelect" class="bg-slate-950 hover:bg-slate-800 text-slate-200 text-[11px] font-medium rounded-lg px-2 py-1 border border-slate-700 focus:border-amber-400 focus:outline-none max-w-[130px] sm:max-w-[170px] truncate cursor-pointer transition shadow-sm" title="Cambiar cámara web"></select>
+                <select id="examCameraSelect" class="bg-white hover:bg-slate-50 text-slate-900 text-[11px] font-medium rounded-lg px-2 py-1 border border-slate-300 focus:border-amber-500 focus:outline-none max-w-[130px] sm:max-w-[170px] truncate cursor-pointer transition shadow-sm" title="Cambiar cámara web"></select>
               </div>
             </div>
-            <div class="aspect-video w-full bg-slate-950 overflow-hidden relative flex items-center justify-center">
+            <div class="aspect-video w-full bg-slate-100 overflow-hidden relative flex items-center justify-center">
               <video id="examPracticeWebcamVideo" playsinline autoplay muted class="w-full h-full object-cover transform -scale-x-100"></video>
               <canvas id="examPracticeCanvas" class="absolute inset-0 w-full h-full pointer-events-none transform -scale-x-100"></canvas>
               
-              <div id="examCameraLoading" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/80 gap-2 p-3 text-center pointer-events-none">
-                <div class="w-8 h-8 rounded-full border-2 border-amber-400 border-t-transparent animate-spin"></div>
-                <span class="text-xs text-slate-300 font-medium">Activando cámara y MediaPipe...</span>
+              <div id="examCameraLoading" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-100/90 gap-2 p-3 text-center pointer-events-none">
+                <div class="w-8 h-8 rounded-full border-2 border-amber-500 border-t-transparent animate-spin"></div>
+                <span class="text-xs text-slate-800 font-medium">Activando cámara y MediaPipe...</span>
               </div>
             </div>
           </div>
 
           <!-- Barra radar de similitud mantenida -->
-          <div class="w-full bg-slate-950/80 border border-slate-800 p-3 rounded-2xl flex flex-col gap-1.5 shadow-md">
+          <div class="w-full bg-white border border-slate-200 p-3 rounded-2xl flex flex-col gap-1.5 shadow-sm">
             <div class="flex items-center justify-between text-xs font-mono">
-              <span class="text-slate-400">Similitud Mantenida:</span>
-              <span id="examGestureRadarText" class="font-bold text-amber-400 tabular-nums">0%</span>
+              <span class="text-slate-700">Similitud Mantenida:</span>
+              <span id="examGestureRadarText" class="font-bold text-amber-700 tabular-nums">0%</span>
             </div>
-            <div class="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden">
+            <div class="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden">
               <div id="examGestureRadarBar" class="lesson-radar-bar h-full rounded-full w-0"></div>
             </div>
-            <p class="text-[11px] text-slate-400 italic font-medium mt-0.5">Mantén la seña con precisión ≥ 85% durante 1 segundo</p>
+            <p class="text-[11px] text-slate-600 italic font-medium mt-0.5">Mantén la seña con precisión ≥ 85% durante 1 segundo</p>
           </div>
 
           <!-- Botones inferiores de gesto -->
           <div class="flex items-center justify-center gap-3 w-full pt-1">
-            <button id="btnExamSkipGesture" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">
+            <button id="btnExamSkipGesture" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-300">
               Saltar seña
             </button>
-            <button id="btnExamExitGesture" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-rose-400 border border-rose-500/40">
+            <button id="btnExamExitGesture" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-white hover:bg-rose-50 text-rose-700 border border-rose-300">
               Salir del examen
             </button>
           </div>
@@ -1048,13 +965,13 @@
         <!-- PANEL 2: PREGUNTA TIPO QUIZ / TEST (Comprensión con 4 opciones, cámara completamente apagada) -->
         <section id="examPaneQuiz" class="hidden flex flex-col items-center gap-4 w-full max-w-lg text-center">
           <div>
-            <span class="text-xs uppercase font-mono tracking-widest text-amber-400 font-semibold block mb-1">Comprensión Visual</span>
-            <h3 class="text-xl sm:text-2xl font-bold text-slate-100">¿Qué seña representa este video?</h3>
-            <p class="text-xs text-slate-300 mt-1">Elige la opción correcta entre las 4 alternativas:</p>
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-700 font-semibold block mb-1">Comprensión Visual</span>
+            <h3 class="text-xl sm:text-2xl font-bold text-slate-900">¿Qué seña representa este video?</h3>
+            <p class="text-xs text-slate-600 mt-1">Elige la opción correcta entre las 4 alternativas:</p>
           </div>
 
           <!-- Video mudo del Quiz (MP4 + WebP fallback) -->
-          <div class="lesson-video-frame w-full max-w-sm aspect-video rounded-2xl overflow-hidden relative border-2 border-slate-700 bg-slate-950 shadow-xl">
+          <div class="lesson-video-frame w-full max-w-sm aspect-video rounded-2xl overflow-hidden relative border-2 border-slate-200 bg-slate-100 shadow-xl">
             <video id="examQuizVideo" class="w-full h-full object-cover" autoplay loop muted playsinline></video>
             <img id="examQuizWebp" class="hidden w-full h-full object-contain" alt="Video quiz de lengua de señas" />
           </div>
@@ -1066,10 +983,10 @@
 
           <!-- Botones inferiores de quiz -->
           <div class="flex items-center justify-center gap-3 w-full pt-1">
-            <button id="btnExamSkipQuiz" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700">
+            <button id="btnExamSkipQuiz" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-300">
               Saltar pregunta
             </button>
-            <button id="btnExamExitQuiz" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-rose-400 border border-rose-500/40">
+            <button id="btnExamExitQuiz" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-semibold bg-white hover:bg-rose-50 text-rose-700 border border-rose-300">
               Salir del examen
             </button>
           </div>

@@ -78,7 +78,7 @@ class AuthPageController {
     profiles.forEach(p => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'btn-spring px-3 py-2 min-h-[44px] rounded-xl text-xs font-semibold bg-slate-900 text-amber-300 border border-amber-500/30';
+      btn.className = 'btn-spring px-3 py-2 min-h-[44px] rounded-xl text-xs font-semibold bg-amber-50 hover:bg-amber-100 text-slate-900 border border-amber-300';
       btn.textContent = p.displayName || p.username;
       btn.addEventListener('click', () => {
         const input = document.getElementById('authIdentifierInput');

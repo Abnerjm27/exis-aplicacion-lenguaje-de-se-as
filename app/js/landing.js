@@ -13,174 +13,204 @@ window.addEventListener('error', e => window.__consoleErrors.push(e.message || S
 window.addEventListener('unhandledrejection', e => window.__consoleErrors.push(e.reason ? (e.reason.message || String(e.reason)) : 'Unhandled Rejection'));
 
 class LandingHeroPlayer {
-  #currentSign = 'HOLA';
-  #currentMode = 'anime'; // 'anime' | 'real'
-  #currentView = 'body';  // 'body' | 'hand'
+  #totalFrames = 72;
+  #frames = [];
+  #loadedCount = 0;
+  #currentFrame = 4;
+  #targetFrame = 4;
+  #activeTipIdx = 0;
+  #rafId = null;
+  #canvas = null;
+  #ctx = null;
+  #compCanvas = null;
+  #compCtx = null;
+  #lastRenderedIdx = -1;
 
-  #tips = {
-    HOLA: '¡La mano derecha parte de la sien y se proyecta hacia adelante en diagonal!',
-    BUENOS: '¡La mano derecha baja desde arriba y contacta la palma izquierda en el centro!',
-    DIAS: '¡Ambos brazos se abren hacia los lados simulando la salida del sol!',
-    U: '¡En la U los dedos índice y meñique apuntan erguidos como dos postes (LSC70)!',
-    D: '¡El índice apunta recto hacia arriba y el pulgar toca el dedo medio en aro!',
-    E: '¡La mano se eleva junto a la mandíbula con los cuatro dedos curvados al frente!',
-    A: '¡Puño cerrado con el pulgar erguido al lateral del índice!',
-    B: '¡Cuatro dedos extendidos hacia arriba y pulgar doblado sobre la palma!',
-    C: '¡Mano arqueada formando el semicírculo de la letra C!',
-    V: '¡Dedos índice y medio abiertos en V (símbolo de victoria)!'
-  };
+  #stages = [
+    {
+      mood: 'Saludo 👋',
+      range: [0, 12],
+      speech: '¡Hola! Soy Tito. Baja conmigo para descubrir tu ruta en LSC.',
+      status: 'Desliza hacia abajo · Tito te acompaña'
+    },
+    {
+      mood: 'Señalando 👉',
+      range: [13, 25],
+      speech: 'Consejo 1: Responde 3 preguntas y Sol IA crea tu ruta personalizada.',
+      status: 'Fase 01 · Diagnóstico inteligente'
+    },
+    {
+      mood: 'Observando 🤔',
+      range: [26, 40],
+      speech: 'Consejo 2: Cuida tu luz frontal y la curva exacta de cada letra (O vs C).',
+      status: 'Fase 02 · Visión MediaPipe 30 FPS'
+    },
+    {
+      mood: '¡Tú puedes! 💪',
+      range: [41, 53],
+      speech: 'Consejo 3: En el Modo Examen demuestras cada seña sin videos de ayuda.',
+      status: 'Fase 03 · Certificación sin video'
+    },
+    {
+      mood: '¡A celebrar! ⭐',
+      range: [54, 71],
+      speech: '¡Tu primera seña está a un clic! Crea tu cuenta gratis y empieza hoy.',
+      status: '¡Listo para empezar tu primera lección!'
+    }
+  ];
 
-  #labels = {
-    HOLA: 'HOLA · Saludo Oficial LSC',
-    BUENOS: 'BUENOS · Cortesía LSC',
-    DIAS: 'DÍAS · Tiempo LSC',
-    U: 'Letra U · Dactilología Canónica',
-    D: 'Letra D · Dactilología Canónica',
-    E: 'Letra E · Dactilología Canónica',
-    A: 'Letra A · Dactilología Canónica',
-    B: 'Letra B · Dactilología Canónica',
-    C: 'Letra C · Dactilología Canónica',
-    V: 'Letra V · Dactilología Canónica'
-  };
+  setOnPoseChange() {}
 
   init() {
-    this.#bindToggles();
-    this.#bindPills();
-    this.#updateMedia();
+    this.#canvas = document.getElementById('zorritoScrollCanvas');
+    this.#ctx = this.#canvas ? this.#canvas.getContext('2d') : null;
+    this.#compCanvas = document.getElementById('scrollCompanionCanvas');
+    this.#compCtx = this.#compCanvas ? this.#compCanvas.getContext('2d') : null;
+    this.#preloadFrames();
+    this.#bindCanvasClick();
+    this.#applyStageUI(0);
   }
 
   start() {
-    this.#playVideo();
+    this.applyScroll3D(window.scrollY || document.documentElement.scrollTop || 0);
+    if (!this.#rafId) {
+      const tick = (now) => {
+        this.#renderLoop(now);
+        this.#rafId = requestAnimationFrame(tick);
+      };
+      this.#rafId = requestAnimationFrame(tick);
+    }
   }
 
   update() {
-    this.#updateMedia();
+    this.#drawFrame(Math.round(this.#currentFrame), true);
   }
 
   reset() {
-    this.#currentSign = 'HOLA';
-    this.#currentMode = 'anime';
-    this.#currentView = 'body';
-    this.#updateMedia();
+    this.#activeTipIdx = 0;
+    this.#targetFrame = 4;
+    this.#currentFrame = 4;
+    this.#applyStageUI(0);
+    this.applyScroll3D(0);
   }
 
   destroy() {
-    const video = document.getElementById('heroDemoVideo');
-    if (video) {
-      video.pause();
-      video.src = '';
+    if (this.#rafId) {
+      cancelAnimationFrame(this.#rafId);
+      this.#rafId = null;
     }
   }
 
-  #bindToggles() {
-    const btnAnime = document.getElementById('btnHeroModeAnime');
-    const btnReal = document.getElementById('btnHeroModeReal');
-    if (btnAnime && btnReal) {
-      btnAnime.addEventListener('click', () => {
-        this.#currentMode = 'anime';
-        btnAnime.classList.add('is-active');
-        btnReal.classList.remove('is-active');
-        this.#updateMedia();
-      });
-      btnReal.addEventListener('click', () => {
-        this.#currentMode = 'real';
-        btnReal.classList.add('is-active');
-        btnAnime.classList.remove('is-active');
-        this.#updateMedia();
-      });
-    }
-
-    const btnBody = document.getElementById('btnHeroViewBody');
-    const btnHand = document.getElementById('btnHeroViewHand');
-    if (btnBody && btnHand) {
-      btnBody.addEventListener('click', () => {
-        this.#currentView = 'body';
-        btnBody.classList.add('is-active');
-        btnHand.classList.remove('is-active');
-        const viewport = document.getElementById('heroVideoViewport');
-        if (viewport) viewport.classList.remove('is-hand-mode');
-        this.#updateMedia();
-      });
-      btnHand.addEventListener('click', () => {
-        this.#currentView = 'hand';
-        btnHand.classList.add('is-active');
-        btnBody.classList.remove('is-active');
-        const viewport = document.getElementById('heroVideoViewport');
-        if (viewport) viewport.classList.add('is-hand-mode');
-        this.#updateMedia();
-      });
+  setPointerTilt(rx, ry, hovering) {
+    if (this.#canvas) {
+      this.#canvas.style.transform = hovering
+        ? `perspective(750px) rotateY(${(ry * 0.45).toFixed(1)}deg) rotateX(${(-rx * 0.45).toFixed(1)}deg) scale(1.03)`
+        : '';
     }
   }
 
-  #bindPills() {
-    const pills = document.querySelectorAll('.hero-sign-pill');
-    pills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        const sign = pill.getAttribute('data-sign');
-        if (!sign) return;
-        this.#currentSign = sign;
-        pills.forEach(p => p.classList.toggle('is-active', p === pill));
-        this.#updateMedia();
+  applyScroll3D(scrollTop) {
+    const capsule = document.getElementById('solHoloCapsule');
+    const docMax = Math.max(400, document.documentElement.scrollHeight - window.innerHeight);
+    const fullRatio = Math.min(1, Math.max(0, scrollTop / docMax));
+    const heroRatio = Math.min(1, Math.max(0, scrollTop / 520));
 
-        // Reacción visual y rebote estilo Duolingo en Zorrito
-        const zorritoImg = document.querySelector('.zorrito-dialog-bubble img') || document.querySelector('.anim-wave');
-        if (zorritoImg) {
-          zorritoImg.classList.remove('anim-bounce-squish');
-          void zorritoImg.offsetWidth; // Force reflow
-          zorritoImg.classList.add('anim-bounce-squish');
+    if (capsule) {
+      capsule.style.setProperty('--scroll-progress', heroRatio.toFixed(3));
+    }
+
+    // Mapeo continuo y fluido de los 72 cuadros a lo largo de TODA la página
+    this.#targetFrame = fullRatio * (this.#totalFrames - 1);
+
+    let nextStage = 0;
+    if (fullRatio >= 0.78) nextStage = 4;
+    else if (fullRatio >= 0.56) nextStage = 3;
+    else if (fullRatio >= 0.36) nextStage = 2;
+    else if (fullRatio >= 0.14) nextStage = 1;
+
+    if (nextStage !== this.#activeTipIdx) {
+      this.#applyStageUI(nextStage);
+    }
+
+    const scrollyStage = document.getElementById('scrollyStickyStage');
+    if (scrollyStage) {
+      const scrollyProgress = Math.min(1, Math.max(-1, (scrollTop - 700) / 700));
+      scrollyStage.style.setProperty('--scrolly-ry', `${(scrollyProgress * -4.5).toFixed(2)}deg`);
+      scrollyStage.style.setProperty('--scrolly-rx', `${(2 - Math.abs(scrollyProgress) * 2).toFixed(2)}deg`);
+    }
+  }
+
+  #preloadFrames() {
+    for (let i = 0; i < this.#totalFrames; i++) {
+      const img = new Image();
+      const idxStr = String(i).padStart(2, '0');
+      img.onload = () => {
+        this.#loadedCount++;
+        if (i === 0 || (this.#lastRenderedIdx < 0 && img.complete)) {
+          this.#canvas?.parentElement?.classList.add('has-canvas');
+          this.#compCanvas?.parentElement?.classList.add('has-canvas');
+          this.#drawFrame(Math.round(this.#currentFrame), true);
         }
-      });
-    });
+      };
+      img.src = `img/zorrito/scroll_seq/frame_${idxStr}.webp`;
+      this.#frames[i] = img;
+    }
   }
 
-  #updateMedia() {
-    const video = document.getElementById('heroDemoVideo');
-    const fallback = document.getElementById('heroWebpFallback');
+  #bindCanvasClick() {
+    const celebrate = (el) => {
+      if (!el) return;
+      el.addEventListener('click', () => {
+        this.#targetFrame = 64;
+        this.#applyStageUI(4);
+        el.classList.remove('anim-bounce-squish');
+        void el.offsetWidth;
+        el.classList.add('anim-bounce-squish');
+      });
+    };
+    celebrate(this.#canvas);
+    celebrate(this.#compCanvas);
+  }
+
+  #applyStageUI(stageIdx) {
+    this.#activeTipIdx = stageIdx;
+    const cfg = this.#stages[stageIdx] || this.#stages[0];
+    const moodEl = document.getElementById('zorritoStatusMood');
+    const tipEl = document.getElementById('zorritoTipText');
+    const floatText = document.getElementById('floatingZorritoText');
     const badgeText = document.getElementById('heroLiveBadgeText');
     const labelText = document.getElementById('heroActiveSignLabel');
-    const tipText = document.getElementById('zorritoTipText');
 
-    const basePath = `videos/${this.#currentMode}/${this.#currentSign}_${this.#currentView}`;
-    const mp4Url = `${basePath}.mp4`;
-    const webpUrl = `${basePath}.webp`;
-
-    if (badgeText) {
-      const modeLabel = this.#currentMode === 'anime' ? 'ANIME IA (SOL)' : 'PERSONA REAL (LSC70)';
-      badgeText.textContent = `EN VIVO · ${modeLabel} 24 FPS`;
-    }
-
-    if (labelText) {
-      labelText.textContent = this.#labels[this.#currentSign] || `${this.#currentSign} · LSC70`;
-    }
-
-    if (tipText) {
-      tipText.textContent = this.#tips[this.#currentSign] || '¡Observa la postura canónica de la mano y los ángulos de los dedos!';
-    }
-
-    if (video) {
-      video.classList.remove('hidden');
-      if (fallback) fallback.classList.add('hidden');
-      video.poster = webpUrl;
-      video.src = mp4Url;
-      video.load();
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Si el navegador bloquea autoplay, usamos el WebP animado como fallback cruzado (Regla 4 AGENTS.md)
-          if (fallback) {
-            fallback.src = webpUrl;
-            fallback.classList.remove('hidden');
-            video.classList.add('hidden');
-          }
-        });
-      }
-    }
+    if (moodEl) moodEl.textContent = cfg.mood;
+    if (tipEl) tipEl.textContent = cfg.speech;
+    if (floatText) floatText.textContent = cfg.speech;
+    if (badgeText) badgeText.textContent = `EJEMPLO 3D EN VIVO · TITO LSC`;
+    if (labelText) labelText.textContent = cfg.status;
   }
 
-  #playVideo() {
-    const video = document.getElementById('heroDemoVideo');
-    if (video && typeof video.play === 'function') {
-      video.play().catch(() => {});
+  #renderLoop(now) {
+    if (this.#loadedCount === 0) return;
+    const idleWave = Math.sin(now * 0.0028) * 1.8;
+    const desired = Math.max(0, Math.min(this.#totalFrames - 1, this.#targetFrame + idleWave));
+    this.#currentFrame += (desired - this.#currentFrame) * 0.14;
+    this.#drawFrame(Math.round(this.#currentFrame), false);
+  }
+
+  #drawFrame(frameIdx, force) {
+    const clamped = Math.max(0, Math.min(this.#totalFrames - 1, frameIdx));
+    if (!force && clamped === this.#lastRenderedIdx) return;
+
+    const img = this.#frames[clamped];
+    if (img && img.complete && img.naturalWidth > 0) {
+      if (this.#ctx && this.#canvas) {
+        this.#ctx.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+        this.#ctx.drawImage(img, 0, 0, this.#canvas.width, this.#canvas.height);
+      }
+      if (this.#compCtx && this.#compCanvas) {
+        this.#compCtx.clearRect(0, 0, this.#compCanvas.width, this.#compCanvas.height);
+        this.#compCtx.drawImage(img, 0, 0, this.#compCanvas.width, this.#compCanvas.height);
+      }
+      this.#lastRenderedIdx = clamped;
     }
   }
 }
@@ -201,6 +231,11 @@ class ZorritoCompanionController {
   #lastMouseX = 0;
   #lastMouseY = 0;
   #tipDismissTimeout = null;
+  #restHeroMedia = 'img/zorrito/zorrito_feliz.webp';
+
+  setRestMedia(src) {
+    if (src) this.#restHeroMedia = src;
+  }
 
   #tips = [
     '¡Hola! Mueve tus manos frente a la cámara y MediaPipe medirá tus articulaciones.',
@@ -249,7 +284,7 @@ class ZorritoCompanionController {
   #handleScroll() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     if (this.#floatingDock) {
-      if (scrollTop > 420) {
+      if (scrollTop > 280) {
         this.#floatingDock.classList.add('is-visible');
       } else {
         this.#floatingDock.classList.remove('is-visible');
@@ -267,8 +302,9 @@ class ZorritoCompanionController {
     this.#lastMouseY = e.clientY;
     this.#lastMoveTime = now;
 
-    // 1. Seguimiento 3D y Curiosidad en el Hero Zorrito
-    if (this.#heroFoxImg) {
+    // 1. Seguimiento 3D y Curiosidad en el Hero Zorrito (solo cuando usa fallback IMG estático)
+    const canvasActive = document.querySelector('.zorrito-canvas-wrap.has-canvas');
+    if (this.#heroFoxImg && !canvasActive) {
       const rect = this.#heroFoxImg.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
@@ -332,10 +368,10 @@ class ZorritoCompanionController {
     if (!this.#isCurious || !this.#heroFoxImg) return;
     this.#isCurious = false;
 
-    // Regresa a la animación base de reposo con rebote elástico
+    // Regresa a la animación base activa del escenario con rebote elástico
     this.#heroFoxImg.classList.remove('is-curious');
     this.#heroFoxImg.classList.add('anim-bounce-squish');
-    this.#heroFoxImg.src = 'img/zorrito/zorrito_idle.webp';
+    this.#heroFoxImg.src = this.#restHeroMedia || 'img/zorrito/zorrito_idle.webp';
     this.#heroFoxImg.style.transform = 'translate3d(0, 0, 0) rotate(0deg) scale(1)';
     if (this.#statusMood) {
       this.#statusMood.textContent = 'Atento 👀';
@@ -353,7 +389,7 @@ class ZorritoCompanionController {
         this.#heroFoxImg.src = 'img/zorrito/zorrito_celebracion.webp';
         this.#heroFoxImg.classList.add('anim-bounce-squish');
         setTimeout(() => {
-          this.#heroFoxImg.src = 'img/zorrito/zorrito_idle.webp';
+          this.#heroFoxImg.src = this.#restHeroMedia || 'img/zorrito/zorrito_idle.webp';
           this.#heroFoxImg.classList.remove('anim-bounce-squish');
         }, 1800);
       });
@@ -407,6 +443,7 @@ class LandingPortalController {
   #boundPointerMove;
   #heroPlayer;
   #companionController;
+  #scrollRafPending = false;
 
   constructor() {
     this.#boundHandleScroll = this.#handleWindowScroll.bind(this);
@@ -416,6 +453,7 @@ class LandingPortalController {
   }
 
   init() {
+    this.#heroPlayer.setOnPoseChange((src) => this.#companionController.setRestMedia(src));
     this.#initScrollytelling();
     this.#initInteractiveTiltAndSpotlight();
     this.#bindGuestLinks();
@@ -502,21 +540,19 @@ class LandingPortalController {
   }
 
   #handleWindowScroll() {
-    const bar = document.getElementById('scrollProgressBar');
-    if (!bar) return;
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const docHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    const pct = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
-    bar.style.width = `${pct.toFixed(1)}%`;
-
-    // Efecto Apple / TikTok 3D Scroll Perspective en el visor Hero
-    const heroCard = document.getElementById('solHoloCapsule');
-    if (heroCard && scrollTop < 850) {
-      const scrollRatio = scrollTop / 850;
-      const tiltX = Math.min(6.5, scrollRatio * 6.5);
-      const translateY = (scrollTop * 0.05).toFixed(1);
-      heroCard.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) translateY(${translateY}px)`;
-    }
+    if (this.#scrollRafPending) return;
+    this.#scrollRafPending = true;
+    requestAnimationFrame(() => {
+      this.#scrollRafPending = false;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+      const bar = document.getElementById('scrollProgressBar');
+      if (bar) {
+        const docHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        const pct = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
+        bar.style.width = `${pct.toFixed(1)}%`;
+      }
+      this.#heroPlayer.applyScroll3D(scrollTop);
+    });
   }
 
   #handleSpotlightMove(e) {
@@ -529,17 +565,17 @@ class LandingPortalController {
   #initInteractiveTiltAndSpotlight() {
     window.addEventListener('pointermove', this.#boundPointerMove, { passive: true });
 
-    // Tilt Magnético 3D en el visor hero
+    // Inclinación magnética 3D multicapa en el escenario Hero
     const tiltCard = document.getElementById('solHoloCapsule');
     if (tiltCard) {
       tiltCard.addEventListener('pointermove', (e) => {
         const rect = tiltCard.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
-        tiltCard.style.transform = `perspective(900px) rotateY(${(x * 5).toFixed(2)}deg) rotateX(${(-y * 5).toFixed(2)}deg) scale3d(1.008, 1.008, 1)`;
+        this.#heroPlayer.setPointerTilt(-y * 14, x * 16, true);
       });
       tiltCard.addEventListener('pointerleave', () => {
-        this.#handleWindowScroll(); // Vuelve al ángulo de scroll suave
+        this.#heroPlayer.setPointerTilt(5, -6, false);
       });
     }
 

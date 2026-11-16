@@ -20,11 +20,9 @@
   display: none;
   position: relative;
   padding: 40px 48px;
-  background:
-    radial-gradient(circle at 30% 20%, rgba(31, 200, 186, 0.18), transparent 55%),
-    radial-gradient(circle at 80% 90%, rgba(255, 107, 91, 0.12), transparent 50%),
-    var(--color-surface);
-  border-right: 1px solid var(--color-border);
+  background: linear-gradient(155deg, #F3EFEA 0%, #EFE8DF 55%, #FFF2EC 100%);
+  border-right: 1px solid var(--palette-30-border, #E6DFD5);
+  color: var(--palette-30-petrol, #1C1917);
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
@@ -40,7 +38,7 @@
   max-height: 280px;
   object-fit: contain;
   margin: 0 auto;
-  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 14px 28px rgba(28, 25, 23, 0.18));
   animation: fox-float 4s ease-in-out infinite;
   will-change: transform;
 }
@@ -49,7 +47,7 @@
   width: 72px;
   height: 72px;
   object-fit: contain;
-  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 6px 12px rgba(28, 25, 23, 0.16));
 }
 
 @keyframes fox-float {
@@ -74,12 +72,17 @@
   text-wrap: balance;
 }
 
+.auth-brand-panel .text-slate-500 {
+  color: #574F47;
+}
+
 .auth-benefit {
   display: flex;
   align-items: center;
   gap: 12px;
   font-size: 13px;
-  color: var(--color-text-muted);
+  color: #574F47;
+  font-weight: 500;
   line-height: 1.4;
 }
 
@@ -87,18 +90,18 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--color-primary);
+  background: var(--palette-10-accent, #FF7A45);
   flex-shrink: 0;
 }
 
 .auth-link {
-  color: var(--color-primary);
+  color: var(--color-light-link, #C84B1C);
   font-weight: 700;
   transition: color 0.15s ease;
 }
 
 .auth-link:hover {
-  color: var(--manitas-sun);
+  color: var(--palette-10-accent, #FF7A45);
   text-decoration: underline;
 }
 
@@ -120,41 +123,87 @@
   font-family: var(--font-sans);
 }
 
-/* Tarjeta clara (Blanco Hueso) para login y registro */
-.auth-card-light {
-  background: var(--manitas-bone);
-  color: var(--manitas-navy);
+/* Tarjeta clara (60% Blanco / Blanco Crema) para login, registro y onboarding */
+.auth-card-light,
+.quiz-wizard-card {
+  background: var(--palette-60-surface, #FFFFFF);
+  color: var(--palette-30-petrol, #1C1917);
   border-radius: var(--radius-lg);
-  border: 1px solid #d8e0ec;
-  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.55);
+  border: 1px solid var(--palette-30-border, #E6DFD5);
+  box-shadow: 0 24px 60px -20px rgba(28, 25, 23, 0.12);
 }
 
 .auth-card-light .text-white,
-.auth-card-light .text-slate-200 { color: var(--manitas-navy); }
+.auth-card-light .text-slate-100,
+.auth-card-light .text-slate-200,
+.quiz-wizard-card .text-white,
+.quiz-wizard-card .text-slate-100,
+.quiz-wizard-card .text-slate-200 {
+  color: var(--palette-30-petrol, #1C1917);
+}
 
 .auth-card-light .text-slate-300,
-.auth-card-light .text-slate-400 { color: var(--color-light-muted); }
+.auth-card-light .text-slate-400,
+.quiz-wizard-card .text-slate-300,
+.quiz-wizard-card .text-slate-400 {
+  color: var(--palette-30-text-secondary, #574F47);
+}
 
 .auth-card-light .text-amber-400,
 .auth-card-light .text-amber-300,
+.auth-card-light .text-sun-400,
 .auth-card-light .auth-link,
-.auth-card-light .auth-link:hover { color: var(--color-light-link); }
+.auth-card-light .auth-link:hover,
+.quiz-wizard-card .text-amber-400,
+.quiz-wizard-card .text-amber-300,
+.quiz-wizard-card .text-sun-400 {
+  color: #C84B1C;
+}
 
-.auth-card-light [class*="border-slate-800"] { border-color: #d8e0ec; }
+.quiz-wizard-card .text-emerald-400,
+.quiz-wizard-card .text-emerald-300 {
+  color: #065F46;
+}
 
-.auth-card-light .auth-field-input {
-  background: #ffffff;
-  border: 1.5px solid #d8e0ec;
-  color: var(--manitas-navy);
+.quiz-wizard-card .bg-slate-900 {
+  background-color: #F3EFEA;
+  color: #1C1917;
+}
+
+.quiz-wizard-card .bg-slate-800 {
+  background-color: #F3EFEA;
+  color: #1C1917;
+}
+
+.quiz-wizard-card .hover\:text-white:hover {
+  color: #1C1917;
+}
+
+.auth-card-light [class*="border-slate-800"],
+.quiz-wizard-card [class*="border-slate-800"] {
+  border-color: var(--palette-30-border, #E6DFD5);
+}
+
+.auth-card-light .auth-field-input,
+.quiz-wizard-card .auth-field-input {
+  background: #FFFFFF;
+  border: 1.5px solid #D4C9BC;
+  color: var(--palette-30-petrol, #1C1917);
   box-shadow: none;
   font-family: var(--font-sans);
 }
 
-.auth-card-light .auth-field-input::placeholder { color: #7b8499; }
-
-.auth-card-light .auth-field-input:focus {
-  border-color: var(--manitas-turquoise);
-  box-shadow: 0 0 0 3px rgba(31, 200, 186, 0.25);
+.auth-card-light .auth-field-input::placeholder,
+.quiz-wizard-card .auth-field-input::placeholder {
+  color: #786E63;
 }
 
-.auth-card-light .auth-fox-small { border-color: var(--manitas-sun); }
+.auth-card-light .auth-field-input:focus,
+.quiz-wizard-card .auth-field-input:focus {
+  border-color: var(--palette-10-accent, #FF7A45);
+  box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.22);
+}
+
+.auth-card-light .auth-fox-small {
+  border-color: var(--palette-10-accent, #FF7A45);
+}

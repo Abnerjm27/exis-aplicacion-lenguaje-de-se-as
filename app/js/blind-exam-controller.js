@@ -144,7 +144,7 @@ class BlindExamController {
     const descEl = document.getElementById('targetSignDesc');
     if (tipEl && !this.#originalTipHtml) {
       this.#originalTipHtml = tipEl.innerHTML;
-      tipEl.innerHTML = `<span class="text-amber-400 font-semibold font-mono text-[11px]">🛡️ MODO EXAMEN ACTIVO:</span> Demuestra la seña de memoria frente a la cámara sin guía de video ni pistas visuales.`;
+      tipEl.innerHTML = `<span class="text-amber-800 font-semibold font-mono text-[11px]">🛡️ MODO EXAMEN ACTIVO:</span> Demuestra la seña de memoria frente a la cámara sin guía de video ni pistas visuales.`;
     }
     if (descEl && !this.#originalDescText) {
       this.#originalDescText = descEl.textContent;
@@ -299,11 +299,11 @@ class BlindExamController {
 
     // Feedback visual verde en el título y radar
     const gestureNameEl = document.getElementById('examGestureSignName');
-    if (gestureNameEl) gestureNameEl.classList.add('text-emerald-400');
+    if (gestureNameEl) gestureNameEl.classList.add('text-emerald-700');
 
     const radarBar = document.getElementById('examGestureRadarBar');
     if (radarBar) {
-      radarBar.classList.add('bg-emerald-400');
+      radarBar.classList.add('bg-emerald-500');
       radarBar.style.width = '100%';
     }
 
@@ -314,7 +314,7 @@ class BlindExamController {
 
     // Transición fluida a la siguiente pregunta tras 450ms
     setTimeout(() => {
-      if (gestureNameEl) gestureNameEl.classList.remove('text-emerald-400');
+      if (gestureNameEl) gestureNameEl.classList.remove('text-emerald-700');
       this.#advanceQuestion();
     }, 450);
   }
@@ -581,6 +581,21 @@ class BlindExamController {
     const quizWebp = document.getElementById('examQuizWebp');
     if (!quizVideo && !quizWebp) return;
 
+    const signObj = (typeof SIGNS_DATA !== 'undefined')
+      ? [...(SIGNS_DATA.words || []), ...(SIGNS_DATA.letters || [])].find(s => s.id === signId)
+      : null;
+    if (signObj && signObj.preferStaticImage && signObj.image) {
+      if (quizVideo) {
+        quizVideo.classList.add('hidden');
+        try { quizVideo.pause(); } catch (e) {}
+      }
+      if (quizWebp) {
+        quizWebp.src = signObj.image;
+        quizWebp.classList.remove('hidden');
+      }
+      return;
+    }
+
     const folder = this.#videoMode === 'anime' ? 'videos/anime' : 'videos/real';
     const mp4Url = `${folder}/${signId}_body.mp4`;
     const webpUrl = `${folder}/${signId}_body.webp`;
@@ -648,12 +663,12 @@ class BlindExamController {
     options.forEach((opt, idx) => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'exam-quiz-opt-btn btn-spring w-full p-3.5 rounded-2xl text-sm font-bold bg-slate-900/90 hover:bg-slate-800 border-2 border-slate-700/80 text-slate-100 transition shadow flex items-center justify-between text-left';
+      btn.className = 'exam-quiz-opt-btn btn-spring w-full p-3.5 rounded-2xl text-sm font-bold bg-white hover:bg-amber-50 border-2 border-slate-200 hover:border-amber-500 text-slate-900 transition shadow-sm flex items-center justify-between text-left';
       btn.setAttribute('data-sign-id', opt.id);
       btn.setAttribute('data-is-correct', opt.isCorrect ? 'true' : 'false');
       btn.innerHTML = `
         <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-lg bg-slate-800 border border-slate-700 text-amber-400 font-mono text-xs flex items-center justify-center font-bold">${idx + 1}</span>
+          <span class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-200 text-amber-700 font-mono text-xs flex items-center justify-center font-bold">${idx + 1}</span>
           <span class="tracking-wide">${opt.name}</span>
         </div>
         <span class="exam-opt-indicator opacity-0 transition-opacity font-bold"></span>
@@ -679,17 +694,17 @@ class BlindExamController {
     const allBtns = document.querySelectorAll('.exam-quiz-opt-btn');
     allBtns.forEach(b => {
       b.disabled = true;
-      b.classList.remove('hover:bg-slate-800');
+      b.classList.remove('hover:bg-amber-50');
     });
 
     if (isCorrect) {
-      clickedBtn.classList.remove('bg-slate-900/90', 'border-slate-700/80');
-      clickedBtn.classList.add('bg-emerald-600', 'border-emerald-400', 'text-white', 'shadow-emerald-500/20');
+      clickedBtn.classList.remove('bg-white', 'border-slate-200', 'text-slate-900');
+      clickedBtn.classList.add('bg-emerald-600', 'border-emerald-500', 'text-white', 'shadow-emerald-500/20');
       const ind = clickedBtn.querySelector('.exam-opt-indicator');
       if (ind) {
         ind.textContent = '✓';
         ind.classList.remove('opacity-0');
-        ind.classList.add('text-emerald-200');
+        ind.classList.add('text-emerald-100');
       }
 
       this.#results.push({
@@ -707,20 +722,20 @@ class BlindExamController {
         window.ChatTutor.playVictorySound();
       }
     } else {
-      clickedBtn.classList.remove('bg-slate-900/90', 'border-slate-700/80');
-      clickedBtn.classList.add('bg-rose-600', 'border-rose-400', 'text-white', 'shadow-rose-500/20');
+      clickedBtn.classList.remove('bg-white', 'border-slate-200', 'text-slate-900');
+      clickedBtn.classList.add('bg-rose-600', 'border-rose-500', 'text-white', 'shadow-rose-500/20');
       const ind = clickedBtn.querySelector('.exam-opt-indicator');
       if (ind) {
         ind.textContent = '✗';
         ind.classList.remove('opacity-0');
-        ind.classList.add('text-rose-200');
+        ind.classList.add('text-rose-100');
       }
 
       // Marcar la respuesta correcta en verde
       allBtns.forEach(b => {
         if (b.getAttribute('data-is-correct') === 'true') {
-          b.classList.remove('bg-slate-900/90', 'border-slate-700/80');
-          b.classList.add('bg-emerald-950/70', 'border-emerald-400', 'text-emerald-200');
+          b.classList.remove('bg-white', 'border-slate-200', 'text-slate-900');
+          b.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900');
           const correctInd = b.querySelector('.exam-opt-indicator');
           if (correctInd) {
             correctInd.textContent = '✓';
@@ -812,19 +827,19 @@ class BlindExamController {
         const item = document.createElement('div');
         item.className = `flex items-center justify-between p-2.5 rounded-xl border text-xs ${
           res.passed
-            ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-200'
-            : 'bg-amber-950/40 border-amber-500/40 text-amber-200'
+            ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
+            : 'bg-amber-50 border-amber-200 text-amber-900'
         }`;
         const typeBadge = res.type === 'quiz' ? '📝 Quiz' : '🖐️ Cámara';
         item.innerHTML = `
           <div class="flex items-center gap-2">
             <span class="w-5 h-5 rounded-full flex items-center justify-center font-bold text-xs ${
-              res.passed ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'
+              res.passed ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-800'
             }">${res.passed ? '✓' : '✗'}</span>
-            <span class="font-bold uppercase tracking-wider text-slate-100">${res.signName}</span>
-            <span class="text-[10px] text-slate-400 font-mono">(${typeBadge})</span>
+            <span class="font-bold uppercase tracking-wider text-slate-900">${res.signName}</span>
+            <span class="text-[10px] text-slate-600 font-mono">(${typeBadge})</span>
           </div>
-          <span class="font-mono tabular-nums text-[11px] font-semibold ${res.passed ? 'text-emerald-400' : 'text-amber-400'}">
+          <span class="font-mono tabular-nums text-[11px] font-semibold ${res.passed ? 'text-emerald-700' : 'text-amber-800'}">
             ${res.passed ? `${res.score}% precisión` : 'Por repasar'}
           </span>
         `;
@@ -891,11 +906,11 @@ class BlindExamController {
     if (!btnReal || !btnAnime) return;
 
     if (this.#videoMode === 'anime') {
-      btnAnime.className = 'btn-spring px-2 py-0.5 rounded-lg transition bg-amber-400 text-slate-950 font-bold shadow-sm';
-      btnReal.className = 'btn-spring px-2 py-0.5 rounded-lg transition text-slate-300 hover:text-white';
+      btnAnime.className = 'btn-spring px-2 py-0.5 rounded-lg transition bg-amber-500 text-slate-900 font-bold shadow-sm';
+      btnReal.className = 'btn-spring px-2 py-0.5 rounded-lg transition text-slate-700 hover:text-slate-900';
     } else {
-      btnReal.className = 'btn-spring px-2 py-0.5 rounded-lg transition bg-amber-400 text-slate-950 font-bold shadow-sm';
-      btnAnime.className = 'btn-spring px-2 py-0.5 rounded-lg transition text-slate-300 hover:text-white';
+      btnReal.className = 'btn-spring px-2 py-0.5 rounded-lg transition bg-amber-500 text-slate-900 font-bold shadow-sm';
+      btnAnime.className = 'btn-spring px-2 py-0.5 rounded-lg transition text-slate-700 hover:text-slate-900';
     }
   }
 
