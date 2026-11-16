@@ -240,14 +240,13 @@ class LessonSessionController {
   // LÓGICA DE FASES Y GESTIÓN DE TEST (QUIZ)
   // -------------------------------------------------------------
 
-  /**
-   * Valida la respuesta del usuario en la fase Quiz
-   * @param {string} selectedSignId
-   * @returns {Object} { correct: boolean, selectedSignId, targetSignId }
-   */
+  /** Valida la respuesta del usuario en la fase Quiz (bloquea reintentos tras la selección). */
   submitQuizAnswer(selectedSignId) {
     if (!this.#isActive || this.#currentPhase !== 'quiz') {
       return { correct: false, selectedSignId, targetSignId: this.#currentSignId };
+    }
+    if (this.#quizAnswered) {
+      return { correct: this.#quizPassed, selectedSignId: this.#selectedOptionId, targetSignId: this.#currentSignId, locked: true };
     }
 
     this.#selectedOptionId = selectedSignId;
@@ -257,13 +256,13 @@ class LessonSessionController {
     const isCorrect = (selectedSignId === this.#currentSignId);
     this.#quizPassed = isCorrect;
 
-    // Actualizar presentación en DOM si existe
     this.#renderQuizFeedback(isCorrect);
 
     return {
       correct: isCorrect,
       selectedSignId,
-      targetSignId: this.#currentSignId
+      targetSignId: this.#currentSignId,
+      locked: false
     };
   }
 
@@ -492,6 +491,8 @@ class LessonSessionController {
   }
 
   #enterQuizPhase() {
+    this.#quizAnswered = false;
+    this.#selectedOptionId = null;
     this.#updateProgressUI(66, 'Paso 2 de 3: ¿Qué seña es?');
     this.#toggleContainers('quiz');
     this.#hideFeedbackSheet();
@@ -510,7 +511,7 @@ class LessonSessionController {
       this.#options.forEach((opt, idx) => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'quiz-choice-btn w-full p-4 rounded-xl border-2 border-slate-700 bg-slate-800/80 hover:bg-slate-700/80 hover:border-amber-400/60 text-white font-medium text-left transition flex items-center justify-between min-h-[52px] select-none';
+        btn.className = 'quiz-choice-btn w-full p-4 rounded-xl border-2 border-slate-200 bg-white hover:bg-amber-50 hover:border-amber-500 text-slate-900 font-medium text-left transition flex items-center justify-between min-h-[52px] select-none';
         btn.dataset.signId = opt.id;
         if (typeof btn.setAttribute === 'function') {
           btn.setAttribute('aria-label', `Opción ${idx + 1}: ${opt.name}`);
@@ -518,13 +519,14 @@ class LessonSessionController {
 
         btn.innerHTML = `
           <span class="flex items-center gap-3">
-            <span class="w-7 h-7 rounded-lg bg-slate-700 flex items-center justify-center text-xs font-mono font-bold text-amber-400">${idx + 1}</span>
-            <span class="text-base text-slate-100 font-semibold">${opt.name}</span>
+            <span class="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center text-xs font-mono font-bold text-amber-700">${idx + 1}</span>
+            <span class="text-base text-slate-900 font-semibold">${opt.name}</span>
           </span>
-          <span class="choice-indicator w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center text-[10px]"></span>
+          <span class="choice-indicator w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center text-[10px]"></span>
         `;
 
         btn.addEventListener('click', () => {
+          if (this.#quizAnswered || btn.disabled) return;
           this.submitQuizAnswer(opt.id);
         });
 
@@ -619,8 +621,10 @@ class LessonSessionController {
         if (typeof window.ChatTutor.playVictorySound === 'function') {
           window.ChatTutor.playVictorySound();
         }
-        if (typeof window.ChatTutor.speakText === 'function') {
-          window.ChatTutor.speakText(`¡Excelente trabajo! Has dominado la seña ${this.#currentSign.name || this.#currentSignId}.`);
+        if (typeof window.ChatTutor.speakCelebration === 'function') {
+          window.ChatTutor.speakCelebration(this.#currentSign.name || this.#currentSignId);
+        } else if (typeof window.ChatTutor.speakText === 'function') {
+          window.ChatTutor.speakText(`¡Muy bien! Dominaste la seña ${this.#currentSign.name || this.#currentSignId}.`);
         }
       } catch (e) {}
     }
@@ -658,6 +662,21 @@ class LessonSessionController {
 
   #loadMediaWithWebpFallback(videoEl, webpEl, signId) {
     if (!videoEl && !webpEl) return;
+    const signObj = (typeof SIGNS_DATA !== 'undefined')
+      ? [...(SIGNS_DATA.words || []), ...(SIGNS_DATA.letters || [])].find(s => s.id === signId)
+      : null;
+    if (signObj && signObj.preferStaticImage && signObj.image) {
+      if (videoEl) {
+        videoEl.classList.add('hidden');
+        try { videoEl.pause(); } catch (e) {}
+      }
+      if (webpEl) {
+        webpEl.src = signObj.image;
+        webpEl.classList.remove('hidden');
+      }
+      return;
+    }
+
     const folder = this.#videoMode === 'anime' ? 'videos/anime' : 'videos/real';
     const mp4Url = `${folder}/${signId}_body.mp4`;
     const webpUrl = `${folder}/${signId}_body.webp`;
@@ -811,19 +830,22 @@ class LessonSessionController {
   #renderQuizFeedback(isCorrect) {
     if (typeof document === 'undefined') return;
 
-    // Resaltar botones en la grilla
     const gridEl = document.getElementById('quizOptionsGrid');
     if (gridEl) {
-      const buttons = gridEl.querySelectorAll('.quiz-choice-btn');
-      buttons.forEach(btn => {
+      gridEl.querySelectorAll('.quiz-choice-btn').forEach(btn => {
         const signId = btn.dataset.signId;
+        const ind = typeof btn.querySelector === 'function' ? btn.querySelector('.choice-indicator') : null;
+        btn.disabled = true;
+        if (typeof btn.setAttribute === 'function') btn.setAttribute('aria-disabled', 'true');
+        btn.classList.remove('hover:bg-amber-50', 'hover:border-amber-500');
         if (signId === this.#selectedOptionId) {
-          btn.classList.add('is-selected');
-          if (isCorrect) {
-            btn.classList.add('border-emerald-500', 'bg-emerald-950/60');
-          } else {
-            btn.classList.add('border-rose-500', 'bg-rose-950/60');
-          }
+          btn.classList.add('is-selected', isCorrect ? 'border-emerald-500' : 'border-rose-500', isCorrect ? 'bg-emerald-50' : 'bg-amber-50');
+          if (ind) ind.textContent = isCorrect ? '✓' : '✗';
+        } else if (!isCorrect && signId === this.#currentSignId) {
+          btn.classList.add('border-emerald-500', 'bg-emerald-50');
+          if (ind) ind.textContent = '✓';
+        } else {
+          btn.classList.add('opacity-50', 'cursor-not-allowed');
         }
       });
     }
@@ -836,10 +858,9 @@ class LessonSessionController {
 
     if (sheet) {
       sheet.classList.remove('hidden');
+      sheet.classList.toggle('is-correct', isCorrect);
+      sheet.classList.toggle('is-incorrect', !isCorrect);
       if (isCorrect) {
-        sheet.classList.remove('is-incorrect');
-        sheet.classList.add('is-correct');
-
         if (titleEl) titleEl.textContent = '¡Correcto! Excelente ojo visual 🦊';
         if (descEl) descEl.textContent = `Has identificado con precisión la seña "${this.#currentSign.name || this.#currentSignId}". Ahora practiquémosla con tu cámara.`;
 
@@ -847,9 +868,6 @@ class LessonSessionController {
           try { confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } }); } catch (e) {}
         }
       } else {
-        sheet.classList.remove('is-correct');
-        sheet.classList.add('is-incorrect');
-
         if (titleEl) titleEl.textContent = '¡Casi lo logras! Revisa este detalle:';
         if (descEl) descEl.textContent = `La seña correcta es "${this.#currentSign.name || this.#currentSignId}". ${this.#currentSign.tip || ''}`;
       }
@@ -996,13 +1014,13 @@ class LessonSessionController {
     const isAnime = this.#videoMode === 'anime';
     if (btnReal) {
       btnReal.className = !isAnime
-        ? 'btn-spring px-2.5 py-1 rounded-lg transition bg-amber-400 text-slate-950 font-bold shadow-sm'
-        : 'btn-spring px-2.5 py-1 rounded-lg transition text-slate-300 hover:text-white';
+        ? 'btn-spring px-2.5 py-1 rounded-lg transition bg-amber-500 text-slate-900 font-bold shadow-sm'
+        : 'btn-spring px-2.5 py-1 rounded-lg transition text-slate-700 hover:text-slate-900';
     }
     if (btnAnime) {
       btnAnime.className = isAnime
-        ? 'btn-spring px-2.5 py-1 rounded-lg transition bg-amber-400 text-slate-950 font-bold shadow-sm'
-        : 'btn-spring px-2.5 py-1 rounded-lg transition text-slate-300 hover:text-white';
+        ? 'btn-spring px-2.5 py-1 rounded-lg transition bg-amber-500 text-slate-900 font-bold shadow-sm'
+        : 'btn-spring px-2.5 py-1 rounded-lg transition text-slate-700 hover:text-slate-900';
     }
   }
 

@@ -22,6 +22,8 @@ class ViewRouter {
 
     if (screenParam === 'path') {
       this.switchToPathView();
+    } else if (screenParam === 'profile') {
+      this.switchToProfileView();
     } else {
       this.switchToStudioView(signParam || null, false);
     }
@@ -36,6 +38,8 @@ class ViewRouter {
   update(viewName = 'path') {
     if (viewName === 'path') {
       this.switchToPathView();
+    } else if (viewName === 'profile') {
+      this.switchToProfileView();
     } else {
       this.switchToStudioView();
     }
@@ -55,30 +59,14 @@ class ViewRouter {
 
   switchToPathView() {
     this.#currentView = 'path';
-
-    const pathView = document.getElementById('viewLearningPath');
-    const studioView = document.getElementById('viewPracticeStudio');
-    const navBtnPath = document.getElementById('btnNavViewPath');
-    const navBtnStudio = document.getElementById('btnNavViewStudio');
-
-    if (pathView) pathView.classList.remove('hidden');
-    if (studioView) studioView.classList.add('hidden');
-
-    if (navBtnPath) {
-      navBtnPath.className = 'btn-spring px-3 py-1.5 rounded-lg text-xs font-bold bg-coral-500 text-slate-950 shadow-sm transition';
-      navBtnPath.setAttribute('aria-current', 'page');
-    }
-    if (navBtnStudio) {
-      navBtnStudio.className = 'btn-spring px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700/80 transition';
-      navBtnStudio.removeAttribute('aria-current');
-    }
+    this.#applyViewState('path', 'Mi Ruta de Aprendizaje');
 
     // Apagar cámara completamente mientras explora su ruta para no gastar hardware ni batería
     if (window.VisionEvaluator) {
       window.VisionEvaluator.stop();
     }
 
-    // Actualizar mapa Duolingo
+    // Actualizar ruta de aprendizaje
     if (window.LearningPlanManager) {
       window.LearningPlanManager.update();
     }
@@ -86,25 +74,13 @@ class ViewRouter {
     this.#syncUrlQuery('path');
   }
 
+  switchToProfileView() {
+    window.location.href = 'perfil.html';
+  }
+
   switchToStudioView(signId = null, startExam = false, examConfig = null) {
     this.#currentView = 'studio';
-
-    const pathView = document.getElementById('viewLearningPath');
-    const studioView = document.getElementById('viewPracticeStudio');
-    const navBtnPath = document.getElementById('btnNavViewPath');
-    const navBtnStudio = document.getElementById('btnNavViewStudio');
-
-    if (pathView) pathView.classList.add('hidden');
-    if (studioView) studioView.classList.remove('hidden');
-
-    if (navBtnStudio) {
-      navBtnStudio.className = 'btn-spring px-3 py-1.5 rounded-lg text-xs font-bold bg-coral-500 text-slate-950 shadow-sm transition';
-      navBtnStudio.setAttribute('aria-current', 'page');
-    }
-    if (navBtnPath) {
-      navBtnPath.className = 'btn-spring px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700/80 transition';
-      navBtnPath.removeAttribute('aria-current');
-    }
+    this.#applyViewState('studio', 'Estudio de Práctica LSC');
 
     // Actualizar migas de pan y progreso de lección
     this.#updateStudioBreadcrumb();
@@ -130,6 +106,49 @@ class ViewRouter {
     this.#syncUrlQuery('studio', signId);
   }
 
+  #applyViewState(activeKey, topbarTitle) {
+    const viewMap = {
+      path: { el: document.getElementById('viewLearningPath'), btn: document.getElementById('btnNavViewPath') },
+      studio: { el: document.getElementById('viewPracticeStudio'), btn: document.getElementById('btnNavViewStudio') },
+      profile: { el: document.getElementById('viewProfileHub'), btn: document.getElementById('btnNavViewProfile') }
+    };
+
+    const activeCls = 'sidebar-nav-btn btn-spring bg-coral-500 text-slate-900 font-bold shadow-sm';
+    const inactiveCls = 'sidebar-nav-btn btn-spring';
+
+    Object.entries(viewMap).forEach(([key, pair]) => {
+      const isActive = key === activeKey;
+      if (pair.el) pair.el.classList.toggle('hidden', !isActive);
+      if (pair.btn) {
+        pair.btn.className = isActive ? activeCls : inactiveCls;
+        if (isActive) {
+          pair.btn.setAttribute('aria-current', 'page');
+        } else {
+          pair.btn.removeAttribute('aria-current');
+        }
+      }
+    });
+
+    const titleEl = document.getElementById('topbarSectionTitle');
+    if (titleEl) titleEl.textContent = topbarTitle;
+
+    this.#closeMobileSidebar();
+  }
+
+  #openMobileSidebar() {
+    const sidebar = document.getElementById('appSidebar');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    if (sidebar) sidebar.classList.add('is-open');
+    if (backdrop) backdrop.classList.remove('hidden');
+  }
+
+  #closeMobileSidebar() {
+    const sidebar = document.getElementById('appSidebar');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    if (sidebar) sidebar.classList.remove('is-open');
+    if (backdrop) backdrop.classList.add('hidden');
+  }
+
   #bindNavigationEvents() {
     const btnNavPath = document.getElementById('btnNavViewPath');
     if (btnNavPath) {
@@ -139,6 +158,26 @@ class ViewRouter {
     const btnNavStudio = document.getElementById('btnNavViewStudio');
     if (btnNavStudio) {
       btnNavStudio.addEventListener('click', () => this.switchToStudioView());
+    }
+
+    const btnMobileMenu = document.getElementById('btnMobileMenuToggle');
+    if (btnMobileMenu) {
+      btnMobileMenu.addEventListener('click', () => this.#openMobileSidebar());
+    }
+
+    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+    if (sidebarBackdrop) {
+      sidebarBackdrop.addEventListener('click', () => this.#closeMobileSidebar());
+    }
+
+    const btnExam = document.getElementById('btnStartBlindExam');
+    if (btnExam) {
+      btnExam.addEventListener('click', () => this.#closeMobileSidebar());
+    }
+
+    const btnChat = document.getElementById('btnToggleChat');
+    if (btnChat) {
+      btnChat.addEventListener('click', () => this.#closeMobileSidebar());
     }
 
     const btnBack = document.getElementById('btnBackToPath');
@@ -186,6 +225,8 @@ class ViewRouter {
     if (e.state && e.state.screen) {
       if (e.state.screen === 'path') {
         this.switchToPathView();
+      } else if (e.state.screen === 'profile') {
+        this.switchToProfileView();
       } else {
         this.switchToStudioView(e.state.sign || null, false);
       }
@@ -195,6 +236,8 @@ class ViewRouter {
   #updateUI() {
     if (this.#currentView === 'path') {
       this.switchToPathView();
+    } else if (this.#currentView === 'profile') {
+      this.switchToProfileView();
     } else {
       this.switchToStudioView();
     }

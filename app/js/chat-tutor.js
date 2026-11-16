@@ -134,7 +134,7 @@ class LSCClientNLU {
     I: "cierra tu mano en puño y extiende únicamente el dedo meñique hacia arriba en vertical.",
     L: "extiende el dedo índice hacia arriba y el pulgar hacia un lado formando un ángulo recto de 90 grados.",
     O: "curva los dedos de tu mano tocando suavemente la punta del pulgar para formar un círculo visible O.",
-    U: "levanta el dedo índice y el dedo medio juntos y pegados apuntando hacia arriba (sin separación en V).",
+    U: "levanta el dedo índice y el meñique rectos hacia arriba (forma de cuernos) manteniendo el medio y el anular doblados sobre la palma.",
     V: "levanta el dedo índice y el dedo medio separados en forma de victoria."
   };
 
@@ -370,8 +370,8 @@ class LSCClientNLU {
 
     const bubble = document.createElement('div');
     bubble.className = role === 'user'
-      ? "bg-amber-500 p-3 rounded-2xl rounded-tr-sm text-slate-950 font-medium leading-relaxed shadow-sm text-xs"
-      : "bg-slate-800/95 border border-slate-700/60 p-3 rounded-2xl rounded-tl-sm text-slate-200 leading-relaxed shadow-sm text-xs";
+      ? "bg-amber-500 p-3 rounded-2xl rounded-tr-sm text-slate-900 font-semibold leading-relaxed shadow-sm text-xs"
+      : "bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-sm text-slate-900 leading-relaxed shadow-sm text-xs";
 
     bubble.textContent = text;
     msgWrapper.appendChild(bubble);
@@ -379,15 +379,116 @@ class LSCClientNLU {
     container.scrollTop = container.scrollHeight;
   }
 
-  function speakText(text) {
-    if ('speechSynthesis' in window) {
+  /**
+   * Clase POO: VoiceSynthesizer
+   * Selecciona la voz neuronal/natural en español más fluida del navegador
+   * (evitando voces SAPI robóticas por defecto) y suaviza la prosodia.
+   */
+  class VoiceSynthesizer {
+    constructor() {
+      this._selectedVoice = null;
+      this._celebrationIndex = 0;
+      this.init();
+    }
+
+    init() {
+      if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+      this._refreshVoices();
+      if (typeof window.speechSynthesis.addEventListener === 'function') {
+        window.speechSynthesis.addEventListener('voiceschanged', () => this._refreshVoices());
+      } else {
+        window.speechSynthesis.onvoiceschanged = () => this._refreshVoices();
+      }
+    }
+
+    _scoreVoice(voice) {
+      const name = (voice.name || '').toLowerCase();
+      const lang = (voice.lang || '').toLowerCase();
+      if (!lang.startsWith('es')) return -1;
+
+      let score = 10;
+      if (name.includes('natural') || name.includes('neural') || name.includes('online')) score += 100;
+      if (name.includes('google')) score += 75;
+      if (name.includes('enhanced') || name.includes('premium') || name.includes('paulina') || name.includes('monica')) score += 55;
+      if (lang === 'es-co') score += 40;
+      else if (lang === 'es-mx' || lang === 'es-419' || lang === 'es-us') score += 25;
+      else if (lang === 'es-es') score += 15;
+      if (name.includes('helena') || name.includes('sabina') || name.includes('pablo') || name.includes('espeak')) {
+        score -= 20;
+      }
+      return score;
+    }
+
+    _refreshVoices() {
+      if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+      const voices = window.speechSynthesis.getVoices() || [];
+      let best = null;
+      let bestScore = -1;
+      for (const v of voices) {
+        const s = this._scoreVoice(v);
+        if (s > bestScore) {
+          bestScore = s;
+          best = v;
+        }
+      }
+      if (best) this._selectedVoice = best;
+    }
+
+    _sanitizeText(text) {
+      return String(text || '')
+        .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    speak(text, options = {}) {
+      if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+      const clean = this._sanitizeText(text);
+      if (!clean) return;
+
+      if (!this._selectedVoice) this._refreshVoices();
       window.speechSynthesis.cancel();
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'es-CO';
-      utter.rate = 1.0;
-      utter.pitch = 1.0;
+
+      const utter = new SpeechSynthesisUtterance(clean);
+      if (this._selectedVoice) {
+        utter.voice = this._selectedVoice;
+        utter.lang = this._selectedVoice.lang || 'es-CO';
+      } else {
+        utter.lang = 'es-CO';
+      }
+      utter.rate = options.rate ?? 0.96;
+      utter.pitch = options.pitch ?? 1.04;
+      utter.volume = options.volume ?? 0.95;
       window.speechSynthesis.speak(utter);
     }
+
+    speakCelebration(signName, score = null) {
+      const name = (signName || 'la seña').toLowerCase();
+      const phrases = score !== null
+        ? [
+            `¡Muy bien! Hiciste ${name} con ${score} por ciento de precisión.`,
+            `¡Genial! Lograste la seña ${name} perfectamente.`,
+            `¡Excelente! Tu seña de ${name} quedó súper clara.`
+          ]
+        : [
+            `¡Muy bien! Dominaste la seña ${name}.`,
+            `¡Genial! Ya te sale perfecta la seña ${name}.`,
+            `¡Excelente progreso! Completaste ${name} con éxito.`
+          ];
+      const msg = phrases[this._celebrationIndex % phrases.length];
+      this._celebrationIndex++;
+      this.speak(msg, { rate: 0.98, pitch: 1.06 });
+    }
+  }
+
+  const voiceSynthesizer = new VoiceSynthesizer();
+
+  function speakText(text) {
+    voiceSynthesizer.speak(text);
+  }
+
+  function speakCelebration(signName, score = null) {
+    voiceSynthesizer.speakCelebration(signName, score);
   }
 
   function playVictorySound() {
@@ -414,6 +515,7 @@ class LSCClientNLU {
     sendQuickMessage,
     sendMessage,
     speakText,
+    speakCelebration,
     playVictorySound
   };
 })();

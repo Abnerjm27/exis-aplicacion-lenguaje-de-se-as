@@ -5,7 +5,7 @@
  * Exclusiones: No intercepta llamadas dinámicas /api/ (Ollama / Planes) ni peticiones con rango de video.
  */
 
-const CACHE_NAME = 'manitas-pwa-v1';
+const CACHE_NAME = 'manitas-pwa-v14-perfil-page';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -14,6 +14,8 @@ const ASSETS_TO_CACHE = [
   '/favicon.ico',
   '/css/styles.css',
   '/js/signs-data.js',
+  '/js/sign-anatomy-validator.js',
+  '/js/body-anchor-detector.js',
   '/js/main.js',
   '/js/video-player.js',
   '/js/vision-evaluator.js',

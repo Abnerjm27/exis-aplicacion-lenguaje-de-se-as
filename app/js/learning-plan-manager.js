@@ -278,38 +278,50 @@ class LearningPlanManager {
       masteredSet = new Set(profile.masteredSigns || []);
     }
 
+    const firstIncompleteIdx = signs.findIndex(s => !masteredSet.has(s));
+    const unlockedLimit = firstIncompleteIdx === -1 ? Math.max(0, signs.length - 1) : firstIncompleteIdx;
+    if (this.#currentIndex > unlockedLimit) {
+      this.#currentIndex = unlockedLimit;
+    }
+
     signs.forEach((signId, idx) => {
       const isCompleted = masteredSet.has(signId);
-      const isCurrent = idx === this.#currentIndex;
+      const isLocked = !isCompleted && idx > unlockedLimit;
+      const isCurrent = !isLocked && idx === unlockedLimit;
       const posClass = (idx % 3 === 0) ? 'duolingo-pos-center' : (idx % 3 === 1) ? 'duolingo-pos-left' : 'duolingo-pos-right';
 
       const nodeBtn = document.createElement('button');
       nodeBtn.id = `hex-node-${signId}`;
-      nodeBtn.className = `hex-node duolingo-node ${posClass} flex flex-col items-center justify-center p-2 rounded-2xl transition cursor-pointer relative shrink-0 ${
+      nodeBtn.className = `hex-node duolingo-node ${posClass} flex flex-col items-center justify-center p-2 rounded-2xl transition relative shrink-0 ${
         isCompleted
-          ? 'hex-node-completed'
+          ? 'hex-node-completed cursor-pointer'
           : isCurrent
-          ? 'hex-node-active'
-          : 'hex-node-locked'
+          ? 'hex-node-active cursor-pointer'
+          : 'hex-node-locked cursor-not-allowed opacity-65'
       }`;
       nodeBtn.setAttribute('data-sign-id', signId);
       nodeBtn.setAttribute('data-step-index', String(idx));
-      nodeBtn.setAttribute('aria-label', `Paso ${idx + 1}: seña ${signId}. Estado: ${isCompleted ? 'Completado' : isCurrent ? 'Actual' : 'Pendiente'}`);
+      nodeBtn.setAttribute('data-locked', isLocked ? 'true' : 'false');
+      if (isLocked) {
+        nodeBtn.setAttribute('aria-disabled', 'true');
+        nodeBtn.title = `Completa primero "${signs[unlockedLimit]}" para desbloquear ${signId}`;
+      }
+      nodeBtn.setAttribute('aria-label', `Paso ${idx + 1}: seña ${signId}. Estado: ${isCompleted ? 'Completado' : isCurrent ? 'Actual' : 'Bloqueado'}`);
 
       // Badge flotante "¡EMPEZAR!" sobre el nodo actual
       let startPillHtml = '';
       if (isCurrent) {
-        startPillHtml = `<span class="duolingo-start-pill absolute -top-4 font-bold text-[10px] tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/30 z-20">¡EMPEZAR!</span>`;
+        startPillHtml = `<span class="duolingo-start-pill absolute -top-4 font-bold text-[10px] tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-amber-500 text-slate-900 shadow-lg shadow-amber-500/30 z-20">¡EMPEZAR!</span>`;
       }
 
       // Icono SVG y estado
       let statusSvg = '';
       if (isCompleted) {
-        statusSvg = `<svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+        statusSvg = `<svg class="w-3.5 h-3.5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
       } else if (isCurrent) {
-        statusSvg = `<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>`;
+        statusSvg = `<span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>`;
       } else {
-        statusSvg = `<span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>`;
+        statusSvg = `<svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
       }
 
       nodeBtn.innerHTML = `
@@ -318,15 +330,19 @@ class LearningPlanManager {
           <svg class="hex-svg w-full h-full" viewBox="0 0 100 115" fill="none" stroke="currentColor" stroke-width="6">
             <polygon points="50,4 96,29 96,86 50,111 4,86 4,29" class="hex-polygon" />
           </svg>
-          <span class="absolute font-mono text-xs font-bold text-slate-100 tabular-nums">${idx + 1}</span>
+          <span class="absolute font-mono text-xs font-bold text-slate-900 tabular-nums">${idx + 1}</span>
         </div>
-        <span class="text-[11px] font-bold tracking-tight text-slate-200 mt-1 uppercase max-w-[70px] truncate text-center">${signId}</span>
+        <span class="text-[11px] font-bold tracking-tight text-slate-900 mt-1 uppercase max-w-[70px] truncate text-center">${signId}</span>
         <div class="flex items-center gap-1 mt-0.5">
           ${statusSvg}
         </div>
       `;
 
       nodeBtn.addEventListener('click', () => {
+        if (isLocked) {
+          this.#showLockedFeedback(container, `Completa primero "${signs[unlockedLimit]}" para desbloquear "${signId}".`);
+          return;
+        }
         this.#currentIndex = idx;
         this.renderHexSkillTree();
         this.#updateActivePlanHeader();
@@ -350,7 +366,8 @@ class LearningPlanManager {
       if ((idx + 1) % 3 === 0 && (idx + 1) < signs.length) {
         const cpNumber = Math.floor((idx + 1) / 3);
         const cpSigns = signs.slice(0, idx + 1);
-        const cpNode = this.#createCheckpointNode(cpNumber, cpSigns);
+        const cpUnlocked = cpSigns.every(s => masteredSet.has(s));
+        const cpNode = this.#createCheckpointNode(cpNumber, cpSigns, cpUnlocked);
         container.appendChild(cpNode);
       }
     });
@@ -358,11 +375,11 @@ class LearningPlanManager {
     // Nodo Trofeo Final de Unidad: Examen Sin Video de todas las palabras del plan
     const trophyBtn = document.createElement('button');
     trophyBtn.id = 'btnPathFinalExamNode';
-    trophyBtn.className = 'duolingo-trophy-node duolingo-pos-center flex flex-col items-center justify-center p-4 rounded-2xl transition cursor-pointer relative mt-3 group border border-amber-500/30 bg-slate-900/90 hover:bg-slate-800 shadow-xl';
+    trophyBtn.className = 'duolingo-trophy-node duolingo-pos-center flex flex-col items-center justify-center p-4 rounded-2xl transition cursor-pointer relative mt-3 group border-2 border-[#FF7A45] bg-[#FFF2EC] hover:bg-[#FFE4D6] shadow-xl';
     trophyBtn.setAttribute('aria-label', `Examen de Unidad: Evaluación a Ciegas de todas las ${signs.length} señas`);
     trophyBtn.innerHTML = `
-      <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
-        <svg class="w-7 h-7 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
+        <svg class="w-7 h-7 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
           <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
           <path d="M4 22h16"></path>
@@ -371,8 +388,8 @@ class LearningPlanManager {
           <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
         </svg>
       </div>
-      <span class="text-xs font-bold uppercase tracking-wider text-amber-300 mt-2">Examen de Unidad Final</span>
-      <span class="text-[10px] text-slate-400">Todas las ${signs.length} señas · Nivel Maestro (15s)</span>
+      <span class="text-xs font-extrabold uppercase tracking-wider text-slate-900 mt-2">Examen de Unidad Final</span>
+      <span class="text-[10px] text-slate-600 font-semibold">Todas las ${signs.length} señas · Nivel Maestro (15s)</span>
     `;
     trophyBtn.addEventListener('click', () => {
       const allSigns = [...this.#activePlan.signs];
@@ -474,14 +491,14 @@ class LearningPlanManager {
     svg.innerHTML = `
       <defs>
         <linearGradient id="duolingoActiveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#10b981" />
-          <stop offset="55%" stop-color="#f59e0b" />
-          <stop offset="100%" stop-color="#fbbf24" />
+          <stop offset="0%" stop-color="#D4C9BC" />
+          <stop offset="55%" stop-color="#FF7A45" />
+          <stop offset="100%" stop-color="#FF9266" />
         </linearGradient>
       </defs>
-      <!-- Vía base oscura continua que serpentea por los centros de los hexágonos -->
+      <!-- Vía base continua que serpentea por los centros de los hexágonos -->
       <path d="${fullD}" fill="none" class="duolingo-path-base" />
-      <!-- Tramo recorrido/activo con degradado esmeralda a ámbar -->
+      <!-- Tramo recorrido/activo con degradado Piedra a Melocotón -->
       ${activeD ? `<path d="${activeD}" fill="none" class="duolingo-path-active" />` : ''}
       ${activeD ? `<path d="${activeD}" fill="none" class="duolingo-path-pulse" />` : ''}
       <!-- Tramo futuro punteado guiando suavemente hacia el trofeo final -->
@@ -489,30 +506,56 @@ class LearningPlanManager {
     `;
   }
 
-  #createCheckpointNode(cpNumber, cpSigns) {
+  #showLockedFeedback(container, message) {
+    let notice = document.getElementById('pathLockNotice');
+    if (!notice) {
+      notice = document.createElement('div');
+      notice.id = 'pathLockNotice';
+      notice.className = 'w-full max-w-md mx-auto text-center text-xs font-semibold text-amber-900 bg-amber-50 border border-amber-300 px-3.5 py-2 rounded-xl shadow-sm';
+      container.prepend(notice);
+    }
+    notice.textContent = message;
+  }
+
+  #createCheckpointNode(cpNumber, cpSigns, isUnlocked = true) {
     const cpBtn = document.createElement('button');
-    cpBtn.className = 'duolingo-checkpoint-node duolingo-pos-center flex flex-col items-center justify-center p-3 rounded-2xl transition cursor-pointer my-2 group border border-amber-500/40 bg-slate-900/90 hover:bg-slate-800/90 hover:border-amber-400 shadow-lg relative z-10 shrink-0';
+    cpBtn.className = `duolingo-checkpoint-node duolingo-pos-center flex flex-col items-center justify-center p-3 rounded-2xl transition my-2 group border shadow-lg relative z-10 shrink-0 ${
+      isUnlocked
+        ? 'cursor-pointer border-amber-300 bg-white hover:bg-amber-50 hover:border-amber-500'
+        : 'cursor-not-allowed border-stone-200 bg-stone-50 opacity-70'
+    }`;
     cpBtn.setAttribute('data-checkpoint-num', String(cpNumber));
-    cpBtn.setAttribute('aria-label', `Checkpoint ${cpNumber}: Reto de ${cpSigns.length} señas. Dificultad Nivel ${cpNumber}`);
+    cpBtn.setAttribute('data-locked', isUnlocked ? 'false' : 'true');
+    if (!isUnlocked) cpBtn.setAttribute('aria-disabled', 'true');
+    cpBtn.setAttribute('aria-label', `Checkpoint ${cpNumber}: Reto de ${cpSigns.length} señas. Dificultad Nivel ${cpNumber}${isUnlocked ? '' : ' (Bloqueado)'}`);
 
     // Dificultad escalada: nivel 1 = 25s, nivel 2 = 20s, nivel 3+ = 15s
     const secondsPerQuestion = cpNumber === 1 ? 25 : (cpNumber === 2 ? 20 : 15);
 
     cpBtn.innerHTML = `
-      <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center shadow-md shadow-amber-500/20 group-hover:scale-105 transition">
-        <svg class="w-5 h-5 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          <polyline points="9 12 11 14 15 10"></polyline>
+      <div class="w-11 h-11 rounded-xl ${isUnlocked ? 'bg-gradient-to-tr from-amber-500 to-amber-400 shadow-md shadow-amber-500/20 group-hover:scale-105' : 'bg-stone-200'} flex items-center justify-center transition">
+        <svg class="w-5 h-5 ${isUnlocked ? 'text-slate-900' : 'text-slate-500'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          ${isUnlocked
+            ? '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline>'
+            : '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>'
+          }
         </svg>
       </div>
       <div class="flex items-center gap-1.5 mt-1.5">
-        <span class="text-[11px] font-bold uppercase tracking-wider text-amber-300">Checkpoint ${cpNumber}</span>
-        <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30">Nvl ${cpNumber}</span>
+        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-900">Checkpoint ${cpNumber}</span>
+        <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-amber-50 text-amber-800 font-semibold border border-amber-200">Nvl ${cpNumber}</span>
       </div>
-      <span class="text-[10px] text-slate-400 font-medium">${cpSigns.length} señas · ${secondsPerQuestion}s/seña</span>
+      <span class="text-[10px] text-slate-600 font-medium">${isUnlocked ? `${cpSigns.length} señas · ${secondsPerQuestion}s/seña` : `Completa las ${cpSigns.length} señas previas`}</span>
     `;
 
     cpBtn.addEventListener('click', () => {
+      if (!isUnlocked) {
+        const container = document.getElementById('hexSkillTreeContainer');
+        if (container) {
+          this.#showLockedFeedback(container, `Completa las ${cpSigns.length} señas anteriores para desbloquear el Checkpoint ${cpNumber}.`);
+        }
+        return;
+      }
       const examConfig = {
         title: `Checkpoint ${cpNumber}: Reto de ${cpSigns.length} Señas`,
         signs: cpSigns,
@@ -581,13 +624,13 @@ class LearningPlanManager {
       chip.setAttribute('data-custom-sign', sign.id);
       chip.className = `btn-spring px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center justify-between gap-2 border transition ${
         isSelected
-          ? 'bg-amber-500/20 border-amber-500 text-amber-300'
-          : 'bg-slate-900 border-slate-700/80 text-slate-400 hover:text-slate-200'
+          ? 'bg-amber-50 border-amber-500 text-slate-900'
+          : 'bg-white border-slate-200 text-slate-700 hover:border-amber-400 hover:text-slate-900'
       }`;
       chip.innerHTML = `
         <span>${sign.name}</span>
         <span class="w-4 h-4 rounded flex items-center justify-center text-[10px] font-bold ${
-          isSelected ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-500'
+          isSelected ? 'bg-amber-500 text-slate-900' : 'bg-slate-100 text-slate-600'
         }">${isSelected ? '✓' : '+'}</span>
       `;
 
@@ -645,9 +688,9 @@ class LearningPlanManager {
       const btn = chips[k];
       if (!btn) return;
       if (k === activePlanId) {
-        btn.className = 'btn-spring px-3 py-1 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 shadow-sm transition';
+        btn.className = 'btn-spring px-3 py-1 rounded-lg text-xs font-bold bg-amber-500 text-slate-900 shadow-sm transition';
       } else {
-        btn.className = 'btn-spring px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700/80 transition';
+        btn.className = 'btn-spring px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 transition';
       }
     });
   }

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Perfil · Manitas LSC</title>
+
+  <meta name="theme-color" content="#FAF8F5" />
+  <link rel="icon" type="image/svg+xml" href="img/manitas-simbolo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind-config.js?v=20261116_v14"></script>
+  <link rel="stylesheet" href="css/styles.css?v=20261116_v14" />
+
+  <script src="js/auth-profile-manager.js?v=20261116_v14" defer></script>
+  <script src="js/perfil-page.js?v=20261116_v14" defer></script>
+</head>
+
+<body class="app-shell text-slate-900 antialiased selection:bg-amber-500 selection:text-slate-900">
+
+  <div id="sidebarBackdrop" class="sidebar-backdrop hidden lg:hidden" aria-hidden="true"></div>
+
+  <!-- BARRA LATERAL FIJA DE NAVEGACIÓN -->
+  <aside id="appSidebar" class="app-sidebar" aria-label="Menú principal de Manitas">
+    <div class="flex flex-col gap-5">
+      <a id="btnGoToLanding" href="landing.html" class="flex items-center gap-2.5 px-2 py-1 group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-xl transition" aria-label="Ir al Portal de Bienvenida">
+        <img src="img/manitas-simbolo.svg" alt="Manitas Logo" class="w-9 h-9 object-contain shrink-0 group-hover:scale-105 transition-transform">
+        <div class="min-w-0">
+          <span class="block text-base font-extrabold tracking-tight text-slate-900 leading-none">Manitas</span>
+          <span class="block text-[11px] font-semibold text-amber-700 mt-0.5">Lengua de Señas LSC</span>
+        </div>
+      </a>
+
+      <nav class="flex flex-col gap-1.5" aria-label="Apartados de la aplicación">
+        <span class="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-0.5">Aprendizaje</span>
+
+        <a href="index.html?screen=path" class="sidebar-nav-btn btn-spring" aria-label="Ver Mapa de Ruta">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path><circle cx="18" cy="5" r="3"></circle></svg>
+          <span>Mi Ruta</span>
+        </a>
+
+        <a href="index.html?screen=studio" class="sidebar-nav-btn btn-spring" aria-label="Ver Estudio de Práctica">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+          <span>Estudio</span>
+        </a>
+
+        <a href="index.html?screen=path" class="sidebar-nav-btn sidebar-nav-exam btn-spring" aria-label="Ir al Modo Examen">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>Modo Examen</span>
+        </a>
+
+        <a href="index.html?screen=studio&chat=open" class="sidebar-nav-btn btn-spring" aria-label="Abrir Tutor Virtual Sol IA">
+          <img src="img/zorrito/svg/zorrito_saludo.svg" alt="" class="w-4 h-4 shrink-0 object-contain">
+          <span class="flex-1 text-left">Tutor Sol IA</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" aria-hidden="true"></span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="mt-auto pt-4 border-t border-stone-200 flex flex-col gap-1">
+      <a id="btnNavViewProfile" href="perfil.html" aria-current="page" class="sidebar-nav-btn btn-spring bg-coral-500 text-slate-900 font-bold shadow-sm" aria-label="Mi Perfil y Progreso">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Mi Perfil</span>
+      </a>
+
+      <button id="btnSidebarLogout" class="sidebar-nav-btn sidebar-nav-logout btn-spring" aria-label="Cerrar Sesión">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        <span>Cerrar Sesión</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- COLUMNA DERECHA CON SCROLL INDEPENDIENTE -->
+  <div class="app-content-col">
+    <header class="app-topbar border-b border-slate-200 bg-white/95 backdrop-blur-md sticky top-0 z-40 px-3 sm:px-6 py-3 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button id="btnMobileMenuToggle" class="lg:hidden btn-spring p-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-slate-900 border border-stone-200 shrink-0" aria-label="Abrir menú lateral" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <div class="min-w-0">
+          <h1 class="text-sm sm:text-base font-extrabold text-slate-900 truncate">Mi Perfil y Progreso</h1>
+          <p class="hidden sm:block text-xs text-slate-500 truncate">Información personal, maestría LSC70 y configuración de cuenta</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-5xl w-full mx-auto px-3 sm:px-6 py-6 flex flex-col gap-6">
+
+      <!-- TARJETA 1: RESUMEN DE LA PERSONA Y PROGRESO -->
+      <section class="surface-card p-6 sm:p-8 flex flex-col gap-6 border border-slate-200">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-stone-200">
+          <div class="flex items-center gap-4 min-w-0">
+            <img src="img/zorrito/svg/zorrito_celebracion.svg" alt="Avatar de Tito" class="w-16 h-16 rounded-2xl bg-amber-50 border border-amber-200 p-1.5 object-contain shrink-0">
+            <div class="min-w-0">
+              <div class="flex flex-wrap items-center gap-2">
+                <span id="userLevelBadge" class="text-[11px] font-mono uppercase bg-amber-50 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-200 font-bold">Principiante</span>
+                <span id="userStreakCount" class="font-mono text-[11px] bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-300 font-bold tabular-nums">1 d</span>
+                <span id="profileAccountType" class="text-[11px] text-slate-500 font-medium">Sesión local</span>
+              </div>
+              <h2 id="userDisplayName" class="text-xl font-extrabold text-slate-900 mt-1.5 truncate">Estudiante LSC</h2>
+              <p id="userHandleBadge" class="text-xs font-mono text-slate-500 mt-0.5">Cuenta privada · Progreso guardado localmente</p>
+            </div>
+          </div>
+
+          <button id="btnProfileLogout" class="btn-spring px-4 py-2 rounded-xl text-xs font-bold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 shrink-0 self-start sm:self-center">
+            Cerrar Sesión
+          </button>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-700 font-semibold">Experiencia Total (XP)</span>
+            <span class="font-mono font-extrabold text-amber-700 tabular-nums"><span id="userXpValue">0</span> XP</span>
+          </div>
+          <div class="w-full h-3 rounded-full bg-stone-100 border border-stone-200 overflow-hidden">
+            <div id="userXpBar" class="w-0 h-full bg-amber-500 rounded-full transition-all duration-300"></div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+          <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200">
+            <span class="text-xs text-slate-600 block font-sans font-semibold">Abecedario LSC70</span>
+            <span id="masteryLettersPct" class="text-2xl font-extrabold text-amber-700 tabular-nums mt-1 block">0%</span>
+          </div>
+          <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200">
+            <span class="text-xs text-slate-600 block font-sans font-semibold">Palabras y Frases</span>
+            <span id="masteryWordsPct" class="text-2xl font-extrabold text-emerald-700 tabular-nums mt-1 block">0%</span>
+          </div>
+          <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200">
+            <span class="text-xs text-slate-600 block font-sans font-semibold">Señas Dominadas</span>
+            <span id="masteryTotalCount" class="text-2xl font-extrabold text-slate-900 tabular-nums mt-1 block">0 / 20</span>
+          </div>
+          <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200">
+            <span class="text-xs text-slate-600 block font-sans font-semibold">Racha Diaria</span>
+            <span id="profileStreakDetail" class="text-2xl font-extrabold text-amber-800 tabular-nums mt-1 block">1 día</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- TARJETA 2: CONFIGURACIÓN DE DATOS DEL ESTUDIANTE (DEBAJO DE LA INFO) -->
+      <section class="surface-card p-6 sm:p-8 flex flex-col gap-5 border border-slate-200">
+        <div class="flex items-center gap-3 border-b border-stone-200 pb-4">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900">Datos de Perfil de Estudiante LSC</h3>
+            <p class="text-xs text-slate-600">Actualiza tu nombre visible y nivel. Tu usuario/correo es privado y no es editable.</p>
+          </div>
+        </div>
+
+        <div id="profileSaveStatus" class="hidden text-xs p-3 rounded-xl border leading-snug"></div>
+
+        <form id="profileEditForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="md:col-span-2">
+            <label for="profileUsernameInput" class="flex items-center gap-1.5 text-xs font-semibold text-slate-700 mb-1.5">
+              <span>Usuario / Correo (Privado)</span>
+              <span class="text-[10px] font-mono bg-stone-100 text-slate-600 px-2 py-0.5 rounded border border-stone-200">Solo lectura</span>
+            </label>
+            <input
+              id="profileUsernameInput"
+              type="text"
+              readonly
+              disabled
+              aria-readonly="true"
+              value="Privado"
+              class="w-full bg-stone-100 border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs font-mono text-slate-500 cursor-not-allowed select-none"
+            />
+            <p class="text-[11px] text-slate-500 mt-1">Por seguridad y privacidad, el identificador de cuenta no se puede modificar.</p>
+          </div>
+
+          <div>
+            <label for="profileDisplayNameInput" class="block text-xs font-semibold text-slate-700 mb-1.5">Nombre para mostrar</label>
+            <input
+              id="profileDisplayNameInput"
+              type="text"
+              required
+              placeholder="Ej: María Gómez"
+              class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition"
+            />
+          </div>
+
+          <div>
+            <label for="profileLevelSelect" class="block text-xs font-semibold text-slate-700 mb-1.5">Nivel inicial</label>
+            <select
+              id="profileLevelSelect"
+              class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-amber-500 transition"
+            >
+              <option value="Principiante">Desde Cero (Principiante)</option>
+              <option value="Intermedio">Básico - Abecedario</option>
+              <option value="Avanzado LSC">Conversación LSC</option>
+            </select>
+          </div>
+
+          <div class="md:col-span-2 flex justify-end pt-2">
+            <button id="btnSaveProfileChanges" type="submit" class="btn-spring px-6 py-2.5 rounded-xl text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-900 shadow-sm">
+              Guardar Cambios
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- TARJETA 3: ZONA DE PRUEBAS Y REINICIO DE CAMINO -->
+      <section class="surface-card p-6 sm:p-8 flex flex-col gap-4 border border-rose-200 bg-rose-50/30">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900">Reiniciar Progreso y Camino</h3>
+            <p class="text-xs text-slate-600 mt-0.5">
+              Vuelve a 0 XP, limpia tus señas dominadas y bloquea nuevamente el camino desde el Paso 1. Útil para pruebas o empezar desde cero.
+            </p>
+          </div>
+          <button id="btnRequestResetProgress" type="button" class="btn-spring px-4 py-2.5 rounded-xl text-xs font-bold bg-white hover:bg-rose-50 text-rose-700 border border-rose-300 shrink-0 self-start sm:self-center">
+            Reiniciar Progreso
+          </button>
+        </div>
+
+        <div id="resetConfirmBox" class="hidden flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-white border border-rose-300">
+          <span class="text-xs font-semibold text-rose-900">¿Confirmas reiniciar tus XP, racha, señas dominadas y volver al Paso 1?</span>
+          <div class="flex items-center gap-2 shrink-0">
+            <button id="btnCancelResetProgress" type="button" class="btn-spring px-3.5 py-2 rounded-lg text-xs font-semibold bg-stone-100 hover:bg-stone-200 text-slate-800 border border-stone-200">
+              Cancelar
+            </button>
+            <button id="btnConfirmResetProgress" type="button" class="btn-spring px-3.5 py-2 rounded-lg text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-sm">
+              Sí, reiniciar todo
+            </button>
+          </div>
+        </div>
+
+        <div id="resetStatusMsg" class="hidden text-xs p-3 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-800 font-semibold"></div>
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>
