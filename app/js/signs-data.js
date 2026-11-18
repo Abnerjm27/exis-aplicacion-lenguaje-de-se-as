@@ -227,6 +227,7 @@ const SIGNS_DATA = {
       desc: 'Dactilología LSC: Mano arqueada formando el contorno tridimensional de la letra C.',
       tip: 'Arquea los 4 dedos y el pulgar enfrentados formando la curvatura semicircular de la letra C.',
       image: 'dataset_samples/C.jpg',
+      preferStaticImage: true,
       rules: { type: 'c_curve', height: 'any' },
       trajectory: { enabled: false }
     },
@@ -277,6 +278,7 @@ const SIGNS_DATA = {
       desc: 'Dactilología LSC: Dedo índice completamente erguido vertical hacia arriba, mientras las puntas del pulgar y el dedo medio se tocan formando un círculo en la base.',
       tip: 'Apunta tu dedo índice recto hacia arriba y junta la punta de tu pulgar con tu dedo medio formando un aro.',
       image: 'dataset_samples/D.jpg',
+      preferStaticImage: true,
       rules: { type: 'd_shape', height: 'any' },
       trajectory: { enabled: false }
     },
@@ -287,6 +289,7 @@ const SIGNS_DATA = {
       desc: 'Dactilología LSC: Los cuatro dedos curvados juntos hacia abajo con las yemas descansando sobre la punta del pulgar doblado horizontalmente en la base de la palma.',
       tip: 'Curva los cuatro dedos juntos hacia abajo y apoya sus yemas sobre el pulgar doblado en la palma.',
       image: 'dataset_samples/E.jpg',
+      preferStaticImage: true,
       rules: { type: 'e_shape', height: 'any' },
       trajectory: { enabled: false }
     },
@@ -294,8 +297,8 @@ const SIGNS_DATA = {
       id: 'U',
       name: 'Letra U',
       category: 'letters',
-      desc: 'Dactilología LSC: Dedos índice y medio extendidos rectos hacia arriba y unidos firmemente (paralelos sin separación en V), con anular y meñique doblados en el puño.',
-      tip: 'Levanta el dedo índice y el dedo medio juntos y pegados apuntando hacia arriba. Mantén anular y meñique cerrados.',
+      desc: 'Dactilología LSC: Dedos índice y meñique extendidos rectos hacia arriba (forma de cuernos), con los dedos medio y anular doblados sobre la palma y el pulgar sujetándolos.',
+      tip: 'Levanta el dedo índice y el meñique apuntando hacia arriba. Mantén el medio y el anular cerrados en la palma.',
       image: 'dataset_samples/U.jpg',
       rules: { type: 'u_shape', height: 'any' },
       trajectory: { enabled: false }

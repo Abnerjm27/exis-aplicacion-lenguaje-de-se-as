@@ -96,8 +96,35 @@ const VideoPlayer = (() => {
     };
   }
 
+  function getStaticSignImage(signId) {
+    if (typeof SIGNS_DATA === 'undefined') return null;
+    const all = [...(SIGNS_DATA.words || []), ...(SIGNS_DATA.letters || [])];
+    const found = all.find(s => s.id === signId);
+    return (found && found.preferStaticImage && found.image) ? found.image : null;
+  }
+
   async function loadMedia(signId, mode, view) {
     showSpinner(true);
+    const staticImg = getStaticSignImage(signId);
+    if (staticImg) {
+      unfreezeWebp();
+      isUsingWebpFallback = true;
+      stopFallbackTimer();
+      showSpinner(false);
+      if (els.video) {
+        try { els.video.pause(); } catch (e) {}
+        els.video.classList.add('hidden');
+      }
+      if (els.webp) {
+        els.webp.src = `${staticImg}?v=${ASSET_VERSION}`;
+        els.webp.classList.remove('hidden');
+      }
+      if (els.badgeText) {
+        els.badgeText.textContent = `Foto Oficial LSC70 · ${signId}`;
+      }
+      return;
+    }
+
     const paths = getMediaPaths(signId, mode, view);
 
     if (mode === 'anime') {
@@ -366,8 +393,8 @@ const VideoPlayer = (() => {
   }
 
   function updateModeButtons() {
-    const act = "btn-spring px-2.5 sm:px-3 py-1 rounded-md font-semibold bg-amber-500 text-slate-950 flex items-center gap-1.5 transition";
-    const inact = "btn-spring px-2.5 sm:px-3 py-1 rounded-md font-semibold text-slate-400 hover:text-white flex items-center gap-1.5 transition";
+    const act = "btn-spring px-2.5 sm:px-3 py-1 rounded-md font-semibold bg-amber-500 text-slate-900 flex items-center gap-1.5 transition";
+    const inact = "btn-spring px-2.5 sm:px-3 py-1 rounded-md font-semibold text-slate-700 hover:text-slate-900 flex items-center gap-1.5 transition";
 
     if (els.btnModeReal) {
       els.btnModeReal.className = (currentMode === 'real') ? act : inact;
@@ -383,8 +410,8 @@ const VideoPlayer = (() => {
   }
 
   function updateViewButtons() {
-    const act = "btn-spring flex items-center gap-1 px-2.5 py-1 rounded font-bold text-amber-300 bg-slate-800 border border-amber-500/40 shadow-sm transition";
-    const inact = "btn-spring flex items-center gap-1 px-2.5 py-1 rounded font-medium text-slate-400 hover:text-white hover:bg-slate-800/80 transition";
+    const act = "btn-spring flex items-center gap-1 px-2.5 py-1 rounded font-bold text-amber-800 bg-amber-50 border border-amber-400 shadow-sm transition";
+    const inact = "btn-spring flex items-center gap-1 px-2.5 py-1 rounded font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition";
 
     if (els.btnViewBody) {
       els.btnViewBody.className = (currentView === 'body') ? act : inact;
@@ -397,8 +424,8 @@ const VideoPlayer = (() => {
   }
 
   function updateSpeedButtons() {
-    const act = "btn-spring px-2.5 py-1 rounded-md text-xs font-bold text-amber-300 bg-slate-800 border border-amber-500/40 shadow-sm transition";
-    const inact = "btn-spring px-2.5 py-1 rounded-md text-xs font-medium text-slate-400 hover:text-white transition";
+    const act = "btn-spring px-2.5 py-1 rounded-md text-xs font-bold text-amber-800 bg-white border border-amber-400 shadow-sm transition";
+    const inact = "btn-spring px-2.5 py-1 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition";
 
     if (els.btnSpeed05) els.btnSpeed05.className = (currentSpeed === 0.5) ? act : inact;
     if (els.btnSpeed10) els.btnSpeed10.className = (currentSpeed === 1.0) ? act : inact;

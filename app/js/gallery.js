@@ -95,8 +95,12 @@ export class MascotGalleryController {
       btn.addEventListener('click', () => {
         const bg = btn.getAttribute('data-bg-target');
         this.#currentBg = bg;
-        bgButtons.forEach(b => b.classList.remove('bg-turquoise', 'text-navy', 'font-bold'));
-        btn.classList.add('bg-turquoise', 'text-navy', 'font-bold');
+        bgButtons.forEach(b => {
+          b.classList.remove('bg-[#FF7A45]', 'text-[#1C1917]', 'font-bold');
+          b.classList.add('text-[#574F47]');
+        });
+        btn.classList.remove('text-[#574F47]');
+        btn.classList.add('bg-[#FF7A45]', 'text-[#1C1917]', 'font-bold');
         this.#updateBackgrounds();
       });
     });
@@ -111,10 +115,10 @@ export class MascotGalleryController {
   }
 
   #updateFormatButtons(activeBtn, inactiveBtn) {
-    activeBtn.classList.remove('bg-navy-surface', 'text-bone-dim');
-    activeBtn.classList.add('bg-turquoise', 'text-navy', 'font-bold');
-    inactiveBtn.classList.remove('bg-turquoise', 'text-navy', 'font-bold');
-    inactiveBtn.classList.add('bg-navy-surface', 'text-bone-dim');
+    activeBtn.classList.remove('text-[#574F47]', 'hover:text-[#1C1917]');
+    activeBtn.classList.add('bg-[#FF7A45]', 'text-[#1C1917]', 'font-bold');
+    inactiveBtn.classList.remove('bg-[#FF7A45]', 'text-[#1C1917]', 'font-bold');
+    inactiveBtn.classList.add('text-[#574F47]', 'hover:text-[#1C1917]');
 
     const badgeFormat = document.getElementById('currentFormatBadge');
     if (badgeFormat) {

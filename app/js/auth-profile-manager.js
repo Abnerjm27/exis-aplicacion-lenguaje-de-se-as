@@ -224,6 +224,61 @@ class AuthProfileManager {
     window.removeEventListener('keydown', this.#boundHandleKeyDown);
   }
 
+  logout() {
+    try {
+      localStorage.removeItem(AuthProfileManager.STORAGE_ACTIVE_KEY);
+    } catch (e) {}
+    this.#profile = { ...AuthProfileManager.DEFAULT_PROFILE };
+    this.updateUI();
+    window.location.href = 'login.html';
+  }
+
+  updateOwnProfile({ displayName, level }) {
+    const cleanDisplay = String(displayName || '').trim();
+    if (!cleanDisplay || cleanDisplay.length < 2) {
+      return { ok: false, error: 'Ingresa un nombre visible de al menos 2 caracteres.' };
+    }
+    this.#profile = {
+      ...this.#profile,
+      displayName: cleanDisplay,
+      level: level || this.#profile.level || 'Principiante'
+    };
+    this.#saveProfile();
+    this.updateUI();
+    return { ok: true };
+  }
+
+  resetProgress() {
+    this.#profile = {
+      ...this.#profile,
+      xp: 0,
+      streak: 1,
+      masteredSigns: [],
+      examHistory: []
+    };
+    try {
+      sessionStorage.removeItem('exis_pending_ai_goal');
+    } catch (e) {}
+    this.#saveProfile();
+    this.updateUI();
+    if (window.LearningPlanManager && typeof window.LearningPlanManager.reset === 'function') {
+      window.LearningPlanManager.reset();
+    }
+    return { ok: true };
+  }
+
+  #maskPrivateUsername(username) {
+    const raw = String(username || '').trim();
+    if (!raw || raw === 'invitado') return 'Modo invitado (privado)';
+    if (raw.includes('@')) {
+      const [localPart, domainPart] = raw.split('@');
+      const prefix = localPart.slice(0, 2);
+      return `${prefix}***@${domainPart}`;
+    }
+    if (raw.length <= 4) return `${raw.slice(0, 1)}***`;
+    return `${raw.slice(0, 2)}***${raw.slice(-2)}`;
+  }
+
   updateUI() {
     const p = this.#profile;
 
@@ -244,6 +299,28 @@ class AuthProfileManager {
 
     const elStreak = document.getElementById('userStreakCount');
     if (elStreak) elStreak.textContent = `${p.streak || 1} d`;
+
+    const streakNum = p.streak || 1;
+    const elStreakDetail = document.getElementById('profileStreakDetail');
+    if (elStreakDetail) elStreakDetail.textContent = `${streakNum} ${streakNum === 1 ? 'día' : 'días'}`;
+
+    const maskedUser = this.#maskPrivateUsername(p.username);
+    const elHandle = document.getElementById('userHandleBadge');
+    if (elHandle) elHandle.textContent = `${maskedUser} · Progreso guardado automáticamente`;
+
+    const elAccountType = document.getElementById('profileAccountType');
+    if (elAccountType) {
+      elAccountType.textContent = p.username && p.username !== 'invitado' ? 'Cuenta registrada' : 'Sesión local';
+    }
+
+    const inputProfileUser = document.getElementById('profileUsernameInput');
+    if (inputProfileUser) inputProfileUser.value = maskedUser;
+
+    const inputProfileDisplay = document.getElementById('profileDisplayNameInput');
+    if (inputProfileDisplay) inputProfileDisplay.value = p.displayName || '';
+
+    const selectProfileLevel = document.getElementById('profileLevelSelect');
+    if (selectProfileLevel) selectProfileLevel.value = p.level || 'Principiante';
 
     // Maestría de letras y palabras
     const mastered = p.masteredSigns || [];
@@ -317,6 +394,64 @@ class AuthProfileManager {
 
     const btnSwitch = document.getElementById('btnSwitchProfile');
     if (btnSwitch) btnSwitch.addEventListener('click', () => this.openAuthModal());
+
+    const btnSidebarLogout = document.getElementById('btnSidebarLogout');
+    if (btnSidebarLogout) btnSidebarLogout.addEventListener('click', () => this.logout());
+
+    const btnProfileLogout = document.getElementById('btnProfileLogout');
+    if (btnProfileLogout) btnProfileLogout.addEventListener('click', () => this.logout());
+
+    const profileEditForm = document.getElementById('profileEditForm');
+    if (profileEditForm) {
+      profileEditForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const displayEl = document.getElementById('profileDisplayNameInput');
+        const levelEl = document.getElementById('profileLevelSelect');
+        const statusEl = document.getElementById('profileSaveStatus');
+        const res = this.updateOwnProfile({
+          displayName: displayEl ? displayEl.value : '',
+          level: levelEl ? levelEl.value : 'Principiante'
+        });
+        if (statusEl) {
+          statusEl.classList.remove('hidden', 'bg-rose-50', 'border-rose-300', 'text-rose-800', 'bg-emerald-50', 'border-emerald-300', 'text-emerald-800');
+          if (res.ok) {
+            statusEl.classList.add('bg-emerald-50', 'border-emerald-300', 'text-emerald-800');
+            statusEl.textContent = 'Cambios guardados en tu perfil correctamente.';
+          } else {
+            statusEl.classList.add('bg-rose-50', 'border-rose-300', 'text-rose-800');
+            statusEl.textContent = res.error;
+          }
+        }
+      });
+    }
+
+    const btnReqReset = document.getElementById('btnRequestResetProgress');
+    const confirmBox = document.getElementById('resetConfirmBox');
+    const btnCancelReset = document.getElementById('btnCancelResetProgress');
+    const btnConfirmReset = document.getElementById('btnConfirmResetProgress');
+    const resetStatus = document.getElementById('resetStatusMsg');
+
+    if (btnReqReset && confirmBox) {
+      btnReqReset.addEventListener('click', () => {
+        confirmBox.classList.remove('hidden');
+        if (resetStatus) resetStatus.classList.add('hidden');
+      });
+    }
+    if (btnCancelReset && confirmBox) {
+      btnCancelReset.addEventListener('click', () => {
+        confirmBox.classList.add('hidden');
+      });
+    }
+    if (btnConfirmReset) {
+      btnConfirmReset.addEventListener('click', () => {
+        this.resetProgress();
+        if (confirmBox) confirmBox.classList.add('hidden');
+        if (resetStatus) {
+          resetStatus.classList.remove('hidden');
+          resetStatus.textContent = 'Progreso y camino reiniciados. Ya puedes comenzar desde el Paso 1.';
+        }
+      });
+    }
 
     const btnClose = document.getElementById('btnCloseAuthModal');
     if (btnClose) btnClose.addEventListener('click', () => this.closeAuthModal());

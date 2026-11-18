@@ -1,41 +1,68 @@
 /**
- * Manitas · Design Tokens
- * Paleta definida por el equipo: Azul Noche, Turquesa Cámara, Amarillo Sol, Coral Mano, Blanco Hueso.
- * Roles semánticos al estilo radix-ui/colors, primer/primitives y Craft Floor de Impeccable.
+ * Manitas · Design Tokens (Regla 60-30-10 · Paleta Cálida Equilibrio EdTech, Cero Azul)
+ * - 60% Dominante (Lienzo y Atmósfera): Blanco Crema Cálido (#FAF8F5), Superficies (#FFFFFF), Elevado (#F3EFEA)
+ * - 30% Secundario (Estructura y Tipografía): Carbón Espresso Cálido (#1C1917), Marrón Topo (#574F47), Bordes Piedra (#E6DFD5)
+ * - 10% Acento (Interacción y Conversión): Melocotón / Coral Cálido (#FF7A45), Hover (#FF9266), Activo (#E85D2A)
  */
 :root {
-  /* Primitivos de marca */
-  --manitas-navy: #0F1A30;
-  --manitas-navy-raised: #172544;
-  --manitas-navy-line: #2A3A5E;
-  --manitas-turquoise: #1FC8BA;
-  --manitas-turquoise-dark: #0FA89B;
-  --manitas-sun: #FFC857;
-  --manitas-coral: #FF6B5B;
-  --manitas-bone: #F4F6FA;
-  --manitas-success: #3DDC97;
-  --manitas-danger: #E5484D;
+  /* Tokens explícitos Regla 60-30-10 */
+  --palette-60-canvas: #FAF8F5;
+  --palette-60-surface: #FFFFFF;
+  --palette-60-elevated: #F3EFEA;
+  --palette-30-petrol: #1C1917;
+  --palette-30-petrol-mid: #292524;
+  --palette-30-text-secondary: #574F47;
+  --palette-30-text-muted: #786E63;
+  --palette-30-border: #E6DFD5;
+  --palette-30-border-strong: #D4C9BC;
+  --palette-10-accent: #FF7A45;
+  --palette-10-accent-hover: #FF9266;
+  --palette-10-accent-active: #E85D2A;
+  --palette-10-accent-deep: #C84B1C;
+  --palette-10-accent-tint: #FFF2EC;
 
-  /* Semánticos (tema oscuro por defecto) */
-  --color-bg: #0F1A30;
-  --color-surface: #172544;
-  --color-border: #2A3A5E;
-  --color-text: #F4F6FA;
-  --color-text-muted: #B9C4D6;
-  --color-text-dim: #94A3B8;
-  --color-primary: #1FC8BA;
-  --color-on-primary: var(--manitas-navy);
-  --color-accent: #FFC857;
-  --color-action: #FF6B5B;
-  --color-success: var(--manitas-success);
-  --color-danger: var(--manitas-danger);
-  --color-focus-ring: var(--manitas-sun);
+  /* Primitivos de marca sincronizados 60-30-10 (Escala cálida sin azul) */
+  --manitas-navy: #1C1917;
+  --manitas-navy-raised: #FFFFFF;
+  --manitas-navy-elevated: #292524;
+  --manitas-navy-line: #E6DFD5;
+  --manitas-sun: #FF7A45;
+  --manitas-sun-light: #FF9266;
+  --manitas-sun-hover: #E85D2A;
+  --manitas-coral: #FF7A45;
+  --manitas-turquoise: #FF7A45;
+  --manitas-bone: #FAF8F5;
+  --manitas-success: #10B981;
+  --manitas-danger: #EF4444;
+  --manitas-emerald: #10B981;
+  --manitas-emerald-mint: #059669;
 
-  /* Tema claro (tarjetas de login/registro) */
-  --color-light-bg: var(--manitas-bone);
-  --color-light-text: var(--manitas-navy);
-  --color-light-muted: #4a5a7a;
-  --color-light-link: var(--manitas-turquoise-dark);
+  /* Atmósfera Cálida sutil */
+  --aurora-amber: rgba(255, 122, 69, 0.12);
+  --aurora-peach: rgba(255, 146, 102, 0.14);
+  --aurora-mint: rgba(28, 25, 23, 0.04);
+
+  /* Semánticos (Sistema unificado 60-30-10) */
+  --color-bg: #FAF8F5;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #F3EFEA;
+  --color-border: #E6DFD5;
+  --color-text: #1C1917;
+  --color-text-muted: #574F47;
+  --color-text-dim: #786E63;
+  --color-primary: #FF7A45;
+  --color-on-primary: #1C1917;
+  --color-accent: #FF7A45;
+  --color-action: #FF7A45;
+  --color-success: #10B981;
+  --color-danger: #EF4444;
+  --color-focus-ring: #FF7A45;
+
+  /* Tema claro / contraste tipográfico */
+  --color-light-bg: #FFFFFF;
+  --color-light-text: #1C1917;
+  --color-light-muted: #574F47;
+  --color-light-link: #C84B1C;
 
   /* Tipografía Impeccable (Plus Jakarta Sans + Lexend) */
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;

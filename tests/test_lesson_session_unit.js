@@ -20,15 +20,23 @@ const mockElements = new Map();
 function createMockElement(id, tagName = 'div') {
   const classListSet = new Set();
   const listeners = {};
+  const children = [];
+  let innerHtmlValue = '';
   const el = {
     id,
     tagName: tagName.toUpperCase(),
     textContent: '',
-    innerHTML: '',
+    className: '',
+    get innerHTML() { return innerHtmlValue; },
+    set innerHTML(val) {
+      innerHtmlValue = val;
+      if (val === '') children.length = 0;
+    },
     src: '',
     style: {},
     dataset: {},
     disabled: false,
+    children,
     load: () => {},
     play: () => Promise.resolve(),
     pause: () => {},
@@ -58,13 +66,23 @@ function createMockElement(id, tagName = 'div') {
       }
     },
     click: () => {
+      if (el.disabled) return;
       if (listeners['click']) {
         listeners['click'].forEach(fn => fn({ target: el, preventDefault: () => {} }));
       }
     },
-    querySelectorAll: (selector) => [],
+    querySelectorAll: (selector) => {
+      if (selector && selector.startsWith('.')) {
+        const cls = selector.slice(1);
+        return children.filter(c => (c.className && c.className.includes(cls)) || (c.classList && c.classList.contains(cls)));
+      }
+      return [];
+    },
     querySelector: (selector) => null,
-    appendChild: (child) => child
+    appendChild: (child) => {
+      children.push(child);
+      return child;
+    }
   };
   mockElements.set(id, el);
   return el;
@@ -203,25 +221,43 @@ runTest('3. Flujo de fases: demo -> quiz -> practice -> summary', () => {
   assert.deepStrictEqual(phasesEncountered, ['demo', 'quiz', 'practice', 'summary'], 'Historial de fases correcto');
 });
 
-runTest('4. Validación de respuestas en fase Quiz (acierto y error con feedback)', () => {
+runTest('4. Validación de respuestas en fase Quiz (bloqueo tras primer intento y feedback)', () => {
   const controller = new LessonSessionController();
   controller.init();
   controller.startLesson('BUENOS');
   controller.nextPhase(); // pasa a 'quiz'
 
-  // 1. Respuesta incorrecta
+  // 1. Respuesta incorrecta debe bloquear las 4 opciones e impedir segundo intento
   const wrongResult = controller.submitQuizAnswer('NOCHES');
   assert.strictEqual(wrongResult.correct, false, 'Respuesta incorrecta debe evaluarse como false');
   const stateAfterWrong = controller.getState();
   assert.strictEqual(stateAfterWrong.quizPassed, false, 'quizPassed debe ser false tras fallo');
   assert.strictEqual(stateAfterWrong.quizAttempts, 1, 'quizAttempts debe registrar 1 intento');
 
-  // 2. Respuesta correcta
+  const gridEl = documentMock.getElementById('quizOptionsGrid');
+  const quizButtons = gridEl.querySelectorAll('.quiz-choice-btn');
+  assert.strictEqual(quizButtons.length, 4, 'Deben existir 4 botones renderizados en quizOptionsGrid');
+  assert(quizButtons.every(b => b.disabled === true), 'Todos los botones deben quedar deshabilitados tras responder');
+
+  const secondAttempt = controller.submitQuizAnswer('BUENOS');
+  assert.strictEqual(secondAttempt.locked, true, 'Segundo intento en el mismo quiz debe quedar bloqueado');
+  assert.strictEqual(controller.getState().quizAttempts, 1, 'No debe incrementar quizAttempts cuando está bloqueado');
+  assert.strictEqual(controller.getState().quizPassed, false, 'No debe cambiar quizPassed cuando está bloqueado');
+  assert.strictEqual(controller.getState().signId, 'BUENOS', 'Debe conservar signId objetivo');
+
+  // 2. Nueva lección inicia desbloqueada y bloquea al acertar a la primera
+  controller.startLesson('BUENOS');
+  controller.nextPhase();
   const rightResult = controller.submitQuizAnswer('BUENOS');
   assert.strictEqual(rightResult.correct, true, 'Respuesta correcta debe evaluarse como true');
   const stateAfterRight = controller.getState();
   assert.strictEqual(stateAfterRight.quizPassed, true, 'quizPassed debe ser true tras acierto');
-  assert.strictEqual(stateAfterRight.quizAttempts, 2, 'quizAttempts debe registrar 2 intentos');
+  assert.strictEqual(stateAfterRight.quizAttempts, 1, 'quizAttempts debe registrar 1 intento');
+
+  const afterRight = controller.submitQuizAnswer('NOCHES');
+  assert.strictEqual(afterRight.locked, true, 'No debe permitir cambiar respuesta tras haber acertado');
+  assert.strictEqual(controller.getState().quizPassed, true, 'quizPassed debe mantenerse true');
+  assert.strictEqual(controller.getState().quizAttempts, 1, 'quizAttempts debe mantenerse en 1');
 });
 
 runTest('5. Validación de fase Practice con MediaPipe: umbral 85% durante 1.2 segundos', () => {
