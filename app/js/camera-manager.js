@@ -441,6 +441,21 @@ class CameraDeviceManager {
   }
 
   /**
+   * Actualiza la lista de dispositivos de cámara disponibles
+   */
+  async update() {
+    return this.refreshDeviceList();
+  }
+
+  /**
+   * Restablece la selección de cámara y detiene la transmisión activa
+   */
+  reset() {
+    this.stop();
+    this.#selectedDeviceId = null;
+  }
+
+  /**
    * Destruye la instancia y libera listeners
    */
   destroy() {

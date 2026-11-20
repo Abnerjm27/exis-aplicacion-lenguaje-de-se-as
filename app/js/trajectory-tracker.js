@@ -842,12 +842,30 @@ const TrajectoryTracker = (() => {
     bodyDetector.setPoseLandmarks(poseLandmarks);
   }
 
+  function start(signObj = null) {
+    isEnabled = true;
+    if (signObj) {
+      setSign(signObj);
+    } else {
+      resolveDynamicPoints(Date.now());
+    }
+  }
+
+  function destroy() {
+    reset();
+    trajectoryConfig = null;
+    currentSign = null;
+    isEnabled = false;
+  }
+
   return {
     init,
+    start,
     setEnabled,
     getIsEnabled,
     setSign,
     reset,
+    destroy,
     isTrajectoryActive,
     isCompleted,
     getProgress,

@@ -595,13 +595,25 @@ class LessonSessionController {
       return;
     }
 
-    const folder = this.#videoMode === 'anime' ? 'videos/anime' : 'videos/real';
+    const allowAnime = this.#videoMode === 'anime' && (!signObj || signObj.hasAnime !== false);
+    const folder = allowAnime ? 'videos/anime' : 'videos/real';
     const mp4Url = `${folder}/${signId}_body.mp4`;
     const webpUrl = `${folder}/${signId}_body.webp`;
 
     const activateWebp = () => {
       if (videoEl) videoEl.classList.add('hidden');
-      if (webpEl) { webpEl.src = webpUrl; webpEl.classList.remove('hidden'); }
+      if (webpEl) {
+        if (allowAnime) {
+          webpEl.onerror = () => {
+            webpEl.onerror = null;
+            webpEl.src = `videos/real/${signId}_body.webp`;
+          };
+        } else {
+          webpEl.onerror = null;
+        }
+        webpEl.src = webpUrl;
+        webpEl.classList.remove('hidden');
+      }
     };
 
     if (videoEl) {

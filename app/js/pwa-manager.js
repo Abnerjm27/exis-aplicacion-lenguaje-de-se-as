@@ -11,12 +11,53 @@
 class PWAManager {
   static #deferredPrompt = null;
   static #isInstalled = false;
+  static #boundBeforeInstall = null;
+  static #boundAppInstalled = null;
+  static #boundPromptClick = null;
 
   static init() {
+    this.destroy();
     this.#checkStandaloneMode();
     this.#registerServiceWorker();
     this.#setupInstallPromptListener();
     this.#setupUIListeners();
+  }
+
+  static start() {
+    this.#checkStandaloneMode();
+    if (this.#deferredPrompt && !this.#isInstalled) {
+      this.#showInstallButton();
+    }
+  }
+
+  static update() {
+    this.#checkStandaloneMode();
+    if (this.#isInstalled) {
+      this.#hideInstallButton();
+    }
+  }
+
+  static reset() {
+    this.#deferredPrompt = null;
+    this.#hideInstallButton();
+  }
+
+  static destroy() {
+    if (this.#boundBeforeInstall) {
+      window.removeEventListener('beforeinstallprompt', this.#boundBeforeInstall);
+      this.#boundBeforeInstall = null;
+    }
+    if (this.#boundAppInstalled) {
+      window.removeEventListener('appinstalled', this.#boundAppInstalled);
+      this.#boundAppInstalled = null;
+    }
+    if (this.#boundPromptClick) {
+      const btn = document.getElementById('btnInstallPwa');
+      if (btn) btn.removeEventListener('click', this.#boundPromptClick);
+      const btnNav = document.getElementById('btnInstallPwaNav');
+      if (btnNav) btnNav.removeEventListener('click', this.#boundPromptClick);
+      this.#boundPromptClick = null;
+    }
   }
 
   static #checkStandaloneMode() {
@@ -44,7 +85,7 @@ class PWAManager {
   }
 
   static #setupInstallPromptListener() {
-    window.addEventListener('beforeinstallprompt', (e) => {
+    this.#boundBeforeInstall = (e) => {
       // Prevenir el infobar automático del navegador
       e.preventDefault();
       this.#deferredPrompt = e;
@@ -53,24 +94,27 @@ class PWAManager {
       if (!this.#isInstalled) {
         this.#showInstallButton();
       }
-    });
+    };
+    window.addEventListener('beforeinstallprompt', this.#boundBeforeInstall);
 
-    window.addEventListener('appinstalled', () => {
+    this.#boundAppInstalled = () => {
       this.#isInstalled = true;
       this.#deferredPrompt = null;
       this.#hideInstallButton();
       console.log("[PWA] Manitas ha sido instalada exitosamente en el dispositivo.");
-    });
+    };
+    window.addEventListener('appinstalled', this.#boundAppInstalled);
   }
 
   static #setupUIListeners() {
+    this.#boundPromptClick = () => this.promptInstall();
     const btn = document.getElementById('btnInstallPwa');
     if (btn) {
-      btn.addEventListener('click', () => this.promptInstall());
+      btn.addEventListener('click', this.#boundPromptClick);
     }
     const btnNav = document.getElementById('btnInstallPwaNav');
     if (btnNav) {
-      btnNav.addEventListener('click', () => this.promptInstall());
+      btnNav.addEventListener('click', this.#boundPromptClick);
     }
   }
 

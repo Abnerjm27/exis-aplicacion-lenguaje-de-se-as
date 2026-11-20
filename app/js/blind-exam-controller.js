@@ -14,6 +14,9 @@
  * - Resumen y certificado de evaluación con desglose (#examSummaryModal).
  */
 
+const ExamUIHelperClass = (typeof window !== 'undefined' && window.ExamUIHelper) ||
+  (typeof require === 'function' ? require('./exam-ui-helper.js') : null);
+
 class BlindExamController {
   #isActive;
   #currentQuestionIndex;
@@ -32,6 +35,7 @@ class BlindExamController {
   #returnView;
   #previousFocus;
   #boundHandleKeyDown;
+  #uiHelper;
 
   constructor() {
     this.#isActive = false;
@@ -51,12 +55,14 @@ class BlindExamController {
     this.#returnView = 'path';
     this.#previousFocus = null;
     this.#boundHandleKeyDown = this.#handleKeyDown.bind(this);
+    this.#uiHelper = ExamUIHelperClass ? new ExamUIHelperClass() : null;
   }
 
   /**
    * Inicializa los listeners de UI del examen y sincroniza botones de video
    */
   init() {
+    if (this.#uiHelper) this.#uiHelper.init();
     this.#bindUIEvents();
     this.#syncVideoModeButtons();
   }
@@ -614,109 +620,24 @@ class BlindExamController {
   }
 
   #loadQuizMedia(signId) {
-    const quizVideo = document.getElementById('examQuizVideo');
-    const quizWebp = document.getElementById('examQuizWebp');
-    if (!quizVideo && !quizWebp) return;
-
-    const signObj = (typeof SIGNS_DATA !== 'undefined')
-      ? [...(SIGNS_DATA.words || []), ...(SIGNS_DATA.letters || [])].find(s => s.id === signId)
-      : null;
-    if (signObj && signObj.preferStaticImage && signObj.image) {
-      if (quizVideo) {
-        quizVideo.classList.add('hidden');
-        try { quizVideo.pause(); } catch (e) {}
-      }
-      if (quizWebp) {
-        quizWebp.src = signObj.image;
-        quizWebp.classList.remove('hidden');
-      }
-      return;
-    }
-
-    const folder = this.#videoMode === 'anime' ? 'videos/anime' : 'videos/real';
-    const mp4Url = `${folder}/${signId}_body.mp4`;
-    const webpUrl = `${folder}/${signId}_body.webp`;
-
-    const activateWebp = () => {
-      if (quizVideo) {
-        quizVideo.classList.add('hidden');
-        try { quizVideo.pause(); } catch (e) {}
-      }
-      if (quizWebp) {
-        quizWebp.src = webpUrl;
-        quizWebp.classList.remove('hidden');
-      }
-    };
-
-    if (quizVideo) {
-      if (quizWebp) quizWebp.classList.add('hidden');
-      quizVideo.classList.remove('hidden');
-      quizVideo.muted = true;
-      quizVideo.loop = true;
-      quizVideo.setAttribute('playsinline', 'true');
-
-      quizVideo.onerror = () => {
-        console.warn(`[BlindExam] Fallo decodificación MP4 (${mp4Url}), activando fallback WebP (${webpUrl})`);
-        activateWebp();
-      };
-
-      quizVideo.src = mp4Url;
-      if (typeof quizVideo.load === 'function') {
-        try { quizVideo.load(); } catch (e) {}
-      }
-
-      if (typeof quizVideo.play === 'function') {
-        const playPromise = quizVideo.play();
-        if (playPromise !== undefined) {
-          playPromise.catch((err) => {
-            if (err.name === 'AbortError') return;
-            console.warn(`[BlindExam] Autoplay MP4 prevenido (${err.message}), activando WebP (${webpUrl})`);
-            activateWebp();
-          });
-        }
-      }
-    } else if (quizWebp) {
-      activateWebp();
+    if (this.#uiHelper) {
+      this.#uiHelper.loadQuizMedia(
+        document.getElementById('examQuizVideo'),
+        document.getElementById('examQuizWebp'),
+        signId,
+        this.#videoMode
+      );
     }
   }
 
   #renderQuizOptions(currentQuestion) {
-    const grid = document.getElementById('examQuizOptionsGrid');
-    if (!grid) return;
-
-    grid.innerHTML = '';
-    const distractors = this.#generateDistractors(currentQuestion.signId);
-    const options = [
-      { id: currentQuestion.signId, name: currentQuestion.signName, isCorrect: true },
-      ...distractors.map(d => ({ id: d.id, name: d.name, isCorrect: false }))
-    ];
-
-    // Mezclar aleatoriamente las 4 opciones
-    for (let i = options.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [options[i], options[j]] = [options[j], options[i]];
+    if (this.#uiHelper) {
+      this.#uiHelper.renderQuizOptions(
+        document.getElementById('examQuizOptionsGrid'),
+        currentQuestion,
+        (opt, btn) => this.#submitQuizOption(opt, btn)
+      );
     }
-
-    options.forEach((opt, idx) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'exam-quiz-opt-btn btn-spring w-full p-3.5 rounded-2xl text-sm font-bold bg-white hover:bg-amber-50 border-2 border-slate-200 hover:border-amber-500 text-slate-900 transition shadow-sm flex items-center justify-between text-left';
-      btn.setAttribute('data-sign-id', opt.id);
-      btn.setAttribute('data-is-correct', opt.isCorrect ? 'true' : 'false');
-      btn.innerHTML = `
-        <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-200 text-amber-700 font-mono text-xs flex items-center justify-center font-bold">${idx + 1}</span>
-          <span class="tracking-wide">${opt.name}</span>
-        </div>
-        <span class="exam-opt-indicator opacity-0 transition-opacity font-bold"></span>
-      `;
-
-      btn.addEventListener('click', () => {
-        this.#submitQuizOption(opt, btn);
-      });
-
-      grid.appendChild(btn);
-    });
   }
 
   #submitQuizOption(opt, clickedBtn) {
@@ -796,35 +717,11 @@ class BlindExamController {
     }, isCorrect ? 600 : 900);
   }
 
-  #generateDistractors(correctSignId) {
-    if (!window.SIGNS_DATA) {
-      return [
-        { id: 'HOLA', name: 'Hola' },
-        { id: 'GRACIAS', name: 'Gracias' },
-        { id: 'BUENOS', name: 'Buenos' }
-      ].filter(s => s.id !== correctSignId);
-    }
-
-    const all = [...(window.SIGNS_DATA.words || []), ...(window.SIGNS_DATA.letters || [])];
-    const pool = all.filter(s => s.id !== correctSignId);
-
-    const shuffled = [...pool];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-
-    return shuffled.slice(0, 3).map(s => ({ id: s.id, name: s.name }));
-  }
-
   #showExamCameraFallback() {
     this.#clearTimer();
-    const camLoading = document.getElementById('examCameraLoading');
-    const camFallback = document.getElementById('examCameraFallback');
-    const liveBadge = document.getElementById('examLiveBadge');
-    if (camLoading) camLoading.classList.add('hidden');
-    if (camFallback) camFallback.classList.remove('hidden');
-    if (liveBadge) liveBadge.textContent = 'SIN CÁMARA';
+    if (this.#uiHelper) {
+      this.#uiHelper.showCameraFallback();
+    }
   }
 
   #advanceQuestion() {
@@ -855,74 +752,20 @@ class BlindExamController {
   }
 
   #showSummaryModal(scorePct, correct, total) {
-    const modal = document.getElementById('examSummaryModal');
-    if (!modal) return;
-
-    const scoreEl = document.getElementById('examFinalScorePct');
-    if (scoreEl) scoreEl.textContent = `${scorePct}%`;
-
-    const fracEl = document.getElementById('examFinalFraction');
-    if (fracEl) fracEl.textContent = `${correct} / ${total} señas aprobadas`;
-
-    const titleEl = document.getElementById('examSummaryPlanTitle');
-    if (titleEl) titleEl.textContent = this.#planTitle;
-
-    const listEl = document.getElementById('examBreakdownList');
-    if (listEl) {
-      listEl.innerHTML = '';
-      this.#results.forEach(res => {
-        const item = document.createElement('div');
-        item.className = `flex items-center justify-between p-2.5 rounded-xl border text-xs ${
-          res.passed
-            ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
-            : 'bg-amber-50 border-amber-200 text-amber-900'
-        }`;
-        const typeBadge = res.type === 'quiz' ? '📝 Quiz' : '🖐️ Cámara';
-        item.innerHTML = `
-          <div class="flex items-center gap-2">
-            <span class="w-5 h-5 rounded-full flex items-center justify-center font-bold text-xs ${
-              res.passed ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-800'
-            }">${res.passed ? '✓' : '✗'}</span>
-            <span class="font-bold uppercase tracking-wider text-slate-900">${res.signName}</span>
-            <span class="text-[10px] text-slate-600 font-mono">(${typeBadge})</span>
-          </div>
-          <span class="font-mono tabular-nums text-[11px] font-semibold ${res.passed ? 'text-emerald-700' : 'text-amber-800'}">
-            ${res.passed ? `${res.score}% precisión` : 'Por repasar'}
-          </span>
-        `;
-        listEl.appendChild(item);
-      });
-    }
-
-    modal.classList.remove('hidden');
-    modal.setAttribute('aria-hidden', 'false');
-
-    if (typeof window.addEventListener === 'function') {
-      window.addEventListener('keydown', this.#boundHandleKeyDown);
-    }
+    if (!this.#uiHelper) return;
+    this.#uiHelper.showSummaryModal(
+      { scorePct, correct, total, planTitle: this.#planTitle, results: this.#results },
+      () => {
+        if (typeof window.addEventListener === 'function') {
+          window.addEventListener('keydown', this.#boundHandleKeyDown);
+        }
+      }
+    );
   }
 
   #updateTimerDisplay() {
-    const timerText = `${this.#remainingSeconds}s`;
-
-    const timerEl = document.getElementById('examTimerText');
-    if (timerEl) {
-      timerEl.textContent = timerText;
-      if (this.#remainingSeconds <= 5) {
-        timerEl.classList.add('text-red-400');
-      } else {
-        timerEl.classList.remove('text-red-400');
-      }
-    }
-
-    const overlayTimerEl = document.getElementById('overlayExamTimerText');
-    if (overlayTimerEl) {
-      overlayTimerEl.textContent = timerText;
-      if (this.#remainingSeconds <= 5) {
-        overlayTimerEl.classList.add('text-red-400');
-      } else {
-        overlayTimerEl.classList.remove('text-red-400');
-      }
+    if (this.#uiHelper) {
+      this.#uiHelper.updateTimerDisplay(this.#remainingSeconds);
     }
   }
 
@@ -934,17 +777,11 @@ class BlindExamController {
   }
 
   #lookupSignName(signId) {
-    if (!window.SIGNS_DATA) return signId;
-    const all = [...(window.SIGNS_DATA.words || []), ...(window.SIGNS_DATA.letters || [])];
-    const found = all.find(s => s.id === signId);
-    return found ? found.name : signId;
+    return this.#lookupSignObject(signId).name || signId;
   }
 
   #lookupSignObject(signId) {
-    if (!window.SIGNS_DATA) return { id: signId, name: signId };
-    const all = [...(window.SIGNS_DATA.words || []), ...(window.SIGNS_DATA.letters || [])];
-    const found = all.find(s => s.id === signId);
-    return found || { id: signId, name: signId };
+    return this.#uiHelper ? this.#uiHelper.lookupSignObject(signId) : { id: signId, name: signId };
   }
 
   #syncVideoModeButtons() {

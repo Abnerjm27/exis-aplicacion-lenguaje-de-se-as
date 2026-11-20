@@ -303,7 +303,18 @@ setTimeout(() => {
       exam.stopExam();
       global.window.VisionEvaluator.start = origStart;
       console.log('  ✅ [PASS] Fallback sin cámara verificado.');
-      console.log('\n🎉 ¡TODAS LAS PRUEBAS UNITARIAS DE LA ARENA (RETOS + PREGUNTAS QUIZ) PASARON AL 100%! (8/8)\n');
+
+      console.log('▶ Test 9: Seña LICOR en Quiz modo Anime cae a videos/real...');
+      exam.setVideoMode('anime');
+      exam.start({ title: 'Test Anime Fallback', signs: ['HOLA', 'LICOR'], secondsPerQuestion: 20 });
+      exam.skipCurrentQuestion();
+      const loadedSrc = getMock('examQuizVideo').src;
+      assert.strictEqual(loadedSrc, 'videos/real/LICOR_body.mp4', `Esperado videos/real/LICOR_body.mp4, obtenido ${loadedSrc}`);
+      exam.stopExam();
+      exam.setVideoMode('real');
+      console.log('  ✅ [PASS] Quiz modo Anime con hasAnime=false cae a videos/real.');
+
+      console.log('\n🎉 ¡TODAS LAS PRUEBAS UNITARIAS DE LA ARENA (RETOS + PREGUNTAS QUIZ) PASARON AL 100%! (9/9)\n');
       process.exit(0);
     }, 30);
   }, 700);
