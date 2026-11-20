@@ -14,9 +14,12 @@ const VideoPlayer = (() => {
   let fallbackTimer = null;
   let fallbackProgress = 0;
   let toastTimeout = null;
+  let eventAbortController = null;
   let els = {};
 
   function init() {
+    destroy();
+    eventAbortController = (typeof AbortController !== 'undefined') ? new AbortController() : null;
     cacheElements();
     bindEvents();
     updateModeButtons();
@@ -57,32 +60,33 @@ const VideoPlayer = (() => {
   }
 
   function bindEvents() {
+    const sig = eventAbortController ? { signal: eventAbortController.signal } : undefined;
     if (els.video) {
-      els.video.addEventListener('timeupdate', onVideoTimeUpdate);
-      els.video.addEventListener('loadedmetadata', onVideoLoadedMetadata);
-      els.video.addEventListener('playing', onVideoPlaying);
-      els.video.addEventListener('pause', onVideoPause);
-      els.video.addEventListener('waiting', () => showSpinner(true));
-      els.video.addEventListener('canplay', () => showSpinner(false));
-      els.video.addEventListener('error', onVideoError);
-      els.video.addEventListener('ended', onVideoEnded);
+      els.video.addEventListener('timeupdate', onVideoTimeUpdate, sig);
+      els.video.addEventListener('loadedmetadata', onVideoLoadedMetadata, sig);
+      els.video.addEventListener('playing', onVideoPlaying, sig);
+      els.video.addEventListener('pause', onVideoPause, sig);
+      els.video.addEventListener('waiting', () => showSpinner(true), sig);
+      els.video.addEventListener('canplay', () => showSpinner(false), sig);
+      els.video.addEventListener('error', onVideoError, sig);
+      els.video.addEventListener('ended', onVideoEnded, sig);
     }
 
-    if (els.btnModeReal) els.btnModeReal.addEventListener('click', () => setMode('real'));
-    if (els.btnModeAnime) els.btnModeAnime.addEventListener('click', () => setMode('anime'));
-    if (els.btnViewBody) els.btnViewBody.addEventListener('click', () => setView('body'));
-    if (els.btnViewHand) els.btnViewHand.addEventListener('click', () => setView('hand'));
-    if (els.btnSpeed05) els.btnSpeed05.addEventListener('click', () => setSpeed(0.5));
-    if (els.btnSpeed10) els.btnSpeed10.addEventListener('click', () => setSpeed(1.0));
-    if (els.btnPlayPause) els.btnPlayPause.addEventListener('click', togglePlayPause);
+    if (els.btnModeReal) els.btnModeReal.addEventListener('click', () => setMode('real'), sig);
+    if (els.btnModeAnime) els.btnModeAnime.addEventListener('click', () => setMode('anime'), sig);
+    if (els.btnViewBody) els.btnViewBody.addEventListener('click', () => setView('body'), sig);
+    if (els.btnViewHand) els.btnViewHand.addEventListener('click', () => setView('hand'), sig);
+    if (els.btnSpeed05) els.btnSpeed05.addEventListener('click', () => setSpeed(0.5), sig);
+    if (els.btnSpeed10) els.btnSpeed10.addEventListener('click', () => setSpeed(1.0), sig);
+    if (els.btnPlayPause) els.btnPlayPause.addEventListener('click', togglePlayPause, sig);
 
     if (els.timeline) {
-      els.timeline.addEventListener('input', onTimelineScrub);
-      els.timeline.addEventListener('change', onTimelineScrub);
+      els.timeline.addEventListener('input', onTimelineScrub, sig);
+      els.timeline.addEventListener('change', onTimelineScrub, sig);
     }
 
     if (els.btnDismissAnimeNotice) {
-      els.btnDismissAnimeNotice.addEventListener('click', hideAnimeNotice);
+      els.btnDismissAnimeNotice.addEventListener('click', hideAnimeNotice, sig);
     }
   }
 
@@ -96,10 +100,14 @@ const VideoPlayer = (() => {
     };
   }
 
-  function getStaticSignImage(signId) {
+  function getSignObject(signId) {
     if (typeof SIGNS_DATA === 'undefined') return null;
     const all = [...(SIGNS_DATA.words || []), ...(SIGNS_DATA.letters || [])];
-    const found = all.find(s => s.id === signId);
+    return all.find(s => s.id === signId) || null;
+  }
+
+  function getStaticSignImage(signId) {
+    const found = getSignObject(signId);
     return (found && found.preferStaticImage && found.image) ? found.image : null;
   }
 
@@ -128,7 +136,10 @@ const VideoPlayer = (() => {
     const paths = getMediaPaths(signId, mode, view);
 
     if (mode === 'anime') {
-      const exists = await checkResourceExists(paths.mp4);
+      const signObj = getSignObject(signId);
+      const exists = (signObj && signObj.hasAnime === false)
+        ? false
+        : await checkResourceExists(paths.mp4);
       if (!exists) {
         showAnimeNotice(signId);
         currentMode = 'real';
@@ -479,8 +490,53 @@ const VideoPlayer = (() => {
     updatePlayPauseUI();
   }
 
+  function start() {
+    play();
+  }
+
+  function update() {
+    updateModeButtons();
+    updateViewButtons();
+    updateSpeedButtons();
+    updatePlayPauseUI();
+    updateBadge();
+  }
+
+  function reset() {
+    pause();
+    unfreezeWebp();
+    currentSignId = 'HOLA';
+    currentMode = 'real';
+    currentView = 'body';
+    currentSpeed = 1.0;
+    fallbackProgress = 0;
+    if (els.timeline) els.timeline.value = 0;
+    if (els.currentTime) els.currentTime.textContent = '0.0s';
+    update();
+  }
+
+  function destroy() {
+    stopFallbackTimer();
+    if (toastTimeout) {
+      clearTimeout(toastTimeout);
+      toastTimeout = null;
+    }
+    if (els.video) {
+      try { els.video.pause(); } catch (e) {}
+    }
+    if (eventAbortController) {
+      eventAbortController.abort();
+      eventAbortController = null;
+    }
+    isPlaying = false;
+  }
+
   return {
     init,
+    start,
+    update,
+    reset,
+    destroy,
     setSign,
     setSpeed,
     setView,

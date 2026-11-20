@@ -416,4 +416,15 @@ runTest('9. Fallback sin cámara en práctica y botón Continuar sin cámara (+2
   global.window.VisionEvaluator = prevVis;
 });
 
+runTest('10. Seña ANNOS sin clip anime (hasAnime=false) cae a videos/real sin 404', () => {
+  const controller = new LessonSessionController();
+  controller.init();
+  controller.setVideoMode('anime');
+  controller.startLesson('ANNOS');
+
+  const demoVideo = documentMock.getElementById('lessonDemoVideo');
+  assert.strictEqual(demoVideo.src, 'videos/real/ANNOS_body.mp4', 'ANNOS debe usar videos/real en modo anime');
+  controller.destroy();
+});
+
 console.log(`\n🎉 Todas las pruebas pasaron exitosamente (${testsPassed}/${totalTests}).`);

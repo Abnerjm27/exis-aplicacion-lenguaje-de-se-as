@@ -36,7 +36,8 @@ class AuthService {
 
   normalizeIdentifier(raw) {
     const id = String(raw || '').trim().toLowerCase();
-    return { id, username: id.includes('@') ? id.split('@')[0] : id, isEmail: id.includes('@') };
+    const isEmail = id.includes('@');
+    return { id, username: id, legacyKey: isEmail ? id.split('@')[0] : id, isEmail };
   }
 
   validateIdentifier(raw, mode = 'login') {
@@ -58,9 +59,19 @@ class AuthService {
   }
 
   async #hash(text) {
-    if (!(window.crypto && crypto.subtle)) return `plain:${text}`;
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    if (window.crypto && crypto.subtle) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    const input = `manitas-lsc:${String(text || '')}`;
+    let h1 = 0x811c9dc5;
+    let h2 = 0x9e3779b1;
+    for (let i = 0; i < input.length; i++) {
+      const code = input.charCodeAt(i);
+      h1 = Math.imul(h1 ^ code, 0x01000193) >>> 0;
+      h2 = Math.imul(h2 ^ (code + i), 0x85ebca6b) >>> 0;
+    }
+    return `fallback-h2:${h1.toString(16).padStart(8, '0')}${h2.toString(16).padStart(8, '0')}`;
   }
 
   async #syncRemote(profile) {
@@ -73,8 +84,12 @@ class AuthService {
     } catch (e) { /* servidor opcional */ }
   }
 
-  getProfile(username) {
-    return this.#readProfiles()[username] || null;
+  getProfile(identifier) {
+    const profiles = this.#readProfiles();
+    const raw = String(identifier || '').trim().toLowerCase();
+    if (profiles[raw]) return profiles[raw];
+    const { username, legacyKey } = this.normalizeIdentifier(raw);
+    return profiles[username] || profiles[legacyKey] || null;
   }
 
   listProfiles() {
@@ -95,7 +110,8 @@ class AuthService {
     if (profiles[username]) {
       return { ok: false, error: 'Ya existe una cuenta con ese correo o usuario. Inicia sesión.' };
     }
-    const cleanDisplay = (displayName || '').trim() || (username.charAt(0).toUpperCase() + username.slice(1));
+    const labelBase = id.includes('@') ? id.split('@')[0] : username;
+    const cleanDisplay = (displayName || '').trim() || (labelBase.charAt(0).toUpperCase() + labelBase.slice(1));
     const profile = {
       username,
       email: id.includes('@') ? id : `${username}@exis.edu.co`,
@@ -117,8 +133,32 @@ class AuthService {
   }
 
   async login({ identifier, password }) {
-    const { username } = this.normalizeIdentifier(identifier);
-    const profile = this.getProfile(username);
+    const { username, legacyKey } = this.normalizeIdentifier(identifier);
+    let profiles = this.#readProfiles();
+    let storageKey = profiles[username] ? username : (profiles[legacyKey] ? legacyKey : null);
+    let profile = storageKey ? profiles[storageKey] : null;
+
+    if (!profile) {
+      try {
+        const res = await fetch('/api/users');
+        if (res.ok) {
+          const data = await res.json();
+          const list = Array.isArray(data && data.users) ? data.users : [];
+          const remoteMatch = list.find(u => {
+            const uName = String(u && u.username || '').trim().toLowerCase();
+            return uName === username || uName === legacyKey;
+          });
+          if (remoteMatch) {
+            storageKey = remoteMatch.username;
+            profiles = this.#readProfiles();
+            profiles[storageKey] = remoteMatch;
+            this.#writeProfiles(profiles);
+            profile = remoteMatch;
+          }
+        }
+      } catch (e) { /* servidor opcional */ }
+    }
+
     if (!profile) {
       return { ok: false, error: 'No encontramos esa cuenta en este navegador. Crea una cuenta nueva.' };
     }
@@ -128,7 +168,7 @@ class AuthService {
         return { ok: false, error: 'Contraseña incorrecta. Inténtalo de nuevo.' };
       }
     }
-    this.setActive(username);
+    this.setActive(storageKey || profile.username);
     return { ok: true, profile };
   }
 

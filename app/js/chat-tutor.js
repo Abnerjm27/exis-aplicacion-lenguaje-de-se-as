@@ -510,7 +510,37 @@ class LSCClientNLU {
     } catch (e) {}
   }
 
+  function init() {
+    voiceSynthesizer.init();
+  }
+
+  function start() {
+    const drawer = document.getElementById('chatDrawer');
+    if (drawer && drawer.classList.contains('hidden')) {
+      toggleDrawer();
+    }
+  }
+
+  function update() {}
+
+  function reset() {
+    chatHistory.length = 0;
+    isSending = false;
+  }
+
+  function destroy() {
+    reset();
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try { window.speechSynthesis.cancel(); } catch (e) {}
+    }
+  }
+
   return {
+    init,
+    start,
+    update,
+    reset,
+    destroy,
     toggleDrawer,
     sendQuickMessage,
     sendMessage,
