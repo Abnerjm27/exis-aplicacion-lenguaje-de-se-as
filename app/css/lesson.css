@@ -47,7 +47,7 @@
 #lessonProgressBar,
 #examProgressBar {
   background: linear-gradient(90deg, #FF7A45 0%, #FF9266 100%);
-  box-shadow: 0 0 12px rgba(255, 122, 69, 0.5);
+  box-shadow: inset 0 -1px 0 rgba(176, 59, 16, 0.28);
   transition: width 0.35s var(--ease-spring);
 }
 
@@ -55,7 +55,7 @@
   font-family: var(--font-mono);
   background-color: #FFF2EC;
   border: 1px solid rgba(255, 122, 69, 0.45);
-  color: #C84B1C;
+  color: var(--palette-10-accent-deep, #B03B10);
 }
 
 /* ==========================================================================
@@ -114,7 +114,7 @@
 .quiz-choice-btn.is-selected {
   border-color: #FF7A45;
   background-color: #FFF2EC;
-  box-shadow: 0 0 16px -2px rgba(255, 122, 69, 0.28);
+  box-shadow: 0 6px 16px -4px rgba(28, 25, 23, 0.12);
 }
 
 .quiz-choice-btn.is-selected .choice-indicator {
@@ -163,7 +163,7 @@
 
 .lesson-radar-bar {
   background: linear-gradient(90deg, #FF7A45 0%, #FF9266 65%, #10B981 100%);
-  box-shadow: 0 0 10px rgba(255, 122, 69, 0.45);
+  box-shadow: inset 0 -1px 0 rgba(176, 59, 16, 0.24);
   transition: width 0.15s ease-out;
 }
 
@@ -177,7 +177,7 @@
   transition: transform 0.25s var(--ease-spring),
               opacity 0.2s ease,
               background-color 0.2s ease;
-  animation: slideUpSheet 0.25s var(--ease-spring);
+  animation: slideUpSheet 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes slideUpSheet {
@@ -228,7 +228,7 @@
 }
 
 .lesson-feedback-sheet.is-incorrect #lessonFeedbackTitle {
-  color: #C84B1C;
+  color: var(--palette-10-accent-deep, #B03B10);
 }
 
 .lesson-feedback-sheet.is-incorrect #lessonFeedbackText {

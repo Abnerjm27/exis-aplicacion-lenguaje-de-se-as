@@ -6,9 +6,9 @@
     "semantic_hash": "639cbb2ba9ff31dc1d12bec3d6b1a143"
   },
   "app/data/users_db.json": {
-    "mtime": 1795154671.2144663,
-    "seen": 1795155580.4474423,
-    "ast_hash": "192894936af195f2c1dec03a1c77b556",
+    "mtime": 1795157554.3434055,
+    "seen": 1795159034.851677,
+    "ast_hash": "3c4241507ded90edfa8752461b1dc695",
     "semantic_hash": ""
   },
   "app/js/auth-profile-manager.js": {
@@ -594,15 +594,15 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795155128.7181044,
-    "seen": 1795155580.44832,
-    "ast_hash": "7afee071ea0e643f344d8df9d0b27624",
+    "mtime": 1795158530.1875222,
+    "seen": 1795159034.923573,
+    "ast_hash": "ed67e6dec3dda30e54cc889614b78e8e",
     "semantic_hash": ""
   },
   "app/landing.html": {
-    "mtime": 1795154390.2000113,
-    "seen": 1795155580.4483237,
-    "ast_hash": "e9300aaf6c8d93c1fc8a0e41ae4b5788",
+    "mtime": 1795158428.8267171,
+    "seen": 1795159034.9235806,
+    "ast_hash": "f78d3b38f904251d71645acb8030c47b",
     "semantic_hash": ""
   },
   "app/login.html": {
@@ -612,9 +612,9 @@
     "semantic_hash": ""
   },
   "app/mascot_gallery.html": {
-    "mtime": 1795154405.4045153,
-    "seen": 1795155580.4483316,
-    "ast_hash": "e03622da7c66d50020b683685a485dbb",
+    "mtime": 1795158366.1109421,
+    "seen": 1795159034.9240932,
+    "ast_hash": "226b5fe3a9d567cc08e2ce6d3d990d8c",
     "semantic_hash": ""
   },
   "app/onboarding.html": {
@@ -4272,9 +4272,9 @@
     "semantic_hash": ""
   },
   "app/perfil.html": {
-    "mtime": 1795154403.1701474,
-    "seen": 1795155580.4483392,
-    "ast_hash": "d8329995887a5890dc34d6151f8340a0",
+    "mtime": 1795158337.1317654,
+    "seen": 1795159034.924595,
+    "ast_hash": "89f06b2ce04d3e870e09262a24b72024",
     "semantic_hash": ""
   },
   "tests/screenshots/screen4_profile_page.png": {

@@ -68,7 +68,6 @@
   object-fit: contain;
   filter: drop-shadow(0 10px 18px rgba(28, 25, 23, 0.16));
   transform-origin: center bottom;
-  will-change: transform;
 }
 
 /* Animaciones para el zorrito */
@@ -99,32 +98,23 @@
   }
 }
 
-@keyframes zorritoBounce {
+@keyframes zorritoHop {
   0%, 100% {
-    transform: translateY(0) scale(1, 1);
+    transform: translateY(0);
   }
-  30% {
-    transform: translateY(-24px) scale(0.96, 1.05);
-  }
-  50% {
-    transform: translateY(0) scale(1.05, 0.94);
-  }
-  70% {
-    transform: translateY(-8px) scale(0.98, 1.02);
-  }
-  85% {
-    transform: translateY(0) scale(1.02, 0.98);
+  45% {
+    transform: translateY(-14px);
   }
 }
 
 @keyframes zorritoPulse {
   0%, 100% {
     transform: scale(1);
-    filter: drop-shadow(0 10px 18px rgba(0, 184, 169, 0.25));
+    filter: drop-shadow(0 10px 18px rgba(28, 25, 23, 0.16));
   }
   50% {
-    transform: scale(1.05) translateY(-4px);
-    filter: drop-shadow(0 15px 25px rgba(255, 200, 87, 0.45));
+    transform: scale(1.03) translateY(-4px);
+    filter: drop-shadow(0 14px 24px rgba(28, 25, 23, 0.24));
   }
 }
 
@@ -149,7 +139,7 @@
 }
 
 .anim-bounce {
-  animation: zorritoBounce 1.6s ease-in-out infinite;
+  animation: zorritoHop 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 .anim-pulse {
@@ -182,7 +172,7 @@
 
 .badge-tag-sun {
   background: #FFF2EC;
-  color: #C84B1C;
+  color: #B03B10;
   border: 1px solid #FFC9B0;
 }
 

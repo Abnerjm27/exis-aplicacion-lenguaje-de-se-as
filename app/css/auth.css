@@ -95,7 +95,7 @@
 }
 
 .auth-link {
-  color: var(--color-light-link, #C84B1C);
+  color: var(--color-light-link, #B03B10);
   font-weight: 700;
   transition: color 0.15s ease;
 }
@@ -149,8 +149,10 @@
 
 .auth-card-light .auth-field-input:focus,
 .quiz-wizard-card .auth-field-input:focus {
-  border-color: var(--palette-10-accent, #FF7A45);
-  box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.22);
+  border-color: #B03B10;
+  outline: 2px solid #B03B10;
+  outline-offset: 2px;
+  box-shadow: none;
 }
 
 .auth-card-light .auth-fox-small {
