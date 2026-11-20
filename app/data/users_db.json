@@ -35,6 +35,56 @@
       "customPlans": [],
       "examHistory": [],
       "lastUpdated": "2026-11-06T18:32:22Z"
+    },
+    {
+      "username": "abnermunevar.es",
+      "displayName": "Abner Joan Munevar Huertas",
+      "level": "Intermedio LSC",
+      "xp": 820,
+      "streak": 1,
+      "masteredSigns": [
+        "HOLA",
+        "YO",
+        "A",
+        "BUENOS",
+        "DIAS",
+        "NOMBRE",
+        "E",
+        "O",
+        "TARDES"
+      ],
+      "customPlans": [],
+      "examHistory": [
+        {
+          "planTitle": "Checkpoint 1: Reto de 3 Señas",
+          "scorePct": 100,
+          "correct": 3,
+          "total": 3,
+          "dateIso": "2026-11-07T03:18:30.174Z"
+        },
+        {
+          "planTitle": "Checkpoint 1: Reto de 3 Señas",
+          "scorePct": 100,
+          "correct": 3,
+          "total": 3,
+          "dateIso": "2026-11-16T19:07:21.445Z"
+        },
+        {
+          "planTitle": "Examen Final: Desde Cero: Ruta Básica IA",
+          "scorePct": 100,
+          "correct": 8,
+          "total": 8,
+          "dateIso": "2026-11-16T19:10:02.223Z"
+        },
+        {
+          "planTitle": "Examen: Desde Cero: Ruta Básica IA",
+          "scorePct": 75,
+          "correct": 6,
+          "total": 8,
+          "dateIso": "2026-11-16T19:11:00.626Z"
+        }
+      ],
+      "lastUpdated": "2026-11-20T18:18:36Z"
     }
   ]
 }
