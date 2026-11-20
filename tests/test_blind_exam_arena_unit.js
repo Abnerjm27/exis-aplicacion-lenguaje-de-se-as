@@ -164,27 +164,43 @@ assert.strictEqual(exam.isExamActive(), false);
 console.log('  ✅ [PASS] Métodos de ciclo de vida verificados.');
 
 // -----------------------------------------------------------------------------
-// Test 2: Inicio del Examen - Reto Motriz con Cámara en Vivo (Pregunta 1)
+// Test 2: Selector de Modalidad Previo + Inicio en Modo Solo Cámara
 // -----------------------------------------------------------------------------
-console.log('▶ Test 2: Inicio de Examen con Reto Motriz de Cámara...');
+console.log('▶ Test 2: Selector de Modalidad (Solo Cámara vs Adivinar Señas)...');
 const testPlan = {
-  title: 'Evaluación Alternada LSC',
+  title: 'Evaluación LSC',
   signs: ['HOLA', 'BUENOS', 'DIAS', 'GRACIAS'],
   secondsPerQuestion: 20,
   difficultyLevel: 2
 };
 
+cameraStartCalls = 0;
 exam.start(testPlan);
-assert.strictEqual(exam.isExamActive(), true);
+assert.strictEqual(exam.isExamActive(), false, 'No debe iniciar reloj/examen hasta elegir modalidad');
+assert.strictEqual(cameraStartCalls, 0, 'No debe encender cámara en el selector previo');
 
 const modal = getMock('examSessionModal');
-assert.strictEqual(modal.classList.contains('flex'), true, 'El modal de arena dedicada debe abrirse');
-assert.strictEqual(modal.classList.contains('hidden'), false);
-
+const modePane = getMock('examPaneModeSelect');
 const gesturePane = getMock('examPaneGesture');
 const quizPane = getMock('examPaneQuiz');
 const videoToggle = getMock('examVideoModeToggle');
 
+assert.strictEqual(modal.classList.contains('flex'), true, 'El modal de arena dedicada debe abrirse');
+assert.strictEqual(modePane.classList.contains('flex'), true, 'Debe mostrarse el selector de modalidad');
+assert.strictEqual(gesturePane.classList.contains('hidden'), true);
+assert.strictEqual(quizPane.classList.contains('hidden'), true);
+
+// Cancelar desde el selector debe cerrar sin activar cámara
+getMock('btnExamExitModeSelect').click();
+assert.strictEqual(modal.classList.contains('hidden'), true, 'Cancelar desde selector debe ocultar modal');
+assert.strictEqual(cameraStartCalls, 0);
+
+// Abrir de nuevo y elegir Solo Cámara
+exam.start(testPlan);
+getMock('btnChooseCameraExam').click();
+assert.strictEqual(exam.isExamActive(), true);
+assert.strictEqual(exam.getExamMode(), 'camera');
+assert.strictEqual(modePane.classList.contains('hidden'), true, 'Selector debe ocultarse al elegir');
 assert.strictEqual(gesturePane.classList.contains('flex'), true, 'Pregunta 1 debe mostrar panel de Gesto');
 assert.strictEqual(quizPane.classList.contains('hidden'), true, 'Pregunta 1 debe ocultar panel de Quiz');
 assert.strictEqual(videoToggle.classList.contains('hidden'), true, 'En Reto de Gesto el conmutador de video debe estar oculto');
@@ -195,15 +211,15 @@ assert.strictEqual(stepText, 'Reto 1 de 4 · Nivel 2');
 const wordName = getMock('examGestureSignName').textContent;
 assert.strictEqual(wordName, 'HOLA', 'Debe mostrar la palabra a realizar en grande');
 
-assert.strictEqual(cameraStartCalls >= 1, true, 'El examen debe iniciar la cámara de inmediato');
+assert.strictEqual(cameraStartCalls >= 1, true, 'El modo Solo Cámara debe iniciar la cámara');
 assert.strictEqual(targetSignSet.id, 'HOLA', 'La seña objetivo de MediaPipe debe ser HOLA');
 
-console.log(`  ✅ [PASS] Reto 1 inicializado limpiamente: "${stepText}" mostrando "${wordName}".`);
+console.log(`  ✅ [PASS] Selector previo y Modo Solo Cámara inicializados: "${stepText}" mostrando "${wordName}".`);
 
 // -----------------------------------------------------------------------------
-// Test 3: Reto Motriz - Umbral >= 85% durante 1s y Apagado Inmediato de Hardware
+// Test 3: Modo Solo Cámara mantiene 100% retos de cámara tras aprobar Reto 1
 // -----------------------------------------------------------------------------
-console.log('▶ Test 3: Evaluación motriz con radar (>= 85% por 1.0s)...');
+console.log('▶ Test 3: Evaluación motriz con radar (>= 85% por 1.0s) y Reto 2 sigue siendo Cámara...');
 const radarBar = getMock('examGestureRadarBar');
 const radarText = getMock('examGestureRadarText');
 
@@ -228,22 +244,30 @@ assert.strictEqual(recordedXp, 35, 'Debe otorgar +35 XP por seña aprobada a cie
 console.log('  ✅ [PASS] Reto motriz aprobado: +35 XP otorgados y cámara apagada de inmediato.');
 
 // -----------------------------------------------------------------------------
-// Test 4: Pregunta 2: Comprensión Visual (Pregunta Quiz con 4 opciones)
+// Test 4: Reto 2 en Solo Cámara sigue siendo cámara; luego Modo Adivinar Señas (100% Quiz)
 // -----------------------------------------------------------------------------
-console.log('▶ Test 4: Transición a Pregunta 2 (Pregunta tipo Quiz de Comprensión)...');
 setTimeout(() => {
-  const step2Text = getMock('examHeaderStepText').textContent;
-  assert.strictEqual(step2Text, 'Pregunta 2 de 4 · Nivel 2');
+  const step2CameraText = getMock('examHeaderStepText').textContent;
+  assert.strictEqual(step2CameraText, 'Reto 2 de 4 · Nivel 2', 'En modo Solo Cámara todas las preguntas son retos motrices');
+  exam.stopExam();
+
+  console.log('▶ Test 4: Modo Solo Adivinar Señas (100% Quiz, cámara 0% encendida)...');
+  cameraStartCalls = 0;
+  cameraStopCalls = 0;
+  exam.start({ ...testPlan, mode: 'quiz' });
+  assert.strictEqual(exam.isExamActive(), true);
+  assert.strictEqual(exam.getExamMode(), 'quiz');
+  assert.strictEqual(cameraStartCalls, 0, 'En modo Adivinar Señas la cámara NUNCA debe encenderse');
+
+  const step1QuizText = getMock('examHeaderStepText').textContent;
+  assert.strictEqual(step1QuizText, 'Pregunta 1 de 4 · Nivel 2');
 
   assert.strictEqual(gesturePane.classList.contains('hidden'), true, 'Panel de gesto debe ocultarse en Quiz');
   assert.strictEqual(quizPane.classList.contains('flex'), true, 'Panel de Quiz debe mostrarse');
   assert.strictEqual(videoToggle.classList.contains('hidden'), false, 'Conmutador de video visible en Quiz');
 
-  // En preguntas de Quiz, la cámara debe estar COMPLETAMENTE apagada
-  assert.strictEqual(cameraStopCalls >= 2, true, 'En preguntas de quiz la cámara debe estar 100% apagada');
-
   const quizVideo = getMock('examQuizVideo');
-  assert.strictEqual(quizVideo.src, 'videos/real/BUENOS_body.mp4', 'Debe cargar el video de BUENOS');
+  assert.strictEqual(quizVideo.src, 'videos/real/HOLA_body.mp4', 'Debe cargar el video de HOLA');
 
   // Verificar 4 opciones generadas en el grid
   const grid = getMock('examQuizOptionsGrid');
@@ -251,12 +275,12 @@ setTimeout(() => {
 
   const correctBtn = grid.children.find(b => b.getAttribute('data-is-correct') === 'true');
   assert.ok(correctBtn, 'Debe existir la opción correcta');
-  assert.strictEqual(correctBtn.getAttribute('data-sign-id'), 'BUENOS');
+  assert.strictEqual(correctBtn.getAttribute('data-sign-id'), 'HOLA');
 
   const wrongBtns = grid.children.filter(b => b.getAttribute('data-is-correct') === 'false');
   assert.strictEqual(wrongBtns.length, 3, 'Deben existir exactamente 3 distractores');
 
-  console.log('  ✅ [PASS] Pregunta tipo Quiz configurada con video y 4 alternativas con cámara apagada.');
+  console.log('  ✅ [PASS] Modo Solo Adivinar Señas configurado con video y 4 alternativas sin cámara.');
 
   // -----------------------------------------------------------------------------
   // Test 5: Conmutador Real vs Anime IA en Video Quiz
@@ -264,15 +288,15 @@ setTimeout(() => {
   console.log('▶ Test 5: Conmutador Real vs Anime en Pregunta Quiz...');
   exam.setVideoMode('anime');
   assert.strictEqual(exam.getVideoMode(), 'anime');
-  assert.strictEqual(quizVideo.src, 'videos/anime/BUENOS_body.mp4', 'Debe conmutar a la carpeta anime');
+  assert.strictEqual(quizVideo.src, 'videos/anime/HOLA_body.mp4', 'Debe conmutar a la carpeta anime');
 
   exam.setVideoMode('real');
   assert.strictEqual(exam.getVideoMode(), 'real');
-  assert.strictEqual(quizVideo.src, 'videos/real/BUENOS_body.mp4', 'Debe regresar a la carpeta real');
+  assert.strictEqual(quizVideo.src, 'videos/real/HOLA_body.mp4', 'Debe regresar a la carpeta real');
   console.log('  ✅ [PASS] Conmutador Real vs Anime funciona dinámicamente.');
 
   // -----------------------------------------------------------------------------
-  // Test 6: Responder Pregunta Quiz y avanzar
+  // Test 6: Responder Pregunta Quiz y avanzar a Pregunta 2 (también Quiz)
   // -----------------------------------------------------------------------------
   console.log('▶ Test 6: Responder Pregunta Quiz y feedback...');
   recordedXp = 0;
@@ -285,6 +309,7 @@ setTimeout(() => {
   // Test 7: Salto de seña y Salida limpia (stopExam)
   // -----------------------------------------------------------------------------
   setTimeout(() => {
+    assert.strictEqual(getMock('examHeaderStepText').textContent, 'Pregunta 2 de 4 · Nivel 2');
     console.log('▶ Test 7: Salida Limpia (stopExam) y Apagado Hardware...');
     cameraStopCalls = 0;
     exam.stopExam();
@@ -293,10 +318,10 @@ setTimeout(() => {
     assert.strictEqual(cameraStopCalls >= 1, true, 'stopExam debe apagar la cámara');
     console.log('  ✅ [PASS] Salida limpia y hardware de cámara liberado.');
 
-    console.log('▶ Test 8: Fallback sin cámara en Arena de Examen...');
+    console.log('▶ Test 8: Fallback sin cámara en Arena de Examen (modo cámara)...');
     const origStart = global.window.VisionEvaluator.start;
     global.window.VisionEvaluator.start = () => Promise.resolve(false);
-    exam.start({ title: 'Test Sin Cam', signs: ['HOLA', 'YO'], secondsPerQuestion: 20 });
+    exam.start({ title: 'Test Sin Cam', signs: ['HOLA', 'YO'], secondsPerQuestion: 20, mode: 'camera' });
     setTimeout(() => {
       assert.strictEqual(getMock('examCameraFallback').classList.contains('hidden'), false, 'Debe mostrarse #examCameraFallback');
       assert.strictEqual(getMock('examLiveBadge').textContent, 'SIN CÁMARA');
@@ -306,7 +331,7 @@ setTimeout(() => {
 
       console.log('▶ Test 9: Seña LICOR en Quiz modo Anime cae a videos/real...');
       exam.setVideoMode('anime');
-      exam.start({ title: 'Test Anime Fallback', signs: ['HOLA', 'LICOR'], secondsPerQuestion: 20 });
+      exam.start({ title: 'Test Anime Fallback', signs: ['HOLA', 'LICOR'], secondsPerQuestion: 20, mode: 'quiz' });
       exam.skipCurrentQuestion();
       const loadedSrc = getMock('examQuizVideo').src;
       assert.strictEqual(loadedSrc, 'videos/real/LICOR_body.mp4', `Esperado videos/real/LICOR_body.mp4, obtenido ${loadedSrc}`);
@@ -314,7 +339,7 @@ setTimeout(() => {
       exam.setVideoMode('real');
       console.log('  ✅ [PASS] Quiz modo Anime con hasAnime=false cae a videos/real.');
 
-      console.log('\n🎉 ¡TODAS LAS PRUEBAS UNITARIAS DE LA ARENA (RETOS + PREGUNTAS QUIZ) PASARON AL 100%! (9/9)\n');
+      console.log('\n🎉 ¡TODAS LAS PRUEBAS UNITARIAS DE LA ARENA (SOLO CÁMARA + ADIVINAR SEÑAS) PASARON AL 100%! (9/9)\n');
       process.exit(0);
     }, 30);
   }, 700);

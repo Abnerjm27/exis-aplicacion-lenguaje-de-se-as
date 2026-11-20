@@ -153,7 +153,7 @@ class ExamUIHelper {
     });
   }
 
-  showSummaryModal({ scorePct, correct, total, planTitle, results }, onModalOpen) {
+  showSummaryModal({ scorePct, correct, total, planTitle, results, examMode }, onModalOpen) {
     const modal = document.getElementById('examSummaryModal');
     if (!modal) return;
 
@@ -164,7 +164,12 @@ class ExamUIHelper {
     if (fracEl) fracEl.textContent = `${correct} / ${total} señas aprobadas`;
 
     const titleEl = document.getElementById('examSummaryPlanTitle');
-    if (titleEl) titleEl.textContent = planTitle;
+    if (titleEl) {
+      const modeSuffix = examMode === 'camera'
+        ? ' · Solo Cámara'
+        : (examMode === 'quiz' ? ' · Adivinar Señas' : '');
+      titleEl.textContent = `${planTitle}${modeSuffix}`;
+    }
 
     const listEl = document.getElementById('examBreakdownList');
     if (listEl) {

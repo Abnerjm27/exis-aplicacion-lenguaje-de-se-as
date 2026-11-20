@@ -911,7 +911,7 @@
         </div>
         <div class="lesson-header-meta flex items-center gap-2">
           <!-- Cronómetro Tabular por Pregunta -->
-          <div class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-slate-200 text-amber-800 font-mono text-xs font-bold tabular-nums shadow-sm">
+          <div id="examTimerBadge" class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-slate-200 text-amber-800 font-mono text-xs font-bold tabular-nums shadow-sm">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-600" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             <span id="examTimerText">25s</span>
           </div>
@@ -929,7 +929,48 @@
 
       <!-- Contenido de la Arena de Examen -->
       <div class="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col items-center justify-start sm:justify-center">
-        
+
+        <!-- PANEL 0: SELECTOR DE MODALIDAD (SOLO CÁMARA vs. SOLO ADIVINAR SEÑAS) -->
+        <section id="examPaneModeSelect" class="hidden flex flex-col items-center gap-5 w-full max-w-lg text-center py-2">
+          <div>
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-800 font-bold block mb-1">Elige tu modalidad</span>
+            <h2 id="examModeSelectTitle" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Modo Examen LSC</h2>
+            <p id="examModeSelectMeta" class="text-xs sm:text-sm text-slate-700 mt-1 font-medium">Elige si quieres practicar con tu cámara o adivinar señas en video.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full">
+            <button id="btnChooseCameraExam" type="button" class="btn-spring min-h-[124px] p-4 rounded-2xl bg-white hover:bg-amber-50 border-2 border-slate-200 hover:border-amber-500 text-left flex flex-col justify-between gap-3 shadow-sm transition cursor-pointer">
+              <div class="flex items-center justify-between w-full">
+                <span class="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center shrink-0">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                </span>
+                <span class="text-[11px] font-mono font-bold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-900">Webcam</span>
+              </div>
+              <div>
+                <span class="block text-base font-extrabold text-slate-900">Solo Cámara</span>
+                <span class="block text-xs text-slate-700 mt-0.5 leading-snug">Realiza cada seña de memoria frente a la cámara sin pistas de video.</span>
+              </div>
+            </button>
+
+            <button id="btnChooseQuizExam" type="button" class="btn-spring min-h-[124px] p-4 rounded-2xl bg-white hover:bg-emerald-50 border-2 border-slate-200 hover:border-emerald-600 text-left flex flex-col justify-between gap-3 shadow-sm transition cursor-pointer">
+              <div class="flex items-center justify-between w-full">
+                <span class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-900 flex items-center justify-center shrink-0">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </span>
+                <span class="text-[11px] font-mono font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900">Sin cámara</span>
+              </div>
+              <div>
+                <span class="block text-base font-extrabold text-slate-900">Adivinar Señas</span>
+                <span class="block text-xs text-slate-700 mt-0.5 leading-snug">Observa cada video y elige la seña correcta entre 4 opciones.</span>
+              </div>
+            </button>
+          </div>
+
+          <button id="btnExamExitModeSelect" type="button" class="btn-spring px-4 py-2.5 min-h-[44px] rounded-xl text-xs font-semibold bg-white hover:bg-rose-50 text-rose-700 border border-rose-300">
+            Cancelar
+          </button>
+        </section>
+
         <!-- PANEL 1: RETO MOTRIZ CON CÁMARA -->
         <section id="examPaneGesture" class="flex flex-col items-center gap-4 w-full max-w-md text-center">
           <div>

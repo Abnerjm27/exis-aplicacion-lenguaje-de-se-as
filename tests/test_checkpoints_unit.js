@@ -62,7 +62,8 @@ const fullPlanConfig = {
   title: 'Plan Saludos y Cortesía Completo',
   signs: ['HOLA', 'BUENOS', 'DIAS', 'TARDES', 'NOCHES', 'YO', 'NOMBRE', 'GUSTAR'],
   secondsPerQuestion: 15,
-  difficultyLevel: 3
+  difficultyLevel: 3,
+  mode: 'camera'
 };
 
 exam.start(fullPlanConfig);
@@ -74,8 +75,8 @@ assert(counterEl.textContent.includes('Nivel 3'), `Counter debe incluir Nivel 3 
 console.log(`  ✅ Examen iniciado con ${fullPlanConfig.signs.length} preguntas: "${counterEl.textContent}"`);
 exam.stopExam();
 
-// 2. Probar Checkpoint 1 (3 señas, nivel 1, 25s)
-console.log('▶ Test 2: Checkpoint 1 con 3 señas y nivel 1...');
+// 2. Probar Checkpoint 1 (3 señas, nivel 1, 25s) con selector previo -> Adivinar Señas
+console.log('▶ Test 2: Checkpoint 1 con 3 señas y nivel 1 (selector -> quiz)...');
 const cp1Config = {
   title: 'Checkpoint 1: Reto de 3 Señas',
   signs: ['HOLA', 'BUENOS', 'DIAS'],
@@ -83,7 +84,10 @@ const cp1Config = {
   difficultyLevel: 1
 };
 exam.start(cp1Config);
-assert(counterEl.textContent.includes('Reto 1 de 3 · Nivel 1'), `Counter esperado "Reto 1 de 3 · Nivel 1", obtenido: ${counterEl.textContent}`);
+assert.strictEqual(exam.isExamActive(), false, 'Sin mode explícito debe mostrar selector previo');
+exam.startWithMode('quiz');
+assert.strictEqual(exam.isExamActive(), true);
+assert(counterEl.textContent.includes('Pregunta 1 de 3 · Nivel 1'), `Counter esperado "Pregunta 1 de 3 · Nivel 1", obtenido: ${counterEl.textContent}`);
 console.log(`  ✅ Checkpoint 1 iniciado con éxito: "${counterEl.textContent}"`);
 exam.stopExam();
 

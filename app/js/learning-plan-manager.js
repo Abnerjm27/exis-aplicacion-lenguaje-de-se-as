@@ -289,6 +289,8 @@ class LearningPlanManager {
     }
 
     signs.forEach((signId, idx) => {
+      const displayName = this.#getSignDisplayName(signId);
+      const unlockDisplayName = this.#getSignDisplayName(signs[unlockedLimit]);
       const isCompleted = masteredSet.has(signId);
       const isLocked = !isCompleted && idx > unlockedLimit;
       const isCurrent = !isLocked && idx === unlockedLimit;
@@ -308,9 +310,9 @@ class LearningPlanManager {
       nodeBtn.setAttribute('data-locked', isLocked ? 'true' : 'false');
       if (isLocked) {
         nodeBtn.setAttribute('aria-disabled', 'true');
-        nodeBtn.title = `Completa primero "${signs[unlockedLimit]}" para desbloquear ${signId}`;
+        nodeBtn.title = `Completa primero "${unlockDisplayName}" para desbloquear ${displayName}`;
       }
-      nodeBtn.setAttribute('aria-label', `Paso ${idx + 1}: seña ${signId}. Estado: ${isCompleted ? 'Completado' : isCurrent ? 'Actual' : 'Bloqueado'}`);
+      nodeBtn.setAttribute('aria-label', `Paso ${idx + 1}: seña ${displayName}. Estado: ${isCompleted ? 'Completado' : isCurrent ? 'Actual' : 'Bloqueado'}`);
 
       // Badge flotante "¡EMPEZAR!" sobre el nodo actual
       let startPillHtml = '';
@@ -336,7 +338,7 @@ class LearningPlanManager {
           </svg>
           <span class="absolute font-mono text-xs font-bold text-slate-900 tabular-nums">${idx + 1}</span>
         </div>
-        <span class="text-[11px] font-bold tracking-tight text-slate-900 mt-1 uppercase max-w-[70px] truncate text-center">${signId}</span>
+        <span class="text-[11px] font-bold tracking-tight text-slate-900 mt-1 uppercase max-w-[70px] truncate text-center">${displayName}</span>
         <div class="flex items-center gap-1 mt-0.5">
           ${statusSvg}
         </div>
@@ -344,7 +346,7 @@ class LearningPlanManager {
 
       nodeBtn.addEventListener('click', () => {
         if (isLocked) {
-          this.#showLockedFeedback(container, `Completa primero "${signs[unlockedLimit]}" para desbloquear "${signId}".`);
+          this.#showLockedFeedback(container, `Completa primero "${unlockDisplayName}" para desbloquear "${displayName}".`);
           return;
         }
         this.#currentIndex = idx;
@@ -778,6 +780,16 @@ class LearningPlanManager {
         this.createCustomPlan(title, Array.from(this.#selectedCustomSignIds));
       });
     }
+  }
+
+  #getSignDisplayName(signId) {
+    if (!signId) return '';
+    if (typeof window !== 'undefined' && window.SIGNS_DATA) {
+      const all = [...(window.SIGNS_DATA.words || []), ...(window.SIGNS_DATA.letters || [])];
+      const found = all.find(s => s && s.id === signId);
+      if (found && found.name) return found.name;
+    }
+    return signId === 'ANNOS' ? 'AÑOS' : signId;
   }
 
   #handleKeyDown(e) {
