@@ -30,6 +30,7 @@ class BlindExamController {
   #originalTipHtml;
   #originalDescText;
   #returnView;
+  #previousFocus;
   #boundHandleKeyDown;
 
   constructor() {
@@ -48,6 +49,7 @@ class BlindExamController {
     this.#originalTipHtml = '';
     this.#originalDescText = '';
     this.#returnView = 'path';
+    this.#previousFocus = null;
     this.#boundHandleKeyDown = this.#handleKeyDown.bind(this);
   }
 
@@ -158,17 +160,25 @@ class BlindExamController {
     }
 
     // 6. ABRIR LA ARENA DEDICADA DE EXAMEN (#examSessionModal)
+    if (typeof document !== 'undefined' && document.activeElement) {
+      this.#previousFocus = document.activeElement;
+    }
     const examModal = document.getElementById('examSessionModal');
     if (examModal) {
       examModal.classList.remove('hidden');
       examModal.classList.add('flex');
+      const closeBtn = document.getElementById('btnExamClose');
+      if (closeBtn && typeof closeBtn.focus === 'function') closeBtn.focus();
     }
 
-    // Vincular selector de cámara de examen si existe CameraDeviceManager
-    if (window.CameraDeviceManager && typeof window.CameraDeviceManager.attachSelect === 'function') {
+    // Vincular selector de cámara de examen usando CameraManager (con fallback para tests)
+    const camMgr = (window.CameraManager && typeof window.CameraManager.attachSelect === 'function')
+      ? window.CameraManager
+      : ((window.CameraDeviceManager && typeof window.CameraDeviceManager.attachSelect === 'function') ? window.CameraDeviceManager : null);
+    if (camMgr) {
       const examSelect = document.getElementById('examCameraSelect');
       if (examSelect) {
-        window.CameraDeviceManager.attachSelect(examSelect);
+        camMgr.attachSelect(examSelect);
       }
     }
 
@@ -232,11 +242,15 @@ class BlindExamController {
     const currentQ = this.#questions[this.#currentQuestionIndex];
     if (!currentQ || currentQ.type !== 'gesture') return;
 
-    // Ocultar spinner de carga una vez que llegan fotogramas
+    // Ocultar spinner de carga y fallback una vez que llegan fotogramas
     const camLoading = document.getElementById('examCameraLoading');
     if (camLoading && !camLoading.classList.contains('hidden')) {
       camLoading.classList.add('hidden');
     }
+    const camFallback = document.getElementById('examCameraFallback');
+    if (camFallback) camFallback.classList.add('hidden');
+    const liveBadge = document.getElementById('examLiveBadge');
+    if (liveBadge) liveBadge.textContent = 'EN VIVO';
 
     // Actualizar barra y texto del radar
     const radarBar = document.getElementById('examGestureRadarBar');
@@ -410,11 +424,13 @@ class BlindExamController {
     if (triggerReturn && this.#returnView === 'path' && window.ViewRouter && typeof window.ViewRouter.switchToPathView === 'function') {
       window.ViewRouter.switchToPathView();
     }
+    if (triggerReturn && this.#previousFocus && typeof this.#previousFocus.focus === 'function') {
+      try { this.#previousFocus.focus(); } catch (e) {}
+      this.#previousFocus = null;
+    }
   }
 
-  /**
-   * Cierra el modal de resumen/certificado del examen y retorna a la Ruta de Aprendizaje
-   */
+  /** Cierra el modal de resumen/certificado del examen y retorna a la Ruta de Aprendizaje. */
   closeSummaryModal() {
     const modal = document.getElementById('examSummaryModal');
     if (modal) {
@@ -428,6 +444,10 @@ class BlindExamController {
     // Retornar siempre a la Ruta de Aprendizaje (Skill Tree) para ver el progreso gamificado
     if (window.ViewRouter && typeof window.ViewRouter.switchToPathView === 'function') {
       window.ViewRouter.switchToPathView();
+    }
+    if (this.#previousFocus && typeof this.#previousFocus.focus === 'function') {
+      try { this.#previousFocus.focus(); } catch (e) {}
+      this.#previousFocus = null;
     }
   }
 
@@ -505,9 +525,13 @@ class BlindExamController {
       }
       if (radarText) radarText.textContent = '0%';
 
-      // Mostrar spinner mientras enciende la cámara
+      // Mostrar spinner mientras enciende la cámara y limpiar fallback previo
       const camLoading = document.getElementById('examCameraLoading');
+      const camFallback = document.getElementById('examCameraFallback');
+      const liveBadge = document.getElementById('examLiveBadge');
+      if (camFallback) camFallback.classList.add('hidden');
       if (camLoading) camLoading.classList.remove('hidden');
+      if (liveBadge) liveBadge.textContent = 'CONECTANDO';
 
       // Seleccionar seña objetivo y activar cámara
       if (typeof window.selectSignById === 'function') {
@@ -515,12 +539,25 @@ class BlindExamController {
       }
       if (window.VisionEvaluator) {
         window.VisionEvaluator.setPaused(false);
-        if (typeof window.VisionEvaluator.start === 'function') {
-          window.VisionEvaluator.start();
-        }
         const signObj = this.#lookupSignObject(q.signId);
         if (signObj && typeof window.VisionEvaluator.setTargetSign === 'function') {
           window.VisionEvaluator.setTargetSign(signObj);
+        }
+        if (typeof window.VisionEvaluator.start === 'function') {
+          const startRes = window.VisionEvaluator.start();
+          Promise.resolve(startRes).then((ok) => {
+            if (!this.#isActive || this.#isQuestionFinished || this.#questions[this.#currentQuestionIndex] !== q) return;
+            if (ok === false) {
+              this.#showExamCameraFallback();
+            } else if (ok === true) {
+              if (camLoading) camLoading.classList.add('hidden');
+              if (liveBadge) liveBadge.textContent = 'EN VIVO';
+            }
+          }).catch(() => {
+            if (this.#isActive && !this.#isQuestionFinished && this.#questions[this.#currentQuestionIndex] === q) {
+              this.#showExamCameraFallback();
+            }
+          });
         }
       }
 
@@ -780,6 +817,16 @@ class BlindExamController {
     return shuffled.slice(0, 3).map(s => ({ id: s.id, name: s.name }));
   }
 
+  #showExamCameraFallback() {
+    this.#clearTimer();
+    const camLoading = document.getElementById('examCameraLoading');
+    const camFallback = document.getElementById('examCameraFallback');
+    const liveBadge = document.getElementById('examLiveBadge');
+    if (camLoading) camLoading.classList.add('hidden');
+    if (camFallback) camFallback.classList.remove('hidden');
+    if (liveBadge) liveBadge.textContent = 'SIN CÁMARA';
+  }
+
   #advanceQuestion() {
     this.#loadQuestion(this.#currentQuestionIndex + 1);
   }
@@ -906,11 +953,11 @@ class BlindExamController {
     if (!btnReal || !btnAnime) return;
 
     if (this.#videoMode === 'anime') {
-      btnAnime.className = 'btn-spring px-2 py-0.5 rounded-lg transition bg-amber-500 text-slate-900 font-bold shadow-sm';
-      btnReal.className = 'btn-spring px-2 py-0.5 rounded-lg transition text-slate-700 hover:text-slate-900';
+      btnAnime.className = 'btn-spring px-2.5 py-1 rounded-lg transition bg-amber-500 text-slate-900 font-bold shadow-sm';
+      btnReal.className = 'btn-spring px-2.5 py-1 rounded-lg transition text-slate-700 hover:text-slate-900';
     } else {
-      btnReal.className = 'btn-spring px-2 py-0.5 rounded-lg transition bg-amber-500 text-slate-900 font-bold shadow-sm';
-      btnAnime.className = 'btn-spring px-2 py-0.5 rounded-lg transition text-slate-700 hover:text-slate-900';
+      btnReal.className = 'btn-spring px-2.5 py-1 rounded-lg transition bg-amber-500 text-slate-900 font-bold shadow-sm';
+      btnAnime.className = 'btn-spring px-2.5 py-1 rounded-lg transition text-slate-700 hover:text-slate-900';
     }
   }
 
@@ -962,6 +1009,20 @@ class BlindExamController {
     const btnSkip = document.getElementById('btnSkipExamSign');
     if (btnSkip) {
       btnSkip.addEventListener('click', () => this.skipCurrentQuestion());
+    }
+
+    const btnRetryCam = document.getElementById('btnExamRetryCamera');
+    if (btnRetryCam) {
+      btnRetryCam.addEventListener('click', () => {
+        if (this.#isActive && !this.#isQuestionFinished) {
+          this.#loadQuestion(this.#currentQuestionIndex);
+        }
+      });
+    }
+
+    const btnFallbackSkip = document.getElementById('btnExamFallbackSkip');
+    if (btnFallbackSkip) {
+      btnFallbackSkip.addEventListener('click', () => this.skipCurrentQuestion());
     }
 
     // Selector de modo video Real / Anime en header de examen

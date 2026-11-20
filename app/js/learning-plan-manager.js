@@ -32,6 +32,8 @@ class LearningPlanManager {
   #onStartExamRequest;
   #customModalOpen;
   #selectedCustomSignIds;
+  #lockNoticeTimer;
+  #previousCustomFocus;
   #boundHandleKeyDown;
   #boundHandleResize;
 
@@ -42,6 +44,8 @@ class LearningPlanManager {
     this.#onStartExamRequest = null;
     this.#customModalOpen = false;
     this.#selectedCustomSignIds = new Set();
+    this.#lockNoticeTimer = null;
+    this.#previousCustomFocus = null;
     this.#boundHandleKeyDown = this.#handleKeyDown.bind(this);
     this.#boundHandleResize = this.#handleResize.bind(this);
   }
@@ -135,7 +139,7 @@ class LearningPlanManager {
       btn.classList.add('opacity-60', 'cursor-not-allowed');
     }
     if (rationaleEl) {
-      rationaleEl.textContent = 'Sol está analizando tu objetivo para estructurar tu ruta pedagógica...';
+      rationaleEl.textContent = 'Tito IA está analizando tu objetivo para estructurar tu ruta pedagógica...';
       rationaleEl.classList.remove('hidden');
     }
 
@@ -163,7 +167,7 @@ class LearningPlanManager {
       planData = {
         id: `plan_ai_${Date.now()}`,
         title: 'Ruta IA: Fundamentos LSC',
-        rationale: 'Sol adaptó la ruta básica con saludos, presentación y dactilología esencial.',
+        rationale: 'Tito adaptó la ruta básica con saludos, presentación y dactilología esencial.',
         signs: ['HOLA', 'YO', 'A', 'E', 'O', 'BUENOS', 'DIAS', 'NOMBRE']
       };
     }
@@ -171,7 +175,7 @@ class LearningPlanManager {
     this.#activePlan = {
       id: planData.id || `plan_ai_${Date.now()}`,
       title: planData.title || 'Ruta Personalizada IA',
-      rationale: planData.rationale || 'Ruta pedagógica estructurada por Sol.',
+      rationale: planData.rationale || 'Ruta pedagógica estructurada por Tito IA.',
       signs: planData.signs
     };
     this.#currentIndex = 0;
@@ -372,12 +376,16 @@ class LearningPlanManager {
       }
     });
 
-    // Nodo Trofeo Final de Unidad: Examen Sin Video de todas las palabras del plan
+    // Nodo Trofeo Final de Unidad: Examen Sin Video de todas las palabras del plan (siempre disponible como reto libre)
+    const allMastered = signs.length > 0 && signs.every(s => masteredSet.has(s));
     const trophyBtn = document.createElement('button');
     trophyBtn.id = 'btnPathFinalExamNode';
     trophyBtn.className = 'duolingo-trophy-node duolingo-pos-center flex flex-col items-center justify-center p-4 rounded-2xl transition cursor-pointer relative mt-3 group border-2 border-[#FF7A45] bg-[#FFF2EC] hover:bg-[#FFE4D6] shadow-xl';
-    trophyBtn.setAttribute('aria-label', `Examen de Unidad: Evaluación a Ciegas de todas las ${signs.length} señas`);
+    trophyBtn.setAttribute('aria-label', `${allMastered ? 'Examen Final de Unidad' : 'Reto Libre de Unidad'}: Evaluación de todas las ${signs.length} señas`);
     trophyBtn.innerHTML = `
+      <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mb-1.5 ${allMastered ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-white text-amber-800 border border-amber-300'}">
+        ${allMastered ? '🏆 ¡Listo para certificarte!' : 'Reto Libre · Siempre disponible'}
+      </span>
       <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
         <svg class="w-7 h-7 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
@@ -389,7 +397,7 @@ class LearningPlanManager {
         </svg>
       </div>
       <span class="text-xs font-extrabold uppercase tracking-wider text-slate-900 mt-2">Examen de Unidad Final</span>
-      <span class="text-[10px] text-slate-600 font-semibold">Todas las ${signs.length} señas · Nivel Maestro (15s)</span>
+      <span class="text-[10px] text-slate-600 font-semibold">${allMastered ? `Certifica las ${signs.length} señas` : `Pruébate cuando quieras · ${signs.length} señas`} · 15s</span>
     `;
     trophyBtn.addEventListener('click', () => {
       const allSigns = [...this.#activePlan.signs];
@@ -511,10 +519,29 @@ class LearningPlanManager {
     if (!notice) {
       notice = document.createElement('div');
       notice.id = 'pathLockNotice';
-      notice.className = 'w-full max-w-md mx-auto text-center text-xs font-semibold text-amber-900 bg-amber-50 border border-amber-300 px-3.5 py-2 rounded-xl shadow-sm';
-      container.prepend(notice);
+      notice.setAttribute('role', 'status');
+      notice.setAttribute('aria-live', 'polite');
+      const host = document.body || container;
+      if (host) host.appendChild(notice);
     }
-    notice.textContent = message;
+    notice.className = 'path-lock-toast';
+    notice.innerHTML = '';
+    const msgSpan = document.createElement('span');
+    msgSpan.textContent = message;
+    const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'path-lock-toast-close';
+    closeBtn.setAttribute('aria-label', 'Cerrar aviso');
+    closeBtn.textContent = '✕';
+    closeBtn.addEventListener('click', () => notice.classList.add('hidden'));
+    notice.appendChild(msgSpan);
+    notice.appendChild(closeBtn);
+    notice.classList.remove('hidden');
+
+    if (this.#lockNoticeTimer) clearTimeout(this.#lockNoticeTimer);
+    this.#lockNoticeTimer = setTimeout(() => {
+      notice.classList.add('hidden');
+    }, 3800);
   }
 
   #createCheckpointNode(cpNumber, cpSigns, isUnlocked = true) {
@@ -576,6 +603,7 @@ class LearningPlanManager {
   openCustomPlanModal() {
     const modal = document.getElementById('customPlanModal');
     if (!modal) return;
+    this.#previousCustomFocus = document.activeElement || null;
     this.#customModalOpen = true;
     modal.classList.remove('hidden');
     modal.setAttribute('aria-hidden', 'false');
@@ -605,6 +633,10 @@ class LearningPlanManager {
     modal.classList.add('hidden');
     modal.setAttribute('aria-hidden', 'true');
     window.removeEventListener('keydown', this.#boundHandleKeyDown);
+    if (this.#previousCustomFocus && typeof this.#previousCustomFocus.focus === 'function') {
+      try { this.#previousCustomFocus.focus(); } catch (e) {}
+      this.#previousCustomFocus = null;
+    }
   }
 
   #renderCustomSignsGrid() {
@@ -688,11 +720,24 @@ class LearningPlanManager {
       const btn = chips[k];
       if (!btn) return;
       if (k === activePlanId) {
-        btn.className = 'btn-spring px-3 py-1 rounded-lg text-xs font-bold bg-amber-500 text-slate-900 shadow-sm transition';
+        btn.className = 'btn-spring px-3 py-1.5 min-h-[44px] sm:min-h-[34px] rounded-lg text-xs font-bold bg-amber-500 text-slate-900 shadow-sm transition';
       } else {
-        btn.className = 'btn-spring px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 transition';
+        btn.className = 'btn-spring px-3 py-1.5 min-h-[44px] sm:min-h-[34px] rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 transition';
       }
     });
+
+    const customPill = document.getElementById('activeCustomPlanPill');
+    if (customPill) {
+      if (activePlanId === 'custom_ai') {
+        customPill.textContent = '✨ Ruta Tito IA activa';
+        customPill.classList.remove('hidden');
+      } else if (activePlanId === 'custom_user') {
+        customPill.textContent = '🛠️ Ruta Propia activa';
+        customPill.classList.remove('hidden');
+      } else {
+        customPill.classList.add('hidden');
+      }
+    }
   }
 
   #bindUIEvents() {

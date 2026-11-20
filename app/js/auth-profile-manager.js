@@ -297,12 +297,17 @@ class AuthProfileManager {
       elXpBar.style.width = `${pct}%`;
     }
 
-    const elStreak = document.getElementById('userStreakCount');
-    if (elStreak) elStreak.textContent = `${p.streak || 1} d`;
-
     const streakNum = p.streak || 1;
+    const streakLabel = `${streakNum} ${streakNum === 1 ? 'día' : 'días'}`;
+    const elStreak = document.getElementById('userStreakCount');
+    if (elStreak) {
+      elStreak.textContent = `🔥 ${streakLabel}`;
+      elStreak.title = `Racha diaria: ${streakLabel}`;
+      elStreak.setAttribute('aria-label', `Racha diaria: ${streakLabel}`);
+    }
+
     const elStreakDetail = document.getElementById('profileStreakDetail');
-    if (elStreakDetail) elStreakDetail.textContent = `${streakNum} ${streakNum === 1 ? 'día' : 'días'}`;
+    if (elStreakDetail) elStreakDetail.textContent = streakLabel;
 
     const maskedUser = this.#maskPrivateUsername(p.username);
     const elHandle = document.getElementById('userHandleBadge');
@@ -435,6 +440,9 @@ class AuthProfileManager {
       btnReqReset.addEventListener('click', () => {
         confirmBox.classList.remove('hidden');
         if (resetStatus) resetStatus.classList.add('hidden');
+        if (typeof confirmBox.scrollIntoView === 'function') {
+          confirmBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
       });
     }
     if (btnCancelReset && confirmBox) {

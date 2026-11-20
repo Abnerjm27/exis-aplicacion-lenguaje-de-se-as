@@ -105,8 +105,10 @@ class LSCParsedIntent:
 class LSCNaturalLanguageParser:
     """
     Motor de Comprensión de Lenguaje Natural (NLU) para el Tutor Manitas LSC.
-    Distingue preámbulos de cortesía ('hola quiero aprender a' -> foco en 'A'),
-    resuelve negaciones y aclaraciones ('no quiero aprender a' -> foco en 'A'),
+    Distingue preámbulos de cortesía ('hola quiero aprender la letra a' -> foco en 'A'),
+    detecta introducciones abiertas ('hola quiero aprender a' -> 'OPEN_LEARNING_INTRO'),
+    resuelve rechazos ('no quiero aprender a' -> 'REJECT_SIGN') y aclaraciones
+    contrastivas ('no quiero la a, prefiero la c' -> foco en 'C'),
     y desambigua preposiciones gramaticales vs letras dactilológicas.
     """
     VOCABULARY_WORDS = {
@@ -129,7 +131,7 @@ class LSCNaturalLanguageParser:
 
     GREETING_STARTERS = [
         "buenos dias", "buenas tardes", "buenas noches", "buen dia", "buenas",
-        "hola zorrito", "hola amigo", "hola profe", "hola tutor", "hola manitas",
+        "hola tito", "hola zorrito", "hola amigo", "hola profe", "hola tutor", "hola manitas",
         "hola", "saludos", "hey", "alo", "ola"
     ]
 

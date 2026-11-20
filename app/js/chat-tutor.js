@@ -140,7 +140,7 @@ class LSCClientNLU {
 
   static GREETING_STARTERS = [
     "buenos dias", "buenas tardes", "buenas noches", "buen dia", "buenas",
-    "hola zorrito", "hola amigo", "hola profe", "hola tutor", "hola manitas",
+    "hola tito", "hola zorrito", "hola amigo", "hola profe", "hola tutor", "hola manitas",
     "hola", "saludos", "hey", "alo", "ola"
   ];
 
@@ -516,7 +516,8 @@ class LSCClientNLU {
     sendMessage,
     speakText,
     speakCelebration,
-    playVictorySound
+    playVictorySound,
+    LSCClientNLU
   };
 })();
 

@@ -18,7 +18,7 @@
   --palette-10-accent: #FF7A45;
   --palette-10-accent-hover: #FF9266;
   --palette-10-accent-active: #E85D2A;
-  --palette-10-accent-deep: #C84B1C;
+  --palette-10-accent-deep: #B03B10;
   --palette-10-accent-tint: #FFF2EC;
 
   /* Primitivos de marca sincronizados 60-30-10 (Escala cálida sin azul) */
@@ -56,13 +56,13 @@
   --color-action: #FF7A45;
   --color-success: #10B981;
   --color-danger: #EF4444;
-  --color-focus-ring: #FF7A45;
+  --color-focus-ring: #B03B10;
 
   /* Tema claro / contraste tipográfico */
   --color-light-bg: #FFFFFF;
   --color-light-text: #1C1917;
   --color-light-muted: #574F47;
-  --color-light-link: #C84B1C;
+  --color-light-link: #B03B10;
 
   /* Tipografía Impeccable (Plus Jakarta Sans + Lexend) */
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -85,8 +85,9 @@
   --radius-md: 12px;
   --radius-lg: 20px;
   --radius-full: 9999px;
-  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Reglas globales de texto balanceado y tipografía */
@@ -109,4 +110,23 @@ p {
 .tabular-nums {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
+}
+
+/* Superficies nativas del navegador alineadas a la paleta 60-30-10 */
+::selection {
+  background-color: #FFD5C2;
+  color: #1C1917;
+}
+
+input, textarea, select {
+  caret-color: var(--palette-10-accent-deep);
+}
+
+a {
+  text-underline-offset: 0.18em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--palette-10-accent-deep);
+  outline-offset: 2px;
 }
