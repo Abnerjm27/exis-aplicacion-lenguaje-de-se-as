@@ -19,6 +19,7 @@ class ViewRouter {
     const urlParams = new URLSearchParams(window.location.search);
     const screenParam = urlParams.get('screen') || urlParams.get('view');
     const signParam = urlParams.get('sign');
+    const examParam = urlParams.get('exam');
 
     if (screenParam === 'path') {
       this.switchToPathView();
@@ -26,6 +27,13 @@ class ViewRouter {
       this.switchToProfileView();
     } else {
       this.switchToStudioView(signParam || null, false);
+    }
+
+    if (examParam === '1' && window.BlindExamController) {
+      setTimeout(() => {
+        const plan = window.LearningPlanManager ? window.LearningPlanManager.getActivePlan() : null;
+        window.BlindExamController.start(plan);
+      }, 60);
     }
 
     window.addEventListener('popstate', this.#boundHandlePopState);
@@ -80,7 +88,7 @@ class ViewRouter {
 
   switchToStudioView(signId = null, startExam = false, examConfig = null) {
     this.#currentView = 'studio';
-    this.#applyViewState('studio', 'Estudio de Práctica LSC');
+    this.#applyViewState('studio', 'Práctica Libre LSC');
 
     // Actualizar migas de pan y progreso de lección
     this.#updateStudioBreadcrumb();
@@ -138,15 +146,19 @@ class ViewRouter {
   #openMobileSidebar() {
     const sidebar = document.getElementById('appSidebar');
     const backdrop = document.getElementById('sidebarBackdrop');
+    const btnToggle = document.getElementById('btnMobileMenuToggle');
     if (sidebar) sidebar.classList.add('is-open');
     if (backdrop) backdrop.classList.remove('hidden');
+    if (btnToggle) btnToggle.setAttribute('aria-expanded', 'true');
   }
 
   #closeMobileSidebar() {
     const sidebar = document.getElementById('appSidebar');
     const backdrop = document.getElementById('sidebarBackdrop');
+    const btnToggle = document.getElementById('btnMobileMenuToggle');
     if (sidebar) sidebar.classList.remove('is-open');
     if (backdrop) backdrop.classList.add('hidden');
+    if (btnToggle) btnToggle.setAttribute('aria-expanded', 'false');
   }
 
   #bindNavigationEvents() {

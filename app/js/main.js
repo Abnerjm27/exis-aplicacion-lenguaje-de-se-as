@@ -97,11 +97,20 @@ function bindUIEvents() {
   if (btnWords) btnWords.addEventListener('click', () => switchCategory('words'));
   if (btnLetters) btnLetters.addEventListener('click', () => switchCategory('letters'));
 
-  // Botón de cámara web
+  // Botón de cámara web y CTA del estado vacío
   const btnCamera = document.getElementById('toggleCameraBtn');
   if (btnCamera) btnCamera.addEventListener('click', () => {
     if (window.VisionEvaluator) window.VisionEvaluator.toggle();
   });
+  const btnPlaceholderCam = document.getElementById('btnStartCameraPlaceholder');
+  if (btnPlaceholderCam) btnPlaceholderCam.addEventListener('click', () => {
+    if (window.VisionEvaluator && !window.VisionEvaluator.isRunning()) {
+      window.VisionEvaluator.start();
+    }
+  });
+
+  // Banner de orientación inicial en Práctica Libre
+  initStudioOrientationBanner();
 
   // Botón para alternar guía de puntos/trayectorias
   const btnToggleTrajectory = document.getElementById('btnToggleTrajectory');
@@ -113,11 +122,11 @@ function bindUIEvents() {
         window.TrajectoryTracker.setEnabled(nextState);
         btnToggleTrajectory.setAttribute('aria-pressed', String(nextState));
         if (nextState) {
-          btnToggleTrajectory.className = "btn-spring px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1.5 shadow-sm";
-          if (trajectoryBtnText) trajectoryBtnText.textContent = "Puntos: ON";
+          btnToggleTrajectory.className = "btn-spring px-2.5 py-1.5 min-h-[44px] sm:min-h-[36px] rounded-lg text-xs font-semibold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1.5 shadow-sm shrink-0";
+          if (trajectoryBtnText) trajectoryBtnText.textContent = "Guía: ON";
         } else {
-          btnToggleTrajectory.className = "btn-spring px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-500 border border-slate-200 flex items-center gap-1.5 shadow-sm";
-          if (trajectoryBtnText) trajectoryBtnText.textContent = "Puntos: OFF";
+          btnToggleTrajectory.className = "btn-spring px-2.5 py-1.5 min-h-[44px] sm:min-h-[36px] rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 flex items-center gap-1.5 shadow-sm shrink-0";
+          if (trajectoryBtnText) trajectoryBtnText.textContent = "Guía: OFF";
         }
       }
     });
@@ -162,6 +171,34 @@ function bindUIEvents() {
       if (prompt && window.ChatTutor) window.ChatTutor.sendQuickMessage(prompt);
     });
   });
+}
+
+function initStudioOrientationBanner() {
+  const banner = document.getElementById('studioOrientationBanner');
+  if (!banner) return;
+  try {
+    if (sessionStorage.getItem('manitas_hide_studio_banner') === '1') return;
+  } catch (e) {}
+  const profile = window.AuthProfileManager && window.AuthProfileManager.getCurrentProfile
+    ? window.AuthProfileManager.getCurrentProfile()
+    : null;
+  const masteredCount = profile && Array.isArray(profile.masteredSigns) ? profile.masteredSigns.length : 0;
+  if (masteredCount === 0) {
+    banner.classList.remove('hidden');
+  }
+  const btnPath = document.getElementById('btnBannerGoToPath');
+  if (btnPath) {
+    btnPath.addEventListener('click', () => {
+      if (window.ViewRouter) window.ViewRouter.switchToPathView();
+    });
+  }
+  const btnDismiss = document.getElementById('btnDismissOrientationBanner');
+  if (btnDismiss) {
+    btnDismiss.addEventListener('click', () => {
+      banner.classList.add('hidden');
+      try { sessionStorage.setItem('manitas_hide_studio_banner', '1'); } catch (e) {}
+    });
+  }
 }
 
 function switchCategory(cat) {

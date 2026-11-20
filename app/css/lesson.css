@@ -262,13 +262,35 @@
    ========================================================================== */
 
 @media (max-width: 639px) {
-  #lessonSessionModal {
+  #lessonSessionModal,
+  #examSessionModal {
     padding: 0.5rem;
   }
   
   .lesson-modal-card {
     max-height: 96vh;
     border-radius: var(--radius-lg);
+  }
+
+  .lesson-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.65rem 0.85rem;
+  }
+
+  .lesson-progress-wrap {
+    order: 2;
+    flex: 1 1 160px;
+    min-width: 140px;
+    margin: 0 !important;
+  }
+
+  .lesson-header-meta {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.4rem;
   }
 
   .lesson-feedback-sheet {
@@ -281,6 +303,39 @@
     width: 100%;
     justify-content: center;
   }
+}
+
+/* Toast fijo para nodos bloqueados en Mi Ruta (siempre visible y sin mover el SVG) */
+.path-lock-toast {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: calc(100vw - 2rem);
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.9rem;
+  background-color: #FFF2EC;
+  border: 1.5px solid #FF7A45;
+  color: #7C2D12;
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: 0 12px 30px -6px rgba(28, 25, 23, 0.22);
+}
+
+.path-lock-toast-close {
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 0.5rem;
+  background: #FFFFFF;
+  border: 1px solid #FFC9B0;
+  color: #1C1917;
+  font-weight: 800;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 /* Respeto por preferencias de movimiento reducido */

@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mascota Zorrito Manitas · Catálogo de Poses y Animaciones</title>
+  <title>Tito · Catálogo de Poses y Animaciones · Manitas</title>
   <link rel="icon" type="image/svg+xml" href="img/manitas-icono-app.svg">
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/fonts.css">
+  <!-- Tailwind CSS Local (Offline) -->
+  <script src="lib/tailwind/tailwind.js"></script>
   <script src="js/tailwind-config.js?v=20261116_v6"></script>
   <!-- Design Tokens y Estilos Base -->
   <link rel="stylesheet" href="css/tokens.css?v=20261116_v6">
@@ -18,16 +19,16 @@
   <!-- Header Accesible (60% Blanco / 30% Carbón Espresso y Piedra, cero azul) -->
   <header class="border-b border-[#E6DFD5] bg-white/95 backdrop-blur-md sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <a href="landing.html" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-[#FF7A45] rounded-lg p-1">
+      <a href="landing.html" class="flex items-center gap-3 min-h-[44px] group focus:outline-none focus:ring-2 focus:ring-[#FF7A45] rounded-lg p-1">
         <img src="img/manitas-simbolo.svg" alt="Logo Manitas" class="w-8 h-8 group-hover:scale-105 transition-transform">
-        <span class="font-extrabold text-xl tracking-tight text-[#1C1917]">Manitas <span class="text-[#C84B1C] font-normal text-sm ml-1">· Mascota Oficial</span></span>
+        <span class="font-extrabold text-xl tracking-tight text-[#1C1917]">Manitas <span class="text-[#C84B1C] font-normal text-sm ml-1">· Tito, Mascota Oficial</span></span>
       </a>
 
       <div class="flex items-center gap-3">
-        <a href="landing.html" class="text-sm text-[#574F47] hover:text-[#1C1917] px-3 py-2 rounded-lg border border-[#E6DFD5] hover:border-[#FF7A45] bg-[#FAF8F5] transition-colors">
+        <a href="landing.html" class="text-sm text-[#574F47] hover:text-[#1C1917] min-h-[44px] inline-flex items-center px-3 py-2 rounded-lg border border-[#E6DFD5] hover:border-[#FF7A45] bg-[#FAF8F5] transition-colors">
           ← Volver a Landing
         </a>
-        <a href="index.html" class="text-sm bg-[#FF7A45] hover:bg-[#FF9266] text-[#1C1917] font-bold px-4 py-2 rounded-lg transition-colors">
+        <a href="index.html" class="text-sm bg-[#FF7A45] hover:bg-[#FF9266] text-[#1C1917] font-bold min-h-[44px] inline-flex items-center px-4 py-2 rounded-lg transition-colors">
           Abrir App
         </a>
       </div>
@@ -42,7 +43,7 @@
         <span>Identidad Visual Manitas · Kit de Poses SVG & PNG</span>
       </div>
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1C1917] tracking-tight mb-4">
-        El Zorrito Tutor en <span class="text-[#E85D2A]">Acción y Movimiento</span>
+        Tito · El Zorrito Tutor en <span class="text-[#E85D2A]">Acción y Movimiento</span>
       </h1>
       <p class="text-base sm:text-lg text-[#574F47]">
         Personaje oficial generado y vectorizado en formato dual: <strong class="text-[#1C1917]">SVG vectorial escalable</strong> para nitidez infinita y <strong class="text-[#1C1917]">PNG transparente 32-bit</strong>. Listo para animaciones de interfaz, aciertos y tutoría pedagógica.
@@ -55,10 +56,10 @@
       <div class="flex items-center gap-2">
         <span class="text-xs font-semibold uppercase tracking-wider text-[#574F47]">Formato:</span>
         <div class="inline-flex rounded-lg border border-[#E6DFD5] p-1 bg-[#F3EFEA]">
-          <button id="btnFormatSvg" class="px-3 py-1.5 text-xs rounded-md bg-[#FF7A45] text-[#1C1917] font-bold transition-all focus:outline-none">
+          <button id="btnFormatSvg" class="px-3 py-1.5 min-h-[40px] text-xs rounded-md bg-[#FF7A45] text-[#1C1917] font-bold transition-colors focus:outline-none">
             SVG (Vectorial)
           </button>
-          <button id="btnFormatPng" class="px-3 py-1.5 text-xs rounded-md text-[#574F47] hover:text-[#1C1917] transition-all focus:outline-none">
+          <button id="btnFormatPng" class="px-3 py-1.5 min-h-[40px] text-xs rounded-md text-[#574F47] hover:text-[#1C1917] transition-colors focus:outline-none">
             PNG (Transparente)
           </button>
         </div>
@@ -71,13 +72,13 @@
       <div class="flex items-center gap-2">
         <span class="text-xs font-semibold uppercase tracking-wider text-[#574F47]">Fondo Stage:</span>
         <div class="inline-flex rounded-lg border border-[#E6DFD5] p-1 bg-[#F3EFEA]">
-          <button data-bg-target="dark" class="px-3 py-1.5 text-xs rounded-md bg-[#FF7A45] text-[#1C1917] font-bold transition-all">
+          <button data-bg-target="dark" class="px-3 py-1.5 min-h-[40px] text-xs rounded-md bg-[#FF7A45] text-[#1C1917] font-bold transition-colors">
             Arena Cálida
           </button>
-          <button data-bg-target="light" class="px-3 py-1.5 text-xs rounded-md text-[#574F47] hover:text-[#1C1917] transition-all">
+          <button data-bg-target="light" class="px-3 py-1.5 min-h-[40px] text-xs rounded-md text-[#574F47] hover:text-[#1C1917] transition-colors">
             Blanco Crema
           </button>
-          <button data-bg-target="checker" class="px-3 py-1.5 text-xs rounded-md text-[#574F47] hover:text-[#1C1917] transition-all">
+          <button data-bg-target="checker" class="px-3 py-1.5 min-h-[40px] text-xs rounded-md text-[#574F47] hover:text-[#1C1917] transition-colors">
             Transparencia
           </button>
         </div>
@@ -85,7 +86,7 @@
 
       <!-- Control de Animación -->
       <div class="flex items-center gap-2">
-        <button id="btnAnimToggle" class="px-4 py-2 text-xs rounded-lg border border-[#FFC9B0] bg-[#FFF2EC] text-[#C84B1C] hover:bg-[#FFE4D6] font-bold transition-all flex items-center gap-2">
+        <button id="btnAnimToggle" class="px-4 py-2 min-h-[44px] text-xs rounded-lg border border-[#FFC9B0] bg-[#FFF2EC] text-[#C84B1C] hover:bg-[#FFE4D6] font-bold transition-colors flex items-center gap-2">
           ⏸️ Pausar Animaciones
         </button>
       </div>

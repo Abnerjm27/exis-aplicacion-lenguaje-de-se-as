@@ -41,13 +41,11 @@ class LessonSessionController {
   static setVideoMode(mode) { return LessonSessionController.getInstance().setVideoMode(mode); }
   static getVideoMode() { return LessonSessionController.getInstance().getVideoMode(); }
 
-  // -------------------------------------------------------------
-  // ESTADO PRIVADO (#) (Regla 8 AGENTS.md)
-  // -------------------------------------------------------------
+  // Estado privado (#) (Regla 8 AGENTS.md)
   #isActive; #currentSignId; #currentSign; #currentPhase; #planContext; #options;
   #selectedOptionId; #quizAnswered; #quizPassed; #quizAttempts; #practiceScore;
   #practicePassed; #practiceHoldMs; #cameraActive; #videoMode; #earnedXp;
-  #callbacks; #originalOnSignMastered; #boundKeyDownHandler;
+  #callbacks; #originalOnSignMastered; #boundKeyDownHandler; #previousFocus; #cameraPollTimer;
 
   constructor() {
     this.#isActive = false;
@@ -58,12 +56,12 @@ class LessonSessionController {
     this.#cameraActive = false; this.#earnedXp = 50;
     this.#callbacks = { onPhaseChange: null, onLessonComplete: null, onExit: null };
     this.#originalOnSignMastered = null;
+    this.#previousFocus = null;
+    this.#cameraPollTimer = null;
     this.#boundKeyDownHandler = this.#handleKeyDown.bind(this);
   }
 
-  // -------------------------------------------------------------
-  // CICLO DE VIDA ESTANDARIZADO (init, start, update, reset, destroy)
-  // -------------------------------------------------------------
+  // Ciclo de vida estandarizado (init, start, update, reset, destroy)
 
   /**
    * Inicializa listeners del DOM y registra callbacks
@@ -236,10 +234,7 @@ class LessonSessionController {
     }
   }
 
-  // -------------------------------------------------------------
-  // LÓGICA DE FASES Y GESTIÓN DE TEST (QUIZ)
-  // -------------------------------------------------------------
-
+  // Lógica de Fases y Gestión de Test (Quiz)
   /** Valida la respuesta del usuario en la fase Quiz (bloquea reintentos tras la selección). */
   submitQuizAnswer(selectedSignId) {
     if (!this.#isActive || this.#currentPhase !== 'quiz') {
@@ -252,141 +247,78 @@ class LessonSessionController {
     this.#selectedOptionId = selectedSignId;
     this.#quizAnswered = true;
     this.#quizAttempts++;
-
     const isCorrect = (selectedSignId === this.#currentSignId);
     this.#quizPassed = isCorrect;
-
     this.#renderQuizFeedback(isCorrect);
 
-    return {
-      correct: isCorrect,
-      selectedSignId,
-      targetSignId: this.#currentSignId,
-      locked: false
-    };
+    return { correct: isCorrect, selectedSignId, targetSignId: this.#currentSignId, locked: false };
   }
 
-  /**
-   * Procesa cada frame de visión en la fase de práctica
-   * Requiere >= 85% durante 1200ms acumulados consecutivos
-   * @param {number} accuracy - Puntuación de similitud (0-100)
-   * @param {number} deltaTime - Tiempo del frame en ms
-   * @returns {boolean} true si alcanzó el objetivo
-   */
+  /** Procesa cada frame de visión en práctica (>= 85% por 1200ms). */
   handlePracticeFrame(accuracy, deltaTime = 100) {
     if (!this.#isActive || this.#currentPhase !== 'practice' || this.#practicePassed) {
       return this.#practicePassed;
     }
-
     const ACCURACY_THRESHOLD = 85;
     const REQUIRED_HOLD_MS = 1200;
 
     if (accuracy >= ACCURACY_THRESHOLD) {
       this.#practiceHoldMs += Math.max(0, deltaTime);
       this.#practiceScore = Math.max(this.#practiceScore, Math.round(accuracy));
-
       this.#updatePracticeProgressUI(Math.min(100, Math.round((this.#practiceHoldMs / REQUIRED_HOLD_MS) * 100)));
-
       if (this.#practiceHoldMs >= REQUIRED_HOLD_MS) {
         this.#practicePassed = true;
         this.#onPracticeCompleted(accuracy);
         return true;
       }
     } else {
-      // Suavizar caída de tiempo
       this.#practiceHoldMs = Math.max(0, this.#practiceHoldMs - Math.max(0, deltaTime * 0.75));
       this.#updatePracticeProgressUI(Math.min(100, Math.round((this.#practiceHoldMs / REQUIRED_HOLD_MS) * 100)));
     }
-
     return false;
   }
 
-  /**
-   * Hook invocado cuando VisionEvaluator confirma dominio de la seña
-   * @param {Object} signObj
-   * @param {number} score
-   */
+  /** Hook invocado cuando VisionEvaluator confirma dominio de la seña. */
   handleSignMasteredInLesson(signObj, score = 95) {
-    if (!this.#isActive || this.#currentPhase !== 'practice' || this.#practicePassed) {
-      return;
-    }
-
+    if (!this.#isActive || this.#currentPhase !== 'practice' || this.#practicePassed) return;
     this.#practicePassed = true;
     this.#practiceScore = Math.max(this.#practiceScore, Math.round(score));
     this.#practiceHoldMs = 1200;
     this.#updatePracticeProgressUI(100);
-
     this.#onPracticeCompleted(score);
   }
 
   #onPracticeCompleted(score) {
-    // Feedback sonoro y confetti
     if (typeof confetti === 'function') {
-      try {
-        confetti({ particleCount: 70, spread: 65, origin: { y: 0.6 } });
-      } catch (e) {}
+      try { confetti({ particleCount: 70, spread: 65, origin: { y: 0.6 } }); } catch (e) {}
     }
-
-    if (typeof window !== 'undefined' && window.ChatTutor) {
-      try {
-        if (typeof window.ChatTutor.playVictorySound === 'function') {
-          window.ChatTutor.playVictorySound();
-        }
-      } catch (e) {}
+    if (typeof window !== 'undefined' && window.ChatTutor && typeof window.ChatTutor.playVictorySound === 'function') {
+      try { window.ChatTutor.playVictorySound(); } catch (e) {}
     }
-
     this.#renderPracticeSuccessFeedback(score);
   }
 
-  // -------------------------------------------------------------
-  // GENERADOR DE OPCIONES (DISTRACTORES SIN DUPLICADOS)
-  // -------------------------------------------------------------
-
-  /**
-   * Genera 4 opciones únicas (1 correcta + 3 distractores de misma categoría si es posible)
-   * @param {string} targetSignId
-   * @returns {Array<Object>} Lista de 4 opciones barajadas
-   */
+  // Generador de Opciones (Distractores sin duplicados)
+  /** Genera 4 opciones únicas (1 correcta + 3 distractores de misma categoría). */
   #generateQuizOptions(targetSignId) {
     const signsCatalog = this.#getAllCatalogSigns();
-    const targetSign = signsCatalog.find(s => s.id === targetSignId) || {
-      id: targetSignId,
-      name: targetSignId,
-      category: 'words'
-    };
-
+    const targetSign = signsCatalog.find(s => s.id === targetSignId) || { id: targetSignId, name: targetSignId, category: 'words' };
     const targetCategory = targetSign.category || 'words';
 
-    // 1. Filtrar distractores candidatos de la misma categoría excluyendo la seña correcta
     let categoryCandidates = signsCatalog.filter(s => s.id !== targetSignId && s.category === targetCategory);
-
-    // Si la categoría tiene menos de 3 candidatos, complementar con el resto del catálogo
     if (categoryCandidates.length < 3) {
       const otherCandidates = signsCatalog.filter(s => s.id !== targetSignId && s.category !== targetCategory);
       categoryCandidates = [...categoryCandidates, ...otherCandidates];
     }
 
-    // 2. Barajar candidatos para seleccionar 3 aleatorios únicos
     const shuffledCandidates = [...categoryCandidates].sort(() => Math.random() - 0.5);
     const selectedDistractors = shuffledCandidates.slice(0, 3).map(s => ({
-      id: s.id,
-      name: s.name || s.id,
-      category: s.category || targetCategory,
-      isCorrect: false
+      id: s.id, name: s.name || s.id, category: s.category || targetCategory, isCorrect: false
     }));
-
-    // 3. Crear opción correcta
     const correctOption = {
-      id: targetSign.id,
-      name: targetSign.name || targetSign.id,
-      category: targetCategory,
-      isCorrect: true
+      id: targetSign.id, name: targetSign.name || targetSign.id, category: targetCategory, isCorrect: true
     };
-
-    // 4. Unir y barajar las 4 opciones finales
-    const allOptions = [correctOption, ...selectedDistractors].sort(() => Math.random() - 0.5);
-
-    return allOptions;
+    return [correctOption, ...selectedDistractors].sort(() => Math.random() - 0.5);
   }
 
   #getAllCatalogSigns() {
@@ -472,15 +404,21 @@ class LessonSessionController {
     const webpEl = document.getElementById('lessonDemoWebp');
     this.#loadMediaWithWebpFallback(videoEl, webpEl, this.#currentSignId);
 
-    // Tarjeta del zorrito con explicación pedagógica
+    // Tarjeta de Tito con explicación pedagógica (evita duplicación literal desc vs tip)
     const titleEl = document.getElementById('lessonDemoSignName');
     if (titleEl) titleEl.textContent = this.#currentSign.name || this.#currentSignId;
 
     const descEl = document.getElementById('lessonDemoDesc');
-    if (descEl) descEl.textContent = this.#currentSign.desc || '';
-
     const tipEl = document.getElementById('lessonDemoTip');
-    if (tipEl) tipEl.textContent = this.#currentSign.tip || '';
+    const descVal = (this.#currentSign.desc || '').trim();
+    const tipVal = (this.#currentSign.tip || '').trim();
+    if (descEl) {
+      const sameText = descVal && tipVal && descVal.toLowerCase().includes(tipVal.toLowerCase().slice(0, 28));
+      descEl.textContent = sameText ? '' : descVal;
+      if (descEl.textContent) descEl.classList.remove('hidden');
+      else descEl.classList.add('hidden');
+    }
+    if (tipEl) tipEl.textContent = tipVal || descVal;
 
     // Botón Continuar activo en demo
     const btnContinue = document.getElementById('btnLessonContinue');
@@ -629,51 +567,31 @@ class LessonSessionController {
       } catch (e) {}
     }
 
-    // 4. Renderizar datos en DOM de resumen
     if (typeof document !== 'undefined') {
       const signNameEl = document.getElementById('lessonSummarySignName');
       if (signNameEl) signNameEl.textContent = this.#currentSign.name || this.#currentSignId;
-
       const xpEl = document.getElementById('lessonSummaryXp');
       if (xpEl) xpEl.textContent = `+${this.#earnedXp} XP`;
-
       const scoreEl = document.getElementById('lessonSummaryScore');
-      if (scoreEl) scoreEl.textContent = `${this.#practiceScore || 95}%`;
-
+      if (scoreEl) scoreEl.textContent = this.#practiceScore > 0 ? `${this.#practiceScore}%` : 'Sin cámara';
       const btnFinish = document.getElementById('btnLessonFinish');
-      if (btnFinish) {
-        btnFinish.onclick = () => this.closeLesson();
-      }
+      if (btnFinish) btnFinish.onclick = () => this.closeLesson();
     }
 
-    // 5. Notificar callback
     if (typeof this.#callbacks.onLessonComplete === 'function') {
-      try {
-        this.#callbacks.onLessonComplete(this.getSummary());
-      } catch (err) {
-        console.error('Error en onLessonComplete:', err);
-      }
+      try { this.#callbacks.onLessonComplete(this.getSummary()); } catch (err) { console.error('Error en onLessonComplete:', err); }
     }
   }
 
-  // -------------------------------------------------------------
-  // GESTIÓN DE CÁMARA (VisionEvaluator)
-  // -------------------------------------------------------------
-
+  // Gestión de Cámara (VisionEvaluator)
   #loadMediaWithWebpFallback(videoEl, webpEl, signId) {
     if (!videoEl && !webpEl) return;
     const signObj = (typeof SIGNS_DATA !== 'undefined')
       ? [...(SIGNS_DATA.words || []), ...(SIGNS_DATA.letters || [])].find(s => s.id === signId)
       : null;
     if (signObj && signObj.preferStaticImage && signObj.image) {
-      if (videoEl) {
-        videoEl.classList.add('hidden');
-        try { videoEl.pause(); } catch (e) {}
-      }
-      if (webpEl) {
-        webpEl.src = signObj.image;
-        webpEl.classList.remove('hidden');
-      }
+      if (videoEl) { videoEl.classList.add('hidden'); try { videoEl.pause(); } catch (e) {} }
+      if (webpEl) { webpEl.src = signObj.image; webpEl.classList.remove('hidden'); }
       return;
     }
 
@@ -683,10 +601,7 @@ class LessonSessionController {
 
     const activateWebp = () => {
       if (videoEl) videoEl.classList.add('hidden');
-      if (webpEl) {
-        webpEl.src = webpUrl;
-        webpEl.classList.remove('hidden');
-      }
+      if (webpEl) { webpEl.src = webpUrl; webpEl.classList.remove('hidden'); }
     };
 
     if (videoEl) {
@@ -695,17 +610,9 @@ class LessonSessionController {
       videoEl.muted = true;
       videoEl.loop = true;
       videoEl.setAttribute('playsinline', 'true');
-
-      videoEl.onerror = () => {
-        console.warn(`[LessonSession] Fallo decodificación MP4 (${mp4Url}), activando fallback WebP`);
-        activateWebp();
-      };
-
+      videoEl.onerror = () => { console.warn(`[LessonSession] Fallo MP4 (${mp4Url}), fallback WebP`); activateWebp(); };
       videoEl.src = mp4Url;
-      if (typeof videoEl.load === 'function') {
-        try { videoEl.load(); } catch (e) {}
-      }
-
+      if (typeof videoEl.load === 'function') { try { videoEl.load(); } catch (e) {} }
       if (typeof videoEl.play === 'function') {
         const playPromise = videoEl.play();
         if (playPromise !== undefined) {
@@ -724,26 +631,57 @@ class LessonSessionController {
   #startCameraForPractice() {
     if (typeof window === 'undefined') return;
 
+    if (this.#cameraPollTimer) {
+      clearInterval(this.#cameraPollTimer);
+      this.#cameraPollTimer = null;
+    }
+
     const lessonVideo = document.getElementById('lessonPracticeWebcamVideo');
     const loader = document.getElementById('lessonCameraLoading');
+    const fallback = document.getElementById('lessonCameraFallback');
+    const liveBadge = document.getElementById('lessonLiveBadge');
+    if (fallback) fallback.classList.add('hidden');
     if (loader) loader.classList.remove('hidden');
+    if (liveBadge) liveBadge.textContent = 'CONECTANDO';
+
+    const showFallback = () => {
+      if (this.#cameraPollTimer) {
+        clearInterval(this.#cameraPollTimer);
+        this.#cameraPollTimer = null;
+      }
+      if (!this.#isActive || this.#currentPhase !== 'practice') return;
+      if (loader) loader.classList.add('hidden');
+      if (fallback) fallback.classList.remove('hidden');
+      if (liveBadge) liveBadge.textContent = 'SIN CÁMARA';
+      this.#cameraActive = false;
+    };
 
     const lessonSelect = document.getElementById('lessonCameraSelect');
     if (window.CameraManager && lessonSelect) {
       window.CameraManager.attachSelect(lessonSelect);
     }
 
+    let startFailed = false;
     if (window.VisionEvaluator) {
       try {
         window.VisionEvaluator.setTargetSign(this.#currentSign);
         window.VisionEvaluator.setPaused(false);
-
         if (typeof window.VisionEvaluator.isRunning === 'function' && !window.VisionEvaluator.isRunning()) {
-          window.VisionEvaluator.start();
+          const startRes = window.VisionEvaluator.start();
+          if (startRes === false) {
+            startFailed = true;
+            showFallback();
+          } else {
+            Promise.resolve(startRes).then((ok) => {
+              if (ok === false) showFallback();
+            }).catch(() => showFallback());
+          }
         }
-        this.#cameraActive = true;
+        if (!startFailed) this.#cameraActive = true;
       } catch (err) {
         console.warn('VisionEvaluator no pudo iniciar cámara:', err);
+        startFailed = true;
+        showFallback();
       }
     }
 
@@ -751,38 +689,45 @@ class LessonSessionController {
       const stream = (window.CameraManager && typeof window.CameraManager.getStream === 'function')
         ? window.CameraManager.getStream()
         : (document.getElementById('webcamVideo')?.srcObject || null);
-
       if (lessonVideo && stream) {
         if (lessonVideo.srcObject !== stream) {
           lessonVideo.srcObject = stream;
           lessonVideo.muted = true;
           lessonVideo.setAttribute('playsinline', 'true');
-          lessonVideo.play().then(() => {
-            if (loader) loader.classList.add('hidden');
-          }).catch(() => {
+          lessonVideo.play().catch(() => {}).finally(() => {
             if (loader) loader.classList.add('hidden');
           });
-        } else {
-          if (loader) loader.classList.add('hidden');
+        } else if (loader) {
+          loader.classList.add('hidden');
         }
+        if (fallback) fallback.classList.add('hidden');
+        if (liveBadge) liveBadge.textContent = 'EN VIVO';
         return true;
       }
       return false;
     };
 
-    if (!attachStream()) {
+    if (!startFailed && !attachStream() && (window.CameraManager || window.VisionEvaluator)) {
       let attempts = 0;
-      const poll = setInterval(() => {
+      this.#cameraPollTimer = setInterval(() => {
         attempts++;
         if (attachStream() || attempts > 15) {
-          clearInterval(poll);
-          if (loader) loader.classList.add('hidden');
+          clearInterval(this.#cameraPollTimer);
+          this.#cameraPollTimer = null;
+          if (!attachStream()) {
+            if (window.CameraManager) showFallback();
+            else if (loader) loader.classList.add('hidden');
+          }
         }
       }, 200);
     }
   }
 
   #stopCameraIfActive() {
+    if (this.#cameraPollTimer) {
+      clearInterval(this.#cameraPollTimer);
+      this.#cameraPollTimer = null;
+    }
     if (typeof window === 'undefined') return;
     const lessonVideo = document.getElementById('lessonPracticeWebcamVideo');
     if (lessonVideo) lessonVideo.srcObject = null;
@@ -792,18 +737,29 @@ class LessonSessionController {
     }
   }
 
-  // -------------------------------------------------------------
-  // DOM HELPERS Y RENDERIZADO DE FEEDBACK
-  // -------------------------------------------------------------
-
+  // DOM Helpers y Renderizado de Feedback
   #showModal() {
-    const modal = typeof document !== 'undefined' && document.getElementById('lessonSessionModal');
-    if (modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
+    if (typeof document === 'undefined') return;
+    if (!this.#previousFocus && document.activeElement) {
+      this.#previousFocus = document.activeElement;
+    }
+    const modal = document.getElementById('lessonSessionModal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      const closeBtn = document.getElementById('btnLessonClose');
+      if (closeBtn && typeof closeBtn.focus === 'function') closeBtn.focus();
+    }
   }
 
   #hideModal() {
-    const modal = typeof document !== 'undefined' && document.getElementById('lessonSessionModal');
+    if (typeof document === 'undefined') return;
+    const modal = document.getElementById('lessonSessionModal');
     if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+    if (this.#previousFocus && typeof this.#previousFocus.focus === 'function') {
+      try { this.#previousFocus.focus(); } catch (e) {}
+    }
+    this.#previousFocus = null;
   }
 
   #toggleContainers(activePhase) {
@@ -949,10 +905,24 @@ class LessonSessionController {
       });
     }
 
-    // Botón terminar resumen
+    // Botón terminar resumen y botones de fallback sin cámara
     const btnFinish = document.getElementById('btnLessonFinish');
     if (btnFinish) {
       btnFinish.addEventListener('click', () => this.closeLesson());
+    }
+    const btnRetryCam = document.getElementById('btnLessonRetryCamera');
+    if (btnRetryCam) {
+      btnRetryCam.addEventListener('click', () => this.#startCameraForPractice());
+    }
+    const btnSkipCam = document.getElementById('btnLessonSkipCamera');
+    if (btnSkipCam) {
+      btnSkipCam.addEventListener('click', () => {
+        if (!this.#isActive || this.#currentPhase !== 'practice') return;
+        this.#practicePassed = true;
+        this.#practiceScore = 0;
+        this.#earnedXp = 25;
+        this.#setPhase('summary');
+      });
     }
   }
 
@@ -978,13 +948,8 @@ class LessonSessionController {
     this.destroy();
   }
 
-  // -------------------------------------------------------------
-  // CONTROL DE MODO DE VIDEO (REAL / ANIME IA)
-  // -------------------------------------------------------------
-
-  getVideoMode() {
-    return this.#videoMode;
-  }
+  // Control de Modo de Video y Accesores Públicos
+  getVideoMode() { return this.#videoMode; }
 
   setVideoMode(mode) {
     this.#videoMode = (mode === 'anime') ? 'anime' : 'real';
@@ -1024,25 +989,10 @@ class LessonSessionController {
     }
   }
 
-  // -------------------------------------------------------------
-  // ACCESORES PÚBLICOS DE CONSULTA
-  // -------------------------------------------------------------
-
-  isActive() {
-    return this.#isActive;
-  }
-
-  getCurrentPhase() {
-    return this.#currentPhase;
-  }
-
-  getCurrentSign() {
-    return this.#currentSign ? { ...this.#currentSign } : null;
-  }
-
-  getQuizOptions() {
-    return this.#options.map(o => ({ ...o }));
-  }
+  isActive() { return this.#isActive; }
+  getCurrentPhase() { return this.#currentPhase; }
+  getCurrentSign() { return this.#currentSign ? { ...this.#currentSign } : null; }
+  getQuizOptions() { return this.#options.map(o => ({ ...o })); }
 
   getState() {
     return {

@@ -34,6 +34,13 @@ class TestLSCNaturalLanguageParser(unittest.TestCase):
         self.assertEqual(parsed.intent, "OPEN_LEARNING_INTRO")
         self.assertEqual(parsed.greeting_preamble, "hola")
 
+    def test_reject_sign_without_alternative(self):
+        """Caso: 'no quiero aprender a' sin alternativa debe retornar REJECT_SIGN sin forzar ninguna seña."""
+        parsed = LSCNaturalLanguageParser.parse("no quiero aprender a")
+        self.assertEqual(parsed.intent, "REJECT_SIGN")
+        self.assertIsNone(parsed.target_sign)
+        self.assertTrue(parsed.is_clarification)
+
     def test_contrast_rejection(self):
         """Caso 3: 'no quiero la a, prefiero la c' debe seleccionar la seña preferida (C)."""
         parsed = LSCNaturalLanguageParser.parse("no quiero la a, prefiero la c")
@@ -122,25 +129,42 @@ class TestLiveChatAPI(unittest.TestCase):
             return json.loads(resp.read().decode('utf-8'))
 
     def test_live_hola_quiero_aprender_a(self):
-        """Verifica la respuesta en vivo para 'hola quiero aprender a'."""
+        """Verifica la respuesta en vivo para frase abierta 'hola quiero aprender a'."""
         data = self._send_chat("hola quiero aprender a")
+        self.assertIsNone(data.get("detected_sign"))
+        self.assertEqual(data.get("intent"), "OPEN_LEARNING_INTRO")
+        reply = data.get("reply", "")
+        self.assertNotIn("[SELECCIONAR:", reply)
+        self.assertIn("¡Qué gran iniciativa!", reply)
+
+    def test_live_hola_quiero_aprender_la_letra_a(self):
+        """Verifica la respuesta en vivo para solicitud explícita 'hola quiero aprender la letra a'."""
+        data = self._send_chat("hola quiero aprender la letra a")
         self.assertEqual(data.get("detected_sign"), "A")
         self.assertEqual(data.get("intent"), "LEARN_SIGN")
         reply = data.get("reply", "")
         self.assertIn("[SELECCIONAR: A]", reply)
-        self.assertIn("A", reply)
-        # Debe ser un saludo cálido que saluda primero y enseña la A
         self.assertTrue(reply.startswith("¡Hola! Con mucho gusto"))
 
     def test_live_no_quiero_aprender_a(self):
-        """Verifica la respuesta en vivo para 'no quiero aprender a'."""
+        """Verifica la respuesta en vivo para rechazo sin alternativa 'no quiero aprender a'."""
         data = self._send_chat("no quiero aprender a")
-        self.assertEqual(data.get("detected_sign"), "A")
+        self.assertIsNone(data.get("detected_sign"))
+        self.assertEqual(data.get("intent"), "REJECT_SIGN")
+        self.assertTrue(data.get("is_clarification"))
+        reply = data.get("reply", "")
+        self.assertNotIn("[SELECCIONAR:", reply)
+        self.assertIn("Disculpa la confusión, no practicaremos esa seña.", reply)
+
+    def test_live_contrast_rejection_prefiero_c(self):
+        """Verifica la respuesta en vivo para aclaración contrastiva 'no quiero la a, prefiero la c'."""
+        data = self._send_chat("no quiero la a, prefiero la c")
+        self.assertEqual(data.get("detected_sign"), "C")
         self.assertEqual(data.get("intent"), "LEARN_SIGN")
         self.assertTrue(data.get("is_clarification"))
         reply = data.get("reply", "")
-        self.assertIn("[SELECCIONAR: A]", reply)
-        self.assertIn("Enfoquémonos en la seña de 'A'", reply)
+        self.assertIn("[SELECCIONAR: C]", reply)
+        self.assertIn("Cambiemos el foco a la seña de 'C'", reply)
 
     def test_live_pure_greeting(self):
         """Verifica la respuesta en vivo para 'hola'."""

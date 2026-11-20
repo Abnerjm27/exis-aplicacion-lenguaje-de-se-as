@@ -39,8 +39,14 @@ class AuthService {
     return { id, username: id.includes('@') ? id.split('@')[0] : id, isEmail: id.includes('@') };
   }
 
-  validateIdentifier(raw) {
+  validateIdentifier(raw, mode = 'login') {
     const { id, isEmail } = this.normalizeIdentifier(raw);
+    if (mode === 'register') {
+      if (!id || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(id)) {
+        return 'Ingresa un correo electrónico válido.';
+      }
+      return '';
+    }
     if (id.length < 2) return 'Ingresa un correo electrónico o usuario válido (mínimo 2 caracteres).';
     if (isEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(id)) return 'El correo electrónico no tiene un formato válido.';
     return '';

@@ -60,8 +60,8 @@ echo [AVISO] Ollama esta cargando en segundo plano. El tutor NLU local integrado
 
 :lanzar_web
 echo.
-echo [3/4] Abriendo tu navegador en http://localhost:8000 ...
-start http://localhost:8000
+echo [3/4] Abriendo tu navegador en http://localhost:8000/landing.html ...
+start http://localhost:8000/landing.html
 echo.
 
 echo [4/4] Ejecutando servidor web y API LSC...

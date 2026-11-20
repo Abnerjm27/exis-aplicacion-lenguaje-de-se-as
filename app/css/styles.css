@@ -431,8 +431,24 @@ p {
 }
 
 /* --- Selector de Señas sin Scrollbar Gruesa --- */
+.sign-list-wrap {
+  position: relative;
+}
+
+.sign-list-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 28px;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.95) 100%);
+}
+
 #signList {
   flex-wrap: nowrap;
+  padding-right: 1.5rem;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
   -webkit-overflow-scrolling: touch;
@@ -447,7 +463,11 @@ p {
 #signList > button {
   flex-shrink: 0;
   white-space: nowrap;
-  min-height: 38px;
+  min-height: 44px;
+}
+
+#chatMessages {
+  overflow-x: hidden;
 }
 
 /* --- Responsive & Prevención Estricta de Desbordes Horizontales --- */

@@ -36,7 +36,7 @@ class LandingHeroPlayer {
     {
       mood: 'Señalando 👉',
       range: [13, 25],
-      speech: 'Consejo 1: Responde 3 preguntas y Sol IA crea tu ruta personalizada.',
+      speech: 'Consejo 1: Responde 3 preguntas y Tito IA crea tu ruta personalizada.',
       status: 'Fase 01 · Diagnóstico inteligente'
     },
     {
@@ -241,8 +241,8 @@ class ZorritoCompanionController {
     '¡Hola! Mueve tus manos frente a la cámara y MediaPipe medirá tus articulaciones.',
     '¿Sabías que el alfabeto en LSC se hace con una sola mano?',
     'En el Modo Examen no hay videos guía: ¡demuestras lo aprendido de memoria!',
-    'Sol IA evalúa tu nivel inicial para armar tu ruta paso a paso.',
-    '¡Haz clic en las letras A, B o C arriba para ver cómo se forman!'
+    'Tito IA evalúa tu nivel inicial para armar tu ruta paso a paso.',
+    '¡Prueba cualquier seña en Práctica Libre o sigue tu ruta guiada!'
   ];
 
   init() {
@@ -524,6 +524,22 @@ class LandingPortalController {
           if (stepNum) this.#activateScrollyStep(stepNum);
         });
       });
+
+      const dock = document.getElementById('floatingZorritoDock');
+      const authCta = document.getElementById('authPortalSection');
+      const footerEl = document.querySelector('.landing-footer');
+      if (dock && (authCta || footerEl)) {
+        const overlapSet = new Set();
+        const dockAvoidObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) overlapSet.add(entry.target);
+            else overlapSet.delete(entry.target);
+          });
+          dock.classList.toggle('is-over-cta', overlapSet.size > 0);
+        }, { threshold: 0.1 });
+        if (authCta) dockAvoidObserver.observe(authCta);
+        if (footerEl) dockAvoidObserver.observe(footerEl);
+      }
     } else {
       document.querySelectorAll('.scroll-reveal').forEach(el => el.classList.add('is-visible'));
     }

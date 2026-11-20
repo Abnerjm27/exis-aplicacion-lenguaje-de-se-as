@@ -462,8 +462,18 @@ const VideoPlayer = (() => {
   }
 
   function play() {
-    if (els.video) {
-      try { els.video.play(); } catch (e) {}
+    if (isUsingWebpFallback) {
+      unfreezeWebp();
+      startFallbackTimer();
+      isPlaying = true;
+      updatePlayPauseUI();
+      return;
+    }
+    if (els.video && (els.video.currentSrc || els.video.getAttribute('src'))) {
+      try {
+        const p = els.video.play();
+        if (p && typeof p.catch === 'function') p.catch(() => {});
+      } catch (e) {}
     }
     isPlaying = true;
     updatePlayPauseUI();
