@@ -69,6 +69,17 @@ Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficia
 | **H** | Letra | `fotos/H_ref.jpg` | Mano derecha lateral frente a clavícula con índice vertical arriba, pulgar apuntando al frente hacia cámara y dedos restantes recogidos | `app/videos/anime/H_body.mp4` |
 | **J** | Letra | `fotos/J_ref.jpg` | Seña dinámica: trazo en curva de 'J' terminando con dorso del puño al frente y meñique extendido hacia la derecha | `app/videos/anime/J_body.mp4` |
 | **K** | Letra | `fotos/K_ref.jpg` | Mano en tijera lateral en pecho alto: índice diagonal arriba-derecha, medio diagonal abajo-derecha y pulgar en el centro | `app/videos/anime/K_body.mp4` |
+| **M** | Letra | otos/M_ref.jpg | Tres dedos (índice, medio, anular) curvados juntos hacia abajo descansando sobre el pulgar | pp/videos/anime/M_body.mp4 |
+| **N** | Letra | otos/N_ref.jpg | Dos dedos (índice y medio) curvados juntos hacia abajo descansando sobre el pulgar | pp/videos/anime/N_body.mp4 |
+| **P** | Letra | otos/P_ref.jpg | Tijera invertida en ángulo recto: índice horizontal al frente y medio vertical hacia abajo con pulgar en la base | pp/videos/anime/P_body.mp4 |
+| **Q** | Letra | otos/Q_ref.jpg | Pinza/gancho invertido hacia abajo formado por pulgar e índice en el plano torácico | pp/videos/anime/Q_body.mp4 |
+| **R** | Letra | otos/R_ref.jpg | Dedos índice y medio erguidos verticales y cruzados entre sí (dedos entrelazados de la suerte) | pp/videos/anime/R_body.mp4 |
+| **S** | Letra | otos/S_ref.jpg | Puño cerrado compacto con el pulgar doblado horizontalmente cruzando sobre el frente de los dedos | pp/videos/anime/S_body.mp4 |
+| **T** | Letra | otos/T_ref.jpg | Puño cerrado con el pulgar insertado verticalmente asomando entre el dedo índice y el medio | pp/videos/anime/T_body.mp4 |
+| **W** | Letra | otos/W_ref.jpg | Tres dedos (índice, medio, anular) erguidos en abanico abierto formando una W | pp/videos/anime/W_body.mp4 |
+| **X** | Letra | otos/X_ref.jpg | Puño cerrado con el dedo índice curvado en gancho hacia arriba | pp/videos/anime/X_body.mp4 |
+| **Y** | Letra | otos/Y_ref.jpg | Gesto de cuerno/shaka: pulgar y meñique extendidos lateralmente con dedos centrales recogidos | pp/videos/anime/Y_body.mp4 |
+| **Z** | Letra | otos/Z_ref.jpg | Seña dinámica: dedo índice extendido al frente trazando en el aire la trayectoria de la letra Z | pp/videos/anime/Z_body.mp4 |
 
 ---
 
@@ -589,6 +600,303 @@ CANONICAL LSC70 ANATOMY:
 4. Only the ring and pinky fingers stay neatly curled on the viewer's left side of the hand.
 Holds the canonical pose steadily for 1.8s matching reference (fotos/K_ref.jpg). Strictly 5 anatomically accurate fingers, seamless 24 fps loop.
 ```
+
+---
+
+### 26. Seña: M (Dactilología LSC70)
+**Español:**
+`	ext
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
+Plano medio mostrando torso y rostro. Letra dactilológica 'M' (dataset oficial LSC70):
+La mano derecha se sitúa al frente del pecho medio/alto con el dorso orientado hacia el frente:
+ANATOMÍA CANÓNICA LSC70:
+1. Tres dedos (índice, medio y anular) se doblan juntos hacia abajo en ángulo recto/suave formando tres colinas visibles.
+2. Las yemas de los tres dedos descansan firmemente sobre el pulgar, el cual cruza horizontalmente por debajo de ellos.
+3. El dedo meñique permanece completamente recogido y doblado contra la base de la palma.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/M_ref.jpg). 5 dedos anatómicamente correctos, iluminación limpia de estudio, bucle a 24 fps.
+`
+
+**English:**
+`	ext
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
+Medium shot framing upper chest and face. Canonical manual alphabet letter 'M' (LSC70 dataset):
+The right hand is positioned in front of mid-chest with the dorsal side facing forward:
+CANONICAL LSC70 ANATOMY:
+1. Three fingers (index, middle, and ring) curl downward together, forming three distinct arches/ridges over the thumb.
+2. The thumb tucks horizontally beneath the three curled fingers, supporting their fingertips.
+3. The pinky finger remains tucked securely against the palm.
+Holds the canonical pose steadily for 1.8s matching reference (fotos/M_ref.jpg). Clean 5-finger anatomy, seamless 24 fps loop.
+`
+
+---
+
+### 27. Seña: N (Dactilología LSC70)
+**Español:**
+`	ext
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
+Plano medio mostrando torso y rostro. Letra dactilológica 'N' (dataset oficial LSC70):
+La mano derecha se posiciona frente al pecho medio con el dorso al frente:
+ANATOMÍA CANÓNICA LSC70:
+1. Dos dedos (índice y medio) se doblan juntos hacia abajo en forma de dos colinas sobre el pulgar.
+2. El pulgar cruza horizontalmente sosteniendo las puntas del índice y medio.
+3. Los dedos anular y meñique permanecen firmemente doblados dentro de la palma.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/N_ref.jpg). Bucle continuo a 24 fps.
+`
+
+**English:**
+`	ext
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
+Medium shot framing upper chest and face. Canonical manual alphabet letter 'N' (LSC70 dataset):
+The right hand is held in front of mid-chest with the back of the hand facing forward:
+CANONICAL LSC70 ANATOMY:
+1. Two fingers (index and middle) curl downward together over the thumb, forming two distinct rounded arches.
+2. The thumb lies horizontally beneath supporting the index and middle fingertips.
+3. Ring and pinky fingers are securely curled into the palm.
+Holds the canonical pose steadily for 1.8s matching reference (fotos/N_ref.jpg). Seamless 24 fps loop.
+`
+
+---
+
+### 28. Seña: P (Dactilología LSC70)
+**Español:**
+`	ext
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
+Plano medio mostrando torso y rostro. Letra dactilológica 'P' (dataset oficial LSC70):
+La mano derecha se orienta en tijera lateral inclinada hacia abajo a la altura del pecho medio:
+ANATOMÍA CANÓNICA LSC70:
+1. El dedo índice se proyecta horizontalmente recto hacia adelante/izquierda.
+2. El dedo medio se extiende verticalmente hacia abajo en ángulo de 90° respecto al índice.
+3. El pulgar se apoya contra la articulación media del dedo medio en la hendidura.
+4. Anular y meñique permanecen plegados contra la palma.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/P_ref.jpg). Bucle a 24 fps.
+`
+
+**English:**
+`	ext
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
+Medium shot framing upper chest and face. Canonical manual alphabet letter 'P' (LSC70 dataset):
+The right hand is oriented in a downward-pointing scissor gesture at mid-chest:
+CANONICAL LSC70 ANATOMY:
+1. The index finger extends horizontally forward/left.
+2. The middle finger extends vertically straight downward at a 90-degree angle from the index.
+3. The thumb rests against the middle knuckle/joint inside the cleft.
+4. Ring and pinky fingers remain cleanly folded into the palm.
+Holds the canonical pose steadily for 1.8s matching reference (fotos/P_ref.jpg). Seamless 24 fps loop.
+`
+
+---
+
+### 29. Seña: Q (Dactilología LSC70)
+**Español:**
+`	ext
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
+Plano medio mostrando torso y rostro. Letra dactilológica 'Q' (dataset oficial LSC70):
+La mano derecha se ubica en el pecho medio/bajo orientada hacia abajo:
+ANATOMÍA CANÓNICA LSC70:
+1. El dedo índice y el pulgar forman una pinza o semicírculo curvado apuntando hacia el suelo.
+2. Los dedos medio, anular y meñique permanecen doblados firmemente contra la palma.
+3. La muñeca se inclina suavemente hacia abajo para mostrar la pinza invertida con claridad tridimensional.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/Q_ref.jpg). Bucle a 24 fps.
+`
+
+**English:**
+`	ext
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
+Medium shot framing upper chest and face. Canonical manual alphabet letter 'Q' (LSC70 dataset):
+The right hand is held at mid/lower-chest angled downward:
+CANONICAL LSC70 ANATOMY:
+1. The index finger and thumb form a downward-pointing curved pinch/claw aiming toward the floor.
+2. Middle, ring, and pinky fingers are tucked securely into the palm.
+3. The wrist tilts naturally downward to display the inverted pinch clearly in 3D perspective.
+Holds the canonical pose steadily for 1.8s matching reference (fotos/Q_ref.jpg). Seamless 24 fps loop.
+`
+
+---
+
+### 30. Seña: R (Dactilología LSC70)
+**Español:**
+`	ext
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
+Plano medio mostrando torso y rostro. Letra dactilológica 'R' (dataset oficial LSC70):
+La mano derecha se eleva frente a la clavícula con la palma orientada hacia el frente:
+ANATOMÍA CANÓNICA LSC70:
+1. Los dedos índice y medio se extienden verticalmente hacia arriba y se cruzan entre sí (el dedo medio cruza ceñido por delante del índice, gesto clásico de dedos cruzados).
+2. El pulgar sujeta los dedos anular y meñique que permanecen doblados sobre la palma.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/R_ref.jpg). Bucle a 24 fps.
+`
+
+**English:**
+`	ext
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
+Medium shot framing upper chest and face. Canonical manual alphabet letter 'R' (LSC70 dataset):
+The right hand is raised near collarbone height with palm facing forward:
+CANONICAL LSC70 ANATOMY:
+1. Index and middle fingers are extended vertically upward and tightly crossed over each other (classic crossed-fingers gesture).
+2. The thumb holds down the ring and pinky fingers curled against the palm.
+Holds the canonical pose steadily for 1.8s matching reference (fotos/R_ref.jpg). Seamless 24 fps loop.
+`
+
+---
+
+### 31. Seña: S (Dactilología LSC70)
+**Español:**
+`	ext
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
+Plano medio mostrando torso y rostro. Letra dactilológica 'S' (dataset oficial LSC70):
+La mano derecha forma un puño cerrado frente al pecho medio con la palma/dorso orientado al frente:
+ANATOMÍA CANÓNICA LSC70:
+1. Los cuatro dedos (índice, medio, anular y meñique) se cierran en un puño sólido y compacto.
+2. El pulgar se dobla horizontalmente cruzando POR DELANTE de las falanges de los dedos doblados (atravesando el frente del puño, a diferencia de la letra A donde el pulgar queda al lateral).
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/S_ref.jpg). Bucle a 24 fps.
+`
+
+**English:**
+`	ext
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
+Medium shot framing upper chest and face. Canonical manual alphabet letter 'S' (LSC70 dataset):
+The right hand forms a compact closed fist at mid-chest facing forward:
+CANONICAL LSC70 ANATOMY:
+1. All four fingers are curled tightly into a solid, compact fist.
+2. The thumb wraps horizontally across the FRONT of the curled fingers (across index and middle knuckles, distinct from letter A where thumb rests laterally).
+Holds the canonical pose steadily for 1.8s matching reference (fotos/S_ref.jpg). Seamless 24 fps loop.
+`
+
+---
+
+### 32. Seña: T (Dactilología LSC70)
+**Español:**
+`	ext
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
+Plano medio mostrando torso y rostro. Letra dactilológica 'T' (dataset oficial LSC70):
+La mano derecha forma un puño frente al pecho medio:
+ANATOMÍA CANÓNICA LSC70:
+1. El pulgar se inserta verticalmente hacia arriba asomando su yema entre el dedo índice y el dedo medio doblados.
+2. El dedo índice se dobla por encima del pulgar sujetándolo.
+3. Los dedos medio, anular y meñique permanecen doblados en el puño.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/T_ref.jpg). Bucle a 24 fps.
+`
+
+**English:**
+`	ext
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
+Medium shot framing upper chest and face. Canonical manual alphabet letter 'T' (LSC70 dataset):
+The right hand forms a fist at mid-chest:
+CANONICAL LSC70 ANATOMY:
+1. The thumb tucks upward between the curled index and middle fingers, with its tip protruding visibly between them.
+2. The index finger folds over the thumb, securing it.
+3. Middle, ring, and pinky fingers are tucked into the fist.
+Holds the canonical pose steadily for 1.8s matching reference (fotos/T_ref.jpg). Seamless 24 fps loop.
+`
+
+---
+
+### 33. Seña: W (Dactilología LSC70)
+**Español:**
+`	ext
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
+Plano medio mostrando torso y rostro. Letra dactilológica 'W' (dataset oficial LSC70):
+La mano derecha se eleva al lateral del pecho con la palma orientada al frente:
+ANATOMÍA CANÓNICA LSC70:
+1. Tres dedos (índice, medio y anular) se extienden rectos hacia arriba separados en ángulo simétrico formando una letra 'W' o tridente.
+2. El pulgar se dobla sobre la palma sujetando la punta del dedo meñique doblado.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/W_ref.jpg). Bucle a 24 fps.
+`
+
+**English:**
+`	ext
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
+Medium shot framing upper chest and face. Canonical manual alphabet letter 'W' (LSC70 dataset):
+The right hand is raised beside the chest with palm facing forward:
+CANONICAL LSC70 ANATOMY:
+1. Three fingers (index, middle, and ring) are extended vertically straight and splayed in a clean, symmetrical 'W' trident shape.
+2. The thumb folds over the palm holding down the curled pinky finger.
+Holds the canonical pose steadily for 1.8s matching reference (fotos/W_ref.jpg). Seamless 24 fps loop.
+`
+
+---
+
+### 34. Seña: X (Dactilología LSC70)
+**Español:**
+`	ext
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
+Plano medio mostrando torso y rostro. Letra dactilológica 'X' (dataset oficial LSC70):
+La mano derecha se sitúa frente al pecho en vista 3/4 lateral:
+ANATOMÍA CANÓNICA LSC70:
+1. El dedo índice se curva formando un gancho o garfio (primera falange erguida, falanges media y distal flexionadas hacia adelante/abajo).
+2. Los dedos medio, anular y meñique permanecen completamente recogidos en el puño.
+3. El pulgar descansa apoyado lateralmente contra el puño debajo del gancho del índice.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/X_ref.jpg). Bucle a 24 fps.
+`
+
+**English:**
+`	ext
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
+Medium shot framing upper chest and face. Canonical manual alphabet letter 'X' (LSC70 dataset):
+The right hand is held in front of the chest in a 3/4 lateral view:
+CANONICAL LSC70 ANATOMY:
+1. The index finger is curled into a hook/claw (proximal phalanx raised, middle and distal phalanges bent forward/downward).
+2. Middle, ring, and pinky fingers are fully curled into the fist.
+3. The thumb rests along the side of the fist beneath the index hook.
+Holds the canonical pose steadily for 1.8s matching reference (fotos/X_ref.jpg). Seamless 24 fps loop.
+`
+
+---
+
+### 35. Seña: Y (Dactilología LSC70)
+**Español:**
+`	ext
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
+Plano medio mostrando torso y rostro. Letra dactilológica 'Y' (dataset oficial LSC70):
+La mano derecha se ubica al frente del pecho con la palma orientada hacia el frente:
+ANATOMÍA CANÓNICA LSC70:
+1. El pulgar y el meñique se extienden lateralmente en extremos opuestos formando una silueta de 'Y' (signo shaka o cuerno hawaiano).
+2. Los dedos índice, medio y anular permanecen firmemente doblados contra la palma.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/Y_ref.jpg). Bucle a 24 fps.
+`
+
+**English:**
+`	ext
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
+Medium shot framing upper chest and face. Canonical manual alphabet letter 'Y' (LSC70 dataset):
+The right hand is held in front of the chest facing forward:
+CANONICAL LSC70 ANATOMY:
+1. The thumb and pinky finger extend outward in opposite directions, forming a distinct 'Y' / shaka silhouette.
+2. Index, middle, and ring fingers are firmly curled into the palm.
+Holds the canonical pose steadily for 1.8s matching reference (fotos/Y_ref.jpg). Seamless 24 fps loop.
+`
+
+---
+
+### 36. Seña: Z (Dactilología LSC70 — Seña Dinámica)
+**Español:**
+`	ext
+Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
+Plano medio mostrando torso y rostro. Letra dactilológica 'Z' (dataset oficial LSC70):
+Seña dinámica en el espacio aéreo frente al pecho:
+ANATOMÍA Y DINÁMICA CANÓNICA LSC70:
+1. Mano en puño con el dedo índice derecho extendido apuntando al frente hacia el interlocutor.
+2. Movimiento: El índice traza en el aire con fluidez los tres trazos de la letra 'Z' frente al torso:
+   - Trazo 1: Línea horizontal de izquierda a derecha.
+   - Trazo 2: Diagonal descendente de derecha a izquierda.
+   - Trazo 3: Línea horizontal de izquierda a derecha en la base.
+3. Pausa 0.4 segundos en la posición final marcando la letra con precisión anatómica antes de retornar suavemente al inicio.
+Movimiento nítido sin vacilación, 5 dedos correctamente modelados, iluminación de estudio, bucle a 24 fps.
+`
+
+**English:**
+`	ext
+Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
+Medium shot framing upper chest and face. Canonical manual alphabet letter 'Z' (LSC70 dataset):
+Dynamic sign executed in the air space in front of the chest:
+CANONICAL LSC70 ANATOMY & DYNAMICS:
+1. Fist formed with only the right index finger extended pointing forward toward the viewer.
+2. Motion: The index finger smoothly traces the three strokes of the letter 'Z' in mid-air:
+   - Stroke 1: Horizontal line from left to right.
+   - Stroke 2: Diagonal cut downward from right to left.
+   - Stroke 3: Horizontal line from left to right at the bottom.
+3. Pauses for 0.4 seconds at the terminal position displaying crisp pose before returning smoothly to restart the loop.
+Fluid trajectory without hesitation, accurate 5-finger anatomy, studio lighting, seamless 24 fps loop.
+`
 
 ---
 
