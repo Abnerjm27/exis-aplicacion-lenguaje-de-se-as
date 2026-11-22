@@ -140,7 +140,7 @@ class LSCClientNLU {
 
   static GREETING_STARTERS = [
     "buenos dias", "buenas tardes", "buenas noches", "buen dia", "buenas",
-    "hola zorrito", "hola amigo", "hola profe", "hola tutor", "hola manitas",
+    "hola tito", "hola zorrito", "hola amigo", "hola profe", "hola tutor", "hola manitas",
     "hola", "saludos", "hey", "alo", "ola"
   ];
 
@@ -510,13 +510,44 @@ class LSCClientNLU {
     } catch (e) {}
   }
 
+  function init() {
+    voiceSynthesizer.init();
+  }
+
+  function start() {
+    const drawer = document.getElementById('chatDrawer');
+    if (drawer && drawer.classList.contains('hidden')) {
+      toggleDrawer();
+    }
+  }
+
+  function update() {}
+
+  function reset() {
+    chatHistory.length = 0;
+    isSending = false;
+  }
+
+  function destroy() {
+    reset();
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try { window.speechSynthesis.cancel(); } catch (e) {}
+    }
+  }
+
   return {
+    init,
+    start,
+    update,
+    reset,
+    destroy,
     toggleDrawer,
     sendQuickMessage,
     sendMessage,
     speakText,
     speakCelebration,
-    playVictorySound
+    playVictorySound,
+    LSCClientNLU
   };
 })();
 

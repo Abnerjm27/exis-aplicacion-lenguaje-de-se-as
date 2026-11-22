@@ -385,4 +385,46 @@ runTest('8. Conmutación de Modo de Video (Real vs Anime IA) y persistencia', ()
   controller.destroy();
 });
 
+runTest('9. Fallback sin cámara en práctica y botón Continuar sin cámara (+25 XP)', () => {
+  const prevVis = global.window.VisionEvaluator;
+  global.window.VisionEvaluator = {
+    setTargetSign: () => {},
+    setPaused: () => {},
+    isRunning: () => false,
+    start: () => false,
+    stop: () => {}
+  };
+
+  const controller = new LessonSessionController();
+  controller.init();
+  controller.startLesson('HOLA');
+  controller.nextPhase(); // quiz
+  controller.nextPhase(); // practice -> dispara VisionEvaluator.start() === false
+
+  const fallbackEl = documentMock.getElementById('lessonCameraFallback');
+  const liveBadge = documentMock.getElementById('lessonLiveBadge');
+  assert.strictEqual(fallbackEl.classList.contains('hidden'), false, 'Debe mostrarse #lessonCameraFallback al fallar la cámara');
+  assert.strictEqual(liveBadge.textContent, 'SIN CÁMARA', 'El badge debe indicar SIN CÁMARA');
+
+  const skipBtn = documentMock.getElementById('btnLessonSkipCamera');
+  skipBtn.click();
+  assert.strictEqual(controller.getCurrentPhase(), 'summary', 'Continuar sin cámara debe avanzar al resumen');
+  assert.strictEqual(documentMock.getElementById('lessonSummaryXp').textContent, '+25 XP');
+  assert.strictEqual(documentMock.getElementById('lessonSummaryScore').textContent, 'Sin cámara');
+
+  controller.destroy();
+  global.window.VisionEvaluator = prevVis;
+});
+
+runTest('10. Seña ANNOS sin clip anime (hasAnime=false) cae a videos/real sin 404', () => {
+  const controller = new LessonSessionController();
+  controller.init();
+  controller.setVideoMode('anime');
+  controller.startLesson('ANNOS');
+
+  const demoVideo = documentMock.getElementById('lessonDemoVideo');
+  assert.strictEqual(demoVideo.src, 'videos/real/ANNOS_body.mp4', 'ANNOS debe usar videos/real en modo anime');
+  controller.destroy();
+});
+
 console.log(`\n🎉 Todas las pruebas pasaron exitosamente (${testsPassed}/${totalTests}).`);

@@ -293,7 +293,29 @@ setTimeout(() => {
     assert.strictEqual(cameraStopCalls >= 1, true, 'stopExam debe apagar la cámara');
     console.log('  ✅ [PASS] Salida limpia y hardware de cámara liberado.');
 
-    console.log('\n🎉 ¡TODAS LAS PRUEBAS UNITARIAS DE LA ARENA (RETOS + PREGUNTAS QUIZ) PASARON AL 100%! (7/7)\n');
-    process.exit(0);
+    console.log('▶ Test 8: Fallback sin cámara en Arena de Examen...');
+    const origStart = global.window.VisionEvaluator.start;
+    global.window.VisionEvaluator.start = () => Promise.resolve(false);
+    exam.start({ title: 'Test Sin Cam', signs: ['HOLA', 'YO'], secondsPerQuestion: 20 });
+    setTimeout(() => {
+      assert.strictEqual(getMock('examCameraFallback').classList.contains('hidden'), false, 'Debe mostrarse #examCameraFallback');
+      assert.strictEqual(getMock('examLiveBadge').textContent, 'SIN CÁMARA');
+      exam.stopExam();
+      global.window.VisionEvaluator.start = origStart;
+      console.log('  ✅ [PASS] Fallback sin cámara verificado.');
+
+      console.log('▶ Test 9: Seña LICOR en Quiz modo Anime cae a videos/real...');
+      exam.setVideoMode('anime');
+      exam.start({ title: 'Test Anime Fallback', signs: ['HOLA', 'LICOR'], secondsPerQuestion: 20 });
+      exam.skipCurrentQuestion();
+      const loadedSrc = getMock('examQuizVideo').src;
+      assert.strictEqual(loadedSrc, 'videos/real/LICOR_body.mp4', `Esperado videos/real/LICOR_body.mp4, obtenido ${loadedSrc}`);
+      exam.stopExam();
+      exam.setVideoMode('real');
+      console.log('  ✅ [PASS] Quiz modo Anime con hasAnime=false cae a videos/real.');
+
+      console.log('\n🎉 ¡TODAS LAS PRUEBAS UNITARIAS DE LA ARENA (RETOS + PREGUNTAS QUIZ) PASARON AL 100%! (9/9)\n');
+      process.exit(0);
+    }, 30);
   }, 700);
 }, 500);

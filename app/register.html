@@ -7,12 +7,12 @@
   <link rel="icon" type="image/svg+xml" href="img/manitas-icono-app.svg">
   <link rel="stylesheet" href="css/fonts.css">
   <script src="lib/tailwind/tailwind.js"></script>
-  <script src="js/tailwind-config.js?v=20261116_v6"></script>
-  <link rel="stylesheet" href="css/tokens.css?v=20261116_v6">
-  <link rel="stylesheet" href="css/landing.css?v=20261116_v6">
-  <link rel="stylesheet" href="css/auth.css?v=20261116_v6">
-  <script src="js/auth-service.js" defer></script>
-  <script src="js/auth-page.js" defer></script>
+  <script src="js/tailwind-config.js?v=20261120_v15"></script>
+  <link rel="stylesheet" href="css/tokens.css?v=20261120_v15">
+  <link rel="stylesheet" href="css/landing.css?v=20261120_v15">
+  <link rel="stylesheet" href="css/auth.css?v=20261120_v15">
+  <script src="js/auth-service.js?v=20261120_v15" defer></script>
+  <script src="js/auth-page.js?v=20261120_v15" defer></script>
 </head>
 <body data-auth-mode="register" class="text-slate-900 antialiased relative selection:bg-amber-500 selection:text-slate-900">
   <div class="ambient-beam-amber" aria-hidden="true"></div>
@@ -39,41 +39,41 @@
       <div class="auth-card-light w-full max-w-md p-6 sm:p-8 flex flex-col gap-5">
         <div class="flex items-center gap-3 lg:hidden">
           <img src="img/manitas-simbolo.svg" alt="Manitas Logo" class="w-10 h-10 object-contain">
-          <a href="landing.html" class="text-2xl font-extrabold tracking-tight text-slate-900">Mani<span class="text-sun-500">tas</span></a>
+          <a href="landing.html" class="text-2xl font-extrabold tracking-tight text-slate-900 min-h-[44px] inline-flex items-center">Mani<span class="text-sun-500">tas</span></a>
         </div>
 
         <div class="flex items-center gap-3.5">
-          <img src="img/zorrito/svg/zorrito_explicando.svg" alt="Zorrito tutor" class="w-12 h-12 shrink-0 drop-shadow-md lg:hidden">
+          <img src="img/zorrito/svg/zorrito_explicando.svg" alt="Tito tutor" class="w-12 h-12 shrink-0 drop-shadow-md lg:hidden">
           <div>
-            <h1 class="auth-card-title text-2xl sm:text-3xl font-extrabold text-white">Crea tu cuenta</h1>
-            <p class="text-sm text-slate-400 mt-1">Empieza a aprender Lengua de Señas Colombiana hoy.</p>
+            <h1 class="auth-card-title text-2xl sm:text-3xl font-extrabold text-slate-900">Crea tu cuenta</h1>
+            <p class="text-sm text-slate-600 mt-1">Empieza a aprender Lengua de Señas Colombiana hoy.</p>
           </div>
         </div>
 
-        <div id="authError" role="alert" class="hidden text-xs text-rose-200 bg-rose-950/85 border border-rose-500/50 px-3.5 py-2.5 rounded-xl leading-snug"></div>
+        <div id="authError" role="alert" class="hidden text-xs font-semibold text-rose-900 bg-rose-50 border border-rose-300 px-3.5 py-2.5 rounded-xl leading-snug"></div>
 
         <form id="authForm" class="flex flex-col gap-3.5" novalidate>
           <div class="flex flex-col gap-1.5">
-            <label for="authDisplayNameInput" class="text-xs font-semibold text-slate-200">Nombre o apodo</label>
-            <input id="authDisplayNameInput" type="text" autocomplete="name" placeholder="Ej. Camila" class="auth-field-input w-full px-3.5 py-3 min-h-[44px] rounded-xl text-sm text-white placeholder-slate-500">
+            <label for="authDisplayNameInput" class="text-xs font-semibold text-slate-700">Nombre o apodo</label>
+            <input id="authDisplayNameInput" type="text" autocomplete="name" placeholder="Ej. Camila" class="auth-field-input w-full px-3.5 py-3 min-h-[44px] rounded-xl text-sm text-slate-900 placeholder-slate-500">
           </div>
 
           <div class="flex flex-col gap-1.5">
-            <label for="authIdentifierInput" class="text-xs font-semibold text-slate-200">Correo electrónico</label>
-            <input id="authIdentifierInput" type="email" autocomplete="email" placeholder="ejemplo@correo.com" class="auth-field-input w-full px-3.5 py-3 min-h-[44px] rounded-xl text-sm text-white placeholder-slate-500">
+            <label for="authIdentifierInput" class="text-xs font-semibold text-slate-700">Correo electrónico</label>
+            <input id="authIdentifierInput" type="email" autocomplete="email" placeholder="ejemplo@correo.com" class="auth-field-input w-full px-3.5 py-3 min-h-[44px] rounded-xl text-sm text-slate-900 placeholder-slate-500">
           </div>
 
           <div class="flex flex-col gap-1.5">
             <div class="flex items-center justify-between">
-              <label for="authPasswordInput" class="text-xs font-semibold text-slate-200">Contraseña</label>
-              <button id="btnTogglePassword" type="button" aria-pressed="false" class="text-xs text-amber-400 hover:text-amber-300 font-semibold min-h-[44px] px-2">Mostrar</button>
+              <label for="authPasswordInput" class="text-xs font-semibold text-slate-700">Contraseña</label>
+              <button id="btnTogglePassword" type="button" aria-pressed="false" class="text-xs text-amber-700 hover:text-amber-800 font-bold min-h-[44px] px-2 inline-flex items-center">Mostrar</button>
             </div>
-            <input id="authPasswordInput" type="password" autocomplete="new-password" placeholder="Mínimo 6 caracteres" class="auth-field-input w-full px-3.5 py-3 min-h-[44px] rounded-xl text-sm text-white placeholder-slate-500">
+            <input id="authPasswordInput" type="password" autocomplete="new-password" placeholder="Mínimo 4 caracteres" class="auth-field-input w-full px-3.5 py-3 min-h-[44px] rounded-xl text-sm text-slate-900 placeholder-slate-500">
           </div>
 
           <div class="flex flex-col gap-1.5">
-            <label for="authConfirmInput" class="text-xs font-semibold text-slate-200">Confirmar contraseña</label>
-            <input id="authConfirmInput" type="password" autocomplete="new-password" placeholder="Repite tu contraseña" class="auth-field-input w-full px-3.5 py-3 min-h-[44px] rounded-xl text-sm text-white placeholder-slate-500">
+            <label for="authConfirmInput" class="text-xs font-semibold text-slate-700">Confirmar contraseña</label>
+            <input id="authConfirmInput" type="password" autocomplete="new-password" placeholder="Repite tu contraseña" class="auth-field-input w-full px-3.5 py-3 min-h-[44px] rounded-xl text-sm text-slate-900 placeholder-slate-500">
           </div>
 
           <button id="btnAuthSubmit" type="submit" class="btn-spring auth-submit-btn mt-2 w-full min-h-[48px] rounded-xl text-sm font-extrabold text-slate-950">
@@ -81,9 +81,9 @@
           </button>
         </form>
 
-        <div class="pt-4 border-t border-slate-800/80 flex flex-col gap-2 text-sm">
-          <p class="text-slate-400">¿Ya tienes cuenta? <a id="linkToLogin" href="login.html" class="auth-link">Iniciar sesión</a></p>
-          <p class="text-slate-400">¿Prefieres no registrarte? <button id="btnAuthGuest" type="button" class="auth-link min-h-[44px]">Entrar como invitado</button></p>
+        <div class="pt-4 border-t border-slate-200 flex flex-col gap-1 text-sm">
+          <p class="text-slate-600 flex flex-wrap items-center gap-1">¿Ya tienes cuenta? <a id="linkToLogin" href="login.html" class="auth-link min-h-[44px] inline-flex items-center px-1">Iniciar sesión</a></p>
+          <p class="text-slate-600 flex flex-wrap items-center gap-1">¿Prefieres no registrarte? <button id="btnAuthGuest" type="button" class="auth-link min-h-[44px] inline-flex items-center px-1">Entrar como invitado</button></p>
         </div>
       </div>
     </main>

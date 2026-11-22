@@ -1,0 +1,479 @@
+/* ==========================================================================
+   EXIS · Lengua de Señas Colombiana (LSC)
+   landing-hero.css - Visor del Hero, Showcase Tito 3D, Companion y Tokens Móviles
+   ========================================================================== */
+
+/* ==========================================================================
+   Visor Multimedia Interactivo en Hero (Anime IA + Persona Real)
+   ========================================================================== */
+.hero-player-card {
+  background: #FFFFFF;
+  border: 1px solid #E6DFD5;
+  box-shadow: 0 16px 40px -10px rgba(28, 25, 23, 0.09);
+  backdrop-filter: none;
+}
+
+.hero-toggle-group {
+  display: inline-flex;
+  background: #F3EFEA;
+  border: 1px solid #E6DFD5;
+  border-radius: 0.75rem;
+  padding: 3px;
+  gap: 2px;
+}
+
+.hero-toggle-btn {
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 0.6rem;
+  color: #574F47;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+  white-space: nowrap;
+}
+
+.hero-toggle-btn:hover {
+  color: #1C1917;
+}
+
+.hero-toggle-btn.is-active {
+  background: #FFFFFF;
+  color: #1C1917;
+  box-shadow: 0 2px 6px rgba(28, 25, 23, 0.10);
+}
+
+.hero-sign-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 122, 69, 0.45) transparent;
+  padding-bottom: 4px;
+}
+
+.hero-sign-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.hero-sign-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 122, 69, 0.45);
+  border-radius: 9999px;
+}
+
+.hero-sign-pill {
+  padding: 5px 12px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  border-radius: 0.65rem;
+  background: #FAF8F5;
+  border: 1px solid #E6DFD5;
+  color: #574F47;
+  cursor: pointer;
+  transition: transform 0.18s var(--spring-easing), background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.hero-sign-pill:hover {
+  border-color: #FF7A45;
+  color: #1C1917;
+  background: #FFF2EC;
+  transform: translateY(-1px);
+}
+
+.hero-sign-pill.is-active {
+  background: #FFF2EC;
+  border: 2px solid #E85D2A;
+  color: #1C1917;
+  box-shadow: none;
+}
+
+.hero-sign-pill:active,
+.hero-toggle-btn:active { transform: scale(0.96); }
+
+/* Hero Editorial Centrado estilo "HI, I'M MINA" con Zorrito al centro */
+.hero-center-showcase {
+  min-height: calc(100vh - 76px);
+}
+.hero-center-stage {
+  --scroll-progress: 0;
+  min-height: 410px;
+}
+.hero-giant-backdrop-title {
+  font-size: clamp(2.8rem, 9.2vw, 7.2rem);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+  color: #1C1917;
+  margin-bottom: -2rem;
+  z-index: 2;
+  white-space: nowrap;
+}
+.hero-giant-accent {
+  color: #E85D2A;
+}
+@media (max-width: 767px) {
+  .hero-center-showcase { min-height: auto; }
+  .hero-center-stage { min-height: 300px; }
+  .hero-giant-backdrop-title { font-size: clamp(2.1rem, 11vw, 3.2rem); margin-bottom: 0.5rem; white-space: normal; }
+}
+.hero-center-aura { top: 2.2rem; }
+.hero-corner-copy {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.045em;
+  line-height: 1.5;
+  color: #574F47;
+  max-width: 39ch;
+}
+
+.pulse-stage-backdrop {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+.pulse-warm-aura {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 122, 69, 0.22) 0%, rgba(255, 146, 102, 0.08) 45%, transparent 72%);
+  transform: scale(calc(1 + var(--scroll-progress, 0) * 0.14));
+  transition: transform 0.2s ease-out;
+}
+.pulse-emblem-svg {
+  width: 350px;
+  height: 350px;
+  transform: rotate(calc(var(--scroll-progress, 0) * 55deg));
+  transition: transform 0.18s ease-out;
+}
+
+.zorrito-pulse-actor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transform: translate3d(0, calc(var(--scroll-progress, 0) * -10px), 0);
+  transition: transform 0.16s ease-out;
+}
+.zorrito-pulse-speech {
+  background: #FFFFFF;
+  border: 1px solid #FFC9B0;
+  border-radius: 1rem;
+  padding: 0.55rem 0.9rem;
+  max-width: 280px;
+  box-shadow: 0 10px 24px -6px rgba(28, 25, 23, 0.12), 0 2px 10px rgba(255, 122, 69, 0.14);
+  margin-bottom: -14px;
+  position: relative;
+  z-index: 16;
+}
+.zorrito-pulse-speech.hero-center-speech {
+  position: absolute;
+  top: 5.5rem;
+  right: -230px;
+  max-width: 220px;
+  z-index: 20;
+}
+@media (max-width: 1199px) {
+  .zorrito-pulse-speech.hero-center-speech {
+    position: static;
+    top: auto;
+    right: auto;
+    margin: 0.35rem auto 0.25rem;
+    max-width: min(300px, calc(100vw - 2rem));
+  }
+}
+.zorrito-speech-text {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #1C1917;
+  line-height: 1.35;
+  margin: 0.2rem 0 0;
+  text-wrap: pretty;
+}
+
+.zorrito-canvas-wrap {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 639px) { .zorrito-canvas-wrap { width: 260px; height: 260px; } }
+
+.scroll-companion-canvas {
+  width: 116px;
+  height: 116px;
+  display: block;
+  filter: drop-shadow(0 12px 24px rgba(28, 25, 23, 0.16));
+}
+@media (max-width: 1023px) {
+  .floating-zorrito-dock { display: none !important; }
+}
+.scroll-companion-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.floating-zorrito-wrapper.has-canvas .scroll-companion-fallback {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.zorrito-scroll-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: pointer;
+  filter: drop-shadow(0 16px 28px rgba(28, 25, 23, 0.16));
+  transition: transform 0.18s var(--spring-easing);
+}
+.zorrito-canvas-wrap:hover .zorrito-scroll-canvas { transform: scale(1.03); }
+.zorrito-canvas-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+}
+.zorrito-canvas-wrap.has-canvas .zorrito-canvas-fallback {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.zorrito-ground-shadow {
+  position: absolute;
+  bottom: 12px;
+  width: 150px;
+  height: 24px;
+  border-radius: 9999px;
+  background: radial-gradient(ellipse at center, rgba(28, 25, 23, 0.20) 0%, transparent 72%);
+}
+
+.pulse-scroll-hint {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.25rem;
+}
+.hero-active-inline-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #574F47;
+}
+
+.hero-gallery-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--palette-10-accent-deep, #B03B10);
+  background: #FFFFFF;
+  border: 1px solid #FFC9B0;
+  padding: 0.36rem 0.85rem;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
+}
+.hero-gallery-link:hover { background: #FFF2EC; border-color: #FF7A45; transform: translateY(-1px); }
+
+.floating-hud-Tag {
+  position: absolute;
+  z-index: 20;
+  padding: 0.35rem 0.7rem;
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #E6DFD5;
+  color: #1C1917;
+  box-shadow: 0 4px 14px rgba(28, 25, 23, 0.12);
+}
+.floating-hud-Tag.hero-stage-hud-pill { position: static; box-shadow: 0 2px 8px rgba(28, 25, 23, 0.06); }
+
+/* ==========================================================================
+   Zorrito Interactivo 3D (Opción C: Hero + Floating Dock + Curiosidad)
+   ========================================================================== */
+.hero-zorrito-interactive {
+  transform-style: preserve-3d;
+  transition: transform 0.12s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: drop-shadow(0 8px 16px rgba(28, 25, 23, 0.16));
+}
+
+.hero-zorrito-interactive.is-curious {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  filter: drop-shadow(0 14px 28px rgba(28, 25, 23, 0.24));
+}
+
+/* Floating Dock de Zorrito en esquina inferior */
+.floating-zorrito-dock {
+  opacity: 0;
+  transform: translateY(80px) scale(0.9);
+  transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 50;
+}
+
+.floating-zorrito-dock.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.floating-zorrito-dock.is-over-cta {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(24px) scale(0.92) !important;
+}
+
+.floating-zorrito-bubble {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #FFC9B0;
+  color: #1C1917;
+  box-shadow: 0 12px 30px -4px rgba(28, 25, 23, 0.14), 0 4px 12px rgba(255, 122, 69, 0.12);
+}
+
+.floating-zorrito-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  right: 28px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #FFFFFF;
+}
+
+.floating-zorrito-wrapper {
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  user-select: none;
+}
+
+.floating-zorrito-wrapper:hover {
+  transform: scale(1.08) translateY(-3px);
+}
+
+.floating-zorrito-wrapper:active {
+  transform: scale(0.92) translateY(2px);
+}
+
+#floatingZorritoImg {
+  filter: drop-shadow(0 6px 16px rgba(28, 25, 23, 0.14));
+  transition: filter 0.2s ease, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-zorrito-wrapper:hover #floatingZorritoImg {
+  filter: drop-shadow(0 10px 22px rgba(255, 122, 69, 0.38));
+}
+
+/* --- Clases Semánticas y Tipografía Referenciada (Cero CSS en HTML) --- */
+.landing-body {
+  background-color: var(--color-bg, #FAF8F5);
+  color: var(--color-text, #1C1917);
+}
+
+.hero-kinetic-stage {
+  min-height: 84vh;
+}
+
+.hero-active-badge-tag {
+  font-size: 0.75rem; /* 12px */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: var(--palette-10-accent-deep, #B03B10);
+  background-color: #FFF2EC;
+  border: 1px solid rgba(255, 122, 69, 0.45);
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  flex-shrink: 0;
+}
+
+.hero-live-badge-text {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem; /* 12px */
+  font-weight: 800;
+  color: var(--palette-10-accent-deep, #B03B10);
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-caption-note {
+  font-size: 0.75rem; /* 12px */
+  color: #574F47;
+  margin-top: 0.125rem;
+}
+
+.hero-label-sm {
+  font-size: 0.75rem; /* 12px */
+  font-weight: 700;
+  color: #574F47;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hero-badge-tag-amber {
+  color: var(--palette-10-accent-deep, #B03B10);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem; /* 12px */
+  font-weight: 700;
+}
+
+.zorrito-title-tag {
+  font-size: 0.75rem; /* 12px */
+  font-weight: 700;
+  color: var(--palette-10-accent-deep, #B03B10);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.zorrito-status-tag {
+  font-size: 0.75rem; /* 12px */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #1C1917;
+  background-color: #FFF2EC;
+  padding: 0.1rem 0.45rem;
+  border-radius: 0.25rem;
+  border: 1px solid #FFC9B0;
+}
+
+.floating-zorrito-bubble {
+  max-width: 240px;
+}
+
+.landing-footer {
+  border-top: 1px solid #E6DFD5;
+  background-color: #F3EFEA;
+  color: #574F47;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .float-badge-tiktok,
+  .anim-bounce-squish,
+  .pulse-emblem-svg {
+    animation: none;
+  }
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.12s;
+  }
+}

@@ -639,6 +639,10 @@ const VisionEvaluator = (() => {
       if (activePill) {
         activePill.classList.add('hidden');
       }
+      const trajPill = document.getElementById('trajectoryStatusPill');
+      if (trajPill) trajPill.classList.add('hidden');
+      const lessonTrajPill = document.getElementById('lessonTrajectoryPill');
+      if (lessonTrajPill) lessonTrajPill.classList.add('hidden');
     }
   }
 

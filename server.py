@@ -93,6 +93,29 @@ VALID_SIGN_IDS = [
 
 USERS_DB_PATH = os.path.join(DIRECTORY, "data", "users_db.json")
 
+class RateLimiter:
+    """Limitador de tasa en memoria por IP (ventana deslizante, POO)."""
+
+    def __init__(self, max_requests: int = 60, window_seconds: int = 60):
+        self.max_requests = max_requests
+        self.window_seconds = window_seconds
+        self._hits: Dict[str, List[float]] = {}
+        self._lock = threading.Lock()
+
+    def allow(self, client_ip: str) -> bool:
+        now = time.monotonic()
+        cutoff = now - self.window_seconds
+        with self._lock:
+            recent = [t for t in self._hits.get(client_ip, []) if t > cutoff]
+            if len(recent) >= self.max_requests:
+                self._hits[client_ip] = recent
+                return False
+            recent.append(now)
+            self._hits[client_ip] = recent
+            return True
+
+api_rate_limiter = RateLimiter(max_requests=60, window_seconds=60)
+
 @dataclass(slots=True)
 class LSCParsedIntent:
     """Contenedor de intención pedagógica extraída por el motor NLU (inmutable)."""
@@ -105,8 +128,10 @@ class LSCParsedIntent:
 class LSCNaturalLanguageParser:
     """
     Motor de Comprensión de Lenguaje Natural (NLU) para el Tutor Manitas LSC.
-    Distingue preámbulos de cortesía ('hola quiero aprender a' -> foco en 'A'),
-    resuelve negaciones y aclaraciones ('no quiero aprender a' -> foco en 'A'),
+    Distingue preámbulos de cortesía ('hola quiero aprender la letra a' -> foco en 'A'),
+    detecta introducciones abiertas ('hola quiero aprender a' -> 'OPEN_LEARNING_INTRO'),
+    resuelve rechazos ('no quiero aprender a' -> 'REJECT_SIGN') y aclaraciones
+    contrastivas ('no quiero la a, prefiero la c' -> foco en 'C'),
     y desambigua preposiciones gramaticales vs letras dactilológicas.
     """
     VOCABULARY_WORDS = {
@@ -129,7 +154,7 @@ class LSCNaturalLanguageParser:
 
     GREETING_STARTERS = [
         "buenos dias", "buenas tardes", "buenas noches", "buen dia", "buenas",
-        "hola zorrito", "hola amigo", "hola profe", "hola tutor", "hola manitas",
+        "hola tito", "hola zorrito", "hola amigo", "hola profe", "hola tutor", "hola manitas",
         "hola", "saludos", "hey", "alo", "ola"
     ]
 
@@ -424,20 +449,68 @@ class UserRepository:
             return self._read_db_unlocked()
 
     def save_user(self, user_data: dict) -> dict:
-        """Inserta o actualiza un usuario de forma atómica y thread-safe."""
+        """Inserta o actualiza un usuario de forma atómica y thread-safe con validación de esquema."""
         if not isinstance(user_data, dict) or not user_data.get("username"):
             raise ValueError("Datos de usuario inválidos: requiere campo 'username'")
 
         username = str(user_data.get("username")).strip().lower()
+        if not re.match(r"^[a-z0-9._@-]{2,64}$", username):
+            raise ValueError("Nombre de usuario inválido (2-64 caracteres alfanuméricos o ._@-)")
+
+        try:
+            xp_val = max(0, min(int(user_data.get("xp", 0)), 1_000_000))
+        except (TypeError, ValueError):
+            xp_val = 0
+        try:
+            streak_val = max(0, min(int(user_data.get("streak", 1)), 10_000))
+        except (TypeError, ValueError):
+            streak_val = 1
+
+        raw_plans = user_data.get("customPlans", [])
+        clean_plans = []
+        if isinstance(raw_plans, list):
+            for plan in raw_plans[:20]:
+                if isinstance(plan, dict):
+                    raw_signs = plan.get("signs", [])
+                    clean_signs = [str(s) for s in raw_signs if s in VALID_SIGN_IDS][:20] if isinstance(raw_signs, list) else []
+                    clean_plans.append({
+                        "id": str(plan.get("id", ""))[:64],
+                        "title": str(plan.get("title", "Plan LSC"))[:100],
+                        "rationale": str(plan.get("rationale", ""))[:300],
+                        "signs": clean_signs
+                    })
+
+        raw_history = user_data.get("examHistory", [])
+        clean_history = []
+        if isinstance(raw_history, list):
+            for entry in raw_history[:50]:
+                if isinstance(entry, dict):
+                    try:
+                        score_pct = max(0, min(int(entry.get("scorePct", 0)), 100))
+                        correct_cnt = max(0, int(entry.get("correct", 0)))
+                        total_cnt = max(0, int(entry.get("total", 0)))
+                    except (TypeError, ValueError):
+                        continue
+                    clean_history.append({
+                        "planTitle": str(entry.get("planTitle", "Examen LSC"))[:100],
+                        "scorePct": score_pct,
+                        "correct": correct_cnt,
+                        "total": total_cnt,
+                        "dateIso": str(entry.get("dateIso", ""))[:40]
+                    })
+
+        raw_mastered = user_data.get("masteredSigns", [])
+        clean_mastered = [str(s) for s in raw_mastered if s in VALID_SIGN_IDS][:len(VALID_SIGN_IDS)] if isinstance(raw_mastered, list) else []
+
         clean_user = {
             "username": username,
             "displayName": str(user_data.get("displayName") or username).strip()[:100],
             "level": str(user_data.get("level", "Principiante")).strip()[:50],
-            "xp": int(user_data.get("xp", 0)),
-            "streak": int(user_data.get("streak", 1)),
-            "masteredSigns": [str(s) for s in user_data.get("masteredSigns", []) if s in VALID_SIGN_IDS],
-            "customPlans": list(user_data.get("customPlans", [])),
-            "examHistory": list(user_data.get("examHistory", [])),
+            "xp": xp_val,
+            "streak": streak_val,
+            "masteredSigns": clean_mastered,
+            "customPlans": clean_plans,
+            "examHistory": clean_history,
             "lastUpdated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         }
 
@@ -508,7 +581,7 @@ class PedagogicalPlanner:
         plan_id = f"ai_plan_{int(time.time())}"
 
         try:
-            ollama_prompt = f"""Eres Sol, la arquitecta pedagógica experta en Lengua de Señas Colombiana (LSC) de Manitas.
+            ollama_prompt = f"""Eres Tito IA, el tutor pedagógico experto en Lengua de Señas Colombiana (LSC) de Manitas.
 Tu tarea es diseñar una ruta progresiva de aprendizaje para un estudiante.
 Objetivo del estudiante: "{clean_goal}"
 Nivel: {level}
@@ -559,7 +632,7 @@ Responde ÚNICAMENTE un objeto JSON válido con este formato:
             return {
                 "id": plan_id,
                 "title": "Ruta IA: Abecedario Dactilológico LSC",
-                "rationale": "Sol ha seleccionado la secuencia dactilológica esencial para deletrear nombres propios y términos técnicos en LSC con soltura.",
+                "rationale": "Tito IA ha seleccionado la secuencia dactilológica esencial para deletrear nombres propios y términos técnicos en LSC con soltura.",
                 "signs": ["A", "B", "C", "D", "E", "I", "L", "O", "U", "V"],
                 "source": "curated_fallback"
             }
@@ -567,7 +640,7 @@ Responde ÚNICAMENTE un objeto JSON válido con este formato:
             return {
                 "id": plan_id,
                 "title": "Ruta IA: Saludos y Presentación Personal",
-                "rationale": "Sol estructuró las señas fundamentales para iniciar una conversación cordial y presentarte con naturalidad ante personas sordas.",
+                "rationale": "Tito IA estructuró las señas fundamentales para iniciar una conversación cordial y presentarte con naturalidad ante personas sordas.",
                 "signs": ["HOLA", "YO", "NOMBRE", "BUENOS", "DIAS", "GUSTAR"],
                 "source": "curated_fallback"
             }
@@ -575,7 +648,7 @@ Responde ÚNICAMENTE un objeto JSON válido con este formato:
             return {
                 "id": plan_id,
                 "title": "Ruta IA: Vocabulario Esencial LSC",
-                "rationale": "Sol diseñó una inmersión directa en las expresiones y términos cotidianos más frecuentes del corpus LSC70.",
+                "rationale": "Tito IA diseñó una inmersión directa en las expresiones y términos cotidianos más frecuentes del corpus LSC70.",
                 "signs": ["HOLA", "BUENOS", "DIAS", "TARDES", "NOCHES", "YO", "NOMBRE", "GUSTAR", "ANNOS", "LICOR"],
                 "source": "curated_fallback"
             }
@@ -583,7 +656,7 @@ Responde ÚNICAMENTE un objeto JSON válido con este formato:
             return {
                 "id": plan_id,
                 "title": "Ruta IA: Fundamentos LSC Desde Cero",
-                "rationale": "Sol diseñó una ruta balanceada para principiantes: inicia con el saludo universal, continúa con vocales dactilológicas y culmina con cortesía y presentación.",
+                "rationale": "Tito IA diseñó una ruta balanceada para principiantes: inicia con el saludo universal, continúa con vocales dactilológicas y culmina con cortesía y presentación.",
                 "signs": ["HOLA", "YO", "A", "E", "O", "BUENOS", "DIAS", "NOMBRE"],
                 "source": "curated_fallback"
             }
@@ -644,12 +717,19 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
 
     def send_head(self):
         """Maneja solicitudes GET/HEAD con soporte completo para rangos de bytes (HTTP 206 Partial Content)."""
-        clean_req_path = self.path.split('?', 1)[0].split('#', 1)[0]
-        if clean_req_path.endswith(('users_db.json', '.env', '.git')) or '/data/users_db.json' in clean_req_path:
+        raw_req_path = self.path.split('?', 1)[0].split('#', 1)[0]
+        clean_req_path = urllib.parse.unquote(raw_req_path).replace('\\', '/').lower()
+        blocked_segments = ('users_db.json', '.env', '.git', '/data/', '/tools/', '/tools_archive/')
+        if any(seg in clean_req_path for seg in blocked_segments):
             self.send_error(403, "Acceso restringido a datos protegidos del sistema")
             return None
 
         path = self.translate_path(self.path)
+        real_dir = os.path.realpath(DIRECTORY)
+        real_path = os.path.realpath(path)
+        if real_path != real_dir and not real_path.startswith(real_dir + os.sep):
+            self.send_error(403, "Ruta fuera del directorio permitido")
+            return None
         f = None
         if os.path.isdir(path):
             parts = urllib.parse.urlsplit(self.path)
@@ -742,7 +822,8 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
 
     def end_headers(self):
         origin = self.headers.get("Origin", "")
-        if origin and any(origin.startswith(p) for p in ("http://localhost", "http://127.0.0.1")):
+        parsed_origin = urllib.parse.urlparse(origin) if origin else None
+        if parsed_origin and parsed_origin.scheme == "http" and parsed_origin.hostname in ("localhost", "127.0.0.1"):
             self.send_header('Access-Control-Allow-Origin', origin)
         else:
             self.send_header('Access-Control-Allow-Origin', 'http://localhost:8000')
@@ -805,8 +886,17 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
         except json.JSONDecodeError:
             return None, "JSON malformado"
 
+    def _check_rate_limit(self) -> bool:
+        client_ip = self.client_address[0] if getattr(self, "client_address", None) else "local"
+        if not api_rate_limiter.allow(client_ip):
+            self._send_json_error(429, "Demasiadas solicitudes. Intenta nuevamente en unos segundos.")
+            return False
+        return True
+
     def do_GET(self):
         if self.path == '/api/users':
+            if not self._check_rate_limit():
+                return
             try:
                 users_data = user_repository.get_all_users()
                 self._send_json_response(200, users_data)
@@ -823,6 +913,8 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_POST(self):
         if self.path == '/api/chat':
+            if not self._check_rate_limit():
+                return
             payload, err = self._read_json_payload()
             if err:
                 self._send_json_error(400 if "grande" not in err else 413, err)
@@ -841,6 +933,8 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
             return
 
         elif self.path == '/api/plan':
+            if not self._check_rate_limit():
+                return
             payload, err = self._read_json_payload()
             if err:
                 self._send_json_error(400 if "grande" not in err else 413, err)
@@ -856,6 +950,8 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
             return
 
         elif self.path == '/api/users':
+            if not self._check_rate_limit():
+                return
             payload, err = self._read_json_payload()
             if err:
                 self._send_json_error(400 if "grande" not in err else 413, err)

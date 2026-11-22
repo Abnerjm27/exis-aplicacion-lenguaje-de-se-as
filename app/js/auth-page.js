@@ -98,7 +98,7 @@ class AuthPageController {
     const password = document.getElementById('authPasswordInput').value;
     const displayName = document.getElementById('authDisplayNameInput');
 
-    const err = svc.validateIdentifier(identifier) || svc.validatePassword(password);
+    const err = svc.validateIdentifier(identifier, this.#mode) || svc.validatePassword(password);
     if (err) return this.#showError(err);
 
     if (this.#mode === 'register') {

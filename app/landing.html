@@ -11,15 +11,16 @@
 
   <!-- Tailwind CSS Local (Offline Standalone) -->
   <script src="lib/tailwind/tailwind.js"></script>
-  <script src="js/tailwind-config.js?v=20261116_v6"></script>
+  <script src="js/tailwind-config.js?v=20261120_v15"></script>
 
   <!-- Estilos Cinemáticos Scrollytelling + Auth + Onboarding (Sin estilos embebidos) -->
-  <link rel="stylesheet" href="css/tokens.css?v=20261116_v6">
-  <link rel="stylesheet" href="css/auth.css?v=20261116_v6">
-  <link rel="stylesheet" href="css/landing.css?v=20261116_v12">
+  <link rel="stylesheet" href="css/tokens.css?v=20261120_v15">
+  <link rel="stylesheet" href="css/auth.css?v=20261120_v15">
+  <link rel="stylesheet" href="css/landing.css?v=20261120_v15">
+  <link rel="stylesheet" href="css/landing-hero.css?v=20261120_v15">
 
   <!-- Controlador Modular POO de Scrollytelling, Login/Registro y Cuestionario -->
-  <script src="js/landing.js?v=20261116_v12" defer></script>
+  <script src="js/landing.js?v=20261120_v15" defer></script>
 </head>
 
 <body class="landing-body flex flex-col min-h-screen antialiased relative selection:bg-amber-500 selection:text-slate-950">
@@ -40,7 +41,7 @@
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
       
       <!-- Identidad Manitas -->
-      <a href="landing.html" class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-xl">
+      <a href="landing.html" class="flex items-center gap-3 min-h-[44px] py-1 group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-xl">
         <img src="img/manitas-mark.svg" alt="" width="36" height="36" class="shrink-0">
         <div class="flex flex-col">
           <span class="text-lg font-extrabold tracking-tight text-slate-900 leading-none">
@@ -52,24 +53,20 @@
 
       <!-- Enlaces de Scrollytelling -->
       <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-600">
-        <a id="navHeroVisor" href="#heroShowcaseSection" class="hover:text-amber-700 transition-colors flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse" aria-hidden="true"></span>
-          <span>Visor Anime IA</span>
+        <a id="navHeroVisor" href="#heroShowcaseSection" class="hover:text-amber-800 transition-colors flex items-center gap-1.5 min-h-[44px]">
+          <span class="w-2 h-2 rounded-full bg-amber-600" aria-hidden="true"></span>
+          <span>Conoce a Tito</span>
         </a>
-        <a id="navFeatures" href="#scrollyShowcaseSection" class="hover:text-amber-700 transition-colors">Experiencia Interactiva</a>
-        <a href="#pillarsSection" class="hover:text-amber-700 transition-colors">Tecnología IA</a>
-        <a href="mascot_gallery.html" class="hover:text-amber-800 text-amber-700 font-bold transition-colors flex items-center gap-1.5">
+        <a id="navFeatures" href="#scrollyShowcaseSection" class="hover:text-amber-800 transition-colors min-h-[44px] inline-flex items-center">Experiencia Interactiva</a>
+        <a href="#pillarsSection" class="hover:text-amber-800 transition-colors min-h-[44px] inline-flex items-center">Tecnología IA</a>
+        <a href="mascot_gallery.html" class="hover:text-amber-900 text-amber-800 font-bold transition-colors flex items-center gap-1.5 min-h-[44px]">
           <span>🦊</span>
-          <span>Mascota Zorrito</span>
+          <span>Galería de Tito</span>
         </a>
       </nav>
 
-      <!-- Botones de Login, Registro y Demo Rápida -->
+      <!-- Botones de Login y Registro (máximo 2 CTAs claros) -->
       <div class="flex items-center gap-2">
-        <a id="btnNavDemoDirect" href="index.html?screen=studio" class="hidden sm:inline-flex btn-duo-3d-secondary px-3.5 py-1.5 rounded-xl text-xs font-bold items-center gap-1.5">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-          <span>Probar Demo</span>
-        </a>
         <a id="btnHeaderLogin" href="login.html" class="btn-duo-3d-secondary px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-slate-900">
           Iniciar Sesión
         </a>
@@ -93,7 +90,7 @@
       <!-- Barra superior sutil de contexto -->
       <div class="flex items-center justify-between gap-3 relative z-20 mb-2">
         <div class="floating-hud-Tag hero-stage-hud-pill flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping" aria-hidden="true"></span>
+          <span class="w-2 h-2 rounded-full bg-amber-600" aria-hidden="true"></span>
           <span id="heroLiveBadgeText" class="hero-live-badge-text">EJEMPLO 3D EN VIVO · TITO LSC</span>
         </div>
         <a href="mascot_gallery.html" class="hero-gallery-link shrink-0" title="Ver galería de poses de Tito">
@@ -156,10 +153,7 @@
 
         <div class="md:col-span-7 flex flex-wrap items-center md:justify-end gap-3">
           <a id="btnHeroDemoDirect" href="index.html?screen=studio" class="btn-duo-3d-secondary px-4 sm:px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2">
-            <span>Probar Estudio</span>
-          </a>
-          <a id="btnScrollToAuth" href="login.html" class="btn-duo-3d-secondary px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold">
-            <span>Iniciar Sesión</span>
+            <span>Probar Práctica Libre</span>
           </a>
           <a id="btnHeroStartRegister" href="register.html" class="btn-duo-3d-primary px-6 py-3.5 rounded-full text-xs sm:text-sm font-extrabold flex items-center gap-2">
             <span>Comenzar Gratis</span>
@@ -178,18 +172,15 @@
     </section>
 
     <!-- =======================================================================
-         SECCIÓN 2: MARQUESINA CINEMÁTICA DE SEÑAS OFICIALES LSC70
+         SECCIÓN 2: CINTILLO EDITORIAL DE SEÑAS OFICIALES LSC70
          ======================================================================= -->
-    <div class="sign-ticker-strip py-3 border-y border-slate-200 bg-white overflow-hidden" aria-hidden="true">
-      <div class="sign-ticker-track flex items-center gap-8 font-mono text-xs text-slate-700">
-        <span class="text-amber-700 font-bold">CORPUS OFICIAL LSC70 UTP</span>
+    <div class="sign-ticker-strip py-3 border-y border-stone-200 bg-white overflow-hidden" aria-hidden="true">
+      <div class="sign-ticker-track max-w-7xl mx-auto px-4 sm:px-6 font-mono text-xs text-slate-700">
+        <span class="text-amber-800 font-bold">CORPUS OFICIAL LSC70 UTP</span>
         <span>HOLA</span><span>·</span><span>BUENOS DÍAS</span><span>·</span><span>BUENAS TARDES</span><span>·</span><span>BUENAS NOCHES</span><span>·</span>
         <span>YO</span><span>·</span><span>NOMBRE</span><span>·</span><span>GUSTAR</span><span>·</span><span>AÑOS</span><span>·</span>
         <span class="text-slate-900 font-bold">ALFABETO DACTILOLÓGICO</span>
         <span>A · B · C · D · E · I · L · O · U · V</span>
-        <span>·</span>
-        <span class="text-amber-700 font-bold">MODO EXAMEN CIEGO SIN VIDEO</span>
-        <span>HOLA</span><span>·</span><span>BUENOS DÍAS</span><span>·</span><span>YO</span><span>·</span><span>NOMBRE</span>
       </div>
     </div>
 
@@ -215,8 +206,8 @@
           <!-- Capítulo 01 -->
           <article data-scrolly-step="1" class="scrolly-step-card is-active py-6 pl-5 pr-3 cursor-pointer">
             <div class="flex items-center justify-between mb-1.5">
-              <span class="scrolly-kicker">01 · Ruta adaptativa</span>
-              <span class="text-xs text-slate-400">Personalización</span>
+              <span class="scrolly-kicker">Ruta adaptativa</span>
+              <span class="text-xs text-slate-600">Personalización</span>
             </div>
             <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Cuestionario inicial y mapa por niveles</h3>
             <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
@@ -227,8 +218,8 @@
           <!-- Capítulo 02 -->
           <article data-scrolly-step="2" class="scrolly-step-card py-6 pl-5 pr-3 cursor-pointer">
             <div class="flex items-center justify-between mb-1.5">
-              <span class="scrolly-kicker">02 · Visión en vivo</span>
-              <span class="text-xs text-slate-400">MediaPipe 30 FPS</span>
+              <span class="scrolly-kicker">Visión en vivo</span>
+              <span class="text-xs text-slate-600">MediaPipe 30 FPS</span>
             </div>
             <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Espejo biomecánico y video dual</h3>
             <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
@@ -239,8 +230,8 @@
           <!-- Capítulo 03 -->
           <article data-scrolly-step="3" class="scrolly-step-card py-6 pl-5 pr-3 cursor-pointer">
             <div class="flex items-center justify-between mb-1.5">
-              <span class="scrolly-kicker">03 · Certificación sin pistas</span>
-              <span class="text-xs text-slate-400">Modo Examen</span>
+              <span class="scrolly-kicker">Certificación sin pistas</span>
+              <span class="text-xs text-slate-600">Modo Examen</span>
             </div>
             <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">Demuestra cada seña de memoria</h3>
             <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
@@ -349,7 +340,9 @@
         <!-- Dos Filas Tipográficas Abiertas con Divisores (7 cols) -->
         <div class="lg:col-span-7 flex flex-col justify-center divide-y divide-stone-200/90">
           <div class="py-6 sm:py-7 flex items-start gap-5">
-            <span class="editorial-numeral">02</span>
+            <span class="w-9 h-9 rounded-xl bg-[#F3EFEA] text-[#B03B10] flex items-center justify-center shrink-0" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            </span>
             <div>
               <h3 class="text-lg font-extrabold text-slate-900">Dataset Oficial LSC70 (UTP)</h3>
               <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
@@ -358,7 +351,9 @@
             </div>
           </div>
           <div class="py-6 sm:py-7 flex items-start gap-5">
-            <span class="editorial-numeral">03</span>
+            <span class="w-9 h-9 rounded-xl bg-[#F3EFEA] text-[#B03B10] flex items-center justify-center shrink-0" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+            </span>
             <div>
               <h3 class="text-lg font-extrabold text-slate-900">Rachas, XP y Certificados de Unidad</h3>
               <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
@@ -383,7 +378,7 @@
             Tu primera seña está a un clic
           </h2>
           <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
-            Crea tu cuenta, responde un test de nivel de 3 preguntas y Sol IA arma tu ruta.
+            Crea tu cuenta, responde un test de nivel de 3 preguntas y Tito IA arma tu ruta.
           </p>
           <div class="flex flex-wrap items-center gap-3 pt-2">
             <a id="ctaRegister" href="register.html" class="btn-duo-3d-primary px-6 text-sm font-extrabold">Crear cuenta gratis</a>
