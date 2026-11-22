@@ -65,7 +65,7 @@ Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficia
 | **U** | Letra | `fotos/U_ref.jpg` | Dedos índice y medio erguidos y unidos (paralelos sin separación en V) | `app/videos/anime/U_body.mp4` |
 | **V** | Letra | `fotos/V_ref.jpg` | Índice y medio abiertos en V (victoria), anular y meñique sujetos | `app/videos/anime/V_body.mp4` |
 | **F** | Letra | `fotos/F_ref.jpg` | Índice vertical arriba, pulgar erguido paralelo junto al borde de la palma/índice (NO abierto en L) y medio/anular/meñique doblados en escalón | `app/videos/anime/F_body.mp4` |
-| **G** | Letra | `fotos/G_ref.jpg` | Puño compacto proyectado hacia el frente en escorzo con índice y pulgar orientados hacia cámara a la altura del pecho | `app/videos/anime/G_body.mp4` |
+| **G** | Letra | `fotos/G_ref.jpg` | Brazo derecho proyectado hacia adelante en escorzo 3D (codo bajo junto a la cintura), puño cerrado en el plano medio-bajo del torso con separación espacial de la camiseta, dorso arriba-izquierda | `app/videos/anime/G_body.mp4` |
 | **H** | Letra | `fotos/H_ref.jpg` | Mano derecha lateral frente a clavícula con índice vertical arriba, pulgar apuntando al frente hacia cámara y dedos restantes recogidos | `app/videos/anime/H_body.mp4` |
 | **J** | Letra | `fotos/J_ref.jpg` | Seña dinámica: trazo en curva de 'J' terminando con dorso del puño al frente y meñique extendido hacia la derecha | `app/videos/anime/J_body.mp4` |
 | **K** | Letra | `fotos/K_ref.jpg` | Mano en tijera lateral en pecho alto: índice diagonal arriba-derecha, medio diagonal abajo-derecha y pulgar en el centro | `app/videos/anime/K_body.mp4` |
@@ -485,11 +485,12 @@ Holds the canonical pose steadily for 1.8s matching reference (fotos/F_ref.jpg).
 ```text
 Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
 Plano medio mostrando torso y rostro. Letra dactilológica 'G' (dataset oficial LSC70):
-El brazo derecho se adelanta hacia el centro superior del pecho y la mano forma un gesto compacto en escorzo apuntando directamente hacia la cámara:
+El brazo derecho se proyecta hacia adelante desde el codo ubicado a la altura de la cintura/torso bajo, extendiendo el antebrazo en marcado escorzo tridimensional hacia la cámara (la mano flota en el espacio con clara separación del pecho, NO apoyada contra la camiseta):
 ANATOMÍA CANÓNICA LSC70:
-1. El dedo índice se orienta hacia adelante directamente en dirección al espectador (vista en escorzo frontal).
-2. El pulgar acompaña pegado al costado derecho del índice/puño.
-3. Los dedos medio, anular y meñique permanecen firmemente doblados debajo del puño.
+1. El puño está completamente cerrado y compacto en el plano medio-bajo del torso (por debajo de la línea del pecho, alineado con el ombligo/abdomen).
+2. El dorso de la mano y los nudillos se orientan con inclinación natural diagonal hacia arriba-izquierda (~40°), con el pulgar recogido y plegado firmemente sobre los dedos flexionados.
+3. PROHIBIDO apuntar con el dedo índice hacia el espectador (no señalar ni simular pistola).
+4. PROHIBIDO apoyar la mano o la muñeca contra el pecho; debe apreciarse claramente el antebrazo avanzando hacia el frente en perspectiva 3D.
 Mantiene la postura estática estable durante 1.8 segundos coincidiendo con la referencia (fotos/G_ref.jpg). 5 dedos anatómicamente definidos, iluminación limpia de estudio, bucle continuo a 24 fps.
 ```
 
@@ -497,11 +498,12 @@ Mantiene la postura estática estable durante 1.8 segundos coincidiendo con la r
 ```text
 Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
 Medium shot framing upper chest and smiling face. Canonical manual alphabet letter 'G' (LSC70 dataset):
-The right arm reaches smoothly forward at upper-chest height with the hand seen foreshortened aiming straight toward the camera:
+The right arm reaches smoothly forward from the elbow positioned low near the waist, extending the forearm in strong 3D foreshortening toward the camera (the hand hovers in space with distinct depth separation from the shirt, NOT resting or pressed against the chest):
 CANONICAL LSC70 ANATOMY:
-1. The index finger aims straight forward toward the viewer in clear foreshortened depth.
-2. The thumb rests naturally alongside the right side of the compact fist.
-3. Middle, ring, and pinky fingers remain cleanly curled beneath the hand.
+1. The fist is fully compact and closed at lower-torso/abdomen height (positioned lower than the upper chest, aligned naturally in front of mid-body).
+2. The back of the hand and knuckles tilt naturally at ~40° upward and to the viewer's left, with the thumb tucked and folded neatly across the curled fingers.
+3. STRICTLY FORBIDDEN to point with the index finger toward the viewer (no gun gesture, no index pointing).
+4. STRICTLY FORBIDDEN to press the hand flat against the chest; the forearm must visibly extend forward into the 3D space toward the camera.
 Holds the canonical pose steadily for 1.8s matching reference (fotos/G_ref.jpg). Crisp 5-finger anatomy, clean studio lighting, seamless 24 fps loop.
 ```
 
