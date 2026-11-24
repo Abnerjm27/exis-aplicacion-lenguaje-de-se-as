@@ -64,6 +64,7 @@ class LetterComparisonBuilder:
         real_path = self._resolve_image_path(self._samples_dir, letter_upper, (".jpg", ".png", ".jpeg", ".webp"))
         anime_path = self._resolve_image_path(self._refs_dir, f"{letter_upper}_anime_generada", self.IMAGE_EXTENSIONS)
         out_path = os.path.join(self._samples_dir, f"comparacion_{letter_upper}.png")
+        ref_out_path = os.path.join(self._refs_dir, f"comparacion_{letter_upper}.png")
 
         if real_path is None:
             raise FileNotFoundError(f"No existe foto real para '{letter_upper}' en {self._samples_dir}")
@@ -97,9 +98,11 @@ class LetterComparisonBuilder:
             )
 
             canvas.save(out_path, format="PNG")
+            canvas.save(ref_out_path, format="PNG")
 
         self._generated_paths.append(out_path)
-        print(f"[OK] Comparativa generada: {out_path} ({total_w}x{total_h})")
+        self._generated_paths.append(ref_out_path)
+        print(f"[OK] Comparativa generada: {out_path} y {ref_out_path} ({total_w}x{total_h})")
         return out_path
 
     def reset(self) -> None:
