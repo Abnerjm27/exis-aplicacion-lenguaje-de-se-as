@@ -72,14 +72,14 @@ Para mantener una consistencia visual perfecta con la **Hoja de Personaje Oficia
 | **M** | Letra | fotos/M_ref.jpg | Tres dedos (índice, medio, anular) curvados juntos hacia abajo descansando sobre el pulgar | pp/videos/anime/M_body.mp4 |
 | **N** | Letra | fotos/N_ref.jpg | Dos dedos (índice y medio) curvados juntos hacia abajo descansando sobre el pulgar | pp/videos/anime/N_body.mp4 |
 | **P** | Letra | fotos/P_ref.jpg | Tijera invertida en ángulo recto: índice horizontal al frente y medio vertical hacia abajo con pulgar en la base | pp/videos/anime/P_body.mp4 |
-| **Q** | Letra | fotos/Q_ref.jpg | Pinza/gancho invertido hacia abajo formado por pulgar e índice en el plano torácico | pp/videos/anime/Q_body.mp4 |
-| **R** | Letra | fotos/R_ref.jpg | Dedos índice y medio erguidos verticales y cruzados entre sí (dedos entrelazados de la suerte) | pp/videos/anime/R_body.mp4 |
-| **S** | Letra | fotos/S_ref.jpg | Puño cerrado compacto con el pulgar doblado horizontalmente cruzando sobre el frente de los dedos | pp/videos/anime/S_body.mp4 |
-| **T** | Letra | fotos/T_ref.jpg | Puño cerrado con el pulgar insertado verticalmente asomando entre el dedo índice y el medio | pp/videos/anime/T_body.mp4 |
-| **W** | Letra | fotos/W_ref.jpg | Tres dedos (índice, medio, anular) erguidos en abanico abierto formando una W | pp/videos/anime/W_body.mp4 |
-| **X** | Letra | fotos/X_ref.jpg | Puño cerrado con el dedo índice curvado en gancho hacia arriba | pp/videos/anime/X_body.mp4 |
-| **Y** | Letra | fotos/Y_ref.jpg | Gesto de cuerno/shaka: pulgar y meñique extendidos lateralmente con dedos centrales recogidos | pp/videos/anime/Y_body.mp4 |
-| **Z** | Letra | fotos/Z_ref.jpg | Seña dinámica: dedo índice extendido al frente trazando en el aire la trayectoria de la letra Z | pp/videos/anime/Z_body.mp4 |
+| **Q** | Letra | `fotos/Q_ref.jpg` | Pinza/gancho invertido hacia abajo formado por pulgar e índice en el plano torácico | pp/videos/anime/Q_body.mp4 |
+| **R** | Letra | `fotos/R_ref.jpg` | Dedos índice y medio erguidos verticales y cruzados entre sí (dedos entrelazados de la suerte) | pp/videos/anime/R_body.mp4 |
+| **S** | Letra | `fotos/S_ref.jpg` | Puño cerrado compacto con el pulgar doblado horizontalmente cruzando sobre el frente de los dedos | pp/videos/anime/S_body.mp4 |
+| **T** | Letra | `fotos/T_ref.jpg` | Puño cerrado con el pulgar insertado verticalmente asomando entre el dedo índice y el medio | pp/videos/anime/T_body.mp4 |
+| **W** | Letra | `fotos/W_ref.jpg` | Tres dedos (índice, medio, anular) erguidos en abanico abierto formando una W | pp/videos/anime/W_body.mp4 |
+| **X** | Letra | `fotos/X_ref.jpg` | Puño cerrado con el dedo índice curvado en gancho hacia arriba | pp/videos/anime/X_body.mp4 |
+| **Y** | Letra | `fotos/Y_ref.jpg` | Gesto de cuerno/shaka: pulgar y meñique extendidos lateralmente con dedos centrales recogidos | pp/videos/anime/Y_body.mp4 |
+| **Z** | Letra | `fotos/Z_ref.jpg` | Seña dinámica: dedo índice extendido al frente trazando en el aire la trayectoria de la letra Z | pp/videos/anime/Z_body.mp4 |
 
 ---
 
@@ -525,7 +525,7 @@ Holds the canonical pose steadily for 1.8s matching reference (fotos/G_ref.jpg).
 ```text
 Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
 Plano medio mostrando torso y rostro. Letra dactilológica 'H' (dataset oficial LSC70):
-La mano derecha se eleva frente a la clavícula derecha (lado izquierdo del cuello para el espectador) en vista lateral 3/4 con la palma girada hacia adentro del cuerpo (NO palma plana de frente):
+La mano derecha se eleva en el aire frente a la clavícula/pecho superior (sin tocar el mentón ni la cara) en vista lateral 3/4 con la palma girada hacia adentro del cuerpo (NO palma plana de frente):
 ANATOMÍA CANÓNICA LSC70:
 1. El contorno exterior izquierdo de la mano sube recto con el dedo índice completamente vertical apuntando hacia arriba.
 2. El pulgar se proyecta horizontalmente recto hacia adelante en dirección directa a la cámara (escorzo frontal con yema/uña visible en primer plano).
@@ -537,7 +537,7 @@ Mantiene la postura nítida y estática durante 1.8 segundos coincidiendo con la
 ```text
 Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
 Medium shot framing upper chest and face. Canonical manual alphabet letter 'H' (LSC70 dataset):
-The right hand rises to the right collarbone area (viewer's left of neck) turned in a 3/4 lateral inward angle with the palm rotated medially toward the chest (NOT flat palm facing camera):
+The right hand is raised in mid-air in front of the right collarbone / upper chest (clear of the chin and face) turned in a 3/4 lateral inward angle with the palm rotated medially toward the chest (NOT flat palm facing camera):
 CANONICAL LSC70 ANATOMY:
 1. The smooth outer-left hand contour continues into the index finger pointing straight vertically upward.
 2. The thumb projects horizontally forward directly toward the camera lens in clear foreshortened depth.
@@ -605,84 +605,82 @@ Holds the canonical pose steadily for 1.8s matching reference (fotos/K_ref.jpg).
 
 ### 26. Seña: M (Dactilología LSC70)
 **Español:**
-``	ext
+```text
 Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
 Plano medio mostrando torso y rostro. Letra dactilológica 'M' (dataset oficial LSC70):
-La mano derecha se sitúa al frente del pecho medio/alto con el dorso orientado hacia el frente:
+El brazo derecho se eleva con el codo a la altura del hombro y el antebrazo cruzando horizontalmente el pecho superior. La muñeca se flexiona en ángulo recto hacia abajo (90°):
 ANATOMÍA CANÓNICA LSC70:
-1. Tres dedos (índice, medio y anular) se doblan juntos hacia abajo en ángulo recto/suave formando tres colinas visibles.
-2. Las yemas de los tres dedos descansan firmemente sobre el pulgar, el cual cruza horizontalmente por debajo de ellos.
-3. El dedo meñique permanece completamente recogido y doblado contra la base de la palma.
-Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/M_ref.jpg). 5 dedos anatómicamente correctos, iluminación limpia de estudio, bucle a 24 fps.
-`
+1. Tres dedos (índice, medio y anular) descienden completamente extendidos y separados en un abanico abierto simétrico (tridente invertido formando la letra "M").
+2. El dedo índice se inclina hacia la izquierda del espectador, el dedo medio desciende vertical y el anular se inclina hacia la derecha del espectador (abducción clara, NO dedos pegados).
+3. El pulgar y el dedo meñique permanecen firmemente recogidos y ocultos hacia el interior de la palma.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/M_ref.jpg). 5 dedos anatómicamente correctos, bucle continuo a 24 fps.
+```
 
 **English:**
-``	ext
+```text
 Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
 Medium shot framing upper chest and face. Canonical manual alphabet letter 'M' (LSC70 dataset):
-The right hand is positioned in front of mid-chest with the dorsal side facing forward:
+The right arm is raised with the elbow elevated at shoulder height and the forearm crossing horizontally across the upper chest. The wrist is flexed 90 degrees downward:
 CANONICAL LSC70 ANATOMY:
-1. Three fingers (index, middle, and ring) curl downward together, forming three distinct arches/ridges over the thumb.
-2. The thumb tucks horizontally beneath the three curled fingers, supporting their fingertips.
-3. The pinky finger remains tucked securely against the palm.
+1. Three fingers (index, middle, and ring) point straight downward and are splayed widely apart in an open symmetrical fan / trident forming the letter "M".
+2. The index finger angles toward viewer's left, middle finger points straight down, and ring finger angles toward viewer's right (clear finger separation, NOT glued or touching).
+3. The thumb and pinky finger remain tucked securely against the palm.
 Holds the canonical pose steadily for 1.8s matching reference (fotos/M_ref.jpg). Clean 5-finger anatomy, seamless 24 fps loop.
-`
+```
 
 ---
 
 ### 27. Seña: N (Dactilología LSC70)
 **Español:**
-``	ext
+```text
 Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
 Plano medio mostrando torso y rostro. Letra dactilológica 'N' (dataset oficial LSC70):
-La mano derecha se posiciona frente al pecho medio con el dorso al frente:
+El brazo derecho se eleva con el codo al nivel del hombro y el antebrazo cruzando horizontalmente el pecho. La muñeca se dobla 90° hacia abajo:
 ANATOMÍA CANÓNICA LSC70:
-1. Dos dedos (índice y medio) se doblan juntos hacia abajo en forma de dos colinas sobre el pulgar.
-2. El pulgar cruza horizontalmente sosteniendo las puntas del índice y medio.
-3. Los dedos anular y meñique permanecen firmemente doblados dentro de la palma.
+1. Dos dedos (índice y medio) descienden completamente extendidos y separados en forma de "V" invertida (símbolo de victoria apuntando hacia abajo).
+2. Existe una separación angular nítida de ~30°-40° entre el índice y el medio (NO dedos paralelos ni pegados).
+3. Los dedos anular, meñique y pulgar permanecen doblados y recogidos firmemente contra la palma.
 Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/N_ref.jpg). Bucle continuo a 24 fps.
-`
+```
 
 **English:**
-``	ext
+```text
 Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
 Medium shot framing upper chest and face. Canonical manual alphabet letter 'N' (LSC70 dataset):
-The right hand is held in front of mid-chest with the back of the hand facing forward:
+The right arm is elevated with the elbow at shoulder level and forearm extending horizontally across the chest. The wrist is flexed 90 degrees downward:
 CANONICAL LSC70 ANATOMY:
-1. Two fingers (index and middle) curl downward together over the thumb, forming two distinct rounded arches.
-2. The thumb lies horizontally beneath supporting the index and middle fingertips.
-3. Ring and pinky fingers are securely curled into the palm.
+1. Two fingers (index and middle) extend straight downward, separated in an inverted "V" shape (downward victory sign).
+2. A distinct angular spread of ~30-40 degrees separates the index and middle fingers (NOT parallel or touching).
+3. The ring finger, pinky finger, and thumb remain tightly folded against the palm.
 Holds the canonical pose steadily for 1.8s matching reference (fotos/N_ref.jpg). Seamless 24 fps loop.
-`
+```
 
 ---
 
 ### 28. Seña: P (Dactilología LSC70)
 **Español:**
-``	ext
+```text
 Video en bucle continuo de 2.5 segundos. Tutor anime de Lengua de Señas Colombiana (Sol, estilo cel-shading nítido, chaqueta gris pizarra con detalles teal sobre camiseta carbón, fondo neutro #0d1522).
 Plano medio mostrando torso y rostro. Letra dactilológica 'P' (dataset oficial LSC70):
-La mano derecha se orienta en tijera lateral inclinada hacia abajo a la altura del pecho medio:
+El codo derecho se ubica abajo y abierto hacia el costado derecho. El antebrazo sube en diagonal a ~35°-40° hacia la barbilla:
 ANATOMÍA CANÓNICA LSC70:
-1. El dedo índice se proyecta horizontalmente recto hacia adelante/izquierda.
-2. El dedo medio se extiende verticalmente hacia abajo en ángulo de 90° respecto al índice.
-3. El pulgar se apoya contra la articulación media del dedo medio en la hendidura.
-4. Anular y meñique permanecen plegados contra la palma.
+1. La mano derecha se sitúa directamente debajo del mentón con el puño cerrado horizontal y los nudillos orientados al frente.
+2. Únicamente un dedo (el dedo medio) cuelga verticalmente hacia abajo como un péndulo frente a la garganta.
+3. El dedo índice, pulgar, anular y meñique permanecen cerrados en el puño horizontal de apoyo bajo la mandíbula.
 Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/P_ref.jpg). Bucle a 24 fps.
-`
+```
 
 **English:**
-``	ext
+```text
 Seamless 2.5-second loop video. Anime Colombian Sign Language tutor (Sol, crisp cel-shaded anime style, slate-gray teal-trimmed jacket over charcoal crew-neck t-shirt, solid dark navy backdrop #0d1522).
 Medium shot framing upper chest and face. Canonical manual alphabet letter 'P' (LSC70 dataset):
-The right hand is oriented in a downward-pointing scissor gesture at mid-chest:
+The right elbow stays low and flared outward to the right side. The right forearm extends diagonally upward at ~35-40 degrees toward the chin:
 CANONICAL LSC70 ANATOMY:
-1. The index finger extends horizontally forward/left.
-2. The middle finger extends vertically straight downward at a 90-degree angle from the index.
-3. The thumb rests against the middle knuckle/joint inside the cleft.
-4. Ring and pinky fingers remain cleanly folded into the palm.
+1. The right hand rests directly under the chin in a horizontal fist with knuckles facing forward.
+2. Only one finger (the middle finger) hangs straight downward like a pendulum in front of the throat.
+3. The index, thumb, ring, and pinky fingers remain closed in the horizontal supporting fist below the jaw.
 Holds the canonical pose steadily for 1.8s matching reference (fotos/P_ref.jpg). Seamless 24 fps loop.
-`
+```
 
 ---
 
@@ -696,7 +694,7 @@ ANATOMÍA CANÓNICA LSC70:
 1. El dedo índice y el pulgar forman una pinza o semicírculo curvado apuntando hacia el suelo.
 2. Los dedos medio, anular y meñique permanecen doblados firmemente contra la palma.
 3. La muñeca se inclina suavemente hacia abajo para mostrar la pinza invertida con claridad tridimensional.
-Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/Q_ref.jpg). Bucle a 24 fps.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (`fotos/Q_ref.jpg`). Bucle a 24 fps.
 `
 
 **English:**
@@ -708,7 +706,7 @@ CANONICAL LSC70 ANATOMY:
 1. The index finger and thumb form a downward-pointing curved pinch/claw aiming toward the floor.
 2. Middle, ring, and pinky fingers are tucked securely into the palm.
 3. The wrist tilts naturally downward to display the inverted pinch clearly in 3D perspective.
-Holds the canonical pose steadily for 1.8s matching reference (fotos/Q_ref.jpg). Seamless 24 fps loop.
+Holds the canonical pose steadily for 1.8s matching reference (`fotos/Q_ref.jpg`). Seamless 24 fps loop.
 `
 
 ---
@@ -722,7 +720,7 @@ La mano derecha se eleva frente a la clavícula con la palma orientada hacia el 
 ANATOMÍA CANÓNICA LSC70:
 1. Los dedos índice y medio se extienden verticalmente hacia arriba y se cruzan entre sí (el dedo medio cruza ceñido por delante del índice, gesto clásico de dedos cruzados).
 2. El pulgar sujeta los dedos anular y meñique que permanecen doblados sobre la palma.
-Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/R_ref.jpg). Bucle a 24 fps.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (`fotos/R_ref.jpg`). Bucle a 24 fps.
 `
 
 **English:**
@@ -733,7 +731,7 @@ The right hand is raised near collarbone height with palm facing forward:
 CANONICAL LSC70 ANATOMY:
 1. Index and middle fingers are extended vertically upward and tightly crossed over each other (classic crossed-fingers gesture).
 2. The thumb holds down the ring and pinky fingers curled against the palm.
-Holds the canonical pose steadily for 1.8s matching reference (fotos/R_ref.jpg). Seamless 24 fps loop.
+Holds the canonical pose steadily for 1.8s matching reference (`fotos/R_ref.jpg`). Seamless 24 fps loop.
 `
 
 ---
@@ -747,7 +745,7 @@ La mano derecha forma un puño cerrado frente al pecho medio con la palma/dorso 
 ANATOMÍA CANÓNICA LSC70:
 1. Los cuatro dedos (índice, medio, anular y meñique) se cierran en un puño sólido y compacto.
 2. El pulgar se dobla horizontalmente cruzando POR DELANTE de las falanges de los dedos doblados (atravesando el frente del puño, a diferencia de la letra A donde el pulgar queda al lateral).
-Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/S_ref.jpg). Bucle a 24 fps.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (`fotos/S_ref.jpg`). Bucle a 24 fps.
 `
 
 **English:**
@@ -758,7 +756,7 @@ The right hand forms a compact closed fist at mid-chest facing forward:
 CANONICAL LSC70 ANATOMY:
 1. All four fingers are curled tightly into a solid, compact fist.
 2. The thumb wraps horizontally across the FRONT of the curled fingers (across index and middle knuckles, distinct from letter A where thumb rests laterally).
-Holds the canonical pose steadily for 1.8s matching reference (fotos/S_ref.jpg). Seamless 24 fps loop.
+Holds the canonical pose steadily for 1.8s matching reference (`fotos/S_ref.jpg`). Seamless 24 fps loop.
 `
 
 ---
@@ -773,7 +771,7 @@ ANATOMÍA CANÓNICA LSC70:
 1. El pulgar se inserta verticalmente hacia arriba asomando su yema entre el dedo índice y el dedo medio doblados.
 2. El dedo índice se dobla por encima del pulgar sujetándolo.
 3. Los dedos medio, anular y meñique permanecen doblados en el puño.
-Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/T_ref.jpg). Bucle a 24 fps.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (`fotos/T_ref.jpg`). Bucle a 24 fps.
 `
 
 **English:**
@@ -785,7 +783,7 @@ CANONICAL LSC70 ANATOMY:
 1. The thumb tucks upward between the curled index and middle fingers, with its tip protruding visibly between them.
 2. The index finger folds over the thumb, securing it.
 3. Middle, ring, and pinky fingers are tucked into the fist.
-Holds the canonical pose steadily for 1.8s matching reference (fotos/T_ref.jpg). Seamless 24 fps loop.
+Holds the canonical pose steadily for 1.8s matching reference (`fotos/T_ref.jpg`). Seamless 24 fps loop.
 `
 
 ---
@@ -799,7 +797,7 @@ La mano derecha se eleva al lateral del pecho con la palma orientada al frente:
 ANATOMÍA CANÓNICA LSC70:
 1. Tres dedos (índice, medio y anular) se extienden rectos hacia arriba separados en ángulo simétrico formando una letra 'W' o tridente.
 2. El pulgar se dobla sobre la palma sujetando la punta del dedo meñique doblado.
-Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/W_ref.jpg). Bucle a 24 fps.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (`fotos/W_ref.jpg`). Bucle a 24 fps.
 `
 
 **English:**
@@ -810,7 +808,7 @@ The right hand is raised beside the chest with palm facing forward:
 CANONICAL LSC70 ANATOMY:
 1. Three fingers (index, middle, and ring) are extended vertically straight and splayed in a clean, symmetrical 'W' trident shape.
 2. The thumb folds over the palm holding down the curled pinky finger.
-Holds the canonical pose steadily for 1.8s matching reference (fotos/W_ref.jpg). Seamless 24 fps loop.
+Holds the canonical pose steadily for 1.8s matching reference (`fotos/W_ref.jpg`). Seamless 24 fps loop.
 `
 
 ---
@@ -825,7 +823,7 @@ ANATOMÍA CANÓNICA LSC70:
 1. El dedo índice se curva formando un gancho o garfio (primera falange erguida, falanges media y distal flexionadas hacia adelante/abajo).
 2. Los dedos medio, anular y meñique permanecen completamente recogidos en el puño.
 3. El pulgar descansa apoyado lateralmente contra el puño debajo del gancho del índice.
-Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/X_ref.jpg). Bucle a 24 fps.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (`fotos/X_ref.jpg`). Bucle a 24 fps.
 `
 
 **English:**
@@ -837,7 +835,7 @@ CANONICAL LSC70 ANATOMY:
 1. The index finger is curled into a hook/claw (proximal phalanx raised, middle and distal phalanges bent forward/downward).
 2. Middle, ring, and pinky fingers are fully curled into the fist.
 3. The thumb rests along the side of the fist beneath the index hook.
-Holds the canonical pose steadily for 1.8s matching reference (fotos/X_ref.jpg). Seamless 24 fps loop.
+Holds the canonical pose steadily for 1.8s matching reference (`fotos/X_ref.jpg`). Seamless 24 fps loop.
 `
 
 ---
@@ -851,7 +849,7 @@ La mano derecha se ubica al frente del pecho con la palma orientada hacia el fre
 ANATOMÍA CANÓNICA LSC70:
 1. El pulgar y el meñique se extienden lateralmente en extremos opuestos formando una silueta de 'Y' (signo shaka o cuerno hawaiano).
 2. Los dedos índice, medio y anular permanecen firmemente doblados contra la palma.
-Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (fotos/Y_ref.jpg). Bucle a 24 fps.
+Mantiene la postura estática nítida durante 1.8 segundos coincidiendo con la referencia (`fotos/Y_ref.jpg`). Bucle a 24 fps.
 `
 
 **English:**
@@ -862,7 +860,7 @@ The right hand is held in front of the chest facing forward:
 CANONICAL LSC70 ANATOMY:
 1. The thumb and pinky finger extend outward in opposite directions, forming a distinct 'Y' / shaka silhouette.
 2. Index, middle, and ring fingers are firmly curled into the palm.
-Holds the canonical pose steadily for 1.8s matching reference (fotos/Y_ref.jpg). Seamless 24 fps loop.
+Holds the canonical pose steadily for 1.8s matching reference (`fotos/Y_ref.jpg`). Seamless 24 fps loop.
 `
 
 ---
