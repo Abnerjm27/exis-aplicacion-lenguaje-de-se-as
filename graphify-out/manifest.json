@@ -18,9 +18,9 @@
     "semantic_hash": ""
   },
   "app/js/blind-exam-controller.js": {
-    "mtime": 1795181641.125553,
-    "seen": 1795181987.716264,
-    "ast_hash": "a9621f27495d8879afa10a60cf897a9d",
+    "mtime": 1795200269.0409217,
+    "seen": 1795200379.471616,
+    "ast_hash": "9d79abcc3365791e258b48dbb9584a9a",
     "semantic_hash": ""
   },
   "app/js/camera-manager.js": {
@@ -36,9 +36,9 @@
     "semantic_hash": ""
   },
   "app/js/learning-plan-manager.js": {
-    "mtime": 1795121722.0585947,
-    "seen": 1795155580.4474998,
-    "ast_hash": "be03d36c5c078679513acf0106ad6698",
+    "mtime": 1795200193.1518617,
+    "seen": 1795200379.471652,
+    "ast_hash": "4c4dbbdbbbef207b0b30f773cccccd1c",
     "semantic_hash": ""
   },
   "app/js/main.js": {
@@ -432,9 +432,9 @@
     "semantic_hash": ""
   },
   "tests/test_checkpoints_unit.js": {
-    "mtime": 1795118631.3814385,
-    "seen": 1795155580.4481523,
-    "ast_hash": "73095d64ae93b1c2e4186dfc89d81106",
+    "mtime": 1795200316.5567214,
+    "seen": 1795200379.4722106,
+    "ast_hash": "91ee58bd61812ad9d26e2287b0244f5f",
     "semantic_hash": ""
   },
   "tests/verify_anime_and_checkpoints.spec.js": {
@@ -444,9 +444,9 @@
     "semantic_hash": ""
   },
   "tests/test_blind_exam_arena_unit.js": {
-    "mtime": 1795181672.6578665,
-    "seen": 1795181987.7168207,
-    "ast_hash": "4fb999bdf27cb45a0a85851667a389c0",
+    "mtime": 1795200319.6206858,
+    "seen": 1795200379.472202,
+    "ast_hash": "1ded8ccf26dd5ab96b2209835d400fca",
     "semantic_hash": ""
   },
   "tests/verify_exam_arena_no_video.js": {
@@ -576,9 +576,9 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795181490.3643448,
-    "seen": 1795181987.7170625,
-    "ast_hash": "eaf24fdb7a23d6e9924d7d30453363f0",
+    "mtime": 1795200206.7748163,
+    "seen": 1795200379.4723754,
+    "ast_hash": "372d7123f2b55a04126485c94eea8bec",
     "semantic_hash": ""
   },
   "app/landing.html": {
@@ -4242,9 +4242,9 @@
     "semantic_hash": ""
   },
   "app/js/exam-ui-helper.js": {
-    "mtime": 1795181449.1417284,
-    "seen": 1795181987.7162836,
-    "ast_hash": "a5f08b99bdb2d784e6480abb92a47a89",
+    "mtime": 1795200256.4337995,
+    "seen": 1795200379.4716372,
+    "ast_hash": "a50c0ec77a9cc4be6918f8f58e30e1ed",
     "semantic_hash": ""
   },
   "tests/test_security_and_hardening.py": {
@@ -4287,6 +4287,18 @@
     "mtime": 1795118627.815089,
     "seen": 1795181987.7174108,
     "ast_hash": "1d1d1dde9fc9432224fac32d847df5dd",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-11-20-exam-mode-split-plan.md": {
+    "mtime": 1795200173.798728,
+    "seen": 1795200379.4727213,
+    "ast_hash": "1e635b123b3406120d809a2702d47287",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/specs/2026-11-20-exam-mode-split-design.md": {
+    "mtime": 1795199596.266486,
+    "seen": 1795200379.4727364,
+    "ast_hash": "d7fe34ed2dccc6720c885090a4723414",
     "semantic_hash": ""
   }
 }

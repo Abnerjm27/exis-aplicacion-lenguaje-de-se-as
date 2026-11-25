@@ -36,6 +36,8 @@ class BlindExamController {
   #previousFocus;
   #boundHandleKeyDown;
   #uiHelper;
+  #examMode;
+  #pendingExamConfig;
 
   constructor() {
     this.#isActive = false;
@@ -56,6 +58,8 @@ class BlindExamController {
     this.#previousFocus = null;
     this.#boundHandleKeyDown = this.#handleKeyDown.bind(this);
     this.#uiHelper = ExamUIHelperClass ? new ExamUIHelperClass() : null;
+    this.#examMode = null;
+    this.#pendingExamConfig = null;
   }
 
   /**
@@ -98,21 +102,24 @@ class BlindExamController {
       signsList = ['HOLA', 'YO', 'BUENOS', 'DIAS', 'A'];
     }
 
-    // 2. Formato alternado híbrido: Retos Motrices de Cámara intercalados con Preguntas Quiz
-    this.#questions = signsList.map((signId, idx) => ({
-      signId,
-      signName: this.#lookupSignName(signId),
-      type: idx % 2 === 0 ? 'gesture' : 'quiz'
-    }));
-
+    // 2. Guardar configuración pendiente; si se pasó modalidad explícita, arrancar directo
+    this.#clearTimer();
     this.#planTitle = title;
     this.#difficultyLevel = difficultyLevel;
     this.#secondsPerQuestion = Math.max(8, secondsPerQuestion);
     this.#currentQuestionIndex = 0;
     this.#results = [];
-    this.#isActive = true;
+    this.#questions = [];
+    this.#isActive = false;
     this.#isQuestionFinished = false;
     this.#practiceHoldMs = 0;
+    this.#examMode = null;
+    this.#pendingExamConfig = {
+      signsList,
+      title: this.#planTitle,
+      difficultyLevel: this.#difficultyLevel,
+      secondsPerQuestion: this.#secondsPerQuestion
+    };
 
     // Determinar la vista a la cual retornar (Ruta por defecto o la vista de origen)
     const currentView = (window.ViewRouter && typeof window.ViewRouter.getCurrentView === 'function')
@@ -177,25 +184,120 @@ class BlindExamController {
       if (closeBtn && typeof closeBtn.focus === 'function') closeBtn.focus();
     }
 
-    // Vincular selector de cámara de examen usando CameraManager (con fallback para tests)
-    const camMgr = (window.CameraManager && typeof window.CameraManager.attachSelect === 'function')
-      ? window.CameraManager
-      : ((window.CameraDeviceManager && typeof window.CameraDeviceManager.attachSelect === 'function') ? window.CameraDeviceManager : null);
-    if (camMgr) {
-      const examSelect = document.getElementById('examCameraSelect');
-      if (examSelect) {
-        camMgr.attachSelect(examSelect);
-      }
-    }
-
     this.#syncVideoModeButtons();
 
     if (typeof window.addEventListener === 'function') {
       window.addEventListener('keydown', this.#boundHandleKeyDown);
     }
 
-    // 7. Cargar la primera pregunta
+    // 7. Iniciar modalidad explícita o mostrar selector previo (Solo Cámara vs. Adivinar Señas)
+    const requestedMode = (planOrSigns && !Array.isArray(planOrSigns) && (planOrSigns.mode === 'camera' || planOrSigns.mode === 'quiz'))
+      ? planOrSigns.mode
+      : null;
+
+    if (requestedMode) {
+      this.startWithMode(requestedMode);
+    } else {
+      this.#showModeSelection();
+    }
+  }
+
+  /**
+   * Arranca el examen en una modalidad pura ('camera' o 'quiz')
+   * @param {'camera'|'quiz'} mode
+   */
+  startWithMode(mode) {
+    if (mode !== 'camera' && mode !== 'quiz') return;
+    const cfg = this.#pendingExamConfig || {
+      signsList: ['HOLA', 'YO', 'BUENOS', 'DIAS', 'A'],
+      title: this.#planTitle,
+      difficultyLevel: this.#difficultyLevel,
+      secondsPerQuestion: this.#secondsPerQuestion
+    };
+
+    const questionType = mode === 'camera' ? 'gesture' : 'quiz';
+    this.#examMode = mode;
+    this.#questions = cfg.signsList.map((signId) => ({
+      signId,
+      signName: this.#lookupSignName(signId),
+      type: questionType
+    }));
+    this.#currentQuestionIndex = 0;
+    this.#results = [];
+    this.#isActive = true;
+    this.#isQuestionFinished = false;
+    this.#practiceHoldMs = 0;
+
+    const modePane = document.getElementById('examPaneModeSelect');
+    if (modePane) {
+      modePane.classList.add('hidden');
+      modePane.classList.remove('flex');
+    }
+    const timerBadge = document.getElementById('examTimerBadge');
+    if (timerBadge) {
+      timerBadge.classList.remove('hidden');
+    }
+
+    // Vincular selector de cámara solo si la modalidad elegida usa cámara
+    if (mode === 'camera') {
+      const camMgr = (window.CameraManager && typeof window.CameraManager.attachSelect === 'function')
+        ? window.CameraManager
+        : ((window.CameraDeviceManager && typeof window.CameraDeviceManager.attachSelect === 'function') ? window.CameraDeviceManager : null);
+      if (camMgr) {
+        const examSelect = document.getElementById('examCameraSelect');
+        if (examSelect) {
+          camMgr.attachSelect(examSelect);
+        }
+      }
+    }
+
     this.#loadQuestion(0);
+  }
+
+  getExamMode() {
+    return this.#examMode;
+  }
+
+  #showModeSelection() {
+    this.#clearTimer();
+    this.#isActive = false;
+    this.#examMode = null;
+
+    const modePane = document.getElementById('examPaneModeSelect');
+    const gesturePane = document.getElementById('examPaneGesture');
+    const quizPane = document.getElementById('examPaneQuiz');
+    const timerBadge = document.getElementById('examTimerBadge');
+    const videoToggle = document.getElementById('examVideoModeToggle');
+    const progressBar = document.getElementById('examProgressBar');
+    const headerStep = document.getElementById('examHeaderStepText');
+    const titleEl = document.getElementById('examModeSelectTitle');
+    const metaEl = document.getElementById('examModeSelectMeta');
+
+    if (gesturePane) {
+      gesturePane.classList.add('hidden');
+      gesturePane.classList.remove('flex');
+    }
+    if (quizPane) {
+      quizPane.classList.add('hidden');
+      quizPane.classList.remove('flex');
+    }
+    if (videoToggle) {
+      videoToggle.classList.add('hidden');
+      videoToggle.classList.remove('flex');
+    }
+    if (timerBadge) {
+      timerBadge.classList.add('hidden');
+    }
+    if (modePane) {
+      modePane.classList.remove('hidden');
+      modePane.classList.add('flex');
+    }
+    if (progressBar) progressBar.style.width = '0%';
+    if (headerStep) headerStep.textContent = 'Elige modalidad';
+    if (titleEl) titleEl.textContent = this.#planTitle;
+    if (metaEl && this.#pendingExamConfig) {
+      metaEl.textContent = `${this.#pendingExamConfig.signsList.length} señas · ${this.#secondsPerQuestion}s por pregunta`;
+    }
   }
 
   update() {
@@ -380,6 +482,14 @@ class BlindExamController {
     this.#clearTimer();
     this.#isActive = false;
     this.#isQuestionFinished = true;
+    this.#examMode = null;
+    this.#pendingExamConfig = null;
+
+    const modePane = document.getElementById('examPaneModeSelect');
+    if (modePane) {
+      modePane.classList.add('hidden');
+      modePane.classList.remove('flex');
+    }
 
     // APAGAR CÁMARA COMPLETAMENTE (Apaga LED físico de hardware)
     if (window.VisionEvaluator && typeof window.VisionEvaluator.stop === 'function') {
@@ -754,7 +864,7 @@ class BlindExamController {
   #showSummaryModal(scorePct, correct, total) {
     if (!this.#uiHelper) return;
     this.#uiHelper.showSummaryModal(
-      { scorePct, correct, total, planTitle: this.#planTitle, results: this.#results },
+      { scorePct, correct, total, planTitle: this.#planTitle, results: this.#results, examMode: this.#examMode },
       () => {
         if (typeof window.addEventListener === 'function') {
           window.addEventListener('keydown', this.#boundHandleKeyDown);
@@ -809,6 +919,22 @@ class BlindExamController {
         }
         this.start(plan);
       });
+    }
+
+    // Botones de selección de modalidad previa
+    const btnChooseCamera = document.getElementById('btnChooseCameraExam');
+    if (btnChooseCamera) {
+      btnChooseCamera.addEventListener('click', () => this.startWithMode('camera'));
+    }
+
+    const btnChooseQuiz = document.getElementById('btnChooseQuizExam');
+    if (btnChooseQuiz) {
+      btnChooseQuiz.addEventListener('click', () => this.startWithMode('quiz'));
+    }
+
+    const btnExitModeSelect = document.getElementById('btnExamExitModeSelect');
+    if (btnExitModeSelect) {
+      btnExitModeSelect.addEventListener('click', () => this.stopExam());
     }
 
     // Botones de salida del examen (Header y paneles inferiores)
@@ -900,7 +1026,7 @@ class BlindExamController {
         this.closeSummaryModal();
         return;
       }
-      if (this.#isActive) {
+      if (this.#isActive || this.#pendingExamConfig) {
         this.stopExam();
       }
     }
