@@ -701,6 +701,41 @@
   transform: scaleX(-1);
 }
 
+.ab-cam-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ab-cam-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ab-cam-select {
+  flex: 1 1 180px;
+  min-height: 44px;
+  padding: 0.45rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid var(--palette-30-border-strong);
+  background: var(--palette-60-surface);
+  color: var(--palette-30-petrol);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.ab-cam-select:focus-visible {
+  outline: 2px solid var(--palette-10-accent-deep);
+  outline-offset: 2px;
+}
+
 .ab-cam-placeholder {
   position: absolute;
   inset: 0;

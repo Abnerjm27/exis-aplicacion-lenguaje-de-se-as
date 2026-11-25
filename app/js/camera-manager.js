@@ -161,7 +161,8 @@ class CameraDeviceManager {
     const selects = [
       this.#selectElement,
       document.getElementById('lessonCameraSelect'),
-      document.getElementById('examCameraSelect')
+      document.getElementById('examCameraSelect'),
+      document.getElementById('alphabetSpellCameraSelect')
     ].filter(Boolean);
     if (selects.length === 0) return;
 

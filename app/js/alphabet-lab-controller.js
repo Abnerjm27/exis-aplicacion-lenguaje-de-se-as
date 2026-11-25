@@ -86,6 +86,11 @@ class AlphabetLabController {
     }
     const labVid = document.getElementById('alphabetSpellWebcamVideo');
     if (labVid) labVid.srcObject = null;
+    const labCanvas = document.getElementById('alphabetSpellCanvas');
+    if (labCanvas) {
+      const ctx = labCanvas.getContext('2d');
+      if (ctx) ctx.clearRect(0, 0, labCanvas.width, labCanvas.height);
+    }
     if (window.VisionEvaluator && typeof window.VisionEvaluator.isRunning === 'function' && window.VisionEvaluator.isRunning()) {
       try { window.VisionEvaluator.stop(); } catch (_) { /* ignore stop errors */ }
     }
@@ -510,6 +515,11 @@ class AlphabetLabController {
     camVideo.muted = true;
     camStage.appendChild(camVideo);
 
+    const camCanvas = this.#el('canvas', 'ab-cam-overlay');
+    camCanvas.id = 'alphabetSpellCanvas';
+    camCanvas.setAttribute('aria-hidden', 'true');
+    camStage.appendChild(camCanvas);
+
     const camPlaceholder = this.#el('div', `ab-cam-placeholder ${this.#spellCameraActive ? 'hidden' : ''}`);
     camPlaceholder.id = 'alphabetSpellCamPlaceholder';
     camPlaceholder.appendChild(this.#el('strong', '', 'Tu cámara en vivo'));
@@ -518,6 +528,25 @@ class AlphabetLabController {
     );
     camStage.appendChild(camPlaceholder);
     detail.appendChild(camStage);
+
+    const camControls = this.#el('div', 'ab-cam-controls');
+    const camSelect = this.#el('select', 'ab-cam-select');
+    camSelect.id = 'alphabetSpellCameraSelect';
+    camSelect.setAttribute('aria-label', 'Seleccionar cámara para Deletrea tu Nombre');
+    camSelect.addEventListener('change', () => {
+      if (!this.#spellCameraActive) return;
+      if (this.#spellStreamTimer) clearInterval(this.#spellStreamTimer);
+      let retries = 0;
+      this.#spellStreamTimer = setInterval(() => {
+        retries += 1;
+        if (this.#attachActiveStreamToLabVideo() || retries > 25 || !this.#spellCameraActive) {
+          clearInterval(this.#spellStreamTimer);
+          this.#spellStreamTimer = null;
+        }
+      }, 150);
+    });
+    camControls.appendChild(camSelect);
+    detail.appendChild(camControls);
 
     const scoreRow = this.#el('div', 'ab-score-row');
     scoreRow.appendChild(this.#el('span', 'text-xs font-bold text-slate-700 shrink-0', 'Precisión'));
@@ -575,6 +604,10 @@ class AlphabetLabController {
     wrap.appendChild(split);
 
     setTimeout(() => {
+      const selectEl = document.getElementById('alphabetSpellCameraSelect');
+      if (selectEl && window.CameraManager && typeof window.CameraManager.attachSelect === 'function') {
+        window.CameraManager.attachSelect(selectEl);
+      }
       const diag = this.#lastDiagnostics && activeLetter && this.#lastDiagnostics.signId === activeLetter.id
         ? this.#lastDiagnostics
         : null;

@@ -357,6 +357,7 @@ const VisionEvaluator = (() => {
 
     renderOverlayOnCanvas(document.getElementById('lessonPracticeCanvas'), multiLm, activePoseLm, width, height);
     renderOverlayOnCanvas(document.getElementById('examPracticeCanvas'), multiLm, activePoseLm, width, height);
+    renderOverlayOnCanvas(document.getElementById('alphabetSpellCanvas'), multiLm, activePoseLm, width, height);
 
     const signId = currentTargetSign ? currentTargetSign.id : null;
     const isTrajectoryWord = !!(signId && TRAJECTORY_SIGN_IDS.includes(signId));

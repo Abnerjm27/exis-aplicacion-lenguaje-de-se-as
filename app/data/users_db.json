@@ -93,7 +93,10 @@
       "xp": 0,
       "streak": 1,
       "masteredSigns": [
-        "U"
+        "U",
+        "S",
+        "O",
+        "L"
       ],
       "customPlans": [],
       "examHistory": [],
@@ -113,9 +116,33 @@
           "lastPracticedIso": "2026-11-25T03:34:20Z",
           "nextReviewIso": "2026-11-26T03:34:20Z",
           "masteryPct": 100
+        },
+        "S": {
+          "box": 3,
+          "attempts": 2,
+          "successes": 2,
+          "lastPracticedIso": "2026-11-25T03:42:01Z",
+          "nextReviewIso": "2026-11-28T03:42:01Z",
+          "masteryPct": 100
+        },
+        "O": {
+          "box": 2,
+          "attempts": 1,
+          "successes": 1,
+          "lastPracticedIso": "2026-11-25T03:41:34Z",
+          "nextReviewIso": "2026-11-26T03:41:34Z",
+          "masteryPct": 100
+        },
+        "L": {
+          "box": 2,
+          "attempts": 1,
+          "successes": 1,
+          "lastPracticedIso": "2026-11-25T03:41:39Z",
+          "nextReviewIso": "2026-11-26T03:41:39Z",
+          "masteryPct": 100
         }
       },
-      "lastUpdated": "2026-11-25T03:34:20Z"
+      "lastUpdated": "2026-11-25T03:42:01Z"
     }
   ]
 }
