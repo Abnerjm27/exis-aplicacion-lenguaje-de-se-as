@@ -5,7 +5,7 @@
  * Exclusiones: No intercepta llamadas dinámicas /api/ (Ollama / Planes) ni peticiones con rango de video.
  */
 
-const CACHE_NAME = 'manitas-pwa-v19-camera-stop-fix';
+const CACHE_NAME = 'manitas-pwa-v20-stream-tracker';
 
 const ASSETS_TO_CACHE = [
   '/',

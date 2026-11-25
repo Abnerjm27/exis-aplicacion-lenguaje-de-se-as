@@ -24,9 +24,9 @@
     "semantic_hash": ""
   },
   "app/js/camera-manager.js": {
-    "mtime": 1795578808.2836926,
-    "seen": 1795578877.1625931,
-    "ast_hash": "24354625ae921057d8820a1e0dc318fc",
+    "mtime": 1795579168.1687741,
+    "seen": 1795579224.011485,
+    "ast_hash": "fac84c4795738970bbd0c27b3ceec658",
     "semantic_hash": ""
   },
   "app/js/chat-tutor.js": {
@@ -516,9 +516,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795578825.40405,
-    "seen": 1795578877.1800148,
-    "ast_hash": "15f1388098dcbc5a2a00955c45448029",
+    "mtime": 1795579170.0951505,
+    "seen": 1795579224.0352192,
+    "ast_hash": "ab1932808f2dd482a29aca0bcbc3071e",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -576,9 +576,9 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795578829.0807183,
-    "seen": 1795578877.2520475,
-    "ast_hash": "134e146d9badf740a137e06e8f2318f3",
+    "mtime": 1795579171.741649,
+    "seen": 1795579224.124264,
+    "ast_hash": "1353aa44a7734a6b7618ad22a640a9a6",
     "semantic_hash": ""
   },
   "app/landing.html": {

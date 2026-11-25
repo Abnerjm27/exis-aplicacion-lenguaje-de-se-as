@@ -17,6 +17,8 @@ class CameraDeviceManager {
   #deviceList = [];
   #isSwitching = false;
   #boundOnDeviceChange = null;
+  #trackedStreams = new Set();
+  #startSeq = 0;
 
   constructor() {
     this.#boundOnDeviceChange = () => this.refreshDeviceList();
@@ -84,9 +86,11 @@ class CameraDeviceManager {
     try {
       if (!this.#isStreaming && !this.#currentStream) {
         const tempStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        this.#trackedStreams.add(tempStream);
         tempStream.getTracks().forEach(t => {
           try { t.stop(); } catch (e) {}
         });
+        this.#trackedStreams.delete(tempStream);
         // Pausa breve para que el sistema operativo libere el hardware
         await new Promise(r => setTimeout(r, 200));
       }
@@ -251,8 +255,10 @@ class CameraDeviceManager {
 
     const hadStream = !!this.#currentStream;
     this.stop();
+    const mySeq = ++this.#startSeq;
     if (hadStream) {
       await new Promise(r => setTimeout(r, 250));
+      if (mySeq !== this.#startSeq) return false;
     }
 
     // Configurar restricciones de video
@@ -305,6 +311,14 @@ class CameraDeviceManager {
         throw lastErr || new Error('No se pudo inicializar la cámara solicitada.');
       }
 
+      this.#trackedStreams.add(stream);
+      if (mySeq !== this.#startSeq) {
+        stream.getTracks().forEach(t => { try { t.stop(); } catch (e) {} });
+        this.#trackedStreams.delete(stream);
+        this.stop();
+        return false;
+      }
+
       this.#currentStream = stream;
       this.#videoElement.srcObject = stream;
       this.#videoElement.muted = true;
@@ -323,9 +337,14 @@ class CameraDeviceManager {
         });
       }
 
+      if (mySeq !== this.#startSeq) {
+        this.stop();
+        return false;
+      }
+
       this.#isStreaming = true;
 
-      // Alimentar también los visores de cámara de la lección y del examen si están abiertos
+      // Alimentar también los visores de cámara de la lección, examen y laboratorio si están abiertos
       const lessonVideo = document.getElementById('lessonPracticeWebcamVideo');
       if (lessonVideo && lessonVideo.srcObject !== stream) {
         lessonVideo.srcObject = stream;
@@ -340,6 +359,13 @@ class CameraDeviceManager {
         examVideo.setAttribute('playsinline', 'true');
         examVideo.play().catch(() => {});
       }
+      const labVideo = document.getElementById('alphabetSpellWebcamVideo');
+      if (labVideo && window.AlphabetLabController && window.AlphabetLabController.isSpellCameraActive() && labVideo.srcObject !== stream) {
+        labVideo.srcObject = stream;
+        labVideo.muted = true;
+        labVideo.setAttribute('playsinline', 'true');
+        labVideo.play().catch(() => {});
+      }
 
       // Actualizar el indicador visual de la cámara activa en pantalla
       const activeTrack = stream.getVideoTracks()[0];
@@ -348,6 +374,10 @@ class CameraDeviceManager {
 
       // Refrescar lista de dispositivos para obtener nombres autorizados
       await this.refreshDeviceList();
+      if (mySeq !== this.#startSeq) {
+        this.stop();
+        return false;
+      }
 
       // Iniciar el bucle de entrega de fotogramas
       this.#startFramePump();
@@ -423,10 +453,24 @@ class CameraDeviceManager {
     }
   }
 
+  #releaseVideoElement(videoEl) {
+    if (!videoEl) return;
+    try {
+      if (videoEl.srcObject && typeof videoEl.srcObject.getTracks === 'function') {
+        videoEl.srcObject.getTracks().forEach(track => {
+          try { track.stop(); } catch (e) {}
+        });
+      }
+      videoEl.pause();
+    } catch (e) {}
+    videoEl.srcObject = null;
+  }
+
   /**
    * Detiene la cámara y libera todos los recursos del hardware
    */
   stop() {
+    this.#startSeq += 1;
     this.#isStreaming = false;
     this.#stopFramePump();
 
@@ -442,15 +486,19 @@ class CameraDeviceManager {
       this.#currentStream = null;
     }
 
-    if (this.#videoElement) {
-      this.#videoElement.srcObject = null;
-    }
-    const lessonVideo = document.getElementById('lessonPracticeWebcamVideo');
-    if (lessonVideo) lessonVideo.srcObject = null;
-    const examVideo = document.getElementById('examPracticeWebcamVideo');
-    if (examVideo) examVideo.srcObject = null;
-    const labVideo = document.getElementById('alphabetSpellWebcamVideo');
-    if (labVideo) labVideo.srcObject = null;
+    this.#trackedStreams.forEach(stream => {
+      if (stream && typeof stream.getTracks === 'function') {
+        stream.getTracks().forEach(track => {
+          try { track.stop(); } catch (e) {}
+        });
+      }
+    });
+    this.#trackedStreams.clear();
+
+    this.#releaseVideoElement(this.#videoElement);
+    this.#releaseVideoElement(document.getElementById('lessonPracticeWebcamVideo'));
+    this.#releaseVideoElement(document.getElementById('examPracticeWebcamVideo'));
+    this.#releaseVideoElement(document.getElementById('alphabetSpellWebcamVideo'));
   }
 
   /**
