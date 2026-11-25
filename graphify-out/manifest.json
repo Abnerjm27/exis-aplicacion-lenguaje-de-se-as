@@ -30,9 +30,9 @@
     "semantic_hash": ""
   },
   "app/js/learning-plan-manager.js": {
-    "mtime": 1795575018.0391405,
-    "seen": 1795576410.020475,
-    "ast_hash": "4c4dbbdbbbef207b0b30f773cccccd1c",
+    "mtime": 1795582660.553408,
+    "seen": 1795582734.2378712,
+    "ast_hash": "f0399f4f2f804de0d255547f080fc8df",
     "semantic_hash": ""
   },
   "app/js/main.js": {
@@ -312,9 +312,9 @@
     "semantic_hash": ""
   },
   "app/js/landing.js": {
-    "mtime": 1795575018.037457,
-    "seen": 1795576410.020475,
-    "ast_hash": "465b2635abde43f44a868a52893a05d3",
+    "mtime": 1795582683.0571067,
+    "seen": 1795582734.2378712,
+    "ast_hash": "a70029b5ee933fcad965f46b7eec768a",
     "semantic_hash": ""
   },
   "app/js/view-router.js": {
@@ -510,9 +510,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795581950.5701346,
-    "seen": 1795582154.3620365,
-    "ast_hash": "bba696d80e5575ad7265b0281a14d5c8",
+    "mtime": 1795582685.081926,
+    "seen": 1795582734.25446,
+    "ast_hash": "be53f11a7d7dc9da1c57a4d8515a39ce",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -570,15 +570,15 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795581939.0001073,
-    "seen": 1795582154.4214056,
-    "ast_hash": "7d6a5bcfd67542d0024124eab7805562",
+    "mtime": 1795582652.0676024,
+    "seen": 1795582734.3272767,
+    "ast_hash": "9764f6fc68ae62411fd220c0547643c5",
     "semantic_hash": ""
   },
   "app/landing.html": {
-    "mtime": 1795575018.0767431,
-    "seen": 1795576410.0210338,
-    "ast_hash": "73db0034f2b172c64510c3f08d3b205f",
+    "mtime": 1795582678.3083022,
+    "seen": 1795582734.3272767,
+    "ast_hash": "7fc447337b191df63057b357a955be08",
     "semantic_hash": ""
   },
   "app/login.html": {
@@ -594,9 +594,9 @@
     "semantic_hash": ""
   },
   "app/onboarding.html": {
-    "mtime": 1795575019.1232572,
-    "seen": 1795576410.0210338,
-    "ast_hash": "e073d0461f3568b1229bab20a6625e37",
+    "mtime": 1795582674.6581914,
+    "seen": 1795582734.328271,
+    "ast_hash": "fc548f4bd956201e4057c445a911e9bd",
     "semantic_hash": ""
   },
   "app/register.html": {

@@ -36,7 +36,7 @@ class LandingHeroPlayer {
     {
       mood: 'Señalando 👉',
       range: [13, 25],
-      speech: 'Consejo 1: Responde 3 preguntas y Tito IA crea tu ruta personalizada.',
+      speech: 'Consejo 1: Responde 3 preguntas y armamos tu ruta personalizada.',
       status: 'Fase 01 · Diagnóstico inteligente'
     },
     {
@@ -241,7 +241,7 @@ class ZorritoCompanionController {
     '¡Hola! Mueve tus manos frente a la cámara y MediaPipe medirá tus articulaciones.',
     '¿Sabías que el alfabeto en LSC se hace con una sola mano?',
     'En el Modo Examen no hay videos guía: ¡demuestras lo aprendido de memoria!',
-    'Tito IA evalúa tu nivel inicial para armar tu ruta paso a paso.',
+    'Responde el diagnóstico inicial para armar tu ruta paso a paso.',
     '¡Prueba cualquier seña en Práctica Libre o sigue tu ruta guiada!'
   ];
 

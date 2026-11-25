@@ -1,14 +1,14 @@
 /**
  * LSC Learn · Proyecto EXIS
- * learning-plan-manager.js - Gestor de Rutas de Aprendizaje, Arquitecta IA y Mapa Hexagonal (POO)
- * Implementa planes predefinidos, IA local (/api/plan), creador de plan propio y Skill Tree hexagonal
+ * learning-plan-manager.js - Gestor de Rutas de Aprendizaje y Mapa Hexagonal (POO)
+ * Implementa rutas predefinidas, planificador determinístico (/api/plan), creador de ruta propia y Skill Tree hexagonal
  */
 
 class LearningPlanManager {
   static PRESET_PLANS = {
     plan_zero_ai: {
       id: 'plan_zero_ai',
-      title: 'Desde Cero: Ruta Básica IA',
+      title: 'Desde Cero: Ruta Básica',
       rationale: 'Secuencia diseñada para principiantes absolutos: empieza con el saludo fundamental, vocales de una sola mano y presentación personal.',
       signs: ['HOLA', 'YO', 'A', 'E', 'O', 'BUENOS', 'DIAS', 'NOMBRE']
     },
@@ -139,7 +139,7 @@ class LearningPlanManager {
       btn.classList.add('opacity-60', 'cursor-not-allowed');
     }
     if (rationaleEl) {
-      rationaleEl.textContent = 'Tito IA está analizando tu objetivo para estructurar tu ruta pedagógica...';
+      rationaleEl.textContent = 'Armando tu ruta pedagógica personalizada...';
       rationaleEl.classList.remove('hidden');
     }
 
@@ -166,16 +166,16 @@ class LearningPlanManager {
     if (!planData || !Array.isArray(planData.signs) || planData.signs.length === 0) {
       planData = {
         id: `plan_ai_${Date.now()}`,
-        title: 'Ruta IA: Fundamentos LSC',
-        rationale: 'Tito adaptó la ruta básica con saludos, presentación y dactilología esencial.',
+        title: 'Ruta Básica: Fundamentos LSC',
+        rationale: 'Ruta básica con saludos, presentación y dactilología esencial.',
         signs: ['HOLA', 'YO', 'A', 'E', 'O', 'BUENOS', 'DIAS', 'NOMBRE']
       };
     }
 
     this.#activePlan = {
       id: planData.id || `plan_ai_${Date.now()}`,
-      title: planData.title || 'Ruta Personalizada IA',
-      rationale: planData.rationale || 'Ruta pedagógica estructurada por Tito IA.',
+      title: planData.title || 'Ruta Recomendada',
+      rationale: planData.rationale || 'Ruta pedagógica adaptada a tu objetivo.',
       signs: planData.signs
     };
     this.#currentIndex = 0;
@@ -731,7 +731,7 @@ class LearningPlanManager {
     const customPill = document.getElementById('activeCustomPlanPill');
     if (customPill) {
       if (activePlanId === 'custom_ai') {
-        customPill.textContent = '✨ Ruta Tito IA activa';
+        customPill.textContent = '✨ Ruta Recomendada activa';
         customPill.classList.remove('hidden');
       } else if (activePlanId === 'custom_user') {
         customPill.textContent = '🛠️ Ruta Propia activa';
@@ -752,18 +752,6 @@ class LearningPlanManager {
 
     const btnWords = document.getElementById('btnPlanWords');
     if (btnWords) btnWords.addEventListener('click', () => this.selectPresetPlan('plan_words'));
-
-    // Botón generar ruta IA
-    const btnAi = document.getElementById('btnGenerateAiPlan');
-    const inputAi = document.getElementById('aiPlanPromptInput');
-    if (btnAi && inputAi) {
-      btnAi.addEventListener('click', () => this.generateAIPlanFromPrompt(inputAi.value));
-      inputAi.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          this.generateAIPlanFromPrompt(inputAi.value);
-        }
-      });
-    }
 
     // Modal constructor de plan
     const btnOpenCustom = document.getElementById('btnOpenCustomPlanModal');
