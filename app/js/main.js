@@ -63,6 +63,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Inicializar Motor de Feedback por Dedo, SRS y Laboratorio ABC
+  if (window.FingerFeedbackEngine) {
+    window.FingerFeedbackEngine.init();
+  }
+  if (window.SRSClient) {
+    window.SRSClient.init();
+    window.SRSClient.start();
+  }
+  if (window.GamificationManager) {
+    window.GamificationManager.init();
+    window.GamificationManager.start();
+  }
+  if (window.AlphabetLabController) {
+    window.AlphabetLabController.init();
+    window.AlphabetLabController.start();
+  }
+
   // Inicializar enrutador de vistas (Mapa Duolingo vs Estudio de Práctica)
   if (window.ViewRouter) {
     window.ViewRouter.init();
@@ -322,6 +339,12 @@ window.onSignMastered = function(sign, score) {
   // Registrar seña dominada y otorgar +25 XP en modo práctica
   if (window.AuthProfileManager) {
     window.AuthProfileManager.recordSignMastered(sign.id, 25);
+  }
+  if (window.SRSClient) {
+    window.SRSClient.recordAttempt(sign.id, true);
+  }
+  if (window.GamificationManager) {
+    window.GamificationManager.recordCameraSuccess({ signId: sign.id, score });
   }
 
   // Avanzar y marcar progreso en el mapa hexagonal del plan activo

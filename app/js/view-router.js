@@ -23,6 +23,8 @@ class ViewRouter {
 
     if (screenParam === 'path') {
       this.switchToPathView();
+    } else if (screenParam === 'alphabet') {
+      this.switchToAlphabetLabView();
     } else if (screenParam === 'profile') {
       this.switchToProfileView();
     } else {
@@ -86,6 +88,18 @@ class ViewRouter {
     window.location.href = 'perfil.html';
   }
 
+  switchToAlphabetLabView() {
+    this.#currentView = 'alphabet';
+    this.#applyViewState('alphabet', 'Laboratorio del Abecedario LSC');
+    if (window.VisionEvaluator) {
+      window.VisionEvaluator.stop();
+    }
+    if (window.AlphabetLabController) {
+      window.AlphabetLabController.update();
+    }
+    this.#syncUrlQuery('alphabet');
+  }
+
   switchToStudioView(signId = null, startExam = false, examConfig = null) {
     this.#currentView = 'studio';
     this.#applyViewState('studio', 'Práctica Libre LSC');
@@ -117,6 +131,7 @@ class ViewRouter {
   #applyViewState(activeKey, topbarTitle) {
     const viewMap = {
       path: { el: document.getElementById('viewLearningPath'), btn: document.getElementById('btnNavViewPath') },
+      alphabet: { el: document.getElementById('viewAlphabetLab'), btn: document.getElementById('btnNavAlphabetLab') },
       studio: { el: document.getElementById('viewPracticeStudio'), btn: document.getElementById('btnNavViewStudio') },
       profile: { el: document.getElementById('viewProfileHub'), btn: document.getElementById('btnNavViewProfile') }
     };
@@ -170,6 +185,11 @@ class ViewRouter {
     const btnNavStudio = document.getElementById('btnNavViewStudio');
     if (btnNavStudio) {
       btnNavStudio.addEventListener('click', () => this.switchToStudioView());
+    }
+
+    const btnNavAlphabet = document.getElementById('btnNavAlphabetLab');
+    if (btnNavAlphabet) {
+      btnNavAlphabet.addEventListener('click', () => this.switchToAlphabetLabView());
     }
 
     const btnMobileMenu = document.getElementById('btnMobileMenuToggle');
@@ -237,6 +257,8 @@ class ViewRouter {
     if (e.state && e.state.screen) {
       if (e.state.screen === 'path') {
         this.switchToPathView();
+      } else if (e.state.screen === 'alphabet') {
+        this.switchToAlphabetLabView();
       } else if (e.state.screen === 'profile') {
         this.switchToProfileView();
       } else {
@@ -248,6 +270,8 @@ class ViewRouter {
   #updateUI() {
     if (this.#currentView === 'path') {
       this.switchToPathView();
+    } else if (this.#currentView === 'alphabet') {
+      this.switchToAlphabetLabView();
     } else if (this.#currentView === 'profile') {
       this.switchToProfileView();
     } else {

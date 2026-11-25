@@ -15,6 +15,8 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple
 
+from db import SRSService, create_user_repository, handle_srs_get, handle_srs_post
+
 logger = logging.getLogger("server")
 
 PORT = 8000
@@ -88,7 +90,8 @@ FALLBACK_REPLIES = {
 VALID_SIGN_IDS = [
     "HOLA", "YO", "BUENOS", "DIAS", "TARDES", "NOCHES",
     "GUSTAR", "NOMBRE", "ANNOS", "LICOR",
-    "A", "B", "C", "D", "E", "I", "L", "O", "U", "V"
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+    "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z"
 ]
 
 USERS_DB_PATH = os.path.join(DIRECTORY, "data", "users_db.json")
@@ -511,6 +514,7 @@ class UserRepository:
             "masteredSigns": clean_mastered,
             "customPlans": clean_plans,
             "examHistory": clean_history,
+            "signStats": SRSService.sanitize_sign_stats(user_data.get("signStats", {}), VALID_SIGN_IDS),
             "lastUpdated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         }
 
@@ -557,7 +561,7 @@ class UserRepository:
             json.dump(db, f, indent=2, ensure_ascii=False)
         os.replace(tmp_path, self.db_path)
 
-user_repository = UserRepository()
+user_repository = create_user_repository(UserRepository, USERS_DB_PATH, VALID_SIGN_IDS)
 
 def load_users_db() -> dict:
     """Wrapper de compatibilidad para consultar usuarios."""
@@ -889,6 +893,12 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
         return True
 
     def do_GET(self):
+        if self.path.startswith('/api/srs/due'):
+            if not self._check_rate_limit():
+                return
+            status, body = handle_srs_get(self.path, user_repository, VALID_SIGN_IDS)
+            self._send_json_response(status, body)
+            return
         if self.path == '/api/users':
             if not self._check_rate_limit():
                 return
@@ -959,6 +969,17 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
             except Exception as e:
                 logger.error(f"Error procesando POST /api/users: {e}")
                 self._send_json_error(500, "Error al persistir usuario")
+            return
+
+        elif self.path == '/api/srs/review':
+            if not self._check_rate_limit():
+                return
+            payload, err = self._read_json_payload()
+            if err:
+                self._send_json_error(400 if "grande" not in err else 413, err)
+                return
+            status, body = handle_srs_post(payload, user_repository, VALID_SIGN_IDS)
+            self._send_json_response(status, body)
             return
 
         self.send_error(404, "Endpoint no encontrado")

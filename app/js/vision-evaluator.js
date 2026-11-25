@@ -426,7 +426,7 @@ const VisionEvaluator = (() => {
     } else if (!lm) {
       return;
     }
-    // Alfabeto LSC70: validación estricta e invariante a escala de palma con SignAnatomyValidator
+    // Alfabeto LSC70: validación estricta e invariante a escala de palma con SignAnatomyValidator / FingerFeedbackEngine
     else if (
       signId === 'A' || signId === 'B' || signId === 'C' || signId === 'D' || signId === 'E' ||
       signId === 'I' || signId === 'L' || signId === 'O' || signId === 'U' || signId === 'V'
@@ -442,6 +442,16 @@ const VisionEvaluator = (() => {
         hint = `Realiza la letra ${signId} frente a tu cámara`;
         diag = `✓ Letra ${signId} detectada`;
       }
+    }
+    // Letras nuevas del Abecedario LSC70 (F, G, H, J, K, M, N, P, Q, R, S, T, W, Z) con FingerFeedbackEngine
+    else if (
+      ['F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'W', 'Z'].includes(signId) &&
+      window.FingerFeedbackEngine
+    ) {
+      const fRes = window.FingerFeedbackEngine.evaluateLetter(signId, lm);
+      score = fRes.score;
+      hint = fRes.hint;
+      diag = fRes.diag;
     }
     // Fallback compacto si SignAnatomyValidator no estuviera cargado
     else if (signId === 'ANNOS' || signId === 'LICOR' || isTrajectoryWord) {
@@ -485,8 +495,25 @@ const VisionEvaluator = (() => {
     const diagElem = document.getElementById('poseDiagnostic');
     if (diagElem) diagElem.textContent = diag;
 
+    let fingerDiagnostics = null;
+    if (lm && currentTargetSign && currentTargetSign.category === 'letters' && window.FingerFeedbackEngine) {
+      fingerDiagnostics = window.FingerFeedbackEngine.update(currentTargetSign.id, lm);
+      if (finalScore < 85 && fingerDiagnostics && fingerDiagnostics.primaryHint) {
+        hint = fingerDiagnostics.primaryHint;
+      }
+      if (typeof window.dispatchEvent === 'function' && typeof CustomEvent === 'function') {
+        window.dispatchEvent(new CustomEvent('manitas:finger-feedback', {
+          detail: { signId: currentTargetSign.id, score: finalScore, diagnostics: fingerDiagnostics }
+        }));
+      }
+    }
+
     updateScoreUI(finalScore, hint);
     updateTrajectoryPillUI(trajStatus);
+
+    if (window.AlphabetLabController && typeof window.AlphabetLabController.handlePracticeFrame === 'function') {
+      window.AlphabetLabController.handlePracticeFrame(finalScore, fingerDiagnostics);
+    }
 
     const isMastered = hasTrajectory 
       ? (finalScore >= 85 && isTrajComplete) 
