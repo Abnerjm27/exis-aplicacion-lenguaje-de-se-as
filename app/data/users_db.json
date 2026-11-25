@@ -118,31 +118,31 @@
           "masteryPct": 100
         },
         "S": {
-          "box": 3,
-          "attempts": 2,
-          "successes": 2,
-          "lastPracticedIso": "2026-11-25T03:42:01Z",
-          "nextReviewIso": "2026-11-28T03:42:01Z",
+          "box": 4,
+          "attempts": 3,
+          "successes": 3,
+          "lastPracticedIso": "2026-11-25T04:00:42Z",
+          "nextReviewIso": "2026-12-02T04:00:42Z",
           "masteryPct": 100
         },
         "O": {
-          "box": 2,
-          "attempts": 1,
-          "successes": 1,
-          "lastPracticedIso": "2026-11-25T03:41:34Z",
-          "nextReviewIso": "2026-11-26T03:41:34Z",
+          "box": 3,
+          "attempts": 2,
+          "successes": 2,
+          "lastPracticedIso": "2026-11-25T04:00:44Z",
+          "nextReviewIso": "2026-11-28T04:00:44Z",
           "masteryPct": 100
         },
         "L": {
-          "box": 2,
-          "attempts": 1,
-          "successes": 1,
-          "lastPracticedIso": "2026-11-25T03:41:39Z",
-          "nextReviewIso": "2026-11-26T03:41:39Z",
+          "box": 3,
+          "attempts": 2,
+          "successes": 2,
+          "lastPracticedIso": "2026-11-25T04:00:48Z",
+          "nextReviewIso": "2026-11-28T04:00:48Z",
           "masteryPct": 100
         }
       },
-      "lastUpdated": "2026-11-25T03:42:01Z"
+      "lastUpdated": "2026-11-25T04:00:48Z"
     }
   ]
 }

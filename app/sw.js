@@ -5,7 +5,7 @@
  * Exclusiones: No intercepta llamadas dinámicas /api/ (Ollama / Planes) ni peticiones con rango de video.
  */
 
-const CACHE_NAME = 'manitas-pwa-v20-stream-tracker';
+const CACHE_NAME = 'manitas-pwa-v21-achievements';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -23,6 +23,7 @@ const ASSETS_TO_CACHE = [
   '/css/styles.css',
   '/css/lesson.css',
   '/css/alphabet-lab.css',
+  '/css/achievements.css',
   '/css/landing.css',
   '/css/landing-hero.css',
   '/css/auth.css',
@@ -49,6 +50,7 @@ const ASSETS_TO_CACHE = [
   '/js/lesson-session.js',
   '/js/view-router.js',
   '/js/alphabet-lab-controller.js',
+  '/js/achievements-controller.js',
   '/js/pwa-manager.js',
   '/js/chat-tutor.js',
   '/js/main.js',

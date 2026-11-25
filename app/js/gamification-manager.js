@@ -14,11 +14,11 @@ class GamificationManager {
   ];
 
   static BADGE_DEFS = [
-    { id: 'vowels_lsc', title: 'Vocales LSC', desc: 'Acierta o domina A, E, I, O, U' },
-    { id: 'first_word', title: 'Primer Nombre', desc: 'Completa 1 palabra en Deletrea tu Nombre' },
-    { id: 'combo_master', title: 'Sin Dudar (x3)', desc: 'Logra un combo x3 en Flashcards' },
-    { id: 'camera_pro', title: 'Cámara Precisa', desc: '95%+ en cámara o 5 señas dominadas' },
-    { id: 'leitner_gold', title: 'Oro Leitner', desc: 'Lleva 1 seña a Caja 5 o suma 10 aciertos' }
+    { id: 'vowels_lsc', title: 'Vocales LSC', desc: 'Acierta o domina A, E, I, O, U', image: 'img/badges/badge_vowels_lsc.png' },
+    { id: 'first_word', title: 'Primer Nombre', desc: 'Completa 1 palabra en Deletrea tu Nombre', image: 'img/badges/badge_first_word.png' },
+    { id: 'combo_master', title: 'Sin Dudar (x3)', desc: 'Logra un combo x3 en Flashcards', image: 'img/badges/badge_combo_master.png' },
+    { id: 'camera_pro', title: 'Cámara Precisa', desc: '95%+ en cámara o 5 señas dominadas', image: 'img/badges/badge_camera_pro.png' },
+    { id: 'leitner_gold', title: 'Oro Leitner', desc: 'Lleva 1 seña a Caja 5 o suma 10 aciertos', image: 'img/badges/badge_leitner_gold.png' }
   ];
 
   #initialized = false;

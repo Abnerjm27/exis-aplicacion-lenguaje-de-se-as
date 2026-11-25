@@ -25,6 +25,8 @@ class ViewRouter {
       this.switchToPathView();
     } else if (screenParam === 'alphabet') {
       this.switchToAlphabetLabView();
+    } else if (screenParam === 'achievements') {
+      this.switchToAchievementsView();
     } else if (screenParam === 'profile') {
       this.switchToProfileView();
     } else {
@@ -103,6 +105,21 @@ class ViewRouter {
     this.#syncUrlQuery('alphabet');
   }
 
+  switchToAchievementsView() {
+    if (window.AlphabetLabController && typeof window.AlphabetLabController.stopSpellCamera === 'function') {
+      window.AlphabetLabController.stopSpellCamera();
+    }
+    this.#currentView = 'achievements';
+    this.#applyViewState('achievements', 'Logros y Medallas LSC');
+    if (window.VisionEvaluator) {
+      window.VisionEvaluator.stop();
+    }
+    if (window.AchievementsController) {
+      window.AchievementsController.update();
+    }
+    this.#syncUrlQuery('achievements');
+  }
+
   switchToStudioView(signId = null, startExam = false, examConfig = null) {
     if (window.AlphabetLabController && typeof window.AlphabetLabController.stopSpellCamera === 'function') {
       window.AlphabetLabController.stopSpellCamera();
@@ -138,6 +155,7 @@ class ViewRouter {
     const viewMap = {
       path: { el: document.getElementById('viewLearningPath'), btn: document.getElementById('btnNavViewPath') },
       alphabet: { el: document.getElementById('viewAlphabetLab'), btn: document.getElementById('btnNavAlphabetLab') },
+      achievements: { el: document.getElementById('viewAchievements'), btn: document.getElementById('btnNavAchievements') },
       studio: { el: document.getElementById('viewPracticeStudio'), btn: document.getElementById('btnNavViewStudio') },
       profile: { el: document.getElementById('viewProfileHub'), btn: document.getElementById('btnNavViewProfile') }
     };
@@ -196,6 +214,11 @@ class ViewRouter {
     const btnNavAlphabet = document.getElementById('btnNavAlphabetLab');
     if (btnNavAlphabet) {
       btnNavAlphabet.addEventListener('click', () => this.switchToAlphabetLabView());
+    }
+
+    const btnNavAchievements = document.getElementById('btnNavAchievements');
+    if (btnNavAchievements) {
+      btnNavAchievements.addEventListener('click', () => this.switchToAchievementsView());
     }
 
     const btnMobileMenu = document.getElementById('btnMobileMenuToggle');
@@ -265,6 +288,8 @@ class ViewRouter {
         this.switchToPathView();
       } else if (e.state.screen === 'alphabet') {
         this.switchToAlphabetLabView();
+      } else if (e.state.screen === 'achievements') {
+        this.switchToAchievementsView();
       } else if (e.state.screen === 'profile') {
         this.switchToProfileView();
       } else {
@@ -278,6 +303,8 @@ class ViewRouter {
       this.switchToPathView();
     } else if (this.#currentView === 'alphabet') {
       this.switchToAlphabetLabView();
+    } else if (this.#currentView === 'achievements') {
+      this.switchToAchievementsView();
     } else if (this.#currentView === 'profile') {
       this.switchToProfileView();
     } else {

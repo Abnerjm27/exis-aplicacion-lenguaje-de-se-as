@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="css/styles.css?v=20261120_v15">
   <link rel="stylesheet" href="css/lesson.css?v=20261120_v15">
   <link rel="stylesheet" href="css/alphabet-lab.css?v=20261124_v18">
+  <link rel="stylesheet" href="css/achievements.css?v=20261124_v21">
 
   <!-- MediaPipe Hands, Pose & Camera Utils Locales (Offline) -->
   <script src="lib/mediapipe/camera_utils.js"></script>
@@ -42,7 +43,7 @@
   <script src="js/sign-anatomy-validator.js?v=20261120_v15" defer></script>
   <script src="js/finger-feedback-engine.js?v=20261124_v16" defer></script>
   <script src="js/srs-client.js?v=20261124_v16" defer></script>
-  <script src="js/gamification-manager.js?v=20261124_v17" defer></script>
+  <script src="js/gamification-manager.js?v=20261124_v21" defer></script>
   <script src="js/body-anchor-detector.js?v=20261120_v15" defer></script>
   <script src="js/trajectory-tracker.js?v=20261120_v15" defer></script>
   <script src="js/video-player.js?v=20261120_v15" defer></script>
@@ -53,11 +54,12 @@
   <script src="js/exam-ui-helper.js?v=20261120_v15" defer></script>
   <script src="js/blind-exam-controller.js?v=20261120_v15" defer></script>
   <script src="js/lesson-session.js?v=20261120_v15" defer></script>
-  <script src="js/view-router.js?v=20261120_v15" defer></script>
-  <script src="js/alphabet-lab-controller.js?v=20261124_v19" defer></script>
-  <script src="js/pwa-manager.js?v=20261120_v15" defer></script>
+  <script src="js/view-router.js?v=20261124_v21" defer></script>
+  <script src="js/alphabet-lab-controller.js?v=20261124_v21" defer></script>
+  <script src="js/achievements-controller.js?v=20261124_v21" defer></script>
+  <script src="js/pwa-manager.js?v=20261124_v21" defer></script>
   <script src="js/chat-tutor.js?v=20261120_v15" defer></script>
-  <script src="js/main.js?v=20261120_v15" defer></script>
+  <script src="js/main.js?v=20261124_v21" defer></script>
 </head>
 
 <body class="app-shell text-slate-900 antialiased selection:bg-amber-500 selection:text-slate-900">
@@ -92,6 +94,11 @@
         <button id="btnNavAlphabetLab" class="sidebar-nav-btn btn-spring" aria-label="Abrir Laboratorio ABC y Repaso SRS">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V4h16v3"></path><path d="M9 20h6"></path><path d="M12 4v16"></path></svg>
           <span>Laboratorio ABC</span>
+        </button>
+
+        <button id="btnNavAchievements" class="sidebar-nav-btn btn-spring" aria-label="Ver Logros y Medallas">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+          <span>Logros</span>
         </button>
 
         <button id="btnStartBlindExam" class="sidebar-nav-btn sidebar-nav-exam btn-spring" aria-label="Iniciar Modo Examen Sin Video">
@@ -224,6 +231,9 @@
 
     <!-- PANTALLA 2B: LABORATORIO ABC (#viewAlphabetLab) -->
     <section id="viewAlphabetLab" class="hidden flex flex-col gap-5" aria-label="Laboratorio de Abecedario LSC"></section>
+
+    <!-- PANTALLA 2C: VITRINA DE LOGROS (#viewAchievements) -->
+    <section id="viewAchievements" class="hidden flex flex-col gap-5" aria-label="Logros y Medallas LSC"></section>
 
     <!-- PANTALLA 3: VISTA DEDICADA DE ESTUDIO Y EXAMEN (#viewPracticeStudio) -->
     <div id="viewPracticeStudio" class="flex flex-col gap-4">

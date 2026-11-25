@@ -79,6 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.AlphabetLabController.init();
     window.AlphabetLabController.start();
   }
+  if (window.AchievementsController) {
+    window.AchievementsController.init();
+    window.AchievementsController.start();
+  }
 
   // Inicializar enrutador de vistas (Mapa Duolingo vs Estudio de Práctica)
   if (window.ViewRouter) {

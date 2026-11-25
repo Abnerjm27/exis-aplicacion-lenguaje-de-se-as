@@ -60,7 +60,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>photos_letras_postgres — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 4444 nodes, 8612 edges, 191 communities. Commit: b1b0d13</p>
+<p class="subtitle">Generated from graphify knowledge graph: 4461 nodes, 8650 edges, 195 communities. Commit: 325a026</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
@@ -92,17 +92,17 @@ flowchart LR
     class EXTRACT_PIPELINE_5F350230 module;
     BUILD_GRAPH_321CBB04("Graph Build<br/><small>68 nodes</small>")
     class BUILD_GRAPH_321CBB04 module;
-    OUTPUTS_DOCS_ED82387C("Outputs &amp; Docs<br/><small>784 nodes</small>")
+    OUTPUTS_DOCS_ED82387C("Outputs &amp; Docs<br/><small>831 nodes</small>")
     class OUTPUTS_DOCS_ED82387C module;
     CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>8 nodes</small>")
     class CLI_SKILLS_9964CBB8 module;
-    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>163 nodes</small>")
+    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>167 nodes</small>")
     class INGEST_CACHE_UPDATE_FF457338 module;
-    SERVE_API_35EC8E86("Serving API<br/><small>87 nodes</small>")
+    SERVE_API_35EC8E86("Serving API<br/><small>89 nodes</small>")
     class SERVE_API_35EC8E86 module;
     SECURITY_GLOBAL_5B9C6A04("Security &amp; Global Graph<br/><small>24 nodes</small>")
     class SECURITY_GLOBAL_5B9C6A04 module;
-    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>535 nodes</small>")
+    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>508 nodes</small>")
     class TESTS_FIXTURES_B84B1DCC module;
     TAILWINDJS_APP_TAILWIND_A199C519("Tailwindjs App Tailwind<br/><small>174 nodes</small>")
     class TAILWINDJS_APP_TAILWIND_A199C519 module;
@@ -116,9 +116,9 @@ flowchart LR
     class HANDS_MEDIAPIPE_APP_042D9B_2540077E module;
     APP_TAILWIND_TAILWINDJS_17F1B23B("App Tailwind Tailwindjs<br/><small>48 nodes</small>")
     class APP_TAILWIND_TAILWINDJS_17F1B23B module;
-    OTHER_D0941E68("Other<br/><small>2248 nodes</small>")
+    OTHER_D0941E68("Other<br/><small>2239 nodes</small>")
     class OTHER_D0941E68 module;
-    OUTPUTS_DOCS_ED82387C -->|contains x727| OTHER_D0941E68
+    OUTPUTS_DOCS_ED82387C -->|contains x724| OTHER_D0941E68
     TAILWINDJS_APP_TAILWIND_A199C519 -->|contains x355| OTHER_D0941E68
     TAILWINDJS_APP_TAILWIND_A199C519 -->|contains x46| APP_TAILWIND_TAILWINDJS_17F1B23B
     OUTPUTS_DOCS_ED82387C -->|contains x45| HANDS_MEDIAPIPE_APP_CBF2BDF8
@@ -126,10 +126,10 @@ flowchart LR
     OTHER_D0941E68 -->|calls x44| INGEST_CACHE_UPDATE_FF457338
     OUTPUTS_DOCS_ED82387C -->|contains x42| POSE_MEDIAPIPE_APP_93C79D_99934326
     OUTPUTS_DOCS_ED82387C -->|contains x42| HANDS_MEDIAPIPE_APP_042D9B_2540077E
+    INGEST_CACHE_UPDATE_FF457338 -->|imports x27| TESTS_FIXTURES_B84B1DCC
     TESTS_FIXTURES_B84B1DCC -->|imports x26| INGEST_CACHE_UPDATE_FF457338
     OTHER_D0941E68 -->|calls x23| POSE_MEDIAPIPE_APP_F57DA0A2
     OTHER_D0941E68 -->|calls x23| POSE_MEDIAPIPE_APP_93C79D_99934326
-    OTHER_D0941E68 -->|calls x23| HANDS_MEDIAPIPE_APP_CBF2BDF8
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -146,7 +146,7 @@ flowchart LR
     <h4>Architecture Layers</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
-      <tr><td>Extraction Pipeline</td><td>29</td><td><code>7</code></td></tr><tr><td>Graph Build</td><td>68</td><td><code>96, 127, 98</code></td></tr><tr><td>Outputs &amp; Docs</td><td>784</td><td><code>0, 25, 20, 73, 85, 113, 114, 33, 159, 46</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>8</td><td><code>42</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>163</td><td><code>31, 90, 2, 101, 19, 173, 57, 60, 61</code></td></tr><tr><td>Serving API</td><td>87</td><td><code>12, 27, 154</code></td></tr><tr><td>Security &amp; Global Graph</td><td>24</td><td><code>107, 108, 156, 157</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>535</td><td><code>119, 50, 10, 167, 69, 67, 15, 116, 44, 9, 17, 51, 102, 105, 6, 175, 93, 21, 41, 160, 39, 40, 163, 182, 43, 183, 48</code></td></tr><tr><td>Tailwindjs App Tailwind</td><td>174</td><td><code>22</code></td></tr><tr><td>Pose Mediapipe App</td><td>72</td><td><code>111</code></td></tr><tr><td>Hands Mediapipe App</td><td>72</td><td><code>35</code></td></tr><tr><td>Pose Mediapipe App</td><td>66</td><td><code>115</code></td></tr><tr><td>Hands Mediapipe App</td><td>66</td><td><code>29</code></td></tr><tr><td>App Tailwind Tailwindjs</td><td>48</td><td><code>36</code></td></tr><tr><td>Other</td><td>2248</td><td><code>45, 1, 117, 118, 49, 62, 63, 91, 4, 65, 132, 66, 120, 121, 164, 64, 70, 72, 3, 55, 71, 5, 8, 124, 109, 11, 123, 75, 52, 125, 74, 95, 126, 130, 133, 28, 47, 68, 82, 92, 134, 80, 128, 13, 131, 135, 136, 148, 24, 76, 77, 83, 84, 137, 138, 139, 140, 162, 79, 86, 87, 88, 89, 14, 166, 81, 142, 143, 94, 97, 144, 152, 16, 169, 147, 158, 170, 18, 129, 146, 172, 174, 179, 149, 23, 100, 141, 150, 151, 153, 176, 177, 26, 30, 32, 99, 103, 180, 34, 37, 38, 161, 104, 145, 155, 181, 196, 106, 171, 184, 185, 186, 78, 110, 122, 165, 168, 187, 188, 189, 53, 54, 112, 192, 56, 58, 59</code></td></tr>
+      <tr><td>Extraction Pipeline</td><td>29</td><td><code>7</code></td></tr><tr><td>Graph Build</td><td>68</td><td><code>96, 127, 98</code></td></tr><tr><td>Outputs &amp; Docs</td><td>831</td><td><code>0, 25, 20, 73, 1, 85, 113, 114, 46, 33</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>8</td><td><code>42</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>167</td><td><code>31, 90, 2, 101, 19, 173, 193, 57, 60, 61</code></td></tr><tr><td>Serving API</td><td>89</td><td><code>12, 154, 27</code></td></tr><tr><td>Security &amp; Global Graph</td><td>24</td><td><code>107, 108, 156, 157</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>508</td><td><code>119, 50, 10, 69, 17, 67, 15, 116, 44, 9, 102, 105, 6, 175, 178, 93, 21, 41, 160, 39, 40, 163, 43, 183, 48, 51</code></td></tr><tr><td>Tailwindjs App Tailwind</td><td>174</td><td><code>22</code></td></tr><tr><td>Pose Mediapipe App</td><td>72</td><td><code>111</code></td></tr><tr><td>Hands Mediapipe App</td><td>72</td><td><code>35</code></td></tr><tr><td>Pose Mediapipe App</td><td>66</td><td><code>115</code></td></tr><tr><td>Hands Mediapipe App</td><td>66</td><td><code>29</code></td></tr><tr><td>App Tailwind Tailwindjs</td><td>48</td><td><code>36</code></td></tr><tr><td>Other</td><td>2239</td><td><code>45, 91, 117, 118, 49, 62, 4, 65, 132, 120, 121, 70, 72, 3, 55, 66, 95, 164, 5, 8, 64, 71, 123, 63, 109, 11, 167, 75, 124, 125, 52, 74, 126, 130, 133, 28, 47, 68, 92, 134, 159, 80, 128, 13, 135, 136, 148, 24, 76, 77, 82, 83, 84, 137, 138, 139, 140, 162, 86, 87, 88, 89, 131, 14, 166, 169, 79, 81, 142, 143, 94, 97, 144, 152, 16, 182, 190, 191, 146, 147, 170, 18, 129, 172, 174, 149, 23, 100, 141, 150, 151, 153, 171, 176, 177, 26, 30, 32, 99, 103, 145, 179, 180, 34, 37, 38, 161, 104, 155, 181, 196, 106, 184, 185, 186, 78, 110, 122, 158, 165, 168, 187, 188, 189, 53, 54, 112, 192, 56, 58, 59</code></td></tr>
     </table>
   </div>
   <div class="card">
@@ -158,7 +158,7 @@ flowchart LR
   <div class="card">
     <h4>Graph Report Highlights</h4>
     <ul>
-      <li>4444 nodes · 8612 edges · 191 communities (151 shown, 40 thin omitted)</li>
+      <li>4461 nodes · 8650 edges · 195 communities (154 shown, 41 thin omitted)</li>
       <li>Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 350 edges (avg confidence: 0.87)</li>
       <li>Token cost: 0 input · 0 output</li>
       <li>1. `assert()` - 68 edges</li>
@@ -866,76 +866,69 @@ flowchart LR
 
 <!-- ====== 4. Outputs & Docs ====== -->
 <h2 id="outputs-docs">4. Outputs &amp; Docs</h2>
-<p>Outputs &amp; Docs groups implementation around app, mediapipe, solution, wasm, mostly in mediapipe/pose/pose_solution_wasm_bin.js, mediapipe/hands/hands_solution_wasm_bin.js, mediapipe/hands/hands_solution_simd_wasm_bin.js. This section covers 784 nodes and 877 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Outputs &amp; Docs groups implementation around app, mediapipe, solution, wasm, mostly in mediapipe/pose/pose_solution_wasm_bin.js, mediapipe/hands/hands_solution_wasm_bin.js, mediapipe/hands/hands_solution_simd_wasm_bin.js. This section covers 831 nodes and 1005 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Outputs &amp; Docs (784 nodes, 877 edges)
-    subgraph outputs_docs_app_tools_curate_letter_e_py_75e4ed1b["app/tools/curate_letter_e.py"]
-        app_tools_curate_letter_e_letterecurator_6725a39b("LetterECurator<br/><small>app/tools/curate_letter_e.py</small>")
-        app_tools_curate_letter_e_letterecurator_run_cc0df116("run()<br/><small>app/tools/curate_letter_e.py</small>")
-        app_tools_curate_letter_e_letterecurator_init_8721e5db("__init__()<br/><small>app/tools/curate_letter_e.py</small>")
-        app_tools_curate_letter_e_letterecurator_extract_40bcae59("extract_canonical_frames()<br/><small>app/tools/curate_letter_e.py</small>")
-        app_tools_curate_letter_e_letterecurator_export_79a2b1da("export_mp4()<br/><small>app/tools/curate_letter_e.py</small>")
-        app_tools_curate_letter_e_letterecurator_export_8bf22917("export_webp()<br/><small>app/tools/curate_letter_e.py</small>")
+    %% Section: Outputs &amp; Docs (831 nodes, 1005 edges)
+    subgraph outputs_docs_app_js_lesson_session_js_9abc40dd["app/js/lesson-session.js"]
+        app_js_lesson_session_lessonsessioncontroller_10f72b8c("LessonSessionController<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_st_1f5e9eaf("start()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_en_09def4d6("enterPracticePhase()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_en_b90d1920("enterSummaryPhase()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_in_6cb2b54f("init()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_st_7014b136("startLesson()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_ne_d8bdac6e("nextPhase()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_up_2cd9db4e("update()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_re_7444c680("reset()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_de_375ba1be("destroy()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_su_2aae9e3a("submitQuizAnswer()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_ha_c671889f("handlePracticeFrame()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_ha_4f9f59d1("handleSignMasteredInLesson()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_is_f72ee9f0("isActive()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_ge_f81747e9("getCurrentPhase()<br/><small>app/js/lesson-session.js</small>")
+        app_js_lesson_session_lessonsessioncontroller_ge_6eeb67c3("getCurrentSign()<br/><small>app/js/lesson-session.js</small>")
     end
-    subgraph outputs_docs_app_tools_curate_letter_u_py_d3e339af["app/tools/curate_letter_u.py"]
-        app_tools_curate_letter_u_letterucurator_a4e02328("LetterUCurator<br/><small>app/tools/curate_letter_u.py</small>")
-        app_tools_curate_letter_u_letterucurator_run_e971f292("run()<br/><small>app/tools/curate_letter_u.py</small>")
-        app_tools_curate_letter_u_letterucurator_init_ab89f9eb("__init__()<br/><small>app/tools/curate_letter_u.py</small>")
-        app_tools_curate_letter_u_letterucurator_extract_2143829b("extract_canonical_frames()<br/><small>app/tools/curate_letter_u.py</small>")
-        app_tools_curate_letter_u_letterucurator_export_1bfad865("export_mp4()<br/><small>app/tools/curate_letter_u.py</small>")
-        app_tools_curate_letter_u_letterucurator_export_b219e8cc("export_webp()<br/><small>app/tools/curate_letter_u.py</small>")
-    end
-    subgraph outputs_docs_mediapipe_pose_pose_solution_wasm_b_69026224["mediapipe/pose/pose_solution_wasm_bin.js"]
-        app_lib_mediapipe_pose_pose_solution_wasm_bin_do_01866d32("done()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-        app_lib_mediapipe_pose_pose_solution_wasm_bin_do_e7776d44("doCallback()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-        app_lib_mediapipe_pose_pose_solution_wasm_bin_en_bb31e2cf("_environ_get()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-        app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_8d80d53d("getEnvStrings()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    end
-    subgraph outputs_docs_lib_canvas_confetti_confetti_browse_ec9afd0d["lib/canvas-confetti/confetti.browser.min.js"]
-        app_lib_canvas_confetti_confetti_browser_min_a_b_7b1387a2("b()<br/><small>lib/canvas-confetti/confetti.browser.min.js</small>")
-        app_lib_canvas_confetti_confetti_browser_min_a_p_22d2961c("p()<br/><small>lib/canvas-confetti/confetti.browser.min.js</small>")
-    end
-    app_tools_curate_letter_e_letterecurator_6725a39b -->|method| app_tools_curate_letter_e_letterecurator_init_8721e5db
-    app_tools_curate_letter_e_letterecurator_6725a39b -->|method| app_tools_curate_letter_e_letterecurator_extract_40bcae59
-    app_tools_curate_letter_e_letterecurator_6725a39b -->|method| app_tools_curate_letter_e_letterecurator_export_79a2b1da
-    app_tools_curate_letter_e_letterecurator_6725a39b -->|method| app_tools_curate_letter_e_letterecurator_export_8bf22917
-    app_tools_curate_letter_e_letterecurator_6725a39b -->|method| app_tools_curate_letter_e_letterecurator_run_cc0df116
-    app_tools_curate_letter_u_letterucurator_a4e02328 -->|method| app_tools_curate_letter_u_letterucurator_init_ab89f9eb
-    app_tools_curate_letter_u_letterucurator_a4e02328 -->|method| app_tools_curate_letter_u_letterucurator_extract_2143829b
-    app_tools_curate_letter_u_letterucurator_a4e02328 -->|method| app_tools_curate_letter_u_letterucurator_export_1bfad865
-    app_tools_curate_letter_u_letterucurator_a4e02328 -->|method| app_tools_curate_letter_u_letterucurator_export_b219e8cc
-    app_tools_curate_letter_u_letterucurator_a4e02328 -->|method| app_tools_curate_letter_u_letterucurator_run_e971f292
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_do_01866d32 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_do_e7776d44
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_en_bb31e2cf -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_8d80d53d
-    app_tools_curate_letter_e_letterecurator_run_cc0df116 -->|calls| app_tools_curate_letter_e_letterecurator_export_79a2b1da
-    app_tools_curate_letter_e_letterecurator_run_cc0df116 -->|calls| app_tools_curate_letter_e_letterecurator_export_8bf22917
-    app_tools_curate_letter_e_letterecurator_run_cc0df116 -->|calls| app_tools_curate_letter_e_letterecurator_extract_40bcae59
-    app_tools_curate_letter_u_letterucurator_run_e971f292 -->|calls| app_tools_curate_letter_u_letterucurator_export_1bfad865
-    app_tools_curate_letter_u_letterucurator_run_e971f292 -->|calls| app_tools_curate_letter_u_letterucurator_export_b219e8cc
-    app_tools_curate_letter_u_letterucurator_run_e971f292 -->|calls| app_tools_curate_letter_u_letterucurator_extract_2143829b
-    app_lib_canvas_confetti_confetti_browser_min_a_b_7b1387a2 -->|calls| app_lib_canvas_confetti_confetti_browser_min_a_p_22d2961c
-    %% Omitted for readability: 766 nodes, 0 edges
+    app_tools_curate_letter_e_letterecurator_6725a39b("LetterECurator<br/><small>app/tools/curate_letter_e.py</small>")
+    app_tools_curate_letter_u_letterucurator_a4e02328("LetterUCurator<br/><small>app/tools/curate_letter_u.py</small>")
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_in_6cb2b54f
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_st_1f5e9eaf
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_st_7014b136
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_ne_d8bdac6e
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_up_2cd9db4e
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_re_7444c680
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_de_375ba1be
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_su_2aae9e3a
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_ha_c671889f
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_ha_4f9f59d1
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_is_f72ee9f0
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_ge_f81747e9
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_ge_6eeb67c3
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_en_09def4d6
+    app_js_lesson_session_lessonsessioncontroller_10f72b8c -->|method| app_js_lesson_session_lessonsessioncontroller_en_b90d1920
+    app_js_lesson_session_lessonsessioncontroller_de_375ba1be -->|calls| app_js_lesson_session_lessonsessioncontroller_re_7444c680
+    app_js_lesson_session_lessonsessioncontroller_st_1f5e9eaf -->|calls| app_js_lesson_session_lessonsessioncontroller_ha_4f9f59d1
+    app_js_lesson_session_lessonsessioncontroller_st_7014b136 -->|calls| app_js_lesson_session_lessonsessioncontroller_st_1f5e9eaf
+    %% Omitted for readability: 813 nodes, 0 edges
+    class app_js_lesson_session_lessonsessioncontroller_10f72b8c klass;
+    class app_js_lesson_session_lessonsessioncontroller_st_1f5e9eaf function;
+    class app_js_lesson_session_lessonsessioncontroller_en_09def4d6 function;
+    class app_js_lesson_session_lessonsessioncontroller_en_b90d1920 function;
+    class app_js_lesson_session_lessonsessioncontroller_in_6cb2b54f function;
+    class app_js_lesson_session_lessonsessioncontroller_st_7014b136 function;
+    class app_js_lesson_session_lessonsessioncontroller_ne_d8bdac6e function;
+    class app_js_lesson_session_lessonsessioncontroller_up_2cd9db4e function;
+    class app_js_lesson_session_lessonsessioncontroller_re_7444c680 function;
+    class app_js_lesson_session_lessonsessioncontroller_de_375ba1be function;
+    class app_js_lesson_session_lessonsessioncontroller_su_2aae9e3a function;
+    class app_js_lesson_session_lessonsessioncontroller_ha_c671889f function;
+    class app_js_lesson_session_lessonsessioncontroller_ha_4f9f59d1 function;
+    class app_js_lesson_session_lessonsessioncontroller_is_f72ee9f0 function;
+    class app_js_lesson_session_lessonsessioncontroller_ge_f81747e9 function;
+    class app_js_lesson_session_lessonsessioncontroller_ge_6eeb67c3 function;
     class app_tools_curate_letter_e_letterecurator_6725a39b klass;
-    class app_tools_curate_letter_e_letterecurator_run_cc0df116 function;
-    class app_tools_curate_letter_e_letterecurator_init_8721e5db function;
-    class app_tools_curate_letter_e_letterecurator_extract_40bcae59 function;
-    class app_tools_curate_letter_e_letterecurator_export_79a2b1da function;
-    class app_tools_curate_letter_e_letterecurator_export_8bf22917 function;
     class app_tools_curate_letter_u_letterucurator_a4e02328 klass;
-    class app_tools_curate_letter_u_letterucurator_run_e971f292 function;
-    class app_tools_curate_letter_u_letterucurator_init_ab89f9eb function;
-    class app_tools_curate_letter_u_letterucurator_extract_2143829b function;
-    class app_tools_curate_letter_u_letterucurator_export_1bfad865 function;
-    class app_tools_curate_letter_u_letterucurator_export_b219e8cc function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_do_01866d32 function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_do_e7776d44 function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_en_bb31e2cf function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_8d80d53d function;
-    class app_lib_canvas_confetti_confetti_browser_min_a_b_7b1387a2 function;
-    class app_lib_canvas_confetti_confetti_browser_min_a_p_22d2961c function;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -1208,15 +1201,15 @@ flowchart LR
 <tr><td><code>mediapipe/pose/pose_solution_wasm_bin.js</code></td><td>183 nodes</td></tr>
 <tr><td><code>mediapipe/hands/hands_solution_simd_wasm_bin.js</code></td><td>177 nodes</td></tr>
 <tr><td><code>mediapipe/pose/pose_solution_simd_wasm_bin.js</code></td><td>177 nodes</td></tr>
+<tr><td><code>app/js/lesson-session.js</code></td><td>46 nodes</td></tr>
 <tr><td><code>lib/canvas-confetti/confetti.browser.min.js</code></td><td>17 nodes</td></tr>
 <tr><td><code>app/tools/curate_letter_e.py</code></td><td>11 nodes</td></tr>
 <tr><td><code>app/tools/curate_letter_u.py</code></td><td>11 nodes</td></tr>
-<tr><td><code>sdd/2026-11-06-interactive-lesson-quiz/task-1-report.md</code></td><td>10 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x751, calls x100, method x10, explains x10. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x751, calls x178, method x55, explains x10. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -1356,12 +1349,12 @@ flowchart LR
 
 <!-- ====== 6. Ingestion & Updates ====== -->
 <h2 id="ingest-cache-update">6. Ingestion &amp; Updates</h2>
-<p>Ingestion &amp; Updates groups implementation around app, tools, process, videopy, mostly in app/js/auth-profile-manager.js, app/tools/process_zorrito_video.py, app/manifest.json. This section covers 163 nodes and 330 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Ingestion &amp; Updates groups implementation around app, tools, process, videopy, mostly in app/js/auth-profile-manager.js, app/tools/process_zorrito_video.py, app/manifest.json. This section covers 167 nodes and 332 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Ingestion &amp; Updates (163 nodes, 330 edges)
+    %% Section: Ingestion &amp; Updates (167 nodes, 332 edges)
     subgraph ingest_cache_update_app_tools_process_zorrito_vi_90db8d17["app/tools/process_zorrito_video.py"]
         app_tools_process_zorrito_video_zorritovideoproc_e30af36d("ZorritoVideoProcessor<br/><small>app/tools/process_zorrito_video.py</small>")
         app_tools_process_zorrito_video_main_6fc5362c("main()<br/><small>app/tools/process_zorrito_video.py</small>")
@@ -1379,7 +1372,7 @@ flowchart LR
         app_js_auth_profile_manager_authprofilemanager_190a5318("AuthProfileManager<br/><small>app/js/auth-profile-manager.js</small>")
         app_js_auth_profile_manager_authprofilemanager_r_789d7856("recordSignMastered()<br/><small>app/js/auth-profile-manager.js</small>")
         app_js_auth_profile_manager_authprofilemanager_r_b3463151("recordExamResult()<br/><small>app/js/auth-profile-manager.js</small>")
-        app_js_auth_profile_manager_authprofilemanager_s_de251f6c("saveCustomPlan()<br/><small>app/js/auth-profile-manager.js</small>")
+        app_js_auth_profile_manager_authprofilemanager_o_ed3306e7("openAuthModal()<br/><small>app/js/auth-profile-manager.js</small>")
     end
     app_tools_curate_letter_e_28858dc1("curate_letter_e.py")
     app_tools_generate_batch_5_signs_main_9fd7e6f2("main()<br/><small>app/tools/generate_batch_5_signs.py</small>")
@@ -1395,7 +1388,7 @@ flowchart LR
     app_tools_process_zorrito_video_zorritovideoproc_e30af36d -->|method| app_tools_process_zorrito_video_zorritovideoproc_0bd8a9e9
     app_js_auth_profile_manager_authprofilemanager_190a5318 -->|method| app_js_auth_profile_manager_authprofilemanager_r_789d7856
     app_js_auth_profile_manager_authprofilemanager_190a5318 -->|method| app_js_auth_profile_manager_authprofilemanager_r_b3463151
-    app_js_auth_profile_manager_authprofilemanager_190a5318 -->|method| app_js_auth_profile_manager_authprofilemanager_s_de251f6c
+    app_js_auth_profile_manager_authprofilemanager_190a5318 -->|method| app_js_auth_profile_manager_authprofilemanager_o_ed3306e7
     app_tools_process_zorrito_video_main_6fc5362c -->|calls| app_tools_process_zorrito_video_zorritovideoproc_e30af36d
     app_tools_process_zorrito_video_zorritovideoproc_1fe7365a -->|calls| app_tools_process_zorrito_video_zorritovideoproc_191b563c
     app_tools_process_zorrito_video_zorritovideoproc_ddc18def -->|calls| app_tools_process_zorrito_video_zorritovideoproc_46e580a3
@@ -1408,7 +1401,7 @@ flowchart LR
     app_tools_process_zorrito_video_main_6fc5362c -->|calls| app_tools_process_zorrito_video_zorritovideoproc_1fe7365a
     app_tools_process_zorrito_video_main_6fc5362c -->|calls| app_tools_process_zorrito_video_zorritovideoproc_0bd8a9e9
     app_tools_process_zorrito_video_main_6fc5362c -->|calls| app_tools_process_zorrito_video_zorritovideoproc_f91c1fbe
-    %% Omitted for readability: 145 nodes, 0 edges
+    %% Omitted for readability: 149 nodes, 0 edges
     class app_tools_process_zorrito_video_zorritovideoproc_e30af36d klass;
     class app_tools_process_zorrito_video_main_6fc5362c function;
     class app_tools_process_zorrito_video_zorritovideoproc_f91c1fbe function;
@@ -1423,7 +1416,7 @@ flowchart LR
     class app_js_auth_profile_manager_authprofilemanager_190a5318 klass;
     class app_js_auth_profile_manager_authprofilemanager_r_789d7856 function;
     class app_js_auth_profile_manager_authprofilemanager_r_b3463151 function;
-    class app_js_auth_profile_manager_authprofilemanager_s_de251f6c function;
+    class app_js_auth_profile_manager_authprofilemanager_o_ed3306e7 function;
     class app_tools_curate_letter_e_28858dc1 module;
     class app_tools_generate_batch_5_signs_main_9fd7e6f2 function;
     class app_tools_generate_expansion_signs_main_89ea5d26 function;
@@ -1695,7 +1688,7 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>app/js/auth-profile-manager.js</code></td><td>26 nodes</td></tr>
+      <tr><td><code>app/js/auth-profile-manager.js</code></td><td>25 nodes</td></tr>
 <tr><td><code>app/tools/process_zorrito_video.py</code></td><td>23 nodes</td></tr>
 <tr><td><code>app/manifest.json</code></td><td>13 nodes</td></tr>
 <tr><td><code>lib/mediapipe/control_utils.js</code></td><td>12 nodes</td></tr>
@@ -1707,19 +1700,19 @@ flowchart LR
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: calls x106, imports x78, contains x46, method x41. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x105, imports x78, contains x50, method x40. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
 <!-- ====== 7. Serving API ====== -->
 <h2 id="serve-api">7. Serving API</h2>
-<p>Serving API groups implementation around app, landingjs, view, routerjs, mostly in app/js/landing.js, app/js/view-router.js, superpowers/plans/2026-11-05-exis-learning-platform-plan.md. This section covers 87 nodes and 158 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Serving API groups implementation around app, landingjs, view, routerjs, mostly in app/js/landing.js, app/js/view-router.js, superpowers/plans/2026-11-05-exis-learning-platform-plan.md. This section covers 89 nodes and 166 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Serving API (87 nodes, 158 edges)
+    %% Section: Serving API (89 nodes, 166 edges)
     subgraph serve_api_app_js_landing_js_6b5eb1c9["app/js/landing.js"]
         app_js_landing_landingheroplayer_24165023("LandingHeroPlayer<br/><small>app/js/landing.js</small>")
         app_js_landing_landingportalcontroller_dae596cc("LandingPortalController<br/><small>app/js/landing.js</small>")
@@ -1765,7 +1758,7 @@ flowchart LR
     app_js_landing_landingportalcontroller_start_0b20891f -->|calls| app_js_landing_landingportalcontroller_handlewin_17198b63
     app_js_landing_landingportalcontroller_update_bb4c3eb0 -->|calls| app_js_landing_landingportalcontroller_handlewin_17198b63
     app_js_landing_landingportalcontroller_initinter_3dd9f1a3 -->|calls| app_js_landing_landingheroplayer_setpointertilt_8b63c986
-    %% Omitted for readability: 69 nodes, 0 edges
+    %% Omitted for readability: 71 nodes, 0 edges
     class app_js_landing_landingheroplayer_24165023 klass;
     class app_js_landing_landingportalcontroller_dae596cc klass;
     class app_js_landing_zorritocompanioncontroller_fe6ee876 klass;
@@ -1834,7 +1827,7 @@ flowchart LR
   <td><code>ViewRouter</code><br><small style="color:var(--muted)">app/js/view-router.js</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>#applyViewState()</code><br><small style="color:var(--muted)">app/js/view-router.js</small><br><code>#bindNavigationEvents()</code><br><small style="color:var(--muted)">app/js/view-router.js</small><br><code>#closeMobileSidebar()</code><br><small style="color:var(--muted)">app/js/view-router.js</small><br>+16 more</td>
+  <td><code>#applyViewState()</code><br><small style="color:var(--muted)">app/js/view-router.js</small><br><code>#bindNavigationEvents()</code><br><small style="color:var(--muted)">app/js/view-router.js</small><br><code>#closeMobileSidebar()</code><br><small style="color:var(--muted)">app/js/view-router.js</small><br>+17 more</td>
   <td>ViewRouter node in app/js/view-router.js.</td>
 </tr>
 <tr>
@@ -2053,16 +2046,17 @@ flowchart LR
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>app/js/landing.js</code></td><td>41 nodes</td></tr>
-<tr><td><code>app/js/view-router.js</code></td><td>21 nodes</td></tr>
+<tr><td><code>app/js/view-router.js</code></td><td>22 nodes</td></tr>
 <tr><td><code>superpowers/plans/2026-11-05-exis-learning-platform-plan.md</code></td><td>9 nodes</td></tr>
 <tr><td><code>superpowers/plans/2026-11-05-exis-3-screens-duolingo-flow-plan.md</code></td><td>6 nodes</td></tr>
 <tr><td><code>app/tools/check_console.js</code></td><td>4 nodes</td></tr>
 <tr><td><code>tests/backend_api_plan_users.js</code></td><td>4 nodes</td></tr>
+<tr><td><code>app/js/auth-profile-manager.js</code></td><td>1 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: calls x72, method x56, contains x23, references x4. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x78, method x57, contains x23, references x5. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -2369,12 +2363,12 @@ flowchart LR
 
 <!-- ====== 9. Tests & Fixtures ====== -->
 <h2 id="tests-fixtures">9. Tests &amp; Fixtures</h2>
-<p>Tests &amp; Fixtures groups implementation around test, tests, unitjs, app, mostly in tests/test_sign_anatomy_validator.js, tests/test_natural_language_chat.py, tests/test_finger_feedback_unit.js. This section covers 535 nodes and 755 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Tests &amp; Fixtures groups implementation around test, tests, unitjs, app, mostly in tests/test_sign_anatomy_validator.js, tests/test_natural_language_chat.py, tests/test_finger_feedback_unit.js. This section covers 508 nodes and 685 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Tests &amp; Fixtures (535 nodes, 755 edges)
+    %% Section: Tests &amp; Fixtures (508 nodes, 685 edges)
     subgraph tests_fixtures_server_py_eb0a7f5f["server.py"]
         server_3de4f901("server.py")
         server_lscnaturallanguageparser_d89d184e("LSCNaturalLanguageParser<br/><small>server.py</small>")
@@ -2394,8 +2388,8 @@ flowchart LR
         tests_test_natural_language_chat_testlscnaturall_bccb8495("test_open_learning_intro()<br/><small>tests/test_natural_language_chat.py</small>")
         tests_test_natural_language_chat_testlscnaturall_f80f8792("test_reject_sign_without_alternative()<br/><small>tests/test_natural_language_chat.py</small>")
     end
-    app_js_gamification_manager_gamificationmanager_cc9af3bc("GamificationManager<br/><small>app/js/gamification-manager.js</small>")
     app_tools_archive_cdp_verify_5cff9b93("cdp_verify.py")
+    tests_test_security_and_hardening_2d81b6b8("test_security_and_hardening.py")
     tests_test_srs_and_postgres_fa0bedb4("test_srs_and_postgres.py")
     server_lscnaturallanguageparser_d89d184e -->|method| server_lscnaturallanguageparser_normalize_e5373b7a
     server_lscnaturallanguageparser_d89d184e -->|method| server_lscnaturallanguageparser_parse_0af26f0b
@@ -2415,9 +2409,10 @@ flowchart LR
     tests_test_natural_language_chat_testlscnaturall_0641a612 -->|calls| server_lscnaturallanguageparser_parse_0af26f0b
     tests_test_natural_language_chat_testlscnaturall_bccb8495 -->|calls| server_lscnaturallanguageparser_parse_0af26f0b
     tests_test_natural_language_chat_testlscnaturall_f80f8792 -->|calls| server_lscnaturallanguageparser_parse_0af26f0b
+    tests_test_security_and_hardening_2d81b6b8 -->|imports| server_3de4f901
     tests_test_srs_and_postgres_fa0bedb4 -->|imports| server_3de4f901
     tests_test_natural_language_chat_testlscnaturall_a10f5d24 -->|uses| server_lscnaturallanguageparser_d89d184e
-    %% Omitted for readability: 517 nodes, 0 edges
+    %% Omitted for readability: 490 nodes, 0 edges
     class server_3de4f901 module;
     class server_lscnaturallanguageparser_d89d184e klass;
     class server_lscnaturallanguageparser_normalize_e5373b7a function;
@@ -2433,8 +2428,8 @@ flowchart LR
     class tests_test_natural_language_chat_testlscnaturall_5700b056 test;
     class tests_test_natural_language_chat_testlscnaturall_bccb8495 test;
     class tests_test_natural_language_chat_testlscnaturall_f80f8792 test;
-    class app_js_gamification_manager_gamificationmanager_cc9af3bc klass;
     class app_tools_archive_cdp_verify_5cff9b93 module;
+    class tests_test_security_and_hardening_2d81b6b8 test;
     class tests_test_srs_and_postgres_fa0bedb4 test;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
@@ -2708,15 +2703,15 @@ flowchart LR
 <tr><td><code>tests/test_natural_language_chat.py</code></td><td>45 nodes</td></tr>
 <tr><td><code>server.py</code></td><td>40 nodes</td></tr>
 <tr><td><code>tests/test_finger_feedback_unit.js</code></td><td>40 nodes</td></tr>
-<tr><td><code>app/js/gamification-manager.js</code></td><td>24 nodes</td></tr>
 <tr><td><code>tests/test_srs_and_postgres.py</code></td><td>20 nodes</td></tr>
 <tr><td><code>tests/test_blind_exam_arena_unit.js</code></td><td>18 nodes</td></tr>
-<tr><td><code>tests/test_gamification_unit.js</code></td><td>14 nodes</td></tr>
+<tr><td><code>tests/test_gamification_unit.js</code></td><td>16 nodes</td></tr>
+<tr><td><code>tests/test_lesson_session_unit.js</code></td><td>12 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x284, imports x116, calls x108, imports x104. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x280, imports x115, imports x101, calls x67. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -4782,12 +4777,12 @@ flowchart LR
 
 <!-- ====== 16. Other ====== -->
 <h2 id="other">16. Other</h2>
-<p>Other groups implementation around app, mediapipe, pose, hands, mostly in lib/tailwind/tailwind.js, mediapipe/pose/pose_solution_simd_wasm_bin.js, mediapipe/pose/pose_solution_wasm_bin.js. This section covers 2248 nodes and 3907 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Other groups implementation around app, mediapipe, pose, hands, mostly in lib/tailwind/tailwind.js, mediapipe/pose/pose_solution_simd_wasm_bin.js, mediapipe/pose/pose_solution_wasm_bin.js. This section covers 2239 nodes and 3872 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Other (2248 nodes, 3907 edges)
+    %% Section: Other (2239 nodes, 3872 edges)
     subgraph other_app_js_alphabet_lab_controller_js_c16f9998["app/js/alphabet-lab-controller.js"]
         app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93("AlphabetLabController<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_19ad1c9a("handlePracticeFrame()<br/><small>app/js/alphabet-lab-controller.js</small>")
@@ -4803,10 +4798,10 @@ flowchart LR
         app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda("el()<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_0495667d("render()<br/><small>app/js/alphabet-lab-controller.js</small>")
     end
+    app_js_auth_service_authservice_75d6a046("AuthService<br/><small>app/js/auth-service.js</small>")
     app_js_blind_exam_controller_blindexamcontroller_0361b900("BlindExamController<br/><small>app/js/blind-exam-controller.js</small>")
     app_js_camera_manager_cameradevicemanager_9bfb70a8("CameraDeviceManager<br/><small>app/js/camera-manager.js</small>")
     app_js_learning_plan_manager_learningplanmanager_cd4afc8c("LearningPlanManager<br/><small>app/js/learning-plan-manager.js</small>")
-    app_js_lesson_session_lessonsessioncontroller_10f72b8c("LessonSessionController<br/><small>app/js/lesson-session.js</small>")
     app_js_sign_anatomy_validator_signanatomyvalidat_b0f5f82a("SignAnatomyValidator<br/><small>app/js/sign-anatomy-validator.js</small>")
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_19ad1c9a
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_d0503cc5
@@ -4828,7 +4823,7 @@ flowchart LR
     app_js_alphabet_lab_controller_alphabetlabcontro_0495667d -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda
     app_js_alphabet_lab_controller_alphabetlabcontro_b18e2e98 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_0495667d
     app_js_alphabet_lab_controller_alphabetlabcontro_99c87f83 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_0495667d
-    %% Omitted for readability: 2230 nodes, 0 edges
+    %% Omitted for readability: 2221 nodes, 0 edges
     class app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 klass;
     class app_js_alphabet_lab_controller_alphabetlabcontro_19ad1c9a function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_d0503cc5 function;
@@ -4842,10 +4837,10 @@ flowchart LR
     class app_js_alphabet_lab_controller_alphabetlabcontro_b0e345cd function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_0495667d function;
+    class app_js_auth_service_authservice_75d6a046 klass;
     class app_js_blind_exam_controller_blindexamcontroller_0361b900 klass;
     class app_js_camera_manager_cameradevicemanager_9bfb70a8 klass;
     class app_js_learning_plan_manager_learningplanmanager_cd4afc8c klass;
-    class app_js_lesson_session_lessonsessioncontroller_10f72b8c klass;
     class app_js_sign_anatomy_validator_signanatomyvalidat_b0f5f82a klass;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
@@ -5127,7 +5122,7 @@ flowchart LR
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: calls x2596, contains x553, method x517, indirect call x210. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x2573, contains x555, method x505, indirect call x210. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -5138,17 +5133,17 @@ flowchart LR
   <div class="card">
     <h4>Graph</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>Nodes</td><td>4444</td></tr>
-      <tr><td>Edges</td><td>8612</td></tr>
+      <tr><td>Nodes</td><td>4461</td></tr>
+      <tr><td>Edges</td><td>8650</td></tr>
       <tr><td>Hyperedges</td><td>0</td></tr>
-      <tr><td>Communities</td><td>191</td></tr>
+      <tr><td>Communities</td><td>195</td></tr>
       <tr><td>Documented Sections</td><td>15</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Edge Confidence</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>EXTRACTED</td><td>8262</td></tr>
+      <tr><td>EXTRACTED</td><td>8300</td></tr>
       <tr><td>INFERRED</td><td>350</td></tr>
       <tr><td>AMBIGUOUS</td><td>0</td></tr>
     </table>
@@ -5157,7 +5152,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>photos_letras_postgres — Architecture Documentation</p>
-  <p>Generated: 2026-11-25 04:00 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-11-25 04:17 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->

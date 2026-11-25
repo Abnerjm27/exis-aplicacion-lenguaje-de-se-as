@@ -6,9 +6,9 @@
     "semantic_hash": "639cbb2ba9ff31dc1d12bec3d6b1a143"
   },
   "app/data/users_db.json": {
-    "mtime": 1795578121.3521383,
-    "seen": 1795578383.8035862,
-    "ast_hash": "01a11dac0e023fdbaea62d1724aa8f82",
+    "mtime": 1795579248.175454,
+    "seen": 1795580265.1356883,
+    "ast_hash": "d4f6defe5cdd54b65772d4229988591a",
     "semantic_hash": ""
   },
   "app/js/auth-profile-manager.js": {
@@ -42,9 +42,9 @@
     "semantic_hash": ""
   },
   "app/js/main.js": {
-    "mtime": 1795577852.0827656,
-    "seen": 1795577915.6344128,
-    "ast_hash": "7224921b22b234ee14bbcd91c9f1790f",
+    "mtime": 1795580181.7194326,
+    "seen": 1795580265.1417623,
+    "ast_hash": "af9b92005e11731ba3466669a074a3bb",
     "semantic_hash": ""
   },
   "app/js/signs-data.js": {
@@ -324,9 +324,9 @@
     "semantic_hash": ""
   },
   "app/js/view-router.js": {
-    "mtime": 1795577854.8894572,
-    "seen": 1795577915.6384468,
-    "ast_hash": "34724ee7ebdc80aeba7a03703e0ef9cf",
+    "mtime": 1795580179.6578355,
+    "seen": 1795580265.1453059,
+    "ast_hash": "a15dda8a70e9b902dcb4462ada6aad0d",
     "semantic_hash": ""
   },
   "tests/test_3_screens_flow.spec.js": {
@@ -516,9 +516,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795579170.0951505,
-    "seen": 1795579224.0352192,
-    "ast_hash": "ab1932808f2dd482a29aca0bcbc3071e",
+    "mtime": 1795580188.8234887,
+    "seen": 1795580265.1533642,
+    "ast_hash": "b28e7d3414af04fee1707174f0e065bf",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -576,9 +576,9 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795579171.741649,
-    "seen": 1795579224.124264,
-    "ast_hash": "1353aa44a7734a6b7618ad22a640a9a6",
+    "mtime": 1795580217.139722,
+    "seen": 1795580265.2383382,
+    "ast_hash": "d18518fc0e53ef1bf27ffbea2b18d1c8",
     "semantic_hash": ""
   },
   "app/landing.html": {
@@ -4230,9 +4230,9 @@
     "semantic_hash": ""
   },
   "app/perfil.html": {
-    "mtime": 1795577595.133983,
-    "seen": 1795577915.7173061,
-    "ast_hash": "eb7b2298b28d2b64940bb2e84f644579",
+    "mtime": 1795580142.775247,
+    "seen": 1795580265.2403393,
+    "ast_hash": "444b6242538c57981242369e23b436f0",
     "semantic_hash": ""
   },
   "tests/screenshots/screen4_profile_page.png": {
@@ -4302,9 +4302,9 @@
     "semantic_hash": ""
   },
   "app/js/alphabet-lab-controller.js": {
-    "mtime": 1795578812.5247245,
-    "seen": 1795578877.160587,
-    "ast_hash": "50444f28023a558581e4572786aad2f3",
+    "mtime": 1795580184.3521311,
+    "seen": 1795580265.1356883,
+    "ast_hash": "5de9b3c176d514ffa24a00b9776f753e",
     "semantic_hash": ""
   },
   "app/js/finger-feedback-engine.js": {
@@ -4446,15 +4446,15 @@
     "semantic_hash": ""
   },
   "app/js/gamification-manager.js": {
-    "mtime": 1795576656.9702933,
-    "seen": 1795576810.1261652,
-    "ast_hash": "b83b787949d90ebd4ab5c6e726601e06",
+    "mtime": 1795580102.9386888,
+    "seen": 1795580265.1397035,
+    "ast_hash": "1406e16b8cb45a0ebd45a2dd6d436ac8",
     "semantic_hash": ""
   },
   "tests/test_gamification_unit.js": {
-    "mtime": 1795576741.032363,
-    "seen": 1795576810.192314,
-    "ast_hash": "83a387621982268f6c5f80f5423f4cf7",
+    "mtime": 1795580193.0021217,
+    "seen": 1795580265.2189336,
+    "ast_hash": "1962becb0cbc5571e2179c4c184bbf7e",
     "semantic_hash": ""
   },
   "app/img/letters/Q_sol.png": {
@@ -4491,6 +4491,42 @@
     "mtime": 1795577093.2019048,
     "seen": 1795577194.7094388,
     "ast_hash": "3d0e9143d4f5d75f24c74544fd50586f",
+    "semantic_hash": ""
+  },
+  "app/js/achievements-controller.js": {
+    "mtime": 1795580107.0296192,
+    "seen": 1795580265.1356883,
+    "ast_hash": "44293830f47651e45075a314f928b2b1",
+    "semantic_hash": ""
+  },
+  "app/img/badges/badge_camera_pro.png": {
+    "mtime": 1795580129.9937766,
+    "seen": 1795580265.3085444,
+    "ast_hash": "2844e55edf689bfa8037579ddc03fb49",
+    "semantic_hash": ""
+  },
+  "app/img/badges/badge_combo_master.png": {
+    "mtime": 1795580129.4218283,
+    "seen": 1795580265.3085444,
+    "ast_hash": "3f19a1b2822825001f13ffebf6c7a1fe",
+    "semantic_hash": ""
+  },
+  "app/img/badges/badge_first_word.png": {
+    "mtime": 1795580128.8517725,
+    "seen": 1795580265.3085444,
+    "ast_hash": "8ae76439a00d3714420243df00ed551a",
+    "semantic_hash": ""
+  },
+  "app/img/badges/badge_leitner_gold.png": {
+    "mtime": 1795580130.496991,
+    "seen": 1795580265.3085444,
+    "ast_hash": "9f38a6fd40b41ef5171b8c362855f97c",
+    "semantic_hash": ""
+  },
+  "app/img/badges/badge_vowels_lsc.png": {
+    "mtime": 1795580128.2642136,
+    "seen": 1795580265.3085444,
+    "ast_hash": "1197cabaab625975462ce1ce878d06a1",
     "semantic_hash": ""
   },
   "package-lock.json": {

@@ -1,4 +1,6 @@
 const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
 const { GamificationManager } = require('../app/js/gamification-manager.js');
 
 // Mock localStorage & window.AuthProfileManager
@@ -60,7 +62,12 @@ profile.signStats = { F: { box: 5, attempts: 6, successes: 6 } };
 const rGold = gm.update();
 assert.ok(rGold.badges.find(b => b.id === 'leitner_gold').unlocked, 'leitner_gold debe desbloquearse en Caja 5');
 assert.strictEqual(rGold.unlockedCount, 5);
-console.log('  ✅ [PASS] 3. Todas las 5 insignias desbloqueadas correctamente.');
+rGold.badges.forEach(b => {
+  assert.ok(b.image && b.image.startsWith('img/badges/'), `Falta ruta de medalla para ${b.id}`);
+  const imgFile = path.join(__dirname, '..', 'app', b.image);
+  assert.ok(fs.existsSync(imgFile) && fs.statSync(imgFile).size > 10000, `Medalla faltante en disco: ${imgFile}`);
+});
+console.log('  ✅ [PASS] 3. Todas las 5 insignias desbloqueadas y con medallas PNG en disco.');
 
 // 4. Tiers de Maestría Bronce / Plata / Oro
 assert.strictEqual(gm.getMasteryTier(1).tier, 'bronze');

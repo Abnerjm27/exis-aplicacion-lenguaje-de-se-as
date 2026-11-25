@@ -1,0 +1,162 @@
+/**
+ * Manitas · Vitrina de Logros y Medallas LSC
+ * Diseño 60-30-10 cálido (tokens.css) + Craft Emil Kowalski (make-interfaces-feel-better)
+ */
+
+.ach-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.ach-hero-card {
+  background: var(--palette-60-surface);
+  border: 1px solid var(--palette-30-border);
+  border-radius: 20px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04);
+}
+
+@media (min-width: 768px) {
+  .ach-hero-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.35rem 1.5rem;
+  }
+}
+
+.ach-section-card {
+  background: var(--palette-60-surface);
+  border: 1px solid var(--palette-30-border);
+  border-radius: 20px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04);
+}
+
+.ach-medals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 0.9rem;
+}
+
+.ach-medal-card {
+  background: var(--palette-60-surface);
+  border: 1.5px solid var(--palette-10-accent);
+  border-radius: 20px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  box-shadow: 0 2px 6px rgba(28, 25, 23, 0.05);
+  transition-property: transform, box-shadow, border-color;
+  transition-duration: 160ms;
+  transition-timing-function: var(--ease-out-expo);
+}
+
+.ach-medal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(28, 25, 23, 0.08);
+}
+
+.ach-medal-card.is-locked {
+  background: var(--palette-60-elevated);
+  border-color: var(--palette-30-border);
+  box-shadow: none;
+}
+
+.ach-medal-card.is-locked:hover {
+  transform: none;
+}
+
+.ach-medal-frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  background: var(--palette-60-canvas);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: 1px solid rgba(28, 25, 23, 0.1);
+  outline-offset: -1px;
+}
+
+.ach-medal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ach-medal-card.is-locked .ach-medal-img {
+  filter: grayscale(1) opacity(0.42);
+}
+
+.ach-medal-body {
+  padding: 0 0.25rem 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ach-status-pill {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+}
+
+.ach-status-pill.is-unlocked {
+  background: #ECFDF5;
+  color: #065F46;
+  border: 1px solid #6EE7B7;
+}
+
+.ach-status-pill.is-locked {
+  background: var(--palette-60-surface);
+  color: var(--palette-30-text-secondary);
+  border: 1px solid var(--palette-30-border-strong);
+}
+
+.ach-tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 0.75rem;
+}
+
+.ach-tier-card {
+  background: var(--palette-60-elevated);
+  border: 1px solid var(--palette-30-border);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ach-tier-card.is-gold {
+  background: var(--palette-10-accent-tint);
+  border-color: var(--palette-10-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ach-medal-card {
+    transition: none;
+  }
+  .ach-medal-card:hover {
+    transform: none;
+  }
+}

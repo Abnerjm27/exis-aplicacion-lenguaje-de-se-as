@@ -871,17 +871,19 @@ class AlphabetLabController {
 
     const gamState = window.GamificationManager ? window.GamificationManager.getState() : null;
     if (gamState) {
-      wrap.appendChild(
-        this.#el('h3', 'text-base font-extrabold text-slate-900 mt-2', `Insignias de maestría (${gamState.unlockedCount}/${gamState.totalBadges})`)
+      const achRow = this.#el('div', 'flex flex-wrap items-center justify-between gap-2 mt-1');
+      achRow.appendChild(
+        this.#el('span', 'text-xs font-semibold text-slate-600 tabular-nums', `Medallas desbloqueadas: ${gamState.unlockedCount}/${gamState.totalBadges}`)
       );
-      const badgesRow = this.#el('div', 'ab-badges-row');
-      gamState.badges.forEach(b => {
-        const pill = this.#el('div', `ab-badge-pill ${b.unlocked ? 'is-unlocked' : ''}`);
-        pill.appendChild(this.#el('span', 'text-xs font-extrabold', `${b.unlocked ? '✓ ' : ''}${b.title}`));
-        pill.appendChild(this.#el('span', 'text-[11px] opacity-85', b.desc));
-        badgesRow.appendChild(pill);
+      const btnAch = this.#el('button', 'ab-btn ab-btn-secondary', `Ver vitrina de logros (${gamState.unlockedCount}/${gamState.totalBadges})`);
+      btnAch.type = 'button';
+      btnAch.addEventListener('click', () => {
+        if (window.ViewRouter && typeof window.ViewRouter.switchToAchievementsView === 'function') {
+          window.ViewRouter.switchToAchievementsView();
+        }
       });
-      wrap.appendChild(badgesRow);
+      achRow.appendChild(btnAch);
+      wrap.appendChild(achRow);
     }
 
     const letters = this.#getLetters();
