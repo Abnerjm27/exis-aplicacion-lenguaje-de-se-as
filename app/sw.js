@@ -5,7 +5,7 @@
  * Exclusiones: No intercepta llamadas dinámicas /api/ (Ollama / Planes) ni peticiones con rango de video.
  */
 
-const CACHE_NAME = 'manitas-pwa-v15-audit-hardening';
+const CACHE_NAME = 'manitas-pwa-v16-alphabet-lab';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -22,12 +22,16 @@ const ASSETS_TO_CACHE = [
   '/css/fonts.css',
   '/css/styles.css',
   '/css/lesson.css',
+  '/css/alphabet-lab.css',
   '/css/landing.css',
   '/css/landing-hero.css',
   '/css/auth.css',
   '/css/gallery.css',
   '/js/signs-data.js',
   '/js/sign-anatomy-validator.js',
+  '/js/finger-feedback-engine.js',
+  '/js/srs-client.js',
+  '/js/gamification-manager.js',
   '/js/body-anchor-detector.js',
   '/js/trajectory-tracker.js',
   '/js/video-player.js',
@@ -44,6 +48,7 @@ const ASSETS_TO_CACHE = [
   '/js/blind-exam-controller.js',
   '/js/lesson-session.js',
   '/js/view-router.js',
+  '/js/alphabet-lab-controller.js',
   '/js/pwa-manager.js',
   '/js/chat-tutor.js',
   '/js/main.js',
