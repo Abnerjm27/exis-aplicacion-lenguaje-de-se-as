@@ -60,7 +60,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>photos_letras_postgres — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 4437 nodes, 8586 edges, 190 communities. Commit: 0c7e5b4</p>
+<p class="subtitle">Generated from graphify knowledge graph: 4443 nodes, 8611 edges, 193 communities. Commit: 691d495</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
@@ -74,8 +74,8 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
     <a href="#tests-fixtures">Tests &amp; Fixtures</a>
     <a href="#tailwindjs-app-tailwind">Tailwindjs App Tailwind</a>
     <a href="#pose-mediapipe-app">Pose Mediapipe App</a>
-    <a href="#pose-mediapipe-app-93c79d">Pose Mediapipe App</a>
     <a href="#hands-mediapipe-app">Hands Mediapipe App</a>
+    <a href="#pose-mediapipe-app-93c79d">Pose Mediapipe App</a>
     <a href="#hands-mediapipe-app-042d9b">Hands Mediapipe App</a>
     <a href="#app-tailwind-tailwindjs">App Tailwind Tailwindjs</a>
     <a href="#other">Other</a>
@@ -92,44 +92,44 @@ flowchart LR
     class EXTRACT_PIPELINE_5F350230 module;
     BUILD_GRAPH_321CBB04("Graph Build<br/><small>68 nodes</small>")
     class BUILD_GRAPH_321CBB04 module;
-    OUTPUTS_DOCS_ED82387C("Outputs &amp; Docs<br/><small>796 nodes</small>")
+    OUTPUTS_DOCS_ED82387C("Outputs &amp; Docs<br/><small>784 nodes</small>")
     class OUTPUTS_DOCS_ED82387C module;
     CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>8 nodes</small>")
     class CLI_SKILLS_9964CBB8 module;
-    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>175 nodes</small>")
+    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>167 nodes</small>")
     class INGEST_CACHE_UPDATE_FF457338 module;
     SERVE_API_35EC8E86("Serving API<br/><small>87 nodes</small>")
     class SERVE_API_35EC8E86 module;
     SECURITY_GLOBAL_5B9C6A04("Security &amp; Global Graph<br/><small>24 nodes</small>")
     class SECURITY_GLOBAL_5B9C6A04 module;
-    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>535 nodes</small>")
+    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>542 nodes</small>")
     class TESTS_FIXTURES_B84B1DCC module;
     TAILWINDJS_APP_TAILWIND_A199C519("Tailwindjs App Tailwind<br/><small>174 nodes</small>")
     class TAILWINDJS_APP_TAILWIND_A199C519 module;
-    POSE_MEDIAPIPE_APP_F57DA0A2("Pose Mediapipe App<br/><small>66 nodes</small>")
+    POSE_MEDIAPIPE_APP_F57DA0A2("Pose Mediapipe App<br/><small>72 nodes</small>")
     class POSE_MEDIAPIPE_APP_F57DA0A2 module;
+    HANDS_MEDIAPIPE_APP_CBF2BDF8("Hands Mediapipe App<br/><small>72 nodes</small>")
+    class HANDS_MEDIAPIPE_APP_CBF2BDF8 module;
     POSE_MEDIAPIPE_APP_93C79D_99934326("Pose Mediapipe App<br/><small>66 nodes</small>")
     class POSE_MEDIAPIPE_APP_93C79D_99934326 module;
-    HANDS_MEDIAPIPE_APP_CBF2BDF8("Hands Mediapipe App<br/><small>66 nodes</small>")
-    class HANDS_MEDIAPIPE_APP_CBF2BDF8 module;
     HANDS_MEDIAPIPE_APP_042D9B_2540077E("Hands Mediapipe App<br/><small>66 nodes</small>")
     class HANDS_MEDIAPIPE_APP_042D9B_2540077E module;
     APP_TAILWIND_TAILWINDJS_17F1B23B("App Tailwind Tailwindjs<br/><small>48 nodes</small>")
     class APP_TAILWIND_TAILWINDJS_17F1B23B module;
-    OTHER_D0941E68("Other<br/><small>2229 nodes</small>")
+    OTHER_D0941E68("Other<br/><small>2236 nodes</small>")
     class OTHER_D0941E68 module;
     OUTPUTS_DOCS_ED82387C -->|contains x727| OTHER_D0941E68
     TAILWINDJS_APP_TAILWIND_A199C519 -->|contains x355| OTHER_D0941E68
     TAILWINDJS_APP_TAILWIND_A199C519 -->|contains x46| APP_TAILWIND_TAILWINDJS_17F1B23B
-    OTHER_D0941E68 -->|calls x44| INGEST_CACHE_UPDATE_FF457338
-    OUTPUTS_DOCS_ED82387C -->|contains x42| POSE_MEDIAPIPE_APP_93C79D_99934326
+    OUTPUTS_DOCS_ED82387C -->|contains x45| POSE_MEDIAPIPE_APP_F57DA0A2
+    OUTPUTS_DOCS_ED82387C -->|contains x45| HANDS_MEDIAPIPE_APP_CBF2BDF8
     OUTPUTS_DOCS_ED82387C -->|contains x42| HANDS_MEDIAPIPE_APP_042D9B_2540077E
-    OUTPUTS_DOCS_ED82387C -->|contains x42| HANDS_MEDIAPIPE_APP_CBF2BDF8
-    OUTPUTS_DOCS_ED82387C -->|contains x42| POSE_MEDIAPIPE_APP_F57DA0A2
-    INGEST_CACHE_UPDATE_FF457338 -->|contains x38| OTHER_D0941E68
-    TESTS_FIXTURES_B84B1DCC -->|imports x26| INGEST_CACHE_UPDATE_FF457338
-    OTHER_D0941E68 -->|calls x23| POSE_MEDIAPIPE_APP_F57DA0A2
+    OUTPUTS_DOCS_ED82387C -->|contains x42| POSE_MEDIAPIPE_APP_93C79D_99934326
+    OTHER_D0941E68 -->|calls x37| INGEST_CACHE_UPDATE_FF457338
+    TESTS_FIXTURES_B84B1DCC -->|imports x28| INGEST_CACHE_UPDATE_FF457338
     OTHER_D0941E68 -->|calls x23| POSE_MEDIAPIPE_APP_93C79D_99934326
+    OTHER_D0941E68 -->|calls x23| POSE_MEDIAPIPE_APP_F57DA0A2
+    OTHER_D0941E68 -->|calls x23| HANDS_MEDIAPIPE_APP_CBF2BDF8
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -146,19 +146,19 @@ flowchart LR
     <h4>Architecture Layers</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
-      <tr><td>Extraction Pipeline</td><td>29</td><td><code>7</code></td></tr><tr><td>Graph Build</td><td>68</td><td><code>96, 127, 98</code></td></tr><tr><td>Outputs &amp; Docs</td><td>796</td><td><code>0, 20, 25, 73, 85, 113, 114, 33, 159, 46</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>8</td><td><code>42</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>175</td><td><code>31, 90, 2, 101, 148, 19, 57, 60, 61</code></td></tr><tr><td>Serving API</td><td>87</td><td><code>12, 27, 154</code></td></tr><tr><td>Security &amp; Global Graph</td><td>24</td><td><code>107, 108, 156, 157</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>535</td><td><code>119, 9, 17, 50, 10, 167, 69, 67, 15, 116, 102, 105, 6, 175, 93, 21, 41, 160, 39, 40, 163, 43, 48, 51</code></td></tr><tr><td>Tailwindjs App Tailwind</td><td>174</td><td><code>22</code></td></tr><tr><td>Pose Mediapipe App</td><td>66</td><td><code>111</code></td></tr><tr><td>Pose Mediapipe App</td><td>66</td><td><code>115</code></td></tr><tr><td>Hands Mediapipe App</td><td>66</td><td><code>29</code></td></tr><tr><td>Hands Mediapipe App</td><td>66</td><td><code>35</code></td></tr><tr><td>App Tailwind Tailwindjs</td><td>48</td><td><code>36</code></td></tr><tr><td>Other</td><td>2229</td><td><code>45, 1, 49, 117, 118, 62, 63, 91, 4, 65, 120, 121, 64, 70, 72, 158, 3, 66, 164, 5, 8, 55, 109, 11, 75, 52, 125, 68, 74, 95, 124, 126, 130, 133, 28, 47, 71, 82, 92, 132, 134, 179, 80, 128, 123, 129, 135, 136, 166, 190, 24, 76, 77, 83, 84, 137, 138, 139, 140, 162, 86, 87, 88, 89, 131, 14, 79, 81, 142, 143, 170, 94, 97, 122, 144, 16, 169, 146, 147, 18, 172, 174, 149, 23, 100, 141, 150, 151, 153, 176, 177, 26, 30, 32, 99, 103, 145, 180, 34, 37, 38, 161, 104, 13, 155, 181, 182, 106, 184, 173, 185, 186, 44, 78, 110, 152, 165, 168, 171, 178, 187, 188, 189, 53, 54, 112, 56, 58, 59</code></td></tr>
+      <tr><td>Extraction Pipeline</td><td>29</td><td><code>7</code></td></tr><tr><td>Graph Build</td><td>68</td><td><code>96, 127, 98</code></td></tr><tr><td>Outputs &amp; Docs</td><td>784</td><td><code>25, 73, 0, 20, 85, 113, 114, 33, 159, 46</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>8</td><td><code>42</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>167</td><td><code>31, 90, 2, 101, 19, 173, 57, 60, 61</code></td></tr><tr><td>Serving API</td><td>87</td><td><code>12, 27, 154</code></td></tr><tr><td>Security &amp; Global Graph</td><td>24</td><td><code>107, 108, 156, 157</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>542</td><td><code>119, 10, 50, 167, 69, 67, 15, 116, 44, 9, 17, 51, 102, 105, 6, 175, 93, 21, 41, 160, 39, 40, 163, 182, 43, 183, 48</code></td></tr><tr><td>Tailwindjs App Tailwind</td><td>174</td><td><code>22</code></td></tr><tr><td>Pose Mediapipe App</td><td>72</td><td><code>115</code></td></tr><tr><td>Hands Mediapipe App</td><td>72</td><td><code>35</code></td></tr><tr><td>Pose Mediapipe App</td><td>66</td><td><code>111</code></td></tr><tr><td>Hands Mediapipe App</td><td>66</td><td><code>29</code></td></tr><tr><td>App Tailwind Tailwindjs</td><td>48</td><td><code>36</code></td></tr><tr><td>Other</td><td>2236</td><td><code>45, 1, 117, 118, 49, 62, 63, 91, 4, 65, 134, 120, 121, 64, 70, 72, 3, 55, 66, 5, 8, 71, 123, 109, 11, 75, 158, 52, 125, 74, 95, 124, 126, 130, 133, 28, 47, 68, 82, 92, 132, 80, 128, 13, 131, 135, 136, 148, 190, 24, 76, 77, 83, 84, 137, 138, 139, 140, 162, 86, 87, 88, 89, 14, 166, 79, 81, 142, 143, 170, 94, 97, 144, 16, 164, 169, 129, 146, 147, 18, 172, 174, 149, 23, 100, 141, 150, 151, 153, 171, 176, 177, 179, 26, 30, 32, 99, 103, 180, 34, 37, 38, 161, 104, 145, 155, 181, 106, 178, 184, 185, 186, 78, 110, 122, 152, 165, 168, 187, 188, 189, 53, 54, 191, 112, 192, 56, 58, 59</code></td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Core Flow</h4>
-    <div class="arrow-chain">Extraction Pipeline -&gt; Ingestion &amp; Updates -&gt; Other -&gt; Pose Mediapipe App -&gt; Graph Build -&gt; Tests &amp; Fixtures -&gt; Outputs &amp; Docs</div>
+    <div class="arrow-chain">Extraction Pipeline -&gt; Ingestion &amp; Updates -&gt; Tests &amp; Fixtures -&gt; Other -&gt; Pose Mediapipe App -&gt; Graph Build -&gt; Outputs &amp; Docs</div>
   </div>
 </div>
 <div class="grid">
   <div class="card">
     <h4>Graph Report Highlights</h4>
     <ul>
-      <li>4437 nodes · 8586 edges · 190 communities (150 shown, 40 thin omitted)</li>
+      <li>4443 nodes · 8611 edges · 193 communities (155 shown, 38 thin omitted)</li>
       <li>Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 351 edges (avg confidence: 0.87)</li>
       <li>Token cost: 0 input · 0 output</li>
       <li>1. `assert()` - 68 edges</li>
@@ -866,12 +866,12 @@ flowchart LR
 
 <!-- ====== 4. Outputs & Docs ====== -->
 <h2 id="outputs-docs">4. Outputs &amp; Docs</h2>
-<p>Outputs &amp; Docs groups implementation around app, mediapipe, solution, wasm, mostly in mediapipe/pose/pose_solution_wasm_bin.js, mediapipe/hands/hands_solution_simd_wasm_bin.js, mediapipe/hands/hands_solution_wasm_bin.js. This section covers 796 nodes and 895 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Outputs &amp; Docs groups implementation around app, mediapipe, solution, wasm, mostly in mediapipe/hands/hands_solution_wasm_bin.js, mediapipe/pose/pose_solution_simd_wasm_bin.js, mediapipe/pose/pose_solution_wasm_bin.js. This section covers 784 nodes and 877 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Outputs &amp; Docs (796 nodes, 895 edges)
+    %% Section: Outputs &amp; Docs (784 nodes, 877 edges)
     subgraph outputs_docs_app_tools_curate_letter_e_py_75e4ed1b["app/tools/curate_letter_e.py"]
         app_tools_curate_letter_e_letterecurator_6725a39b("LetterECurator<br/><small>app/tools/curate_letter_e.py</small>")
         app_tools_curate_letter_e_letterecurator_run_cc0df116("run()<br/><small>app/tools/curate_letter_e.py</small>")
@@ -889,10 +889,10 @@ flowchart LR
         app_tools_curate_letter_u_letterucurator_export_b219e8cc("export_webp()<br/><small>app/tools/curate_letter_u.py</small>")
     end
     subgraph outputs_docs_mediapipe_pose_pose_solution_wasm_b_69026224["mediapipe/pose/pose_solution_wasm_bin.js"]
-        app_lib_mediapipe_pose_pose_solution_wasm_bin_do_01866d32("done()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-        app_lib_mediapipe_pose_pose_solution_wasm_bin_do_e7776d44("doCallback()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
         app_lib_mediapipe_pose_pose_solution_wasm_bin_en_bb31e2cf("_environ_get()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
         app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_8d80d53d("getEnvStrings()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+        app_lib_mediapipe_pose_pose_solution_wasm_bin_wr_b3e685c0("writeAsciiToMemory()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+        app_lib_mediapipe_pose_pose_solution_wasm_bin_en_9921bf0c("_environ_sizes_get()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
     end
     subgraph outputs_docs_lib_canvas_confetti_confetti_browse_ec9afd0d["lib/canvas-confetti/confetti.browser.min.js"]
         app_lib_canvas_confetti_confetti_browser_min_a_b_7b1387a2("b()<br/><small>lib/canvas-confetti/confetti.browser.min.js</small>")
@@ -908,8 +908,9 @@ flowchart LR
     app_tools_curate_letter_u_letterucurator_a4e02328 -->|method| app_tools_curate_letter_u_letterucurator_export_1bfad865
     app_tools_curate_letter_u_letterucurator_a4e02328 -->|method| app_tools_curate_letter_u_letterucurator_export_b219e8cc
     app_tools_curate_letter_u_letterucurator_a4e02328 -->|method| app_tools_curate_letter_u_letterucurator_run_e971f292
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_do_01866d32 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_do_e7776d44
     app_lib_mediapipe_pose_pose_solution_wasm_bin_en_bb31e2cf -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_8d80d53d
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_en_bb31e2cf -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_wr_b3e685c0
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_en_9921bf0c -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_8d80d53d
     app_tools_curate_letter_e_letterecurator_run_cc0df116 -->|calls| app_tools_curate_letter_e_letterecurator_export_79a2b1da
     app_tools_curate_letter_e_letterecurator_run_cc0df116 -->|calls| app_tools_curate_letter_e_letterecurator_export_8bf22917
     app_tools_curate_letter_e_letterecurator_run_cc0df116 -->|calls| app_tools_curate_letter_e_letterecurator_extract_40bcae59
@@ -917,7 +918,7 @@ flowchart LR
     app_tools_curate_letter_u_letterucurator_run_e971f292 -->|calls| app_tools_curate_letter_u_letterucurator_export_b219e8cc
     app_tools_curate_letter_u_letterucurator_run_e971f292 -->|calls| app_tools_curate_letter_u_letterucurator_extract_2143829b
     app_lib_canvas_confetti_confetti_browser_min_a_b_7b1387a2 -->|calls| app_lib_canvas_confetti_confetti_browser_min_a_p_22d2961c
-    %% Omitted for readability: 778 nodes, 0 edges
+    %% Omitted for readability: 766 nodes, 0 edges
     class app_tools_curate_letter_e_letterecurator_6725a39b klass;
     class app_tools_curate_letter_e_letterecurator_run_cc0df116 function;
     class app_tools_curate_letter_e_letterecurator_init_8721e5db function;
@@ -930,10 +931,10 @@ flowchart LR
     class app_tools_curate_letter_u_letterucurator_extract_2143829b function;
     class app_tools_curate_letter_u_letterucurator_export_1bfad865 function;
     class app_tools_curate_letter_u_letterucurator_export_b219e8cc function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_do_01866d32 function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_do_e7776d44 function;
     class app_lib_mediapipe_pose_pose_solution_wasm_bin_en_bb31e2cf function;
     class app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_8d80d53d function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_wr_b3e685c0 function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_en_9921bf0c function;
     class app_lib_canvas_confetti_confetti_browser_min_a_b_7b1387a2 function;
     class app_lib_canvas_confetti_confetti_browser_min_a_p_22d2961c function;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
@@ -959,207 +960,207 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
-  <td><code>alignMemory()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>alignMemory()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>mmapAlloc()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>alignMemory() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td><code>mmapAlloc()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
+  <td>alignMemory() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>2</td>
-  <td><code>arraysHaveEqualContent()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>arraysHaveEqualContent()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>arraysHaveEqualContent() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>arraysHaveEqualContent() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>3</td>
-  <td><code>ClassHandle()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>ClassHandle()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>ClassHandle() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>ClassHandle() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>4</td>
-  <td><code>ClassHandle_isAliasOf()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>ClassHandle_isAliasOf()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>ClassHandle_isAliasOf() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>ClassHandle_isAliasOf() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>5</td>
-  <td><code>ClassHandle_isDeleted()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>ClassHandle_isDeleted()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>ClassHandle_isDeleted() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>ClassHandle_isDeleted() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>6</td>
-  <td><code>convertI32PairToI53()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>convertI32PairToI53()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>_glClientWaitSync()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>convertI32PairToI53() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td><code>_glClientWaitSync()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
+  <td>convertI32PairToI53() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>7</td>
-  <td><code>convertI32PairToI53Checked()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>convertI32PairToI53Checked()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>_fd_seek()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>convertI32PairToI53Checked() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td><code>_fd_seek()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
+  <td>convertI32PairToI53Checked() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>8</td>
-  <td><code>count_emval_handles()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>count_emval_handles()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>count_emval_handles() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>count_emval_handles() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>9</td>
-  <td><code>___cxa_allocate_exception()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>___cxa_allocate_exception()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>___cxa_allocate_exception() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>___cxa_allocate_exception() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>10</td>
-  <td><code>__dlinit()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>__dlinit()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>__dlinit() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>__dlinit() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>11</td>
-  <td><code>doCallback()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>doCallback()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>done()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>doCallback() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td><code>done()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
+  <td>doCallback() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>12</td>
-  <td><code>done()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>done()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>doCallback()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>done() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td><code>doCallback()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
+  <td>done() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>13</td>
-  <td><code>doReadv()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>doReadv()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>_fd_read()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_fd_read()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td>No direct outbound edge</td>
-  <td>doReadv() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>doReadv() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>14</td>
-  <td><code>doWritev()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>doWritev()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>_fd_write()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_fd_write()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td>No direct outbound edge</td>
-  <td>doWritev() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>doWritev() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>15</td>
-  <td><code>draw()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>draw()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>draw() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>draw() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>16</td>
-  <td><code>embind_init_charCodes()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>embind_init_charCodes()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>embind_init_charCodes() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>embind_init_charCodes() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>17</td>
-  <td><code>__embind_register_bigint()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>__embind_register_bigint()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>__embind_register_bigint() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>__embind_register_bigint() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>18</td>
-  <td><code>_emscripten_date_now()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_emscripten_date_now()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>_emscripten_date_now() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>_emscripten_date_now() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>19</td>
-  <td><code>__emscripten_get_now_is_monotonic()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>__emscripten_get_now_is_monotonic()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>__emscripten_get_now_is_monotonic() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>__emscripten_get_now_is_monotonic() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>20</td>
-  <td><code>_emscripten_memcpy_big()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_emscripten_memcpy_big()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>_emscripten_memcpy_big() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>_emscripten_memcpy_big() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>21</td>
-  <td><code>_emscripten_webgl_destroy_context()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_emscripten_webgl_destroy_context()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>_emscripten_webgl_destroy_context() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>_emscripten_webgl_destroy_context() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>22</td>
-  <td><code>_emscripten_webgl_do_commit_frame()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_emscripten_webgl_do_commit_frame()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>_emscripten_webgl_do_commit_frame() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>_emscripten_webgl_do_commit_frame() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>23</td>
-  <td><code>_emscripten_webgl_do_get_current_context()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_emscripten_webgl_do_get_current_context()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>_emscripten_webgl_do_get_current_context() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>_emscripten_webgl_do_get_current_context() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>24</td>
-  <td><code>_emscripten_webgl_get_context_attributes()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_emscripten_webgl_get_context_attributes()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>_emscripten_webgl_get_context_attributes() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>_emscripten_webgl_get_context_attributes() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>25</td>
-  <td><code>_emscripten_webgl_make_context_current()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_emscripten_webgl_make_context_current()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>_emscripten_webgl_make_context_current() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>_emscripten_webgl_make_context_current() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 <tr>
   <td>26</td>
-  <td><code>_emscripten_webgpu_export_bind_group_layout()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_emscripten_webgpu_export_bind_group_layout()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
@@ -1167,7 +1168,7 @@ flowchart LR
 </tr>
 <tr>
   <td>27</td>
-  <td><code>_emscripten_webgpu_export_device()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_emscripten_webgpu_export_device()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
@@ -1175,7 +1176,7 @@ flowchart LR
 </tr>
 <tr>
   <td>28</td>
-  <td><code>_emscripten_webgpu_export_sampler()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_emscripten_webgpu_export_sampler()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
@@ -1183,7 +1184,7 @@ flowchart LR
 </tr>
 <tr>
   <td>29</td>
-  <td><code>_emscripten_webgpu_export_texture()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_emscripten_webgpu_export_texture()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
@@ -1191,11 +1192,11 @@ flowchart LR
 </tr>
 <tr>
   <td>30</td>
-  <td><code>_emscripten_webgpu_import_bind_group()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>_emscripten_webgpu_import_bind_group()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_wasm_bin.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>_emscripten_webgpu_import_bind_group() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+  <td>_emscripten_webgpu_import_bind_group() node in mediapipe/hands/hands_solution_wasm_bin.js.</td>
 </tr>
 </table>
 
@@ -1204,10 +1205,10 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>mediapipe/hands/hands_solution_simd_wasm_bin.js</code></td><td>183 nodes</td></tr>
-<tr><td><code>mediapipe/hands/hands_solution_wasm_bin.js</code></td><td>183 nodes</td></tr>
+      <tr><td><code>mediapipe/hands/hands_solution_wasm_bin.js</code></td><td>183 nodes</td></tr>
 <tr><td><code>mediapipe/pose/pose_solution_simd_wasm_bin.js</code></td><td>183 nodes</td></tr>
-<tr><td><code>mediapipe/pose/pose_solution_wasm_bin.js</code></td><td>183 nodes</td></tr>
+<tr><td><code>mediapipe/hands/hands_solution_simd_wasm_bin.js</code></td><td>177 nodes</td></tr>
+<tr><td><code>mediapipe/pose/pose_solution_wasm_bin.js</code></td><td>177 nodes</td></tr>
 <tr><td><code>lib/canvas-confetti/confetti.browser.min.js</code></td><td>17 nodes</td></tr>
 <tr><td><code>app/tools/curate_letter_e.py</code></td><td>11 nodes</td></tr>
 <tr><td><code>app/tools/curate_letter_u.py</code></td><td>11 nodes</td></tr>
@@ -1216,7 +1217,7 @@ flowchart LR
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x763, calls x106, method x10, explains x10. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x751, calls x100, method x10, explains x10. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -1356,12 +1357,12 @@ flowchart LR
 
 <!-- ====== 6. Ingestion & Updates ====== -->
 <h2 id="ingest-cache-update">6. Ingestion &amp; Updates</h2>
-<p>Ingestion &amp; Updates groups implementation around app, tools, process, videopy, mostly in app/js/auth-profile-manager.js, lib/mediapipe/control_utils.js, app/tools/process_zorrito_video.py. This section covers 175 nodes and 360 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Ingestion &amp; Updates groups implementation around app, tools, process, videopy, mostly in app/js/auth-profile-manager.js, app/tools/process_zorrito_video.py, app/manifest.json. This section covers 167 nodes and 339 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Ingestion &amp; Updates (175 nodes, 360 edges)
+    %% Section: Ingestion &amp; Updates (167 nodes, 339 edges)
     subgraph ingest_cache_update_app_tools_process_zorrito_vi_90db8d17["app/tools/process_zorrito_video.py"]
         app_tools_process_zorrito_video_zorritovideoproc_e30af36d("ZorritoVideoProcessor<br/><small>app/tools/process_zorrito_video.py</small>")
         app_tools_process_zorrito_video_main_6fc5362c("main()<br/><small>app/tools/process_zorrito_video.py</small>")
@@ -1408,7 +1409,7 @@ flowchart LR
     app_tools_process_zorrito_video_main_6fc5362c -->|calls| app_tools_process_zorrito_video_zorritovideoproc_1fe7365a
     app_tools_process_zorrito_video_main_6fc5362c -->|calls| app_tools_process_zorrito_video_zorritovideoproc_0bd8a9e9
     app_tools_process_zorrito_video_main_6fc5362c -->|calls| app_tools_process_zorrito_video_zorritovideoproc_f91c1fbe
-    %% Omitted for readability: 157 nodes, 0 edges
+    %% Omitted for readability: 149 nodes, 0 edges
     class app_tools_process_zorrito_video_zorritovideoproc_e30af36d klass;
     class app_tools_process_zorrito_video_main_6fc5362c function;
     class app_tools_process_zorrito_video_zorritovideoproc_f91c1fbe function;
@@ -1474,6 +1475,22 @@ flowchart LR
 </tr>
 <tr>
   <td>4</td>
+  <td><code>curate_sign()</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td><code>cv2</code><br><code>os</code></td>
+  <td>curate_sign() node in app/tools/curate_anime_videos.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>curate_sign()</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td>main() node in app/tools/curate_anime_videos.py.</td>
+</tr>
+<tr>
+  <td>6</td>
   <td><code>process_buenos()</code><br><small style="color:var(--muted)">app/tools/process_buenos_video.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1481,7 +1498,7 @@ flowchart LR
   <td>process_buenos() node in app/tools/process_buenos_video.py.</td>
 </tr>
 <tr>
-  <td>5</td>
+  <td>7</td>
   <td><code>process_c()</code><br><small style="color:var(--muted)">app/tools/process_c_video.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1489,7 +1506,7 @@ flowchart LR
   <td>process_c() node in app/tools/process_c_video.py.</td>
 </tr>
 <tr>
-  <td>6</td>
+  <td>8</td>
   <td><code>process_hola()</code><br><small style="color:var(--muted)">app/tools/process_hola_video.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1497,7 +1514,7 @@ flowchart LR
   <td>process_hola() node in app/tools/process_hola_video.py.</td>
 </tr>
 <tr>
-  <td>7</td>
+  <td>9</td>
   <td><code>cleanup_temp_files()</code><br><small style="color:var(--muted)">app/tools/process_new_anime_videos.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1505,7 +1522,7 @@ flowchart LR
   <td>cleanup_temp_files() node in app/tools/process_new_anime_videos.py.</td>
 </tr>
 <tr>
-  <td>8</td>
+  <td>10</td>
   <td><code>process_video()</code><br><small style="color:var(--muted)">app/tools/process_new_anime_videos.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1513,7 +1530,7 @@ flowchart LR
   <td>process_video() node in app/tools/process_new_anime_videos.py.</td>
 </tr>
 <tr>
-  <td>9</td>
+  <td>11</td>
   <td><code>make_comparison_sheets.py</code><br><small style="color:var(--muted)">app/tools_archive/make_comparison_sheets.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1521,7 +1538,7 @@ flowchart LR
   <td>Module file in app/tools_archive/make_comparison_sheets.py.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>12</td>
   <td><code>run_arm_delta.py</code><br><small style="color:var(--muted)">app/tools_archive/run_arm_delta.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1529,7 +1546,7 @@ flowchart LR
   <td>Module file in app/tools_archive/run_arm_delta.py.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>13</td>
   <td><code>run_arm_grid.py</code><br><small style="color:var(--muted)">app/tools_archive/run_arm_grid.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1537,7 +1554,7 @@ flowchart LR
   <td>Module file in app/tools_archive/run_arm_grid.py.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>14</td>
   <td><code>run_forearm_grid.py</code><br><small style="color:var(--muted)">app/tools_archive/run_forearm_grid.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1545,7 +1562,7 @@ flowchart LR
   <td>Module file in app/tools_archive/run_forearm_grid.py.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>15</td>
   <td><code>run_pose_checks.py</code><br><small style="color:var(--muted)">app/tools_archive/run_pose_checks.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1553,7 +1570,7 @@ flowchart LR
   <td>Module file in app/tools_archive/run_pose_checks.py.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>16</td>
   <td><code>run_pose_checks_fast.py</code><br><small style="color:var(--muted)">app/tools_archive/run_pose_checks_fast.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1561,7 +1578,7 @@ flowchart LR
   <td>Module file in app/tools_archive/run_pose_checks_fast.py.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>17</td>
   <td><code>run_precise_verification.py</code><br><small style="color:var(--muted)">app/tools_archive/run_precise_verification.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1569,7 +1586,7 @@ flowchart LR
   <td>Module file in app/tools_archive/run_precise_verification.py.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>18</td>
   <td><code>run_tests.py</code><br><small style="color:var(--muted)">app/tools_archive/run_tests.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1577,7 +1594,7 @@ flowchart LR
   <td>Module file in app/tools_archive/run_tests.py.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>19</td>
   <td><code>run_thumb_tests.py</code><br><small style="color:var(--muted)">app/tools_archive/run_thumb_tests.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1585,7 +1602,7 @@ flowchart LR
   <td>Module file in app/tools_archive/run_thumb_tests.py.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>20</td>
   <td><code>solve_letters_exact.py</code><br><small style="color:var(--muted)">app/tools_archive/solve_letters_exact.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1593,7 +1610,7 @@ flowchart LR
   <td>Module file in app/tools_archive/solve_letters_exact.py.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>21</td>
   <td><code>test_app_live.py</code><br><small style="color:var(--muted)">app/tools_archive/test_app_live.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1601,7 +1618,7 @@ flowchart LR
   <td>Module file in app/tools_archive/test_app_live.py.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>22</td>
   <td><code>test_dias_suite.py</code><br><small style="color:var(--muted)">app/tools_archive/test_dias_suite.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1609,7 +1626,7 @@ flowchart LR
   <td>Module file in app/tools_archive/test_dias_suite.py.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>23</td>
   <td><code>test_hand_b.py</code><br><small style="color:var(--muted)">app/tools_archive/test_hand_b.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1617,7 +1634,7 @@ flowchart LR
   <td>Module file in app/tools_archive/test_hand_b.py.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>24</td>
   <td><code>test_hand_framing.py</code><br><small style="color:var(--muted)">app/tools_archive/test_hand_framing.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1625,7 +1642,7 @@ flowchart LR
   <td>Module file in app/tools_archive/test_hand_framing.py.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>25</td>
   <td><code>test_letters_upright.py</code><br><small style="color:var(--muted)">app/tools_archive/test_letters_upright.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1633,7 +1650,7 @@ flowchart LR
   <td>Module file in app/tools_archive/test_letters_upright.py.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>26</td>
   <td><code>test_natural_rest.py</code><br><small style="color:var(--muted)">app/tools_archive/test_natural_rest.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
@@ -1641,7 +1658,7 @@ flowchart LR
   <td>Module file in app/tools_archive/test_natural_rest.py.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>27</td>
   <td><code>tune_left_arm.py</code><br><small style="color:var(--muted)">app/tools_archive/tune_left_arm.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1649,7 +1666,7 @@ flowchart LR
   <td>Module file in app/tools_archive/tune_left_arm.py.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>28</td>
   <td><code>tune_letter_arm.py</code><br><small style="color:var(--muted)">app/tools_archive/tune_letter_arm.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1657,7 +1674,7 @@ flowchart LR
   <td>Module file in app/tools_archive/tune_letter_arm.py.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>29</td>
   <td><code>tune_poses.py</code><br><small style="color:var(--muted)">app/tools_archive/tune_poses.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -1665,28 +1682,12 @@ flowchart LR
   <td>Module file in app/tools_archive/tune_poses.py.</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>30</td>
   <td><code>tune_wrist.py</code><br><small style="color:var(--muted)">app/tools_archive/tune_wrist.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
   <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
   <td>Module file in app/tools_archive/tune_wrist.py.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>tune_yo.py</code><br><small style="color:var(--muted)">app/tools_archive/tune_yo.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/tune_yo.py.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>verify_redesign.py</code><br><small style="color:var(--muted)">app/tools_archive/verify_redesign.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/verify_redesign.py.</td>
 </tr>
 </table>
 
@@ -1696,9 +1697,9 @@ flowchart LR
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>app/js/auth-profile-manager.js</code></td><td>26 nodes</td></tr>
-<tr><td><code>lib/mediapipe/control_utils.js</code></td><td>24 nodes</td></tr>
 <tr><td><code>app/tools/process_zorrito_video.py</code></td><td>23 nodes</td></tr>
 <tr><td><code>app/manifest.json</code></td><td>13 nodes</td></tr>
+<tr><td><code>lib/mediapipe/control_utils.js</code></td><td>12 nodes</td></tr>
 <tr><td><code>app/tools/generate_batch_5_signs.py</code></td><td>8 nodes</td></tr>
 <tr><td><code>app/tools/generate_expansion_signs.py</code></td><td>8 nodes</td></tr>
 <tr><td><code>app/tools/curate_tardes_gustar.py</code></td><td>5 nodes</td></tr>
@@ -1707,7 +1708,7 @@ flowchart LR
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: calls x120, imports x78, contains x60, method x39. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x109, imports x80, contains x48, method x41. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -2369,12 +2370,12 @@ flowchart LR
 
 <!-- ====== 9. Tests & Fixtures ====== -->
 <h2 id="tests-fixtures">9. Tests &amp; Fixtures</h2>
-<p>Tests &amp; Fixtures groups implementation around test, tests, unitjs, app, mostly in tests/test_sign_anatomy_validator.js, tests/test_natural_language_chat.py, tests/test_finger_feedback_unit.js. This section covers 535 nodes and 755 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Tests &amp; Fixtures groups implementation around test, tests, unitjs, app, mostly in tests/test_sign_anatomy_validator.js, tests/test_natural_language_chat.py, server.py. This section covers 542 nodes and 772 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Tests &amp; Fixtures (535 nodes, 755 edges)
+    %% Section: Tests &amp; Fixtures (542 nodes, 772 edges)
     subgraph tests_fixtures_server_py_eb0a7f5f["server.py"]
         server_3de4f901("server.py")
         server_lscnaturallanguageparser_d89d184e("LSCNaturalLanguageParser<br/><small>server.py</small>")
@@ -2417,7 +2418,7 @@ flowchart LR
     tests_test_natural_language_chat_testlscnaturall_f80f8792 -->|calls| server_lscnaturallanguageparser_parse_0af26f0b
     tests_test_srs_and_postgres_fa0bedb4 -->|imports| server_3de4f901
     tests_test_natural_language_chat_testlscnaturall_a10f5d24 -->|uses| server_lscnaturallanguageparser_d89d184e
-    %% Omitted for readability: 517 nodes, 0 edges
+    %% Omitted for readability: 524 nodes, 0 edges
     class server_3de4f901 module;
     class server_lscnaturallanguageparser_d89d184e klass;
     class server_lscnaturallanguageparser_normalize_e5373b7a function;
@@ -2716,7 +2717,7 @@ flowchart LR
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x284, imports x116, calls x108, imports x104. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x290, imports x118, calls x117, imports x104. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -3055,6 +3056,692 @@ flowchart LR
 
 <!-- ====== 11. Pose Mediapipe App ====== -->
 <h2 id="pose-mediapipe-app">11. Pose Mediapipe App</h2>
+<p>Pose Mediapipe App groups implementation around pose, mediapipe, app, solution, mostly in mediapipe/pose/pose_solution_wasm_bin.js. This section covers 72 nodes and 119 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Pose Mediapipe App (72 nodes, 119 edges)
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f9228922("makeRenderPassDescriptor()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_ma_af3848ca("Manager()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f1f96842("makeFragmentState()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_334fd0f6("makeVertexState()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_19d70b19("dynCall()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_77b0e83f("makeDynCaller()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_co_11872bbd("convertI32PairToI53()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb("assert()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_co_25804fb4("convertI32PairToI53Checked()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_cr_71c0da0a("createExportWrapper()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_do_e7776d44("doCallback()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_do_01866d32("done()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_592ebcef("dynCallLegacy()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_0b4dd226("getWasmTableEntry()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_9e98d70d("getDynCaller()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_dda5fbde("do create context()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_fi_63af86c0("findCanvasEventTarget()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_2c762a29("init context attributes()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_co_11872bbd -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_co_25804fb4 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_cr_71c0da0a -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_do_e7776d44 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_do_01866d32 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_do_e7776d44
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_19d70b19 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_19d70b19 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_592ebcef
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_19d70b19 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_0b4dd226
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_592ebcef -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_77b0e83f -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_9e98d70d
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_77b0e83f -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_0b4dd226
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_dda5fbde -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_dda5fbde -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_fi_63af86c0
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_2c762a29 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_9e98d70d -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_9e98d70d -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_19d70b19
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_0b4dd226 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f9228922 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f1f96842 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
+    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_334fd0f6 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
+    %% Omitted for readability: 54 nodes, 0 edges
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f9228922 function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_ma_af3848ca function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f1f96842 function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_334fd0f6 function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_19d70b19 function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_em_77b0e83f function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_co_11872bbd function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb async;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_co_25804fb4 function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_cr_71c0da0a function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_do_e7776d44 function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_do_01866d32 function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_592ebcef function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_0b4dd226 function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_9e98d70d function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_em_dda5fbde function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_fi_63af86c0 function;
+    class app_lib_mediapipe_pose_pose_solution_wasm_bin_em_2c762a29 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-async">Async</span></td>
+  <td><code>___syscall_newfstatat()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>_emscripten_resize_heap()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>_wgpuBufferGetMappedRange()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br>+63 more</td>
+  <td><code>abort()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>assert() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>convertI32PairToI53()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_glClientWaitSync()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>convertI32PairToI53() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>convertI32PairToI53Checked()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_fd_seek()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>convertI32PairToI53Checked() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>createExportWrapper()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>Exports documentation data to a target format.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>doCallback()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>done()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>doCallback() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>done()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>doCallback()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>done() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>getDynCaller()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>dynCallLegacy()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>getWasmTableEntry()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>dynCall() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>dynCallLegacy()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>dynCallLegacy() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>makeDynCaller()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>getDynCaller()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>getWasmTableEntry()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>makeDynCaller() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>_emscripten_webgl_do_create_context()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>_emscripten_webgl_do_create_context() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>_emscripten_webgl_init_context_attributes()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>_emscripten_webgl_init_context_attributes() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>_emscripten_webgpu_get_device()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>_emscripten_webgpu_get_device() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>_fd_seek()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>convertI32PairToI53Checked()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>_fd_seek() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>canvas event target()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>do create context()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>findEventTarget()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>findCanvasEventTarget() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>findEventTarget()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>warnOnce()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>findEventTarget() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>getDynCaller()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>makeDynCaller()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>getDynCaller() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>getWasmTableEntry()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>makeDynCaller()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>getWasmTableEntry() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>_glBindAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>_glBindAttribLocation() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>_glClientWaitSync()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>convertI32PairToI53()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>_glClientWaitSync() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>_glGetAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>_glGetAttribLocation() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>_glGetUniformBlockIndex()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>_glGetUniformBlockIndex() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>Manager()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>create()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>get()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>reference()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br>+1 more</td>
+  <td>Manager() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>_mediapipe_find_canvas_event_target()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>_mediapipe_find_canvas_event_target() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>stringToUTF16()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>stringToUTF16() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>stringToUTF32()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>stringToUTF32() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>___syscall_newfstatat()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>___syscall_newfstatat() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>UTF16ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>UTF16ToString() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>UTF32ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>UTF32ToString() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>___assert_fail()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>_glBindAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>_glGetAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br>+19 more</td>
+  <td><code>UTF8ArrayToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>UTF8ToString() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>_wgpuBufferUnmap()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
+  <td>_wgpuBufferUnmap() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>mediapipe/pose/pose_solution_wasm_bin.js</code></td><td>72 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x91, contains x24, method x4. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 12. Hands Mediapipe App ====== -->
+<h2 id="hands-mediapipe-app">12. Hands Mediapipe App</h2>
+<p>Hands Mediapipe App groups implementation around hands, mediapipe, app, solution, mostly in mediapipe/hands/hands_solution_simd_wasm_bin.js. This section covers 72 nodes and 119 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Hands Mediapipe App (72 nodes, 119 edges)
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_e2e7c3cb("makeRenderPassDescriptor()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_4fc12e7d("Manager()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_77c41d29("makeFragmentState()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_f17b8a66("makeVertexState()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_03336031("dynCall()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_fd474a1f("makeDynCaller()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_7a4ffe7c("convertI32PairToI53()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d("assert()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_b6e007c0("convertI32PairToI53Checked()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_08b22a5f("createExportWrapper()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_c506eb4c("doCallback()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_cd1ed5c7("done()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_ac45fdf5("dynCallLegacy()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_1aa042af("getWasmTableEntry()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_99d60c64("getDynCaller()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_9d926f5e("do create context()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_309198db("findCanvasEventTarget()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_334eb621("init context attributes()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_7a4ffe7c -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_b6e007c0 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_08b22a5f -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_c506eb4c -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_cd1ed5c7 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_c506eb4c
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_03336031 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_03336031 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_ac45fdf5
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_03336031 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_1aa042af
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_ac45fdf5 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_fd474a1f -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_99d60c64
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_fd474a1f -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_1aa042af
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_9d926f5e -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_9d926f5e -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_309198db
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_334eb621 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_99d60c64 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_99d60c64 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_03336031
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_1aa042af -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_e2e7c3cb -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_77c41d29 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
+    app_lib_mediapipe_hands_hands_solution_simd_wasm_f17b8a66 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
+    %% Omitted for readability: 54 nodes, 0 edges
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_e2e7c3cb function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_4fc12e7d function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_77c41d29 function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_f17b8a66 function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_03336031 function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_fd474a1f function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_7a4ffe7c function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d async;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_b6e007c0 function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_08b22a5f function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_c506eb4c function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_cd1ed5c7 function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_ac45fdf5 function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_1aa042af function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_99d60c64 function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_9d926f5e function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_309198db function;
+    class app_lib_mediapipe_hands_hands_solution_simd_wasm_334eb621 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-async">Async</span></td>
+  <td><code>___syscall_newfstatat()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>_emscripten_resize_heap()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>_wgpuBufferGetMappedRange()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br>+63 more</td>
+  <td><code>abort()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>assert() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>convertI32PairToI53()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_glClientWaitSync()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>convertI32PairToI53() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>convertI32PairToI53Checked()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_fd_seek()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>convertI32PairToI53Checked() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>createExportWrapper()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>Exports documentation data to a target format.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>doCallback()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>done()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>doCallback() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>done()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>doCallback()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>done() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>getDynCaller()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>dynCallLegacy()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>getWasmTableEntry()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>dynCall() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>dynCallLegacy()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>dynCallLegacy() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>makeDynCaller()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>getDynCaller()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>getWasmTableEntry()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>makeDynCaller() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>_emscripten_webgl_do_create_context()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>_emscripten_webgl_do_create_context() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>_emscripten_webgl_init_context_attributes()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>_emscripten_webgl_init_context_attributes() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>_emscripten_webgpu_get_device()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>_emscripten_webgpu_get_device() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>_fd_seek()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>convertI32PairToI53Checked()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>_fd_seek() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>canvas event target()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>do create context()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><code>findEventTarget()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>findCanvasEventTarget() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>findEventTarget()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>warnOnce()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>findEventTarget() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>getDynCaller()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>makeDynCaller()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>getDynCaller() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>getWasmTableEntry()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>makeDynCaller()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>getWasmTableEntry() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>_glBindAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>_glBindAttribLocation() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>_glClientWaitSync()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>convertI32PairToI53()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>_glClientWaitSync() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>_glGetAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>_glGetAttribLocation() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>_glGetUniformBlockIndex()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>_glGetUniformBlockIndex() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>Manager()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>create()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>get()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>reference()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br>+1 more</td>
+  <td>Manager() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>_mediapipe_find_canvas_event_target()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>_mediapipe_find_canvas_event_target() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>stringToUTF16()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>stringToUTF16() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>stringToUTF32()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>stringToUTF32() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>___syscall_newfstatat()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>___syscall_newfstatat() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>UTF16ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>UTF16ToString() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>UTF32ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>UTF32ToString() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>___assert_fail()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>_glBindAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>_glGetAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br>+19 more</td>
+  <td><code>UTF8ArrayToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>UTF8ToString() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>_wgpuBufferUnmap()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
+  <td>_wgpuBufferUnmap() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>mediapipe/hands/hands_solution_simd_wasm_bin.js</code></td><td>72 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x91, contains x24, method x4. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 13. Pose Mediapipe App ====== -->
+<h2 id="pose-mediapipe-app-93c79d">13. Pose Mediapipe App</h2>
 <p>Pose Mediapipe App groups implementation around pose, mediapipe, app, solution, mostly in mediapipe/pose/pose_solution_simd_wasm_bin.js. This section covers 66 nodes and 113 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -3400,355 +4087,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 12. Pose Mediapipe App ====== -->
-<h2 id="pose-mediapipe-app-93c79d">12. Pose Mediapipe App</h2>
-<p>Pose Mediapipe App groups implementation around pose, mediapipe, app, solution, mostly in mediapipe/pose/pose_solution_wasm_bin.js. This section covers 66 nodes and 113 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: Pose Mediapipe App (66 nodes, 113 edges)
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f9228922("makeRenderPassDescriptor()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_ma_af3848ca("Manager()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f1f96842("makeFragmentState()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_334fd0f6("makeVertexState()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_19d70b19("dynCall()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_77b0e83f("makeDynCaller()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_cr_71c0da0a("createExportWrapper()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb("assert()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_592ebcef("dynCallLegacy()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_0b4dd226("getWasmTableEntry()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_9e98d70d("getDynCaller()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_dda5fbde("do create context()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_fi_63af86c0("findCanvasEventTarget()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_2c762a29("init context attributes()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_1c9946d7("webgpu get device()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_fi_0920eacb("findEventTarget()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_ut_216bc46a("UTF8ToString()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_gl_12a86352("_glBindAttribLocation()<br/><small>mediapipe/pose/pose_solution_wasm_bin.js</small>")
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_cr_71c0da0a -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_19d70b19 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_19d70b19 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_592ebcef
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_19d70b19 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_0b4dd226
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_592ebcef -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_77b0e83f -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_9e98d70d
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_77b0e83f -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_0b4dd226
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_dda5fbde -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_dda5fbde -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_fi_63af86c0
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_2c762a29 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_em_1c9946d7 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_fi_63af86c0 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_fi_0920eacb
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_fi_63af86c0 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ut_216bc46a
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_fi_0920eacb -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ut_216bc46a
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_9e98d70d -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_9e98d70d -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_19d70b19
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_0b4dd226 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_gl_12a86352 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ut_216bc46a
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f9228922 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f9228922 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ut_216bc46a
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f1f96842 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f1f96842 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ut_216bc46a
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_334fd0f6 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb
-    app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_334fd0f6 -->|calls| app_lib_mediapipe_pose_pose_solution_wasm_bin_ut_216bc46a
-    %% Omitted for readability: 48 nodes, 0 edges
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f9228922 function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_ma_af3848ca function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_f1f96842 function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_wg_334fd0f6 function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_19d70b19 function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_em_77b0e83f function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_cr_71c0da0a function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_as_759f17fb async;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_dy_592ebcef function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_0b4dd226 function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_ge_9e98d70d function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_em_dda5fbde function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_fi_63af86c0 function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_em_2c762a29 function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_em_1c9946d7 function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_fi_0920eacb function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_ut_216bc46a function;
-    class app_lib_mediapipe_pose_pose_solution_wasm_bin_gl_12a86352 function;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-async">Async</span></td>
-  <td><code>___syscall_newfstatat()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>_emscripten_resize_heap()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>_wgpuBufferGetMappedRange()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br>+63 more</td>
-  <td><code>abort()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>assert() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>createExportWrapper()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>Exports documentation data to a target format.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>getDynCaller()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>dynCallLegacy()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>getWasmTableEntry()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>dynCall() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>dynCallLegacy()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>dynCallLegacy() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>makeDynCaller()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>getDynCaller()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>getWasmTableEntry()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>makeDynCaller() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>_emscripten_webgl_do_create_context()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>_emscripten_webgl_do_create_context() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>_emscripten_webgl_init_context_attributes()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>_emscripten_webgl_init_context_attributes() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>_emscripten_webgpu_get_device()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>_emscripten_webgpu_get_device() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>canvas event target()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>do create context()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><code>findEventTarget()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>findCanvasEventTarget() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>findEventTarget()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>warnOnce()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>findEventTarget() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>getDynCaller()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>makeDynCaller()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>getDynCaller() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>getWasmTableEntry()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>makeDynCaller()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>getWasmTableEntry() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>_glBindAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>_glBindAttribLocation() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>_glGetAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>_glGetAttribLocation() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>_glGetUniformBlockIndex()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>_glGetUniformBlockIndex() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>Manager()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>create()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>get()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>reference()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br>+1 more</td>
-  <td>Manager() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>_mediapipe_find_canvas_event_target()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>_mediapipe_find_canvas_event_target() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>stringToUTF16()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>stringToUTF16() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>stringToUTF32()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>stringToUTF32() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>___syscall_newfstatat()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>___syscall_newfstatat() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>UTF16ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>UTF16ToString() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>UTF32ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>UTF32ToString() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>___assert_fail()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>_glBindAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>_glGetAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br>+19 more</td>
-  <td><code>UTF8ArrayToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>UTF8ToString() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>24</td>
-  <td><code>_wgpuBufferUnmap()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>_wgpuBufferUnmap() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td><code>_wgpuCommandEncoderBeginComputePass()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-cmd">Entry</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small><br><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>_wgpuCommandEncoderBeginComputePass() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td><code>makeComputePassTimestampWrite()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>makeComputePassTimestampWrites()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>makeComputePassTimestampWrite() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>27</td>
-  <td><code>makeComputePassTimestampWrites()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>makeComputePassTimestampWrite()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>makeComputePassTimestampWrites() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>28</td>
-  <td><code>_wgpuCommandEncoderBeginRenderPass()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-cmd">Entry</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>_wgpuCommandEncoderBeginRenderPass() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>makeColorAttachment()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>makeColorAttachments()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>makeColorAttachment() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>makeColorAttachments()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>makeRenderPassDescriptor()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td><code>makeColorAttachment()</code><br><small style="color:var(--muted)">mediapipe/pose/pose_solution_wasm_bin.js</small></td>
-  <td>makeColorAttachments() node in mediapipe/pose/pose_solution_wasm_bin.js.</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>mediapipe/pose/pose_solution_wasm_bin.js</code></td><td>66 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: calls x85, contains x24, method x4. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 13. Hands Mediapipe App ====== -->
-<h2 id="hands-mediapipe-app">13. Hands Mediapipe App</h2>
+<!-- ====== 14. Hands Mediapipe App ====== -->
+<h2 id="hands-mediapipe-app-042d9b">14. Hands Mediapipe App</h2>
 <p>Hands Mediapipe App groups implementation around hands, mediapipe, app, solution, mostly in mediapipe/hands/hands_solution_wasm_bin.js. This section covers 66 nodes and 113 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -4085,353 +4425,6 @@ flowchart LR
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>mediapipe/hands/hands_solution_wasm_bin.js</code></td><td>66 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: calls x85, contains x24, method x4. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 14. Hands Mediapipe App ====== -->
-<h2 id="hands-mediapipe-app-042d9b">14. Hands Mediapipe App</h2>
-<p>Hands Mediapipe App groups implementation around hands, mediapipe, app, solution, mostly in mediapipe/hands/hands_solution_simd_wasm_bin.js. This section covers 66 nodes and 113 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: Hands Mediapipe App (66 nodes, 113 edges)
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_e2e7c3cb("makeRenderPassDescriptor()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_4fc12e7d("Manager()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_77c41d29("makeFragmentState()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_f17b8a66("makeVertexState()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_03336031("dynCall()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_fd474a1f("makeDynCaller()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_08b22a5f("createExportWrapper()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d("assert()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_ac45fdf5("dynCallLegacy()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_1aa042af("getWasmTableEntry()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_99d60c64("getDynCaller()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_9d926f5e("do create context()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_309198db("findCanvasEventTarget()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_334eb621("init context attributes()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_3142e751("webgpu get device()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_c86fba11("findEventTarget()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_c3034458("UTF8ToString()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_7383ef0b("_glBindAttribLocation()<br/><small>mediapipe/hands/hands_solution_simd_wasm_bin.js</small>")
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_08b22a5f -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_03336031 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_03336031 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_ac45fdf5
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_03336031 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_1aa042af
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_ac45fdf5 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_fd474a1f -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_99d60c64
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_fd474a1f -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_1aa042af
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_9d926f5e -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_9d926f5e -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_309198db
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_334eb621 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_3142e751 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_309198db -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_c86fba11
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_309198db -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_c3034458
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_c86fba11 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_c3034458
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_99d60c64 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_99d60c64 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_03336031
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_1aa042af -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_7383ef0b -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_c3034458
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_e2e7c3cb -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_e2e7c3cb -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_c3034458
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_77c41d29 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_77c41d29 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_c3034458
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_f17b8a66 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d
-    app_lib_mediapipe_hands_hands_solution_simd_wasm_f17b8a66 -->|calls| app_lib_mediapipe_hands_hands_solution_simd_wasm_c3034458
-    %% Omitted for readability: 48 nodes, 0 edges
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_e2e7c3cb function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_4fc12e7d function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_77c41d29 function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_f17b8a66 function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_03336031 function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_fd474a1f function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_08b22a5f function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_656dc90d async;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_ac45fdf5 function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_1aa042af function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_99d60c64 function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_9d926f5e function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_309198db function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_334eb621 function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_3142e751 function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_c86fba11 function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_c3034458 function;
-    class app_lib_mediapipe_hands_hands_solution_simd_wasm_7383ef0b function;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-async">Async</span></td>
-  <td><code>___syscall_newfstatat()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>_emscripten_resize_heap()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>_wgpuBufferGetMappedRange()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br>+63 more</td>
-  <td><code>abort()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>assert() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>createExportWrapper()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>Exports documentation data to a target format.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>getDynCaller()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>dynCallLegacy()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>getWasmTableEntry()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>dynCall() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>dynCallLegacy()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>dynCallLegacy() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>makeDynCaller()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>getDynCaller()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>getWasmTableEntry()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>makeDynCaller() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>_emscripten_webgl_do_create_context()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>_emscripten_webgl_do_create_context() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>_emscripten_webgl_init_context_attributes()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>_emscripten_webgl_init_context_attributes() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>_emscripten_webgpu_get_device()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>_emscripten_webgpu_get_device() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>canvas event target()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>do create context()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><code>findEventTarget()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>findCanvasEventTarget() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>findEventTarget()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>warnOnce()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>findEventTarget() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>getDynCaller()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>makeDynCaller()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>getDynCaller() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>getWasmTableEntry()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>dynCall()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>makeDynCaller()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>getWasmTableEntry() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>_glBindAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>_glBindAttribLocation() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>_glGetAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>_glGetAttribLocation() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>_glGetUniformBlockIndex()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>_glGetUniformBlockIndex() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>Manager()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>create()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>get()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>reference()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br>+1 more</td>
-  <td>Manager() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>_mediapipe_find_canvas_event_target()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>findCanvasEventTarget()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>_mediapipe_find_canvas_event_target() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>stringToUTF16()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>stringToUTF16() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>stringToUTF32()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>stringToUTF32() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>___syscall_newfstatat()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>___syscall_newfstatat() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>UTF16ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>UTF16ToString() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>UTF32ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>UTF32ToString() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>___assert_fail()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>_glBindAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>_glGetAttribLocation()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br>+19 more</td>
-  <td><code>UTF8ArrayToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>UTF8ToString() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>24</td>
-  <td><code>_wgpuBufferUnmap()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>_wgpuBufferUnmap() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td><code>_wgpuCommandEncoderBeginComputePass()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-cmd">Entry</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small><br><code>UTF8ToString()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>_wgpuCommandEncoderBeginComputePass() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td><code>makeComputePassTimestampWrite()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>makeComputePassTimestampWrites()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>No direct outbound edge</td>
-  <td>makeComputePassTimestampWrite() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>27</td>
-  <td><code>makeComputePassTimestampWrites()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>makeComputePassTimestampWrite()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>makeComputePassTimestampWrites() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>28</td>
-  <td><code>_wgpuCommandEncoderBeginRenderPass()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-cmd">Entry</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>_wgpuCommandEncoderBeginRenderPass() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>makeColorAttachment()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>makeColorAttachments()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><code>assert()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>makeColorAttachment() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>makeColorAttachments()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>makeRenderPassDescriptor()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td><code>makeColorAttachment()</code><br><small style="color:var(--muted)">mediapipe/hands/hands_solution_simd_wasm_bin.js</small></td>
-  <td>makeColorAttachments() node in mediapipe/hands/hands_solution_simd_wasm_bin.js.</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>mediapipe/hands/hands_solution_simd_wasm_bin.js</code></td><td>66 nodes</td></tr>
     </table>
   </div>
   <div class="card">
@@ -4790,70 +4783,64 @@ flowchart LR
 
 <!-- ====== 16. Other ====== -->
 <h2 id="other">16. Other</h2>
-<p>Other groups implementation around app, mediapipe, hands, pose, mostly in lib/tailwind/tailwind.js, mediapipe/hands/hands_solution_simd_wasm_bin.js, mediapipe/pose/pose_solution_simd_wasm_bin.js. This section covers 2229 nodes and 3816 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Other groups implementation around app, mediapipe, pose, hands, mostly in lib/tailwind/tailwind.js, mediapipe/pose/pose_solution_simd_wasm_bin.js, mediapipe/pose/pose_solution_wasm_bin.js. This section covers 2236 nodes and 3888 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Other (2229 nodes, 3816 edges)
+    %% Section: Other (2236 nodes, 3888 edges)
     subgraph other_app_js_alphabet_lab_controller_js_c16f9998["app/js/alphabet-lab-controller.js"]
         app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93("AlphabetLabController<br/><small>app/js/alphabet-lab-controller.js</small>")
+        app_js_alphabet_lab_controller_alphabetlabcontro_d0503cc5("handleSignMasteredInLab()<br/><small>app/js/alphabet-lab-controller.js</small>")
+        app_js_alphabet_lab_controller_alphabetlabcontro_ad8f233a("getLetters()<br/><small>app/js/alphabet-lab-controller.js</small>")
+        app_js_alphabet_lab_controller_alphabetlabcontro_5ebc570f("getLetterById()<br/><small>app/js/alphabet-lab-controller.js</small>")
+        app_js_alphabet_lab_controller_alphabetlabcontro_ce63dfd9("getSignById()<br/><small>app/js/alphabet-lab-controller.js</small>")
+        app_js_alphabet_lab_controller_alphabetlabcontro_2993936e("getPhotoSrc()<br/><small>app/js/alphabet-lab-controller.js</small>")
+        app_js_alphabet_lab_controller_alphabetlabcontro_c4cb8b80("prepareNextFlashcard()<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_99c87f83("submitFlashcardAnswer()<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_b18e2e98("setSpellWord()<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_b0e345cd("practiceLetterInStudio()<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda("el()<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_0495667d("render()<br/><small>app/js/alphabet-lab-controller.js</small>")
-        app_js_alphabet_lab_controller_alphabetlabcontro_383ae4e9("buildHero()<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_7c3964d4("init()<br/><small>app/js/alphabet-lab-controller.js</small>")
-        app_js_alphabet_lab_controller_alphabetlabcontro_dc5038e9("buildTabBar()<br/><small>app/js/alphabet-lab-controller.js</small>")
-        app_js_alphabet_lab_controller_alphabetlabcontro_1113ad6e("boundFingerListener()<br/><small>app/js/alphabet-lab-controller.js</small>")
-        app_js_alphabet_lab_controller_alphabetlabcontro_b3dc4bb2("buildFlashcardsTab()<br/><small>app/js/alphabet-lab-controller.js</small>")
-        app_js_alphabet_lab_controller_alphabetlabcontro_97b5efbf("buildSpellTab()<br/><small>app/js/alphabet-lab-controller.js</small>")
-        app_js_alphabet_lab_controller_alphabetlabcontro_ec1e56cb("start()<br/><small>app/js/alphabet-lab-controller.js</small>")
     end
     app_js_blind_exam_controller_blindexamcontroller_0361b900("BlindExamController<br/><small>app/js/blind-exam-controller.js</small>")
     app_js_camera_manager_cameradevicemanager_9bfb70a8("CameraDeviceManager<br/><small>app/js/camera-manager.js</small>")
     app_js_learning_plan_manager_learningplanmanager_cd4afc8c("LearningPlanManager<br/><small>app/js/learning-plan-manager.js</small>")
     app_js_lesson_session_lessonsessioncontroller_10f72b8c("LessonSessionController<br/><small>app/js/lesson-session.js</small>")
     app_js_sign_anatomy_validator_signanatomyvalidat_b0f5f82a("SignAnatomyValidator<br/><small>app/js/sign-anatomy-validator.js</small>")
+    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_d0503cc5
+    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_ad8f233a
+    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_5ebc570f
+    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_ce63dfd9
+    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_2993936e
+    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_c4cb8b80
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_99c87f83
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_b18e2e98
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_b0e345cd
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_0495667d
-    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_383ae4e9
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_7c3964d4
-    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_dc5038e9
-    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_1113ad6e
-    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_b3dc4bb2
-    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_97b5efbf
-    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_ec1e56cb
-    app_js_alphabet_lab_controller_alphabetlabcontro_b3dc4bb2 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda
-    app_js_alphabet_lab_controller_alphabetlabcontro_b3dc4bb2 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_99c87f83
-    app_js_alphabet_lab_controller_alphabetlabcontro_b3dc4bb2 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_0495667d
-    app_js_alphabet_lab_controller_alphabetlabcontro_b3dc4bb2 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_b0e345cd
-    app_js_alphabet_lab_controller_alphabetlabcontro_383ae4e9 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda
-    app_js_alphabet_lab_controller_alphabetlabcontro_97b5efbf -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda
-    app_js_alphabet_lab_controller_alphabetlabcontro_97b5efbf -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_b18e2e98
-    app_js_alphabet_lab_controller_alphabetlabcontro_97b5efbf -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_0495667d
-    app_js_alphabet_lab_controller_alphabetlabcontro_97b5efbf -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_b0e345cd
-    app_js_alphabet_lab_controller_alphabetlabcontro_dc5038e9 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda
-    app_js_alphabet_lab_controller_alphabetlabcontro_dc5038e9 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_0495667d
+    app_js_alphabet_lab_controller_alphabetlabcontro_5ebc570f -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_ad8f233a
+    app_js_alphabet_lab_controller_alphabetlabcontro_d0503cc5 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_5ebc570f
+    app_js_alphabet_lab_controller_alphabetlabcontro_c4cb8b80 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_ad8f233a
     app_js_alphabet_lab_controller_alphabetlabcontro_0495667d -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda
-    %% Omitted for readability: 2211 nodes, 4 edges
+    app_js_alphabet_lab_controller_alphabetlabcontro_b18e2e98 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_0495667d
+    app_js_alphabet_lab_controller_alphabetlabcontro_99c87f83 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_0495667d
+    %% Omitted for readability: 2218 nodes, 0 edges
     class app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 klass;
+    class app_js_alphabet_lab_controller_alphabetlabcontro_d0503cc5 function;
+    class app_js_alphabet_lab_controller_alphabetlabcontro_ad8f233a function;
+    class app_js_alphabet_lab_controller_alphabetlabcontro_5ebc570f function;
+    class app_js_alphabet_lab_controller_alphabetlabcontro_ce63dfd9 function;
+    class app_js_alphabet_lab_controller_alphabetlabcontro_2993936e function;
+    class app_js_alphabet_lab_controller_alphabetlabcontro_c4cb8b80 function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_99c87f83 function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_b18e2e98 function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_b0e345cd function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_0495667d function;
-    class app_js_alphabet_lab_controller_alphabetlabcontro_383ae4e9 function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_7c3964d4 function;
-    class app_js_alphabet_lab_controller_alphabetlabcontro_dc5038e9 function;
-    class app_js_alphabet_lab_controller_alphabetlabcontro_1113ad6e function;
-    class app_js_alphabet_lab_controller_alphabetlabcontro_b3dc4bb2 function;
-    class app_js_alphabet_lab_controller_alphabetlabcontro_97b5efbf function;
-    class app_js_alphabet_lab_controller_alphabetlabcontro_ec1e56cb function;
     class app_js_blind_exam_controller_blindexamcontroller_0361b900 klass;
     class app_js_camera_manager_cameradevicemanager_9bfb70a8 klass;
     class app_js_learning_plan_manager_learningplanmanager_cd4afc8c klass;
@@ -5134,12 +5121,12 @@ flowchart LR
 <tr><td><code>mediapipe/pose/pose_solution_wasm_bin.js</code></td><td>220 nodes</td></tr>
 <tr><td><code>mediapipe/hands/hands.js</code></td><td>138 nodes</td></tr>
 <tr><td><code>mediapipe/pose/pose.js</code></td><td>138 nodes</td></tr>
-<tr><td><code>lib/mediapipe/control_utils.js</code></td><td>73 nodes</td></tr>
+<tr><td><code>lib/mediapipe/control_utils.js</code></td><td>85 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: calls x2556, contains x513, method x512, indirect call x204. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x2586, contains x545, method x516, indirect call x211. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -5150,17 +5137,17 @@ flowchart LR
   <div class="card">
     <h4>Graph</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>Nodes</td><td>4437</td></tr>
-      <tr><td>Edges</td><td>8586</td></tr>
+      <tr><td>Nodes</td><td>4443</td></tr>
+      <tr><td>Edges</td><td>8611</td></tr>
       <tr><td>Hyperedges</td><td>0</td></tr>
-      <tr><td>Communities</td><td>190</td></tr>
+      <tr><td>Communities</td><td>193</td></tr>
       <tr><td>Documented Sections</td><td>15</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Edge Confidence</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>EXTRACTED</td><td>8235</td></tr>
+      <tr><td>EXTRACTED</td><td>8260</td></tr>
       <tr><td>INFERRED</td><td>351</td></tr>
       <tr><td>AMBIGUOUS</td><td>0</td></tr>
     </table>
@@ -5169,7 +5156,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>photos_letras_postgres — Architecture Documentation</p>
-  <p>Generated: 2026-11-25 03:26 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-11-25 03:38 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->

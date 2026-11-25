@@ -6,9 +6,9 @@
     "semantic_hash": "639cbb2ba9ff31dc1d12bec3d6b1a143"
   },
   "app/data/users_db.json": {
-    "mtime": 1795575016.825891,
-    "seen": 1795576410.0198967,
-    "ast_hash": "2265eeab7a344bb99bcc238a4b75038c",
+    "mtime": 1795577660.7784164,
+    "seen": 1795577915.6262937,
+    "ast_hash": "33ea17175dece2b954e69f056441d081",
     "semantic_hash": ""
   },
   "app/js/auth-profile-manager.js": {
@@ -42,9 +42,9 @@
     "semantic_hash": ""
   },
   "app/js/main.js": {
-    "mtime": 1795576727.385821,
-    "seen": 1795576810.1279204,
-    "ast_hash": "2909daeccb1b8c84ba5ea78fe0126235",
+    "mtime": 1795577852.0827656,
+    "seen": 1795577915.6344128,
+    "ast_hash": "7224921b22b234ee14bbcd91c9f1790f",
     "semantic_hash": ""
   },
   "app/js/signs-data.js": {
@@ -324,9 +324,9 @@
     "semantic_hash": ""
   },
   "app/js/view-router.js": {
-    "mtime": 1795576222.2776434,
-    "seen": 1795576410.020475,
-    "ast_hash": "23c41c973e1fc32be9176b30c5a32920",
+    "mtime": 1795577854.8894572,
+    "seen": 1795577915.6384468,
+    "ast_hash": "34724ee7ebdc80aeba7a03703e0ef9cf",
     "semantic_hash": ""
   },
   "tests/test_3_screens_flow.spec.js": {
@@ -516,9 +516,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795575019.1524947,
-    "seen": 1795576410.020475,
-    "ast_hash": "2931e45e38992161b4992dad7fa6fb4d",
+    "mtime": 1795577856.468052,
+    "seen": 1795577915.6463606,
+    "ast_hash": "0df096533534aabec72136c306ed0291",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -576,9 +576,9 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795576723.3559537,
-    "seen": 1795576810.2091782,
-    "ast_hash": "5c188cb926e7d3fc2b376ddb05ba8c20",
+    "mtime": 1795577859.9220498,
+    "seen": 1795577915.7147305,
+    "ast_hash": "a08c67c0efb76e761cea11d6c6cb960e",
     "semantic_hash": ""
   },
   "app/landing.html": {
@@ -4230,9 +4230,9 @@
     "semantic_hash": ""
   },
   "app/perfil.html": {
-    "mtime": 1795575019.12612,
-    "seen": 1795576410.0210338,
-    "ast_hash": "49eb793239787f6f4c01a4eb42c15191",
+    "mtime": 1795577595.133983,
+    "seen": 1795577915.7173061,
+    "ast_hash": "eb7b2298b28d2b64940bb2e84f644579",
     "semantic_hash": ""
   },
   "tests/screenshots/screen4_profile_page.png": {
@@ -4302,9 +4302,9 @@
     "semantic_hash": ""
   },
   "app/js/alphabet-lab-controller.js": {
-    "mtime": 1795576721.1536398,
-    "seen": 1795576810.1209736,
-    "ast_hash": "0b21c16282c945e1b7f173fb62165709",
+    "mtime": 1795577833.233487,
+    "seen": 1795577915.6262937,
+    "ast_hash": "88285ace6a69521702a0e2c5c030ce04",
     "semantic_hash": ""
   },
   "app/js/finger-feedback-engine.js": {

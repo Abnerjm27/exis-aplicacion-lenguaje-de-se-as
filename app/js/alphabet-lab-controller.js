@@ -19,6 +19,11 @@ class AlphabetLabController {
   #boundFingerListener = null;
   #xpToastText = '';
   #titoMessage = 'Elige una letra o completa tus 3 retos de hoy.';
+  #spellCameraActive = false;
+  #spellStreamTimer = null;
+  #spellHoldFrames = 0;
+  #spellLastScore = 0;
+  #spellAdvancing = false;
 
   init() {
     if (this.#initialized) return this;
@@ -48,6 +53,7 @@ class AlphabetLabController {
   }
 
   reset() {
+    this.stopSpellCamera();
     this.#combo = 0;
     this.#sessionXp = 0;
     this.#quizAnswered = false;
@@ -58,19 +64,75 @@ class AlphabetLabController {
   }
 
   destroy() {
+    this.stopSpellCamera();
     if (this.#boundFingerListener) {
       window.removeEventListener('manitas:finger-feedback', this.#boundFingerListener);
     }
     this.#initialized = false;
   }
 
+  isSpellCameraActive() {
+    return this.#spellCameraActive && this.#activeTab === 'spell';
+  }
+
+  stopSpellCamera() {
+    this.#spellCameraActive = false;
+    this.#spellHoldFrames = 0;
+    this.#spellLastScore = 0;
+    this.#spellAdvancing = false;
+    if (this.#spellStreamTimer) {
+      clearInterval(this.#spellStreamTimer);
+      this.#spellStreamTimer = null;
+    }
+    const labVid = document.getElementById('alphabetSpellWebcamVideo');
+    if (labVid) labVid.srcObject = null;
+    if (window.VisionEvaluator && typeof window.VisionEvaluator.isRunning === 'function' && window.VisionEvaluator.isRunning()) {
+      try { window.VisionEvaluator.stop(); } catch (_) { /* ignore stop errors */ }
+    }
+  }
+
   handlePracticeFrame(score, diagnostics) {
     if (diagnostics) {
       this.#lastDiagnostics = diagnostics;
-      if (this.#activeTab === 'spell') {
-        this.#updateFingerPanelDOM(diagnostics);
-      }
     }
+    if (!this.isSpellCameraActive()) return;
+
+    this.#spellLastScore = Math.max(0, Math.min(100, Math.round(Number(score) || 0)));
+    const bar = document.getElementById('alphabetSpellScoreBar');
+    const txt = document.getElementById('alphabetSpellScoreText');
+    if (bar) {
+      bar.style.width = `${this.#spellLastScore}%`;
+      bar.className = `ab-score-fill ${this.#spellLastScore >= 85 ? 'is-pass' : ''}`;
+    }
+    if (txt) {
+      txt.textContent = `${this.#spellLastScore}%`;
+    }
+    if (diagnostics) {
+      this.#updateFingerPanelDOM(diagnostics);
+    }
+
+    if (this.#spellLastScore >= 85 && !this.#spellAdvancing) {
+      this.#spellHoldFrames += 1;
+      if (this.#spellHoldFrames >= 10) {
+        const chars = Array.from(this.#spellWord);
+        const activeLetter = this.#getLetterById(chars[this.#spellIndex]);
+        if (activeLetter) {
+          this.handleSignMasteredInLab(activeLetter, this.#spellLastScore);
+        }
+      }
+    } else {
+      this.#spellHoldFrames = Math.max(0, this.#spellHoldFrames - 1);
+    }
+  }
+
+  handleSignMasteredInLab(sign, score = 90) {
+    if (!this.isSpellCameraActive() || this.#spellAdvancing) return;
+    this.#spellAdvancing = true;
+    this.#spellHoldFrames = 0;
+
+    const chars = Array.from(this.#spellWord);
+    const activeLetter = this.#getLetterById(chars[this.#spellIndex]) || sign;
+    this.#advanceSpellStep(activeLetter, chars, true, score);
   }
 
   #getLetters() {
@@ -266,6 +328,9 @@ class AlphabetLabController {
       btn.setAttribute('role', 'tab');
       btn.setAttribute('aria-selected', this.#activeTab === t.id ? 'true' : 'false');
       btn.addEventListener('click', () => {
+        if (t.id !== 'spell' && this.#spellCameraActive) {
+          this.stopSpellCamera();
+        }
         this.#activeTab = t.id;
         this.#render();
       });
@@ -385,6 +450,11 @@ class AlphabetLabController {
       tile.setAttribute('aria-label', `Letra ${ch}, paso ${idx + 1} de ${chars.length}`);
       tile.addEventListener('click', () => {
         this.#spellIndex = idx;
+        this.#spellHoldFrames = 0;
+        const targetObj = this.#getLetterById(ch);
+        if (this.#spellCameraActive && targetObj && window.VisionEvaluator) {
+          window.VisionEvaluator.setTargetSign(targetObj);
+        }
         this.#render();
       });
       strip.appendChild(tile);
@@ -410,7 +480,7 @@ class AlphabetLabController {
         this.#el(
           'div',
           'p-6 text-center text-sm text-slate-600',
-          `La letra "${activeChar}" aún no está en el lote activo de 18 letras (próximamente). Puedes saltarla al siguiente paso.`
+          `La letra "${activeChar}" aún no está en el lote activo de ${this.#getLetters().length} letras (próximamente). Puedes saltarla al siguiente paso.`
         )
       );
     }
@@ -431,6 +501,37 @@ class AlphabetLabController {
       )
     );
 
+    // Bloque de Cámara en Vivo dentro de Deletrea tu Nombre
+    const camStage = this.#el('div', 'ab-cam-stage');
+    const camVideo = this.#el('video', 'ab-cam-video');
+    camVideo.id = 'alphabetSpellWebcamVideo';
+    camVideo.autoplay = true;
+    camVideo.playsInline = true;
+    camVideo.muted = true;
+    camStage.appendChild(camVideo);
+
+    const camPlaceholder = this.#el('div', `ab-cam-placeholder ${this.#spellCameraActive ? 'hidden' : ''}`);
+    camPlaceholder.id = 'alphabetSpellCamPlaceholder';
+    camPlaceholder.appendChild(this.#el('strong', '', 'Tu cámara en vivo'));
+    camPlaceholder.appendChild(
+      this.#el('span', 'text-xs opacity-80', 'Actívala aquí para deletrear tu nombre letra por letra frente a Sol.')
+    );
+    camStage.appendChild(camPlaceholder);
+    detail.appendChild(camStage);
+
+    const scoreRow = this.#el('div', 'ab-score-row');
+    scoreRow.appendChild(this.#el('span', 'text-xs font-bold text-slate-700 shrink-0', 'Precisión'));
+    const scoreBar = this.#el('div', 'ab-score-bar');
+    const scoreFill = this.#el('div', `ab-score-fill ${this.#spellLastScore >= 85 ? 'is-pass' : ''}`);
+    scoreFill.id = 'alphabetSpellScoreBar';
+    scoreFill.style.width = `${this.#spellCameraActive ? this.#spellLastScore : 0}%`;
+    scoreBar.appendChild(scoreFill);
+    const scoreTxt = this.#el('span', 'font-mono text-xs font-extrabold text-slate-900 tabular-nums shrink-0', `${this.#spellCameraActive ? this.#spellLastScore : 0}%`);
+    scoreTxt.id = 'alphabetSpellScoreText';
+    scoreRow.appendChild(scoreBar);
+    scoreRow.appendChild(scoreTxt);
+    detail.appendChild(scoreRow);
+
     // Panel "Tu mano vs. Sol"
     const fingerCard = this.#el('div', 'ab-feedback-banner flex flex-col gap-2');
     fingerCard.id = 'alphabetFingerDiagnosticsBox';
@@ -445,37 +546,26 @@ class AlphabetLabController {
 
     const actions = this.#el('div', 'flex flex-wrap gap-2');
     if (activeLetter) {
-      const camBtn = this.#el('button', 'ab-btn ab-btn-primary', 'Practicar esta letra con cámara');
+      const camBtn = this.#el(
+        'button',
+        `ab-btn ${this.#spellCameraActive ? 'ab-btn-secondary' : 'ab-btn-primary'}`,
+        this.#spellCameraActive ? 'Detener cámara' : 'Activar cámara en vivo'
+      );
       camBtn.type = 'button';
-      camBtn.addEventListener('click', () => this.#practiceLetterInStudio(activeLetter.id));
+      camBtn.addEventListener('click', () => {
+        if (this.#spellCameraActive) {
+          this.stopSpellCamera();
+          this.#render();
+        } else {
+          this.#startSpellCamera(activeLetter);
+        }
+      });
       actions.appendChild(camBtn);
     }
     const nextStepBtn = this.#el('button', 'ab-btn ab-btn-secondary', 'Siguiente letra (sin cámara)');
     nextStepBtn.type = 'button';
     nextStepBtn.addEventListener('click', () => {
-      this.#completedSpellIndices.add(this.#spellIndex);
-      if (activeLetter && window.SRSClient) {
-        window.SRSClient.recordAttempt(activeLetter.id, true);
-      }
-      if (this.#spellIndex + 1 < chars.length) {
-        this.#spellIndex += 1;
-      } else {
-        this.#sessionXp += 20;
-        if (window.AuthProfileManager && activeLetter) {
-          window.AuthProfileManager.recordSignMastered(activeLetter.id, 20);
-        }
-        if (window.GamificationManager) {
-          window.GamificationManager.playComboChime(3);
-          const gamRes = window.GamificationManager.recordWordSpelled(this.#spellWord);
-          this.#sessionXp += gamRes.bonusAwarded || 0;
-          this.#xpToastText = gamRes.bonusAwarded > 0
-            ? `+${20 + gamRes.bonusAwarded} XP · Retos diarios`
-            : '+20 XP · Palabra completa';
-          this.#titoMessage = gamRes.reaction;
-        }
-        this.#spellIndex = 0;
-      }
-      this.#render();
+      this.#advanceSpellStep(activeLetter, chars, false, 0);
     });
     actions.appendChild(nextStepBtn);
     detail.appendChild(actions);
@@ -489,9 +579,113 @@ class AlphabetLabController {
         ? this.#lastDiagnostics
         : null;
       this.#updateFingerPanelDOM(diag, activeLetter ? activeLetter.id : null);
+      if (this.#spellCameraActive) {
+        this.#attachActiveStreamToLabVideo();
+      }
     }, 0);
 
     return wrap;
+  }
+
+  #attachActiveStreamToLabVideo() {
+    const labVid = document.getElementById('alphabetSpellWebcamVideo');
+    const placeholder = document.getElementById('alphabetSpellCamPlaceholder');
+    if (!labVid) return false;
+    const stream = (window.CameraManager && typeof window.CameraManager.getActiveStream === 'function')
+      ? window.CameraManager.getActiveStream()
+      : (document.getElementById('webcamVideo')?.srcObject || null);
+    if (stream) {
+      if (labVid.srcObject !== stream) labVid.srcObject = stream;
+      if (placeholder) placeholder.classList.add('hidden');
+      return true;
+    }
+    return false;
+  }
+
+  #startSpellCamera(letterObj) {
+    if (!letterObj || !window.VisionEvaluator) return;
+    this.#spellCameraActive = true;
+    this.#spellHoldFrames = 0;
+    this.#spellLastScore = 0;
+    this.#spellAdvancing = false;
+    this.#titoMessage = `Haz la ${letterObj.name} frente a tu cámara.`;
+    this.#render();
+
+    window.VisionEvaluator.setTargetSign(letterObj);
+    window.VisionEvaluator.setPaused(false);
+    if (typeof window.VisionEvaluator.isRunning === 'function' && !window.VisionEvaluator.isRunning()) {
+      try {
+        const res = window.VisionEvaluator.start();
+        if (res && typeof res.catch === 'function') {
+          res.catch(() => {
+            this.stopSpellCamera();
+            this.#titoMessage = 'No se pudo abrir la cámara; puedes avanzar con el botón sin cámara.';
+            this.#render();
+          });
+        }
+      } catch (_) {
+        this.stopSpellCamera();
+        this.#titoMessage = 'No se pudo abrir la cámara; puedes avanzar con el botón sin cámara.';
+        this.#render();
+        return;
+      }
+    }
+
+    if (this.#spellStreamTimer) clearInterval(this.#spellStreamTimer);
+    let tries = 0;
+    this.#spellStreamTimer = setInterval(() => {
+      tries += 1;
+      if (this.#attachActiveStreamToLabVideo() || tries > 20 || !this.#spellCameraActive) {
+        clearInterval(this.#spellStreamTimer);
+        this.#spellStreamTimer = null;
+      }
+    }, 150);
+  }
+
+  #advanceSpellStep(activeLetter, chars, viaCamera, score) {
+    this.#completedSpellIndices.add(this.#spellIndex);
+    if (activeLetter && window.SRSClient) {
+      window.SRSClient.recordAttempt(activeLetter.id, true);
+    }
+    if (viaCamera && window.GamificationManager && activeLetter) {
+      window.GamificationManager.playComboChime(2);
+      window.GamificationManager.recordCameraSuccess({ signId: activeLetter.id, score });
+    }
+
+    const nextIdx = this.#spellIndex + 1;
+    if (nextIdx < chars.length) {
+      this.#spellIndex = nextIdx;
+      this.#spellLastScore = 0;
+      const nextLetter = this.#getLetterById(chars[nextIdx]);
+      if (viaCamera && nextLetter && window.VisionEvaluator) {
+        window.VisionEvaluator.setTargetSign(nextLetter);
+        this.#titoMessage = `¡Bien! Ahora haz la ${nextLetter.name}.`;
+      } else if (viaCamera && !nextLetter) {
+        this.#titoMessage = `¡Bien! La letra "${chars[nextIdx]}" aún no tiene cámara; sáltala para continuar.`;
+      }
+    } else {
+      this.#sessionXp += 20;
+      if (window.AuthProfileManager && activeLetter) {
+        window.AuthProfileManager.recordSignMastered(activeLetter.id, 20);
+      }
+      if (window.GamificationManager) {
+        window.GamificationManager.playComboChime(3);
+        const gamRes = window.GamificationManager.recordWordSpelled(this.#spellWord);
+        this.#sessionXp += gamRes.bonusAwarded || 0;
+        this.#xpToastText = gamRes.bonusAwarded > 0
+          ? `+${20 + gamRes.bonusAwarded} XP · Retos diarios`
+          : '+20 XP · Palabra completa';
+        this.#titoMessage = gamRes.reaction;
+      }
+      this.#spellIndex = 0;
+      this.#spellLastScore = 0;
+      if (viaCamera) {
+        this.stopSpellCamera();
+      }
+    }
+
+    this.#spellAdvancing = false;
+    this.#render();
   }
 
   #updateFingerPanelDOM(diagnostics, fallbackSignId = null) {

@@ -5,7 +5,7 @@
  * Exclusiones: No intercepta llamadas dinámicas /api/ (Ollama / Planes) ni peticiones con rango de video.
  */
 
-const CACHE_NAME = 'manitas-pwa-v16-alphabet-lab';
+const CACHE_NAME = 'manitas-pwa-v17-alphabet-cam';
 
 const ASSETS_TO_CACHE = [
   '/',

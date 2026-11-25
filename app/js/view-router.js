@@ -68,6 +68,9 @@ class ViewRouter {
   }
 
   switchToPathView() {
+    if (window.AlphabetLabController && typeof window.AlphabetLabController.stopSpellCamera === 'function') {
+      window.AlphabetLabController.stopSpellCamera();
+    }
     this.#currentView = 'path';
     this.#applyViewState('path', 'Mi Ruta de Aprendizaje');
 
@@ -101,6 +104,9 @@ class ViewRouter {
   }
 
   switchToStudioView(signId = null, startExam = false, examConfig = null) {
+    if (window.AlphabetLabController && typeof window.AlphabetLabController.stopSpellCamera === 'function') {
+      window.AlphabetLabController.stopSpellCamera();
+    }
     this.#currentView = 'studio';
     this.#applyViewState('studio', 'Práctica Libre LSC');
 

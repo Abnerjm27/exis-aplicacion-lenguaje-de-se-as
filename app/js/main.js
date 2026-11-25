@@ -332,6 +332,12 @@ window.onSignMastered = function(sign, score) {
     return;
   }
 
+  // Si la cámara en vivo del Laboratorio ABC (Deletrea tu Nombre) está activa, delegar sin abrir popup de Práctica Libre
+  if (window.AlphabetLabController && window.AlphabetLabController.isSpellCameraActive()) {
+    window.AlphabetLabController.handleSignMasteredInLab(sign, score);
+    return;
+  }
+
   if (window.VisionEvaluator) {
     window.VisionEvaluator.stop();
   }

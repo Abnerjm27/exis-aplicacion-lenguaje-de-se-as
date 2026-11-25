@@ -678,6 +678,72 @@
   color: var(--palette-10-accent-deep);
 }
 
+/* Cámara en vivo dentro de Deletrea tu Nombre */
+.ab-cam-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-height: 260px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #14171f;
+  outline: 1px solid rgba(28, 25, 23, 0.1);
+  outline-offset: -1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ab-cam-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+.ab-cam-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 1rem;
+  text-align: center;
+  color: #FAF8F5;
+  font-size: 0.8125rem;
+  background: rgba(20, 23, 31, 0.92);
+}
+
+.ab-score-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.ab-score-bar {
+  flex: 1;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(28, 25, 23, 0.12);
+  overflow: hidden;
+}
+
+.ab-score-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--palette-10-accent);
+  transition-property: width, background-color;
+  transition-duration: 140ms;
+  transition-timing-function: var(--ease-out-expo);
+}
+
+.ab-score-fill.is-pass {
+  background: #059669;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ab-tab-btn,
   .ab-option-btn,
@@ -686,7 +752,8 @@
   .ab-letter-tile,
   .ab-gallery-card,
   .ab-xp-toast,
-  .ab-mission-fill {
+  .ab-mission-fill,
+  .ab-score-fill {
     transition: none;
   }
   .ab-tab-btn:active,

@@ -85,6 +85,37 @@
         }
       ],
       "lastUpdated": "2026-11-20T18:18:36Z"
+    },
+    {
+      "username": "invitado",
+      "displayName": "invitado",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [
+        "U"
+      ],
+      "customPlans": [],
+      "examHistory": [],
+      "signStats": {
+        "T": {
+          "box": 1,
+          "attempts": 1,
+          "successes": 0,
+          "lastPracticedIso": "2026-11-25T03:34:05Z",
+          "nextReviewIso": "2026-11-25T07:34:05Z",
+          "masteryPct": 0
+        },
+        "U": {
+          "box": 2,
+          "attempts": 1,
+          "successes": 1,
+          "lastPracticedIso": "2026-11-25T03:34:20Z",
+          "nextReviewIso": "2026-11-26T03:34:20Z",
+          "masteryPct": 100
+        }
+      },
+      "lastUpdated": "2026-11-25T03:34:20Z"
     }
   ]
 }
