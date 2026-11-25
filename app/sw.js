@@ -5,7 +5,7 @@
  * Exclusiones: No intercepta llamadas dinámicas /api/ (Ollama / Planes) ni peticiones con rango de video.
  */
 
-const CACHE_NAME = 'manitas-pwa-v21-achievements';
+const CACHE_NAME = 'manitas-pwa-v22-12-medals';
 
 const ASSETS_TO_CACHE = [
   '/',

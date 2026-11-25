@@ -152,11 +152,63 @@
   border-color: var(--palette-10-accent);
 }
 
+.ach-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.ach-filter-btn {
+  min-height: 44px;
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+  border: 1px solid var(--palette-30-border-strong);
+  background: var(--palette-60-elevated);
+  color: var(--palette-30-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition-property: transform, background-color, border-color, color;
+  transition-duration: 160ms;
+  transition-timing-function: var(--ease-out-expo);
+}
+
+.ach-filter-btn:hover {
+  color: var(--palette-30-petrol);
+  border-color: var(--palette-10-accent-deep);
+}
+
+.ach-filter-btn:active {
+  transform: scale(0.96);
+}
+
+.ach-filter-btn:focus-visible {
+  outline: 2px solid var(--palette-10-accent-deep);
+  outline-offset: 2px;
+}
+
+.ach-filter-btn[aria-selected="true"] {
+  background: var(--palette-10-accent);
+  color: var(--palette-30-petrol);
+  border-color: rgba(176, 59, 16, 0.35);
+}
+
+.ach-progress-hint {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--palette-10-accent-deep);
+  font-variant-numeric: tabular-nums;
+  margin-top: 0.15rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ach-medal-card {
+  .ach-medal-card,
+  .ach-filter-btn {
     transition: none;
   }
-  .ach-medal-card:hover {
+  .ach-medal-card:hover,
+  .ach-filter-btn:active {
     transform: none;
   }
 }

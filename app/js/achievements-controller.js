@@ -6,6 +6,7 @@
 class AchievementsController {
   #initialized = false;
   #root = null;
+  #activeCategory = 'all';
 
   init() {
     if (this.#initialized) return this;
@@ -101,7 +102,7 @@ class AchievementsController {
       return pill;
     };
     const unlocked = gamState ? gamState.unlockedCount : 0;
-    const totalBadges = gamState ? gamState.totalBadges : 5;
+    const totalBadges = gamState ? gamState.totalBadges : 12;
     right.appendChild(makePill('Medallas', `${unlocked}/${totalBadges}`));
     right.appendChild(makePill('XP Total', `${Number(profile.xp) || 0} XP`));
     right.appendChild(makePill('Nivel', profile.level || 'Principiante'));
@@ -135,8 +136,34 @@ class AchievementsController {
     );
     section.appendChild(head);
 
+    const filterBar = this.#el('div', 'ach-filter-bar');
+    filterBar.setAttribute('role', 'tablist');
+    filterBar.setAttribute('aria-label', 'Filtrar medallas por categoría');
+    const categories = [
+      { id: 'all', label: `Todas (${gamState.totalBadges})` },
+      { id: 'alphabet', label: 'Abecedario' },
+      { id: 'practice', label: 'Práctica' },
+      { id: 'mastery', label: 'Maestría' }
+    ];
+    categories.forEach(cat => {
+      const btn = this.#el('button', 'ach-filter-btn', cat.label);
+      btn.type = 'button';
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', this.#activeCategory === cat.id ? 'true' : 'false');
+      btn.addEventListener('click', () => {
+        this.#activeCategory = cat.id;
+        this.#render();
+      });
+      filterBar.appendChild(btn);
+    });
+    section.appendChild(filterBar);
+
+    const filteredBadges = this.#activeCategory === 'all'
+      ? gamState.badges
+      : gamState.badges.filter(b => b.category === this.#activeCategory);
+
     const grid = this.#el('div', 'ach-medals-grid');
-    gamState.badges.forEach(b => {
+    filteredBadges.forEach(b => {
       const card = this.#el('article', `ach-medal-card ${b.unlocked ? '' : 'is-locked'}`);
 
       const frame = this.#el('div', 'ach-medal-frame');
@@ -157,6 +184,9 @@ class AchievementsController {
       );
       body.appendChild(this.#el('h4', 'text-base font-extrabold text-slate-900', b.title));
       body.appendChild(this.#el('p', 'text-xs text-slate-600', b.desc));
+      if (!b.unlocked && b.progressText) {
+        body.appendChild(this.#el('span', 'ach-progress-hint', `Progreso: ${b.progressText}`));
+      }
       card.appendChild(body);
       grid.appendChild(card);
     });

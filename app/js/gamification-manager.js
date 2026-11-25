@@ -14,11 +14,18 @@ class GamificationManager {
   ];
 
   static BADGE_DEFS = [
-    { id: 'vowels_lsc', title: 'Vocales LSC', desc: 'Acierta o domina A, E, I, O, U', image: 'img/badges/badge_vowels_lsc.png' },
-    { id: 'first_word', title: 'Primer Nombre', desc: 'Completa 1 palabra en Deletrea tu Nombre', image: 'img/badges/badge_first_word.png' },
-    { id: 'combo_master', title: 'Sin Dudar (x3)', desc: 'Logra un combo x3 en Flashcards', image: 'img/badges/badge_combo_master.png' },
-    { id: 'camera_pro', title: 'Cámara Precisa', desc: '95%+ en cámara o 5 señas dominadas', image: 'img/badges/badge_camera_pro.png' },
-    { id: 'leitner_gold', title: 'Oro Leitner', desc: 'Lleva 1 seña a Caja 5 o suma 10 aciertos', image: 'img/badges/badge_leitner_gold.png' }
+    { id: 'vowels_lsc', category: 'alphabet', title: 'Vocales LSC', desc: 'Acierta o domina A, E, I, O, U', image: 'img/badges/badge_vowels_lsc.png' },
+    { id: 'first_word', category: 'alphabet', title: 'Primer Nombre', desc: 'Completa 1 palabra en Deletrea tu Nombre', image: 'img/badges/badge_first_word.png' },
+    { id: 'wordsmith_5', category: 'alphabet', title: 'Deletreo Fluido', desc: 'Completa 5 palabras en Deletrea tu Nombre', image: 'img/badges/badge_wordsmith_5.png' },
+    { id: 'alphabet_half', category: 'alphabet', title: 'Medio Abecedario', desc: 'Domina o acierta 12 letras distintas', image: 'img/badges/badge_alphabet_half.png' },
+    { id: 'alphabet_master', category: 'alphabet', title: 'Maestro del ABC', desc: 'Domina o acierta las 24 letras disponibles', image: 'img/badges/badge_alphabet_master.png' },
+    { id: 'combo_master', category: 'practice', title: 'Sin Dudar (x3)', desc: 'Logra un combo x3 en Flashcards', image: 'img/badges/badge_combo_master.png' },
+    { id: 'combo_legend', category: 'practice', title: 'Imparable (x7)', desc: 'Logra un combo x7 en Flashcards', image: 'img/badges/badge_combo_legend.png' },
+    { id: 'camera_pro', category: 'practice', title: 'Cámara Precisa', desc: '95%+ en cámara o 5 señas dominadas', image: 'img/badges/badge_camera_pro.png' },
+    { id: 'daily_hero', category: 'practice', title: 'Reto Cumplido', desc: 'Completa los 3 retos diarios de Tito', image: 'img/badges/badge_daily_hero.png' },
+    { id: 'greetings_pack', category: 'mastery', title: 'Cortesía LSC', desc: 'Domina HOLA, BUENOS y DIAS', image: 'img/badges/badge_greetings_pack.png' },
+    { id: 'exam_champion', category: 'mastery', title: 'Examen Aprobado', desc: 'Aprueba un Modo Examen con 80%+', image: 'img/badges/badge_exam_champion.png' },
+    { id: 'leitner_gold', category: 'mastery', title: 'Oro Leitner', desc: 'Lleva 1 seña a Caja 5 o suma 10 aciertos', image: 'img/badges/badge_leitner_gold.png' }
   ];
 
   #initialized = false;
@@ -74,6 +81,7 @@ class GamificationManager {
       dateKey,
       dailyProgress: { combo_3: 0, spell_word: 0, practice_3: 0 },
       dailyBonusClaimed: false,
+      dailyCompletions: 0,
       unlockedBadges: [],
       totalSuccesses: 0,
       wordsSpelled: 0,
@@ -138,6 +146,7 @@ class GamificationManager {
     );
     if (allDone && !this.#state.dailyBonusClaimed) {
       this.#state.dailyBonusClaimed = true;
+      this.#state.dailyCompletions = (this.#state.dailyCompletions || 0) + 1;
       this.#awardBonusXp(40);
       return 40;
     }
@@ -158,6 +167,14 @@ class GamificationManager {
     const signStats = (profile && profile.signStats && typeof profile.signStats === 'object')
       ? profile.signStats
       : {};
+    const examHistory = (profile && Array.isArray(profile.examHistory)) ? profile.examHistory : [];
+
+    const hasSign = (sid) => masteredSet.has(sid) || Boolean(signStats[sid] && signStats[sid].successes > 0);
+    const letterIds = [
+      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+      'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'Z'
+    ];
+    const unlockedLettersCount = letterIds.filter(hasSign).length;
 
     const unlock = (id) => {
       if (!unlocked.has(id)) {
@@ -166,18 +183,56 @@ class GamificationManager {
       }
     };
 
-    if (['A', 'E', 'I', 'O', 'U'].every(v => masteredSet.has(v) || (signStats[v] && signStats[v].successes > 0))) {
-      unlock('vowels_lsc');
-    }
+    if (['A', 'E', 'I', 'O', 'U'].every(hasSign)) unlock('vowels_lsc');
     if ((this.#state.wordsSpelled || 0) >= 1) unlock('first_word');
+    if ((this.#state.wordsSpelled || 0) >= 5) unlock('wordsmith_5');
+    if (unlockedLettersCount >= 12) unlock('alphabet_half');
+    if (unlockedLettersCount >= 24) unlock('alphabet_master');
     if ((this.#state.maxCombo || 0) >= 3) unlock('combo_master');
+    if ((this.#state.maxCombo || 0) >= 7) unlock('combo_legend');
     if ((this.#state.maxCameraScore || 0) >= 95 || masteredSet.size >= 5) unlock('camera_pro');
+    if (this.#state.dailyBonusClaimed || (this.#state.dailyCompletions || 0) >= 1) unlock('daily_hero');
+    if (['HOLA', 'BUENOS', 'DIAS'].every(hasSign)) unlock('greetings_pack');
+    if (examHistory.some(e => Number(e && e.scorePct) >= 80)) unlock('exam_champion');
 
     const hasBox5 = Object.values(signStats).some(st => st && Number(st.box) >= 5);
     if (hasBox5 || (this.#state.totalSuccesses || 0) >= 10) unlock('leitner_gold');
 
     this.#state.unlockedBadges = Array.from(unlocked);
     return newlyUnlocked;
+  }
+
+  #getBadgeProgressText(badgeId) {
+    const profile = (typeof window !== 'undefined' && window.AuthProfileManager)
+      ? window.AuthProfileManager.getCurrentProfile()
+      : null;
+    const masteredSet = new Set([
+      ...(this.#state.practicedSigns || []),
+      ...((profile && Array.isArray(profile.masteredSigns)) ? profile.masteredSigns : [])
+    ]);
+    const signStats = (profile && profile.signStats && typeof profile.signStats === 'object') ? profile.signStats : {};
+    const hasSign = (sid) => masteredSet.has(sid) || Boolean(signStats[sid] && signStats[sid].successes > 0);
+    const letterIds = [
+      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+      'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'Z'
+    ];
+    const lettersDone = letterIds.filter(hasSign).length;
+
+    const map = {
+      vowels_lsc: `${['A', 'E', 'I', 'O', 'U'].filter(hasSign).length}/5 vocales`,
+      first_word: `${Math.min(1, this.#state.wordsSpelled || 0)}/1 palabra`,
+      wordsmith_5: `${Math.min(5, this.#state.wordsSpelled || 0)}/5 palabras`,
+      alphabet_half: `${Math.min(12, lettersDone)}/12 letras`,
+      alphabet_master: `${Math.min(24, lettersDone)}/24 letras`,
+      combo_master: `${Math.min(3, this.#state.maxCombo || 0)}/3 combo`,
+      combo_legend: `${Math.min(7, this.#state.maxCombo || 0)}/7 combo`,
+      camera_pro: `${Math.min(5, masteredSet.size)}/5 señas`,
+      daily_hero: `${Math.min(3, GamificationManager.MISSION_DEFS.filter(m => (this.#state.dailyProgress[m.id] || 0) >= m.target).length)}/3 retos hoy`,
+      greetings_pack: `${['HOLA', 'BUENOS', 'DIAS'].filter(hasSign).length}/3 saludos`,
+      exam_champion: `${(profile && Array.isArray(profile.examHistory) && profile.examHistory.some(e => Number(e && e.scorePct) >= 80)) ? 1 : 0}/1 examen 80%+`,
+      leitner_gold: `${Math.min(10, this.#state.totalSuccesses || 0)}/10 aciertos`
+    };
+    return map[badgeId] || '';
   }
 
   recordFlashcardResult({ passed, combo = 0, signId = '' } = {}) {
@@ -312,7 +367,8 @@ class GamificationManager {
     });
     const badges = GamificationManager.BADGE_DEFS.map(def => ({
       ...def,
-      unlocked: unlockedSet.has(def.id)
+      unlocked: unlockedSet.has(def.id),
+      progressText: this.#getBadgeProgressText(def.id)
     }));
     return {
       dateKey: this.#state.dateKey,

@@ -516,9 +516,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795580188.8234887,
-    "seen": 1795580265.1533642,
-    "ast_hash": "b28e7d3414af04fee1707174f0e065bf",
+    "mtime": 1795580655.5962472,
+    "seen": 1795580724.0966508,
+    "ast_hash": "8c0a782107b2b1df8141cf75477662f2",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -576,9 +576,9 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795580217.139722,
-    "seen": 1795580265.2383382,
-    "ast_hash": "d18518fc0e53ef1bf27ffbea2b18d1c8",
+    "mtime": 1795580662.0488815,
+    "seen": 1795580724.1653185,
+    "ast_hash": "d2f88916071bd1de52ea8a76b621d4d7",
     "semantic_hash": ""
   },
   "app/landing.html": {
@@ -4446,15 +4446,15 @@
     "semantic_hash": ""
   },
   "app/js/gamification-manager.js": {
-    "mtime": 1795580102.9386888,
-    "seen": 1795580265.1397035,
-    "ast_hash": "1406e16b8cb45a0ebd45a2dd6d436ac8",
+    "mtime": 1795580574.369845,
+    "seen": 1795580724.08271,
+    "ast_hash": "7594e940a752d69d050969000c720622",
     "semantic_hash": ""
   },
   "tests/test_gamification_unit.js": {
-    "mtime": 1795580193.0021217,
-    "seen": 1795580265.2189336,
-    "ast_hash": "1962becb0cbc5571e2179c4c184bbf7e",
+    "mtime": 1795580664.1857219,
+    "seen": 1795580724.1502814,
+    "ast_hash": "57f8e3fc50ac3c3e857ea3200aeccb45",
     "semantic_hash": ""
   },
   "app/img/letters/Q_sol.png": {
@@ -4494,9 +4494,9 @@
     "semantic_hash": ""
   },
   "app/js/achievements-controller.js": {
-    "mtime": 1795580107.0296192,
-    "seen": 1795580265.1356883,
-    "ast_hash": "44293830f47651e45075a314f928b2b1",
+    "mtime": 1795580636.7563782,
+    "seen": 1795580724.0771198,
+    "ast_hash": "e30c949ff1ce22834c7141321ec6c14f",
     "semantic_hash": ""
   },
   "app/img/badges/badge_camera_pro.png": {
@@ -4527,6 +4527,48 @@
     "mtime": 1795580128.2642136,
     "seen": 1795580265.3085444,
     "ast_hash": "1197cabaab625975462ce1ce878d06a1",
+    "semantic_hash": ""
+  },
+  "app/img/badges/badge_alphabet_half.png": {
+    "mtime": 1795580538.4272451,
+    "seen": 1795580724.2280712,
+    "ast_hash": "90a496415c2e4a8ecae8d224bbea3612",
+    "semantic_hash": ""
+  },
+  "app/img/badges/badge_alphabet_master.png": {
+    "mtime": 1795580625.0340185,
+    "seen": 1795580724.2280712,
+    "ast_hash": "04da7c0f87e2ea42439560b9ef676c94",
+    "semantic_hash": ""
+  },
+  "app/img/badges/badge_combo_legend.png": {
+    "mtime": 1795580538.9788313,
+    "seen": 1795580724.2280712,
+    "ast_hash": "afd3d3c98a3b1f3b2288e9c26167ac79",
+    "semantic_hash": ""
+  },
+  "app/img/badges/badge_daily_hero.png": {
+    "mtime": 1795580627.3607955,
+    "seen": 1795580724.2290757,
+    "ast_hash": "6109d9a54bade74aa3738570327e8c63",
+    "semantic_hash": ""
+  },
+  "app/img/badges/badge_exam_champion.png": {
+    "mtime": 1795580625.8065026,
+    "seen": 1795580724.2290757,
+    "ast_hash": "d6e0bc6ce352d625528969506f1d48c9",
+    "semantic_hash": ""
+  },
+  "app/img/badges/badge_greetings_pack.png": {
+    "mtime": 1795580537.887921,
+    "seen": 1795580724.2290757,
+    "ast_hash": "a5abdb97c32723f063067ba73e3e7fbe",
+    "semantic_hash": ""
+  },
+  "app/img/badges/badge_wordsmith_5.png": {
+    "mtime": 1795580626.5525944,
+    "seen": 1795580724.2306116,
+    "ast_hash": "57204f3fd8316a953dd22aa24a7a0a9f",
     "semantic_hash": ""
   },
   "package-lock.json": {

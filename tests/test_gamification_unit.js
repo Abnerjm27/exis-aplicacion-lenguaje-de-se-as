@@ -59,15 +59,30 @@ const rCam = gm.recordCameraSuccess({ signId: 'M', score: 96 });
 assert.ok(rCam.state.badges.find(b => b.id === 'camera_pro').unlocked, 'camera_pro debe desbloquearse con 96%');
 
 profile.signStats = { F: { box: 5, attempts: 6, successes: 6 } };
-const rGold = gm.update();
-assert.ok(rGold.badges.find(b => b.id === 'leitner_gold').unlocked, 'leitner_gold debe desbloquearse en Caja 5');
-assert.strictEqual(rGold.unlockedCount, 5);
-rGold.badges.forEach(b => {
+const r5Badges = gm.update();
+assert.ok(r5Badges.badges.find(b => b.id === 'leitner_gold').unlocked, 'leitner_gold debe desbloquearse en Caja 5');
+assert.ok(r5Badges.badges.find(b => b.id === 'daily_hero').unlocked, 'daily_hero debe desbloquearse tras completar retos');
+
+// Completar el resto de las 12 medallas
+gm.recordWordSpelled('CAFE');
+gm.recordWordSpelled('PAPA');
+gm.recordWordSpelled('MANO');
+gm.recordFlashcardResult({ passed: true, combo: 7, signId: 'B' });
+['C', 'D', 'G', 'H', 'J', 'K', 'L', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Z', 'HOLA', 'BUENOS', 'DIAS']
+  .forEach(sid => gm.recordCameraSuccess({ signId: sid, score: 92 }));
+profile.examHistory = [{ planTitle: 'Examen', scorePct: 90, correct: 9, total: 10 }];
+
+const rAll = gm.update();
+assert.strictEqual(rAll.totalBadges, 12, 'Deben existir 12 medallas');
+assert.strictEqual(rAll.unlockedCount, 12, 'Las 12 medallas deben poderse desbloquear');
+rAll.badges.forEach(b => {
+  assert.ok(['alphabet', 'practice', 'mastery'].includes(b.category), `Categoría inválida en ${b.id}`);
+  assert.ok(typeof b.progressText === 'string', `Falta progressText en ${b.id}`);
   assert.ok(b.image && b.image.startsWith('img/badges/'), `Falta ruta de medalla para ${b.id}`);
   const imgFile = path.join(__dirname, '..', 'app', b.image);
   assert.ok(fs.existsSync(imgFile) && fs.statSync(imgFile).size > 10000, `Medalla faltante en disco: ${imgFile}`);
 });
-console.log('  ✅ [PASS] 3. Todas las 5 insignias desbloqueadas y con medallas PNG en disco.');
+console.log('  ✅ [PASS] 3. Todas las 12 medallas desbloqueadas, categorizadas y con PNG en disco.');
 
 // 4. Tiers de Maestría Bronce / Plata / Oro
 assert.strictEqual(gm.getMasteryTier(1).tier, 'bronze');
@@ -83,7 +98,7 @@ const nextDayState = gm.getState();
 assert.strictEqual(nextDayState.dateKey, '2026-11-25');
 assert.strictEqual(nextDayState.dailyBonusClaimed, false);
 assert.ok(nextDayState.missions.every(m => m.current === 0 && !m.done));
-assert.strictEqual(nextDayState.unlockedCount, 5, 'Las insignias deben persistir entre días');
-console.log('  ✅ [PASS] 5. Reinicio diario de misiones manteniendo insignias.');
+assert.strictEqual(nextDayState.unlockedCount, 12, 'Las 12 insignias deben persistir entre días');
+console.log('  ✅ [PASS] 5. Reinicio diario de misiones manteniendo las 12 insignias.');
 
 console.log('\n🎉 ¡TODAS LAS PRUEBAS DE GamificationManager PASARON! (5/5)');
