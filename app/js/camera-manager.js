@@ -126,6 +126,10 @@ class CameraDeviceManager {
       if (!newDeviceId) return;
       this.#selectedDeviceId = newDeviceId;
 
+      if (selectEl.id === 'alphabetSpellCameraSelect' && window.AlphabetLabController && !window.AlphabetLabController.isSpellCameraActive()) {
+        return;
+      }
+
       if (window.VisionEvaluator) {
         await window.VisionEvaluator.startWithDevice(newDeviceId);
       } else {
@@ -138,6 +142,12 @@ class CameraDeviceManager {
         lessonVideo.srcObject = stream;
         lessonVideo.muted = true;
         try { await lessonVideo.play(); } catch (err) {}
+      }
+      const labVideo = document.getElementById('alphabetSpellWebcamVideo');
+      if (labVideo && stream) {
+        labVideo.srcObject = stream;
+        labVideo.muted = true;
+        try { await labVideo.play(); } catch (err) {}
       }
     });
 
@@ -439,6 +449,8 @@ class CameraDeviceManager {
     if (lessonVideo) lessonVideo.srcObject = null;
     const examVideo = document.getElementById('examPracticeWebcamVideo');
     if (examVideo) examVideo.srcObject = null;
+    const labVideo = document.getElementById('alphabetSpellWebcamVideo');
+    if (labVideo) labVideo.srcObject = null;
   }
 
   /**

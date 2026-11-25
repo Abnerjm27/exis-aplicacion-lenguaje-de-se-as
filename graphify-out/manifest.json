@@ -24,9 +24,9 @@
     "semantic_hash": ""
   },
   "app/js/camera-manager.js": {
-    "mtime": 1795578296.9949243,
-    "seen": 1795578383.8060515,
-    "ast_hash": "048523e423dcac726a1aa544244e733e",
+    "mtime": 1795578808.2836926,
+    "seen": 1795578877.1625931,
+    "ast_hash": "24354625ae921057d8820a1e0dc318fc",
     "semantic_hash": ""
   },
   "app/js/chat-tutor.js": {
@@ -66,9 +66,9 @@
     "semantic_hash": ""
   },
   "app/js/vision-evaluator.js": {
-    "mtime": 1795578295.3561804,
-    "seen": 1795578383.8157563,
-    "ast_hash": "a0be2b0373c71c7a79fdf9a4f81b2170",
+    "mtime": 1795578804.3918955,
+    "seen": 1795578877.1724896,
+    "ast_hash": "1fbcc9b35f6cffbd5929732e02bfc86e",
     "semantic_hash": ""
   },
   "app/tools/check_console.js": {
@@ -516,9 +516,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795578323.8231702,
-    "seen": 1795578383.8224564,
-    "ast_hash": "6c6641dc5cbc1ca2c3479d60858b465f",
+    "mtime": 1795578825.40405,
+    "seen": 1795578877.1800148,
+    "ast_hash": "15f1388098dcbc5a2a00955c45448029",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -576,9 +576,9 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795578329.1493692,
-    "seen": 1795578383.8943996,
-    "ast_hash": "d4697097714410bd58604015f0390993",
+    "mtime": 1795578829.0807183,
+    "seen": 1795578877.2520475,
+    "ast_hash": "134e146d9badf740a137e06e8f2318f3",
     "semantic_hash": ""
   },
   "app/landing.html": {
@@ -4302,9 +4302,9 @@
     "semantic_hash": ""
   },
   "app/js/alphabet-lab-controller.js": {
-    "mtime": 1795578306.8850474,
-    "seen": 1795578383.8035862,
-    "ast_hash": "2fac30a9c0b13a0c7220784523287f50",
+    "mtime": 1795578812.5247245,
+    "seen": 1795578877.160587,
+    "ast_hash": "50444f28023a558581e4572786aad2f3",
     "semantic_hash": ""
   },
   "app/js/finger-feedback-engine.js": {

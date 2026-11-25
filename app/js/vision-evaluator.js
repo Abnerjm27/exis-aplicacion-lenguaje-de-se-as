@@ -6,6 +6,7 @@
 
 const VisionEvaluator = (() => {
   let isWebcamRunning = false;
+  let startGeneration = 0;
   let cameraInstance = null;
   let handsInstance = null;
   let poseInstance = null;
@@ -169,10 +170,15 @@ const VisionEvaluator = (() => {
 
   async function startWithDevice(deviceId = null) {
     if (!videoElement || !canvasElement) return false;
+    const myGen = ++startGeneration;
 
     try {
       updateCameraUIState('connecting');
       await ensureModelsInitialized();
+      if (myGen !== startGeneration) {
+        updateCameraUIState('stopped');
+        return false;
+      }
 
       try {
         if (window.CameraManager) {
@@ -195,6 +201,16 @@ const VisionEvaluator = (() => {
         throw streamErr;
       }
 
+      if (myGen !== startGeneration) {
+        if (window.CameraManager) {
+          window.CameraManager.stop();
+        } else if (cameraInstance) {
+          cameraInstance.stop();
+        }
+        updateCameraUIState('stopped');
+        return false;
+      }
+
       isWebcamRunning = true;
       updateCameraUIState('running');
       return true;
@@ -214,6 +230,7 @@ const VisionEvaluator = (() => {
   }
 
   function stop() {
+    startGeneration += 1;
     if (window.CameraManager) {
       window.CameraManager.stop();
     } else if (cameraInstance) {
@@ -223,7 +240,12 @@ const VisionEvaluator = (() => {
     latestPoseLandmarks = null;
     lastPoseResultTime = 0;
     updateCameraUIState('stopped');
-    [canvasElement, document.getElementById('lessonPracticeCanvas'), document.getElementById('examPracticeCanvas')]
+    [
+      canvasElement,
+      document.getElementById('lessonPracticeCanvas'),
+      document.getElementById('examPracticeCanvas'),
+      document.getElementById('alphabetSpellCanvas')
+    ]
       .filter(Boolean)
       .forEach((cv) => {
         const ctx = cv.getContext('2d');

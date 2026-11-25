@@ -60,7 +60,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>photos_letras_postgres — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 4443 nodes, 8610 edges, 198 communities. Commit: be4a1d8</p>
+<p class="subtitle">Generated from graphify knowledge graph: 4443 nodes, 8610 edges, 198 communities. Commit: ddb9ccc</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
@@ -4836,6 +4836,7 @@ flowchart LR
     %% Section: Other (2220 nodes, 3801 edges)
     subgraph other_app_js_alphabet_lab_controller_js_c16f9998["app/js/alphabet-lab-controller.js"]
         app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93("AlphabetLabController<br/><small>app/js/alphabet-lab-controller.js</small>")
+        app_js_alphabet_lab_controller_alphabetlabcontro_19ad1c9a("handlePracticeFrame()<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_d0503cc5("handleSignMasteredInLab()<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_ad8f233a("getLetters()<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_5ebc570f("getLetterById()<br/><small>app/js/alphabet-lab-controller.js</small>")
@@ -4847,13 +4848,13 @@ flowchart LR
         app_js_alphabet_lab_controller_alphabetlabcontro_b0e345cd("practiceLetterInStudio()<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda("el()<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_0495667d("render()<br/><small>app/js/alphabet-lab-controller.js</small>")
-        app_js_alphabet_lab_controller_alphabetlabcontro_7c3964d4("init()<br/><small>app/js/alphabet-lab-controller.js</small>")
     end
     app_js_auth_service_authservice_75d6a046("AuthService<br/><small>app/js/auth-service.js</small>")
     app_js_blind_exam_controller_blindexamcontroller_0361b900("BlindExamController<br/><small>app/js/blind-exam-controller.js</small>")
     app_js_camera_manager_cameradevicemanager_9bfb70a8("CameraDeviceManager<br/><small>app/js/camera-manager.js</small>")
     app_js_learning_plan_manager_learningplanmanager_cd4afc8c("LearningPlanManager<br/><small>app/js/learning-plan-manager.js</small>")
     app_js_sign_anatomy_validator_signanatomyvalidat_b0f5f82a("SignAnatomyValidator<br/><small>app/js/sign-anatomy-validator.js</small>")
+    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_19ad1c9a
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_d0503cc5
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_ad8f233a
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_5ebc570f
@@ -4865,8 +4866,9 @@ flowchart LR
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_b0e345cd
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda
     app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_0495667d
-    app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 -->|method| app_js_alphabet_lab_controller_alphabetlabcontro_7c3964d4
     app_js_alphabet_lab_controller_alphabetlabcontro_5ebc570f -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_ad8f233a
+    app_js_alphabet_lab_controller_alphabetlabcontro_19ad1c9a -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_5ebc570f
+    app_js_alphabet_lab_controller_alphabetlabcontro_19ad1c9a -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_d0503cc5
     app_js_alphabet_lab_controller_alphabetlabcontro_d0503cc5 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_5ebc570f
     app_js_alphabet_lab_controller_alphabetlabcontro_c4cb8b80 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_ad8f233a
     app_js_alphabet_lab_controller_alphabetlabcontro_0495667d -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda
@@ -4874,6 +4876,7 @@ flowchart LR
     app_js_alphabet_lab_controller_alphabetlabcontro_99c87f83 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_0495667d
     %% Omitted for readability: 2202 nodes, 0 edges
     class app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 klass;
+    class app_js_alphabet_lab_controller_alphabetlabcontro_19ad1c9a function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_d0503cc5 function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_ad8f233a function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_5ebc570f function;
@@ -4885,7 +4888,6 @@ flowchart LR
     class app_js_alphabet_lab_controller_alphabetlabcontro_b0e345cd function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_692fdeda function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_0495667d function;
-    class app_js_alphabet_lab_controller_alphabetlabcontro_7c3964d4 function;
     class app_js_auth_service_authservice_75d6a046 klass;
     class app_js_blind_exam_controller_blindexamcontroller_0361b900 klass;
     class app_js_camera_manager_cameradevicemanager_9bfb70a8 klass;
@@ -5201,7 +5203,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>photos_letras_postgres — Architecture Documentation</p>
-  <p>Generated: 2026-11-25 03:46 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-11-25 03:54 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->

@@ -85,14 +85,24 @@ class AlphabetLabController {
       this.#spellStreamTimer = null;
     }
     const labVid = document.getElementById('alphabetSpellWebcamVideo');
-    if (labVid) labVid.srcObject = null;
+    if (labVid) {
+      if (labVid.srcObject && typeof labVid.srcObject.getTracks === 'function') {
+        labVid.srcObject.getTracks().forEach(t => { try { t.stop(); } catch (_) {} });
+      }
+      labVid.srcObject = null;
+    }
+    const placeholder = document.getElementById('alphabetSpellCamPlaceholder');
+    if (placeholder) placeholder.classList.remove('hidden');
     const labCanvas = document.getElementById('alphabetSpellCanvas');
     if (labCanvas) {
       const ctx = labCanvas.getContext('2d');
       if (ctx) ctx.clearRect(0, 0, labCanvas.width, labCanvas.height);
     }
-    if (window.VisionEvaluator && typeof window.VisionEvaluator.isRunning === 'function' && window.VisionEvaluator.isRunning()) {
+    if (window.VisionEvaluator && typeof window.VisionEvaluator.stop === 'function') {
       try { window.VisionEvaluator.stop(); } catch (_) { /* ignore stop errors */ }
+    }
+    if (window.CameraManager && typeof window.CameraManager.stop === 'function') {
+      try { window.CameraManager.stop(); } catch (_) { /* ignore stop errors */ }
     }
   }
 
@@ -624,8 +634,8 @@ class AlphabetLabController {
     const labVid = document.getElementById('alphabetSpellWebcamVideo');
     const placeholder = document.getElementById('alphabetSpellCamPlaceholder');
     if (!labVid) return false;
-    const stream = (window.CameraManager && typeof window.CameraManager.getActiveStream === 'function')
-      ? window.CameraManager.getActiveStream()
+    const stream = (window.CameraManager && typeof window.CameraManager.getStream === 'function')
+      ? window.CameraManager.getStream()
       : (document.getElementById('webcamVideo')?.srcObject || null);
     if (stream) {
       if (labVid.srcObject !== stream) labVid.srcObject = stream;
@@ -646,9 +656,13 @@ class AlphabetLabController {
 
     window.VisionEvaluator.setTargetSign(letterObj);
     window.VisionEvaluator.setPaused(false);
+    const selectEl = document.getElementById('alphabetSpellCameraSelect');
+    const chosenId = (selectEl && selectEl.value) ? selectEl.value : null;
     if (typeof window.VisionEvaluator.isRunning === 'function' && !window.VisionEvaluator.isRunning()) {
       try {
-        const res = window.VisionEvaluator.start();
+        const res = (chosenId && typeof window.VisionEvaluator.startWithDevice === 'function')
+          ? window.VisionEvaluator.startWithDevice(chosenId)
+          : window.VisionEvaluator.start();
         if (res && typeof res.catch === 'function') {
           res.catch(() => {
             this.stopSpellCamera();
