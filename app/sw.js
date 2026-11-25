@@ -2,10 +2,10 @@
  * sw.js — Service Worker de Manitas (PWA para Lengua de Señas Colombiana)
  *
  * Estrategia: Network-First con fallback a Cache para shell y assets estáticos.
- * Exclusiones: No intercepta llamadas dinámicas /api/ (Ollama / Planes) ni peticiones con rango de video.
+ * Exclusiones: No intercepta llamadas dinámicas /api/ (Usuarios / Planes / SRS) ni peticiones con rango de video.
  */
 
-const CACHE_NAME = 'manitas-pwa-v22-12-medals';
+const CACHE_NAME = 'manitas-pwa-v23-no-ollama';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -52,7 +52,7 @@ const ASSETS_TO_CACHE = [
   '/js/alphabet-lab-controller.js',
   '/js/achievements-controller.js',
   '/js/pwa-manager.js',
-  '/js/chat-tutor.js',
+  '/js/voice-feedback.js',
   '/js/main.js',
   '/img/manitas-icono-app-1024.png',
   '/img/icons/icon-192.png',

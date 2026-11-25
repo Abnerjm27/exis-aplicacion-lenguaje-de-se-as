@@ -162,36 +162,6 @@ function bindUIEvents() {
   const btnNextSign = document.getElementById('btnNextSign');
   if (btnKeepPracticing) btnKeepPracticing.addEventListener('click', () => dismissSuccessModal(false));
   if (btnNextSign) btnNextSign.addEventListener('click', () => dismissSuccessModal(true));
-
-  // Chat Tutor Drawer
-  const btnToggleChat = document.getElementById('btnToggleChat');
-  const btnCloseChat = document.getElementById('btnCloseChat');
-  const btnSendChat = document.getElementById('chatSendBtn');
-  const inputChat = document.getElementById('chatInput');
-
-  if (btnToggleChat) btnToggleChat.addEventListener('click', () => window.ChatTutor && window.ChatTutor.toggleDrawer());
-  if (btnCloseChat) btnCloseChat.addEventListener('click', () => window.ChatTutor && window.ChatTutor.toggleDrawer());
-
-  const urlChatParam = new URLSearchParams(window.location.search).get('chat');
-  if (urlChatParam === 'open' && window.ChatTutor && typeof window.ChatTutor.toggleDrawer === 'function') {
-    window.ChatTutor.toggleDrawer();
-  }
-  if (btnSendChat) btnSendChat.addEventListener('click', () => window.ChatTutor && window.ChatTutor.sendMessage());
-  if (inputChat) {
-    inputChat.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        window.ChatTutor && window.ChatTutor.sendMessage();
-      }
-    });
-  }
-
-  // Chips de preguntas rápidas
-  document.querySelectorAll('.quick-chip').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const prompt = e.currentTarget.getAttribute('data-prompt');
-      if (prompt && window.ChatTutor) window.ChatTutor.sendQuickMessage(prompt);
-    });
-  });
 }
 
 function initStudioOrientationBanner() {

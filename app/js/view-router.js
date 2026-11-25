@@ -236,11 +236,6 @@ class ViewRouter {
       btnExam.addEventListener('click', () => this.#closeMobileSidebar());
     }
 
-    const btnChat = document.getElementById('btnToggleChat');
-    if (btnChat) {
-      btnChat.addEventListener('click', () => this.#closeMobileSidebar());
-    }
-
     const btnBack = document.getElementById('btnBackToPath');
     if (btnBack) {
       btnBack.addEventListener('click', () => this.switchToPathView());

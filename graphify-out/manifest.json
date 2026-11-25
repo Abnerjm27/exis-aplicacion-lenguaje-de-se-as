@@ -29,12 +29,6 @@
     "ast_hash": "fac84c4795738970bbd0c27b3ceec658",
     "semantic_hash": ""
   },
-  "app/js/chat-tutor.js": {
-    "mtime": 1795575018.0298638,
-    "seen": 1795576410.020475,
-    "ast_hash": "0b10af141ceb7b211d81cbac834a9209",
-    "semantic_hash": ""
-  },
   "app/js/learning-plan-manager.js": {
     "mtime": 1795575018.0391405,
     "seen": 1795576410.020475,
@@ -42,9 +36,9 @@
     "semantic_hash": ""
   },
   "app/js/main.js": {
-    "mtime": 1795580181.7194326,
-    "seen": 1795580265.1417623,
-    "ast_hash": "af9b92005e11731ba3466669a074a3bb",
+    "mtime": 1795581944.0732965,
+    "seen": 1795582154.3526964,
+    "ast_hash": "8bed3b3576feb8c735041f86631a24a2",
     "semantic_hash": ""
   },
   "app/js/signs-data.js": {
@@ -210,15 +204,15 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1795576742.7886891,
-    "seen": 1795576810.1834223,
-    "ast_hash": "5ef888dcf1445dc222e96eb58211cab5",
+    "mtime": 1795581980.8822856,
+    "seen": 1795582154.4013572,
+    "ast_hash": "e4d126887207675cf4768d866038ab42",
     "semantic_hash": ""
   },
   "server.py": {
-    "mtime": 1795577115.8108244,
-    "seen": 1795577194.611685,
-    "ast_hash": "5c908ce99444435a690968448ae6a8f9",
+    "mtime": 1795582049.3722014,
+    "seen": 1795582154.4013572,
+    "ast_hash": "5aba69ae219a3d8367727ee3fdca1d40",
     "semantic_hash": ""
   },
   "tests/backend_api_plan_users.js": {
@@ -324,9 +318,9 @@
     "semantic_hash": ""
   },
   "app/js/view-router.js": {
-    "mtime": 1795580179.6578355,
-    "seen": 1795580265.1453059,
-    "ast_hash": "a15dda8a70e9b902dcb4462ada6aad0d",
+    "mtime": 1795581946.2668395,
+    "seen": 1795582154.355695,
+    "ast_hash": "0c37794673369ca2f1a3fc060f6904be",
     "semantic_hash": ""
   },
   "tests/test_3_screens_flow.spec.js": {
@@ -516,9 +510,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795580655.5962472,
-    "seen": 1795580724.0966508,
-    "ast_hash": "8c0a782107b2b1df8141cf75477662f2",
+    "mtime": 1795581950.5701346,
+    "seen": 1795582154.3620365,
+    "ast_hash": "bba696d80e5575ad7265b0281a14d5c8",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -576,9 +570,9 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795580662.0488815,
-    "seen": 1795580724.1653185,
-    "ast_hash": "d2f88916071bd1de52ea8a76b621d4d7",
+    "mtime": 1795581939.0001073,
+    "seen": 1795582154.4214056,
+    "ast_hash": "7d6a5bcfd67542d0024124eab7805562",
     "semantic_hash": ""
   },
   "app/landing.html": {
@@ -4230,9 +4224,9 @@
     "semantic_hash": ""
   },
   "app/perfil.html": {
-    "mtime": 1795580142.775247,
-    "seen": 1795580265.2403393,
-    "ast_hash": "444b6242538c57981242369e23b436f0",
+    "mtime": 1795581941.0467525,
+    "seen": 1795582154.4239194,
+    "ast_hash": "f94fd18574b2a0ef611d9ac617fc7f15",
     "semantic_hash": ""
   },
   "tests/screenshots/screen4_profile_page.png": {
@@ -4569,6 +4563,12 @@
     "mtime": 1795580626.5525944,
     "seen": 1795580724.2306116,
     "ast_hash": "57204f3fd8316a953dd22aa24a7a0a9f",
+    "semantic_hash": ""
+  },
+  "app/js/voice-feedback.js": {
+    "mtime": 1795581930.611668,
+    "seen": 1795582154.3566954,
+    "ast_hash": "037fb75f5d90e59a7debefa5746c806c",
     "semantic_hash": ""
   },
   "package-lock.json": {

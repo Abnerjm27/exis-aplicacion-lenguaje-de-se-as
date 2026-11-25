@@ -57,9 +57,9 @@
   <script src="js/view-router.js?v=20261124_v21" defer></script>
   <script src="js/alphabet-lab-controller.js?v=20261124_v21" defer></script>
   <script src="js/achievements-controller.js?v=20261124_v22" defer></script>
-  <script src="js/pwa-manager.js?v=20261124_v21" defer></script>
-  <script src="js/chat-tutor.js?v=20261120_v15" defer></script>
-  <script src="js/main.js?v=20261124_v21" defer></script>
+  <script src="js/pwa-manager.js?v=20261124_v23" defer></script>
+  <script src="js/voice-feedback.js?v=20261124_v23" defer></script>
+  <script src="js/main.js?v=20261124_v23" defer></script>
 </head>
 
 <body class="app-shell text-slate-900 antialiased selection:bg-amber-500 selection:text-slate-900">
@@ -105,12 +105,6 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
           <span>Modo Examen</span>
         </button>
-
-        <button id="btnToggleChat" class="sidebar-nav-btn btn-spring" aria-label="Abrir Tito · Tutor IA">
-          <img src="img/zorrito/svg/zorrito_saludo.svg" alt="" class="w-4 h-4 shrink-0 object-contain">
-          <span class="flex-1 text-left">Tito · Tutor IA</span>
-          <span class="w-2 h-2 rounded-full bg-emerald-600" aria-hidden="true"></span>
-        </button>
       </nav>
     </div>
 
@@ -137,7 +131,7 @@
         </button>
         <div class="min-w-0">
           <h1 id="topbarSectionTitle" class="text-sm sm:text-base font-extrabold text-slate-900 truncate">Práctica Libre LSC</h1>
-          <p class="hidden sm:block text-xs text-slate-500 truncate">Video interactivo, visión artificial en tiempo real y tutoría con Tito</p>
+          <p class="hidden sm:block text-xs text-slate-500 truncate">Video interactivo, visión artificial en tiempo real y práctica LSC70</p>
         </div>
       </div>
 
@@ -587,81 +581,17 @@
     </div>
     </div> <!-- Fin de #viewPracticeStudio -->
 
-    <!-- CHAT TUTOR DRAWER -->
-    <aside id="chatDrawer" aria-label="Tito · Tutor IA Local" class="hidden fixed bottom-6 right-6 w-[380px] max-w-[calc(100vw-32px)] h-[540px] surface-card rounded-2xl flex flex-col z-50 shadow-2xl border border-slate-300 overflow-hidden">
-      <!-- Encabezado del Chat -->
-      <div class="px-4 py-3 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-xl bg-amber-50 border border-amber-300 flex items-center justify-center shrink-0 p-1">
-            <img src="img/zorrito/svg/zorrito_explicando.svg" alt="Tito · Tutor IA" class="w-full h-full object-contain anim-float">
-          </div>
-          <div>
-            <h3 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-              <span>Tito · Tutor IA</span>
-              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 border border-amber-300">Tutor LSC</span>
-            </h3>
-            <p class="text-[10px] text-emerald-700 font-mono font-semibold">En vivo · Ollama qwen2.5:3b</p>
-          </div>
-        </div>
-        <button id="btnCloseChat" class="btn-spring text-slate-600 hover:text-slate-900 min-w-[44px] min-h-[44px] sm:min-w-[34px] sm:min-h-[34px] p-1 rounded-lg text-sm bg-white border border-slate-200" aria-label="Cerrar Chat">
-          ✕
-        </button>
-      </div>
-
-      <!-- Mensajes del Chat -->
-      <div id="chatMessages" class="flex-1 p-3 overflow-y-auto overflow-x-hidden flex flex-col gap-3 text-xs bg-slate-50">
-        <div class="flex flex-col gap-1.5 self-start max-w-[85%]">
-          <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-sm text-slate-900 leading-relaxed shadow-sm">
-            ¡Hola! Soy Tito, tu tutor de Lengua de Señas Colombiana (LSC). Dime qué palabra o letra te gustaría aprender hoy.
-          </div>
-          <!-- Chips de Sugerencia Rápida -->
-          <div class="flex flex-wrap gap-1.5 mt-1">
-            <button class="quick-chip btn-spring px-2.5 py-1 min-h-[36px] rounded-full bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 text-[11px]" data-prompt="Quiero aprender HOLA">
-              Aprender "HOLA"
-            </button>
-            <button class="quick-chip btn-spring px-2.5 py-1 min-h-[36px] rounded-full bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 text-[11px]" data-prompt="Quiero aprender YO">
-              Aprender "YO"
-            </button>
-            <button class="quick-chip btn-spring px-2.5 py-1 min-h-[36px] rounded-full bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 text-[11px]" data-prompt="Quiero aprender BUENOS">
-              Aprender "BUENOS"
-            </button>
-            <button class="quick-chip btn-spring px-2.5 py-1 min-h-[36px] rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 text-[11px]" data-prompt="¿Qué señas tienes disponibles?">
-              ¿Qué señas hay?
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Campo de Entrada del Chat -->
-      <div class="p-2.5 bg-white border-t border-slate-200 flex items-center gap-2">
-        <input 
-          id="chatInput" 
-          type="text" 
-          placeholder="Escribe: 'Quiero aprender Yo'..." 
-          aria-label="Escribe tu mensaje para Tito Tutor IA"
-          class="flex-1 min-h-[44px] bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition"
-        />
-        <button 
-          id="chatSendBtn"
-          class="btn-spring p-2 rounded-xl bg-coral-500 hover:bg-coral-400 text-slate-900 font-bold text-xs shadow flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px]"
-          aria-label="Enviar mensaje"
-        >
-          ➔
-        </button>
-      </div>
-    </aside>
-
     <!-- FOOTER / ESTADÍSTICAS -->
     <footer class="surface-card p-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 gap-3">
       <div>
         <span class="font-bold text-slate-900">Manitas</span> · Base de Datos: <span class="text-amber-700 font-mono font-semibold">LSC70 (Universidad Tecnológica de Pereira)</span>
       </div>
       <div class="flex items-center gap-4 font-mono text-[11px] text-slate-600">
-        <span>Video: Reproductor Interactivo LSC (Real & Anime IA)</span>
+        <span>Video: Reproductor Interactivo LSC (Real & Anime)</span>
         <span>·</span>
         <span>Visión: MediaPipe Hands + Pose</span>
         <span>·</span>
-        <span>IA: Ollama qwen2.5:3b</span>
+        <span>LSC70 Offline-First</span>
       </div>
     </footer>
 
