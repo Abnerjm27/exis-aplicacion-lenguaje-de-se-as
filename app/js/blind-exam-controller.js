@@ -856,6 +856,9 @@ class BlindExamController {
         dateIso: new Date().toISOString()
       });
     }
+    if (window.GamificationManager && typeof window.GamificationManager.recordExamResult === 'function') {
+      window.GamificationManager.recordExamResult(scorePct);
+    }
 
     // 3. Mostrar modal de resumen / certificado
     this.#showSummaryModal(scorePct, correct, total);

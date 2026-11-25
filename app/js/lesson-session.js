@@ -578,6 +578,13 @@ class LessonSessionController {
       if (btnFinish) btnFinish.onclick = () => this.closeLesson();
     }
 
+    if (typeof window !== 'undefined' && window.GamificationManager && typeof window.GamificationManager.recordCameraSuccess === 'function') {
+      window.GamificationManager.recordCameraSuccess({
+        signId: this.#currentSignId,
+        score: this.#practiceScore > 0 ? this.#practiceScore : 90
+      });
+    }
+
     if (typeof this.#callbacks.onLessonComplete === 'function') {
       try { this.#callbacks.onLessonComplete(this.getSummary()); } catch (err) { console.error('Error en onLessonComplete:', err); }
     }

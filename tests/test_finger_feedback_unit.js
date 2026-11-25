@@ -153,6 +153,11 @@ assert.ok(engine.evaluateLetter('S', lmS).score >= 85, 'S positiva esperada >= 8
 
 const lmT = makeBaseHand();
 assert.ok(engine.evaluateLetter('T', lmT).score >= 85, 'T positiva esperada >= 85');
+const lmTBad = makeBaseHand();
+lmTBad[4] = { x: 0.25, y: 0.56 }; // pulgar abierto hacia afuera, no entre índice y medio
+const resTBad = engine.evaluateLetter('T', lmTBad);
+assert.ok(resTBad.score < 85, `T con pulgar afuera esperada < 85, obtuvo ${resTBad.score}`);
+assert.ok(resTBad.hint.toLowerCase().includes('pulgar'), `Hint de T esperada mención de pulgar: ${resTBad.hint}`);
 
 const lmW = makeBaseHand();
 extendUp(lmW, 5, 6, 8, -0.06);

@@ -7,10 +7,26 @@ class AchievementsController {
   #initialized = false;
   #root = null;
   #activeCategory = 'all';
+  #toastQueue = [];
+  #toastActive = false;
+  #toastTimer = null;
+  #boundBadgeHandler = null;
 
   init() {
     if (this.#initialized) return this;
     this.#root = document.getElementById('viewAchievements');
+    this.#boundBadgeHandler = (event) => {
+      const badges = event && event.detail && Array.isArray(event.detail.badges)
+        ? event.detail.badges
+        : [];
+      if (badges.length === 0) return;
+      this.#toastQueue.push(...badges);
+      if (this.#root && !this.#root.classList.contains('hidden')) {
+        this.update();
+      }
+      this.#processToastQueue();
+    };
+    window.addEventListener('manitas:badge-unlocked', this.#boundBadgeHandler);
     this.#initialized = true;
     return this;
   }
@@ -30,7 +46,97 @@ class AchievementsController {
   }
 
   destroy() {
+    if (this.#boundBadgeHandler) {
+      window.removeEventListener('manitas:badge-unlocked', this.#boundBadgeHandler);
+      this.#boundBadgeHandler = null;
+    }
+    if (this.#toastTimer) {
+      clearTimeout(this.#toastTimer);
+      this.#toastTimer = null;
+    }
+    this.#toastQueue = [];
+    this.#toastActive = false;
+    const existing = document.getElementById('achBadgeToastStack');
+    if (existing) existing.remove();
     this.#initialized = false;
+  }
+
+  showUnlockToast(badge) {
+    if (!badge || typeof document === 'undefined') return;
+    let stack = document.getElementById('achBadgeToastStack');
+    if (!stack) {
+      stack = this.#el('div', 'ach-toast-stack');
+      stack.id = 'achBadgeToastStack';
+      stack.setAttribute('role', 'status');
+      stack.setAttribute('aria-live', 'polite');
+      document.body.appendChild(stack);
+    }
+
+    stack.replaceChildren();
+    const card = this.#el('div', 'ach-toast-card');
+
+    const imgWrap = this.#el('div', 'ach-toast-medal');
+    const img = document.createElement('img');
+    img.src = badge.image || 'img/badges/badge_first_word.png';
+    img.alt = badge.title || 'Medalla desbloqueada';
+    imgWrap.appendChild(img);
+    card.appendChild(imgWrap);
+
+    const copy = this.#el('div', 'ach-toast-copy');
+    copy.appendChild(this.#el('span', 'ach-toast-eyebrow', '¡Nuevo logro desbloqueado!'));
+    copy.appendChild(this.#el('h4', 'ach-toast-title', badge.title || 'Medalla LSC'));
+    copy.appendChild(this.#el('p', 'ach-toast-desc', badge.desc || 'Seguiste avanzando en Manitas LSC.'));
+
+    const actions = this.#el('div', 'ach-toast-actions');
+    const btnView = this.#el('button', 'ach-toast-cta', 'Ver Logros');
+    btnView.type = 'button';
+    btnView.addEventListener('click', () => {
+      this.#dismissActiveToast();
+      if (window.ViewRouter && typeof window.ViewRouter.showScreen === 'function') {
+        window.ViewRouter.showScreen('achievements');
+      }
+    });
+    actions.appendChild(btnView);
+    copy.appendChild(actions);
+    card.appendChild(copy);
+
+    const closeBtn = this.#el('button', 'ach-toast-close', '✕');
+    closeBtn.type = 'button';
+    closeBtn.setAttribute('aria-label', 'Cerrar notificación de logro');
+    closeBtn.addEventListener('click', () => this.#dismissActiveToast());
+    card.appendChild(closeBtn);
+
+    stack.appendChild(card);
+
+    if (window.GamificationManager && typeof window.GamificationManager.playComboChime === 'function') {
+      window.GamificationManager.playComboChime(3);
+    }
+  }
+
+  #processToastQueue() {
+    if (this.#toastActive || this.#toastQueue.length === 0) return;
+    const nextBadge = this.#toastQueue.shift();
+    if (!nextBadge) return;
+    this.#toastActive = true;
+    this.showUnlockToast(nextBadge);
+    this.#toastTimer = setTimeout(() => {
+      this.#dismissActiveToast();
+    }, 5500);
+  }
+
+  #dismissActiveToast() {
+    if (this.#toastTimer) {
+      clearTimeout(this.#toastTimer);
+      this.#toastTimer = null;
+    }
+    const stack = document.getElementById('achBadgeToastStack');
+    if (stack) stack.replaceChildren();
+    this.#toastActive = false;
+    if (this.#toastQueue.length > 0) {
+      setTimeout(() => this.#processToastQueue(), 180);
+    } else if (stack) {
+      stack.remove();
+    }
   }
 
   #el(tag, cls = '', text = null) {

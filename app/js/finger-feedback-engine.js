@@ -1,7 +1,7 @@
 /**
  * Manitas · Proyecto EXIS
  * finger-feedback-engine.js - Evaluación geométrica LSC70 de letras nuevas y
- * diagnóstico granular dedo a dedo ("Tu mano vs. Sol") para las 18 letras.
+ * diagnóstico granular dedo a dedo ("Tu mano vs. Sol") para las 24 letras.
  */
 
 class FingerFeedbackEngine {
@@ -96,6 +96,8 @@ class FingerFeedbackEngine {
     const thumbExtended = thumbTipToIndexMcp > 0.55 && FingerFeedbackEngine.#dist(lm[4], wrist) > FingerFeedbackEngine.#dist(lm[2], wrist) * 1.05;
     const thumbUprightClose = lm[4].y < lm[2].y && thumbTipToIndexMcp <= 0.78 && FingerFeedbackEngine.#dist(lm[4], wrist) > FingerFeedbackEngine.#dist(lm[2], wrist) * 1.02;
     const thumbInCleft = thumbTipToMidMcp < 0.85 || FingerFeedbackEngine.#dist(lm[4], lm[6]) / palmScale < 0.72;
+    const thumbBetweenIndexMid = thumbInCleft && lm[4].y <= Math.max(lm[6].y, lm[10].y) + palmScale * 0.22;
+    const indexDownward = lm[8].y >= lm[5].y;
     const pinchIndexThumb = FingerFeedbackEngine.#dist(lm[4], lm[8]) / palmScale < 0.42;
     const pinchMiddleThumb = FingerFeedbackEngine.#dist(lm[4], lm[12]) / palmScale < 0.45;
 
@@ -107,10 +109,11 @@ class FingerFeedbackEngine {
         curved: thumbTipToIndexMcp >= 0.35 && thumbTipToIndexMcp <= 0.85,
         uprightClose: thumbUprightClose,
         inCleft: thumbInCleft,
+        betweenIndexMid: thumbBetweenIndexMid,
         pinch: pinchIndexThumb || pinchMiddleThumb,
         pointingDown: false
       },
-      index: { ...fingerMetric(5, 6, 8), pinch: pinchIndexThumb },
+      index: { ...fingerMetric(5, 6, 8), pinch: pinchIndexThumb, downward: indexDownward },
       middle: { ...fingerMetric(9, 10, 12), pinch: pinchMiddleThumb },
       ring: fingerMetric(13, 14, 16),
       pinky: fingerMetric(17, 18, 20),
@@ -177,7 +180,9 @@ class FingerFeedbackEngine {
     }
 
     let primaryHint = `¡Todos los dedos en posición para ${sid}!`;
-    if (toPinch.length > 0) {
+    if (sid === 'T' && toBend.includes(FingerFeedbackEngine.FINGER_LABELS.thumb)) {
+      primaryHint = 'Inserta el pulgar entre el índice y el medio';
+    } else if (toPinch.length > 0) {
       primaryHint = `Junta ${toPinch.join(' y ')} formando aro`;
     } else if (toExtend.length > 0 && toBend.length > 0) {
       primaryHint = `Extiende ${toExtend.join(', ')} y dobla ${toBend.join(', ')}`;
@@ -225,15 +230,37 @@ class FingerFeedbackEngine {
       else extraHint = 'Abre índice y medio hacia abajo en V invertida';
     } else if (sid === 'J') {
       if (state.pinky.extended && Math.abs(state.pinky.dx) >= Math.abs(state.pinky.dy) * 0.35) bonus += 10;
+    } else if (sid === 'G') {
+      if (state.index.curled && state.middle.curled && state.ring.curled && state.pinky.curled) bonus += 8;
+      else extraHint = 'Mantén el puño compacto con los 4 dedos doblados';
+    } else if (sid === 'P') {
+      if (state.middle.pointingDown) bonus += 8;
+      else extraHint = 'Apunta el dedo medio hacia abajo con la mano inclinada';
+    } else if (sid === 'Q') {
+      if (state.index.pinch && state.index.downward) bonus += 10;
+      else if (!state.index.pinch) extraHint = 'Junta pulgar e índice apuntando hacia abajo';
     } else if (sid === 'R') {
-      if (state.indexMiddleSpread < 0.32) bonus += 10;
+      if (state.indexMiddleSpread < 0.34) bonus += 10;
       else {
         penalty += 12;
         extraHint = 'Cruza el dedo índice y el medio juntos hacia arriba';
       }
+    } else if (sid === 'S') {
+      if (!state.thumb.extended && state.index.curled && state.middle.curled && state.ring.curled && state.pinky.curled) bonus += 8;
+      else extraHint = 'Cierra el puño firme con el pulgar por delante';
+    } else if (sid === 'T') {
+      if (state.thumb.betweenIndexMid && state.index.curled && state.middle.curled) bonus += 10;
+      else if (state.thumb.inCleft && state.index.curled && state.middle.curled) bonus += 8;
+      if (state.thumb.extended && !state.thumb.inCleft) {
+        penalty += 15;
+        extraHint = 'Inserta el pulgar entre el dedo índice y el medio';
+      }
     } else if (sid === 'W') {
       if (state.indexMiddleSpread > 0.20 && state.middleRingSpread > 0.20) bonus += 10;
       else extraHint = 'Separa índice, medio y anular formando una W';
+    } else if (sid === 'Z') {
+      if (state.index.extended && !state.middle.extended && !state.ring.extended && !state.pinky.extended) bonus += 8;
+      else extraHint = 'Extiende solo el dedo índice para trazar la Z';
     }
 
     const rawScore = diagInfo.matchedCount === 5 ? 92 + bonus - penalty : Math.min(82, diagInfo.score + Math.round(bonus / 2) - penalty);

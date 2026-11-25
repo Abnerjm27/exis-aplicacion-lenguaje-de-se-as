@@ -18,9 +18,9 @@
     "semantic_hash": ""
   },
   "app/js/blind-exam-controller.js": {
-    "mtime": 1795575018.0225182,
-    "seen": 1795576410.020475,
-    "ast_hash": "9d79abcc3365791e258b48dbb9584a9a",
+    "mtime": 1795583198.2271256,
+    "seen": 1795583343.1593602,
+    "ast_hash": "0d9933240bcbe45d5927cc895c382332",
     "semantic_hash": ""
   },
   "app/js/camera-manager.js": {
@@ -402,9 +402,9 @@
     "semantic_hash": ""
   },
   "app/js/lesson-session.js": {
-    "mtime": 1795575018.0414422,
-    "seen": 1795576410.020475,
-    "ast_hash": "7a38ff39616ac6014df1ebea51075fcc",
+    "mtime": 1795583200.828116,
+    "seen": 1795583343.1623607,
+    "ast_hash": "cb856ae694de06d32dcce532c49f525c",
     "semantic_hash": ""
   },
   "tests/test_interactive_lesson_flow.spec.js": {
@@ -510,9 +510,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795582685.081926,
-    "seen": 1795582734.25446,
-    "ast_hash": "be53f11a7d7dc9da1c57a4d8515a39ce",
+    "mtime": 1795583260.8514493,
+    "seen": 1795583343.173393,
+    "ast_hash": "b986875954bb6e5c118dd29f6be0e4b8",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -570,9 +570,9 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795582652.0676024,
-    "seen": 1795582734.3272767,
-    "ast_hash": "9764f6fc68ae62411fd220c0547643c5",
+    "mtime": 1795583258.4727945,
+    "seen": 1795583343.2355518,
+    "ast_hash": "e01ecd974ee95932b7ac8210fc148ece",
     "semantic_hash": ""
   },
   "app/landing.html": {
@@ -4302,9 +4302,9 @@
     "semantic_hash": ""
   },
   "app/js/finger-feedback-engine.js": {
-    "mtime": 1795577119.6792157,
-    "seen": 1795577194.5515416,
-    "ast_hash": "d58d431d783d7ea8b03d3536dc5bdd42",
+    "mtime": 1795583234.9995797,
+    "seen": 1795583343.16036,
+    "ast_hash": "a75b3638445b727542a0f5ca8844189c",
     "semantic_hash": ""
   },
   "app/js/srs-client.js": {
@@ -4344,9 +4344,9 @@
     "semantic_hash": ""
   },
   "tests/test_finger_feedback_unit.js": {
-    "mtime": 1795577145.7555542,
-    "seen": 1795577194.619808,
-    "ast_hash": "90bcb8dc4e02d64730fa600572e0ddf0",
+    "mtime": 1795583248.1455827,
+    "seen": 1795583343.2215257,
+    "ast_hash": "7c75d2b9fdb817fa0ecf482a7a7308b0",
     "semantic_hash": ""
   },
   "tests/test_srs_and_postgres.py": {
@@ -4440,15 +4440,15 @@
     "semantic_hash": ""
   },
   "app/js/gamification-manager.js": {
-    "mtime": 1795580574.369845,
-    "seen": 1795580724.08271,
-    "ast_hash": "7594e940a752d69d050969000c720622",
+    "mtime": 1795583195.9869313,
+    "seen": 1795583343.1613607,
+    "ast_hash": "1fa1f52d5a70825ad7a4719178f8f257",
     "semantic_hash": ""
   },
   "tests/test_gamification_unit.js": {
-    "mtime": 1795580664.1857219,
-    "seen": 1795580724.1502814,
-    "ast_hash": "57f8e3fc50ac3c3e857ea3200aeccb45",
+    "mtime": 1795583295.444342,
+    "seen": 1795583343.2215257,
+    "ast_hash": "c0a3f27980eca5ffb55f77e314ce08b8",
     "semantic_hash": ""
   },
   "app/img/letters/Q_sol.png": {
@@ -4470,9 +4470,9 @@
     "semantic_hash": ""
   },
   "app/img/letters/T_sol.png": {
-    "mtime": 1795577092.892209,
-    "seen": 1795577194.7094388,
-    "ast_hash": "fa49ead62e82dd39821b0b01fd20c957",
+    "mtime": 1795583159.8255985,
+    "seen": 1795583343.3058898,
+    "ast_hash": "487990bd7a7c1662eab2b64840c3d401",
     "semantic_hash": ""
   },
   "app/img/letters/W_sol.png": {
@@ -4488,9 +4488,9 @@
     "semantic_hash": ""
   },
   "app/js/achievements-controller.js": {
-    "mtime": 1795580636.7563782,
-    "seen": 1795580724.0771198,
-    "ast_hash": "e30c949ff1ce22834c7141321ec6c14f",
+    "mtime": 1795583203.2242782,
+    "seen": 1795583343.1573603,
+    "ast_hash": "fa63f09a0d9f9692cebf2bf6fce39fe0",
     "semantic_hash": ""
   },
   "app/img/badges/badge_camera_pro.png": {
@@ -4569,6 +4569,24 @@
     "mtime": 1795581930.611668,
     "seen": 1795582154.3566954,
     "ast_hash": "037fb75f5d90e59a7debefa5746c806c",
+    "semantic_hash": ""
+  },
+  "app/dataset_samples/comparacion_T.png": {
+    "mtime": 1795583159.8055546,
+    "seen": 1795583343.2876325,
+    "ast_hash": "d56a904b82a54f653a98547ac5a5f2c3",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/T_anime_generada.png": {
+    "mtime": 1795583159.8255985,
+    "seen": 1795583343.4142666,
+    "ast_hash": "487990bd7a7c1662eab2b64840c3d401",
+    "semantic_hash": ""
+  },
+  "referencias_para_gemini/comparacion_T.png": {
+    "mtime": 1795583159.8346286,
+    "seen": 1795583343.416267,
+    "ast_hash": "d56a904b82a54f653a98547ac5a5f2c3",
     "semantic_hash": ""
   },
   "package-lock.json": {

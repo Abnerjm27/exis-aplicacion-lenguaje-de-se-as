@@ -202,10 +202,124 @@
   margin-top: 0.15rem;
 }
 
+.ach-toast-stack {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 70;
+  width: min(370px, calc(100vw - 2rem));
+  pointer-events: auto;
+}
+
+.ach-toast-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 18px;
+  background: var(--palette-60-elevated);
+  border: 2px solid var(--palette-10-accent);
+  box-shadow: 0 18px 40px -12px rgba(28, 25, 23, 0.28), 0 0 0 4px rgba(232, 93, 42, 0.12);
+  animation: achToastSlideIn 280ms var(--ease-out-expo) both;
+}
+
+@keyframes achToastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ach-toast-medal {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--palette-10-accent-tint);
+  border: 1px solid rgba(232, 93, 42, 0.3);
+}
+
+.ach-toast-medal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ach-toast-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.ach-toast-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--palette-10-accent-deep);
+}
+
+.ach-toast-title {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: var(--palette-30-petrol);
+  line-height: 1.2;
+}
+
+.ach-toast-desc {
+  font-size: 0.75rem;
+  color: var(--palette-30-text-secondary);
+  line-height: 1.3;
+}
+
+.ach-toast-actions {
+  margin-top: 0.25rem;
+}
+
+.ach-toast-cta {
+  min-height: 44px;
+  padding: 0.35rem 0.85rem;
+  border-radius: 10px;
+  background: var(--palette-10-accent);
+  color: var(--palette-30-petrol);
+  font-size: 0.75rem;
+  font-weight: 800;
+  border: 1px solid rgba(176, 59, 16, 0.3);
+  cursor: pointer;
+}
+
+.ach-toast-close {
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--palette-30-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.ach-toast-close:hover {
+  color: var(--palette-30-petrol);
+  background: var(--palette-60-surface);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ach-medal-card,
-  .ach-filter-btn {
+  .ach-filter-btn,
+  .ach-toast-card {
     transition: none;
+    animation: none;
   }
   .ach-medal-card:hover,
   .ach-filter-btn:active {

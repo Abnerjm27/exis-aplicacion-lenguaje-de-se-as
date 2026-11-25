@@ -202,6 +202,20 @@ class GamificationManager {
     return newlyUnlocked;
   }
 
+  #emitUnlockedBadges(newBadges) {
+    if (!Array.isArray(newBadges) || newBadges.length === 0) return;
+    if (typeof window === 'undefined' || typeof window.dispatchEvent !== 'function') return;
+    const EventCtor = window.CustomEvent || (typeof CustomEvent === 'function' ? CustomEvent : null);
+    if (!EventCtor) return;
+    const unlockedDefs = newBadges
+      .map(id => GamificationManager.BADGE_DEFS.find(b => b.id === id))
+      .filter(Boolean);
+    if (unlockedDefs.length === 0) return;
+    try {
+      window.dispatchEvent(new EventCtor('manitas:badge-unlocked', { detail: { badges: unlockedDefs } }));
+    } catch (_) {}
+  }
+
   #getBadgeProgressText(badgeId) {
     const profile = (typeof window !== 'undefined' && window.AuthProfileManager)
       ? window.AuthProfileManager.getCurrentProfile()
@@ -253,6 +267,7 @@ class GamificationManager {
     const bonusAwarded = this.#checkDailyBonus();
     const newBadges = this.#evaluateBadges();
     this.#saveState();
+    this.#emitUnlockedBadges(newBadges);
 
     const reaction = this.getTitoReaction(
       bonusAwarded > 0 ? 'daily_bonus' : (newBadges.length ? 'badge' : (passed ? 'flash_ok' : 'flash_retry')),
@@ -272,6 +287,7 @@ class GamificationManager {
     const bonusAwarded = this.#checkDailyBonus();
     const newBadges = this.#evaluateBadges();
     this.#saveState();
+    this.#emitUnlockedBadges(newBadges);
 
     const reaction = this.getTitoReaction(
       bonusAwarded > 0 ? 'daily_bonus' : (newBadges.length ? 'badge' : 'word_done'),
@@ -295,6 +311,7 @@ class GamificationManager {
     const bonusAwarded = this.#checkDailyBonus();
     const newBadges = this.#evaluateBadges();
     this.#saveState();
+    this.#emitUnlockedBadges(newBadges);
 
     const reaction = this.getTitoReaction(
       bonusAwarded > 0 ? 'daily_bonus' : (newBadges.length ? 'badge' : 'camera_ok'),
@@ -302,6 +319,21 @@ class GamificationManager {
     );
     this.#lastReaction = reaction;
     return { bonusAwarded, newBadges, reaction, state: this.getState() };
+  }
+
+  recordExamResult(scorePct = 0) {
+    if (!this.#initialized) this.init();
+    this.#ensureToday();
+    if (Number(scorePct) >= 80) {
+      this.#state.totalSuccesses = (this.#state.totalSuccesses || 0) + 1;
+    }
+    const newBadges = this.#evaluateBadges();
+    this.#saveState();
+    this.#emitUnlockedBadges(newBadges);
+    if (newBadges.length > 0) {
+      this.#lastReaction = this.getTitoReaction('badge', { badgeId: newBadges[0] });
+    }
+    return { newBadges, state: this.getState() };
   }
 
   getMasteryTier(box = 1) {

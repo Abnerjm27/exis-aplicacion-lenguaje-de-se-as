@@ -12,7 +12,16 @@ global.localStorage = {
 };
 
 const profile = { username: 'test_user', xp: 100, masteredSigns: [], signStats: {} };
+const dispatchedEvents = [];
+class MockCustomEvent {
+  constructor(type, init = {}) {
+    this.type = type;
+    this.detail = init.detail;
+  }
+}
 global.window = {
+  CustomEvent: MockCustomEvent,
+  dispatchEvent: (ev) => { dispatchedEvents.push(ev); return true; },
   AuthProfileManager: {
     getCurrentProfile: () => ({ ...profile }),
     update: (patch) => Object.assign(profile, patch)
@@ -101,4 +110,19 @@ assert.ok(nextDayState.missions.every(m => m.current === 0 && !m.done));
 assert.strictEqual(nextDayState.unlockedCount, 12, 'Las 12 insignias deben persistir entre días');
 console.log('  ✅ [PASS] 5. Reinicio diario de misiones manteniendo las 12 insignias.');
 
-console.log('\n🎉 ¡TODAS LAS PRUEBAS DE GamificationManager PASARON! (5/5)');
+// 6. recordExamResult desbloquea exam_champion y despacha evento de toast
+global.localStorage.removeItem(GamificationManager.STORAGE_KEY);
+const examGm = new GamificationManager({
+  dateProvider: () => '2026-11-24'
+}).init();
+profile.examHistory = [{ planTitle: 'Examen Final', scorePct: 92, correct: 9, total: 10 }];
+const beforeEvents = dispatchedEvents.length;
+const rExam = examGm.recordExamResult(92);
+assert.ok(rExam.newBadges.includes('exam_champion'), 'recordExamResult debe desbloquear exam_champion');
+assert.ok(dispatchedEvents.length > beforeEvents, 'Debe despachar evento manitas:badge-unlocked');
+const lastEv = dispatchedEvents[dispatchedEvents.length - 1];
+assert.strictEqual(lastEv.type, 'manitas:badge-unlocked');
+assert.ok(lastEv.detail.badges.some(b => b.id === 'exam_champion'));
+console.log('  ✅ [PASS] 6. recordExamResult y evento manitas:badge-unlocked verificados.');
+
+console.log('\n🎉 ¡TODAS LAS PRUEBAS DE GamificationManager PASARON! (6/6)');

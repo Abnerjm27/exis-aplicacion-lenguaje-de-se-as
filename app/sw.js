@@ -5,7 +5,7 @@
  * Exclusiones: No intercepta llamadas dinámicas /api/ (Usuarios / Planes / SRS) ni peticiones con rango de video.
  */
 
-const CACHE_NAME = 'manitas-pwa-v24-clean-routes';
+const CACHE_NAME = 'manitas-pwa-v25-badges-tuning';
 
 const ASSETS_TO_CACHE = [
   '/',
