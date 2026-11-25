@@ -180,6 +180,9 @@ class ViewRouter {
     if (titleEl) titleEl.textContent = topbarTitle;
 
     this.#closeMobileSidebar();
+    if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
   }
 
   #openMobileSidebar() {

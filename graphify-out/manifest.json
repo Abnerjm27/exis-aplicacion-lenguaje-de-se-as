@@ -6,9 +6,9 @@
     "semantic_hash": "639cbb2ba9ff31dc1d12bec3d6b1a143"
   },
   "app/data/users_db.json": {
-    "mtime": 1795579248.175454,
-    "seen": 1795580265.1356883,
-    "ast_hash": "d4f6defe5cdd54b65772d4229988591a",
+    "mtime": 1795584851.7145336,
+    "seen": 1795585073.7244914,
+    "ast_hash": "dd1d3299e33ee969688a002ba3b827f9",
     "semantic_hash": ""
   },
   "app/js/auth-profile-manager.js": {
@@ -318,9 +318,9 @@
     "semantic_hash": ""
   },
   "app/js/view-router.js": {
-    "mtime": 1795581946.2668395,
-    "seen": 1795582154.355695,
-    "ast_hash": "0c37794673369ca2f1a3fc060f6904be",
+    "mtime": 1795585008.4023175,
+    "seen": 1795585073.7356534,
+    "ast_hash": "34023c308cbe16023ae704c39df1bf01",
     "semantic_hash": ""
   },
   "tests/test_3_screens_flow.spec.js": {
@@ -510,9 +510,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795583260.8514493,
-    "seen": 1795583343.173393,
-    "ast_hash": "b986875954bb6e5c118dd29f6be0e4b8",
+    "mtime": 1795585019.560641,
+    "seen": 1795585073.7426536,
+    "ast_hash": "988b3fa75833b2844e970808d5ba3823",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -570,9 +570,9 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795583258.4727945,
-    "seen": 1795583343.2355518,
-    "ast_hash": "e01ecd974ee95932b7ac8210fc148ece",
+    "mtime": 1795585017.2958047,
+    "seen": 1795585073.821034,
+    "ast_hash": "dabd47de275cdee14156a32bbd958e91",
     "semantic_hash": ""
   },
   "app/landing.html": {
@@ -4488,9 +4488,9 @@
     "semantic_hash": ""
   },
   "app/js/achievements-controller.js": {
-    "mtime": 1795583203.2242782,
-    "seen": 1795583343.1573603,
-    "ast_hash": "fa63f09a0d9f9692cebf2bf6fce39fe0",
+    "mtime": 1795585006.454252,
+    "seen": 1795585073.7244914,
+    "ast_hash": "99e0d4efc5813d5ff1a5bbf6cd32c76a",
     "semantic_hash": ""
   },
   "app/img/badges/badge_camera_pro.png": {

@@ -463,6 +463,10 @@
   gap: 0.55rem;
 }
 
+.ab-srs-card .ab-btn {
+  margin-top: auto;
+}
+
 .ab-gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));

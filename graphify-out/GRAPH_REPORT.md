@@ -1,7 +1,7 @@
 # Graph Report - photos_letras_postgres  (2026-11-25)
 
 ## Corpus Check
-- 207 files · ~404,538 words
+- 207 files · ~404,673 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 47 file(s) not represented in the graph (top: .woff2 16, .css 9, .tflite 4)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `84e2bf3e`
+- Built from commit: `a4450254`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -222,16 +222,16 @@
 10. `add()` - 32 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `1. Propósito y Por qué` --references--> `BlindExamController`  [INFERRED]
-  docs/superpowers/specs/2026-11-20-exam-mode-split-design.md → app/js/blind-exam-controller.js
 - `Task 1: Mostrar `AÑOS` (y nombres legibles) en los nodos de la ruta (`app/js/learning-plan-manager.js`)` --references--> `LearningPlanManager`  [INFERRED]
   docs/superpowers/plans/2026-11-20-exam-mode-split-plan.md → app/js/learning-plan-manager.js
 - `4. Arquitectura de Componentes y Módulos (POO)` --references--> `LSCHandler`  [INFERRED]
   docs/superpowers/specs/2026-11-05-exis-learning-platform-design.md → server.py
 - `Task 2: Clase POO `AuthProfileManager` (`app/js/auth-profile-manager.js`)` --references--> `AuthProfileManager`  [INFERRED]
   docs/superpowers/plans/2026-11-05-exis-learning-platform-plan.md → app/js/auth-profile-manager.js
-- `EXIS 3-Screen Flow: Futuristic Landing Page, Duolingo-Style Path View & Dedicated Practice Studio Plan` --references--> `BlindExamController`  [INFERRED]
-  docs/superpowers/plans/2026-11-05-exis-3-screens-duolingo-flow-plan.md → app/js/blind-exam-controller.js
+- `1. Propósito y Por qué` --references--> `BlindExamController`  [INFERRED]
+  docs/superpowers/specs/2026-11-20-exam-mode-split-design.md → app/js/blind-exam-controller.js
+- `Task 1: Landing Page Futurista y Portal Auth (`app/landing.html`, `app/css/landing.css`, `app/js/landing.js`)` --references--> `LandingPortalController`  [INFERRED]
+  docs/superpowers/plans/2026-11-05-exis-3-screens-duolingo-flow-plan.md → app/js/landing.js
 
 ## Import Cycles
 - None detected.
@@ -841,16 +841,16 @@ Nodes (6): download_file(), main(), setup_canvas_confetti(), setup_fonts(), setu
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `info()` connect `createWasm` to `J`, `createWasm`, `info`, `tailwind.js`, `createWasm`?**
-  _High betweenness centrality (0.297) - this node is a cross-community bridge._
+  _High betweenness centrality (0.349) - this node is a cross-community bridge._
 - **Should `pose_solution_wasm_bin.js` be split into smaller, more focused modules?**
   _Cohesion score 0.012250045036930283 - nodes in this community are weakly interconnected._
 - **Why does `BlindExamController` connect `BlindExamController` to `Global Constraints`, `AuthProfileManager`, `ViewRouter`, `Especificación de Diseño — División de Exámenes (Solo Cámara vs. Solo Adivinar Señas)`, `Mapa de Archivos a Crear y Modificar`, `test_checkpoints_unit.js`, `Especificación de Diseño — EXIS Plataforma de Aprendizaje LSC, Rutas IA y Modo Examen Sin Video`?**
-  _High betweenness centrality (0.259) - this node is a cross-community bridge._
+  _High betweenness centrality (0.248) - this node is a cross-community bridge._
 - **Should `LessonSessionController` be split into smaller, more focused modules?**
   _Cohesion score 0.09506531204644413 - nodes in this community are weakly interconnected._
+- **Why does `3. Enfoques Evaluados (Approaches)` connect `Especificación de Diseño — EXIS Plataforma de Aprendizaje LSC, Rutas IA y Modo Examen Sin Video` to `AuthProfileManager`, `BlindExamController`, `LearningPlanManager`?**
+  _High betweenness centrality (0.177) - this node is a cross-community bridge._
 - **Should `CameraDeviceManager` be split into smaller, more focused modules?**
   _Cohesion score 0.07419712070874862 - nodes in this community are weakly interconnected._
 - **Should `test_blind_exam_arena_unit.js` be split into smaller, more focused modules?**
   _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
-- **Should `mocap_extractor.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.09852216748768473 - nodes in this community are weakly interconnected._

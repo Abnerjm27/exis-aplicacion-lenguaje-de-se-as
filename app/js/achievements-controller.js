@@ -92,8 +92,8 @@ class AchievementsController {
     btnView.type = 'button';
     btnView.addEventListener('click', () => {
       this.#dismissActiveToast();
-      if (window.ViewRouter && typeof window.ViewRouter.showScreen === 'function') {
-        window.ViewRouter.showScreen('achievements');
+      if (window.ViewRouter && typeof window.ViewRouter.switchToAchievementsView === 'function') {
+        window.ViewRouter.switchToAchievementsView();
       }
     });
     actions.appendChild(btnView);
