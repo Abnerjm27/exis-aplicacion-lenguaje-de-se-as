@@ -13,8 +13,8 @@
   <link rel="stylesheet" href="css/tokens.css?v=20261120_v15" />
   <link rel="stylesheet" href="css/styles.css?v=20261120_v15" />
 
-  <script src="js/auth-profile-manager.js?v=20261120_v15" defer></script>
-  <script src="js/perfil-page.js?v=20261120_v15" defer></script>
+  <script src="js/auth-profile-manager.js?v=20261126_v30" defer></script>
+  <script src="js/perfil-page.js?v=20261126_v31" defer></script>
 </head>
 
 <body class="app-shell text-slate-900 antialiased selection:bg-amber-500 selection:text-slate-900">
@@ -46,15 +46,19 @@
           <span>Práctica Libre</span>
         </a>
 
+        <a href="index.html?screen=alphabet" class="sidebar-nav-btn btn-spring" aria-label="Abrir Laboratorio ABC y Repaso SRS">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V4h16v3"></path><path d="M9 20h6"></path><path d="M12 4v16"></path></svg>
+          <span>Laboratorio ABC</span>
+        </a>
+
+        <a href="index.html?screen=achievements" class="sidebar-nav-btn btn-spring" aria-label="Ver Logros y Medallas">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+          <span>Logros</span>
+        </a>
+
         <a href="index.html?screen=path&exam=1" class="sidebar-nav-btn btn-spring" aria-label="Iniciar Modo Examen">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
           <span>Modo Examen</span>
-        </a>
-
-        <a href="index.html?screen=studio&chat=open" class="sidebar-nav-btn btn-spring" aria-label="Abrir Tito · Tutor IA">
-          <img src="img/zorrito/svg/zorrito_saludo.svg" alt="" class="w-4 h-4 shrink-0 object-contain">
-          <span class="flex-1 text-left">Tito · Tutor IA</span>
-          <span class="w-2 h-2 rounded-full bg-emerald-600" aria-hidden="true"></span>
         </a>
       </nav>
     </div>
@@ -96,7 +100,7 @@
             <div class="min-w-0">
               <div class="flex flex-wrap items-center gap-2">
                 <span id="userLevelBadge" class="text-[11px] font-mono uppercase bg-amber-50 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-200 font-bold">Principiante</span>
-                <span id="userStreakCount" title="Racha diaria: 1 día" aria-label="Racha diaria: 1 día" class="font-mono text-[11px] bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-300 font-bold tabular-nums">🔥 1 día</span>
+                <span id="userStreakCount" title="Racha diaria: 1 día" aria-label="Racha diaria: 1 día" class="font-mono text-[11px] bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-300 font-bold tabular-nums inline-flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg><span class="streak-label">1 día</span></span>
                 <span id="profileAccountType" class="text-[11px] text-slate-500 font-medium">Sesión local</span>
               </div>
               <h2 id="userDisplayName" class="text-xl font-extrabold text-slate-900 mt-1.5 truncate">Estudiante LSC</h2>
@@ -229,6 +233,11 @@
 
         <div id="resetStatusMsg" class="hidden text-xs p-3 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-800 font-semibold"></div>
       </section>
+
+      <footer class="pt-2 pb-4 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-500 font-mono">
+        <span>Manitas LSC · Corpus LSC70 (Universidad del Cauca · Grupo SIDICO)</span>
+        <span>Proyecto EXIS · Procesamiento 100% local</span>
+      </footer>
 
     </main>
   </div>

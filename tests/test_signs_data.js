@@ -21,7 +21,10 @@ const letters = signs.letters || [];
 console.log(`Current words: ${words.length}, Current letters: ${letters.length}`);
 
 const requiredWords = ['HOLA', 'YO', 'BUENOS', 'DIAS', 'NOCHES', 'NOMBRE', 'TARDES', 'GUSTAR', 'ANNOS', 'LICOR'];
-const requiredLetters = ['A', 'B', 'C', 'L', 'V', 'I', 'O', 'D', 'E', 'U'];
+const requiredLetters = [
+  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+  'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'Z'
+];
 
 let failed = false;
 
@@ -41,15 +44,21 @@ for (const l of requiredLetters) {
   if (!found) {
     console.error(`FAIL: Missing letter ${l}`);
     failed = true;
-  } else if (!found.desc || !found.tip || !found.rules) {
-    console.error(`FAIL: Letter ${l} is missing required fields (desc, tip, rules)`);
+  } else if (!found.desc || !found.tip || !found.rules || !found.image) {
+    console.error(`FAIL: Letter ${l} is missing required fields (desc, tip, rules, image)`);
     failed = true;
+  } else {
+    const imgPath = path.join(__dirname, '..', 'app', found.image);
+    if (!fs.existsSync(imgPath)) {
+      console.error(`FAIL: Image missing on disk for ${l}: ${imgPath}`);
+      failed = true;
+    }
   }
 }
 
-if (failed || words.length !== 10 || letters.length !== 10) {
-  console.error(`FAILED: Expected 10 words and 10 letters, got ${words.length} words and ${letters.length} letters`);
+if (failed || words.length !== 10 || letters.length !== 24) {
+  console.error(`FAILED: Expected 10 words and 24 letters, got ${words.length} words and ${letters.length} letters`);
   process.exit(1);
 }
 
-console.log("PASSED: SIGNS_DATA has exactly 10 words and 10 letters with all required fields.");
+console.log("PASSED: SIGNS_DATA has exactly 10 words and 24 letters with all required fields and images.");

@@ -2,10 +2,10 @@
  * sw.js — Service Worker de Manitas (PWA para Lengua de Señas Colombiana)
  *
  * Estrategia: Network-First con fallback a Cache para shell y assets estáticos.
- * Exclusiones: No intercepta llamadas dinámicas /api/ (Ollama / Planes) ni peticiones con rango de video.
+ * Exclusiones: No intercepta llamadas dinámicas /api/ (Usuarios / Planes / SRS) ni peticiones con rango de video.
  */
 
-const CACHE_NAME = 'manitas-pwa-v15-audit-hardening';
+const CACHE_NAME = 'manitas-pwa-v32-cert-template';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -22,12 +22,20 @@ const ASSETS_TO_CACHE = [
   '/css/fonts.css',
   '/css/styles.css',
   '/css/lesson.css',
+  '/css/alphabet-lab.css',
+  '/css/achievements.css',
+  '/css/camera-dropdown.css',
   '/css/landing.css',
   '/css/landing-hero.css',
   '/css/auth.css',
   '/css/gallery.css',
   '/js/signs-data.js',
   '/js/sign-anatomy-validator.js',
+  '/js/finger-feedback-engine.js',
+  '/js/srs-client.js',
+  '/js/gamification-manager.js',
+  '/js/certificate-generator.js',
+  '/img/certificado_template_lsc.png',
   '/js/body-anchor-detector.js',
   '/js/trajectory-tracker.js',
   '/js/video-player.js',
@@ -44,8 +52,11 @@ const ASSETS_TO_CACHE = [
   '/js/blind-exam-controller.js',
   '/js/lesson-session.js',
   '/js/view-router.js',
+  '/js/blind-spell-session.js',
+  '/js/alphabet-lab-controller.js',
+  '/js/achievements-controller.js',
   '/js/pwa-manager.js',
-  '/js/chat-tutor.js',
+  '/js/voice-feedback.js',
   '/js/main.js',
   '/img/manitas-icono-app-1024.png',
   '/img/icons/icon-192.png',

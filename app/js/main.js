@@ -63,6 +63,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Inicializar Motor de Feedback por Dedo, SRS y Laboratorio ABC
+  if (window.FingerFeedbackEngine) {
+    window.FingerFeedbackEngine.init();
+  }
+  if (window.SRSClient) {
+    window.SRSClient.init();
+    window.SRSClient.start();
+  }
+  if (window.GamificationManager) {
+    window.GamificationManager.init();
+    window.GamificationManager.start();
+  }
+  if (window.AlphabetLabController) {
+    window.AlphabetLabController.init();
+    window.AlphabetLabController.start();
+  }
+  if (window.AchievementsController) {
+    window.AchievementsController.init();
+    window.AchievementsController.start();
+  }
+
   // Inicializar enrutador de vistas (Mapa Duolingo vs Estudio de Práctica)
   if (window.ViewRouter) {
     window.ViewRouter.init();
@@ -141,36 +162,6 @@ function bindUIEvents() {
   const btnNextSign = document.getElementById('btnNextSign');
   if (btnKeepPracticing) btnKeepPracticing.addEventListener('click', () => dismissSuccessModal(false));
   if (btnNextSign) btnNextSign.addEventListener('click', () => dismissSuccessModal(true));
-
-  // Chat Tutor Drawer
-  const btnToggleChat = document.getElementById('btnToggleChat');
-  const btnCloseChat = document.getElementById('btnCloseChat');
-  const btnSendChat = document.getElementById('chatSendBtn');
-  const inputChat = document.getElementById('chatInput');
-
-  if (btnToggleChat) btnToggleChat.addEventListener('click', () => window.ChatTutor && window.ChatTutor.toggleDrawer());
-  if (btnCloseChat) btnCloseChat.addEventListener('click', () => window.ChatTutor && window.ChatTutor.toggleDrawer());
-
-  const urlChatParam = new URLSearchParams(window.location.search).get('chat');
-  if (urlChatParam === 'open' && window.ChatTutor && typeof window.ChatTutor.toggleDrawer === 'function') {
-    window.ChatTutor.toggleDrawer();
-  }
-  if (btnSendChat) btnSendChat.addEventListener('click', () => window.ChatTutor && window.ChatTutor.sendMessage());
-  if (inputChat) {
-    inputChat.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        window.ChatTutor && window.ChatTutor.sendMessage();
-      }
-    });
-  }
-
-  // Chips de preguntas rápidas
-  document.querySelectorAll('.quick-chip').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const prompt = e.currentTarget.getAttribute('data-prompt');
-      if (prompt && window.ChatTutor) window.ChatTutor.sendQuickMessage(prompt);
-    });
-  });
 }
 
 function initStudioOrientationBanner() {
@@ -315,6 +306,12 @@ window.onSignMastered = function(sign, score) {
     return;
   }
 
+  // Si la cámara en vivo del Laboratorio ABC (Deletrea tu Nombre) está activa, delegar sin abrir popup de Práctica Libre
+  if (window.AlphabetLabController && window.AlphabetLabController.isSpellCameraActive()) {
+    window.AlphabetLabController.handleSignMasteredInLab(sign, score);
+    return;
+  }
+
   if (window.VisionEvaluator) {
     window.VisionEvaluator.stop();
   }
@@ -322,6 +319,12 @@ window.onSignMastered = function(sign, score) {
   // Registrar seña dominada y otorgar +25 XP en modo práctica
   if (window.AuthProfileManager) {
     window.AuthProfileManager.recordSignMastered(sign.id, 25);
+  }
+  if (window.SRSClient) {
+    window.SRSClient.recordAttempt(sign.id, true);
+  }
+  if (window.GamificationManager) {
+    window.GamificationManager.recordCameraSuccess({ signId: sign.id, score });
   }
 
   // Avanzar y marcar progreso en el mapa hexagonal del plan activo

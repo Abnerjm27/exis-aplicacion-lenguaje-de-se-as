@@ -6,6 +6,7 @@
 
 const VisionEvaluator = (() => {
   let isWebcamRunning = false;
+  let startGeneration = 0;
   let cameraInstance = null;
   let handsInstance = null;
   let poseInstance = null;
@@ -31,6 +32,20 @@ const VisionEvaluator = (() => {
   let canvasCtx = null;
 
   let noticeTimeoutId = null;
+
+  function computeHandFraming(lm) {
+    if (!lm || !lm[0] || !lm[9]) {
+      return { status: 'missing', message: 'Sin mano visible · Muestra tu mano frente a la cámara', palmScale: 0 };
+    }
+    const palmScale = Math.hypot(lm[0].x - lm[9].x, lm[0].y - lm[9].y);
+    if (palmScale < 0.11) {
+      return { status: 'too_far', message: 'Acércate un poco más a la cámara', palmScale };
+    }
+    if (palmScale > 0.42) {
+      return { status: 'too_close', message: 'Aléjate un poco para ver toda tu mano', palmScale };
+    }
+    return { status: 'ok', message: 'Encuadre ideal ✓', palmScale };
+  }
 
   function showCameraNotice(msg, durationMs = 8000) {
     const toast = document.getElementById('cameraNoticeToast');
@@ -169,10 +184,15 @@ const VisionEvaluator = (() => {
 
   async function startWithDevice(deviceId = null) {
     if (!videoElement || !canvasElement) return false;
+    const myGen = ++startGeneration;
 
     try {
       updateCameraUIState('connecting');
       await ensureModelsInitialized();
+      if (myGen !== startGeneration) {
+        updateCameraUIState('stopped');
+        return false;
+      }
 
       try {
         if (window.CameraManager) {
@@ -195,6 +215,16 @@ const VisionEvaluator = (() => {
         throw streamErr;
       }
 
+      if (myGen !== startGeneration) {
+        if (window.CameraManager) {
+          window.CameraManager.stop();
+        } else if (cameraInstance) {
+          cameraInstance.stop();
+        }
+        updateCameraUIState('stopped');
+        return false;
+      }
+
       isWebcamRunning = true;
       updateCameraUIState('running');
       return true;
@@ -214,6 +244,7 @@ const VisionEvaluator = (() => {
   }
 
   function stop() {
+    startGeneration += 1;
     if (window.CameraManager) {
       window.CameraManager.stop();
     } else if (cameraInstance) {
@@ -223,7 +254,12 @@ const VisionEvaluator = (() => {
     latestPoseLandmarks = null;
     lastPoseResultTime = 0;
     updateCameraUIState('stopped');
-    [canvasElement, document.getElementById('lessonPracticeCanvas'), document.getElementById('examPracticeCanvas')]
+    [
+      canvasElement,
+      document.getElementById('lessonPracticeCanvas'),
+      document.getElementById('examPracticeCanvas'),
+      document.getElementById('alphabetSpellCanvas')
+    ]
       .filter(Boolean)
       .forEach((cv) => {
         const ctx = cv.getContext('2d');
@@ -357,6 +393,7 @@ const VisionEvaluator = (() => {
 
     renderOverlayOnCanvas(document.getElementById('lessonPracticeCanvas'), multiLm, activePoseLm, width, height);
     renderOverlayOnCanvas(document.getElementById('examPracticeCanvas'), multiLm, activePoseLm, width, height);
+    renderOverlayOnCanvas(document.getElementById('alphabetSpellCanvas'), multiLm, activePoseLm, width, height);
 
     const signId = currentTargetSign ? currentTargetSign.id : null;
     const isTrajectoryWord = !!(signId && TRAJECTORY_SIGN_IDS.includes(signId));
@@ -370,6 +407,9 @@ const VisionEvaluator = (() => {
         updateScoreUI(0, "Coloca tu mano frente a la cámara web");
         updateTrajectoryPillUI(window.TrajectoryTracker ? window.TrajectoryTracker.getStatusText() : null);
         resetFingerBadges();
+        if (window.AlphabetLabController && typeof window.AlphabetLabController.handlePracticeFrame === 'function') {
+          window.AlphabetLabController.handlePracticeFrame(0, null, computeHandFraming(null));
+        }
       }
     }
   }
@@ -426,7 +466,7 @@ const VisionEvaluator = (() => {
     } else if (!lm) {
       return;
     }
-    // Alfabeto LSC70: validación estricta e invariante a escala de palma con SignAnatomyValidator
+    // Alfabeto LSC70: validación estricta e invariante a escala de palma con SignAnatomyValidator / FingerFeedbackEngine
     else if (
       signId === 'A' || signId === 'B' || signId === 'C' || signId === 'D' || signId === 'E' ||
       signId === 'I' || signId === 'L' || signId === 'O' || signId === 'U' || signId === 'V'
@@ -442,6 +482,16 @@ const VisionEvaluator = (() => {
         hint = `Realiza la letra ${signId} frente a tu cámara`;
         diag = `✓ Letra ${signId} detectada`;
       }
+    }
+    // Letras nuevas del Abecedario LSC70 (F, G, H, J, K, M, N, P, Q, R, S, T, W, Z) con FingerFeedbackEngine
+    else if (
+      ['F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'W', 'Z'].includes(signId) &&
+      window.FingerFeedbackEngine
+    ) {
+      const fRes = window.FingerFeedbackEngine.evaluateLetter(signId, lm);
+      score = fRes.score;
+      hint = fRes.hint;
+      diag = fRes.diag;
     }
     // Fallback compacto si SignAnatomyValidator no estuviera cargado
     else if (signId === 'ANNOS' || signId === 'LICOR' || isTrajectoryWord) {
@@ -482,11 +532,35 @@ const VisionEvaluator = (() => {
       }
     }
 
+    const framing = computeHandFraming(lm);
     const diagElem = document.getElementById('poseDiagnostic');
-    if (diagElem) diagElem.textContent = diag;
+    if (diagElem) {
+      diagElem.textContent = (!diag && (framing.status === 'too_far' || framing.status === 'too_close'))
+        ? framing.message
+        : diag;
+    }
+
+    let fingerDiagnostics = null;
+    if (lm && currentTargetSign && currentTargetSign.category === 'letters' && window.FingerFeedbackEngine) {
+      fingerDiagnostics = window.FingerFeedbackEngine.update(currentTargetSign.id, lm);
+      if (finalScore < 85 && fingerDiagnostics && fingerDiagnostics.primaryHint) {
+        hint = (framing.status === 'too_far' || framing.status === 'too_close')
+          ? framing.message
+          : fingerDiagnostics.primaryHint;
+      }
+      if (typeof window.dispatchEvent === 'function' && typeof CustomEvent === 'function') {
+        window.dispatchEvent(new CustomEvent('manitas:finger-feedback', {
+          detail: { signId: currentTargetSign.id, score: finalScore, diagnostics: fingerDiagnostics, framing }
+        }));
+      }
+    }
 
     updateScoreUI(finalScore, hint);
     updateTrajectoryPillUI(trajStatus);
+
+    if (window.AlphabetLabController && typeof window.AlphabetLabController.handlePracticeFrame === 'function') {
+      window.AlphabetLabController.handlePracticeFrame(finalScore, fingerDiagnostics, framing);
+    }
 
     const isMastered = hasTrajectory 
       ? (finalScore >= 85 && isTrajComplete) 

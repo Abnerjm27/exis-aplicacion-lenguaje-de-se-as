@@ -85,6 +85,127 @@
         }
       ],
       "lastUpdated": "2026-11-20T18:18:36Z"
+    },
+    {
+      "username": "invitado",
+      "displayName": "invitado",
+      "level": "Principiante",
+      "xp": 0,
+      "streak": 1,
+      "masteredSigns": [
+        "U",
+        "S",
+        "O",
+        "L",
+        "M",
+        "A",
+        "B",
+        "N",
+        "E",
+        "R",
+        "J"
+      ],
+      "customPlans": [],
+      "examHistory": [],
+      "signStats": {
+        "T": {
+          "box": 1,
+          "attempts": 1,
+          "successes": 0,
+          "lastPracticedIso": "2026-11-25T03:34:05Z",
+          "nextReviewIso": "2026-11-25T07:34:05Z",
+          "masteryPct": 0
+        },
+        "U": {
+          "box": 2,
+          "attempts": 1,
+          "successes": 1,
+          "lastPracticedIso": "2026-11-25T03:34:20Z",
+          "nextReviewIso": "2026-11-26T03:34:20Z",
+          "masteryPct": 100
+        },
+        "S": {
+          "box": 5,
+          "attempts": 9,
+          "successes": 9,
+          "lastPracticedIso": "2026-11-25T05:34:11Z",
+          "nextReviewIso": "2026-12-09T05:34:11Z",
+          "masteryPct": 100
+        },
+        "O": {
+          "box": 5,
+          "attempts": 7,
+          "successes": 7,
+          "lastPracticedIso": "2026-11-25T05:32:03Z",
+          "nextReviewIso": "2026-12-09T05:32:03Z",
+          "masteryPct": 100
+        },
+        "L": {
+          "box": 5,
+          "attempts": 7,
+          "successes": 7,
+          "lastPracticedIso": "2026-11-25T05:32:04Z",
+          "nextReviewIso": "2026-12-09T05:32:04Z",
+          "masteryPct": 100
+        },
+        "M": {
+          "box": 3,
+          "attempts": 2,
+          "successes": 2,
+          "lastPracticedIso": "2026-11-25T05:33:53Z",
+          "nextReviewIso": "2026-11-28T05:33:53Z",
+          "masteryPct": 100
+        },
+        "R": {
+          "box": 3,
+          "attempts": 3,
+          "successes": 2,
+          "lastPracticedIso": "2026-11-25T05:14:43Z",
+          "nextReviewIso": "2026-11-28T05:14:43Z",
+          "masteryPct": 67
+        },
+        "A": {
+          "box": 4,
+          "attempts": 3,
+          "successes": 3,
+          "lastPracticedIso": "2026-11-25T05:14:44Z",
+          "nextReviewIso": "2026-12-02T05:14:44Z",
+          "masteryPct": 100
+        },
+        "B": {
+          "box": 4,
+          "attempts": 3,
+          "successes": 3,
+          "lastPracticedIso": "2026-11-25T05:14:45Z",
+          "nextReviewIso": "2026-12-02T05:14:45Z",
+          "masteryPct": 100
+        },
+        "N": {
+          "box": 4,
+          "attempts": 3,
+          "successes": 3,
+          "lastPracticedIso": "2026-11-25T05:14:45Z",
+          "nextReviewIso": "2026-12-02T05:14:45Z",
+          "masteryPct": 100
+        },
+        "E": {
+          "box": 3,
+          "attempts": 2,
+          "successes": 2,
+          "lastPracticedIso": "2026-11-25T05:14:42Z",
+          "nextReviewIso": "2026-11-28T05:14:42Z",
+          "masteryPct": 100
+        },
+        "J": {
+          "box": 2,
+          "attempts": 1,
+          "successes": 1,
+          "lastPracticedIso": "2026-11-25T05:34:09Z",
+          "nextReviewIso": "2026-11-26T05:34:09Z",
+          "masteryPct": 100
+        }
+      },
+      "lastUpdated": "2026-11-25T05:34:11Z"
     }
   ]
 }

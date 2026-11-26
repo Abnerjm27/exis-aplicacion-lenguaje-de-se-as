@@ -23,6 +23,10 @@ class ViewRouter {
 
     if (screenParam === 'path') {
       this.switchToPathView();
+    } else if (screenParam === 'alphabet') {
+      this.switchToAlphabetLabView();
+    } else if (screenParam === 'achievements') {
+      this.switchToAchievementsView();
     } else if (screenParam === 'profile') {
       this.switchToProfileView();
     } else {
@@ -66,6 +70,9 @@ class ViewRouter {
   }
 
   switchToPathView() {
+    if (window.AlphabetLabController && typeof window.AlphabetLabController.stopSpellCamera === 'function') {
+      window.AlphabetLabController.stopSpellCamera();
+    }
     this.#currentView = 'path';
     this.#applyViewState('path', 'Mi Ruta de Aprendizaje');
 
@@ -86,7 +93,37 @@ class ViewRouter {
     window.location.href = 'perfil.html';
   }
 
+  switchToAlphabetLabView() {
+    this.#currentView = 'alphabet';
+    this.#applyViewState('alphabet', 'Laboratorio del Abecedario LSC');
+    if (window.VisionEvaluator) {
+      window.VisionEvaluator.stop();
+    }
+    if (window.AlphabetLabController) {
+      window.AlphabetLabController.update();
+    }
+    this.#syncUrlQuery('alphabet');
+  }
+
+  switchToAchievementsView() {
+    if (window.AlphabetLabController && typeof window.AlphabetLabController.stopSpellCamera === 'function') {
+      window.AlphabetLabController.stopSpellCamera();
+    }
+    this.#currentView = 'achievements';
+    this.#applyViewState('achievements', 'Logros y Medallas LSC');
+    if (window.VisionEvaluator) {
+      window.VisionEvaluator.stop();
+    }
+    if (window.AchievementsController) {
+      window.AchievementsController.update();
+    }
+    this.#syncUrlQuery('achievements');
+  }
+
   switchToStudioView(signId = null, startExam = false, examConfig = null) {
+    if (window.AlphabetLabController && typeof window.AlphabetLabController.stopSpellCamera === 'function') {
+      window.AlphabetLabController.stopSpellCamera();
+    }
     this.#currentView = 'studio';
     this.#applyViewState('studio', 'Práctica Libre LSC');
 
@@ -117,6 +154,8 @@ class ViewRouter {
   #applyViewState(activeKey, topbarTitle) {
     const viewMap = {
       path: { el: document.getElementById('viewLearningPath'), btn: document.getElementById('btnNavViewPath') },
+      alphabet: { el: document.getElementById('viewAlphabetLab'), btn: document.getElementById('btnNavAlphabetLab') },
+      achievements: { el: document.getElementById('viewAchievements'), btn: document.getElementById('btnNavAchievements') },
       studio: { el: document.getElementById('viewPracticeStudio'), btn: document.getElementById('btnNavViewStudio') },
       profile: { el: document.getElementById('viewProfileHub'), btn: document.getElementById('btnNavViewProfile') }
     };
@@ -141,6 +180,9 @@ class ViewRouter {
     if (titleEl) titleEl.textContent = topbarTitle;
 
     this.#closeMobileSidebar();
+    if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
   }
 
   #openMobileSidebar() {
@@ -172,6 +214,16 @@ class ViewRouter {
       btnNavStudio.addEventListener('click', () => this.switchToStudioView());
     }
 
+    const btnNavAlphabet = document.getElementById('btnNavAlphabetLab');
+    if (btnNavAlphabet) {
+      btnNavAlphabet.addEventListener('click', () => this.switchToAlphabetLabView());
+    }
+
+    const btnNavAchievements = document.getElementById('btnNavAchievements');
+    if (btnNavAchievements) {
+      btnNavAchievements.addEventListener('click', () => this.switchToAchievementsView());
+    }
+
     const btnMobileMenu = document.getElementById('btnMobileMenuToggle');
     if (btnMobileMenu) {
       btnMobileMenu.addEventListener('click', () => this.#openMobileSidebar());
@@ -185,11 +237,6 @@ class ViewRouter {
     const btnExam = document.getElementById('btnStartBlindExam');
     if (btnExam) {
       btnExam.addEventListener('click', () => this.#closeMobileSidebar());
-    }
-
-    const btnChat = document.getElementById('btnToggleChat');
-    if (btnChat) {
-      btnChat.addEventListener('click', () => this.#closeMobileSidebar());
     }
 
     const btnBack = document.getElementById('btnBackToPath');
@@ -237,6 +284,10 @@ class ViewRouter {
     if (e.state && e.state.screen) {
       if (e.state.screen === 'path') {
         this.switchToPathView();
+      } else if (e.state.screen === 'alphabet') {
+        this.switchToAlphabetLabView();
+      } else if (e.state.screen === 'achievements') {
+        this.switchToAchievementsView();
       } else if (e.state.screen === 'profile') {
         this.switchToProfileView();
       } else {
@@ -248,6 +299,10 @@ class ViewRouter {
   #updateUI() {
     if (this.#currentView === 'path') {
       this.switchToPathView();
+    } else if (this.#currentView === 'alphabet') {
+      this.switchToAlphabetLabView();
+    } else if (this.#currentView === 'achievements') {
+      this.switchToAchievementsView();
     } else if (this.#currentView === 'profile') {
       this.switchToProfileView();
     } else {

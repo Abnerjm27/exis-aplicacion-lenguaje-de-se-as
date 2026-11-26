@@ -3,7 +3,6 @@ import json
 import logging
 import os
 import re
-import shutil
 import socketserver
 import subprocess
 import sys
@@ -11,84 +10,20 @@ import threading
 import time
 import unicodedata
 import urllib.parse
-import urllib.request
-from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple
+
+from db import SRSService, create_user_repository, handle_srs_get, handle_srs_post
 
 logger = logging.getLogger("server")
 
 PORT = 8000
 DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app")
-OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
-
-AVAILABLE_SIGNS = {
-    "hola": "HOLA",
-    "saludo": "HOLA",
-    "salud": "HOLA",
-    "yo": "YO",
-    "mi": "YO",
-    "buenos": "BUENOS",
-    "dias": "DIAS",
-    "dia": "DIAS",
-    "tardes": "TARDES",
-    "tarde": "TARDES",
-    "noches": "NOCHES",
-    "noche": "NOCHES",
-    "gustar": "GUSTAR",
-    "gusta": "GUSTAR",
-    "gusto": "GUSTAR",
-    "nombre": "NOMBRE",
-    "anos": "ANNOS",
-    "ano": "ANNOS",
-    "annos": "ANNOS",
-    "edad": "ANNOS",
-    "licor": "LICOR",
-    "trago": "LICOR",
-    "beber": "LICOR",
-    "bebida": "LICOR",
-    "a": "A",
-    "b": "B",
-    "c": "C",
-    "d": "D",
-    "e": "E",
-    "i": "I",
-    "l": "L",
-    "o": "O",
-    "u": "U",
-    "v": "V"
-}
-
-LSC_SIGN_DESCRIPTIONS = {
-    "HOLA": "coloca tu mano derecha en la sien con los dedos juntos y proyéctala suavemente hacia adelante y afuera en diagonal saludando al frente.",
-    "YO": "forma un puño con tu mano derecha y deja únicamente el dedo índice extendido apuntando hacia tu pecho.",
-    "BUENOS": "coloca tu mano izquierda abierta como base en el pecho (palma arriba) y baja tu mano derecha para chocar apoyando la palma sobre la izquierda en el torso.",
-    "DIAS": "abre ambos brazos lateralmente a la altura del pecho con las palmas al frente simulando el amanecer.",
-    "TARDES": "cruza tus antebrazos horizontalmente frente a tu pecho con las palmas orientadas hacia tu cuerpo.",
-    "NOCHES": "cruza ambos brazos sobre tu pecho con las manos reposando sobre los antebrazos opuestos.",
-    "GUSTAR": "inclina levemente la cabeza hacia arriba, apoya tu dedo índice en la base de la garganta y deslízalo suavemente hacia arriba.",
-    "NOMBRE": "extiende los dedos índice y medio de ambas manos y apoya los de la mano derecha sobre los de la izquierda frente a tu torso.",
-    "ANNOS": "ubica ambas manos frente a tu torso y realiza un suave frotamiento o movimiento circular con tu mano derecha sobre la izquierda indicando el transcurso del tiempo.",
-    "LICOR": "configura tu mano derecha en copa (o letra Y con pulgar y meñique) y elévala hacia la barbilla o boca inclinándola con delicadeza.",
-    "A": "cierra los 4 dedos en un puño firme y mantén el pulgar erguido a un lado del índice.",
-    "B": "extiende los cuatro dedos juntos rectos hacia arriba y dobla el pulgar sobre la palma.",
-    "C": "arquea los 4 dedos y el pulgar enfrentados formando la curvatura semicircular de la letra C.",
-    "D": "apunta tu dedo índice recto hacia arriba y junta la punta de tu pulgar con tu dedo medio formando un aro en la base.",
-    "E": "curva los cuatro dedos juntos hacia abajo y apoya sus yemas sobre el pulgar doblado en la palma.",
-    "I": "cierra tu mano en puño y extiende únicamente el dedo meñique hacia arriba en vertical.",
-    "L": "extiende el dedo índice hacia arriba y el pulgar hacia un lado formando un ángulo recto de 90 grados.",
-    "O": "curva los dedos de tu mano tocando suavemente la punta del pulgar para formar un círculo visible O.",
-    "U": "levanta el dedo índice y el dedo medio juntos y pegados apuntando hacia arriba (sin separación en V).",
-    "V": "levanta el dedo índice y el dedo medio separados en forma de victoria.",
-}
-
-FALLBACK_REPLIES = {
-    k: f"Para la seña de '{k}', {v} [SELECCIONAR: {k}]" for k, v in LSC_SIGN_DESCRIPTIONS.items()
-}
 
 VALID_SIGN_IDS = [
     "HOLA", "YO", "BUENOS", "DIAS", "TARDES", "NOCHES",
     "GUSTAR", "NOMBRE", "ANNOS", "LICOR",
-    "A", "B", "C", "D", "E", "I", "L", "O", "U", "V"
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+    "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Z"
 ]
 
 USERS_DB_PATH = os.path.join(DIRECTORY, "data", "users_db.json")
@@ -115,326 +50,6 @@ class RateLimiter:
             return True
 
 api_rate_limiter = RateLimiter(max_requests=60, window_seconds=60)
-
-@dataclass(slots=True)
-class LSCParsedIntent:
-    """Contenedor de intención pedagógica extraída por el motor NLU (inmutable)."""
-    intent: str
-    target_sign: Optional[str] = None
-    is_clarification: bool = False
-    greeting_preamble: Optional[str] = None
-    raw_message: str = ""
-
-class LSCNaturalLanguageParser:
-    """
-    Motor de Comprensión de Lenguaje Natural (NLU) para el Tutor Manitas LSC.
-    Distingue preámbulos de cortesía ('hola quiero aprender la letra a' -> foco en 'A'),
-    detecta introducciones abiertas ('hola quiero aprender a' -> 'OPEN_LEARNING_INTRO'),
-    resuelve rechazos ('no quiero aprender a' -> 'REJECT_SIGN') y aclaraciones
-    contrastivas ('no quiero la a, prefiero la c' -> foco en 'C'),
-    y desambigua preposiciones gramaticales vs letras dactilológicas.
-    """
-    VOCABULARY_WORDS = {
-        'licor': 'LICOR', 'trago': 'LICOR', 'beber': 'LICOR', 'bebida': 'LICOR',
-        'gustar': 'GUSTAR', 'gusta': 'GUSTAR', 'gusto': 'GUSTAR',
-        'nombre': 'NOMBRE', 'llamo': 'NOMBRE', 'llamas': 'NOMBRE',
-        'anos': 'ANNOS', 'ano': 'ANNOS', 'annos': 'ANNOS', 'edad': 'ANNOS',
-        'noches': 'NOCHES', 'noche': 'NOCHES',
-        'tardes': 'TARDES', 'tarde': 'TARDES',
-        'dias': 'DIAS', 'dia': 'DIAS',
-        'buenos': 'BUENOS', 'buenas': 'BUENOS',
-        'hola': 'HOLA', 'saludo': 'HOLA', 'saludar': 'HOLA',
-        'yo': 'YO', 'mi': 'YO', 'mismo': 'YO'
-    }
-
-    LETTERS = {
-        'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D', 'e': 'E',
-        'i': 'I', 'l': 'L', 'o': 'O', 'u': 'U', 'v': 'V'
-    }
-
-    GREETING_STARTERS = [
-        "buenos dias", "buenas tardes", "buenas noches", "buen dia", "buenas",
-        "hola tito", "hola zorrito", "hola amigo", "hola profe", "hola tutor", "hola manitas",
-        "hola", "saludos", "hey", "alo", "ola"
-    ]
-
-    CATALOG_KEYWORDS = [
-        "catalogo", "menu", "opciones", "que senas", "que tienes", "que hay",
-        "cuales senas", "cuales son", "lista", "que puedo aprender", "que palabras"
-    ]
-
-    IDENTITY_KEYWORDS = [
-        "quien eres", "como te llamas", "que eres", "presentate", "tu nombre", "tu creador"
-    ]
-
-    GRATITUDE_KEYWORDS = [
-        "gracias", "muchas gracias", "te agradezco", "mil gracias", "genial gracias"
-    ]
-
-    @classmethod
-    def normalize(cls, text: str) -> str:
-        if not text:
-            return ""
-        norm = ''.join(c for c in unicodedata.normalize('NFD', str(text).strip()) if unicodedata.category(c) != 'Mn').lower()
-        norm = re.sub(r'[^\w\s]', ' ', norm)
-        return re.sub(r'\s+', ' ', norm).strip()
-
-    @classmethod
-    def parse(cls, message: str) -> LSCParsedIntent:
-        raw = (message or "").strip()
-        norm = cls.normalize(raw)
-        if not norm:
-            return LSCParsedIntent('UNKNOWN', raw_message=raw)
-
-        # 1. Gratitud
-        for kw in cls.GRATITUDE_KEYWORDS:
-            if kw in norm and len(norm.split()) <= 4:
-                return LSCParsedIntent('GRATITUDE', raw_message=raw)
-
-        # 2. Identidad del Tutor
-        for kw in cls.IDENTITY_KEYWORDS:
-            if kw in norm:
-                return LSCParsedIntent('IDENTITY', raw_message=raw)
-
-        # 3. Catálogo oficial
-        for kw in cls.CATALOG_KEYWORDS:
-            if kw in norm:
-                return LSCParsedIntent('CATALOG', raw_message=raw)
-
-        # 4. Extracción de preámbulo de saludo
-        detected_preamble = None
-        cleaned_text = norm
-        for g in cls.GREETING_STARTERS:
-            if norm == g:
-                return LSCParsedIntent('GREETING', greeting_preamble=g, raw_message=raw)
-            if norm.startswith(g + " "):
-                detected_preamble = g
-                cleaned_text = norm[len(g):].strip()
-                break
-
-        if detected_preamble and not cleaned_text:
-            return LSCParsedIntent('GREETING', greeting_preamble=detected_preamble, raw_message=raw)
-
-        # 5. Principiante / Desde cero
-        if re.search(r'\b(?:no se nada|soy nuevo|desde cero|principiante|por donde empiezo|que hago|como inicio|que me recomiendas|recomendacion)\b', cleaned_text):
-            return LSCParsedIntent('BEGINNER_RECOMMENDATION', target_sign='HOLA', greeting_preamble=detected_preamble, raw_message=raw)
-
-        # 6. Negaciones, Aclaraciones y Contrastes
-        is_negation = bool(re.search(r'\b(?:no quiero|no deseo|no me gusta|no esa|no aprender|no practicar|no voy a|tampoco esa)\b', cleaned_text) or cleaned_text.startswith('no ') or cleaned_text == 'no')
-        contrast_match = re.search(r'\b(?:prefiero|sino|mejor|cambia a|dame|ponme)\s+(?:la\s+|el\s+)?(\w+)', cleaned_text)
-        if is_negation:
-            if contrast_match:
-                cand = contrast_match.group(1)
-                if cand in cls.LETTERS:
-                    return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[cand], is_clarification=True, greeting_preamble=detected_preamble, raw_message=raw)
-                if cand in cls.VOCABULARY_WORDS:
-                    return LSCParsedIntent('LEARN_SIGN', target_sign=cls.VOCABULARY_WORDS[cand], is_clarification=True, greeting_preamble=detected_preamble, raw_message=raw)
-            return LSCParsedIntent('REJECT_SIGN', is_clarification=True, greeting_preamble=detected_preamble, raw_message=raw)
-
-        # 7. Intención de aprendizaje abierta o incompleta
-        if cleaned_text in ('quiero aprender a', 'quiero aprender', 'deseo aprender', 'ensename a', 'aprender', 'aprender a', 'quiero practicar', 'ensenar'):
-            return LSCParsedIntent('OPEN_LEARNING_INTRO', greeting_preamble=detected_preamble, raw_message=raw)
-
-        # 8. Categorías Temáticas
-        if re.search(r'\b(?:saludos|saludo|saludar|como saludar|decir hola)\b', cleaned_text):
-            return LSCParsedIntent('THEME_GREETINGS', target_sign='HOLA', greeting_preamble=detected_preamble, raw_message=raw)
-        if re.search(r'\b(?:presentarme|presentacion|mi nombre|decir mi nombre|como me llamo)\b', cleaned_text):
-            return LSCParsedIntent('THEME_PRESENTATION', target_sign='YO', greeting_preamble=detected_preamble, raw_message=raw)
-        if re.search(r'\b(?:abecedario|alfabeto|vocales|vocal|dactilologico)\b', cleaned_text):
-            return LSCParsedIntent('THEME_ALPHABET', target_sign='A', greeting_preamble=detected_preamble, raw_message=raw)
-        if re.search(r'\b(?:camara|webcam|mediapipe|radar|como funciona|vision artificial|puntos de la mano)\b', cleaned_text):
-            return LSCParsedIntent('TECH_EXPLANATION', greeting_preamble=detected_preamble, raw_message=raw)
-
-        # 9. Solicitud de Letra específica
-        let_match = re.search(r'\b(?:letra|vocal|la)\s+([a-z])\b', cleaned_text)
-        if let_match and let_match.group(1) in cls.LETTERS:
-            return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[let_match.group(1)], greeting_preamble=detected_preamble, raw_message=raw)
-
-        for cons in ['b', 'c', 'd', 'l', 'v']:
-            if re.search(rf'\b{cons}\b', cleaned_text):
-                return LSCParsedIntent('LEARN_SIGN', target_sign=cls.LETTERS[cons], greeting_preamble=detected_preamble, raw_message=raw)
-
-        # 10. Vocabulario de Palabras Oficiales
-        for word, sign_id in cls.VOCABULARY_WORDS.items():
-            if re.search(rf'\b{word}\b', cleaned_text):
-                if word == 'hola' and not any(k in cleaned_text for k in ["sena", "palabra", "aprender", "como se", "hacer", "decir"]):
-                    continue
-                if word in ('yo', 'mi') and any(k in cleaned_text for k in ["quiero", "puedo", "gustaria", "voy", "tengo"]):
-                    continue
-                return LSCParsedIntent('LEARN_SIGN', target_sign=sign_id, greeting_preamble=detected_preamble, raw_message=raw)
-
-        if detected_preamble:
-            return LSCParsedIntent('GREETING', greeting_preamble=detected_preamble, raw_message=raw)
-
-        return LSCParsedIntent('UNKNOWN', raw_message=raw)
-
-    @classmethod
-    def build_natural_reply(cls, parsed: LSCParsedIntent, descriptions: dict) -> str:
-        sign = parsed.target_sign
-        desc = descriptions.get(sign, "")
-        tag = f"[SELECCIONAR: {sign}]" if sign else ""
-        clean_desc = desc.replace(tag, "").strip() if desc else ""
-
-        if parsed.intent == 'LEARN_SIGN' and sign:
-            if parsed.is_clarification:
-                return f"¡Entendido perfectamente! Cambiemos el foco a la seña de '{sign}': {clean_desc} {tag}".strip()
-            elif parsed.greeting_preamble:
-                greeting_map = {
-                    "buenos dias": "¡Buenos días! Con mucho gusto",
-                    "buenas tardes": "¡Buenas tardes! Con mucho gusto",
-                    "buenas noches": "¡Buenas noches! Con mucho gusto",
-                    "hola": "¡Hola! Con mucho gusto",
-                    "saludos": "¡Saludos! Con mucho gusto",
-                    "hey": "¡Hola! Con mucho gusto"
-                }
-                greet = greeting_map.get(parsed.greeting_preamble, "¡Hola! Con mucho gusto")
-                return f"{greet}, vamos a aprender la seña de '{sign}'. {clean_desc} {tag}".strip()
-            else:
-                return f"¡Excelente elección! Para la seña de '{sign}', {clean_desc} {tag}".strip()
-
-        if parsed.intent == 'REJECT_SIGN':
-            return (
-                "¡Entendido perfectamente! Disculpa la confusión, no practicaremos esa seña. 😊 "
-                "¿Qué otra palabra o letra te gustaría explorar? Puedes elegir entre: HOLA, BUENOS DÍAS, "
-                "TARDES, NOCHES, GUSTAR, NOMBRE, AÑOS, LICOR o las letras del abecedario (A, B, C, D, E, I, L, O, U, V)."
-            )
-
-        if parsed.intent == 'OPEN_LEARNING_INTRO':
-            return (
-                "¡Qué gran iniciativa! 🦊 En Manitas te enseño Lengua de Señas Colombiana paso a paso con videos oficiales "
-                "y visión artificial por tu cámara. ¿Por dónde te gustaría arrancar? Te recomiendo empezar con saludos cotidianos "
-                "como 'HOLA' o con las vocales del abecedario como la 'A'."
-            )
-
-        if parsed.intent == 'BEGINNER_RECOMMENDATION':
-            return (
-                f"¡Bienvenido a Manitas! 🦊 No te preocupes por empezar desde cero, ¡es la mejor forma de aprender con buena técnica! "
-                f"Te recomiendo iniciar con el saludo universal 'HOLA'. ¿Listo para ver la demostración y practicar frente a la cámara? {tag}".strip()
-            )
-
-        if parsed.intent == 'THEME_GREETINGS':
-            return (
-                f"¡Excelente elección! Para saludar en LSC tenemos señas fundamentales: HOLA, BUENOS DÍAS, TARDES y NOCHES. "
-                f"Comencemos practicando 'HOLA'. {clean_desc} {tag}".strip()
-            )
-
-        if parsed.intent == 'THEME_PRESENTATION':
-            return (
-                f"¡Muy bien! Para presentarte en LSC necesitas dominar tres señas clave: 'YO', 'NOMBRE' y 'AÑOS' (junto al abecedario para tu nombre). "
-                f"Comencemos con 'YO'. {clean_desc} {tag}".strip()
-            )
-
-        if parsed.intent == 'THEME_ALPHABET':
-            return (
-                f"¡Genial! En Manitas puedes practicar las vocales (A, E, I, O, U) y consonantes (B, C, D, L, V). "
-                f"Comencemos con la primera vocal: 'A'. {clean_desc} {tag}".strip()
-            )
-
-        if parsed.intent == 'TECH_EXPLANATION':
-            return (
-                "¡Buena pregunta! 🖐️ Manitas utiliza visión artificial local con Google MediaPipe Hands. "
-                "Tu cámara analiza 21 puntos anatómicos de tu mano 30 veces por segundo y compara su postura y ángulos "
-                "contra el dataset oficial LSC70. ¡Al mantener más del 85% de similitud durante 1 segundo, apruebas la seña!"
-            )
-
-        if parsed.intent == 'GREETING':
-            return (
-                "¡Hola! Qué alegría saludarte. Soy Zorrito, tu tutor interactivo de Lengua de Señas Colombiana (LSC). "
-                "¿Qué seña te gustaría practicar hoy? Puedes decirme por ejemplo: 'Quiero aprender la letra A', "
-                "'Enséñame HOLA' o 'Cómo se hace DÍAS'."
-            )
-
-        if parsed.intent == 'CATALOG':
-            return (
-                "En Manitas tenemos señas oficiales del dataset LSC70 listas para practicar:\n"
-                "• Palabras de uso cotidiano: HOLA, YO, BUENOS, DÍAS, TARDES, NOCHES, GUSTAR, NOMBRE, AÑOS y LICOR.\n"
-                "• Alfabeto dactilológico: A, B, C, D, E, I, L, O, U y V.\n"
-                "¿Cuál de ellas te gustaría practicar ahora mismo?"
-            )
-
-        if parsed.intent == 'IDENTITY':
-            return (
-                "¡Hola! Soy Zorrito, tu tutor inteligente de Lengua de Señas Colombiana (LSC) en Manitas. "
-                "Mi misión es guiarte con visión artificial por webcam y modelos pedagógicos para que aprendas con precisión."
-            )
-
-        if parsed.intent == 'GRATITUDE':
-            return (
-                "¡Con todo el gusto! La práctica constante frente a la cámara es el mejor camino para dominar la lengua de señas. "
-                "¿Deseas continuar con otra seña o prefieres repasar?"
-            )
-
-        return (
-            "¡Hola! Comprendo tu mensaje. Para guiarte con la cámara y los videos de LSC, puedes pedirme cualquiera de nuestras "
-            "señas oficiales, por ejemplo: 'Quiero aprender la letra A', 'Enséñame HOLA' o 'Practicar DÍAS'. ¿Cuál eliges?"
-        )
-
-class LSCTutorService:
-    """
-    Servicio de Tutoría Inteligente para LSC (POO).
-    Orquesta la comprensión de lenguaje natural y la comunicación con Ollama.
-    """
-    def __init__(self, ollama_url: str = OLLAMA_URL, model: str = "qwen2.5:3b", timeout: float = 3.5):
-        self.ollama_url = ollama_url
-        self.model = model
-        self.timeout = timeout
-
-    def process_message(self, user_msg: str, history: Optional[list] = None) -> dict:
-        clean_msg = str(user_msg or "").strip()[:300]
-        parsed = LSCNaturalLanguageParser.parse(clean_msg)
-        target_sign = parsed.target_sign
-
-        reply_text = None
-        if parsed.intent in ('UNKNOWN', 'OPEN_CONVERSATION'):
-            reply_text = self._query_ollama_open(clean_msg)
-
-        if not reply_text:
-            reply_text = LSCNaturalLanguageParser.build_natural_reply(parsed, LSC_SIGN_DESCRIPTIONS)
-
-        if target_sign and f"[SELECCIONAR: {target_sign}]" not in reply_text:
-            reply_text = f"{reply_text.strip()} [SELECCIONAR: {target_sign}]"
-
-        return {
-            "reply": reply_text,
-            "detected_sign": target_sign,
-            "intent": parsed.intent,
-            "is_clarification": parsed.is_clarification
-        }
-
-    def _query_ollama_open(self, user_msg: str) -> Optional[str]:
-        try:
-            safe_msg = user_msg[:250]
-            prompt = (
-                f"Eres Zorrito, el tutor interactivo y empático de Lengua de Señas Colombiana (LSC) en Manitas.\n"
-                f"Usuario pregunta: \"{safe_msg}\"\n"
-                f"Instrucciones: Responde amablemente en español con tono cálido y pedagógico en máximo 2 oraciones breves.\n"
-                f"Respuesta:"
-            )
-            req = urllib.request.Request(
-                self.ollama_url,
-                data=json.dumps({
-                    "model": self.model,
-                    "prompt": prompt,
-                    "stream": False,
-                    "options": {"num_predict": 75, "temperature": 0.4}
-                }).encode('utf-8'),
-                headers={"Content-Type": "application/json"}
-            )
-            with urllib.request.urlopen(req, timeout=self.timeout) as resp:
-                res_data = json.loads(resp.read().decode('utf-8'))
-                ans = res_data.get("response", "").strip()
-                if ans:
-                    return ans
-        except Exception as e:
-            logger.debug(f"Ollama fallback activo para chat: {e}")
-        return None
-
-tutor_service = LSCTutorService()
-
-def detect_sign(msg: str) -> Optional[str]:
-    """Función de compatibilidad delegada al motor NLU."""
-    parsed = LSCNaturalLanguageParser.parse(msg)
-    return parsed.target_sign
 
 class UserRepository:
     """Repositorio POO para la persistencia segura de usuarios en JSON con exclusión mutua."""
@@ -511,6 +126,7 @@ class UserRepository:
             "masteredSigns": clean_mastered,
             "customPlans": clean_plans,
             "examHistory": clean_history,
+            "signStats": SRSService.sanitize_sign_stats(user_data.get("signStats", {}), VALID_SIGN_IDS),
             "lastUpdated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         }
 
@@ -557,7 +173,7 @@ class UserRepository:
             json.dump(db, f, indent=2, ensure_ascii=False)
         os.replace(tmp_path, self.db_path)
 
-user_repository = UserRepository()
+user_repository = create_user_repository(UserRepository, USERS_DB_PATH, VALID_SIGN_IDS)
 
 def load_users_db() -> dict:
     """Wrapper de compatibilidad para consultar usuarios."""
@@ -568,98 +184,44 @@ def save_user_to_db(user_data: dict) -> dict:
     return user_repository.save_user(user_data)
 
 class PedagogicalPlanner:
-    """Planificador pedagógico POO que diseña rutas de aprendizaje con IA o fallback."""
-
-    def __init__(self, ollama_url: str = OLLAMA_URL, model: str = "qwen2.5:3b", timeout: float = 2.2):
-        self.ollama_url = ollama_url
-        self.model = model
-        self.timeout = timeout
+    """Planificador pedagógico POO que diseña rutas de aprendizaje LSC70 determinísticas."""
 
     def build_plan(self, goal: str, level: str = "beginner") -> dict:
         clean_goal = str(goal or "").strip()[:300]
         norm_goal = ''.join(c for c in unicodedata.normalize('NFD', clean_goal) if unicodedata.category(c) != 'Mn').lower()
-        plan_id = f"ai_plan_{int(time.time())}"
-
-        try:
-            ollama_prompt = f"""Eres Tito IA, el tutor pedagógico experto en Lengua de Señas Colombiana (LSC) de Manitas.
-Tu tarea es diseñar una ruta progresiva de aprendizaje para un estudiante.
-Objetivo del estudiante: "{clean_goal}"
-Nivel: {level}
-Catálogo estricto de señas disponibles (usa SOLAMENTE estos IDs en mayúscula exacta):
-HOLA, YO, BUENOS, DIAS, TARDES, NOCHES, GUSTAR, NOMBRE, ANNOS, LICOR, A, B, C, D, E, I, L, O, U, V.
-
-Responde ÚNICAMENTE un objeto JSON válido con este formato:
-{{"title": "Título corto y motivador", "rationale": "Breve explicación pedagógica de 1 o 2 oraciones", "signs": ["ID1", "ID2", "ID3", "ID4"]}}
-"""
-            req = urllib.request.Request(
-                self.ollama_url,
-                data=json.dumps({
-                    "model": self.model,
-                    "prompt": ollama_prompt,
-                    "stream": False,
-                    "format": "json",
-                    "options": {"num_predict": 120, "temperature": 0.2}
-                }).encode('utf-8'),
-                headers={"Content-Type": "application/json"}
-            )
-            with urllib.request.urlopen(req, timeout=self.timeout) as resp:
-                data = json.loads(resp.read().decode('utf-8'))
-                raw_text = data.get("response", "{}")
-                raw_json = json.loads(raw_text)
-                title = str(raw_json.get("title", "")).strip() or "Ruta Personalizada LSC"
-                rationale = str(raw_json.get("rationale", "")).strip() or "Ruta estructurada según tu objetivo de aprendizaje."
-                signs_candidate = raw_json.get("signs", [])
-                valid_signs = [s for s in signs_candidate if s in VALID_SIGN_IDS]
-                seen = set()
-                valid_unique = []
-                for s in valid_signs:
-                    if s not in seen:
-                        seen.add(s)
-                        valid_unique.append(s)
-
-                if len(valid_unique) >= 3:
-                    return {
-                        "id": plan_id,
-                        "title": title,
-                        "rationale": rationale,
-                        "signs": valid_unique,
-                        "source": "ollama"
-                    }
-        except Exception as e:
-            logger.debug(f"Ollama plan fallback activo: {e}")
+        plan_id = f"lsc_plan_{int(time.time())}"
 
         if any(k in norm_goal for k in ["abecedario", "letra", "alfabeto", "dactil", "deletrear"]):
             return {
                 "id": plan_id,
-                "title": "Ruta IA: Abecedario Dactilológico LSC",
-                "rationale": "Tito IA ha seleccionado la secuencia dactilológica esencial para deletrear nombres propios y términos técnicos en LSC con soltura.",
+                "title": "Ruta LSC: Abecedario Dactilológico",
+                "rationale": "Secuencia dactilológica esencial para deletrear nombres propios y palabras en LSC con soltura.",
                 "signs": ["A", "B", "C", "D", "E", "I", "L", "O", "U", "V"],
-                "source": "curated_fallback"
+                "source": "deterministic"
             }
         elif any(k in norm_goal for k in ["saludo", "presentar", "presentacion", "social", "conocer"]):
             return {
                 "id": plan_id,
-                "title": "Ruta IA: Saludos y Presentación Personal",
-                "rationale": "Tito IA estructuró las señas fundamentales para iniciar una conversación cordial y presentarte con naturalidad ante personas sordas.",
+                "title": "Ruta LSC: Saludos y Presentación Personal",
+                "rationale": "Señas fundamentales para iniciar una conversación cordial y presentarte en LSC.",
                 "signs": ["HOLA", "YO", "NOMBRE", "BUENOS", "DIAS", "GUSTAR"],
-                "source": "curated_fallback"
+                "source": "deterministic"
             }
         elif any(k in norm_goal for k in ["palabra", "vocabulario", "conversacion", "frases"]):
             return {
                 "id": plan_id,
-                "title": "Ruta IA: Vocabulario Esencial LSC",
-                "rationale": "Tito IA diseñó una inmersión directa en las expresiones y términos cotidianos más frecuentes del corpus LSC70.",
+                "title": "Ruta LSC: Vocabulario Esencial",
+                "rationale": "Inmersión directa en las expresiones y términos cotidianos del corpus LSC70.",
                 "signs": ["HOLA", "BUENOS", "DIAS", "TARDES", "NOCHES", "YO", "NOMBRE", "GUSTAR", "ANNOS", "LICOR"],
-                "source": "curated_fallback"
+                "source": "deterministic"
             }
-        else:
-            return {
-                "id": plan_id,
-                "title": "Ruta IA: Fundamentos LSC Desde Cero",
-                "rationale": "Tito IA diseñó una ruta balanceada para principiantes: inicia con el saludo universal, continúa con vocales dactilológicas y culmina con cortesía y presentación.",
-                "signs": ["HOLA", "YO", "A", "E", "O", "BUENOS", "DIAS", "NOMBRE"],
-                "source": "curated_fallback"
-            }
+        return {
+            "id": plan_id,
+            "title": "Ruta LSC: Fundamentos Desde Cero",
+            "rationale": "Ruta balanceada para principiantes: saludo universal, vocales dactilológicas y cortesía básica.",
+            "signs": ["HOLA", "YO", "A", "E", "O", "BUENOS", "DIAS", "NOMBRE"],
+            "source": "deterministic"
+        }
 
 pedagogical_planner = PedagogicalPlanner()
 
@@ -889,6 +451,12 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
         return True
 
     def do_GET(self):
+        if self.path.startswith('/api/srs/due'):
+            if not self._check_rate_limit():
+                return
+            status, body = handle_srs_get(self.path, user_repository, VALID_SIGN_IDS)
+            self._send_json_response(status, body)
+            return
         if self.path == '/api/users':
             if not self._check_rate_limit():
                 return
@@ -907,27 +475,7 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_POST(self):
-        if self.path == '/api/chat':
-            if not self._check_rate_limit():
-                return
-            payload, err = self._read_json_payload()
-            if err:
-                self._send_json_error(400 if "grande" not in err else 413, err)
-                return
-            try:
-                user_msg = str(payload.get("message", "")).strip()[:300]
-                history = payload.get("history", [])
-                if not isinstance(history, list):
-                    history = []
-
-                result = tutor_service.process_message(user_msg, history)
-                self._send_json_response(200, result)
-            except Exception as e:
-                logger.error(f"Error procesando /api/chat: {e}")
-                self._send_json_error(500, "Error procesando mensaje en el tutor")
-            return
-
-        elif self.path == '/api/plan':
+        if self.path == '/api/plan':
             if not self._check_rate_limit():
                 return
             payload, err = self._read_json_payload()
@@ -961,10 +509,21 @@ class LSCHandler(http.server.SimpleHTTPRequestHandler):
                 self._send_json_error(500, "Error al persistir usuario")
             return
 
+        elif self.path == '/api/srs/review':
+            if not self._check_rate_limit():
+                return
+            payload, err = self._read_json_payload()
+            if err:
+                self._send_json_error(400 if "grande" not in err else 413, err)
+                return
+            status, body = handle_srs_post(payload, user_repository, VALID_SIGN_IDS)
+            self._send_json_response(status, body)
+            return
+
         self.send_error(404, "Endpoint no encontrado")
 
 class ProcessLifecycleManager:
-    """Administrador POO del ciclo de vida de procesos del backend (puertos y Ollama)."""
+    """Administrador POO del ciclo de vida de procesos del backend (puertos)."""
 
     @classmethod
     def free_port(cls, port: int) -> None:
@@ -997,56 +556,9 @@ class ProcessLifecycleManager:
         except Exception as e:
             logger.debug(f"Aviso en liberación de puerto {port}: {e}")
 
-    @classmethod
-    def ensure_ollama_service(cls) -> bool:
-        """Verifica si Ollama está respondiendo en 127.0.0.1:11434 sin lanzar terminales duplicadas."""
-        try:
-            req = urllib.request.Request("http://127.0.0.1:11434/api/tags")
-            with urllib.request.urlopen(req, timeout=1.5) as resp:
-                if resp.status == 200:
-                    logger.info("[OK] Ollama activo en http://127.0.0.1:11434 (GPU listo)")
-                    return True
-        except Exception:
-            pass
-
-        # Si no respondió inmediatamente, verificar si el proceso ya está corriendo en segundo plano para evitar terminales duplicadas
-        try:
-            out = subprocess.check_output(['tasklist'], text=True, stderr=subprocess.DEVNULL)
-            if 'ollama.exe' in out.lower():
-                logger.info("[INFO] Proceso de Ollama detectado en memoria. Inicializando modelos...")
-                return True
-        except Exception:
-            pass
-
-        ollama_path = shutil.which("ollama")
-        if not ollama_path:
-            local_app = os.path.expanduser(r"~\AppData\Local\Programs\Ollama\ollama.exe")
-            if os.path.exists(local_app):
-                ollama_path = local_app
-
-        if ollama_path:
-            try:
-                logger.info("[INFO] Ollama no detectado. Levantando 'ollama serve' en segundo plano...")
-                flags = 0
-                if sys.platform == "win32":
-                    flags = subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS
-                subprocess.Popen([ollama_path, "serve"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, creationflags=flags)
-                time.sleep(2.0)
-                logger.info("[OK] Proceso 'ollama serve' lanzado exitosamente.")
-                return True
-            except Exception as e:
-                logger.warning(f"[AVISO] No se pudo lanzar Ollama automáticamente: {e}")
-        else:
-            logger.info("[INFO] Ollama no detectado en puerto 11434. El tutor funcionará con el motor NLU local integrado (100% offline).")
-        return False
-
 def free_port(port: int):
     """Función de compatibilidad para liberar puertos."""
     ProcessLifecycleManager.free_port(port)
-
-def ensure_ollama_service() -> bool:
-    """Función de compatibilidad para asegurar Ollama."""
-    return ProcessLifecycleManager.ensure_ollama_service()
 
 class RobustThreadingServer(socketserver.ThreadingTCPServer):
     allow_reuse_address = True
@@ -1062,9 +574,8 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
     HOST = "127.0.0.1"
     ProcessLifecycleManager.free_port(PORT)
-    ProcessLifecycleManager.ensure_ollama_service()
     RobustThreadingServer.allow_reuse_address = True
-    print(f"Iniciando Servidor LSC Learn con Proxy Ollama en http://{HOST}:{PORT}")
+    print(f"Iniciando Servidor Manitas LSC en http://{HOST}:{PORT}")
     try:
         with RobustThreadingServer((HOST, PORT), LSCHandler) as httpd:
             httpd.serve_forever()

@@ -210,8 +210,8 @@ const TrajectoryTracker = (() => {
     const bodyStatus = lastBlockedReason
       ? lastBlockedReason
       : (bodyDetector.head.detected || bodyDetector.baseHand.detected
-        ? `🎯 ${trajectoryConfig.bodyZone || 'Cuerpo detectado'}`
-        : '🔍 Buscando tu posición');
+        ? `${trajectoryConfig.bodyZone || 'Cuerpo detectado'}`
+        : 'Buscando tu posición');
     return {
       active: true,
       text: `Conecta punto ${currentPointIndex + 1}/${total}: ${label} (${bodyStatus})`,
@@ -264,7 +264,7 @@ const TrajectoryTracker = (() => {
       playCelebrationChord();
       spawnShockwave(canvasWidth * 0.5, canvasHeight * 0.5, '#FF7A45', 150);
       spawnCelebration(canvasWidth, canvasHeight);
-      spawnFloater(canvasWidth * 0.5, canvasHeight * 0.42, '¡TRAYECTORIA COMPLETA! ⭐', '#FF7A45', 20);
+      spawnFloater(canvasWidth * 0.5, canvasHeight * 0.42, '¡TRAYECTORIA COMPLETA!', '#FF7A45', 20);
     }
   }
 
@@ -473,8 +473,8 @@ const TrajectoryTracker = (() => {
       const statusBanner = lastBlockedReason
         ? lastBlockedReason
         : (isLocked
-          ? `🎯 Anclado a tu ${zoneName}`
-          : `🔍 Buscando tu ${zoneName} frente a la cámara...`);
+          ? `Anclado a tu ${zoneName}`
+          : `Buscando tu ${zoneName} frente a la cámara...`);
       const bannerColor = lastBlockedReason ? '#C84B1C' : (isLocked ? '#1C1917' : '#574F47');
 
       ctx.save();

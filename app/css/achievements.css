@@ -1,0 +1,328 @@
+/**
+ * Manitas · Vitrina de Logros y Medallas LSC
+ * Diseño 60-30-10 cálido (tokens.css) + Craft Emil Kowalski (make-interfaces-feel-better)
+ */
+
+.ach-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.ach-hero-card {
+  background: var(--palette-60-surface);
+  border: 1px solid var(--palette-30-border);
+  border-radius: 20px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04);
+}
+
+@media (min-width: 768px) {
+  .ach-hero-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.35rem 1.5rem;
+  }
+}
+
+.ach-section-card {
+  background: var(--palette-60-surface);
+  border: 1px solid var(--palette-30-border);
+  border-radius: 20px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04);
+}
+
+.ach-medals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 0.9rem;
+}
+
+.ach-medal-card {
+  background: var(--palette-60-surface);
+  border: 1.5px solid var(--palette-10-accent);
+  border-radius: 20px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  box-shadow: 0 2px 6px rgba(28, 25, 23, 0.05);
+  transition-property: transform, box-shadow, border-color;
+  transition-duration: 160ms;
+  transition-timing-function: var(--ease-out-expo);
+}
+
+.ach-medal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(28, 25, 23, 0.08);
+}
+
+.ach-medal-card.is-locked {
+  background: var(--palette-60-elevated);
+  border-color: var(--palette-30-border);
+  box-shadow: none;
+}
+
+.ach-medal-card.is-locked:hover {
+  transform: none;
+}
+
+.ach-medal-frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  background: var(--palette-60-canvas);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: 1px solid rgba(28, 25, 23, 0.1);
+  outline-offset: -1px;
+}
+
+.ach-medal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ach-medal-card.is-locked .ach-medal-img {
+  filter: grayscale(1) opacity(0.42);
+}
+
+.ach-medal-body {
+  padding: 0 0.25rem 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ach-status-pill {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+}
+
+.ach-status-pill.is-unlocked {
+  background: #ECFDF5;
+  color: #065F46;
+  border: 1px solid #6EE7B7;
+}
+
+.ach-status-pill.is-locked {
+  background: var(--palette-60-surface);
+  color: var(--palette-30-text-secondary);
+  border: 1px solid var(--palette-30-border-strong);
+}
+
+.ach-tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 0.75rem;
+}
+
+.ach-tier-card {
+  background: var(--palette-60-elevated);
+  border: 1px solid var(--palette-30-border);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ach-tier-card.is-gold {
+  background: var(--palette-10-accent-tint);
+  border-color: var(--palette-10-accent);
+}
+
+.ach-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.ach-filter-btn {
+  min-height: 44px;
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+  border: 1px solid var(--palette-30-border-strong);
+  background: var(--palette-60-elevated);
+  color: var(--palette-30-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition-property: transform, background-color, border-color, color;
+  transition-duration: 160ms;
+  transition-timing-function: var(--ease-out-expo);
+}
+
+.ach-filter-btn:hover {
+  color: var(--palette-30-petrol);
+  border-color: var(--palette-10-accent-deep);
+}
+
+.ach-filter-btn:active {
+  transform: scale(0.96);
+}
+
+.ach-filter-btn:focus-visible {
+  outline: 2px solid var(--palette-10-accent-deep);
+  outline-offset: 2px;
+}
+
+.ach-filter-btn[aria-selected="true"] {
+  background: var(--palette-10-accent);
+  color: var(--palette-30-petrol);
+  border-color: rgba(176, 59, 16, 0.35);
+}
+
+.ach-progress-hint {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--palette-10-accent-deep);
+  font-variant-numeric: tabular-nums;
+  margin-top: 0.15rem;
+}
+
+.ach-toast-stack {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 70;
+  width: min(370px, calc(100vw - 2rem));
+  pointer-events: auto;
+}
+
+.ach-toast-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 18px;
+  background: var(--palette-60-elevated);
+  border: 2px solid var(--palette-10-accent);
+  box-shadow: 0 18px 40px -12px rgba(28, 25, 23, 0.28), 0 0 0 4px rgba(232, 93, 42, 0.12);
+  animation: achToastSlideIn 280ms var(--ease-out-expo) both;
+}
+
+@keyframes achToastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ach-toast-medal {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--palette-10-accent-tint);
+  border: 1px solid rgba(232, 93, 42, 0.3);
+}
+
+.ach-toast-medal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ach-toast-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.ach-toast-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--palette-10-accent-deep);
+}
+
+.ach-toast-title {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: var(--palette-30-petrol);
+  line-height: 1.2;
+}
+
+.ach-toast-desc {
+  font-size: 0.75rem;
+  color: var(--palette-30-text-secondary);
+  line-height: 1.3;
+}
+
+.ach-toast-actions {
+  margin-top: 0.25rem;
+}
+
+.ach-toast-cta {
+  min-height: 44px;
+  padding: 0.35rem 0.85rem;
+  border-radius: 10px;
+  background: var(--palette-10-accent);
+  color: var(--palette-30-petrol);
+  font-size: 0.75rem;
+  font-weight: 800;
+  border: 1px solid rgba(176, 59, 16, 0.3);
+  cursor: pointer;
+}
+
+.ach-toast-close {
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--palette-30-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.ach-toast-close:hover {
+  color: var(--palette-30-petrol);
+  background: var(--palette-60-surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ach-medal-card,
+  .ach-filter-btn,
+  .ach-toast-card {
+    transition: none;
+    animation: none;
+  }
+  .ach-medal-card:hover,
+  .ach-filter-btn:active {
+    transform: none;
+  }
+}

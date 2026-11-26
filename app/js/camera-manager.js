@@ -17,9 +17,32 @@ class CameraDeviceManager {
   #deviceList = [];
   #isSwitching = false;
   #boundOnDeviceChange = null;
+  #trackedStreams = new Set();
+  #startSeq = 0;
+  #dropdownMap = new WeakMap();
+  #activeDropdown = null;
+  #boundDocClick = null;
+  #boundDocKeyDown = null;
+  #boundViewportChange = null;
 
   constructor() {
     this.#boundOnDeviceChange = () => this.refreshDeviceList();
+    this.#boundDocClick = (e) => {
+      if (!this.#activeDropdown) return;
+      const { wrapper, menu } = this.#activeDropdown.entry;
+      if ((wrapper && wrapper.contains(e.target)) || (menu && menu.contains(e.target))) return;
+      this.#closeActiveDropdown();
+    };
+    this.#boundDocKeyDown = (e) => {
+      if (e.key === 'Escape' && this.#activeDropdown) {
+        this.#closeActiveDropdown();
+      }
+    };
+    this.#boundViewportChange = () => {
+      if (this.#activeDropdown) {
+        this.#positionDropdownMenu(this.#activeDropdown.entry);
+      }
+    };
   }
 
   /**
@@ -59,8 +82,16 @@ class CameraDeviceManager {
     if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) {
       navigator.mediaDevices.addEventListener('devicechange', this.#boundOnDeviceChange);
     }
+    if (typeof document !== 'undefined') {
+      document.addEventListener('click', this.#boundDocClick);
+      document.addEventListener('keydown', this.#boundDocKeyDown);
+    }
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', this.#boundViewportChange);
+    }
 
-    // Enumerar dispositivos iniciales
+    // Renderizar triggers personalizados de inmediato y enumerar dispositivos iniciales
+    this.#renderSelectOptions();
     this.refreshDeviceList().catch((err) => {
       console.warn('[CameraDeviceManager] Error al enumerar dispositivos iniciales:', err);
     });
@@ -84,9 +115,11 @@ class CameraDeviceManager {
     try {
       if (!this.#isStreaming && !this.#currentStream) {
         const tempStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        this.#trackedStreams.add(tempStream);
         tempStream.getTracks().forEach(t => {
           try { t.stop(); } catch (e) {}
         });
+        this.#trackedStreams.delete(tempStream);
         // Pausa breve para que el sistema operativo libere el hardware
         await new Promise(r => setTimeout(r, 200));
       }
@@ -126,6 +159,10 @@ class CameraDeviceManager {
       if (!newDeviceId) return;
       this.#selectedDeviceId = newDeviceId;
 
+      if (selectEl.id === 'alphabetSpellCameraSelect' && window.AlphabetLabController && !window.AlphabetLabController.isSpellCameraActive()) {
+        return;
+      }
+
       if (window.VisionEvaluator) {
         await window.VisionEvaluator.startWithDevice(newDeviceId);
       } else {
@@ -138,6 +175,12 @@ class CameraDeviceManager {
         lessonVideo.srcObject = stream;
         lessonVideo.muted = true;
         try { await lessonVideo.play(); } catch (err) {}
+      }
+      const labVideo = document.getElementById('alphabetSpellWebcamVideo');
+      if (labVideo && stream) {
+        labVideo.srcObject = stream;
+        labVideo.muted = true;
+        try { await labVideo.play(); } catch (err) {}
       }
     });
 
@@ -161,7 +204,8 @@ class CameraDeviceManager {
     const selects = [
       this.#selectElement,
       document.getElementById('lessonCameraSelect'),
-      document.getElementById('examCameraSelect')
+      document.getElementById('examCameraSelect'),
+      document.getElementById('alphabetSpellCameraSelect')
     ].filter(Boolean);
     if (selects.length === 0) return;
 
@@ -175,7 +219,7 @@ class CameraDeviceManager {
       if (this.#deviceList.length === 0) {
         const opt = document.createElement('option');
         opt.value = '';
-        opt.textContent = '📷 Cámara predeterminada';
+        opt.textContent = 'Cámara predeterminada';
         selectEl.appendChild(opt);
       } else {
         this.#deviceList.forEach((device, index) => {
@@ -193,6 +237,8 @@ class CameraDeviceManager {
           selectEl.value = this.#deviceList[0].deviceId;
         }
       }
+
+      this.#syncCustomDropdown(selectEl);
     });
 
     if (previousSelected && this.#deviceList.some(d => d.deviceId === previousSelected)) {
@@ -200,6 +246,194 @@ class CameraDeviceManager {
     } else if (this.#deviceList[0]) {
       this.#selectedDeviceId = this.#deviceList[0].deviceId;
     }
+  }
+
+  #ensureCustomDropdown(selectEl) {
+    if (!selectEl || typeof document === 'undefined') return null;
+    const existing = this.#dropdownMap.get(selectEl);
+    if (existing && existing.wrapper && existing.wrapper.isConnected) {
+      return existing;
+    }
+
+    selectEl.classList.add('cam-select-native-hidden');
+    const isCompact = selectEl.id === 'lessonCameraSelect' || selectEl.id === 'examCameraSelect';
+    const isFluid = selectEl.id === 'cameraSourceSelect' || selectEl.id === 'alphabetSpellCameraSelect';
+
+    const wrapper = document.createElement('div');
+    wrapper.className = `cam-dropdown${isCompact ? ' cam-dropdown--compact' : ''}${isFluid ? ' is-fluid' : ''}`;
+
+    const trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'cam-dropdown-trigger';
+    trigger.setAttribute('aria-haspopup', 'listbox');
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.setAttribute('aria-label', selectEl.getAttribute('aria-label') || 'Seleccionar cámara');
+    trigger.title = selectEl.title || 'Seleccionar cámara disponible';
+
+    const leading = document.createElement('span');
+    leading.className = 'cam-dropdown-leading';
+    leading.appendChild(this.#createCameraIconSvg());
+
+    const labelEl = document.createElement('span');
+    labelEl.className = 'cam-dropdown-label';
+    labelEl.textContent = 'Detectando cámaras...';
+    leading.appendChild(labelEl);
+
+    const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    chevron.setAttribute('viewBox', '0 0 24 24');
+    chevron.setAttribute('fill', 'none');
+    chevron.setAttribute('stroke', 'currentColor');
+    chevron.setAttribute('stroke-width', '2.5');
+    chevron.setAttribute('stroke-linecap', 'round');
+    chevron.setAttribute('stroke-linejoin', 'round');
+    chevron.setAttribute('aria-hidden', 'true');
+    chevron.classList.add('cam-dropdown-chevron');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    path.setAttribute('points', '6 9 12 15 18 9');
+    chevron.appendChild(path);
+
+    trigger.appendChild(leading);
+    trigger.appendChild(chevron);
+    wrapper.appendChild(trigger);
+
+    if (selectEl.parentNode) {
+      selectEl.parentNode.insertBefore(wrapper, selectEl.nextSibling);
+    }
+
+    const menu = document.createElement('div');
+    menu.className = 'cam-dropdown-menu';
+    menu.setAttribute('role', 'listbox');
+    menu.setAttribute('aria-label', 'Cámaras disponibles');
+
+    const entry = { wrapper, trigger, labelEl, menu };
+    trigger.addEventListener('click', () => {
+      if (this.#activeDropdown && this.#activeDropdown.selectEl === selectEl) {
+        this.#closeActiveDropdown();
+      } else {
+        this.#openDropdown(selectEl, entry);
+      }
+    });
+
+    this.#dropdownMap.set(selectEl, entry);
+    return entry;
+  }
+
+  #createCameraIconSvg() {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '2');
+    svg.setAttribute('stroke-linecap', 'round');
+    svg.setAttribute('stroke-linejoin', 'round');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.classList.add('cam-dropdown-icon');
+    const body = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    body.setAttribute('d', 'M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z');
+    const lens = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    lens.setAttribute('cx', '12');
+    lens.setAttribute('cy', '13');
+    lens.setAttribute('r', '4');
+    svg.appendChild(body);
+    svg.appendChild(lens);
+    return svg;
+  }
+
+  #syncCustomDropdown(selectEl) {
+    const entry = this.#ensureCustomDropdown(selectEl);
+    if (!entry) return;
+
+    const options = Array.from(selectEl.options || []);
+    const activeOpt = options.find(o => o.value === selectEl.value) || options[0];
+    entry.labelEl.textContent = activeOpt ? activeOpt.textContent : 'Cámara predeterminada';
+
+    entry.menu.replaceChildren();
+    options.forEach(opt => {
+      const isSelected = opt.value === selectEl.value;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `cam-dropdown-option${isSelected ? ' is-selected' : ''}`;
+      btn.setAttribute('role', 'option');
+      btn.setAttribute('aria-selected', String(isSelected));
+
+      const leading = document.createElement('span');
+      leading.className = 'cam-dropdown-leading';
+      leading.appendChild(this.#createCameraIconSvg());
+
+      const txt = document.createElement('span');
+      txt.className = 'cam-dropdown-option-text';
+      txt.textContent = opt.textContent;
+      leading.appendChild(txt);
+      btn.appendChild(leading);
+
+      if (isSelected) {
+        const chk = document.createElement('span');
+        chk.className = 'cam-dropdown-check';
+        chk.setAttribute('aria-hidden', 'true');
+        chk.textContent = '✓';
+        btn.appendChild(chk);
+      }
+
+      btn.addEventListener('click', () => {
+        const nextVal = opt.value;
+        this.#closeActiveDropdown();
+        if (selectEl.value !== nextVal) {
+          selectEl.value = nextVal;
+          selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+        } else {
+          this.#syncCustomDropdown(selectEl);
+        }
+      });
+
+      entry.menu.appendChild(btn);
+    });
+  }
+
+  #openDropdown(selectEl, entry) {
+    this.#closeActiveDropdown();
+    if (this.#needsPermissionForLabels()) {
+      this.requestPermissionAndRefresh();
+    }
+    this.#syncCustomDropdown(selectEl);
+    document.body.appendChild(entry.menu);
+    this.#positionDropdownMenu(entry);
+    entry.trigger.classList.add('is-open');
+    entry.trigger.setAttribute('aria-expanded', 'true');
+    this.#activeDropdown = { selectEl, entry };
+  }
+
+  #positionDropdownMenu(entry) {
+    if (!entry || !entry.trigger || !entry.menu || !entry.trigger.isConnected) {
+      this.#closeActiveDropdown();
+      return;
+    }
+    const rect = entry.trigger.getBoundingClientRect();
+    const minW = Math.max(rect.width, 220);
+    const maxW = Math.min(320, window.innerWidth - 16);
+    const width = Math.min(minW, maxW);
+    const left = Math.max(8, Math.min(rect.left, window.innerWidth - width - 8));
+    const menuHeight = Math.min(entry.menu.scrollHeight || 160, 260);
+    const spaceBelow = window.innerHeight - rect.bottom - 10;
+    const top = (spaceBelow >= menuHeight || rect.top < menuHeight)
+      ? Math.min(rect.bottom + 6, Math.max(8, window.innerHeight - menuHeight - 8))
+      : Math.max(8, rect.top - menuHeight - 6);
+
+    entry.menu.style.width = `${Math.round(width)}px`;
+    entry.menu.style.left = `${Math.round(left)}px`;
+    entry.menu.style.top = `${Math.round(top)}px`;
+  }
+
+  #closeActiveDropdown() {
+    if (!this.#activeDropdown) return;
+    const { entry } = this.#activeDropdown;
+    if (entry.trigger) {
+      entry.trigger.classList.remove('is-open');
+      entry.trigger.setAttribute('aria-expanded', 'false');
+    }
+    if (entry.menu && entry.menu.parentNode) {
+      entry.menu.parentNode.removeChild(entry.menu);
+    }
+    this.#activeDropdown = null;
   }
 
   /**
@@ -210,13 +444,13 @@ class CameraDeviceManager {
    */
   #formatDeviceLabel(label, index) {
     if (!label || label.trim() === '') {
-      return index === 0 ? '📷 Cámara 1 (Principal)' : `📷 Cámara ${index + 1} (Secundaria)`;
+      return index === 0 ? 'Cámara 1 (Principal)' : `Cámara ${index + 1} (Secundaria)`;
     }
 
     // Limpiar IDs técnicos o códigos hexadecimales entre paréntesis si existen
     const cleanLabel = label.replace(/\s*\([0-9a-fA-F]{4}:[0-9a-fA-F]{4}\)\s*/g, '').trim();
 
-    return `📷 ${cleanLabel.substring(0, 24)}`;
+    return cleanLabel.substring(0, 26);
   }
 
   /**
@@ -240,8 +474,10 @@ class CameraDeviceManager {
 
     const hadStream = !!this.#currentStream;
     this.stop();
+    const mySeq = ++this.#startSeq;
     if (hadStream) {
       await new Promise(r => setTimeout(r, 250));
+      if (mySeq !== this.#startSeq) return false;
     }
 
     // Configurar restricciones de video
@@ -294,6 +530,14 @@ class CameraDeviceManager {
         throw lastErr || new Error('No se pudo inicializar la cámara solicitada.');
       }
 
+      this.#trackedStreams.add(stream);
+      if (mySeq !== this.#startSeq) {
+        stream.getTracks().forEach(t => { try { t.stop(); } catch (e) {} });
+        this.#trackedStreams.delete(stream);
+        this.stop();
+        return false;
+      }
+
       this.#currentStream = stream;
       this.#videoElement.srcObject = stream;
       this.#videoElement.muted = true;
@@ -312,9 +556,14 @@ class CameraDeviceManager {
         });
       }
 
+      if (mySeq !== this.#startSeq) {
+        this.stop();
+        return false;
+      }
+
       this.#isStreaming = true;
 
-      // Alimentar también los visores de cámara de la lección y del examen si están abiertos
+      // Alimentar también los visores de cámara de la lección, examen y laboratorio si están abiertos
       const lessonVideo = document.getElementById('lessonPracticeWebcamVideo');
       if (lessonVideo && lessonVideo.srcObject !== stream) {
         lessonVideo.srcObject = stream;
@@ -329,6 +578,13 @@ class CameraDeviceManager {
         examVideo.setAttribute('playsinline', 'true');
         examVideo.play().catch(() => {});
       }
+      const labVideo = document.getElementById('alphabetSpellWebcamVideo');
+      if (labVideo && window.AlphabetLabController && window.AlphabetLabController.isSpellCameraActive() && labVideo.srcObject !== stream) {
+        labVideo.srcObject = stream;
+        labVideo.muted = true;
+        labVideo.setAttribute('playsinline', 'true');
+        labVideo.play().catch(() => {});
+      }
 
       // Actualizar el indicador visual de la cámara activa en pantalla
       const activeTrack = stream.getVideoTracks()[0];
@@ -337,6 +593,10 @@ class CameraDeviceManager {
 
       // Refrescar lista de dispositivos para obtener nombres autorizados
       await this.refreshDeviceList();
+      if (mySeq !== this.#startSeq) {
+        this.stop();
+        return false;
+      }
 
       // Iniciar el bucle de entrega de fotogramas
       this.#startFramePump();
@@ -412,10 +672,24 @@ class CameraDeviceManager {
     }
   }
 
+  #releaseVideoElement(videoEl) {
+    if (!videoEl) return;
+    try {
+      if (videoEl.srcObject && typeof videoEl.srcObject.getTracks === 'function') {
+        videoEl.srcObject.getTracks().forEach(track => {
+          try { track.stop(); } catch (e) {}
+        });
+      }
+      videoEl.pause();
+    } catch (e) {}
+    videoEl.srcObject = null;
+  }
+
   /**
    * Detiene la cámara y libera todos los recursos del hardware
    */
   stop() {
+    this.#startSeq += 1;
     this.#isStreaming = false;
     this.#stopFramePump();
 
@@ -431,13 +705,19 @@ class CameraDeviceManager {
       this.#currentStream = null;
     }
 
-    if (this.#videoElement) {
-      this.#videoElement.srcObject = null;
-    }
-    const lessonVideo = document.getElementById('lessonPracticeWebcamVideo');
-    if (lessonVideo) lessonVideo.srcObject = null;
-    const examVideo = document.getElementById('examPracticeWebcamVideo');
-    if (examVideo) examVideo.srcObject = null;
+    this.#trackedStreams.forEach(stream => {
+      if (stream && typeof stream.getTracks === 'function') {
+        stream.getTracks().forEach(track => {
+          try { track.stop(); } catch (e) {}
+        });
+      }
+    });
+    this.#trackedStreams.clear();
+
+    this.#releaseVideoElement(this.#videoElement);
+    this.#releaseVideoElement(document.getElementById('lessonPracticeWebcamVideo'));
+    this.#releaseVideoElement(document.getElementById('examPracticeWebcamVideo'));
+    this.#releaseVideoElement(document.getElementById('alphabetSpellWebcamVideo'));
   }
 
   /**
@@ -459,9 +739,17 @@ class CameraDeviceManager {
    * Destruye la instancia y libera listeners
    */
   destroy() {
+    this.#closeActiveDropdown();
     this.stop();
     if (navigator.mediaDevices && navigator.mediaDevices.removeEventListener) {
       navigator.mediaDevices.removeEventListener('devicechange', this.#boundOnDeviceChange);
+    }
+    if (typeof document !== 'undefined') {
+      document.removeEventListener('click', this.#boundDocClick);
+      document.removeEventListener('keydown', this.#boundDocKeyDown);
+    }
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.#boundViewportChange);
     }
   }
 

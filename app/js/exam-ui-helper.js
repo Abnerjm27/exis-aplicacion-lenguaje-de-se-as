@@ -197,7 +197,7 @@ class ExamUIHelper {
 
         const typeSpan = document.createElement('span');
         typeSpan.className = 'text-xs text-slate-600 font-mono';
-        typeSpan.textContent = `(${res.type === 'quiz' ? '📝 Quiz' : '🖐️ Cámara'})`;
+        typeSpan.textContent = `(${res.type === 'quiz' ? 'Quiz' : 'Cámara'})`;
 
         left.appendChild(iconSpan);
         left.appendChild(nameSpan);
