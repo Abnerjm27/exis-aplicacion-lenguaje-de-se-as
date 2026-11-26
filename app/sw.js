@@ -5,7 +5,7 @@
  * Exclusiones: No intercepta llamadas dinámicas /api/ (Usuarios / Planes / SRS) ni peticiones con rango de video.
  */
 
-const CACHE_NAME = 'manitas-pwa-v26-visual-polish';
+const CACHE_NAME = 'manitas-pwa-v27-blind-spell';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -49,6 +49,7 @@ const ASSETS_TO_CACHE = [
   '/js/blind-exam-controller.js',
   '/js/lesson-session.js',
   '/js/view-router.js',
+  '/js/blind-spell-session.js',
   '/js/alphabet-lab-controller.js',
   '/js/achievements-controller.js',
   '/js/pwa-manager.js',

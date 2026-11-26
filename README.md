@@ -1,6 +1,6 @@
 # 🤟 Manitas · Academia Interactiva de Lengua de Señas Colombiana (LSC)
 
-Aplicación web educativa e interactiva (**Proyecto EXIS**) basada en el corpus oficial **LSC70** (Universidad Tecnológica de Pereira). Combina demostración multimedia híbrida (**Persona Real LSC** y **Anime**), evaluación biomecánica en tiempo real con **Google MediaPipe Hands + Pose**, práctica dactilológica guiada en el **Laboratorio ABC**, gamificación con medallas y repetición espaciada **SRS (Leitner)** 100 % en local (*offline-first*, sin modelos de lenguaje externos ni Ollama).
+Aplicación web educativa e interactiva (**Proyecto EXIS**) basada en el corpus oficial **LSC70** (Universidad del Cauca, Grupo SIDICO). Combina demostración multimedia híbrida (**Persona Real LSC** y **Anime**), evaluación biomecánica en tiempo real con **Google MediaPipe Hands + Pose**, práctica dactilológica guiada en el **Laboratorio ABC**, gamificación con medallas y repetición espaciada **SRS (Leitner)** 100 % en local (*offline-first*, sin modelos de lenguaje externos ni Ollama).
 
 ![Vista Previa de la Aplicación](app_preview_desktop_1280.png)
 
@@ -167,5 +167,5 @@ exis-aplicacion-lenguaje-de-se-as/
 
 ## 📄 Créditos
 - **Proyecto:** Manitas (EXIS) — Academia Interactiva de Lengua de Señas Colombiana.
-- **Dataset:** LSC70 (Universidad Tecnológica de Pereira).
+- **Dataset:** LSC70 (Universidad del Cauca · Grupo SIDICO).
 - **Visión Artificial:** Google MediaPipe Hands & Pose.

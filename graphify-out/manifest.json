@@ -60,9 +60,9 @@
     "semantic_hash": ""
   },
   "app/js/vision-evaluator.js": {
-    "mtime": 1795578804.3918955,
-    "seen": 1795578877.1724896,
-    "ast_hash": "1fbcc9b35f6cffbd5929732e02bfc86e",
+    "mtime": 1795665369.6432912,
+    "seen": 1795665705.4919422,
+    "ast_hash": "e8d524cf0980e1cfd4cc47825b5f12bd",
     "semantic_hash": ""
   },
   "app/tools/check_console.js": {
@@ -204,9 +204,9 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1795581980.8822856,
-    "seen": 1795582154.4013572,
-    "ast_hash": "e4d126887207675cf4768d866038ab42",
+    "mtime": 1795665512.6043286,
+    "seen": 1795665705.5377102,
+    "ast_hash": "f4342aa67f8426d5061de47421f58797",
     "semantic_hash": ""
   },
   "server.py": {
@@ -510,9 +510,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795585019.560641,
-    "seen": 1795585073.7426536,
-    "ast_hash": "988b3fa75833b2844e970808d5ba3823",
+    "mtime": 1795665509.2129705,
+    "seen": 1795665705.4979923,
+    "ast_hash": "b9624cef3c5ebcae5ce60195dadb8091",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -564,27 +564,27 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1795575016.7761617,
-    "seen": 1795576410.0210338,
-    "ast_hash": "32f2d745bf323ac17bf5d4bc3a014197",
+    "mtime": 1795665339.962584,
+    "seen": 1795665705.5592813,
+    "ast_hash": "b085ebcec895150de1b9ec9be4baf394",
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795585017.2958047,
-    "seen": 1795585073.821034,
-    "ast_hash": "dabd47de275cdee14156a32bbd958e91",
+    "mtime": 1795665490.142189,
+    "seen": 1795665705.5592813,
+    "ast_hash": "6b44e7fe989bd7439bc06cea8241a8fd",
     "semantic_hash": ""
   },
   "app/landing.html": {
-    "mtime": 1795582678.3083022,
-    "seen": 1795582734.3272767,
-    "ast_hash": "7fc447337b191df63057b357a955be08",
+    "mtime": 1795665332.975814,
+    "seen": 1795665705.5592813,
+    "ast_hash": "a3941371bc367ca7132cc8661abdf7a8",
     "semantic_hash": ""
   },
   "app/login.html": {
-    "mtime": 1795575019.114715,
-    "seen": 1795576410.0210338,
-    "ast_hash": "540c58fc6dcbb52b29fff8bff6e9d6f4",
+    "mtime": 1795665334.6719868,
+    "seen": 1795665705.5592813,
+    "ast_hash": "a4f4e7c517f7d18e19fd2d9fef1572ff",
     "semantic_hash": ""
   },
   "app/mascot_gallery.html": {
@@ -600,9 +600,9 @@
     "semantic_hash": ""
   },
   "app/register.html": {
-    "mtime": 1795575019.1298878,
-    "seen": 1795576410.0210338,
-    "ast_hash": "67818e04f3d256c7b9085f00d0fd6fc2",
+    "mtime": 1795665336.3512335,
+    "seen": 1795665705.5602949,
+    "ast_hash": "9e1408b023fe9ace94f30cbc957fd92d",
     "semantic_hash": ""
   },
   "docs/plans/2026-10-31-trayectorias-puntos-guiados.md": {
@@ -4296,9 +4296,9 @@
     "semantic_hash": ""
   },
   "app/js/alphabet-lab-controller.js": {
-    "mtime": 1795580184.3521311,
-    "seen": 1795580265.1356883,
-    "ast_hash": "5de9b3c176d514ffa24a00b9776f753e",
+    "mtime": 1795665631.1046846,
+    "seen": 1795665705.481805,
+    "ast_hash": "203fd49f37ace7265ac193eb9a0bd851",
     "semantic_hash": ""
   },
   "app/js/finger-feedback-engine.js": {
@@ -4587,6 +4587,18 @@
     "mtime": 1795583159.8346286,
     "seen": 1795583343.416267,
     "ast_hash": "d56a904b82a54f653a98547ac5a5f2c3",
+    "semantic_hash": ""
+  },
+  "app/js/blind-spell-session.js": {
+    "mtime": 1795665629.3948576,
+    "seen": 1795665705.4839287,
+    "ast_hash": "403fc248ea48f8204ad15286933defb4",
+    "semantic_hash": ""
+  },
+  "tests/test_blind_spell_unit.js": {
+    "mtime": 1795665510.822885,
+    "seen": 1795665705.5417106,
+    "ast_hash": "186abc6eea2db7713e4431d2f0082c1c",
     "semantic_hash": ""
   },
   "package-lock.json": {

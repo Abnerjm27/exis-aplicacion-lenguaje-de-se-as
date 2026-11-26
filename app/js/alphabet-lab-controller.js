@@ -24,6 +24,10 @@ class AlphabetLabController {
   #spellHoldFrames = 0;
   #spellLastScore = 0;
   #spellAdvancing = false;
+  #spellBlindMode = false;
+  #blindSession = null;
+  #blindSummary = null;
+  #lastFraming = null;
 
   init() {
     if (this.#initialized) return this;
@@ -58,6 +62,8 @@ class AlphabetLabController {
     this.#sessionXp = 0;
     this.#quizAnswered = false;
     this.#completedSpellIndices.clear();
+    this.#blindSummary = null;
+    this.#lastFraming = null;
     this.#lastDiagnostics = null;
     this.#prepareNextFlashcard();
     this.update();
@@ -65,6 +71,10 @@ class AlphabetLabController {
 
   destroy() {
     this.stopSpellCamera();
+    if (this.#blindSession) {
+      this.#blindSession.destroy();
+      this.#blindSession = null;
+    }
     if (this.#boundFingerListener) {
       window.removeEventListener('manitas:finger-feedback', this.#boundFingerListener);
     }
@@ -80,6 +90,10 @@ class AlphabetLabController {
     this.#spellHoldFrames = 0;
     this.#spellLastScore = 0;
     this.#spellAdvancing = false;
+    this.#lastFraming = null;
+    if (this.#blindSession) {
+      this.#blindSession.reset();
+    }
     if (this.#spellStreamTimer) {
       clearInterval(this.#spellStreamTimer);
       this.#spellStreamTimer = null;
@@ -106,11 +120,18 @@ class AlphabetLabController {
     }
   }
 
-  handlePracticeFrame(score, diagnostics) {
+  handlePracticeFrame(score, diagnostics, framing = null) {
     if (diagnostics) {
       this.#lastDiagnostics = diagnostics;
     }
+    if (framing) {
+      this.#lastFraming = framing;
+    }
     if (!this.isSpellCameraActive()) return;
+
+    if (framing) {
+      this.#updateFramingPillDOM(framing);
+    }
 
     this.#spellLastScore = Math.max(0, Math.min(100, Math.round(Number(score) || 0)));
     const bar = document.getElementById('alphabetSpellScoreBar');
@@ -122,13 +143,14 @@ class AlphabetLabController {
     if (txt) {
       txt.textContent = `${this.#spellLastScore}%`;
     }
-    if (diagnostics) {
+    if (diagnostics && !this.#spellBlindMode) {
       this.#updateFingerPanelDOM(diagnostics);
     }
 
+    const holdTarget = this.#spellBlindMode ? 5 : 10;
     if (this.#spellLastScore >= 85 && !this.#spellAdvancing) {
       this.#spellHoldFrames += 1;
-      if (this.#spellHoldFrames >= 10) {
+      if (this.#spellHoldFrames >= holdTarget) {
         const chars = Array.from(this.#spellWord);
         const activeLetter = this.#getLetterById(chars[this.#spellIndex]);
         if (activeLetter) {
@@ -147,6 +169,10 @@ class AlphabetLabController {
 
     const chars = Array.from(this.#spellWord);
     const activeLetter = this.#getLetterById(chars[this.#spellIndex]) || sign;
+    if (this.#spellBlindMode && this.#blindSession && this.#blindSession.isActive()) {
+      this.#recordBlindResult(activeLetter, true, score);
+      return;
+    }
     this.#advanceSpellStep(activeLetter, chars, true, score);
   }
 
@@ -247,6 +273,9 @@ class AlphabetLabController {
   }
 
   #setSpellWord(rawWord) {
+    if (this.#spellCameraActive) {
+      this.stopSpellCamera();
+    }
     const clean = String(rawWord || '')
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
@@ -256,6 +285,24 @@ class AlphabetLabController {
     this.#spellWord = clean || 'SOL';
     this.#spellIndex = 0;
     this.#completedSpellIndices.clear();
+    this.#blindSummary = null;
+    if (this.#blindSession) this.#blindSession.reset();
+    this.#render();
+  }
+
+  #setSpellBlindMode(isBlind) {
+    const next = Boolean(isBlind);
+    if (this.#spellBlindMode === next && !this.#blindSummary) return;
+    if (this.#spellCameraActive) {
+      this.stopSpellCamera();
+    }
+    this.#spellBlindMode = next;
+    this.#spellIndex = 0;
+    this.#completedSpellIndices.clear();
+    this.#blindSummary = null;
+    this.#titoMessage = next
+      ? 'Reto a ciegas activado: deletrea tu palabra sin ver fotos ni pistas.'
+      : 'Modo guiado activado: sigue a Sol dedo a dedo.';
     this.#render();
   }
 
@@ -452,36 +499,73 @@ class AlphabetLabController {
     });
     wrap.appendChild(presets);
 
+    const elFn = (t, c, txt) => this.#el(t, c, txt);
+    if (typeof window.BlindSpellSession === 'function') {
+      wrap.appendChild(window.BlindSpellSession.renderModeToggle(elFn, this.#spellBlindMode, b => this.#setSpellBlindMode(b)));
+    }
+
     const chars = Array.from(this.#spellWord);
-    const strip = this.#el('div', 'ab-letter-strip');
-    chars.forEach((ch, idx) => {
-      const letterObj = this.#getLetterById(ch);
-      let cls = 'ab-letter-tile';
-      if (idx === this.#spellIndex) cls += ' is-active';
-      else if (this.#completedSpellIndices.has(idx)) cls += ' is-done';
-      if (!letterObj) cls += ' is-unsupported';
-      const tile = this.#el('button', cls, ch);
-      tile.type = 'button';
-      tile.setAttribute('aria-label', `Letra ${ch}, paso ${idx + 1} de ${chars.length}`);
-      tile.addEventListener('click', () => {
-        this.#spellIndex = idx;
-        this.#spellHoldFrames = 0;
-        const targetObj = this.#getLetterById(ch);
-        if (this.#spellCameraActive && targetObj && window.VisionEvaluator) {
-          window.VisionEvaluator.setTargetSign(targetObj);
+    const blindState = (this.#spellBlindMode && this.#blindSession && (this.#blindSession.isActive() || this.#blindSession.isFinished()))
+      ? this.#blindSession.getState()
+      : null;
+    if (typeof window.BlindSpellSession === 'function') {
+      wrap.appendChild(window.BlindSpellSession.renderLetterStrip(elFn, {
+        chars,
+        activeIndex: this.#spellIndex,
+        isBlind: this.#spellBlindMode,
+        blindState,
+        hasSummary: Boolean(this.#blindSummary),
+        completedSet: this.#completedSpellIndices,
+        getLetterById: ch => this.#getLetterById(ch),
+        onSelect: (idx, ch) => {
+          this.#spellIndex = idx;
+          this.#spellHoldFrames = 0;
+          const targetObj = this.#getLetterById(ch);
+          if (this.#spellCameraActive && targetObj && window.VisionEvaluator) {
+            window.VisionEvaluator.setTargetSign(targetObj);
+          }
+          this.#render();
         }
-        this.#render();
-      });
-      strip.appendChild(tile);
-    });
-    wrap.appendChild(strip);
+      }));
+    }
+
+    if (this.#spellBlindMode && this.#blindSummary && typeof window.BlindSpellSession === 'function') {
+      wrap.appendChild(window.BlindSpellSession.renderSummaryCard(
+        (t, c, txt) => this.#el(t, c, txt),
+        this.#blindSummary,
+        {
+          onRetry: () => {
+            this.#blindSummary = null;
+            this.#spellIndex = 0;
+            const firstLetter = this.#getLetterById(Array.from(this.#spellWord)[0]);
+            if (firstLetter) this.#startSpellCamera(firstLetter);
+            else this.#render();
+          },
+          onPracticeFailed: (firstFailIdx) => {
+            this.#spellBlindMode = false;
+            this.#blindSummary = null;
+            this.#spellIndex = firstFailIdx;
+            this.#render();
+          }
+        }
+      ));
+      return wrap;
+    }
 
     const activeChar = chars[this.#spellIndex] || 'S';
     const activeLetter = this.#getLetterById(activeChar);
     const split = this.#el('div', 'ab-panel-inner ab-panel-inner--split');
 
     const mediaBox = this.#el('div', 'ab-media-frame');
-    if (activeLetter) {
+    if (this.#spellBlindMode && typeof window.BlindSpellSession === 'function') {
+      mediaBox.appendChild(window.BlindSpellSession.renderPromptBox(
+        (t, c, txt) => this.#el(t, c, txt),
+        activeChar,
+        this.#spellIndex,
+        chars.length,
+        blindState ? blindState.secondsLeft : 12
+      ));
+    } else if (activeLetter) {
       const img = this.#el('img', 'ab-sol-img');
       img.src = this.#getPhotoSrc(activeLetter);
       img.alt = `Referencia Sol para la ${activeLetter.name}`;
@@ -505,91 +589,60 @@ class AlphabetLabController {
       this.#el(
         'h3',
         'text-base font-extrabold text-slate-900',
-        activeLetter ? `Deletreando: ${activeLetter.name}` : `Letra "${activeChar}" · Próximamente`
+        this.#spellBlindMode
+          ? `Reto a ciegas: Letra ${activeChar}`
+          : (activeLetter ? `Deletreando: ${activeLetter.name}` : `Letra "${activeChar}" · Próximamente`)
       )
     );
     detail.appendChild(
       this.#el(
         'p',
         'text-sm text-slate-600',
-        activeLetter ? activeLetter.tip : 'Tu compañero está preparando esta ilustración de Sol. Salta a la siguiente letra.'
+        this.#spellBlindMode
+          ? 'Haz esta letra de memoria frente a tu cámara sin mirar pistas visuales.'
+          : (activeLetter ? activeLetter.tip : 'Tu compañero está preparando esta ilustración de Sol. Salta a la siguiente letra.')
       )
     );
 
     // Bloque de Cámara en Vivo dentro de Deletrea tu Nombre
-    const camStage = this.#el('div', 'ab-cam-stage');
-    const camVideo = this.#el('video', 'ab-cam-video');
-    camVideo.id = 'alphabetSpellWebcamVideo';
-    camVideo.autoplay = true;
-    camVideo.playsInline = true;
-    camVideo.muted = true;
-    camStage.appendChild(camVideo);
-
-    const camCanvas = this.#el('canvas', 'ab-cam-overlay');
-    camCanvas.id = 'alphabetSpellCanvas';
-    camCanvas.setAttribute('aria-hidden', 'true');
-    camStage.appendChild(camCanvas);
-
-    const camPlaceholder = this.#el('div', `ab-cam-placeholder ${this.#spellCameraActive ? 'hidden' : ''}`);
-    camPlaceholder.id = 'alphabetSpellCamPlaceholder';
-    camPlaceholder.appendChild(this.#el('strong', '', 'Tu cámara en vivo'));
-    camPlaceholder.appendChild(
-      this.#el('span', 'text-xs opacity-80', 'Actívala aquí para deletrear tu nombre letra por letra frente a Sol.')
-    );
-    camStage.appendChild(camPlaceholder);
-    detail.appendChild(camStage);
-
-    const camControls = this.#el('div', 'ab-cam-controls');
-    const camSelect = this.#el('select', 'ab-cam-select');
-    camSelect.id = 'alphabetSpellCameraSelect';
-    camSelect.setAttribute('aria-label', 'Seleccionar cámara para Deletrea tu Nombre');
-    camSelect.addEventListener('change', () => {
-      if (!this.#spellCameraActive) return;
-      if (this.#spellStreamTimer) clearInterval(this.#spellStreamTimer);
-      let retries = 0;
-      this.#spellStreamTimer = setInterval(() => {
-        retries += 1;
-        if (this.#attachActiveStreamToLabVideo() || retries > 25 || !this.#spellCameraActive) {
-          clearInterval(this.#spellStreamTimer);
-          this.#spellStreamTimer = null;
+    if (typeof window.BlindSpellSession === 'function') {
+      detail.appendChild(window.BlindSpellSession.renderCameraBox((t, c, txt) => this.#el(t, c, txt), {
+        cameraActive: this.#spellCameraActive,
+        lastScore: this.#spellLastScore,
+        onDeviceChange: () => {
+          if (!this.#spellCameraActive) return;
+          if (this.#spellStreamTimer) clearInterval(this.#spellStreamTimer);
+          let retries = 0;
+          this.#spellStreamTimer = setInterval(() => {
+            retries += 1;
+            if (this.#attachActiveStreamToLabVideo() || retries > 25 || !this.#spellCameraActive) {
+              clearInterval(this.#spellStreamTimer);
+              this.#spellStreamTimer = null;
+            }
+          }, 150);
         }
-      }, 150);
-    });
-    camControls.appendChild(camSelect);
-    detail.appendChild(camControls);
+      }));
+    }
 
-    const scoreRow = this.#el('div', 'ab-score-row');
-    scoreRow.appendChild(this.#el('span', 'text-xs font-bold text-slate-700 shrink-0', 'Precisión'));
-    const scoreBar = this.#el('div', 'ab-score-bar');
-    const scoreFill = this.#el('div', `ab-score-fill ${this.#spellLastScore >= 85 ? 'is-pass' : ''}`);
-    scoreFill.id = 'alphabetSpellScoreBar';
-    scoreFill.style.width = `${this.#spellCameraActive ? this.#spellLastScore : 0}%`;
-    scoreBar.appendChild(scoreFill);
-    const scoreTxt = this.#el('span', 'font-mono text-xs font-extrabold text-slate-900 tabular-nums shrink-0', `${this.#spellCameraActive ? this.#spellLastScore : 0}%`);
-    scoreTxt.id = 'alphabetSpellScoreText';
-    scoreRow.appendChild(scoreBar);
-    scoreRow.appendChild(scoreTxt);
-    detail.appendChild(scoreRow);
-
-    // Panel "Tu mano vs. Sol"
-    const fingerCard = this.#el('div', 'ab-feedback-banner flex flex-col gap-2');
-    fingerCard.id = 'alphabetFingerDiagnosticsBox';
-    fingerCard.appendChild(this.#el('strong', 'text-xs uppercase tracking-wider text-slate-700', 'Tu mano vs. Sol (5 dedos)'));
-    const fingerGrid = this.#el('div', 'ab-finger-grid');
-    fingerGrid.id = 'alphabetFingerGrid';
-    fingerCard.appendChild(fingerGrid);
-    const fingerHint = this.#el('p', 'text-xs font-semibold text-slate-700');
-    fingerHint.id = 'alphabetFingerHint';
-    fingerCard.appendChild(fingerHint);
-    detail.appendChild(fingerCard);
+    if (!this.#spellBlindMode) {
+      const fingerCard = this.#el('div', 'ab-feedback-banner flex flex-col gap-2');
+      fingerCard.id = 'alphabetFingerDiagnosticsBox';
+      fingerCard.appendChild(this.#el('strong', 'text-xs uppercase tracking-wider text-slate-700', 'Tu mano vs. Sol (5 dedos)'));
+      const fingerGrid = this.#el('div', 'ab-finger-grid');
+      fingerGrid.id = 'alphabetFingerGrid';
+      fingerCard.appendChild(fingerGrid);
+      const fingerHint = this.#el('p', 'text-xs font-semibold text-slate-700');
+      fingerHint.id = 'alphabetFingerHint';
+      fingerCard.appendChild(fingerHint);
+      detail.appendChild(fingerCard);
+    }
 
     const actions = this.#el('div', 'flex flex-wrap gap-2');
     if (activeLetter) {
-      const camBtn = this.#el(
-        'button',
-        `ab-btn ${this.#spellCameraActive ? 'ab-btn-secondary' : 'ab-btn-primary'}`,
-        this.#spellCameraActive ? 'Detener cámara' : 'Activar cámara en vivo'
-      );
+      const camLabel = this.#spellCameraActive
+        ? 'Detener cámara'
+        : (this.#spellBlindMode ? 'Iniciar Reto con Cámara' : 'Activar cámara en vivo');
+      const camBtn = this.#el('button', `ab-btn ${this.#spellCameraActive ? 'ab-btn-secondary' : 'ab-btn-primary'}`, camLabel);
       camBtn.type = 'button';
       camBtn.addEventListener('click', () => {
         if (this.#spellCameraActive) {
@@ -601,12 +654,29 @@ class AlphabetLabController {
       });
       actions.appendChild(camBtn);
     }
-    const nextStepBtn = this.#el('button', 'ab-btn ab-btn-secondary', 'Siguiente letra (sin cámara)');
-    nextStepBtn.type = 'button';
-    nextStepBtn.addEventListener('click', () => {
-      this.#advanceSpellStep(activeLetter, chars, false, 0);
-    });
-    actions.appendChild(nextStepBtn);
+    if (this.#spellBlindMode) {
+      if (this.#blindSession && this.#blindSession.isActive()) {
+        const failLabel = activeLetter ? 'No la sé / Pasar (✗)' : 'Saltar (sin cámara)';
+        const failBtn = this.#el('button', 'ab-btn ab-btn-secondary', failLabel);
+        failBtn.type = 'button';
+        failBtn.addEventListener('click', () => {
+          if (!activeLetter) {
+            const res = this.#blindSession.skipUnsupported();
+            if (!res.finished) this.#syncBlindStep(res.nextIndex);
+            return;
+          }
+          this.#recordBlindResult(activeLetter, false, this.#spellLastScore);
+        });
+        actions.appendChild(failBtn);
+      }
+    } else {
+      const nextStepBtn = this.#el('button', 'ab-btn ab-btn-secondary', 'Siguiente letra (sin cámara)');
+      nextStepBtn.type = 'button';
+      nextStepBtn.addEventListener('click', () => {
+        this.#advanceSpellStep(activeLetter, chars, false, 0);
+      });
+      actions.appendChild(nextStepBtn);
+    }
     detail.appendChild(actions);
 
     split.appendChild(mediaBox);
@@ -618,10 +688,15 @@ class AlphabetLabController {
       if (selectEl && window.CameraManager && typeof window.CameraManager.attachSelect === 'function') {
         window.CameraManager.attachSelect(selectEl);
       }
-      const diag = this.#lastDiagnostics && activeLetter && this.#lastDiagnostics.signId === activeLetter.id
-        ? this.#lastDiagnostics
-        : null;
-      this.#updateFingerPanelDOM(diag, activeLetter ? activeLetter.id : null);
+      if (!this.#spellBlindMode) {
+        const diag = this.#lastDiagnostics && activeLetter && this.#lastDiagnostics.signId === activeLetter.id
+          ? this.#lastDiagnostics
+          : null;
+        this.#updateFingerPanelDOM(diag, activeLetter ? activeLetter.id : null);
+      }
+      if (this.#lastFraming && this.#spellCameraActive) {
+        this.#updateFramingPillDOM(this.#lastFraming);
+      }
       if (this.#spellCameraActive) {
         this.#attachActiveStreamToLabVideo();
       }
@@ -651,7 +726,28 @@ class AlphabetLabController {
     this.#spellHoldFrames = 0;
     this.#spellLastScore = 0;
     this.#spellAdvancing = false;
-    this.#titoMessage = `Haz la ${letterObj.name} frente a tu cámara.`;
+    this.#blindSummary = null;
+    if (this.#spellBlindMode && typeof window.BlindSpellSession === 'function') {
+      this.#spellIndex = 0;
+      this.#blindSession = new window.BlindSpellSession({
+        secondsPerLetter: 12,
+        onTick: (secs) => {
+          const timerEl = document.getElementById('alphabetBlindTimer');
+          if (timerEl) timerEl.textContent = `${secs}s`;
+        },
+        onTimeout: ({ char, finished, nextIndex }) => {
+          this.#titoMessage = `Se acabó el tiempo en "${char}". Seguimos con el reto.`;
+          if (!finished) this.#syncBlindStep(nextIndex);
+        },
+        onComplete: (summary) => this.#finishBlindSpell(summary)
+      });
+      this.#blindSession.start(this.#spellWord);
+      const firstTarget = this.#getLetterById(Array.from(this.#spellWord)[0]) || letterObj;
+      letterObj = firstTarget;
+      this.#titoMessage = `Reto a ciegas iniciado: haz "${firstTarget.id}" de memoria.`;
+    } else {
+      this.#titoMessage = `Haz la ${letterObj.name} frente a tu cámara.`;
+    }
     this.#render();
 
     window.VisionEvaluator.setTargetSign(letterObj);
@@ -732,6 +828,64 @@ class AlphabetLabController {
     }
 
     this.#spellAdvancing = false;
+    this.#render();
+  }
+
+  #updateFramingPillDOM(framing) {
+    const pill = document.getElementById('alphabetSpellFramingPill');
+    if (!pill || !framing) return;
+    pill.textContent = framing.message;
+    pill.className = `ab-framing-pill ${framing.status === 'ok' ? 'is-ok' : (framing.status === 'missing' ? 'is-missing' : 'is-warn')}`;
+  }
+
+  #syncBlindStep(nextIndex) {
+    this.#spellIndex = nextIndex;
+    this.#spellHoldFrames = 0;
+    this.#spellLastScore = 0;
+    this.#spellAdvancing = false;
+    const nextChar = Array.from(this.#spellWord)[nextIndex];
+    const nextLetter = this.#getLetterById(nextChar);
+    if (nextLetter && window.VisionEvaluator) {
+      window.VisionEvaluator.setTargetSign(nextLetter);
+    }
+    this.#render();
+  }
+
+  #recordBlindResult(activeLetter, passed, score) {
+    if (!this.#blindSession || !this.#blindSession.isActive()) return;
+    if (activeLetter && window.SRSClient) {
+      window.SRSClient.recordAttempt(activeLetter.id, passed);
+    }
+    if (passed && window.GamificationManager && activeLetter) {
+      window.GamificationManager.playComboChime(2);
+      window.GamificationManager.recordCameraSuccess({ signId: activeLetter.id, score });
+    }
+    const res = this.#blindSession.recordLetterResult(passed, score);
+    if (!res.finished) {
+      this.#titoMessage = passed
+        ? `¡Correcta "${activeLetter.id}"! Siguiente letra sin pistas.`
+        : `Pasaste "${activeLetter.id}". Vamos por la siguiente.`;
+      this.#syncBlindStep(res.nextIndex);
+    }
+  }
+
+  #finishBlindSpell(summary) {
+    const earned = summary.passedChallenge ? 30 : 10;
+    this.#sessionXp += earned;
+    this.#xpToastText = `+${earned} XP · Reto a ciegas`;
+    if (window.GamificationManager) {
+      window.GamificationManager.playComboChime(summary.passedChallenge ? 3 : 1);
+      if (summary.passedChallenge) {
+        window.GamificationManager.recordWordSpelled(summary.word);
+      }
+      if (summary.scorePct >= 80 && typeof window.GamificationManager.recordExamResult === 'function') {
+        window.GamificationManager.recordExamResult(summary.scorePct);
+      }
+    }
+    this.stopSpellCamera();
+    this.#blindSummary = summary;
+    this.#spellIndex = 0;
+    this.#titoMessage = `Reto a ciegas listo: ${summary.passedCount}/${summary.totalEvaluated} (${summary.scorePct}%).`;
     this.#render();
   }
 
