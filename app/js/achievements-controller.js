@@ -153,9 +153,13 @@ class AchievementsController {
     let bronze = 0;
     let silver = 0;
     let gold = 0;
+    let practiced = 0;
 
     letters.forEach(l => {
-      const stat = window.SRSClient ? window.SRSClient.getSignStat(l.id) : { box: 1 };
+      const stat = window.SRSClient ? window.SRSClient.getSignStat(l.id) : { box: 1, attempts: 0 };
+      if ((Number(stat.attempts) || 0) > 0 || (Number(stat.box) || 1) > 1) {
+        practiced += 1;
+      }
       const tier = window.GamificationManager
         ? window.GamificationManager.getMasteryTier(stat.box)
         : { tier: 'bronze' };
@@ -164,7 +168,16 @@ class AchievementsController {
       else bronze += 1;
     });
 
-    return { total: letters.length, bronze, silver, gold };
+    const gamState = window.GamificationManager ? window.GamificationManager.getState() : null;
+    const masterBadge = gamState && Array.isArray(gamState.badges)
+      ? gamState.badges.find(b => b.id === 'alphabet_master')
+      : null;
+    const alphabetMasterUnlocked = Boolean(
+      (letters.length > 0 && practiced >= letters.length) ||
+      (masterBadge && masterBadge.unlocked)
+    );
+
+    return { total: letters.length, bronze, silver, gold, practiced, alphabetMasterUnlocked };
   }
 
   #render() {
@@ -221,24 +234,6 @@ class AchievementsController {
       }
     });
     right.appendChild(btnPractice);
-
-    const btnCert = this.#el('button', 'ab-btn ab-btn-secondary inline-flex items-center gap-1.5 min-h-[44px]');
-    btnCert.type = 'button';
-    btnCert.id = 'btnDownloadAchievementsCert';
-    btnCert.appendChild(this.#createAwardSvg());
-    btnCert.appendChild(document.createTextNode('Descargar Certificado'));
-    btnCert.addEventListener('click', () => {
-      if (window.CertificateGenerator && typeof window.CertificateGenerator.downloadCertificate === 'function') {
-        window.CertificateGenerator.downloadCertificate({
-          title: 'Vitrina de Logros · Manitas LSC',
-          subtitle: 'Reconocimiento por avance y maestría verificada en cámara',
-          metricPrimary: `${unlocked}/${totalBadges} Medallas`,
-          metricSecondary: `${Number(profile.xp) || 0} XP`,
-          level: profile.level || 'Principiante'
-        });
-      }
-    });
-    right.appendChild(btnCert);
 
     hero.appendChild(left);
     hero.appendChild(right);
@@ -398,6 +393,53 @@ class AchievementsController {
     grid.appendChild(makeTier('Nivel Oro', summary.gold, 'Caja 5 · Dominio total', true));
 
     section.appendChild(grid);
+
+    const certBar = this.#el(
+      'div',
+      'mt-3 p-4 rounded-2xl border border-amber-200 bg-amber-50/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3'
+    );
+    const certInfo = this.#el('div', 'flex flex-col gap-0.5');
+    if (summary.alphabetMasterUnlocked) {
+      certInfo.appendChild(this.#el('span', 'text-sm font-extrabold text-slate-900', 'Certificado del Abecedario LSC desbloqueado'));
+      certInfo.appendChild(this.#el('span', 'text-xs text-slate-600', `Completaste las ${summary.total} letras del corpus LSC70 frente a tu cámara.`));
+      certBar.appendChild(certInfo);
+
+      const btnCert = this.#el('button', 'ab-btn ab-btn-primary inline-flex items-center gap-1.5 min-h-[44px] shrink-0');
+      btnCert.type = 'button';
+      btnCert.id = 'btnDownloadAlphabetCert';
+      btnCert.appendChild(this.#createAwardSvg());
+      btnCert.appendChild(document.createTextNode('Descargar Certificado del Abecedario'));
+      btnCert.addEventListener('click', () => {
+        if (window.CertificateGenerator && typeof window.CertificateGenerator.downloadCertificate === 'function') {
+          window.CertificateGenerator.downloadCertificate({
+            title: 'Certificado del Abecedario LSC',
+            subtitle: 'Por completar el aprendizaje práctico de las 24 letras en Lengua de Señas Colombiana'
+          });
+        }
+      });
+      certBar.appendChild(btnCert);
+    } else {
+      certInfo.appendChild(this.#el('span', 'text-sm font-extrabold text-slate-900', 'Certificado del Abecedario LSC'));
+      certInfo.appendChild(
+        this.#el(
+          'span',
+          'text-xs text-slate-600',
+          `Domina las ${summary.total} letras en Laboratorio ABC para desbloquear tu Certificado del Abecedario (${summary.practiced}/${summary.total})`
+        )
+      );
+      certBar.appendChild(certInfo);
+
+      const btnGoAbc = this.#el('button', 'ab-btn ab-btn-secondary min-h-[44px] shrink-0', 'Practicar Abecedario');
+      btnGoAbc.type = 'button';
+      btnGoAbc.addEventListener('click', () => {
+        if (window.ViewRouter && typeof window.ViewRouter.switchToAlphabetLabView === 'function') {
+          window.ViewRouter.switchToAlphabetLabView();
+        }
+      });
+      certBar.appendChild(btnGoAbc);
+    }
+    section.appendChild(certBar);
+
     return section;
   }
 }

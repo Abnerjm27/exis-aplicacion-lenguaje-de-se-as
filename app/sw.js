@@ -5,7 +5,7 @@
  * Exclusiones: No intercepta llamadas dinámicas /api/ (Usuarios / Planes / SRS) ni peticiones con rango de video.
  */
 
-const CACHE_NAME = 'manitas-pwa-v30-cert-svg';
+const CACHE_NAME = 'manitas-pwa-v31-alphabet-cert';
 
 const ASSETS_TO_CACHE = [
   '/',

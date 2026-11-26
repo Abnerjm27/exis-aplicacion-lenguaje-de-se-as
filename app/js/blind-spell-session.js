@@ -232,23 +232,24 @@ class BlindSpellSession {
       btns.appendChild(practiceBtn);
     }
 
-    const certBtn = elFn('button', 'ab-btn ab-btn-secondary inline-flex items-center gap-1.5 min-h-[44px]');
-    certBtn.type = 'button';
-    certBtn.id = 'btnDownloadBlindCert';
-    certBtn.appendChild(BlindSpellSession.#createAwardSvg());
-    certBtn.appendChild(document.createTextNode('Descargar Certificado'));
-    certBtn.addEventListener('click', () => {
-      if (window.CertificateGenerator && typeof window.CertificateGenerator.downloadCertificate === 'function') {
-        window.CertificateGenerator.downloadCertificate({
-          title: 'Certificado · Reto a Ciegas',
-          subtitle: `Deletreo sin pistas visuales de "${summary.word}"`,
-          metricPrimary: `${summary.scorePct}% Precisión`,
-          metricSecondary: `${summary.passedCount}/${summary.totalEvaluated} Letras`,
-          level: summary.passedChallenge ? 'Reto Superado' : 'En Progreso'
-        });
-      }
-    });
-    btns.appendChild(certBtn);
+    if (summary.passedChallenge) {
+      const certBtn = elFn('button', 'ab-btn ab-btn-secondary inline-flex items-center gap-1.5 min-h-[44px]');
+      certBtn.type = 'button';
+      certBtn.id = 'btnDownloadBlindCert';
+      certBtn.appendChild(BlindSpellSession.#createAwardSvg());
+      certBtn.appendChild(document.createTextNode('Descargar Certificado de Dactilología'));
+      certBtn.addEventListener('click', () => {
+        if (window.CertificateGenerator && typeof window.CertificateGenerator.downloadCertificate === 'function') {
+          window.CertificateGenerator.downloadCertificate({
+            title: 'Certificado · Reto a Ciegas LSC',
+            subtitle: `Por superar el deletreo sin pistas visuales de "${summary.word}" en cámara`,
+            highlightWord: summary.word,
+            accuracyLabel: `${summary.scorePct}% Precisión (${summary.passedCount}/${summary.totalEvaluated} letras)`
+          });
+        }
+      });
+      btns.appendChild(certBtn);
+    }
     card.appendChild(btns);
     return card;
   }

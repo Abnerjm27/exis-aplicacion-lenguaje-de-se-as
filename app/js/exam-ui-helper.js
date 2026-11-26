@@ -3,9 +3,6 @@
  * Responsabilidad única: renderizado seguro de opciones quiz, multimedia Real/Anime y resumen final.
  */
 class ExamUIHelper {
-  #lastSummary = null;
-  #certBound = false;
-
   init() {}
   start() {}
   update() {}
@@ -213,25 +210,6 @@ class ExamUIHelper {
         item.appendChild(left);
         item.appendChild(right);
         listEl.appendChild(item);
-      });
-    }
-
-    this.#lastSummary = { scorePct, correct, total, planTitle, examMode };
-    const btnCert = document.getElementById('btnDownloadExamCert');
-    if (btnCert && !this.#certBound) {
-      this.#certBound = true;
-      btnCert.addEventListener('click', () => {
-        const s = this.#lastSummary || {};
-        if (typeof window !== 'undefined' && window.CertificateGenerator && typeof window.CertificateGenerator.downloadCertificate === 'function') {
-          const modeLabel = s.examMode === 'camera' ? 'Solo Cámara' : (s.examMode === 'quiz' ? 'Adivinar Señas' : 'Evaluación Ciega');
-          window.CertificateGenerator.downloadCertificate({
-            title: 'Certificado · Evaluación Ciega LSC',
-            subtitle: `${s.planTitle || 'Plan LSC'} · ${modeLabel}`,
-            metricPrimary: `${s.scorePct || 0}% Calificación`,
-            metricSecondary: `${s.correct || 0}/${s.total || 0} Señas`,
-            level: (s.scorePct || 0) >= 80 ? 'Aprobado con Honores' : 'Evaluado'
-          });
-        }
       });
     }
 

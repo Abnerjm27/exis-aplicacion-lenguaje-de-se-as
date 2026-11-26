@@ -52,14 +52,14 @@
   <script src="js/vision-evaluator.js?v=20261125_v27" defer></script>
   <script src="js/auth-profile-manager.js?v=20261126_v30" defer></script>
   <script src="js/learning-plan-manager.js?v=20261126_v30" defer></script>
-  <script src="js/certificate-generator.js?v=20261126_v30" defer></script>
-  <script src="js/exam-ui-helper.js?v=20261126_v30" defer></script>
+  <script src="js/certificate-generator.js?v=20261126_v31" defer></script>
+  <script src="js/exam-ui-helper.js?v=20261126_v31" defer></script>
   <script src="js/blind-exam-controller.js?v=20261125_v25" defer></script>
   <script src="js/lesson-session.js?v=20261126_v30" defer></script>
   <script src="js/view-router.js?v=20261125_v26" defer></script>
-  <script src="js/blind-spell-session.js?v=20261126_v30" defer></script>
+  <script src="js/blind-spell-session.js?v=20261126_v31" defer></script>
   <script src="js/alphabet-lab-controller.js?v=20261125_v27" defer></script>
-  <script src="js/achievements-controller.js?v=20261126_v30" defer></script>
+  <script src="js/achievements-controller.js?v=20261126_v31" defer></script>
   <script src="js/pwa-manager.js?v=20261124_v23" defer></script>
   <script src="js/voice-feedback.js?v=20261124_v23" defer></script>
   <script src="js/main.js?v=20261124_v23" defer></script>
@@ -654,13 +654,9 @@
         <!-- Renderizado dinámicamente por BlindExamController -->
       </div>
 
-      <div class="flex flex-wrap items-center justify-center gap-2.5 pt-2">
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
         <button id="btnRetryFailedSigns" class="btn-spring px-4 py-2 min-h-[44px] rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-300">
           Repasar Señas
-        </button>
-        <button id="btnDownloadExamCert" type="button" class="btn-spring px-4 py-2 min-h-[44px] rounded-xl text-xs font-bold bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 inline-flex items-center gap-1.5">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
-          <span>Descargar Certificado</span>
         </button>
         <button id="btnCloseExamSummary" class="btn-spring px-5 py-2 min-h-[44px] rounded-xl text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-900 shadow-sm">
           Aceptar

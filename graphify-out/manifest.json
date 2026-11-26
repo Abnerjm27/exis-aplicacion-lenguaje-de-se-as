@@ -510,9 +510,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795702638.268096,
-    "seen": 1795702758.488748,
-    "ast_hash": "41274b5c855e606227fbd6f3c33cdd9b",
+    "mtime": 1795703420.4025402,
+    "seen": 1795703524.563861,
+    "ast_hash": "6a1085205ed10e0073d1bf2ad2509d41",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -570,9 +570,9 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795702600.5163512,
-    "seen": 1795702758.5465684,
-    "ast_hash": "37d346a0caf2656c7844336426cb9763",
+    "mtime": 1795703397.5992327,
+    "seen": 1795703524.624655,
+    "ast_hash": "83cce9e1b47399b57e14c23dea3554f9",
     "semantic_hash": ""
   },
   "app/landing.html": {
@@ -4218,15 +4218,15 @@
     "semantic_hash": ""
   },
   "app/js/perfil-page.js": {
-    "mtime": 1795702633.3335774,
-    "seen": 1795702758.480273,
-    "ast_hash": "be4f547651a7ea564d924a7dbb76911a",
+    "mtime": 1795703408.6624258,
+    "seen": 1795703524.5540535,
+    "ast_hash": "039340c6386d3678a8425f831f0c41e1",
     "semantic_hash": ""
   },
   "app/perfil.html": {
-    "mtime": 1795702630.7257915,
-    "seen": 1795702758.5478263,
-    "ast_hash": "2f83489c2bc7bf0975bdcde171bcd6a0",
+    "mtime": 1795703406.2857735,
+    "seen": 1795703524.6260924,
+    "ast_hash": "22c3a8e56b59a102e21e882e1000b9b6",
     "semantic_hash": ""
   },
   "tests/screenshots/screen4_profile_page.png": {
@@ -4236,9 +4236,9 @@
     "semantic_hash": ""
   },
   "app/js/exam-ui-helper.js": {
-    "mtime": 1795702596.0757759,
-    "seen": 1795702758.4781265,
-    "ast_hash": "4fbedea88e1f7c5911d716c192c7c60b",
+    "mtime": 1795703401.9719925,
+    "seen": 1795703524.551063,
+    "ast_hash": "2ffdef173d680bffdea4180ef2edd0f0",
     "semantic_hash": ""
   },
   "tests/test_security_and_hardening.py": {
@@ -4488,9 +4488,9 @@
     "semantic_hash": ""
   },
   "app/js/achievements-controller.js": {
-    "mtime": 1795702589.6034157,
-    "seen": 1795702758.4758954,
-    "ast_hash": "435eb7d1ca2e66eea5ea116b95f573a5",
+    "mtime": 1795703441.7190695,
+    "seen": 1795703524.5482771,
+    "ast_hash": "be7626d97e4640fbbc62aeb328b40a35",
     "semantic_hash": ""
   },
   "app/img/badges/badge_camera_pro.png": {
@@ -4590,9 +4590,9 @@
     "semantic_hash": ""
   },
   "app/js/blind-spell-session.js": {
-    "mtime": 1795702591.7831895,
-    "seen": 1795702758.4773898,
-    "ast_hash": "757bd79d3d1cd33ba76510195ea4cc88",
+    "mtime": 1795703418.1383173,
+    "seen": 1795703524.550262,
+    "ast_hash": "67dfe14072409c3a666ba60c48b5fab3",
     "semantic_hash": ""
   },
   "tests/test_blind_spell_unit.js": {
@@ -4602,15 +4602,15 @@
     "semantic_hash": ""
   },
   "app/js/certificate-generator.js": {
-    "mtime": 1795702689.382286,
-    "seen": 1795702758.478114,
-    "ast_hash": "65c561965381adb0ed61d4580934e296",
+    "mtime": 1795703360.4925647,
+    "seen": 1795703524.5510564,
+    "ast_hash": "f5e863bd8ca14d7e40d506019a00690d",
     "semantic_hash": ""
   },
   "tests/test_certificate_unit.js": {
-    "mtime": 1795702558.4641657,
-    "seen": 1795702758.5294576,
-    "ast_hash": "f6d7c2133cbc1cb209c452c09b89bc34",
+    "mtime": 1795703443.8780775,
+    "seen": 1795703524.6076198,
+    "ast_hash": "730a2329b8520306d7a6aa7928d56720",
     "semantic_hash": ""
   }
 }
