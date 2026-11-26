@@ -24,9 +24,9 @@
     "semantic_hash": ""
   },
   "app/js/camera-manager.js": {
-    "mtime": 1795579168.1687741,
-    "seen": 1795579224.011485,
-    "ast_hash": "fac84c4795738970bbd0c27b3ceec658",
+    "mtime": 1795666081.1391642,
+    "seen": 1795666118.1880054,
+    "ast_hash": "a38399d783677dfbb93c0123d4af5bab",
     "semantic_hash": ""
   },
   "app/js/learning-plan-manager.js": {
@@ -510,9 +510,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795665509.2129705,
-    "seen": 1795665705.4979923,
-    "ast_hash": "b9624cef3c5ebcae5ce60195dadb8091",
+    "mtime": 1795666068.6829317,
+    "seen": 1795666118.201117,
+    "ast_hash": "f306b04b6889f8425f24fbe35dfc6e73",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -570,9 +570,9 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795665490.142189,
-    "seen": 1795665705.5592813,
-    "ast_hash": "6b44e7fe989bd7439bc06cea8241a8fd",
+    "mtime": 1795666064.4367566,
+    "seen": 1795666118.2577462,
+    "ast_hash": "91ec0b0f64bf848ec82c2529925529bb",
     "semantic_hash": ""
   },
   "app/landing.html": {

@@ -60,7 +60,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>photos_letras_postgres — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 4502 nodes, 8736 edges, 200 communities. Commit: e890c3c</p>
+<p class="subtitle">Generated from graphify knowledge graph: 4510 nodes, 8761 edges, 191 communities. Commit: ede4474</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
@@ -96,13 +96,13 @@ flowchart LR
     class OUTPUTS_DOCS_ED82387C module;
     CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>8 nodes</small>")
     class CLI_SKILLS_9964CBB8 module;
-    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>146 nodes</small>")
+    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>115 nodes</small>")
     class INGEST_CACHE_UPDATE_FF457338 module;
     SERVE_API_35EC8E86("Serving API<br/><small>79 nodes</small>")
     class SERVE_API_35EC8E86 module;
     SECURITY_GLOBAL_5B9C6A04("Security &amp; Global Graph<br/><small>24 nodes</small>")
     class SECURITY_GLOBAL_5B9C6A04 module;
-    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>572 nodes</small>")
+    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>620 nodes</small>")
     class TESTS_FIXTURES_B84B1DCC module;
     TAILWINDJS_APP_TAILWIND_A199C519("Tailwindjs App Tailwind<br/><small>174 nodes</small>")
     class TAILWINDJS_APP_TAILWIND_A199C519 module;
@@ -116,7 +116,7 @@ flowchart LR
     class POSE_MEDIAPIPE_APP_93C79D_99934326 module;
     APP_TAILWIND_TAILWINDJS_17F1B23B("App Tailwind Tailwindjs<br/><small>48 nodes</small>")
     class APP_TAILWIND_TAILWINDJS_17F1B23B module;
-    OTHER_D0941E68("Other<br/><small>2304 nodes</small>")
+    OTHER_D0941E68("Other<br/><small>2295 nodes</small>")
     class OTHER_D0941E68 module;
     OUTPUTS_DOCS_ED82387C -->|contains x730| OTHER_D0941E68
     TAILWINDJS_APP_TAILWIND_A199C519 -->|contains x355| OTHER_D0941E68
@@ -124,9 +124,9 @@ flowchart LR
     OUTPUTS_DOCS_ED82387C -->|contains x45| HANDS_MEDIAPIPE_APP_042D9B_2540077E
     OUTPUTS_DOCS_ED82387C -->|contains x45| HANDS_MEDIAPIPE_APP_CBF2BDF8
     OUTPUTS_DOCS_ED82387C -->|contains x42| POSE_MEDIAPIPE_APP_93C79D_99934326
-    OTHER_D0941E68 -->|calls x42| INGEST_CACHE_UPDATE_FF457338
     OUTPUTS_DOCS_ED82387C -->|contains x42| POSE_MEDIAPIPE_APP_F57DA0A2
-    TESTS_FIXTURES_B84B1DCC -->|imports x25| INGEST_CACHE_UPDATE_FF457338
+    INGEST_CACHE_UPDATE_FF457338 -->|imports x39| TESTS_FIXTURES_B84B1DCC
+    OTHER_D0941E68 -->|calls x29| INGEST_CACHE_UPDATE_FF457338
     OTHER_D0941E68 -->|calls x23| POSE_MEDIAPIPE_APP_F57DA0A2
     OTHER_D0941E68 -->|calls x23| POSE_MEDIAPIPE_APP_93C79D_99934326
     OTHER_D0941E68 -->|calls x23| HANDS_MEDIAPIPE_APP_042D9B_2540077E
@@ -146,19 +146,19 @@ flowchart LR
     <h4>Architecture Layers</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
-      <tr><td>Extraction Pipeline</td><td>29</td><td><code>7</code></td></tr><tr><td>Graph Build</td><td>58</td><td><code>96, 127, 98</code></td></tr><tr><td>Outputs &amp; Docs</td><td>784</td><td><code>0, 73, 20, 25, 85, 113, 114, 33, 122, 46</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>8</td><td><code>42</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>146</td><td><code>31, 90, 101, 19, 173, 154, 57, 60, 61</code></td></tr><tr><td>Serving API</td><td>79</td><td><code>12, 27</code></td></tr><tr><td>Security &amp; Global Graph</td><td>24</td><td><code>107, 108, 156, 157</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>572</td><td><code>119, 167, 50, 69, 67, 77, 15, 10, 44, 9, 17, 51, 102, 105, 6, 129, 93, 116, 175, 21, 82, 41, 160, 39, 40, 171, 178, 43, 183, 48</code></td></tr><tr><td>Tailwindjs App Tailwind</td><td>174</td><td><code>22</code></td></tr><tr><td>Hands Mediapipe App</td><td>72</td><td><code>29</code></td></tr><tr><td>Hands Mediapipe App</td><td>72</td><td><code>35</code></td></tr><tr><td>Pose Mediapipe App</td><td>66</td><td><code>111</code></td></tr><tr><td>Pose Mediapipe App</td><td>66</td><td><code>115</code></td></tr><tr><td>App Tailwind Tailwindjs</td><td>48</td><td><code>36</code></td></tr><tr><td>Other</td><td>2304</td><td><code>45, 117, 118, 49, 62, 63, 91, 65, 80, 1, 55, 120, 121, 64, 70, 72, 3, 2, 66, 4, 5, 8, 71, 123, 109, 11, 75, 164, 52, 125, 74, 95, 124, 126, 130, 133, 28, 47, 68, 78, 92, 132, 134, 128, 159, 112, 13, 131, 135, 136, 148, 182, 24, 76, 83, 84, 137, 138, 139, 140, 162, 86, 87, 88, 89, 14, 163, 166, 79, 142, 143, 94, 97, 144, 16, 169, 190, 191, 81, 146, 147, 170, 18, 193, 172, 174, 149, 23, 100, 150, 151, 153, 176, 177, 179, 195, 26, 30, 32, 99, 103, 180, 197, 34, 37, 38, 161, 104, 145, 155, 181, 196, 106, 141, 184, 198, 185, 186, 110, 152, 158, 165, 168, 187, 188, 189, 194, 53, 54, 199, 192, 56, 58, 59</code></td></tr>
+      <tr><td>Extraction Pipeline</td><td>29</td><td><code>7, 31</code></td></tr><tr><td>Graph Build</td><td>58</td><td><code>96, 127, 98</code></td></tr><tr><td>Outputs &amp; Docs</td><td>784</td><td><code>0, 73, 20, 25, 85, 113, 114, 33, 122, 46</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>8</td><td><code>42</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>115</td><td><code>90, 101, 19, 173, 154, 57, 60, 61</code></td></tr><tr><td>Serving API</td><td>79</td><td><code>12, 27</code></td></tr><tr><td>Security &amp; Global Graph</td><td>24</td><td><code>107, 108, 156, 157</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>620</td><td><code>69, 119, 67, 167, 50, 116, 15, 77, 10, 44, 9, 17, 51, 102, 105, 6, 93, 175, 21, 41, 160, 39, 40, 178, 43, 183, 48</code></td></tr><tr><td>Tailwindjs App Tailwind</td><td>174</td><td><code>22</code></td></tr><tr><td>Hands Mediapipe App</td><td>72</td><td><code>29</code></td></tr><tr><td>Hands Mediapipe App</td><td>72</td><td><code>35</code></td></tr><tr><td>Pose Mediapipe App</td><td>66</td><td><code>111</code></td></tr><tr><td>Pose Mediapipe App</td><td>66</td><td><code>115</code></td></tr><tr><td>App Tailwind Tailwindjs</td><td>48</td><td><code>36</code></td></tr><tr><td>Other</td><td>2295</td><td><code>45, 1, 117, 118, 49, 62, 63, 91, 66, 65, 124, 80, 55, 120, 121, 64, 70, 72, 3, 2, 5, 8, 71, 78, 109, 11, 75, 52, 123, 125, 74, 95, 126, 130, 133, 28, 4, 47, 68, 92, 132, 134, 128, 193, 112, 13, 135, 136, 148, 182, 24, 76, 83, 84, 131, 137, 138, 139, 140, 162, 86, 87, 88, 89, 14, 163, 166, 79, 142, 143, 190, 94, 97, 144, 16, 169, 179, 191, 81, 147, 164, 170, 18, 146, 172, 174, 149, 23, 100, 150, 151, 153, 176, 177, 26, 30, 32, 82, 99, 103, 129, 145, 180, 34, 37, 38, 161, 104, 155, 181, 106, 141, 184, 185, 186, 110, 152, 165, 168, 187, 188, 189, 53, 54, 192, 56, 58, 59</code></td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Core Flow</h4>
-    <div class="arrow-chain">Extraction Pipeline -&gt; Ingestion &amp; Updates -&gt; Tests &amp; Fixtures -&gt; Other -&gt; Pose Mediapipe App -&gt; Graph Build -&gt; Outputs &amp; Docs</div>
+    <div class="arrow-chain">Extraction Pipeline -&gt; Tests &amp; Fixtures -&gt; Other -&gt; Ingestion &amp; Updates -&gt; Outputs &amp; Docs -&gt; Hands Mediapipe App -&gt; Graph Build</div>
   </div>
 </div>
 <div class="grid">
   <div class="card">
     <h4>Graph Report Highlights</h4>
     <ul>
-      <li>4502 nodes · 8736 edges · 200 communities (153 shown, 47 thin omitted)</li>
+      <li>4510 nodes · 8761 edges · 191 communities (146 shown, 45 thin omitted)</li>
       <li>Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 356 edges (avg confidence: 0.87)</li>
       <li>Token cost: 0 input · 0 output</li>
       <li>1. `assert()` - 68 edges</li>
@@ -189,8 +189,8 @@ flowchart LR
         app_tools_mocap_extractor_mocapextractor_extract_2df66050("extract_frame_landmarks()<br/><small>app/tools/mocap_extractor.py</small>")
         app_tools_mocap_extractor_mocapextractor_compute_5a75d3d4("compute_frame_rotations()<br/><small>app/tools/mocap_extractor.py</small>")
         app_tools_mocap_extractor_mocapextractor_generat_709ab2c2("generate_animation_clip()<br/><small>app/tools/mocap_extractor.py</small>")
-        app_tools_mocap_extractor_normalize_7a63dca6("normalize()<br/><small>app/tools/mocap_extractor.py</small>")
         app_tools_mocap_extractor_quaternion_slerp_c513afa3("quaternion_slerp()<br/><small>app/tools/mocap_extractor.py</small>")
+        app_tools_mocap_extractor_normalize_7a63dca6("normalize()<br/><small>app/tools/mocap_extractor.py</small>")
         app_tools_mocap_extractor_mocapextractor_extract_879eacd7("calc_curl()<br/><small>app/tools/mocap_extractor.py</small>")
         app_tools_mocap_extractor_rationale_273_8d863236("Calcula las rotaciones anatómicas de lo...<br/><small>app/tools/mocap_extractor.py</small>")
     end
@@ -207,6 +207,8 @@ flowchart LR
     app_tools_mocap_extractor_mocapextractor_2cb0b2ad -->|method| app_tools_mocap_extractor_mocapextractor_generat_709ab2c2
     app_tools_mocap_extractor_mocapextractor_2cb0b2ad -->|method| app_tools_mocap_extractor_mocapextractor_run_pip_29b96d3b
     app_tools_mocap_extractor_euler_to_quaternion_75dcbaef -->|calls| math_7a488390
+    app_tools_mocap_extractor_quaternion_slerp_c513afa3 -->|calls| math_7a488390
+    app_tools_mocap_extractor_verify_clips_json_3b5a780e -->|calls| math_7a488390
     app_tools_mocap_extractor_mocapextractor_compute_5a75d3d4 -->|calls| app_tools_mocap_extractor_euler_to_quaternion_75dcbaef
     app_tools_mocap_extractor_mocapextractor_extract_2df66050 -->|calls| app_tools_mocap_extractor_normalize_7a63dca6
     app_tools_mocap_extractor_mocapextractor_extract_570ace2e -->|calls| app_tools_mocap_extractor_mocapextractor_process_ff0aec61
@@ -216,8 +218,6 @@ flowchart LR
     app_tools_mocap_extractor_mocapextractor_init_e9ec8df7 -->|calls| app_tools_mocap_extractor_mocapextractor_init_me_281b6ddc
     app_tools_mocap_extractor_mocapextractor_run_pip_29b96d3b -->|calls| app_tools_mocap_extractor_mocapextractor_extract_570ace2e
     app_tools_mocap_extractor_mocapextractor_run_pip_29b96d3b -->|calls| app_tools_mocap_extractor_mocapextractor_generat_709ab2c2
-    app_tools_mocap_extractor_quaternion_slerp_c513afa3 -->|calls| math_7a488390
-    app_tools_mocap_extractor_verify_clips_json_3b5a780e -->|calls| math_7a488390
     app_tools_mocap_extractor_045c4360 -->|imports| math_7a488390
     app_tools_mocap_extractor_045c4360 -->|imports| argparse_e750ee7c
     %% Omitted for readability: 11 nodes, 0 edges
@@ -233,8 +233,8 @@ flowchart LR
     class app_tools_mocap_extractor_mocapextractor_extract_2df66050 function;
     class app_tools_mocap_extractor_mocapextractor_compute_5a75d3d4 function;
     class app_tools_mocap_extractor_mocapextractor_generat_709ab2c2 entry;
-    class app_tools_mocap_extractor_normalize_7a63dca6 function;
     class app_tools_mocap_extractor_quaternion_slerp_c513afa3 function;
+    class app_tools_mocap_extractor_normalize_7a63dca6 function;
     class app_tools_mocap_extractor_mocapextractor_extract_879eacd7 function;
     class app_tools_mocap_extractor_rationale_273_8d863236 concept;
     class math_7a488390 function;
@@ -270,14 +270,6 @@ flowchart LR
 </tr>
 <tr>
   <td>2</td>
-  <td><code>euler_to_quaternion()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>compute_frame_rotations()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
-  <td><code>math</code></td>
-  <td>euler_to_quaternion() node in app/tools/mocap_extractor.py.</td>
-</tr>
-<tr>
-  <td>3</td>
   <td><code>.compute_frame_rotations()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>extract_sign_sequence()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
@@ -285,7 +277,7 @@ flowchart LR
   <td>.compute_frame_rotations() node in app/tools/mocap_extractor.py.</td>
 </tr>
 <tr>
-  <td>4</td>
+  <td>3</td>
   <td><code>.extract_frame_landmarks()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>extract_sign_sequence()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
@@ -293,7 +285,7 @@ flowchart LR
   <td>.extract_frame_landmarks() node in app/tools/mocap_extractor.py.</td>
 </tr>
 <tr>
-  <td>5</td>
+  <td>4</td>
   <td><code>calc_curl()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -301,7 +293,7 @@ flowchart LR
   <td>calc_curl() node in app/tools/mocap_extractor.py.</td>
 </tr>
 <tr>
-  <td>6</td>
+  <td>5</td>
   <td><code>.extract_sign_sequence()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>run_pipeline()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
@@ -309,7 +301,7 @@ flowchart LR
   <td>.extract_sign_sequence() node in app/tools/mocap_extractor.py.</td>
 </tr>
 <tr>
-  <td>7</td>
+  <td>6</td>
   <td><code>.generate_animation_clip()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-cmd">Entry</span></td>
   <td><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>run_pipeline()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
@@ -317,7 +309,7 @@ flowchart LR
   <td>.generate_animation_clip() node in app/tools/mocap_extractor.py.</td>
 </tr>
 <tr>
-  <td>8</td>
+  <td>7</td>
   <td><code>.__init__()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
@@ -325,7 +317,7 @@ flowchart LR
   <td>.__init__() node in app/tools/mocap_extractor.py.</td>
 </tr>
 <tr>
-  <td>9</td>
+  <td>8</td>
   <td><code>._init_mediapipe()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-endpoint">API</span></td>
   <td><code>__init__()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
@@ -333,7 +325,7 @@ flowchart LR
   <td>._init_mediapipe() node in app/tools/mocap_extractor.py.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>9</td>
   <td><code>.process_image()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>extract_sign_sequence()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small><br><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
@@ -341,7 +333,7 @@ flowchart LR
   <td>.process_image() node in app/tools/mocap_extractor.py.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>10</td>
   <td><code>.run_pipeline()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>MoCapExtractor</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
@@ -349,39 +341,7 @@ flowchart LR
   <td>.run_pipeline() node in app/tools/mocap_extractor.py.</td>
 </tr>
 <tr>
-  <td>12</td>
-  <td><code>normalize()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>extract_frame_landmarks()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
-  <td><code>numpy</code></td>
-  <td>normalize() node in app/tools/mocap_extractor.py.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>quaternion_slerp()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>generate_animation_clip()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
-  <td><code>math</code></td>
-  <td>quaternion_slerp() node in app/tools/mocap_extractor.py.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>verify_clips_json()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
-  <td><span class="tag tag-cmd">Entry</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>json</code><br><code>math</code></td>
-  <td>verify_clips_json() node in app/tools/mocap_extractor.py.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>mocap_extractor.py</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>argparse</code><br><code>cv2</code><br><code>json</code><br>+4 more</td>
-  <td>Module file in app/tools/mocap_extractor.py.</td>
-</tr>
-<tr>
-  <td>16</td>
+  <td>11</td>
   <td><code>Extractor de movimiento tridimensional a partir de secuencias fotográficas de…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -389,7 +349,7 @@ flowchart LR
   <td>Design note for Extractor de movimiento tridimensional a partir de secuencias fotográficas de….</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>12</td>
   <td><code>Inicializa los detectores de MediaPipe Tasks cargando los bytes del modelo en…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -397,7 +357,7 @@ flowchart LR
   <td>Design note for Inicializa los detectores de MediaPipe Tasks cargando los bytes del modelo en….</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>13</td>
   <td><code>Lee la imagen de forma robusta con numpy para tolerar rutas con tildes y…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -405,7 +365,7 @@ flowchart LR
   <td>Design note for Lee la imagen de forma robusta con numpy para tolerar rutas con tildes y….</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>14</td>
   <td><code>Extrae vectores normalizados y métricas de flexión de los landmarks 3D.</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -413,15 +373,7 @@ flowchart LR
   <td>Design note for Extrae vectores normalizados y métricas de flexión de los landmarks 3D..</td>
 </tr>
 <tr>
-  <td>20</td>
-  <td><code>Proyecto EXIS - Lengua de Señas Colombiana (LSC) Auto-MoCap Pipeline: Extractor…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Proyecto EXIS - Lengua de Señas Colombiana (LSC) Auto-MoCap Pipeline: Extractor….</td>
-</tr>
-<tr>
-  <td>21</td>
+  <td>15</td>
   <td><code>Calcula las rotaciones anatómicas de los huesos para un fotograma dado,…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -429,7 +381,7 @@ flowchart LR
   <td>Design note for Calcula las rotaciones anatómicas de los huesos para un fotograma dado,….</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>16</td>
   <td><code>Procesa los 6 fotogramas secuenciales de una seña desde el dataset LSC70.</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -437,7 +389,7 @@ flowchart LR
   <td>Design note for Procesa los 6 fotogramas secuenciales de una seña desde el dataset LSC70..</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>17</td>
   <td><code>Interpola suavemente las rotaciones a lo largo del tiempo a 30 fps (o 60 fps)…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -445,12 +397,60 @@ flowchart LR
   <td>Design note for Interpola suavemente las rotaciones a lo largo del tiempo a 30 fps (o 60 fps)….</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>18</td>
   <td><code>Ejecuta el pipeline completo de auto-mocap para todas las señas especificadas y…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
   <td>Design note for Ejecuta el pipeline completo de auto-mocap para todas las señas especificadas y….</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>euler_to_quaternion()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>compute_frame_rotations()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><code>math</code></td>
+  <td>euler_to_quaternion() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>normalize()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>extract_frame_landmarks()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><code>numpy</code></td>
+  <td>normalize() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>quaternion_slerp()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>generate_animation_clip()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><code>math</code></td>
+  <td>quaternion_slerp() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>verify_clips_json()</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>json</code><br><code>math</code></td>
+  <td>verify_clips_json() node in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>mocap_extractor.py</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>argparse</code><br><code>cv2</code><br><code>json</code><br>+4 more</td>
+  <td>Module file in app/tools/mocap_extractor.py.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>Proyecto EXIS - Lengua de Señas Colombiana (LSC) Auto-MoCap Pipeline: Extractor…</code><br><small style="color:var(--muted)">app/tools/mocap_extractor.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Proyecto EXIS - Lengua de Señas Colombiana (LSC) Auto-MoCap Pipeline: Extractor….</td>
 </tr>
 <tr>
   <td>25</td>
@@ -1354,12 +1354,12 @@ flowchart LR
 
 <!-- ====== 6. Ingestion & Updates ====== -->
 <h2 id="ingest-cache-update">6. Ingestion &amp; Updates</h2>
-<p>Ingestion &amp; Updates groups implementation around app, tools, process, videopy, mostly in app/tools/process_zorrito_video.py, app/manifest.json, lib/mediapipe/control_utils.js. This section covers 146 nodes and 276 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Ingestion &amp; Updates groups implementation around app, tools, process, videopy, mostly in app/tools/process_zorrito_video.py, app/manifest.json, lib/mediapipe/control_utils.js. This section covers 115 nodes and 192 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Ingestion &amp; Updates (146 nodes, 276 edges)
+    %% Section: Ingestion &amp; Updates (115 nodes, 192 edges)
     subgraph ingest_cache_update_app_tools_process_zorrito_vi_90db8d17["app/tools/process_zorrito_video.py"]
         app_tools_process_zorrito_video_zorritovideoproc_e30af36d("ZorritoVideoProcessor<br/><small>app/tools/process_zorrito_video.py</small>")
         app_tools_process_zorrito_video_main_6fc5362c("main()<br/><small>app/tools/process_zorrito_video.py</small>")
@@ -1374,12 +1374,12 @@ flowchart LR
         app_tools_process_zorrito_video_zorritovideoproc_0bd8a9e9("process_frame()<br/><small>app/tools/process_zorrito_video.py</small>")
     end
     subgraph ingest_cache_update_lib_mediapipe_control_utils_5c445718["lib/mediapipe/control_utils.js"]
+        app_lib_mediapipe_control_utils_y_f88955f0("y()<br/><small>lib/mediapipe/control_utils.js</small>")
         app_lib_mediapipe_control_utils_w_4385fd0b("w()<br/><small>lib/mediapipe/control_utils.js</small>")
         app_lib_mediapipe_control_utils_w_create_929d535b("create()<br/><small>lib/mediapipe/control_utils.js</small>")
     end
     numpy_a65e1d38("numpy")
-    app_tools_curate_letter_e_28858dc1("curate_letter_e.py")
-    app_tools_curate_letter_u_90db2780("curate_letter_u.py")
+    app_tools_curate_tardes_gustar_main_acf17cd2("main()<br/><small>app/tools/curate_tardes_gustar.py</small>")
     app_tools_generate_batch_5_signs_main_9fd7e6f2("main()<br/><small>app/tools/generate_batch_5_signs.py</small>")
     app_tools_generate_expansion_signs_main_89ea5d26("main()<br/><small>app/tools/generate_expansion_signs.py</small>")
     app_tools_process_zorrito_video_zorritovideoproc_e30af36d -->|method| app_tools_process_zorrito_video_zorritovideoproc_f91c1fbe
@@ -1400,13 +1400,12 @@ flowchart LR
     app_tools_process_zorrito_video_zorritovideoproc_ddc18def -->|calls| app_tools_process_zorrito_video_zorritovideoproc_f37751f7
     app_tools_process_zorrito_video_zorritovideoproc_0bd8a9e9 -->|calls| app_tools_process_zorrito_video_zorritovideoproc_191b563c
     app_lib_mediapipe_control_utils_w_4385fd0b -->|method| app_lib_mediapipe_control_utils_w_create_929d535b
-    app_tools_curate_letter_e_28858dc1 -->|imports| numpy_a65e1d38
-    app_tools_curate_letter_u_90db2780 -->|imports| numpy_a65e1d38
     app_tools_process_zorrito_video_main_6fc5362c -->|calls| app_tools_process_zorrito_video_zorritovideoproc_ddc18def
     app_tools_process_zorrito_video_main_6fc5362c -->|calls| app_tools_process_zorrito_video_zorritovideoproc_2e356801
     app_tools_process_zorrito_video_main_6fc5362c -->|calls| app_tools_process_zorrito_video_zorritovideoproc_1fe7365a
     app_tools_process_zorrito_video_main_6fc5362c -->|calls| app_tools_process_zorrito_video_zorritovideoproc_0bd8a9e9
-    %% Omitted for readability: 128 nodes, 1 edges
+    app_tools_process_zorrito_video_main_6fc5362c -->|calls| app_tools_process_zorrito_video_zorritovideoproc_f91c1fbe
+    %% Omitted for readability: 97 nodes, 0 edges
     class app_tools_process_zorrito_video_zorritovideoproc_e30af36d klass;
     class app_tools_process_zorrito_video_main_6fc5362c function;
     class app_tools_process_zorrito_video_zorritovideoproc_f91c1fbe function;
@@ -1418,11 +1417,11 @@ flowchart LR
     class app_tools_process_zorrito_video_zorritovideoproc_191b563c function;
     class app_tools_process_zorrito_video_zorritovideoproc_1fe7365a function;
     class app_tools_process_zorrito_video_zorritovideoproc_0bd8a9e9 function;
+    class app_lib_mediapipe_control_utils_y_f88955f0 function;
     class app_lib_mediapipe_control_utils_w_4385fd0b function;
     class app_lib_mediapipe_control_utils_w_create_929d535b function;
     class numpy_a65e1d38 function;
-    class app_tools_curate_letter_e_28858dc1 module;
-    class app_tools_curate_letter_u_90db2780 module;
+    class app_tools_curate_tardes_gustar_main_acf17cd2 function;
     class app_tools_generate_batch_5_signs_main_9fd7e6f2 function;
     class app_tools_generate_expansion_signs_main_89ea5d26 function;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
@@ -1448,30 +1447,158 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
-  <td><code>build_composite()</code><br><small style="color:var(--muted)">app/tools_archive/make_comparison_sheets.py</small></td>
+  <td><code>extract_trimmed_frames()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>build_composite() node in app/tools_archive/make_comparison_sheets.py.</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
+  <td><code>cv2</code></td>
+  <td>extract_trimmed_frames() node in app/tools/curate_tardes_gustar.py.</td>
 </tr>
 <tr>
   <td>2</td>
-  <td><code>build_composite()</code><br><small style="color:var(--muted)">app/tools_archive/run_pose_checks_fast.py</small></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>build_composite() node in app/tools_archive/run_pose_checks_fast.py.</td>
+  <td><code>cv2</code><br><code>extract_trimmed_frames()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small><br><code>save_mp4()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small><br>+1 more</td>
+  <td>main() node in app/tools/curate_tardes_gustar.py.</td>
 </tr>
 <tr>
   <td>3</td>
-  <td><code>build_composite()</code><br><small style="color:var(--muted)">app/tools_archive/run_precise_verification.py</small></td>
+  <td><code>save_mp4()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>build_composite() node in app/tools_archive/run_precise_verification.py.</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_mp4() node in app/tools/curate_tardes_gustar.py.</td>
 </tr>
 <tr>
   <td>4</td>
+  <td><code>save_webp()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_webp() node in app/tools/curate_tardes_gustar.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>cv2_imread()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>load_keyframes()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><code>cv2</code><br><code>numpy</code></td>
+  <td>cv2_imread() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>cv2_imwrite()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><code>cv2</code></td>
+  <td>cv2_imwrite() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>interpolate_sequence()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><code>cv2</code><br><code>numpy</code></td>
+  <td>interpolate_sequence() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>load_keyframes()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><code>cv2_imread()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small><br><code>os</code></td>
+  <td>load_keyframes() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>cv2_imwrite()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small><br><code>interpolate_sequence()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small><br>+3 more</td>
+  <td>main() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>save_mp4()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_mp4() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>save_webp()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_batch_5_signs.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_webp() node in app/tools/generate_batch_5_signs.py.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>cv2_imread()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>load_keyframes()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><code>cv2</code><br><code>numpy</code></td>
+  <td>cv2_imread() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>cv2_imwrite()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><code>cv2</code></td>
+  <td>cv2_imwrite() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>interpolate_sequence()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><code>cv2</code><br><code>numpy</code></td>
+  <td>interpolate_sequence() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>load_keyframes()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><code>cv2_imread()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small><br><code>os</code></td>
+  <td>load_keyframes() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code><br><code>cv2_imwrite()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small><br><code>interpolate_sequence()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small><br>+3 more</td>
+  <td>main() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>save_mp4()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_mp4() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>save_webp()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/generate_expansion_signs.py</small></td>
+  <td><code>cv2</code></td>
+  <td>save_webp() node in app/tools/generate_expansion_signs.py.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>process_b()</code><br><small style="color:var(--muted)">app/tools/process_b_video.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>cv2</code></td>
+  <td>process_b() node in app/tools/process_b_video.py.</td>
+</tr>
+<tr>
+  <td>20</td>
   <td><code>process_buenos()</code><br><small style="color:var(--muted)">app/tools/process_buenos_video.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1479,7 +1606,7 @@ flowchart LR
   <td>process_buenos() node in app/tools/process_buenos_video.py.</td>
 </tr>
 <tr>
-  <td>5</td>
+  <td>21</td>
   <td><code>process_c()</code><br><small style="color:var(--muted)">app/tools/process_c_video.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1487,15 +1614,7 @@ flowchart LR
   <td>process_c() node in app/tools/process_c_video.py.</td>
 </tr>
 <tr>
-  <td>6</td>
-  <td><code>process_hola()</code><br><small style="color:var(--muted)">app/tools/process_hola_video.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>cv2</code><br><code>os</code></td>
-  <td>process_hola() node in app/tools/process_hola_video.py.</td>
-</tr>
-<tr>
-  <td>7</td>
+  <td>22</td>
   <td><code>cleanup_temp_files()</code><br><small style="color:var(--muted)">app/tools/process_new_anime_videos.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1503,7 +1622,7 @@ flowchart LR
   <td>cleanup_temp_files() node in app/tools/process_new_anime_videos.py.</td>
 </tr>
 <tr>
-  <td>8</td>
+  <td>23</td>
   <td><code>process_video()</code><br><small style="color:var(--muted)">app/tools/process_new_anime_videos.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -1511,180 +1630,60 @@ flowchart LR
   <td>process_video() node in app/tools/process_new_anime_videos.py.</td>
 </tr>
 <tr>
-  <td>9</td>
-  <td><code>make_comparison_sheets.py</code><br><small style="color:var(--muted)">app/tools_archive/make_comparison_sheets.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code></td>
-  <td>Module file in app/tools_archive/make_comparison_sheets.py.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>run_arm_delta.py</code><br><small style="color:var(--muted)">app/tools_archive/run_arm_delta.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/run_arm_delta.py.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>run_arm_grid.py</code><br><small style="color:var(--muted)">app/tools_archive/run_arm_grid.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/run_arm_grid.py.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>run_forearm_grid.py</code><br><small style="color:var(--muted)">app/tools_archive/run_forearm_grid.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/run_forearm_grid.py.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>run_pose_checks.py</code><br><small style="color:var(--muted)">app/tools_archive/run_pose_checks.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/run_pose_checks.py.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>run_pose_checks_fast.py</code><br><small style="color:var(--muted)">app/tools_archive/run_pose_checks_fast.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/run_pose_checks_fast.py.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>run_precise_verification.py</code><br><small style="color:var(--muted)">app/tools_archive/run_precise_verification.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/run_precise_verification.py.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>run_tests.py</code><br><small style="color:var(--muted)">app/tools_archive/run_tests.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/run_tests.py.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>run_thumb_tests.py</code><br><small style="color:var(--muted)">app/tools_archive/run_thumb_tests.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/run_thumb_tests.py.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>solve_letters_exact.py</code><br><small style="color:var(--muted)">app/tools_archive/solve_letters_exact.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/solve_letters_exact.py.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>test_app_live.py</code><br><small style="color:var(--muted)">app/tools_archive/test_app_live.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/test_app_live.py.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>test_dias_suite.py</code><br><small style="color:var(--muted)">app/tools_archive/test_dias_suite.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/test_dias_suite.py.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>test_hand_b.py</code><br><small style="color:var(--muted)">app/tools_archive/test_hand_b.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/test_hand_b.py.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>test_hand_framing.py</code><br><small style="color:var(--muted)">app/tools_archive/test_hand_framing.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/test_hand_framing.py.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>test_letters_upright.py</code><br><small style="color:var(--muted)">app/tools_archive/test_letters_upright.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/test_letters_upright.py.</td>
-</tr>
-<tr>
   <td>24</td>
-  <td><code>test_natural_rest.py</code><br><small style="color:var(--muted)">app/tools_archive/test_natural_rest.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/test_natural_rest.py.</td>
+  <td><code>clean_v_background()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td><code>cv2</code><br><code>numpy</code></td>
+  <td>clean_v_background() node in app/tools/process_vl_dias_videos.py.</td>
 </tr>
 <tr>
   <td>25</td>
-  <td><code>tune_left_arm.py</code><br><small style="color:var(--muted)">app/tools_archive/tune_left_arm.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/tune_left_arm.py.</td>
+  <td><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td>main() node in app/tools/process_vl_dias_videos.py.</td>
 </tr>
 <tr>
   <td>26</td>
-  <td><code>tune_letter_arm.py</code><br><small style="color:var(--muted)">app/tools_archive/tune_letter_arm.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/tune_letter_arm.py.</td>
+  <td><code>process_sign()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small></td>
+  <td><code>clean_v_background()</code><br><small style="color:var(--muted)">app/tools/process_vl_dias_videos.py</small><br><code>cv2</code></td>
+  <td>process_sign() node in app/tools/process_vl_dias_videos.py.</td>
 </tr>
 <tr>
   <td>27</td>
-  <td><code>tune_poses.py</code><br><small style="color:var(--muted)">app/tools_archive/tune_poses.py</small></td>
+  <td><code>copy_samples.py</code><br><small style="color:var(--muted)">app/tools/copy_samples.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/tune_poses.py.</td>
+  <td><code>os</code><br><code>shutil</code></td>
+  <td>Module file in app/tools/copy_samples.py.</td>
 </tr>
 <tr>
   <td>28</td>
-  <td><code>tune_wrist.py</code><br><small style="color:var(--muted)">app/tools_archive/tune_wrist.py</small></td>
+  <td><code>curate_letter_e.py</code><br><small style="color:var(--muted)">app/tools/curate_letter_e.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/tune_wrist.py.</td>
+  <td><code>cv2</code><br><code>numpy</code><br><code>os</code><br>+2 more</td>
+  <td>Module file in app/tools/curate_letter_e.py.</td>
 </tr>
 <tr>
   <td>29</td>
-  <td><code>tune_yo.py</code><br><small style="color:var(--muted)">app/tools_archive/tune_yo.py</small></td>
+  <td><code>curate_letter_u.py</code><br><small style="color:var(--muted)">app/tools/curate_letter_u.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/tune_yo.py.</td>
+  <td><code>cv2</code><br><code>numpy</code><br><code>os</code><br>+2 more</td>
+  <td>Module file in app/tools/curate_letter_u.py.</td>
 </tr>
 <tr>
   <td>30</td>
-  <td><code>verify_redesign.py</code><br><small style="color:var(--muted)">app/tools_archive/verify_redesign.py</small></td>
+  <td><code>curate_tardes_gustar.py</code><br><small style="color:var(--muted)">app/tools/curate_tardes_gustar.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>os</code><br><code>subprocess</code></td>
-  <td>Module file in app/tools_archive/verify_redesign.py.</td>
+  <td><code>cv2</code><br><code>numpy</code><br><code>os</code><br>+1 more</td>
+  <td>Module file in app/tools/curate_tardes_gustar.py.</td>
 </tr>
 </table>
 
@@ -1705,7 +1704,7 @@ flowchart LR
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: imports x78, calls x70, contains x54, imports x31. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x64, contains x50, imports x36, explains x18. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -2366,12 +2365,12 @@ flowchart LR
 
 <!-- ====== 9. Tests & Fixtures ====== -->
 <h2 id="tests-fixtures">9. Tests &amp; Fixtures</h2>
-<p>Tests &amp; Fixtures groups implementation around test, tests, unitjs, app, mostly in tests/test_sign_anatomy_validator.js, tests/test_natural_language_chat.py, tests/test_finger_feedback_unit.js. This section covers 572 nodes and 814 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Tests &amp; Fixtures groups implementation around test, tests, app, unitjs, mostly in tests/test_sign_anatomy_validator.js, tests/test_natural_language_chat.py, tests/test_finger_feedback_unit.js. This section covers 620 nodes and 934 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Tests &amp; Fixtures (572 nodes, 814 edges)
+    %% Section: Tests &amp; Fixtures (620 nodes, 934 edges)
     subgraph tests_fixtures_tests_test_natural_language_chat_2f91922d["tests/test_natural_language_chat.py"]
         tests_test_natural_language_chat_testlscnaturall_a10f5d24("TestLSCNaturalLanguageParser<br/><small>tests/test_natural_language_chat.py</small>")
         tests_test_natural_language_chat_testlscnaturall_0641a612("test_greeting_with_letter_request()<br/><small>tests/test_natural_language_chat.py</small>")
@@ -2405,7 +2404,7 @@ flowchart LR
     tests_test_natural_language_chat_testlscnaturall_a10f5d24 -->|method| tests_test_natural_language_chat_testlscnaturall_bc670d93
     tests_test_natural_language_chat_testlscnaturall_a10f5d24 -->|method| tests_test_natural_language_chat_testlscnaturall_b55af850
     tests_test_srs_and_postgres_fa0bedb4 -->|imports| server_3de4f901
-    %% Omitted for readability: 554 nodes, 0 edges
+    %% Omitted for readability: 602 nodes, 0 edges
     class tests_test_natural_language_chat_testlscnaturall_a10f5d24 test;
     class tests_test_natural_language_chat_testlscnaturall_0641a612 test;
     class tests_test_natural_language_chat_testlscnaturall_5700b056 test;
@@ -2447,243 +2446,243 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
-  <td><code>makeHand()</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>build_composite()</code><br><small style="color:var(--muted)">app/tools_archive/make_comparison_sheets.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>makeHand() node in tests/test_sign_anatomy_validator.js.</td>
+  <td>build_composite() node in app/tools_archive/make_comparison_sheets.py.</td>
 </tr>
 <tr>
   <td>2</td>
-  <td><code>makeLetterCHand()</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>build_composite()</code><br><small style="color:var(--muted)">app/tools_archive/run_pose_checks_fast.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>makeLetterCHand() node in tests/test_sign_anatomy_validator.js.</td>
+  <td>build_composite() node in app/tools_archive/run_pose_checks_fast.py.</td>
 </tr>
 <tr>
   <td>3</td>
-  <td><code>makeLetterOHan()</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>build_composite()</code><br><small style="color:var(--muted)">app/tools_archive/run_precise_verification.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>makeLetterOHan() node in tests/test_sign_anatomy_validator.js.</td>
+  <td>build_composite() node in app/tools_archive/run_precise_verification.py.</td>
 </tr>
 <tr>
   <td>4</td>
-  <td><code>test_sign_anatomy_validator.js</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
+  <td><code>test_pose()</code><br><small style="color:var(--muted)">app/tools_archive/solve_poses.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>ref_assert</code><br><code>sign-anatomy-validator.js</code><br><small style="color:var(--muted)">app/js/sign-anatomy-validator.js</small><br><code>SignAnatomyValidator</code><br><small style="color:var(--muted)">app/js/sign-anatomy-validator.js</small></td>
+  <td><code>subprocess</code></td>
   <td>Verifies imports, entry points, or version behavior.</td>
 </tr>
 <tr>
   <td>5</td>
-  <td><code>annosPose0Hands</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
+  <td><code>test_hand_shape()</code><br><small style="color:var(--muted)">app/tools_archive/test_bc_shapes.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>annosPose0Hands node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
 </tr>
 <tr>
   <td>6</td>
-  <td><code>assert</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
+  <td><code>capture()</code><br><small style="color:var(--muted)">app/tools_archive/test_dias_final.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>assert node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>test_dias_final2.py</code><br><small style="color:var(--muted)">app/tools_archive/test_dias_final2.py</small></td>
+  <td><code>subprocess</code></td>
+  <td>capture() node in app/tools_archive/test_dias_final.py.</td>
 </tr>
 <tr>
   <td>7</td>
-  <td><code>buenosNoBase</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
+  <td><code>test_pose()</code><br><small style="color:var(--muted)">app/tools_archive/tune_dias.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>buenosNoBase node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>Verifies imports, entry points, or version behavior.</td>
 </tr>
 <tr>
   <td>8</td>
-  <td><code>buenosPose1Hand</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>check_viewport()</code><br><small style="color:var(--muted)">app/tools_archive/verify_overflow.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>buenosPose1Hand node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>check_viewport() node in app/tools_archive/verify_overflow.py.</td>
 </tr>
 <tr>
   <td>9</td>
-  <td><code>buenosWithBase</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>buenosWithBase node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>curate_sign()</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td><code>cv2</code><br><code>os</code></td>
+  <td>curate_sign() node in app/tools/curate_anime_videos.py.</td>
 </tr>
 <tr>
   <td>10</td>
-  <td><code>cAsO</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>cAsO node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>curate_sign()</code><br><small style="color:var(--muted)">app/tools/curate_anime_videos.py</small></td>
+  <td>main() node in app/tools/curate_anime_videos.py.</td>
 </tr>
 <tr>
   <td>11</td>
-  <td><code>crossLeft</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>process_hola()</code><br><small style="color:var(--muted)">app/tools/process_hola_video.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>crossLeft node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>cv2</code><br><code>os</code></td>
+  <td>process_hola() node in app/tools/process_hola_video.py.</td>
 </tr>
 <tr>
   <td>12</td>
-  <td><code>crossRight</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>check_eulers.py</code><br><small style="color:var(--muted)">app/tools_archive/check_eulers.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>crossRight node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/check_eulers.py.</td>
 </tr>
 <tr>
   <td>13</td>
-  <td><code>cupChin</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>check_hand_pos.py</code><br><small style="color:var(--muted)">app/tools_archive/check_hand_pos.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>cupChin node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/check_hand_pos.py.</td>
 </tr>
 <tr>
   <td>14</td>
-  <td><code>cValid</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>check_head_screen.py</code><br><small style="color:var(--muted)">app/tools_archive/check_head_screen.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>cValid node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/check_head_screen.py.</td>
 </tr>
 <tr>
   <td>15</td>
-  <td><code>dAsO</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>check_screen_coords.py</code><br><small style="color:var(--muted)">app/tools_archive/check_screen_coords.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>dAsO node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/check_screen_coords.py.</td>
 </tr>
 <tr>
   <td>16</td>
-  <td><code>defaultAnchors</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>check_scroll_width.py</code><br><small style="color:var(--muted)">app/tools_archive/check_scroll_width.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>defaultAnchors node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/check_scroll_width.py.</td>
 </tr>
 <tr>
   <td>17</td>
-  <td><code>diasPose</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>debug_dias_variations.py</code><br><small style="color:var(--muted)">app/tools_archive/debug_dias_variations.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>diasPose node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/debug_dias_variations.py.</td>
 </tr>
 <tr>
   <td>18</td>
-  <td><code>flatChin</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>debug_forward_arms.py</code><br><small style="color:var(--muted)">app/tools_archive/debug_forward_arms.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>flatChin node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/debug_forward_arms.py.</td>
 </tr>
 <tr>
   <td>19</td>
-  <td><code>gustarOpen</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>dump_bones.py</code><br><small style="color:var(--muted)">app/tools_archive/dump_bones.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>gustarOpen node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/dump_bones.py.</td>
 </tr>
 <tr>
   <td>20</td>
-  <td><code>gustarValid</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>dump_ik.py</code><br><small style="color:var(--muted)">app/tools_archive/dump_ik.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>gustarValid node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/dump_ik.py.</td>
 </tr>
 <tr>
   <td>21</td>
-  <td><code>handC</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>dump_landmarks.py</code><br><small style="color:var(--muted)">app/tools_archive/dump_landmarks.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>handC node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/dump_landmarks.py.</td>
 </tr>
 <tr>
   <td>22</td>
-  <td><code>handIndexOnlyD</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>make_comparison_sheets.py</code><br><small style="color:var(--muted)">app/tools_archive/make_comparison_sheets.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>handIndexOnlyD node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>os</code><br><code>pil</code></td>
+  <td>Module file in app/tools_archive/make_comparison_sheets.py.</td>
 </tr>
 <tr>
   <td>23</td>
-  <td><code>handO</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>measure_temp.py</code><br><small style="color:var(--muted)">app/tools_archive/measure_temp.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>handO node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/measure_temp.py.</td>
 </tr>
 <tr>
   <td>24</td>
-  <td><code>hookChin</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>run_arm_delta.py</code><br><small style="color:var(--muted)">app/tools_archive/run_arm_delta.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>hookChin node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/run_arm_delta.py.</td>
 </tr>
 <tr>
   <td>25</td>
-  <td><code>indexChest</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>run_arm_grid.py</code><br><small style="color:var(--muted)">app/tools_archive/run_arm_grid.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>indexChest node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/run_arm_grid.py.</td>
 </tr>
 <tr>
   <td>26</td>
-  <td><code>indexThroat</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>run_forearm_grid.py</code><br><small style="color:var(--muted)">app/tools_archive/run_forearm_grid.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>indexThroat node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/run_forearm_grid.py.</td>
 </tr>
 <tr>
   <td>27</td>
-  <td><code>licorFlat</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>run_pose_checks.py</code><br><small style="color:var(--muted)">app/tools_archive/run_pose_checks.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>licorFlat node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/run_pose_checks.py.</td>
 </tr>
 <tr>
   <td>28</td>
-  <td><code>licorHook</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>run_pose_checks_fast.py</code><br><small style="color:var(--muted)">app/tools_archive/run_pose_checks_fast.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>licorHook node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/run_pose_checks_fast.py.</td>
 </tr>
 <tr>
   <td>29</td>
-  <td><code>licorValid</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>run_precise_verification.py</code><br><small style="color:var(--muted)">app/tools_archive/run_precise_verification.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>licorValid node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>os</code><br><code>pil</code><br><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/run_precise_verification.py.</td>
 </tr>
 <tr>
   <td>30</td>
-  <td><code>noches0Hands</code><br><small style="color:var(--muted)">tests/test_sign_anatomy_validator.js</small></td>
+  <td><code>run_tests.py</code><br><small style="color:var(--muted)">app/tools_archive/run_tests.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>noches0Hands node in tests/test_sign_anatomy_validator.js.</td>
+  <td><code>os</code><br><code>subprocess</code></td>
+  <td>Module file in app/tools_archive/run_tests.py.</td>
 </tr>
 </table>
 
@@ -2695,8 +2694,8 @@ flowchart LR
       <tr><td><code>tests/test_sign_anatomy_validator.js</code></td><td>54 nodes</td></tr>
 <tr><td><code>tests/test_natural_language_chat.py</code></td><td>45 nodes</td></tr>
 <tr><td><code>tests/test_finger_feedback_unit.js</code></td><td>42 nodes</td></tr>
+<tr><td><code>server.py</code></td><td>31 nodes</td></tr>
 <tr><td><code>app/js/gamification-manager.js</code></td><td>27 nodes</td></tr>
-<tr><td><code>server.py</code></td><td>25 nodes</td></tr>
 <tr><td><code>app/js/blind-spell-session.js</code></td><td>22 nodes</td></tr>
 <tr><td><code>tests/test_gamification_unit.js</code></td><td>22 nodes</td></tr>
 <tr><td><code>tests/test_srs_and_postgres.py</code></td><td>19 nodes</td></tr>
@@ -2704,7 +2703,7 @@ flowchart LR
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x298, calls x126, imports x118, method x108. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x312, imports x184, calls x141, imports x126. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -4770,12 +4769,12 @@ flowchart LR
 
 <!-- ====== 16. Other ====== -->
 <h2 id="other">16. Other</h2>
-<p>Other groups implementation around app, mediapipe, pose, hands, mostly in lib/tailwind/tailwind.js, mediapipe/pose/pose_solution_simd_wasm_bin.js, mediapipe/pose/pose_solution_wasm_bin.js. This section covers 2304 nodes and 4047 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Other groups implementation around app, mediapipe, pose, hands, mostly in lib/tailwind/tailwind.js, mediapipe/pose/pose_solution_simd_wasm_bin.js, mediapipe/pose/pose_solution_wasm_bin.js. This section covers 2295 nodes and 4049 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Other (2304 nodes, 4047 edges)
+    %% Section: Other (2295 nodes, 4049 edges)
     subgraph other_app_js_alphabet_lab_controller_js_c16f9998["app/js/alphabet-lab-controller.js"]
         app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93("AlphabetLabController<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_064f856c("buildSrsGalleryTab()<br/><small>app/js/alphabet-lab-controller.js</small>")
@@ -4791,8 +4790,8 @@ flowchart LR
         app_js_alphabet_lab_controller_alphabetlabcontro_4b807b2b("setSpellBlindMode()<br/><small>app/js/alphabet-lab-controller.js</small>")
         app_js_alphabet_lab_controller_alphabetlabcontro_b0e345cd("practiceLetterInStudio()<br/><small>app/js/alphabet-lab-controller.js</small>")
     end
-    app_js_auth_profile_manager_authprofilemanager_190a5318("AuthProfileManager<br/><small>app/js/auth-profile-manager.js</small>")
     app_js_blind_exam_controller_blindexamcontroller_0361b900("BlindExamController<br/><small>app/js/blind-exam-controller.js</small>")
+    app_js_camera_manager_cameradevicemanager_9bfb70a8("CameraDeviceManager<br/><small>app/js/camera-manager.js</small>")
     app_js_learning_plan_manager_learningplanmanager_cd4afc8c("LearningPlanManager<br/><small>app/js/learning-plan-manager.js</small>")
     app_js_lesson_session_lessonsessioncontroller_10f72b8c("LessonSessionController<br/><small>app/js/lesson-session.js</small>")
     app_js_sign_anatomy_validator_signanatomyvalidat_b0f5f82a("SignAnatomyValidator<br/><small>app/js/sign-anatomy-validator.js</small>")
@@ -4817,7 +4816,7 @@ flowchart LR
     app_js_alphabet_lab_controller_alphabetlabcontro_19ad1c9a -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_d0503cc5
     app_js_alphabet_lab_controller_alphabetlabcontro_d0503cc5 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_5ebc570f
     app_js_alphabet_lab_controller_alphabetlabcontro_c4cb8b80 -->|calls| app_js_alphabet_lab_controller_alphabetlabcontro_ad8f233a
-    %% Omitted for readability: 2286 nodes, 0 edges
+    %% Omitted for readability: 2277 nodes, 0 edges
     class app_js_alphabet_lab_controller_alphabetlabcontro_38a14d93 klass;
     class app_js_alphabet_lab_controller_alphabetlabcontro_064f856c function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_19ad1c9a function;
@@ -4831,8 +4830,8 @@ flowchart LR
     class app_js_alphabet_lab_controller_alphabetlabcontro_b18e2e98 function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_4b807b2b function;
     class app_js_alphabet_lab_controller_alphabetlabcontro_b0e345cd function;
-    class app_js_auth_profile_manager_authprofilemanager_190a5318 klass;
     class app_js_blind_exam_controller_blindexamcontroller_0361b900 klass;
+    class app_js_camera_manager_cameradevicemanager_9bfb70a8 klass;
     class app_js_learning_plan_manager_learningplanmanager_cd4afc8c klass;
     class app_js_lesson_session_lessonsessioncontroller_10f72b8c klass;
     class app_js_sign_anatomy_validator_signanatomyvalidat_b0f5f82a klass;
@@ -5116,7 +5115,7 @@ flowchart LR
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: calls x2673, method x572, contains x555, indirect call x210. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: calls x2680, method x579, contains x547, indirect call x210. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -5127,17 +5126,17 @@ flowchart LR
   <div class="card">
     <h4>Graph</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>Nodes</td><td>4502</td></tr>
-      <tr><td>Edges</td><td>8736</td></tr>
+      <tr><td>Nodes</td><td>4510</td></tr>
+      <tr><td>Edges</td><td>8761</td></tr>
       <tr><td>Hyperedges</td><td>0</td></tr>
-      <tr><td>Communities</td><td>200</td></tr>
+      <tr><td>Communities</td><td>191</td></tr>
       <tr><td>Documented Sections</td><td>15</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Edge Confidence</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>EXTRACTED</td><td>8380</td></tr>
+      <tr><td>EXTRACTED</td><td>8405</td></tr>
       <tr><td>INFERRED</td><td>356</td></tr>
       <tr><td>AMBIGUOUS</td><td>0</td></tr>
     </table>
@@ -5146,7 +5145,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>photos_letras_postgres — Architecture Documentation</p>
-  <p>Generated: 2026-11-26 04:01 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-11-26 04:08 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->

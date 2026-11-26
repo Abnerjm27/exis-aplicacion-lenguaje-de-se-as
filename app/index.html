@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="css/lesson.css?v=20261120_v15">
   <link rel="stylesheet" href="css/alphabet-lab.css?v=20261125_v27">
   <link rel="stylesheet" href="css/achievements.css?v=20261125_v25">
+  <link rel="stylesheet" href="css/camera-dropdown.css?v=20261125_v28">
 
   <!-- MediaPipe Hands, Pose & Camera Utils Locales (Offline) -->
   <script src="lib/mediapipe/camera_utils.js"></script>
@@ -47,7 +48,7 @@
   <script src="js/body-anchor-detector.js?v=20261120_v15" defer></script>
   <script src="js/trajectory-tracker.js?v=20261120_v15" defer></script>
   <script src="js/video-player.js?v=20261120_v15" defer></script>
-  <script src="js/camera-manager.js?v=20261124_v20" defer></script>
+  <script src="js/camera-manager.js?v=20261125_v28" defer></script>
   <script src="js/vision-evaluator.js?v=20261125_v27" defer></script>
   <script src="js/auth-profile-manager.js?v=20261120_v15" defer></script>
   <script src="js/learning-plan-manager.js?v=20261124_v24" defer></script>
@@ -754,7 +755,7 @@
                   </span>
                 </div>
                 <!-- Selector de Cámara en Modal de Lección -->
-                <div class="flex items-center gap-1 overflow-hidden">
+                <div class="flex items-center gap-1 min-w-0">
                   <select id="lessonCameraSelect" class="bg-white hover:bg-slate-50 text-slate-900 text-[11px] font-medium rounded-lg px-2 py-1 border border-slate-300 focus:border-amber-500 focus:outline-none max-w-[130px] sm:max-w-[190px] truncate cursor-pointer transition shadow-sm" title="Cambiar cámara web" aria-label="Cambiar cámara web en lección"></select>
                 </div>
               </div>
@@ -927,7 +928,7 @@
                 </span>
               </div>
               <!-- Selector de cámara física -->
-              <div class="flex items-center gap-1 overflow-hidden">
+              <div class="flex items-center gap-1 min-w-0">
                 <select id="examCameraSelect" class="bg-white hover:bg-slate-50 text-slate-900 text-[11px] font-medium rounded-lg px-2 py-1 border border-slate-300 focus:border-amber-500 focus:outline-none max-w-[130px] sm:max-w-[170px] truncate cursor-pointer transition shadow-sm" title="Cambiar cámara web" aria-label="Cambiar cámara web en examen"></select>
               </div>
             </div>

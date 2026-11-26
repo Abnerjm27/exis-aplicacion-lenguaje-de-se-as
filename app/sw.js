@@ -5,7 +5,7 @@
  * Exclusiones: No intercepta llamadas dinámicas /api/ (Usuarios / Planes / SRS) ni peticiones con rango de video.
  */
 
-const CACHE_NAME = 'manitas-pwa-v27-blind-spell';
+const CACHE_NAME = 'manitas-pwa-v28-camera-dropdown';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -24,6 +24,7 @@ const ASSETS_TO_CACHE = [
   '/css/lesson.css',
   '/css/alphabet-lab.css',
   '/css/achievements.css',
+  '/css/camera-dropdown.css',
   '/css/landing.css',
   '/css/landing-hero.css',
   '/css/auth.css',
