@@ -5,7 +5,7 @@
  * Exclusiones: No intercepta llamadas dinámicas /api/ (Usuarios / Planes / SRS) ni peticiones con rango de video.
  */
 
-const CACHE_NAME = 'manitas-pwa-v29-svg-icons';
+const CACHE_NAME = 'manitas-pwa-v30-cert-svg';
 
 const ASSETS_TO_CACHE = [
   '/',
@@ -34,6 +34,7 @@ const ASSETS_TO_CACHE = [
   '/js/finger-feedback-engine.js',
   '/js/srs-client.js',
   '/js/gamification-manager.js',
+  '/js/certificate-generator.js',
   '/js/body-anchor-detector.js',
   '/js/trajectory-tracker.js',
   '/js/video-player.js',

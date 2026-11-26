@@ -13,8 +13,9 @@
   <link rel="stylesheet" href="css/tokens.css?v=20261120_v15" />
   <link rel="stylesheet" href="css/styles.css?v=20261120_v15" />
 
-  <script src="js/auth-profile-manager.js?v=20261120_v15" defer></script>
-  <script src="js/perfil-page.js?v=20261120_v15" defer></script>
+  <script src="js/auth-profile-manager.js?v=20261126_v30" defer></script>
+  <script src="js/certificate-generator.js?v=20261126_v30" defer></script>
+  <script src="js/perfil-page.js?v=20261126_v30" defer></script>
 </head>
 
 <body class="app-shell text-slate-900 antialiased selection:bg-amber-500 selection:text-slate-900">
@@ -100,13 +101,17 @@
             <div class="min-w-0">
               <div class="flex flex-wrap items-center gap-2">
                 <span id="userLevelBadge" class="text-[11px] font-mono uppercase bg-amber-50 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-200 font-bold">Principiante</span>
-                <span id="userStreakCount" title="Racha diaria: 1 día" aria-label="Racha diaria: 1 día" class="font-mono text-[11px] bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-300 font-bold tabular-nums">🔥 1 día</span>
+                <span id="userStreakCount" title="Racha diaria: 1 día" aria-label="Racha diaria: 1 día" class="font-mono text-[11px] bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-300 font-bold tabular-nums inline-flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg><span class="streak-label">1 día</span></span>
                 <span id="profileAccountType" class="text-[11px] text-slate-500 font-medium">Sesión local</span>
               </div>
               <h2 id="userDisplayName" class="text-xl font-extrabold text-slate-900 mt-1.5 truncate">Estudiante LSC</h2>
               <p id="userHandleBadge" class="text-xs font-mono text-slate-500 mt-0.5">Cuenta privada · Progreso guardado localmente</p>
             </div>
           </div>
+          <button id="btnDownloadProfileCert" type="button" class="btn-spring px-4 py-2.5 min-h-[44px] rounded-xl text-xs font-bold bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 inline-flex items-center gap-1.5 shrink-0 self-start sm:self-center">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+            <span>Descargar Certificado</span>
+          </button>
         </div>
 
         <div class="space-y-2">
@@ -233,6 +238,11 @@
 
         <div id="resetStatusMsg" class="hidden text-xs p-3 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-800 font-semibold"></div>
       </section>
+
+      <footer class="pt-2 pb-4 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-500 font-mono">
+        <span>Manitas LSC · Corpus LSC70 (Universidad del Cauca · Grupo SIDICO)</span>
+        <span>Proyecto EXIS · Procesamiento 100% local</span>
+      </footer>
 
     </main>
   </div>

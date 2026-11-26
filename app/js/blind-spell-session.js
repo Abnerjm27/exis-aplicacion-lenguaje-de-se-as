@@ -231,8 +231,49 @@ class BlindSpellSession {
       practiceBtn.addEventListener('click', () => onPracticeFailed(summary.failedIndices[0]));
       btns.appendChild(practiceBtn);
     }
+
+    const certBtn = elFn('button', 'ab-btn ab-btn-secondary inline-flex items-center gap-1.5 min-h-[44px]');
+    certBtn.type = 'button';
+    certBtn.id = 'btnDownloadBlindCert';
+    certBtn.appendChild(BlindSpellSession.#createAwardSvg());
+    certBtn.appendChild(document.createTextNode('Descargar Certificado'));
+    certBtn.addEventListener('click', () => {
+      if (window.CertificateGenerator && typeof window.CertificateGenerator.downloadCertificate === 'function') {
+        window.CertificateGenerator.downloadCertificate({
+          title: 'Certificado · Reto a Ciegas',
+          subtitle: `Deletreo sin pistas visuales de "${summary.word}"`,
+          metricPrimary: `${summary.scorePct}% Precisión`,
+          metricSecondary: `${summary.passedCount}/${summary.totalEvaluated} Letras`,
+          level: summary.passedChallenge ? 'Reto Superado' : 'En Progreso'
+        });
+      }
+    });
+    btns.appendChild(certBtn);
     card.appendChild(btns);
     return card;
+  }
+
+  static #createAwardSvg() {
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('width', '15');
+    svg.setAttribute('height', '15');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '2.2');
+    svg.setAttribute('stroke-linecap', 'round');
+    svg.setAttribute('stroke-linejoin', 'round');
+    svg.setAttribute('aria-hidden', 'true');
+    const c = document.createElementNS(svgNS, 'circle');
+    c.setAttribute('cx', '12');
+    c.setAttribute('cy', '8');
+    c.setAttribute('r', '6');
+    const p = document.createElementNS(svgNS, 'path');
+    p.setAttribute('d', 'M15.477 12.89 17 22l-5-3-5 3 1.523-9.11');
+    svg.appendChild(c);
+    svg.appendChild(p);
+    return svg;
   }
 
   static #createEyeIconSvg(isBlind) {

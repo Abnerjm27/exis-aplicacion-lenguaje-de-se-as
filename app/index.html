@@ -50,15 +50,16 @@
   <script src="js/video-player.js?v=20261120_v15" defer></script>
   <script src="js/camera-manager.js?v=20261125_v29" defer></script>
   <script src="js/vision-evaluator.js?v=20261125_v27" defer></script>
-  <script src="js/auth-profile-manager.js?v=20261120_v15" defer></script>
-  <script src="js/learning-plan-manager.js?v=20261124_v24" defer></script>
-  <script src="js/exam-ui-helper.js?v=20261120_v15" defer></script>
+  <script src="js/auth-profile-manager.js?v=20261126_v30" defer></script>
+  <script src="js/learning-plan-manager.js?v=20261126_v30" defer></script>
+  <script src="js/certificate-generator.js?v=20261126_v30" defer></script>
+  <script src="js/exam-ui-helper.js?v=20261126_v30" defer></script>
   <script src="js/blind-exam-controller.js?v=20261125_v25" defer></script>
-  <script src="js/lesson-session.js?v=20261125_v25" defer></script>
+  <script src="js/lesson-session.js?v=20261126_v30" defer></script>
   <script src="js/view-router.js?v=20261125_v26" defer></script>
-  <script src="js/blind-spell-session.js?v=20261125_v29" defer></script>
+  <script src="js/blind-spell-session.js?v=20261126_v30" defer></script>
   <script src="js/alphabet-lab-controller.js?v=20261125_v27" defer></script>
-  <script src="js/achievements-controller.js?v=20261125_v26" defer></script>
+  <script src="js/achievements-controller.js?v=20261126_v30" defer></script>
   <script src="js/pwa-manager.js?v=20261124_v23" defer></script>
   <script src="js/voice-feedback.js?v=20261124_v23" defer></script>
   <script src="js/main.js?v=20261124_v23" defer></script>
@@ -138,7 +139,7 @@
       </div>
 
       <div class="flex items-center gap-2 shrink-0">
-        <span id="userStreakCount" title="Racha diaria: 1 día" aria-label="Racha diaria: 1 día" class="font-mono text-xs bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full border border-amber-300 font-bold tabular-nums">🔥 1 día</span>
+        <span id="userStreakCount" title="Racha diaria: 1 día" aria-label="Racha diaria: 1 día" class="font-mono text-xs bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full border border-amber-300 font-bold tabular-nums inline-flex items-center gap-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg><span class="streak-label">1 día</span></span>
         <button id="btnInstallPwaNav" class="hidden btn-spring flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-900 shadow-sm transition shrink-0" aria-label="Instalar Manitas en el dispositivo">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           <span class="hidden md:inline">Instalar App</span>
@@ -294,12 +295,12 @@
           <!-- Selector de Modo: Persona Real vs Anime IA -->
           <div class="flex items-center bg-white rounded-lg p-0.5 text-xs border border-slate-200 shrink-0" role="group" aria-label="Selector de Modo">
             <button id="btnModeReal" class="btn-spring px-2.5 sm:px-3 py-1 rounded-md font-semibold bg-amber-500 text-slate-900 flex items-center gap-1.5" aria-pressed="true">
-              <span>👤</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
               <span class="hidden sm:inline">Persona Real LSC</span>
               <span class="inline sm:hidden">Real</span>
             </button>
             <button id="btnModeAnime" class="btn-spring px-2.5 sm:px-3 py-1 rounded-md font-semibold text-slate-700 hover:text-slate-900 flex items-center gap-1.5" aria-pressed="false">
-              <span>✨</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"></path></svg>
               <span class="hidden sm:inline">Anime IA</span>
               <span class="inline sm:hidden">Anime</span>
             </button>
@@ -353,7 +354,7 @@
 
           <!-- Aviso Elegante Anime IA (Toast Fallback) -->
           <div id="animeNoticeToast" class="hidden absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:max-w-sm z-30 bg-white/95 backdrop-blur-md border border-amber-300 rounded-xl p-3 text-xs shadow-2xl flex items-start gap-2.5">
-            <div class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5 font-bold">✨</div>
+            <div class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5 font-bold"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"></path></svg></div>
             <div class="flex-1 min-w-0">
               <div class="font-bold text-amber-800 text-xs">Anime IA en Preparación</div>
               <p class="text-[11px] text-slate-600 mt-0.5 leading-snug">El render Anime IA para esta seña se encuentra en generación. Reproduciendo el video de Persona Real LSC.</p>
@@ -460,11 +461,11 @@
             <select id="cameraSourceSelect" class="flex-1 min-w-0 min-h-[44px] sm:min-h-[36px] bg-white hover:bg-slate-50 text-slate-900 text-[11px] font-medium rounded-lg px-2 py-1.5 border border-slate-300 focus:border-amber-500 focus:outline-none truncate cursor-pointer transition shadow-sm" title="Seleccionar cámara disponible" aria-label="Seleccionar cámara web">
               <option value="">Detectando cámaras...</option>
             </select>
-            <button id="btnRefreshCameras" class="btn-spring min-h-[44px] min-w-[44px] sm:min-h-[36px] sm:min-w-[36px] p-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-900 border border-slate-300 text-xs shadow-sm shrink-0" title="Actualizar lista de cámaras" aria-label="Actualizar lista de cámaras">
-              🔄
+            <button id="btnRefreshCameras" class="btn-spring min-h-[44px] min-w-[44px] sm:min-h-[36px] sm:min-w-[36px] p-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-900 border border-slate-300 text-xs shadow-sm shrink-0 inline-flex items-center justify-center" title="Actualizar lista de cámaras" aria-label="Actualizar lista de cámaras">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
             </button>
             <button id="btnToggleTrajectory" class="btn-spring px-2.5 py-1.5 min-h-[44px] sm:min-h-[36px] rounded-lg text-xs font-semibold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1.5 shadow-sm shrink-0" title="Activar o desactivar guía de movimiento en pantalla" aria-pressed="true">
-              <span class="text-amber-600" aria-hidden="true">📍</span>
+              <svg class="text-amber-600 shrink-0" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
               <span id="trajectoryBtnText">Guía: ON</span>
             </button>
           </div>
@@ -653,9 +654,13 @@
         <!-- Renderizado dinámicamente por BlindExamController -->
       </div>
 
-      <div class="flex items-center justify-center gap-3 pt-2">
+      <div class="flex flex-wrap items-center justify-center gap-2.5 pt-2">
         <button id="btnRetryFailedSigns" class="btn-spring px-4 py-2 min-h-[44px] rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-300">
           Repasar Señas
+        </button>
+        <button id="btnDownloadExamCert" type="button" class="btn-spring px-4 py-2 min-h-[44px] rounded-xl text-xs font-bold bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 inline-flex items-center gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+          <span>Descargar Certificado</span>
         </button>
         <button id="btnCloseExamSummary" class="btn-spring px-5 py-2 min-h-[44px] rounded-xl text-xs font-bold bg-coral-500 hover:bg-coral-400 text-slate-900 shadow-sm">
           Aceptar

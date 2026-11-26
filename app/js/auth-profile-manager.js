@@ -301,7 +301,27 @@ class AuthProfileManager {
     const streakLabel = `${streakNum} ${streakNum === 1 ? 'día' : 'días'}`;
     const elStreak = document.getElementById('userStreakCount');
     if (elStreak) {
-      elStreak.textContent = `🔥 ${streakLabel}`;
+      let labelSpan = elStreak.querySelector('.streak-label');
+      if (!labelSpan) {
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const svg = document.createElementNS(svgNS, 'svg');
+        svg.setAttribute('width', '12');
+        svg.setAttribute('height', '12');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('stroke', 'currentColor');
+        svg.setAttribute('stroke-width', '2.3');
+        svg.setAttribute('stroke-linecap', 'round');
+        svg.setAttribute('stroke-linejoin', 'round');
+        svg.setAttribute('aria-hidden', 'true');
+        const path = document.createElementNS(svgNS, 'path');
+        path.setAttribute('d', 'M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z');
+        svg.appendChild(path);
+        labelSpan = document.createElement('span');
+        labelSpan.className = 'streak-label';
+        elStreak.replaceChildren(svg, labelSpan);
+      }
+      labelSpan.textContent = streakLabel;
       elStreak.title = `Racha diaria: ${streakLabel}`;
       elStreak.setAttribute('aria-label', `Racha diaria: ${streakLabel}`);
     }

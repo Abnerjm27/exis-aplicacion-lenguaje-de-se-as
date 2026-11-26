@@ -28,31 +28,31 @@ class LandingHeroPlayer {
 
   #stages = [
     {
-      mood: 'Saludo 👋',
+      mood: 'Saludo',
       range: [0, 12],
       speech: '¡Hola! Soy Tito. Baja conmigo para descubrir tu ruta en LSC.',
       status: 'Desliza hacia abajo · Tito te acompaña'
     },
     {
-      mood: 'Señalando 👉',
+      mood: 'Señalando',
       range: [13, 25],
       speech: 'Consejo 1: Responde 3 preguntas y armamos tu ruta personalizada.',
       status: 'Fase 01 · Diagnóstico inteligente'
     },
     {
-      mood: 'Observando 🤔',
+      mood: 'Observando',
       range: [26, 40],
       speech: 'Consejo 2: Cuida tu luz frontal y la curva exacta de cada letra (O vs C).',
       status: 'Fase 02 · Visión MediaPipe 30 FPS'
     },
     {
-      mood: '¡Tú puedes! 💪',
+      mood: '¡Tú puedes!',
       range: [41, 53],
       speech: 'Consejo 3: En el Modo Examen demuestras cada seña sin videos de ayuda.',
       status: 'Fase 03 · Certificación sin video'
     },
     {
-      mood: '¡A celebrar! ⭐',
+      mood: '¡A celebrar!',
       range: [54, 71],
       speech: '¡Tu primera seña está a un clic! Crea tu cuenta gratis y empieza hoy.',
       status: '¡Listo para empezar tu primera lección!'
@@ -350,7 +350,7 @@ class ZorritoCompanionController {
     this.#heroFoxImg.src = 'img/zorrito/zorrito_curioso.webp';
     this.#heroFoxImg.classList.add('is-curious');
     if (this.#statusMood) {
-      this.#statusMood.textContent = '¡Curioso! 🐾';
+      this.#statusMood.textContent = '¡Curioso!';
       this.#statusMood.classList.remove('hidden');
     }
 
@@ -374,7 +374,7 @@ class ZorritoCompanionController {
     this.#heroFoxImg.src = this.#restHeroMedia || 'img/zorrito/zorrito_idle.webp';
     this.#heroFoxImg.style.transform = 'translate3d(0, 0, 0) rotate(0deg) scale(1)';
     if (this.#statusMood) {
-      this.#statusMood.textContent = 'Atento 👀';
+      this.#statusMood.textContent = 'Atento';
     }
 
     setTimeout(() => {

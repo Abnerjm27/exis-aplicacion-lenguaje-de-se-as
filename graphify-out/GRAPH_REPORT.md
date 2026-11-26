@@ -1,17 +1,17 @@
-# Graph Report - photos_letras_postgres  (2026-11-25)
+# Graph Report - photos_letras_postgres  (2026-11-26)
 
 ## Corpus Check
-- 209 files · ~407,959 words
+- 210 files · ~4,431,476 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 48 file(s) not represented in the graph (top: .woff2 16, .css 10, .tflite 4)
 
 ## Summary
-- 4512 nodes · 8766 edges · 193 communities (148 shown, 45 thin omitted)
-- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 356 edges (avg confidence: 0.87)
+- 4520 nodes · 9904 edges · 181 communities (144 shown, 37 thin omitted)
+- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 369 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `336cb90a`
+- Built from commit: `54e34572`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -29,9 +29,9 @@
 - .parse
 - AuthService
 - ViewRouter
-- warnOnce
+- three.module.min.js
 - 4. Especificación Técnica de las 5 Nuevas Señas
-- json
+- setup_offline_assets.py
 - BodyAnchorDetector
 - ref_fs
 - AuthPageController
@@ -47,9 +47,9 @@
 - b
 - assert
 - Especificación de Diseño — EXIS Plataforma de Aprendizaje LSC, Rutas IA y Modo Examen Sin Video
-- mocap_extractor.py
+- CertificateGenerator
 - 🎨 Hoja de Diseño y Especificaciones del Personaje Anime: "Sol"
-- 3. Arquitectura y Lógica Implementada
+- Reporte de Ejecución: Task 1 - Controlador POO de la Sesión de Lección (`app/js/lesson-session.js`)
 - Review Focus
 - assert
 - add
@@ -63,12 +63,12 @@
 - playwright
 - camera_utils.js
 - Task 3 Brief: Estructura HTML del Contenedor de Lección en `app/index.html`
-- normalize
-- test_interactive_lesson_flow.spec.js
+- push
+- Wd
 - readLatin1String
 - test_finger_feedback_unit.js
-- ref_path
-- El
+- verify_exam_arena_no_video.js
+- has
 - SDD ledger — plan: docs/superpowers/plans/2026-11-06-interactive-lesson-quiz-plan.md
 - Task 2 Brief: Estilos Dedicados de Lección Interactiva (`app/css/lesson.css`)
 - AlphabetLabController
@@ -76,8 +76,8 @@
 - video-player.js
 - sw.js
 - readLatin1String
-- Vg
-- J
+- sort
+- v
 - decl
 - hands.js
 - server.py
@@ -87,15 +87,15 @@
 - Q
 - throwBindingError
 - pose_solution_simd_wasm_bin.js
-- Vg
+- r
 - stringify
 - warnOnce
 - BlindSpellSession
 - E
 - b
 - abort
-- VoiceFeedbackService
 - ic
+- kb
 - checkStackCookie
 - checkStackCookie
 - confetti.browser.min.js
@@ -105,10 +105,10 @@
 - ExceptionInfo
 - cv2
 - K
-- createWasm
+- .reference
 - test_checkpoints_unit.js
 - __embind_register_std_string
-- t
+- .reference
 - PostgresUserRepository
 - __embind_register_std_string
 - package.json
@@ -122,7 +122,7 @@
 - Nomenclatura Requerida
 - getStringOrSymbol
 - getStringOrSymbol
-- na
+- ul
 - Integración ECC (Everything Claude Code) · Proyecto Manitas (EXIS)
 - assert
 - warnOnce
@@ -142,6 +142,7 @@
 - createWasm
 - LSCHandler
 - postgres
+- vb
 - createWasm
 - b
 - abort
@@ -153,98 +154,98 @@
 - ExceptionInfo
 - _strftime
 - ExceptionInfo
-- .stop
+- test_letter_i_anime.js
 - __embind_register_std_string
 - __embind_register_std_string
 - ExamUIHelper
 - ta
 - drawing_utils.js
-- 🤟 Manitas · Academia Interactiva de Lengua de Señas Colombiana (LSC)
+- Wb
 - control_utils.js
 - PerfilPageController
 - emscriptenWebGLGetTexPixelData
 - emscriptenWebGLGetTexPixelData
-- oa
 - Tareas de Implementación
 - Mapa de Archivos a Crear y Modificar
 - runWithFS
 - getStringOrSymbol
 - getStringOrSymbol
 - warnOnce
-- ec
+- f
 - Global Constraints
-- _deleteIfExpired
-- generate_videos.py
+- replace
 - pose.js
-- _glGetUniformLocation
 - SRSClient
 - GamificationManager
-- _glGetUniformLocation
-- ul
 - FingerFeedbackEngine
 - Task 1 Brief: Controlador POO de la Sesión de Lección (`app/js/lesson-session.js`)
-- .D
-- w
-- g
+- control_utils.js
 - FakeConnection
 - ha
-- U
+- Kn
 - test_vision_rules.js
 - c
-- $d
-- error
+- constructor
 - AchievementsController
 - test_mascot_gallery.spec.js
-- Especificación de Diseño — División de Exámenes (Solo Cámara vs. Solo Adivinar Señas)
-- g
 - r
 - pa
 - _glGetUniformLocation
 - _glGetUniformLocation
-- AGENTS.md — Reglas y Contexto Técnico para Agentes de IA (Proyecto EXIS)
-- srs-client.js
 - Pa
 
 ## God Nodes (most connected - your core abstractions)
-1. `assert()` - 68 edges
+1. `push()` - 69 edges
 2. `assert()` - 68 edges
 3. `assert()` - 68 edges
 4. `assert()` - 68 edges
-5. `LessonSessionController` - 51 edges
-6. `BlindExamController` - 44 edges
-7. `LearningPlanManager` - 38 edges
-8. `AlphabetLabController` - 37 edges
-9. `CameraDeviceManager` - 36 edges
-10. `AuthProfileManager` - 35 edges
+5. `assert()` - 68 edges
+6. `add()` - 64 edges
+7. `LessonSessionController` - 50 edges
+8. `replace()` - 49 edges
+9. `BlindExamController` - 44 edges
+10. `remove()` - 42 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Task 1: Mostrar `AÑOS` (y nombres legibles) en los nodos de la ruta (`app/js/learning-plan-manager.js`)` --references--> `LearningPlanManager`  [INFERRED]
-  docs/superpowers/plans/2026-11-20-exam-mode-split-plan.md → app/js/learning-plan-manager.js
-- `4. Arquitectura de Componentes y Módulos (POO)` --references--> `LSCHandler`  [INFERRED]
-  docs/superpowers/specs/2026-11-05-exis-learning-platform-design.md → server.py
 - `Task 2: Clase POO `AuthProfileManager` (`app/js/auth-profile-manager.js`)` --references--> `AuthProfileManager`  [INFERRED]
   docs/superpowers/plans/2026-11-05-exis-learning-platform-plan.md → app/js/auth-profile-manager.js
-- `1. Propósito y Por qué` --references--> `BlindExamController`  [INFERRED]
-  docs/superpowers/specs/2026-11-20-exam-mode-split-design.md → app/js/blind-exam-controller.js
-- `2. Reglas Duras de Desarrollo (Hard Rules)` --references--> `CameraDeviceManager`  [INFERRED]
-  AGENTS.md → app/js/camera-manager.js
+- `Task 1: Mostrar `AÑOS` (y nombres legibles) en los nodos de la ruta (`app/js/learning-plan-manager.js`)` --references--> `LearningPlanManager`  [INFERRED]
+  docs/superpowers/plans/2026-11-20-exam-mode-split-plan.md → app/js/learning-plan-manager.js
+- `1. Resumen Ejecutivo` --references--> `LessonSessionController`  [INFERRED]
+  .superpowers/sdd/2026-11-06-interactive-lesson-quiz/task-1-report.md → app/js/lesson-session.js
+- `4. Arquitectura de Componentes y Módulos (POO)` --references--> `LSCHandler`  [INFERRED]
+  docs/superpowers/specs/2026-11-05-exis-learning-platform-design.md → server.py
+- `EXIS 3-Screen Flow: Futuristic Landing Page, Duolingo-Style Path View & Dedicated Practice Studio Plan` --references--> `AuthProfileManager`  [INFERRED]
+  docs/superpowers/plans/2026-11-05-exis-3-screens-duolingo-flow-plan.md → app/js/auth-profile-manager.js
 
 ## Import Cycles
 - None detected.
 
-## Communities (193 total, 45 thin omitted)
+## Communities (181 total, 37 thin omitted)
 
 ### Community 0 - "pose_solution_wasm_bin.js"
-Cohesion: 0.01
-Nodes (32): alignMemory(), convertI32PairToI53(), convertI32PairToI53Checked(), doCallback(), done(), doReadv(), doWritev(), _environ_get() (+24 more)
+Cohesion: 0.02
+Nodes (47): alignMemory(), doReadv(), doWritev(), _environ_get(), _environ_sizes_get(), _fd_read(), _fd_write(), getEnvStrings() (+39 more)
 
 ### Community 1 - "LessonSessionController"
-Cohesion: 0.10
-Nodes (7): LessonSessionController, Objetivo, 1. Resumen Ejecutivo, 2. Cumplimiento de Reglas Duras (AGENTS.md), 4. Resultados de Pruebas Unitarias (`node tests/test_lesson_session_unit.js`), 5. Archivos Afectados, Reporte de Ejecución: Task 1 - Controlador POO de la Sesión de Lección (`app/js/lesson-session.js`)
+Cohesion: 0.06
+Nodes (14): LessonSessionController, voiceFeedback, VoiceFeedbackService, 1. Requisitos Básicos, 2. Clonar y Arrancar (1 clic), 3. Persistencia con PostgreSQL (Opcional), 👥 Colaboración en Equipo, 📄 Créditos (+6 more)
+
+### Community 3 - "BlindExamController"
+Cohesion: 0.12
+Nodes (7): BlindExamController, Review Focus, 1. Propósito y Por qué, 2. Metas, No-Metas y Restricciones, 3. Enfoques Evaluados, 4. Diseño de Componentes a Modificar, Especificación de Diseño — División de Exámenes (Solo Cámara vs. Solo Adivinar Señas)
+
+### Community 4 - "CameraDeviceManager"
+Cohesion: 0.07
+Nodes (16): 1. Identidad y Misión del Proyecto, 2. Reglas Duras de Desarrollo (Hard Rules), 3. Especificación de Hardware y Optimización, 4. Protocolo de Colaboración en Pareja (Evitar Choques), 5. Estructura de Directorios, 6. Integración y Protocolo de Agentes ECC (Everything Claude Code), AGENTS.md — Reglas y Contexto Técnico para Agentes de IA (Proyecto EXIS), Armonización Reglas ECC vs EXIS: (+8 more)
 
 ### Community 6 - "test_blind_exam_arena_unit.js"
-Cohesion: 0.12
-Nodes (17): assert, createMockElement(), fs, gesturePane, getMock(), mockElements, modal, modePane (+9 more)
+Cohesion: 0.11
+Nodes (18): assert, BlindExamController, createMockElement(), fs, gesturePane, getMock(), mockElements, modal (+10 more)
+
+### Community 7 - "mocap_extractor.py"
+Cohesion: 0.10
+Nodes (5): euler_to_quaternion(), MoCapExtractor, normalize(), quaternion_slerp(), verify_clips_json()
 
 ### Community 8 - "4. Prompts Detallados para Copiar y Pegar"
 Cohesion: 0.07
@@ -255,84 +256,84 @@ Cohesion: 0.09
 Nodes (14): assert, { chromium }, assert, { chromium }, assert, { chromium }, assert, { chromium } (+6 more)
 
 ### Community 12 - "ViewRouter"
-Cohesion: 0.06
+Cohesion: 0.07
 Nodes (9): LandingHeroPlayer, LandingPortalController, ZorritoCompanionController, ViewRouter, EXIS 3-Screen Flow: Futuristic Landing Page, Duolingo-Style Path View & Dedicated Practice Studio Plan, Global Constraints (`AGENTS.md` + `impeccable` + Emil Kowalski), Task 1: Landing Page Futurista y Portal Auth (`app/landing.html`, `app/css/landing.css`, `app/js/landing.js`), Task 2: Separación en 2 Vistas de Pantalla Completa dentro de `app/index.html` (`ViewRouter` + Mapa Estilo Duolingo vs Cabina de Práctica) (+1 more)
 
-### Community 13 - "warnOnce"
-Cohesion: 0.12
-Nodes (18): checkUnflushedContent(), demangle(), demangleAll(), emscriptenWebGLGet(), exitJS(), ExitStatus(), _glGetIntegerv(), isExportedByForceFilesystem() (+10 more)
+### Community 13 - "three.module.min.js"
+Cohesion: 0.10
+Nodes (22): checkUnflushedContent(), demangle(), demangleAll(), _emscripten_webgl_do_create_context(), emscriptenWebGLGet(), exitJS(), ExitStatus(), findCanvasEventTarget() (+14 more)
 
 ### Community 14 - "4. Especificación Técnica de las 5 Nuevas Señas"
 Cohesion: 0.12
 Nodes (15): 1. AÑOS (`ANNOS`) — Palabra, 1. Contexto e Intención, 2. LICOR (`LICOR`) — Palabra, 2. Metas y No-Metas, 3. Enfoques Considerados y Selección, 3. Letra D (`D`) — Letra Dactilológica, 4. Especificación Técnica de las 5 Nuevas Señas, 4. Letra E (`E`) — Letra Dactilológica (+7 more)
 
-### Community 15 - "json"
+### Community 15 - "setup_offline_assets.py"
 Cohesion: 0.12
 Nodes (10): recv_cdp_msg(), send_cdp(), download_file(), main(), setup_canvas_confetti(), setup_fonts(), setup_mediapipe(), setup_tailwind() (+2 more)
 
 ### Community 17 - "ref_fs"
-Cohesion: 0.10
-Nodes (13): assert, { chromium }, fs, path, { chromium }, fs, path, { chromium } (+5 more)
+Cohesion: 0.08
+Nodes (19): { chromium }, fs, path, assert, { chromium }, fs, path, { chromium } (+11 more)
 
 ### Community 19 - "manifest.json"
 Cohesion: 0.15
 Nodes (12): background_color, categories, description, display, icons, lang, name, orientation (+4 more)
 
 ### Community 20 - "hands_solution_simd_wasm_bin.js"
-Cohesion: 0.01
-Nodes (32): alignMemory(), convertI32PairToI53(), convertI32PairToI53Checked(), doCallback(), done(), doReadv(), doWritev(), _environ_get() (+24 more)
+Cohesion: 0.02
+Nodes (45): alignMemory(), convertI32PairToI53Checked(), doReadv(), doWritev(), _environ_get(), _environ_sizes_get(), _fd_read(), _fd_seek() (+37 more)
 
 ### Community 21 - "test_lesson_session_unit.js"
 Cohesion: 0.17
 Nodes (9): assert, documentMock, fs, lessonCode, lessonSessionPath, mockElements, path, signsDataCode (+1 more)
 
 ### Community 22 - "tailwind.js"
-Cohesion: 0.01
-Nodes (87): Ak(), ao(), Ba(), BC(), bd(), bk(), blueGray(), bo() (+79 more)
+Cohesion: 0.02
+Nodes (97): aa(), ac(), Ah(), Ak(), Ba(), bd(), bk(), blueGray() (+89 more)
 
 ### Community 25 - "hands_solution_wasm_bin.js"
-Cohesion: 0.01
-Nodes (32): alignMemory(), convertI32PairToI53(), convertI32PairToI53Checked(), doCallback(), done(), doReadv(), doWritev(), _environ_get() (+24 more)
+Cohesion: 0.02
+Nodes (52): alignMemory(), doReadv(), doWritev(), _emscripten_get_heap_max(), emscripten_realloc_buffer(), _emscripten_resize_heap(), _environ_get(), _environ_sizes_get() (+44 more)
 
 ### Community 27 - "check_console.js"
 Cohesion: 0.20
 Nodes (4): http, { spawn }, assert, http
 
 ### Community 28 - "b"
-Cohesion: 0.17
-Nodes (5): b(), c(), D(), F(), v()
+Cohesion: 0.24
+Nodes (3): b(), D(), F()
 
 ### Community 29 - "assert"
-Cohesion: 0.05
-Nodes (62): assert(), createExportWrapper(), dynCall(), dynCallLegacy(), makeDynCaller(), _emscripten_webgl_do_create_context(), _emscripten_webgl_init_context_attributes(), _emscripten_webgpu_get_device() (+54 more)
+Cohesion: 0.04
+Nodes (89): addRunDependency(), assert(), asyncLoad(), convertI32PairToI53(), convertI32PairToI53Checked(), createExportWrapper(), doCallback(), done() (+81 more)
 
 ### Community 30 - "Especificación de Diseño — EXIS Plataforma de Aprendizaje LSC, Rutas IA y Modo Examen Sin Video"
 Cohesion: 0.20
 Nodes (9): 1. Intención y Propósito (The Why), 2. Metas, No-Metas y Anti-Metas, 3. Enfoques Evaluados (Approaches), 4. Arquitectura de Componentes y Módulos (POO), 5. Directrices de Calidad Visual y Pruebas (`impeccable` + `Emil Kowalski` + `Playwright`), Anti-Metas (Anti-Goals — Qué haría fallar el diseño aunque funcione), Especificación de Diseño — EXIS Plataforma de Aprendizaje LSC, Rutas IA y Modo Examen Sin Video, Metas (Goals) (+1 more)
 
-### Community 31 - "mocap_extractor.py"
-Cohesion: 0.24
-Nodes (4): euler_to_quaternion(), normalize(), quaternion_slerp(), verify_clips_json()
+### Community 31 - "CertificateGenerator"
+Cohesion: 0.16
+Nodes (4): CertificateGenerator, assert, CertificateGenerator, runTests()
 
 ### Community 32 - "🎨 Hoja de Diseño y Especificaciones del Personaje Anime: "Sol""
 Cohesion: 0.20
 Nodes (9): 1. Concepto e Identidad, 2. Anatomía y Silueta Diseñada para Lengua de Señas (LSC), 3. Paleta Cromática Oficial (Color Swatches), 4. Vistas Obligatorias en la Hoja de Referencia (Model Sheet), 5. Cómo Usar esta Hoja como Referencia en Gemini / Kling / Runway, A. Rostro y Cabeza (Componente No Manual), B. Manos y Muñecas (Componente Manual), C. Torso y Contraste de Ropa (+1 more)
 
-### Community 33 - "3. Arquitectura y Lógica Implementada"
-Cohesion: 0.50
-Nodes (4): 3. Arquitectura y Lógica Implementada, A. Estado Privado Encapsulado (`#`), B. Generador de Opciones sin Duplicados, C. Fases Pedagógicas
+### Community 33 - "Reporte de Ejecución: Task 1 - Controlador POO de la Sesión de Lección (`app/js/lesson-session.js`)"
+Cohesion: 0.20
+Nodes (9): 1. Resumen Ejecutivo, 2. Cumplimiento de Reglas Duras (AGENTS.md), 3. Arquitectura y Lógica Implementada, 4. Resultados de Pruebas Unitarias (`node tests/test_lesson_session_unit.js`), 5. Archivos Afectados, A. Estado Privado Encapsulado (`#`), B. Generador de Opciones sin Duplicados, C. Fases Pedagógicas (+1 more)
 
 ### Community 34 - "Review Focus"
 Cohesion: 0.22
 Nodes (8): Expansión de 5 Nuevas Señas LSC (AÑOS, LICOR, D, E, U) Implementation Plan, Global Constraints, Review Focus, Task 1: Generación y Verificación de Videos y Muestras Multimedia (`app/tools/generate_batch_5_signs.py`), Task 2: Actualización del Catálogo Oficial (`app/js/signs-data.js`), Task 3: Implementación de Reglas de Evaluación MediaPipe (`app/js/vision-evaluator.js`), Task 4: Documentación de Prompts Oficiales Anime IA (`referencias_para_gemini/PROMPTS_GEMINI.md`), Task 5: Verificación Integral del Sistema en Servidor Local
 
 ### Community 35 - "assert"
-Cohesion: 0.05
-Nodes (62): assert(), createExportWrapper(), dynCall(), dynCallLegacy(), makeDynCaller(), _emscripten_webgl_do_create_context(), _emscripten_webgl_init_context_attributes(), _emscripten_webgpu_get_device() (+54 more)
+Cohesion: 0.04
+Nodes (92): addRunDependency(), assert(), asyncLoad(), convertI32PairToI53(), createExportWrapper(), doCallback(), done(), dynCall() (+84 more)
 
 ### Community 36 - "add"
-Cohesion: 0.04
-Nodes (60): add(), already(), au(), calcBefore(), check(), checkForWarning(), clean(), cleanBrackets() (+52 more)
+Cohesion: 0.09
+Nodes (37): add(), l(), o(), already(), au(), Bh(), c(), checkForWarning() (+29 more)
 
 ### Community 39 - "test_auth_split_flow.spec.js"
 Cohesion: 0.25
@@ -359,18 +360,18 @@ Cohesion: 0.09
 Nodes (10): playwright, { chromium }, { chromium }, { chromium }, { chromium }, { chromium }, { chromium }, { chromium } (+2 more)
 
 ### Community 45 - "camera_utils.js"
-Cohesion: 0.09
-Nodes (18): b(), C(), D(), e(), H(), I(), J(), b() (+10 more)
+Cohesion: 0.11
+Nodes (17): b(), C(), D(), e(), H(), I(), J(), b() (+9 more)
 
 ### Community 46 - "Task 3 Brief: Estructura HTML del Contenedor de Lección en `app/index.html`"
 Cohesion: 0.40
 Nodes (4): Estructura Semántica Requerida, Objetivo, Restricciones Duras, Task 3 Brief: Estructura HTML del Contenedor de Lección en `app/index.html`
 
-### Community 47 - "normalize"
-Cohesion: 0.08
-Nodes (30): append(), applyVariantOffset(), Cc(), compare(), constructor(), createTokenizer(), group(), index() (+22 more)
+### Community 47 - "push"
+Cohesion: 0.06
+Nodes (80): n(), _2(), after(), append(), as(), B(), BC(), before() (+72 more)
 
-### Community 48 - "test_interactive_lesson_flow.spec.js"
+### Community 48 - "Wd"
 Cohesion: 0.40
 Nodes (4): assert, { chromium }, fs, path
 
@@ -380,15 +381,15 @@ Nodes (44): craftInvokerFunction(), onDone(), createNamedFunction(), __embind_fi
 
 ### Community 50 - "test_finger_feedback_unit.js"
 Cohesion: 0.05
-Nodes (39): assert, dueFuture, engine, fs, letters24, lmF, lmG, lmGBad (+31 more)
+Nodes (41): assert, dueFuture, engine, { FingerFeedbackEngine }, fs, letters24, lmF, lmG (+33 more)
 
-### Community 51 - "ref_path"
-Cohesion: 0.11
-Nodes (13): { chromium }, fs, path, { chromium }, path, assert, { chromium }, fs (+5 more)
+### Community 51 - "verify_exam_arena_no_video.js"
+Cohesion: 0.40
+Nodes (4): assert, { chromium }, fs, path
 
-### Community 52 - "El"
-Cohesion: 0.08
-Nodes (26): aa(), ac(), b2(), bx(), Cl(), cs(), El(), h_() (+18 more)
+### Community 52 - "has"
+Cohesion: 0.06
+Nodes (50): b2(), ca(), Cl(), cs(), d2(), DC(), delete(), _deleteIfExpired() (+42 more)
 
 ### Community 53 - "SDD ledger — plan: docs/superpowers/plans/2026-11-06-interactive-lesson-quiz-plan.md"
 Cohesion: 0.50
@@ -400,83 +401,87 @@ Nodes (3): Objetivo, Requisitos de Diseño, Task 2 Brief: Estilos Dedicados de L
 
 ### Community 62 - "readLatin1String"
 Cohesion: 0.09
-Nodes (43): craftInvokerFunction(), onDone(), createNamedFunction(), __embind_finalize_value_object(), __embind_register_bool(), __embind_register_class(), __embind_register_class_class_function(), unboundTypesHandler() (+35 more)
+Nodes (44): craftInvokerFunction(), onDone(), createNamedFunction(), __embind_finalize_value_object(), __embind_register_bool(), __embind_register_class(), __embind_register_class_class_function(), unboundTypesHandler() (+36 more)
 
-### Community 63 - "Vg"
-Cohesion: 0.10
-Nodes (24): _2(), Ah(), as(), B(), c(), E(), E2(), g_() (+16 more)
+### Community 63 - "sort"
+Cohesion: 0.14
+Nodes (15): applyVariantOffset(), compare(), dm(), eE(), hm(), Lh(), qh(), QS() (+7 more)
 
-### Community 64 - "J"
-Cohesion: 0.07
-Nodes (38): B_(), Bh(), cr(), dr(), i(), E_(), Eh(), F_() (+30 more)
+### Community 64 - "v"
+Cohesion: 0.12
+Nodes (17): arbitraryProperty(), cr(), create(), Eh(), forVariant(), jt(), negative(), $o() (+9 more)
 
 ### Community 65 - "decl"
 Cohesion: 0.08
-Nodes (40): atrule(), beforeAfter(), block(), body(), checkMissedSemicolon(), Co(), colon(), comment() (+32 more)
+Nodes (38): An(), atrule(), beforeAfter(), block(), body(), calcBefore(), comment(), decl() (+30 more)
 
 ### Community 66 - "hands.js"
-Cohesion: 0.08
-Nodes (29): bc(), cc(), dc(), Fa(), fc(), Ga(), gc(), Ha() (+21 more)
+Cohesion: 0.10
+Nodes (25): ab(), bc(), cc(), cd(), D(), dc(), Fa(), Ga() (+17 more)
 
 ### Community 67 - "server.py"
-Cohesion: 0.06
-Nodes (11): create_user_repository(), _find_user(), handle_srs_get(), handle_srs_post(), SRSService, free_port(), load_users_db(), ProcessLifecycleManager (+3 more)
+Cohesion: 0.07
+Nodes (11): create_user_repository(), _find_user(), handle_srs_get(), handle_srs_post(), build_pedagogical_plan(), free_port(), load_users_db(), ProcessLifecycleManager (+3 more)
 
 ### Community 68 - "abort"
-Cohesion: 0.10
-Nodes (21): abort(), _abort(), ___assert_fail(), checkIncomingModuleAPI(), convertFrameToPC(), __dlopen_js(), __dlsym_js(), _emscripten_asm_const_int() (+13 more)
+Cohesion: 0.12
+Nodes (19): abort(), ___assert_fail(), checkIncomingModuleAPI(), convertFrameToPC(), __dlopen_js(), __dlsym_js(), _emscripten_asm_const_int(), _emscripten_pc_get_function() (+11 more)
 
 ### Community 69 - "subprocess"
-Cohesion: 0.05
-Nodes (8): test_pose(), test_hand_shape(), capture(), test_pose(), check_viewport(), curate_sign(), main(), process_hola()
+Cohesion: 0.04
+Nodes (10): test_pose(), test_hand_shape(), capture(), test_pose(), check_viewport(), process_buenos(), process_c(), process_hola() (+2 more)
 
 ### Community 70 - "throwBindingError"
 Cohesion: 0.09
-Nodes (34): attachFinalizer(), ClassHandle_clone(), ClassHandle_delete(), ClassHandle_deleteLater(), constNoSmartPtrRawPointerToWireType(), detachFinalizer(), downcastPointer(), __embind_create_inheriting_constructor() (+26 more)
+Nodes (33): attachFinalizer(), ClassHandle_clone(), ClassHandle_delete(), ClassHandle_deleteLater(), constNoSmartPtrRawPointerToWireType(), detachFinalizer(), downcastPointer(), __embind_create_inheriting_constructor() (+25 more)
 
 ### Community 71 - "Q"
-Cohesion: 0.14
-Nodes (23): ab(), ac(), Eb(), hb(), ib(), ic(), jb(), kb() (+15 more)
+Cohesion: 0.19
+Nodes (14): ac(), Eb(), fc(), lb(), mb(), nb(), P(), pb() (+6 more)
 
 ### Community 72 - "throwBindingError"
 Cohesion: 0.09
 Nodes (33): attachFinalizer(), ClassHandle_clone(), ClassHandle_delete(), ClassHandle_deleteLater(), constNoSmartPtrRawPointerToWireType(), detachFinalizer(), downcastPointer(), __embind_create_inheriting_constructor() (+25 more)
 
 ### Community 73 - "pose_solution_simd_wasm_bin.js"
-Cohesion: 0.01
-Nodes (32): alignMemory(), convertI32PairToI53(), convertI32PairToI53Checked(), doCallback(), done(), doReadv(), doWritev(), _environ_get() (+24 more)
+Cohesion: 0.02
+Nodes (45): alignMemory(), convertI32PairToI53Checked(), doReadv(), doWritev(), _environ_get(), _environ_sizes_get(), _fd_read(), _fd_seek() (+37 more)
 
-### Community 74 - "Vg"
-Cohesion: 0.07
-Nodes (32): Ae(), c2(), cy(), Dl(), dy(), f2(), Fg(), fy() (+24 more)
+### Community 74 - "r"
+Cohesion: 0.12
+Nodes (23): Ae(), ao(), cy(), Dl(), dy(), error(), fromOffset(), fy() (+15 more)
 
 ### Community 75 - "stringify"
 Cohesion: 0.13
-Nodes (24): async(), catch(), content(), css(), div(), dp(), finally(), getAsyncError() (+16 more)
+Nodes (25): async(), catch(), content(), css(), dp(), finally(), getAsyncError(), getIterator() (+17 more)
 
 ### Community 76 - "warnOnce"
-Cohesion: 0.12
-Nodes (18): checkUnflushedContent(), demangle(), demangleAll(), emscriptenWebGLGet(), exitJS(), ExitStatus(), _glGetIntegerv(), isExportedByForceFilesystem() (+10 more)
+Cohesion: 0.10
+Nodes (22): checkUnflushedContent(), demangle(), demangleAll(), _emscripten_webgl_do_create_context(), emscriptenWebGLGet(), exitJS(), ExitStatus(), findCanvasEventTarget() (+14 more)
 
 ### Community 77 - "BlindSpellSession"
-Cohesion: 0.11
-Nodes (8): BlindSpellSession, assert, failSummary, r1, r2, rSkip, session, st0
+Cohesion: 0.10
+Nodes (9): BlindSpellSession, assert, { BlindSpellSession }, failSummary, r1, r2, rSkip, session (+1 more)
 
 ### Community 78 - "E"
-Cohesion: 0.15
-Nodes (24): A(), aa(), cd(), dd(), E(), ea(), ed(), fd() (+16 more)
+Cohesion: 0.30
+Nodes (15): A(), aa(), E(), ea(), ed(), fd(), gd(), hd() (+7 more)
 
 ### Community 79 - "b"
-Cohesion: 0.24
-Nodes (5): b(), Cb(), D(), M(), xa()
+Cohesion: 0.19
+Nodes (5): b(), c(), Cb(), M(), r()
 
 ### Community 80 - "abort"
-Cohesion: 0.12
-Nodes (20): abort(), _abort(), ___assert_fail(), checkIncomingModuleAPI(), convertFrameToPC(), __dlopen_js(), __dlsym_js(), _emscripten_asm_const_int() (+12 more)
+Cohesion: 0.09
+Nodes (29): abort(), addOnInit(), ___assert_fail(), checkIncomingModuleAPI(), convertFrameToPC(), createWasm(), instantiateArrayBuffer(), instantiateAsync() (+21 more)
 
-### Community 82 - "ic"
-Cohesion: 0.40
-Nodes (4): ic(), jc(), Pb(), yb()
+### Community 81 - "ic"
+Cohesion: 0.20
+Nodes (12): gc(), hb(), ib(), ic(), jb(), jc(), kb(), kc() (+4 more)
+
+### Community 82 - "kb"
+Cohesion: 0.15
+Nodes (17): Ab(), Bb(), Db(), ic(), jc(), kb(), lb(), mb() (+9 more)
 
 ### Community 83 - "checkStackCookie"
 Cohesion: 0.14
@@ -499,40 +504,40 @@ Cohesion: 0.15
 Nodes (16): __addDays(), __arraySum(), __gmtime_js(), __isLeapYear(), __localtime_js(), __mktime_js(), readI53FromI64(), _strftime() (+8 more)
 
 ### Community 90 - "cv2"
-Cohesion: 0.08
-Nodes (26): extract_trimmed_frames(), main(), save_mp4(), save_webp(), cv2_imread(), cv2_imwrite(), interpolate_sequence(), load_keyframes() (+18 more)
+Cohesion: 0.09
+Nodes (31): curate_sign(), main(), extract_trimmed_frames(), main(), save_mp4(), save_webp(), cv2_imread(), cv2_imwrite() (+23 more)
 
 ### Community 91 - "K"
 Cohesion: 0.08
-Nodes (37): _a(), ax(), Bf(), ea(), en(), ex(), Ff(), go() (+29 more)
+Nodes (43): _a(), applyParallelOffset(), ax(), Bf(), clear(), ea(), en(), every() (+35 more)
 
-### Community 92 - "createWasm"
-Cohesion: 0.13
-Nodes (21): addOnInit(), addRunDependency(), asyncLoad(), createWasm(), instantiateArrayBuffer(), instantiateAsync(), receiveInstance(), receiveInstantiationResult() (+13 more)
+### Community 92 - ".reference"
+Cohesion: 0.20
+Nodes (9): _emscripten_webgpu_get_device(), Manager(), _wgpuBufferReference(), _wgpuDeviceGetQueue(), _wgpuDeviceReference(), _wgpuSamplerReference(), _wgpuShaderModuleReference(), _wgpuTextureReference() (+1 more)
 
 ### Community 93 - "test_checkpoints_unit.js"
-Cohesion: 0.15
-Nodes (9): assert, counterEl, cp1Config, demoVideo, elements, fs, fullPlanConfig, lesson (+1 more)
+Cohesion: 0.13
+Nodes (11): assert, BlindExamController, counterEl, cp1Config, demoVideo, elements, fs, fullPlanConfig (+3 more)
 
 ### Community 94 - "__embind_register_std_string"
-Cohesion: 0.16
+Cohesion: 0.17
 Nodes (11): allocateUTF8(), __embind_register_std_string(), _glGetShaderInfoLog(), _glGetString(), intArrayFromString(), LazyUint8Array(), lengthBytesUTF8(), stringToNewUTF8() (+3 more)
 
-### Community 95 - "t"
-Cohesion: 0.08
-Nodes (24): arbitraryProperty(), create(), forVariant(), gk(), jC(), js(), NC(), no() (+16 more)
+### Community 95 - ".reference"
+Cohesion: 0.20
+Nodes (9): _emscripten_webgpu_get_device(), Manager(), _wgpuBufferReference(), _wgpuDeviceGetQueue(), _wgpuDeviceReference(), _wgpuSamplerReference(), _wgpuShaderModuleReference(), _wgpuTextureReference() (+1 more)
 
 ### Community 96 - "PostgresUserRepository"
-Cohesion: 0.14
-Nodes (3): JsonToPostgresMigrator, main(), PostgresUserRepository
+Cohesion: 0.10
+Nodes (4): JsonToPostgresMigrator, main(), PostgresUserRepository, SRSService
 
 ### Community 97 - "__embind_register_std_string"
-Cohesion: 0.16
+Cohesion: 0.17
 Nodes (11): allocateUTF8(), __embind_register_std_string(), _glGetShaderInfoLog(), _glGetString(), intArrayFromString(), LazyUint8Array(), lengthBytesUTF8(), stringToNewUTF8() (+3 more)
 
 ### Community 98 - "package.json"
 Cohesion: 0.17
-Nodes (11): description, devDependencies, playwright@^1.64.1, name, scripts, test, test:console, test:e2e (+3 more)
+Nodes (11): description, devDependencies, playwright, name, scripts, test, test:console, test:e2e (+3 more)
 
 ### Community 99 - "emscriptenWebGLGetTexPixelData"
 Cohesion: 0.36
@@ -547,8 +552,8 @@ Cohesion: 0.17
 Nodes (6): AnimeCurator, main(), check_mp4_video(), check_webp_anim(), main(), test_media_assets()
 
 ### Community 103 - "ta"
-Cohesion: 0.47
-Nodes (6): pa(), qa(), sa(), ta(), ua(), va()
+Cohesion: 0.26
+Nodes (9): oa(), pa(), qa(), ra(), sa(), ta(), ua(), va() (+1 more)
 
 ### Community 104 - "runWithFS"
 Cohesion: 0.33
@@ -559,96 +564,100 @@ Cohesion: 0.33
 Nodes (5): Integración con la Aplicación Web, Letras:, Nomenclatura Requerida, Palabras:, Videos Anime IA — Proyecto EXIS
 
 ### Community 107 - "getStringOrSymbol"
-Cohesion: 0.33
-Nodes (5): __emval_call_void_method(), emval_get_global(), __emval_get_global(), __emval_new_cstring(), getStringOrSymbol()
+Cohesion: 0.40
+Nodes (4): __emval_call_void_method(), emval_get_global(), __emval_new_cstring(), getStringOrSymbol()
 
 ### Community 108 - "getStringOrSymbol"
-Cohesion: 0.33
-Nodes (5): __emval_call_void_method(), emval_get_global(), __emval_get_global(), __emval_new_cstring(), getStringOrSymbol()
+Cohesion: 0.40
+Nodes (4): __emval_call_void_method(), emval_get_global(), __emval_new_cstring(), getStringOrSymbol()
 
-### Community 109 - "na"
-Cohesion: 0.14
-Nodes (19): cx(), ec(), fx(), gx(), Hs(), hx(), jr(), kf() (+11 more)
+### Community 109 - "ul"
+Cohesion: 0.09
+Nodes (29): br(), comma(), cx(), dx(), ec(), Fh(), fx(), gx() (+21 more)
 
 ### Community 110 - "Integración ECC (Everything Claude Code) · Proyecto Manitas (EXIS)"
 Cohesion: 0.50
 Nodes (3): 1. Mapeo de Subagentes ECC al Stack de Manitas, 2. Pautas de Armonización ECC + Reglas Duras EXIS, Integración ECC (Everything Claude Code) · Proyecto Manitas (EXIS)
 
 ### Community 111 - "assert"
-Cohesion: 0.05
-Nodes (62): assert(), createExportWrapper(), dynCall(), dynCallLegacy(), makeDynCaller(), _emscripten_webgl_do_create_context(), _emscripten_webgl_init_context_attributes(), _emscripten_webgpu_get_device() (+54 more)
+Cohesion: 0.04
+Nodes (92): addRunDependency(), assert(), asyncLoad(), convertI32PairToI53(), createExportWrapper(), doCallback(), done(), dynCall() (+84 more)
 
 ### Community 112 - "warnOnce"
-Cohesion: 0.12
-Nodes (18): checkUnflushedContent(), demangle(), demangleAll(), emscriptenWebGLGet(), exitJS(), ExitStatus(), _glGetIntegerv(), isExportedByForceFilesystem() (+10 more)
+Cohesion: 0.10
+Nodes (22): checkUnflushedContent(), demangle(), demangleAll(), _emscripten_webgl_do_create_context(), emscriptenWebGLGet(), exitJS(), ExitStatus(), findCanvasEventTarget() (+14 more)
 
 ### Community 115 - "assert"
-Cohesion: 0.05
-Nodes (62): assert(), createExportWrapper(), dynCall(), dynCallLegacy(), makeDynCaller(), _emscripten_webgl_do_create_context(), _emscripten_webgl_init_context_attributes(), _emscripten_webgpu_get_device() (+54 more)
+Cohesion: 0.04
+Nodes (85): addRunDependency(), assert(), asyncLoad(), convertI32PairToI53(), convertI32PairToI53Checked(), createExportWrapper(), doCallback(), done() (+77 more)
 
 ### Community 116 - "test_security_and_hardening.py"
-Cohesion: 0.09
-Nodes (6): build_pedagogical_plan(), PedagogicalPlanner, RateLimiter, UserRepository, TestSecurityAndHardeningLiveHTTP, TestSecurityAndHardeningUnit
+Cohesion: 0.10
+Nodes (5): PedagogicalPlanner, RateLimiter, UserRepository, TestSecurityAndHardeningLiveHTTP, TestSecurityAndHardeningUnit
 
 ### Community 117 - "readLatin1String"
 Cohesion: 0.09
-Nodes (43): craftInvokerFunction(), onDone(), createNamedFunction(), __embind_finalize_value_object(), __embind_register_bool(), __embind_register_class(), __embind_register_class_class_function(), unboundTypesHandler() (+35 more)
+Nodes (44): craftInvokerFunction(), onDone(), createNamedFunction(), __embind_finalize_value_object(), __embind_register_bool(), __embind_register_class(), __embind_register_class_class_function(), unboundTypesHandler() (+36 more)
 
 ### Community 118 - "readLatin1String"
 Cohesion: 0.09
-Nodes (43): craftInvokerFunction(), onDone(), createNamedFunction(), __embind_finalize_value_object(), __embind_register_bool(), __embind_register_class(), __embind_register_class_class_function(), unboundTypesHandler() (+35 more)
+Nodes (44): craftInvokerFunction(), onDone(), createNamedFunction(), __embind_finalize_value_object(), __embind_register_bool(), __embind_register_class(), __embind_register_class_class_function(), unboundTypesHandler() (+36 more)
 
 ### Community 119 - "test_sign_anatomy_validator.js"
 Cohesion: 0.04
-Nodes (50): annosPose0Hands, assert, buenosNoBase, buenosPose1Hand, buenosWithBase, cAsO, crossLeft, crossRight (+42 more)
+Nodes (51): annosPose0Hands, assert, buenosNoBase, buenosPose1Hand, buenosWithBase, cAsO, crossLeft, crossRight (+43 more)
 
 ### Community 120 - "throwBindingError"
 Cohesion: 0.09
-Nodes (34): attachFinalizer(), ClassHandle_clone(), ClassHandle_delete(), ClassHandle_deleteLater(), constNoSmartPtrRawPointerToWireType(), detachFinalizer(), downcastPointer(), __embind_create_inheriting_constructor() (+26 more)
+Nodes (33): attachFinalizer(), ClassHandle_clone(), ClassHandle_delete(), ClassHandle_deleteLater(), constNoSmartPtrRawPointerToWireType(), detachFinalizer(), downcastPointer(), __embind_create_inheriting_constructor() (+25 more)
 
 ### Community 121 - "throwBindingError"
 Cohesion: 0.09
-Nodes (34): attachFinalizer(), ClassHandle_clone(), ClassHandle_delete(), ClassHandle_deleteLater(), constNoSmartPtrRawPointerToWireType(), detachFinalizer(), downcastPointer(), __embind_create_inheriting_constructor() (+26 more)
+Nodes (33): attachFinalizer(), ClassHandle_clone(), ClassHandle_delete(), ClassHandle_deleteLater(), constNoSmartPtrRawPointerToWireType(), detachFinalizer(), downcastPointer(), __embind_create_inheriting_constructor() (+25 more)
 
 ### Community 122 - "Review Focus"
 Cohesion: 0.22
 Nodes (8): Global Constraints, Review Focus, Sistema de Lección Interactiva Tipo Test y Práctica con Cámara (Plan de Implementación), Task 1: Controlador POO de la Sesión de Lección (`app/js/lesson-session.js`), Task 2: Estilos Dedicados de Lección Interactiva (`app/css/lesson.css`), Task 3: Estructura HTML del Contenedor de Lección en `app/index.html`, Task 4: Integración con la Ruta Duolingo (`app/js/learning-plan-manager.js` y `app/js/main.js`), Task 5: Pruebas E2E Automatizadas con Playwright y Verificación
 
-### Community 123 - "c"
-Cohesion: 0.23
-Nodes (8): k(), f(), c(), dd(), kc(), nc(), xc(), yc()
-
 ### Community 124 - "E"
-Cohesion: 0.18
-Nodes (18): A(), aa(), cd(), E(), ea(), ed(), fd(), gd() (+10 more)
+Cohesion: 0.17
+Nodes (19): A(), aa(), cd(), dd(), E(), ea(), ed(), fd() (+11 more)
 
 ### Community 126 - "createWasm"
-Cohesion: 0.13
-Nodes (21): addOnInit(), addRunDependency(), asyncLoad(), createWasm(), instantiateArrayBuffer(), instantiateAsync(), receiveInstance(), receiveInstantiationResult() (+13 more)
+Cohesion: 0.14
+Nodes (19): addOnInit(), createWasm(), instantiateArrayBuffer(), instantiateAsync(), receiveInstance(), receiveInstantiationResult(), _emscripten_get_heap_max(), emscripten_realloc_buffer() (+11 more)
+
+### Community 127 - "LSCHandler"
+Cohesion: 0.15
+Nodes (3): Task 1: Endpoints Backend de Planes IA (`/api/plan`) y Perfiles (`/api/users`) en `server.py`, LSCHandler, RangeFileWrapper
 
 ### Community 128 - "postgres"
 Cohesion: 0.11
 Nodes (18): POSTGRES_DB, POSTGRES_PASSWORD, POSTGRES_USER, interval, retries, test, timeout, container_name (+10 more)
 
+### Community 129 - "vb"
+Cohesion: 0.70
+Nodes (5): L(), ob(), ub(), vb(), Ya()
+
 ### Community 130 - "createWasm"
-Cohesion: 0.13
-Nodes (21): addOnInit(), addRunDependency(), asyncLoad(), createWasm(), instantiateArrayBuffer(), instantiateAsync(), receiveInstance(), receiveInstantiationResult() (+13 more)
+Cohesion: 0.14
+Nodes (20): addOnInit(), createWasm(), instantiateArrayBuffer(), instantiateAsync(), receiveInstance(), receiveInstantiationResult(), _emscripten_get_heap_max(), emscripten_realloc_buffer() (+12 more)
 
 ### Community 131 - "b"
 Cohesion: 0.22
-Nodes (6): b(), D(), L(), r(), xa(), z()
+Nodes (3): b(), c(), L()
 
 ### Community 132 - "abort"
 Cohesion: 0.12
-Nodes (20): abort(), _abort(), ___assert_fail(), checkIncomingModuleAPI(), convertFrameToPC(), __dlopen_js(), __dlsym_js(), _emscripten_asm_const_int() (+12 more)
+Nodes (19): abort(), ___assert_fail(), checkIncomingModuleAPI(), convertFrameToPC(), __dlopen_js(), __dlsym_js(), _emscripten_asm_const_int(), _emscripten_pc_get_function() (+11 more)
 
 ### Community 133 - "info"
-Cohesion: 0.13
-Nodes (21): addOnInit(), addRunDependency(), asyncLoad(), createWasm(), instantiateArrayBuffer(), instantiateAsync(), receiveInstance(), receiveInstantiationResult() (+13 more)
+Cohesion: 0.14
+Nodes (19): addOnInit(), createWasm(), instantiateArrayBuffer(), instantiateAsync(), receiveInstance(), receiveInstantiationResult(), _emscripten_get_heap_max(), emscripten_realloc_buffer() (+11 more)
 
 ### Community 134 - "abort"
 Cohesion: 0.12
-Nodes (20): abort(), _abort(), ___assert_fail(), checkIncomingModuleAPI(), convertFrameToPC(), __dlopen_js(), __dlsym_js(), _emscripten_asm_const_int() (+12 more)
+Nodes (19): abort(), ___assert_fail(), checkIncomingModuleAPI(), convertFrameToPC(), __dlopen_js(), __dlsym_js(), _emscripten_asm_const_int(), _emscripten_pc_get_function() (+11 more)
 
 ### Community 135 - "checkStackCookie"
 Cohesion: 0.14
@@ -666,29 +675,29 @@ Nodes (16): __addDays(), __arraySum(), __gmtime_js(), __isLeapYear(), __localtim
 Cohesion: 0.15
 Nodes (16): __addDays(), __arraySum(), __gmtime_js(), __isLeapYear(), __localtime_js(), __mktime_js(), readI53FromI64(), _strftime() (+8 more)
 
+### Community 141 - "test_letter_i_anime.js"
+Cohesion: 0.40
+Nodes (3): { chromium }, fs, path
+
 ### Community 142 - "__embind_register_std_string"
-Cohesion: 0.16
+Cohesion: 0.17
 Nodes (11): allocateUTF8(), __embind_register_std_string(), _glGetShaderInfoLog(), _glGetString(), intArrayFromString(), LazyUint8Array(), lengthBytesUTF8(), stringToNewUTF8() (+3 more)
 
 ### Community 143 - "__embind_register_std_string"
-Cohesion: 0.16
+Cohesion: 0.17
 Nodes (11): allocateUTF8(), __embind_register_std_string(), _glGetShaderInfoLog(), _glGetString(), intArrayFromString(), LazyUint8Array(), lengthBytesUTF8(), stringToNewUTF8() (+3 more)
 
 ### Community 145 - "ta"
-Cohesion: 0.47
-Nodes (6): pa(), qa(), sa(), ta(), ua(), va()
+Cohesion: 0.25
+Nodes (12): D(), pa(), qa(), sa(), ta(), ua(), va(), wa() (+4 more)
 
 ### Community 146 - "drawing_utils.js"
 Cohesion: 0.18
 Nodes (5): G(), h(), p(), q(), r()
 
-### Community 147 - "🤟 Manitas · Academia Interactiva de Lengua de Señas Colombiana (LSC)"
-Cohesion: 0.15
-Nodes (11): 1. Requisitos Básicos, 2. Clonar y Arrancar (1 clic), 3. Persistencia con PostgreSQL (Opcional), 🗂️ Catálogo Actual de Señas (34 Señas), 👥 Colaboración en Equipo, 📄 Créditos, 📁 Estructura del Proyecto, 🚀 Instalación y Puesta en Marcha (+3 more)
-
 ### Community 148 - "control_utils.js"
-Cohesion: 0.21
-Nodes (13): ba(), Ga(), K(), ka(), l(), m(), L(), M() (+5 more)
+Cohesion: 0.17
+Nodes (12): Ga(), K(), L(), M(), N(), na(), O(), q() (+4 more)
 
 ### Community 150 - "emscriptenWebGLGetTexPixelData"
 Cohesion: 0.36
@@ -703,112 +712,80 @@ Cohesion: 0.20
 Nodes (9): Análisis de Agentes Necesarios, Plan de Implementación: Sistema de Puntos y Trayectorias de Movimiento LSC (Connect-the-Dots), Restricciones Globales (Hard Rules), Tarea 1: Modelado de Datos de Trayectorias en `signs-data.js`, Tarea 2: Creación del Motor `app/js/trajectory-tracker.js`, Tarea 3: Integración en `vision-evaluator.js` y Evaluación Concurrente, Tarea 4: Actualización de UI y Accesibilidad en `index.html`, `styles.css` y `main.js`, Tarea 5: Verificación Funcional, Responsiva y Cero Errores (+1 more)
 
 ### Community 154 - "Mapa de Archivos a Crear y Modificar"
-Cohesion: 0.20
-Nodes (9): EXIS Learning Platform, AI Paths & Blind Exam Mode Implementation Plan, Global Constraints, Mapa de Archivos a Crear y Modificar, Task 1: Endpoints Backend de Planes IA (`/api/plan`) y Perfiles (`/api/users`) en `server.py`, Task 2: Clase POO `AuthProfileManager` (`app/js/auth-profile-manager.js`), Task 3: Clase POO `LearningPlanManager` y Mapa Hexagonal (`app/js/learning-plan-manager.js`), Task 4: Clase POO `BlindExamController` — Modo Examen Sin Video (`app/js/blind-exam-controller.js`), Task 5: Integración UI Híbrida en `app/index.html`, Estilos en `app/css/styles.css` y Orquestación en `app/js/main.js` (+1 more)
+Cohesion: 0.22
+Nodes (7): EXIS Learning Platform, AI Paths & Blind Exam Mode Implementation Plan, Global Constraints, Mapa de Archivos a Crear y Modificar, Task 2: Clase POO `AuthProfileManager` (`app/js/auth-profile-manager.js`), Task 3: Clase POO `LearningPlanManager` y Mapa Hexagonal (`app/js/learning-plan-manager.js`), Task 5: Integración UI Híbrida en `app/index.html`, Estilos en `app/css/styles.css` y Orquestación en `app/js/main.js`, Task 6: Suite de Pruebas End-to-End en Playwright (`tests/learning_platform_and_exam.spec.js`) y Actualización de Graphify
 
 ### Community 155 - "runWithFS"
 Cohesion: 0.33
 Nodes (3): runWithFS(), assert(), processPackageData()
 
 ### Community 156 - "getStringOrSymbol"
-Cohesion: 0.33
-Nodes (5): __emval_call_void_method(), emval_get_global(), __emval_get_global(), __emval_new_cstring(), getStringOrSymbol()
+Cohesion: 0.40
+Nodes (4): __emval_call_void_method(), emval_get_global(), __emval_new_cstring(), getStringOrSymbol()
 
 ### Community 157 - "getStringOrSymbol"
-Cohesion: 0.33
-Nodes (5): __emval_call_void_method(), emval_get_global(), __emval_get_global(), __emval_new_cstring(), getStringOrSymbol()
+Cohesion: 0.40
+Nodes (4): __emval_call_void_method(), emval_get_global(), __emval_new_cstring(), getStringOrSymbol()
 
 ### Community 158 - "warnOnce"
-Cohesion: 0.12
-Nodes (18): checkUnflushedContent(), demangle(), demangleAll(), emscriptenWebGLGet(), exitJS(), ExitStatus(), _glGetIntegerv(), isExportedByForceFilesystem() (+10 more)
+Cohesion: 0.10
+Nodes (22): checkUnflushedContent(), demangle(), demangleAll(), _emscripten_webgl_do_create_context(), emscriptenWebGLGet(), exitJS(), ExitStatus(), findCanvasEventTarget() (+14 more)
 
-### Community 159 - "ec"
-Cohesion: 0.20
-Nodes (8): ec(), Fa(), Ga(), Ja(), lb(), mb(), sb(), T()
+### Community 159 - "f"
+Cohesion: 0.21
+Nodes (15): k(), f(), ec(), Fa(), c(), Ga(), gc(), Ja() (+7 more)
 
 ### Community 160 - "Global Constraints"
 Cohesion: 0.25
 Nodes (6): Global Constraints, Plan de Implementación — División de Exámenes (Solo Cámara vs. Solo Adivinar Señas) y Corrección `AÑOS` en Ruta, Task 1: Mostrar `AÑOS` (y nombres legibles) en los nodos de la ruta (`app/js/learning-plan-manager.js`), Task 2: UI del selector previo de modalidad en `app/index.html`, Task 3: Lógica POO de modalidades en `app/js/blind-exam-controller.js` y `app/js/exam-ui-helper.js`, Task 4: Actualizar pruebas unitarias (`tests/test_blind_exam_arena_unit.js`) y verificar todo
 
-### Community 162 - "_deleteIfExpired"
-Cohesion: 0.13
-Nodes (17): delete(), _deleteIfExpired(), _emitEvictions(), _entriesAscending(), entriesAscending(), entriesDescending(), get(), _getItemValue() (+9 more)
-
-### Community 163 - "generate_videos.py"
-Cohesion: 0.18
-Nodes (7): build_smooth_loop(), interpolate_pair(), main(), process_sign(), read_image_safe(), save_animated_webp(), save_mp4()
+### Community 162 - "replace"
+Cohesion: 0.06
+Nodes (47): addToError(), check(), cleanBrackets(), _emitEvictions(), _entriesAscending(), Gl(), group(), isHack() (+39 more)
 
 ### Community 164 - "pose.js"
-Cohesion: 0.11
-Nodes (20): ac(), bc(), cc(), fc(), gc(), Lc(), O(), pc() (+12 more)
-
-### Community 165 - "_glGetUniformLocation"
-Cohesion: 0.67
-Nodes (4): _glGetUniformLocation(), jstoi_q(), webglGetLeftBracePos(), webglPrepareUniformLocationsBeforeFirstUse()
+Cohesion: 0.12
+Nodes (18): Nc(), ac(), bc(), cc(), fc(), O(), pc(), qb() (+10 more)
 
 ### Community 167 - "GamificationManager"
 Cohesion: 0.09
-Nodes (22): GamificationManager, gamificationManager, assert, dispatchedEvents, examGm, fs, gm, MockCustomEvent (+14 more)
-
-### Community 168 - "_glGetUniformLocation"
-Cohesion: 0.67
-Nodes (4): _glGetUniformLocation(), jstoi_q(), webglGetLeftBracePos(), webglPrepareUniformLocationsBeforeFirstUse()
-
-### Community 169 - "ul"
-Cohesion: 0.16
-Nodes (14): br(), d2(), dx(), h2(), I2(), K_(), kt(), ly() (+6 more)
+Nodes (22): GamificationManager, assert, dispatchedEvents, examGm, fs, { GamificationManager }, gm, MockCustomEvent (+14 more)
 
 ### Community 171 - "Task 1 Brief: Controlador POO de la Sesión de Lección (`app/js/lesson-session.js`)"
 Cohesion: 0.40
 Nodes (4): Lógica y Fases de la Lección, Pruebas, Reglas Obligatorias (AGENTS.md), Task 1 Brief: Controlador POO de la Sesión de Lección (`app/js/lesson-session.js`)
 
-### Community 172 - ".D"
-Cohesion: 0.39
-Nodes (10): aa(), c(), Ca(), da(), ea(), fa(), ta(), ua() (+2 more)
-
-### Community 173 - "w"
-Cohesion: 0.20
-Nodes (4): w(), x(), y(), Z()
-
-### Community 174 - "g"
-Cohesion: 0.83
-Nodes (4): wa(), b(), c(), g()
+### Community 172 - "control_utils.js"
+Cohesion: 0.45
+Nodes (9): aa(), Ca(), da(), ea(), fa(), ta(), ua(), ya() (+1 more)
 
 ### Community 176 - "ha"
-Cohesion: 0.33
-Nodes (5): E(), ha(), ia(), J(), P()
+Cohesion: 0.25
+Nodes (10): E(), G(), ha(), ia(), J(), ja(), b(), c() (+2 more)
 
-### Community 177 - "U"
+### Community 177 - "Kn"
 Cohesion: 0.20
-Nodes (5): sa(), U(), va(), wa(), xa()
+Nodes (9): ba(), c(), sa(), U(), v(), va(), wa(), xa() (+1 more)
 
 ### Community 178 - "test_vision_rules.js"
 Cohesion: 0.33
 Nodes (5): code, fs, missing, path, requiredBranches
 
 ### Community 179 - "c"
-Cohesion: 0.19
-Nodes (6): c(), lc(), mb(), oc(), tb(), z()
+Cohesion: 0.24
+Nodes (11): dd(), c(), hc(), lc(), oc(), g(), wc(), xc() (+3 more)
 
-### Community 180 - "$d"
-Cohesion: 0.22
-Nodes (9): $d(), hh(), Kn(), Ld(), MC(), $p(), V1(), Xn() (+1 more)
-
-### Community 181 - "error"
-Cohesion: 0.38
-Nodes (7): error(), fromOffset(), origin(), positionBy(), positionInside(), rangeBy(), Wr()
+### Community 181 - "constructor"
+Cohesion: 0.20
+Nodes (12): constructor(), createTokenizer(), da(), mapResolve(), positionBy(), positionInside(), possible(), prefixeds() (+4 more)
 
 ### Community 183 - "test_mascot_gallery.spec.js"
 Cohesion: 0.40
 Nodes (4): assert, { chromium }, fs, path
 
-### Community 184 - "Especificación de Diseño — División de Exámenes (Solo Cámara vs. Solo Adivinar Señas)"
-Cohesion: 0.33
-Nodes (5): 1. Propósito y Por qué, 2. Metas, No-Metas y Restricciones, 3. Enfoques Evaluados, 4. Diseño de Componentes a Modificar, Especificación de Diseño — División de Exámenes (Solo Cámara vs. Solo Adivinar Señas)
-
-### Community 185 - "g"
-Cohesion: 0.60
-Nodes (5): G(), ja(), b(), c(), g()
+### Community 186 - "r"
+Cohesion: 0.28
+Nodes (6): ka(), l(), m(), oa(), r(), T()
 
 ### Community 188 - "_glGetUniformLocation"
 Cohesion: 0.67
@@ -818,31 +795,27 @@ Nodes (4): _glGetUniformLocation(), jstoi_q(), webglGetLeftBracePos(), webglPrep
 Cohesion: 0.67
 Nodes (4): _glGetUniformLocation(), jstoi_q(), webglGetLeftBracePos(), webglPrepareUniformLocationsBeforeFirstUse()
 
-### Community 191 - "AGENTS.md — Reglas y Contexto Técnico para Agentes de IA (Proyecto EXIS)"
-Cohesion: 0.14
-Nodes (14): 1. Identidad y Misión del Proyecto, 2. Reglas Duras de Desarrollo (Hard Rules), 3. Especificación de Hardware y Optimización, 4. Protocolo de Colaboración en Pareja (Evitar Choques), 5. Estructura de Directorios, 6. Integración y Protocolo de Agentes ECC (Everything Claude Code), AGENTS.md — Reglas y Contexto Técnico para Agentes de IA (Proyecto EXIS), Armonización Reglas ECC vs EXIS: (+6 more)
-
 ### Community 193 - "Pa"
-Cohesion: 0.12
-Nodes (25): Ab(), Bb(), Db(), gb(), hb(), hc(), ib(), jb() (+17 more)
+Cohesion: 0.21
+Nodes (16): gb(), hb(), hc(), ib(), jb(), La(), M(), Ma() (+8 more)
 
 ## Knowledge Gaps
-- **45 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **37 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `info()` connect `createWasm` to `createWasm`, `info`, `tailwind.js`, `createWasm`, `t`?**
-  _High betweenness centrality (0.324) - this node is a cross-community bridge._
+- **Why does `f()` connect `f` to `pose_solution_wasm_bin.js`, `hands.js`, `b`, `pose.js`, `pose_solution_simd_wasm_bin.js`, `camera_utils.js`, `b`, `ha`, `ic`, `push`, `c`, `hands_solution_simd_wasm_bin.js`, `hands_solution_wasm_bin.js`?**
+  _High betweenness centrality (0.333) - this node is a cross-community bridge._
 - **Should `pose_solution_wasm_bin.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.012250045036930283 - nodes in this community are weakly interconnected._
-- **Why does `🌟 Módulos y Características Principales` connect `🤟 Manitas · Academia Interactiva de Lengua de Señas Colombiana (LSC)` to `LessonSessionController`, `BlindExamController`, `CameraDeviceManager`, `FingerFeedbackEngine`, `VoiceFeedbackService`?**
-  _High betweenness centrality (0.165) - this node is a cross-community bridge._
+  _Cohesion score 0.016297428062133943 - nodes in this community are weakly interconnected._
+- **Why does `🌟 Módulos y Características Principales` connect `LessonSessionController` to `FingerFeedbackEngine`, `BlindExamController`, `CameraDeviceManager`?**
+  _High betweenness centrality (0.186) - this node is a cross-community bridge._
 - **Should `LessonSessionController` be split into smaller, more focused modules?**
-  _Cohesion score 0.09506531204644413 - nodes in this community are weakly interconnected._
-- **Why does `CameraDeviceManager` connect `CameraDeviceManager` to `.#closeActiveDropdown`, `🤟 Manitas · Academia Interactiva de Lengua de Señas Colombiana (LSC)`, `.stop`, `AGENTS.md — Reglas y Contexto Técnico para Agentes de IA (Proyecto EXIS)`?**
-  _High betweenness centrality (0.158) - this node is a cross-community bridge._
-- **Should `test_blind_exam_arena_unit.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
-- **Should `4. Prompts Detallados para Copiar y Pegar` be split into smaller, more focused modules?**
-  _Cohesion score 0.07142857142857142 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06317907444668008 - nodes in this community are weakly interconnected._
+- **Why does `CameraDeviceManager` connect `CameraDeviceManager` to `LessonSessionController`?**
+  _High betweenness centrality (0.152) - this node is a cross-community bridge._
+- **Should `BlindExamController` be split into smaller, more focused modules?**
+  _Cohesion score 0.12010796221322537 - nodes in this community are weakly interconnected._
+- **Should `CameraDeviceManager` be split into smaller, more focused modules?**
+  _Cohesion score 0.06966618287373004 - nodes in this community are weakly interconnected._

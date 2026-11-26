@@ -836,7 +836,7 @@ class LessonSessionController {
       sheet.classList.toggle('is-correct', isCorrect);
       sheet.classList.toggle('is-incorrect', !isCorrect);
       if (isCorrect) {
-        if (titleEl) titleEl.textContent = '¡Correcto! Excelente ojo visual 🦊';
+        if (titleEl) titleEl.textContent = '¡Correcto! Excelente ojo visual';
         if (descEl) descEl.textContent = `Has identificado con precisión la seña "${this.#currentSign.name || this.#currentSignId}". Ahora practiquémosla con tu cámara.`;
 
         if (typeof confetti === 'function') {
@@ -866,7 +866,7 @@ class LessonSessionController {
       sheet.classList.remove('hidden', 'is-incorrect');
       sheet.classList.add('is-correct');
 
-      if (titleEl) titleEl.textContent = '¡Excelente réplica motriz! 🌟';
+      if (titleEl) titleEl.textContent = '¡Excelente réplica motriz!';
       if (descEl) descEl.textContent = `Lograste la seña con ${Math.round(score)}% de precisión mantenida.`;
     }
 

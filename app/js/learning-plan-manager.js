@@ -386,7 +386,7 @@ class LearningPlanManager {
     trophyBtn.setAttribute('aria-label', `${allMastered ? 'Examen Final de Unidad' : 'Reto Libre de Unidad'}: Evaluación de todas las ${signs.length} señas`);
     trophyBtn.innerHTML = `
       <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mb-1.5 ${allMastered ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-white text-amber-800 border border-amber-300'}">
-        ${allMastered ? '🏆 ¡Listo para certificarte!' : 'Reto Libre · Siempre disponible'}
+        ${allMastered ? '¡Listo para certificarte!' : 'Reto Libre · Siempre disponible'}
       </span>
       <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
         <svg class="w-7 h-7 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -731,10 +731,10 @@ class LearningPlanManager {
     const customPill = document.getElementById('activeCustomPlanPill');
     if (customPill) {
       if (activePlanId === 'custom_ai') {
-        customPill.textContent = '✨ Ruta Recomendada activa';
+        customPill.textContent = 'Ruta Recomendada activa';
         customPill.classList.remove('hidden');
       } else if (activePlanId === 'custom_user') {
-        customPill.textContent = '🛠️ Ruta Propia activa';
+        customPill.textContent = 'Ruta Propia activa';
         customPill.classList.remove('hidden');
       } else {
         customPill.classList.add('hidden');
