@@ -14,7 +14,7 @@ class CertificateGenerator {
   #height = 920;
   #lastDataUrl = null;
   #lastPayload = null;
-  #assets = { logo: null, mascot: null, loaded: false };
+  #assets = { template: null, logo: null, loaded: false };
 
   init() {
     if (this.#initialized) return this;
@@ -39,7 +39,7 @@ class CertificateGenerator {
 
   destroy() {
     this.reset();
-    this.#assets = { logo: null, mascot: null, loaded: false };
+    this.#assets = { template: null, logo: null, loaded: false };
     this.#initialized = false;
   }
 
@@ -151,391 +151,146 @@ class CertificateGenerator {
       img.onerror = () => resolve(null);
       img.src = src;
     });
-    const [logo, mascot] = await Promise.all([
-      loadImg('img/manitas-simbolo.svg'),
-      loadImg('img/zorrito/svg/zorrito_celebracion.svg')
+    const [template, logo] = await Promise.all([
+      loadImg('img/certificado_template_lsc.png'),
+      loadImg('img/manitas-simbolo.svg')
     ]);
-    this.#assets = { logo, mascot, loaded: true };
+    this.#assets = { template, logo, loaded: true };
     return this.#assets;
   }
 
   #paintDiploma(ctx, payload, assets) {
     const w = this.#width;
     const h = this.#height;
+    const centerX = w / 2;
 
-    // 1. Marco exterior oscuro editorial (#0F172A)
-    ctx.fillStyle = '#0F172A';
-    ctx.fillRect(0, 0, w, h);
+    // 1. Plantilla artística de fondo (full-bleed 1400x920) o fallback marfil/oro
+    if (assets.template) {
+      ctx.drawImage(assets.template, 0, 0, w, h);
+    } else {
+      ctx.fillStyle = '#FCF9F2';
+      ctx.fillRect(0, 0, w, h);
+      ctx.strokeStyle = '#D4AF37';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(44, 44, w - 88, h - 88);
+    }
 
-    // 2. Bisel metálico dorado exterior
-    const goldGrad = ctx.createLinearGradient(0, 0, w, h);
-    goldGrad.addColorStop(0, '#B45309');
-    goldGrad.addColorStop(0.35, '#F59E0B');
-    goldGrad.addColorStop(0.65, '#FDE68A');
-    goldGrad.addColorStop(1, '#D97706');
-    ctx.strokeStyle = goldGrad;
-    ctx.lineWidth = 4;
-    ctx.strokeRect(20, 20, w - 40, h - 40);
-
-    // 3. Superficie pergamino cálido diagonal (#FDFBF7 -> #F5EFE4)
-    const paperGrad = ctx.createLinearGradient(32, 32, w - 32, h - 32);
-    paperGrad.addColorStop(0, '#FDFBF7');
-    paperGrad.addColorStop(1, '#F5EFE4');
-    ctx.fillStyle = paperGrad;
-    ctx.fillRect(34, 34, w - 68, h - 68);
-
-    // 4. Sello de agua geométrico guilloché en zona editorial
-    const contentLeft = 324;
-    const contentRight = w - 34;
-    const centerX = (contentLeft + contentRight) / 2;
-    this.#drawGuillocheWatermark(ctx, centerX, 455);
-
-    // 5. Franja arquitectónica izquierda (Petrol profundo + filete oro)
-    this.#drawLeftBrandRibbon(ctx, h, goldGrad, assets);
-
-    // 6. Marco fino interior en zona derecha
-    ctx.strokeStyle = 'rgba(180, 83, 9, 0.35)';
-    ctx.lineWidth = 1.5;
-    ctx.strokeRect(contentLeft + 24, 54, (contentRight - contentLeft) - 48, h - 108);
-    this.#drawCornerFlourishes(ctx, contentLeft + 34, 64, contentRight - 34, h - 64);
-
-    // 7. Encabezado institucional y título serif
+    // 2. Símbolo Manitas y encabezado institucional centrado
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
+
+    if (assets.logo) {
+      this.#drawContainedImage(ctx, assets.logo, centerX - 28, 108, 56, 42, 940 / 700);
+    }
+
     ctx.fillStyle = '#0E7490';
-    ctx.font = '700 12px "JetBrains Mono", monospace';
-    ctx.fillText('CONSTANCIA DE DACTILOLOGÍA · LENGUA DE SEÑAS COLOMBIANA', centerX, 114);
+    ctx.font = '700 13px "JetBrains Mono", monospace';
+    ctx.fillText('MANITAS · ACADEMIA DE DACTILOLOGÍA LSC', centerX, 174);
 
+    // 3. Título principal editorial
     ctx.fillStyle = '#0F172A';
-    ctx.font = '700 44px Georgia, "Times New Roman", serif';
-    ctx.fillText(payload.title, centerX, 174);
+    ctx.font = '700 48px Georgia, "Times New Roman", serif';
+    ctx.fillText(payload.title, centerX, 240);
 
-    // Ornamento dorado con rombo central
-    this.#drawDiamondDivider(ctx, centerX, 222, 160, goldGrad);
+    // 4. Ornamento dorado sutil con rombo central
+    this.#drawHairlineDivider(ctx, centerX, 294, 150);
 
-    // Lead-in y nombre protagonista
+    // 5. Otorgado a + Nombre protagonista del estudiante
     ctx.fillStyle = '#475569';
-    ctx.font = 'italic 19px Georgia, "Times New Roman", serif';
-    ctx.fillText('Se otorga con orgullo a', centerX, 268);
+    ctx.font = 'italic 20px Georgia, "Times New Roman", serif';
+    ctx.fillText('Se otorga el presente reconocimiento a', centerX, 344);
 
     ctx.fillStyle = '#0F172A';
-    ctx.font = '800 56px "Plus Jakarta Sans", "Segoe UI", sans-serif';
-    ctx.fillText(payload.studentName, centerX, 332);
+    ctx.font = '800 64px "Plus Jakarta Sans", "Segoe UI", sans-serif';
+    ctx.fillText(payload.studentName, centerX, 416);
 
-    ctx.strokeStyle = 'rgba(217, 119, 6, 0.55)';
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.72)';
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(centerX - 240, 372);
-    ctx.lineTo(centerX + 240, 372);
+    ctx.moveTo(centerX - 230, 464);
+    ctx.lineTo(centerX + 230, 464);
     ctx.stroke();
 
-    // Subtítulo descriptivo con ajuste limpio de líneas
+    // 6. Subtítulo descriptivo espacioso
     ctx.fillStyle = '#334155';
-    ctx.font = '500 18px "Plus Jakarta Sans", "Segoe UI", sans-serif';
-    const nextY = this.#drawWrappedText(ctx, payload.subtitle, centerX, 412, 780, 26);
+    ctx.font = '500 19px "Plus Jakarta Sans", "Segoe UI", sans-serif';
+    const nextY = this.#drawWrappedText(ctx, payload.subtitle, centerX, 508, 760, 28);
 
-    // 8. Reto a Ciegas pill (si aplica) + Cinta de las 24 letras LSC70
-    let ribbonStartY = Math.max(nextY + 26, 466);
+    // Píldora discreta solo cuando proviene de Reto a Ciegas aprobado
     if (payload.highlightWord) {
+      const pillY = nextY + 44;
       const pillText = payload.accuracyLabel
         ? `RETO A CIEGAS: «${payload.highlightWord}» · ${payload.accuracyLabel}`
         : `RETO A CIEGAS: «${payload.highlightWord}»`;
-      const pillW = Math.min(680, Math.max(360, ctx.measureText(pillText).width + 52));
-      ctx.fillStyle = '#FFF7ED';
-      this.#drawRoundedRect(ctx, centerX - pillW / 2, ribbonStartY - 12, pillW, 34, 17);
+      ctx.font = '700 13px "JetBrains Mono", monospace';
+      const pillW = Math.min(680, Math.max(340, ctx.measureText(pillText).width + 52));
+      ctx.fillStyle = 'rgba(255, 251, 235, 0.94)';
+      this.#drawRoundedRect(ctx, centerX - pillW / 2, pillY - 17, pillW, 34, 17);
       ctx.fill();
-      ctx.strokeStyle = '#F59E0B';
+      ctx.strokeStyle = '#D4AF37';
       ctx.lineWidth = 1.5;
       ctx.stroke();
-      ctx.fillStyle = '#9A3412';
-      ctx.font = '700 13px "JetBrains Mono", monospace';
-      ctx.fillText(pillText, centerX, ribbonStartY + 5);
-      ribbonStartY += 42;
+      ctx.fillStyle = '#92400E';
+      ctx.fillText(pillText, centerX, pillY);
     }
 
-    this.#drawAlphabetRibbon(ctx, payload.letters, centerX, ribbonStartY);
-
-    // 9. Pie editorial: firma, roseta dorada con cintas y metadatos
-    const footerY = 746;
-    const sigX = contentLeft + 185;
+    // 7. Pie editorial alineado a la izquierda-centro (despejando el sello dorado inferior derecho)
+    const footerY = 716;
+    const sigX = 336;
     ctx.fillStyle = '#0F172A';
-    ctx.font = 'italic 700 28px Georgia, "Times New Roman", serif';
-    ctx.fillText('Manitas LSC', sigX, footerY - 10);
+    ctx.font = 'italic 700 30px Georgia, "Times New Roman", serif';
+    ctx.fillText('Manitas LSC', sigX, footerY);
 
     ctx.strokeStyle = '#94A3B8';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(sigX - 115, footerY + 14);
-    ctx.lineTo(sigX + 115, footerY + 14);
+    ctx.moveTo(sigX - 116, footerY + 26);
+    ctx.lineTo(sigX + 116, footerY + 26);
     ctx.stroke();
 
-    ctx.fillStyle = '#475569';
+    ctx.fillStyle = '#334155';
     ctx.font = '700 12px "Plus Jakarta Sans", "Segoe UI", sans-serif';
-    ctx.fillText('Academia Interactiva LSC', sigX, footerY + 34);
+    ctx.fillText('Academia Interactiva LSC', sigX, footerY + 46);
     ctx.fillStyle = '#64748B';
     ctx.font = '500 11px "JetBrains Mono", monospace';
-    ctx.fillText('Proyecto EXIS · Cámara Local', sigX, footerY + 52);
+    ctx.fillText('Proyecto EXIS · Cámara Local', sigX, footerY + 65);
 
-    // Roseta oficial dorada al centro-derecha
-    const sealX = centerX + 55;
-    const sealY = footerY + 6;
-    this.#drawGoldRosetteSeal(ctx, sealX, sealY, payload.badgeLabel, goldGrad);
-
-    // Metadatos a la derecha
-    const metaX = contentRight - 72;
-    ctx.textAlign = 'right';
-    ctx.fillStyle = '#0F172A';
-    ctx.font = '700 13px "JetBrains Mono", monospace';
-    ctx.fillText(payload.dateLabel.toUpperCase(), metaX, footerY - 6);
-    ctx.fillStyle = '#64748B';
-    ctx.font = '600 12px "JetBrains Mono", monospace';
-    ctx.fillText(`CÓD. ${payload.code}`, metaX, footerY + 16);
+    const metaX = 720;
     ctx.fillStyle = '#0E7490';
-    ctx.font = '700 11px "Plus Jakarta Sans", "Segoe UI", sans-serif';
-    ctx.fillText('Corpus LSC70 · Unicauca', metaX, footerY + 38);
-    ctx.fillStyle = '#64748B';
-    ctx.font = '500 11px "Plus Jakarta Sans", "Segoe UI", sans-serif';
-    ctx.fillText('Grupo SIDICO', metaX, footerY + 55);
-  }
-
-  #drawLeftBrandRibbon(ctx, h, goldGrad, assets) {
-    const ribbonX = 34;
-    const ribbonW = 286;
-    const ribbonH = h - 68;
-
-    const petrolGrad = ctx.createLinearGradient(ribbonX, 34, ribbonX, 34 + ribbonH);
-    petrolGrad.addColorStop(0, '#0C3B4E');
-    petrolGrad.addColorStop(0.55, '#0E7490');
-    petrolGrad.addColorStop(1, '#0F4C5C');
-    ctx.fillStyle = petrolGrad;
-    ctx.fillRect(ribbonX, 34, ribbonW, ribbonH);
-
-    // Textura sutil de líneas diagonales en la franja
-    ctx.save();
-    ctx.beginPath();
-    ctx.rect(ribbonX, 34, ribbonW, ribbonH);
-    ctx.clip();
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
-    ctx.lineWidth = 1;
-    for (let d = -ribbonH; d < ribbonW + ribbonH; d += 18) {
-      ctx.beginPath();
-      ctx.moveTo(ribbonX + d, 34);
-      ctx.lineTo(ribbonX + d - 180, 34 + ribbonH);
-      ctx.stroke();
-    }
-    ctx.restore();
-
-    // Filete vertical metálico dorado separando la franja
-    ctx.fillStyle = goldGrad;
-    ctx.fillRect(ribbonX + ribbonW, 34, 6, ribbonH);
-
-    const cx = ribbonX + ribbonW / 2;
-
-    // Medallón superior marfil con logo de Manitas
-    ctx.beginPath();
-    ctx.arc(cx, 178, 62, 0, Math.PI * 2);
-    ctx.fillStyle = '#FDFBF7';
-    ctx.fill();
-    ctx.lineWidth = 3.5;
-    ctx.strokeStyle = goldGrad;
-    ctx.stroke();
-
-    if (assets.logo) {
-      this.#drawContainedImage(ctx, assets.logo, cx - 42, 136, 84, 84, 940 / 700);
-    }
-
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = '800 28px "Plus Jakarta Sans", "Segoe UI", sans-serif';
-    ctx.fillText('MANITAS', cx, 280);
-
-    ctx.fillStyle = '#FDE68A';
-    ctx.font = '700 12px "JetBrains Mono", monospace';
-    ctx.fillText('DACTILOLOGÍA LSC', cx, 308);
-
-    // Divisor dorado en la franja
-    ctx.fillStyle = 'rgba(253, 230, 138, 0.45)';
-    ctx.fillRect(cx - 54, 344, 108, 2);
-
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.88)';
     ctx.font = '700 13px "JetBrains Mono", monospace';
-    ctx.fillText('CORPUS LSC70', cx, 386);
-    ctx.fillStyle = '#FDE68A';
-    ctx.font = '800 16px "Plus Jakarta Sans", "Segoe UI", sans-serif';
-    ctx.fillText('24 LETRAS OFICIALES', cx, 414);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
-    ctx.font = '500 12px "Plus Jakarta Sans", "Segoe UI", sans-serif';
-    ctx.fillText('Visión 100% local en navegador', cx, 444);
+    ctx.fillText(payload.badgeLabel, metaX, footerY + 2);
 
-    // Halo cálido inferior con mascota Tito
-    ctx.beginPath();
-    ctx.arc(cx, 668, 92, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(253, 251, 247, 0.14)';
-    ctx.fill();
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = 'rgba(253, 230, 138, 0.45)';
-    ctx.stroke();
+    ctx.fillStyle = '#0F172A';
+    ctx.font = '600 13px "JetBrains Mono", monospace';
+    ctx.fillText(`${payload.dateLabel.toUpperCase()} · ${payload.code}`, metaX, footerY + 26);
 
-    if (assets.mascot) {
-      this.#drawContainedImage(ctx, assets.mascot, cx - 76, 592, 152, 152, 783 / 795);
-    }
-
-    ctx.fillStyle = 'rgba(253, 230, 138, 0.9)';
-    ctx.font = '600 11px "JetBrains Mono", monospace';
-    ctx.fillText('TUTOR TITO · LSC', cx, 804);
+    ctx.fillStyle = '#475569';
+    ctx.font = '600 12px "Plus Jakarta Sans", "Segoe UI", sans-serif';
+    ctx.fillText('Corpus LSC70 · Universidad del Cauca (Grupo SIDICO)', metaX, footerY + 52);
   }
 
-  #drawGuillocheWatermark(ctx, cx, cy) {
-    ctx.save();
-    ctx.strokeStyle = 'rgba(217, 119, 6, 0.055)';
-    ctx.lineWidth = 1.2;
-    [130, 185, 240, 295].forEach((r) => {
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.stroke();
-    });
-    ctx.restore();
-  }
-
-  #drawCornerFlourishes(ctx, left, top, right, bottom) {
-    const len = 24;
-    ctx.strokeStyle = '#D97706';
-    ctx.lineWidth = 2.5;
-    const corners = [
-      [[left, top + len], [left, top], [left + len, top]],
-      [[right - len, top], [right, top], [right, top + len]],
-      [[right, bottom - len], [right, bottom], [right - len, bottom]],
-      [[left + len, bottom], [left, bottom], [left, bottom - len]]
-    ];
-    corners.forEach(([p1, p2, p3]) => {
-      ctx.beginPath();
-      ctx.moveTo(p1[0], p1[1]);
-      ctx.lineTo(p2[0], p2[1]);
-      ctx.lineTo(p3[0], p3[1]);
-      ctx.stroke();
-    });
-  }
-
-  #drawDiamondDivider(ctx, cx, cy, halfSpan, goldGrad) {
-    ctx.strokeStyle = goldGrad;
-    ctx.lineWidth = 2;
+  #drawHairlineDivider(ctx, cx, cy, halfSpan) {
+    const grad = ctx.createLinearGradient(cx - halfSpan, cy, cx + halfSpan, cy);
+    grad.addColorStop(0, 'rgba(212, 175, 55, 0)');
+    grad.addColorStop(0.5, '#D4AF37');
+    grad.addColorStop(1, 'rgba(212, 175, 55, 0)');
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 1.75;
     ctx.beginPath();
     ctx.moveTo(cx - halfSpan, cy);
-    ctx.lineTo(cx - 14, cy);
-    ctx.moveTo(cx + 14, cy);
+    ctx.lineTo(cx - 12, cy);
+    ctx.moveTo(cx + 12, cy);
     ctx.lineTo(cx + halfSpan, cy);
     ctx.stroke();
 
-    ctx.fillStyle = '#D97706';
+    ctx.fillStyle = '#D4AF37';
     ctx.beginPath();
-    ctx.moveTo(cx, cy - 7);
-    ctx.lineTo(cx + 8, cy);
-    ctx.lineTo(cx, cy + 7);
-    ctx.lineTo(cx - 8, cy);
+    ctx.moveTo(cx, cy - 6);
+    ctx.lineTo(cx + 7, cy);
+    ctx.lineTo(cx, cy + 6);
+    ctx.lineTo(cx - 7, cy);
     ctx.closePath();
     ctx.fill();
-  }
-
-  #drawAlphabetRibbon(ctx, letters, centerX, startY) {
-    const list = letters && letters.length ? letters : LSC_ALPHABET_24;
-    const perRow = 12;
-    const tileW = 46;
-    const tileH = 44;
-    const gapX = 12;
-    const gapY = 12;
-
-    const rows = [];
-    for (let i = 0; i < list.length; i += perRow) {
-      rows.push(list.slice(i, i + perRow));
-    }
-
-    rows.forEach((row, rIdx) => {
-      const rowWidth = row.length * tileW + (row.length - 1) * gapX;
-      const startX = centerX - rowWidth / 2;
-      const y = startY + rIdx * (tileH + gapY);
-
-      row.forEach((ch, cIdx) => {
-        const x = startX + cIdx * (tileW + gapX);
-        ctx.fillStyle = '#FFFBEB';
-        this.#drawRoundedRect(ctx, x, y, tileW, tileH, 10);
-        ctx.fill();
-
-        ctx.strokeStyle = '#F59E0B';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-
-        ctx.fillStyle = '#92400E';
-        ctx.font = '800 18px "JetBrains Mono", monospace';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(ch, x + tileW / 2, y + tileH / 2 + 1);
-      });
-    });
-  }
-
-  #drawGoldRosetteSeal(ctx, cx, cy, badgeLabel, goldGrad) {
-    ctx.save();
-    // Cintas inferiores petrol
-    ctx.fillStyle = '#0E7490';
-    ctx.beginPath();
-    ctx.moveTo(cx - 24, cy + 28);
-    ctx.lineTo(cx - 34, cy + 78);
-    ctx.lineTo(cx - 16, cy + 68);
-    ctx.lineTo(cx - 4, cy + 80);
-    ctx.lineTo(cx - 2, cy + 28);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.fillStyle = '#0C4A6E';
-    ctx.beginPath();
-    ctx.moveTo(cx + 2, cy + 28);
-    ctx.lineTo(cx + 6, cy + 80);
-    ctx.lineTo(cx + 18, cy + 68);
-    ctx.lineTo(cx + 36, cy + 78);
-    ctx.lineTo(cx + 24, cy + 28);
-    ctx.closePath();
-    ctx.fill();
-
-    // Roseta festoneada de 20 puntas
-    const points = 20;
-    const outerR = 46;
-    const innerR = 39;
-    ctx.beginPath();
-    for (let i = 0; i < points * 2; i += 1) {
-      const r = i % 2 === 0 ? outerR : innerR;
-      const angle = (i * Math.PI) / points - Math.PI / 2;
-      const px = cx + Math.cos(angle) * r;
-      const py = cy + Math.sin(angle) * r;
-      if (i === 0) ctx.moveTo(px, py);
-      else ctx.lineTo(px, py);
-    }
-    ctx.closePath();
-    ctx.fillStyle = goldGrad;
-    ctx.fill();
-    ctx.strokeStyle = '#92400E';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    // Anillo interno del sello
-    ctx.beginPath();
-    ctx.arc(cx, cy, 31, 0, Math.PI * 2);
-    ctx.fillStyle = '#FFFBEB';
-    ctx.fill();
-    ctx.strokeStyle = '#B45309';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#92400E';
-    ctx.font = '800 10px "JetBrains Mono", monospace';
-    const parts = badgeLabel.split('·').map(s => s.trim()).filter(Boolean);
-    ctx.fillText(parts[0] || '24 LETRAS', cx, cy - 6);
-    ctx.fillStyle = '#0E7490';
-    ctx.font = '800 10px "JetBrains Mono", monospace';
-    ctx.fillText(parts[1] || 'LSC70', cx, cy + 8);
-    ctx.restore();
   }
 
   #drawContainedImage(ctx, img, boxX, boxY, boxW, boxH, fallbackAspect = 1) {

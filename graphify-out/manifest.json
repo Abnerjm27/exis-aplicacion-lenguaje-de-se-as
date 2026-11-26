@@ -510,9 +510,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795703420.4025402,
-    "seen": 1795703524.563861,
-    "ast_hash": "6a1085205ed10e0073d1bf2ad2509d41",
+    "mtime": 1795706021.9754434,
+    "seen": 1795706162.2237957,
+    "ast_hash": "948d531db24c6bc133175148b824e471",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -570,9 +570,9 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795703397.5992327,
-    "seen": 1795703524.624655,
-    "ast_hash": "83cce9e1b47399b57e14c23dea3554f9",
+    "mtime": 1795706016.7094617,
+    "seen": 1795706162.3219702,
+    "ast_hash": "d1d9b9e261b9b57535a9dde1ef6ef521",
     "semantic_hash": ""
   },
   "app/landing.html": {
@@ -4602,15 +4602,21 @@
     "semantic_hash": ""
   },
   "app/js/certificate-generator.js": {
-    "mtime": 1795703360.4925647,
-    "seen": 1795703524.5510564,
-    "ast_hash": "f5e863bd8ca14d7e40d506019a00690d",
+    "mtime": 1795706014.0346777,
+    "seen": 1795706162.1959937,
+    "ast_hash": "27a96c9e2d118457d722ca0c93bf3a13",
     "semantic_hash": ""
   },
   "tests/test_certificate_unit.js": {
     "mtime": 1795703443.8780775,
     "seen": 1795703524.6076198,
     "ast_hash": "730a2329b8520306d7a6aa7928d56720",
+    "semantic_hash": ""
+  },
+  "app/img/certificado_template_lsc.png": {
+    "mtime": 1795705984.7340262,
+    "seen": 1795706162.4038696,
+    "ast_hash": "a967374dd03441a822fe096213689519",
     "semantic_hash": ""
   }
 }
