@@ -219,7 +219,7 @@ class CameraDeviceManager {
       if (this.#deviceList.length === 0) {
         const opt = document.createElement('option');
         opt.value = '';
-        opt.textContent = '📷 Cámara predeterminada';
+        opt.textContent = 'Cámara predeterminada';
         selectEl.appendChild(opt);
       } else {
         this.#deviceList.forEach((device, index) => {
@@ -270,9 +270,14 @@ class CameraDeviceManager {
     trigger.setAttribute('aria-label', selectEl.getAttribute('aria-label') || 'Seleccionar cámara');
     trigger.title = selectEl.title || 'Seleccionar cámara disponible';
 
+    const leading = document.createElement('span');
+    leading.className = 'cam-dropdown-leading';
+    leading.appendChild(this.#createCameraIconSvg());
+
     const labelEl = document.createElement('span');
     labelEl.className = 'cam-dropdown-label';
-    labelEl.textContent = '📷 Detectando cámaras...';
+    labelEl.textContent = 'Detectando cámaras...';
+    leading.appendChild(labelEl);
 
     const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     chevron.setAttribute('viewBox', '0 0 24 24');
@@ -287,7 +292,7 @@ class CameraDeviceManager {
     path.setAttribute('points', '6 9 12 15 18 9');
     chevron.appendChild(path);
 
-    trigger.appendChild(labelEl);
+    trigger.appendChild(leading);
     trigger.appendChild(chevron);
     wrapper.appendChild(trigger);
 
@@ -313,13 +318,34 @@ class CameraDeviceManager {
     return entry;
   }
 
+  #createCameraIconSvg() {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '2');
+    svg.setAttribute('stroke-linecap', 'round');
+    svg.setAttribute('stroke-linejoin', 'round');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.classList.add('cam-dropdown-icon');
+    const body = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    body.setAttribute('d', 'M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z');
+    const lens = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    lens.setAttribute('cx', '12');
+    lens.setAttribute('cy', '13');
+    lens.setAttribute('r', '4');
+    svg.appendChild(body);
+    svg.appendChild(lens);
+    return svg;
+  }
+
   #syncCustomDropdown(selectEl) {
     const entry = this.#ensureCustomDropdown(selectEl);
     if (!entry) return;
 
     const options = Array.from(selectEl.options || []);
     const activeOpt = options.find(o => o.value === selectEl.value) || options[0];
-    entry.labelEl.textContent = activeOpt ? activeOpt.textContent : '📷 Cámara predeterminada';
+    entry.labelEl.textContent = activeOpt ? activeOpt.textContent : 'Cámara predeterminada';
 
     entry.menu.replaceChildren();
     options.forEach(opt => {
@@ -330,10 +356,15 @@ class CameraDeviceManager {
       btn.setAttribute('role', 'option');
       btn.setAttribute('aria-selected', String(isSelected));
 
+      const leading = document.createElement('span');
+      leading.className = 'cam-dropdown-leading';
+      leading.appendChild(this.#createCameraIconSvg());
+
       const txt = document.createElement('span');
       txt.className = 'cam-dropdown-option-text';
       txt.textContent = opt.textContent;
-      btn.appendChild(txt);
+      leading.appendChild(txt);
+      btn.appendChild(leading);
 
       if (isSelected) {
         const chk = document.createElement('span');
@@ -413,13 +444,13 @@ class CameraDeviceManager {
    */
   #formatDeviceLabel(label, index) {
     if (!label || label.trim() === '') {
-      return index === 0 ? '📷 Cámara 1 (Principal)' : `📷 Cámara ${index + 1} (Secundaria)`;
+      return index === 0 ? 'Cámara 1 (Principal)' : `Cámara ${index + 1} (Secundaria)`;
     }
 
     // Limpiar IDs técnicos o códigos hexadecimales entre paréntesis si existen
     const cleanLabel = label.replace(/\s*\([0-9a-fA-F]{4}:[0-9a-fA-F]{4}\)\s*/g, '').trim();
 
-    return `📷 ${cleanLabel.substring(0, 24)}`;
+    return cleanLabel.substring(0, 26);
   }
 
   /**

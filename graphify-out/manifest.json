@@ -24,9 +24,9 @@
     "semantic_hash": ""
   },
   "app/js/camera-manager.js": {
-    "mtime": 1795666081.1391642,
-    "seen": 1795666118.1880054,
-    "ast_hash": "a38399d783677dfbb93c0123d4af5bab",
+    "mtime": 1795666597.7735975,
+    "seen": 1795666663.8961413,
+    "ast_hash": "37d1e429cc244b36b437c8171b6d41d7",
     "semantic_hash": ""
   },
   "app/js/learning-plan-manager.js": {
@@ -510,9 +510,9 @@
     "semantic_hash": ""
   },
   "app/sw.js": {
-    "mtime": 1795666068.6829317,
-    "seen": 1795666118.201117,
-    "ast_hash": "f306b04b6889f8425f24fbe35dfc6e73",
+    "mtime": 1795666607.8877537,
+    "seen": 1795666663.912013,
+    "ast_hash": "78d733a36b336bf44e334d0e9236dacd",
     "semantic_hash": ""
   },
   "tests/test_nlp_and_pwa.py": {
@@ -570,9 +570,9 @@
     "semantic_hash": ""
   },
   "app/index.html": {
-    "mtime": 1795666064.4367566,
-    "seen": 1795666118.2577462,
-    "ast_hash": "91ec0b0f64bf848ec82c2529925529bb",
+    "mtime": 1795666605.7774935,
+    "seen": 1795666663.9732416,
+    "ast_hash": "b0165a27ad749dc36970106d228cd82d",
     "semantic_hash": ""
   },
   "app/landing.html": {
@@ -4590,9 +4590,9 @@
     "semantic_hash": ""
   },
   "app/js/blind-spell-session.js": {
-    "mtime": 1795665629.3948576,
-    "seen": 1795665705.4839287,
-    "ast_hash": "403fc248ea48f8204ad15286933defb4",
+    "mtime": 1795666587.4397097,
+    "seen": 1795666663.8961413,
+    "ast_hash": "1f25b96a6c3bab52fee543876f526085",
     "semantic_hash": ""
   },
   "tests/test_blind_spell_unit.js": {

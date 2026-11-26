@@ -235,18 +235,56 @@ class BlindSpellSession {
     return card;
   }
 
+  static #createEyeIconSvg(isBlind) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', '15');
+    svg.setAttribute('height', '15');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '2.2');
+    svg.setAttribute('stroke-linecap', 'round');
+    svg.setAttribute('stroke-linejoin', 'round');
+    svg.setAttribute('aria-hidden', 'true');
+    const paths = isBlind
+      ? [
+          'M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94',
+          'M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19',
+          'M14.12 14.12a3 3 0 1 1-4.24-4.24',
+          'M1 1l22 22'
+        ]
+      : [
+          'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'
+        ];
+    paths.forEach(d => {
+      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p.setAttribute('d', d);
+      svg.appendChild(p);
+    });
+    if (!isBlind) {
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', '12');
+      c.setAttribute('cy', '12');
+      c.setAttribute('r', '3');
+      svg.appendChild(c);
+    }
+    return svg;
+  }
+
   static renderModeToggle(elFn, isBlind, onToggle) {
     const row = elFn('div', 'ab-mode-toggle');
     row.setAttribute('role', 'group');
     row.setAttribute('aria-label', 'Modalidad de Deletrea tu Nombre');
     [
       { blind: false, label: 'Modo Guiado' },
-      { blind: true, label: '🙈 Reto a Ciegas' }
+      { blind: true, label: 'Reto a Ciegas' }
     ].forEach(opt => {
       const active = opt.blind === Boolean(isBlind);
-      const btn = elFn('button', `ab-mode-btn ${active ? 'is-active' : ''}`, opt.label);
+      const btn = elFn('button', `ab-mode-btn ${active ? 'is-active' : ''}`);
       btn.type = 'button';
       btn.setAttribute('aria-pressed', String(active));
+      btn.appendChild(BlindSpellSession.#createEyeIconSvg(opt.blind));
+      btn.appendChild(elFn('span', '', opt.label));
       btn.addEventListener('click', () => onToggle(opt.blind));
       row.appendChild(btn);
     });

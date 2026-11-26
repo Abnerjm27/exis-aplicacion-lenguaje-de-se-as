@@ -79,6 +79,21 @@
   text-align: left;
 }
 
+.cam-dropdown-leading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.cam-dropdown-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--palette-10-accent-deep, #B03B10);
+}
+
 .cam-dropdown-chevron {
   width: 14px;
   height: 14px;
